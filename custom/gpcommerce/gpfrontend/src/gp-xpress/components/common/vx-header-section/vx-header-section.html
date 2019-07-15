@@ -1,0 +1,91 @@
+<header class="gpx-header-section navbar-fixed-top">
+  <nav class="navbar-bottom d-flex align-items-center justify-content-between px-md-5" :class="{'checkout-header' : headerOptions.isCheckout}"
+    role="navigation">
+    <div class="header-left-section d-flex align-items-center">
+      <a class="icon-menu ml-xs-3 py-xs-3" :title="i18n.iconMenuTitle" @click="showMobileNav = !showMobileNav;updateAria(showMobileNav);"
+      tabindex="0" role="button" :aria-label="i18n.iconMenuTitle" href="javascript:void(0)" :aria-expanded="showMobileNav? 'true': 'false'"></a>
+      <div class="navbar-bottom-left d-flex pl-xs-0" :class="{ 'mobile-view' : showMobileNav, }" v-if="!headerOptions.isCheckout"
+        @click="dismissMobileMenu" :aria-expanded="showMobileNav? 'true': 'false'">
+        <div ref="navigationMenu" class="navigation-menu d-flex align-items-center pt-xs-3 pt-md-0" @click.stop="">
+          <div class="navigation-inner-wrapper">
+            <div class="pb-xs-2 pb-md-0">
+              <ul class="m-xs-0 primary-menu align-self-center d-flex pl-xs-0" role="presentation">
+                <li class="primary-menu-item js-primary-menu-item" v-for="(item,index) in navMenu" @mouseover="setHeaderFlyoutWidth($event, item.secondary.menuOptions.length)">
+                  <a class="p-xs-3 p-md-0" href="#" v-if="showMobileNav && isSecondaryAvailable(item)" @click="selectPrimary(item.primary)"
+                    v-show="selectedPrimary !== '' ? false : true">{{item.primary}}</a>
+                  <a class="p-xs-3 p-md-0" :href="item.external ? item.primaryLink : globals.contextPath + item.primaryLink"
+                    v-else v-show="selectedPrimary !== '' ? false : true">{{item.primary}}</a>
+                  <div class="secondary-menu pt-xs-3 p-md-5" v-if="isSecondaryAvailable(item) && !isTablet()"
+                    :class="{ 'secondary-active': selectedPrimary === item.primary }">
+                    <div class="arrow-up"></div>
+                    <a class="pl-xs-3 sec-title js-secondary-title" v-html="item.secondary.title" :href="item.external ? item.primaryLink : globals.contextPath + item.primaryLink"></a>
+                    <ul class="d-flex flex-wrap pl-xs-0 flyout-sec" role="presentation">
+                      <li class="js-secondary-child p-md-3" v-for="item in item.secondary.menuOptions" :class="{'view-all' : item.markAsViewAll}">
+                        <a class="p-xs-3 p-md-0 custom-word-wrap-all" :href="item.external ? item.optionLink : globals.contextPath + item.optionLink"
+                          v-html="item.option" tabindex="0"></a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="secondary-menu pt-xs-3 px-md-4 pt-md-4 pb-md-2" v-if="isSecondaryAvailable(item) && ((selectedPrimary === item.primary)  && isTablet())"
+                    :class="{ 'secondary-active': selectedPrimary === item.primary }">
+                    <div class="arrow-up"></div>
+                    <a class="icon-chevron-left mb-xs-3 ml-xs-3 px-xs-0 js-secondary-action-el" v-if="showMobileNav"
+                      @click.stop="focusParent(selectedPrimary,navMenu)" tabindex="0" role="button" aria-label="Back"
+                      href="javascript:void(0)"></a>
+                    <a class="pl-xs-3 sec-title" v-html="item.secondary.title" :href="item.external ? item.primaryLink : globals.contextPath + item.primaryLink"></a>
+                    <ul class="d-flex flex-wrap pl-xs-0 flyout-sec" role="presentation">
+                      <li class="js-secondary-child p-md-3" v-for="item in item.secondary.menuOptions" :class="{'view-all' : item.markAsViewAll}">
+                        <a class="p-xs-3 p-md-0 custom-word-wrap-all" :href="item.external ? item.optionLink : globals.contextPath + item.optionLink"
+                          v-html="item.option" tabindex="0"></a>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="pb-xs-2 pb-md-0 nav-links" v-if="isTablet()">
+              <a class="p-xs-3 p-md-0 nav-link" v-for="link in navLinks" :href="globals.contextPath + link.linkURL">{{link.linkText}}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex navbar-bottom-right justify-content-end align-items-center" v-if="!headerOptions.isCheckout"
+      :aria-hidden="showMobileNav && isTablet()">
+      <div class="nav-links" v-if="!isTablet()">
+        <a v-for="link in navLinks" class="nav-link" :href="globals.contextPath + link.linkURL">{{link.linkText}}</a>
+      </div>
+      <div v-if="headerOptions.includeSearchBox" :class="{'align-search': !headerOptions.includeMiniCart}">
+        <!-- @auto-suggest auto suggest -->
+        <slot name="search" :toggle-search-icon="toggleSearchIcon">
+          Default body
+        </slot>
+        <!-- <auto-suggest :product-catalog="productCatalog" :root-category="rootCategory"></auto-suggest> -->
+      </div>
+      <div class="d-flex align-items-center justify-content-end">
+        <div :class="globals.isB2B() ? 'cart ml-xs-1 ml-sm-5 ml-md-4 mr-md-1' : 'cart ml-xs-4 ml-sm-5 ml-md-5'"
+          @mouseover="displayMiniCart" @mouseleave="hideMiniCart" v-if="headerOptions.includeMiniCart">
+          <a :href="globals.getNavigationUrl('cart')" class="icon-cart" :title="i18n.cartWith+cartItems+i18n.items"
+            :aria-label="i18n.cartWith+cartItems+i18n.items">
+          </a>
+          <div v-if="showMiniCart" class="header-mini-cart hidden-xs hidden-sm visible-md visible-lg" @mouseover="isMiniCartHovered = true"
+            @mouseleave="isMiniCartHovered = false">
+            <div class="arrow-up"></div>
+            <slot name="cart">
+              Default body
+            </slot>
+          </div>
+          <span class="badge" @click="globals.navigateToUrl('cart')" v-if="cartItems">{{cartItems}}</span>
+          <div class='assistive-text' aria-live="assertive" aria-atomic="true">
+            <span v-if="cartItems">{{i18n.cartItemsText}} {{cartItems}}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="checkout-options d-flex justify-content-end pr-md-4" v-if="headerOptions.isCheckout">
+      <a v-for="item in checkoutMenu.menuOptions" :href="item.external ? item.optionLink : globals.contextPath + item.optionLink"
+        class="px-xs-3 py-xs-3" v-html="item.option"></a>
+    </div>
+  </nav>
+</header>

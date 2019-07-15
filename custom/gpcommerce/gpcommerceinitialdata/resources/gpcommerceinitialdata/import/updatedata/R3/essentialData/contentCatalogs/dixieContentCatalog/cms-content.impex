@@ -1,0 +1,15 @@
+$contentCatalog=dixieContentCatalog
+$contentCatalogName=Dixie Content Catalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+
+# GPCategoryAuthoringComponent
+INSERT_UPDATE GPCategoryAuthoringComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef
+;;GPCategoryAuthoringComponent;Category Authoring Component;GPCategoryAuthoringComponent
+
+# Create ContentSlots
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;GPCategoryAuthoringComponentSlot-ProductGridPage;Category Authoring for Product Grid Page;true;GPCategoryAuthoringComponent
+
+# Product Grid Page Template
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='ProductGridPageTemplate'];contentSlot(uid,$contentCV)[unique=true];
+;;GPCategoryAuthoringComponentSlot-ProductGridPage;GPCategoryAuthoringContentSlot;;GPCategoryAuthoringComponentSlot-ProductGridPage;

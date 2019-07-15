@@ -1,0 +1,360 @@
+$contentCatalog=b2cwhitelabelContentCatalog 
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$productCatalog=gpUSProductCatalog
+$productCV=catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$lang=en
+
+INSERT_UPDATE ContentPage ; $contentCV[unique=true] ; uid[unique=true]   ; name               ; title              ; masterTemplate(uid,$contentCV) ; label            ; defaultPage[default='true'] ; approvalStatus(code)[default='approved'] ; homepage[default='false']
+						  ;                         ; gpSubscriptionspage; GPSubscriptionspage; GPSubscriptionspage; LandingPage2Template           ; gpSubscriptionspage
+						  
+INSERT_UPDATE JspIncludeComponent ; $contentCV[unique=true]          ; uid[unique=true]                 ; name                ; page              ; actions(uid,$contentCV) ; &componentRef                   
+								  ;								     ;gpSubscriptionsJspIncludeComponent;GP Subscriptions Page;GPSubscriptions.jsp;						    ;gpSubscriptionsJspIncludeComponent
+ 
+# ContentSlot                     
+INSERT_UPDATE ContentSlot ; $contentCV[unique=true] ; uid[unique=true]               ; name                       ; active ; cmsComponents(&componentRef)     
+						  ;							;GPSubscriptionsSlot-units		 ;GP Support Ticket slot	  ;true	   ;gpSubscriptionsJspIncludeComponent
+						  ;						    ;Section1Slot-gpSubscriptionspage;Section1Slot GP Units slot  ;true    ;GPNavigationComponent
+						  
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true]					;position[unique=true];page(uid,$contentCV)[unique=true][default='gpSubscriptionspage'];contentSlot(uid,$contentCV)[unique=true];;;
+								;					    ;PageContentSlot-gpSubscriptionspage;GPSubscriptionsSlot  ;								                                   ;GPSubscriptionsSlot-units;;;
+								;						;Section1-gpSubscriptionspage		;Section1             ;																   ;Section1Slot-gpSubscriptionspage;;; 
+
+INSERT_UPDATE CMSNavigationNode ; uid[unique=true]    ; $contentCV[unique=true] ; name             ; parent(uid, $contentCV) ; links(&linkRef) ; &nodeRef           
+                                ; GPNavigationNavNode ;                         ; Navigation Pages ; GPHeaderNavigationNode  ;                 ; GPNavigationNavNode
+						  
+INSERT_UPDATE GPNavigationComponent ; $contentCV[unique=true] ; uid[unique=true]      ; &componentRef         ; navigationNode(&nodeRef);
+                                    ;                         ; GPNavigationComponent ; GPNavigationComponent ; GPNavigationNavNode     ;  
+ 
+INSERT_UPDATE CMSNavigationNode ; uid[unique=true]     ; $contentCV[unique=true] ; name                       ; parent(uid, $contentCV) ; links(&linkRef) ; &nodeRef             ; parentPos ; visible
+								;GPSubscriptionsNavNode;						 ; Subscriptions Pages        ; GPYourAccountNavNode    ;				  ;GPSubscriptionsNavNode; 6         ; true
+
+# entries of the above navigation nodes
+INSERT_UPDATE CMSNavigationEntry ; uid[unique=true]          ; $contentCV[unique=true] ; name                                       ; navigationNode(&nodeRef) ; item(CMSLinkComponent.uid,CMSLinkComponent.$contentCV) ;  
+								 ;GPSubscriptionsNavNodeEntry;                         ;Subscriptions Navigation Node Entry         ; GPSubscriptionsNavNode   ; SubscriptionsLink                                      ;
+
+INSERT_UPDATE CMSLinkComponent ; $contentCV[unique=true] ; uid[unique=true]       ; name                       ; url                       ; target(code)[default='sameWindow'] ;    
+                       		   ;                         ; SubscriptionsLink      ; Subscriptions Link         ; /my-account/subscriptions  ;  									 ;
+
+UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true] ;linkName[lang=en]
+					   ;					   ;SubscriptionsLink;"Subscriptions"    
+					   
+# Product Grid Page Template
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='ProductGridPageTemplate'];validComponentTypes(code);compTypeGroup(code)
+;GPCategoryAuthoringContentSlot;;;wide	
+
+# GPCategoryAuthoringComponent
+INSERT_UPDATE GPCategoryAuthoringComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef
+;;GPCategoryAuthoringComponent;Category Authoring Component;GPCategoryAuthoringComponent
+
+# Create ContentSlots
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;GPCategoryAuthoringComponentSlot-ProductGridPage;Category Authoring for Product Grid Page;true;GPCategoryAuthoringComponent
+
+# Product Grid Page Template
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='ProductGridPageTemplate'];contentSlot(uid,$contentCV)[unique=true];
+;;GPCategoryAuthoringComponentSlot-ProductGridPage;GPCategoryAuthoringContentSlot;;GPCategoryAuthoringComponentSlot-ProductGridPage;
+					   
+					   
+##########email-content_en.impex #########
+$jarEmailResource=jar:com.gp.commerce.initialdata.constants.GpcommerceInitialDataConstants&/gpcommerceinitialdata/import/coredata/contentCatalogs/b2cwhitelabelContentCatalog/emails
+
+# Import config properties into impex macros for modulegen
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+$emailResource=$config-emailResourceValue                                                                  
+
+# Language                                                                                                 
+$lang=en                                                                                                   
+
+# CMS components and Email velocity templates                                                              
+UPDATE RendererTemplate ; code[unique=true]                                        ; description[lang=$lang]                            ; templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+						; b2cwhitelabel_Email_Share_Cart_Subject					   ; "Share Cart Email Subject"						    ; $jarEmailResource/email-shareCartSubject.vm
+						; b2cwhitelabel_Email_Share_Cart_Body						   ; "Share Cart Email Body" 							; $jarEmailResource/email-shareCartBody.vm						
+
+##################### subscription cancel email #################### 
+
+
+$contentCatalog=b2cwhitelabelContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$jarEmailResource=jar:com.gp.b2binitialdata.constants.Gpb2binitialdataConstants&/gpb2binitialdata/import/coredata/contentCatalogs/gpproContentCatalog/emails
+$wideContent=CMSImageComponent,BannerComponent,CMSLinkComponent
+$jarEmailResourceCms=jar:com.gp.commerce.initialdata.constants.GpcommerceInitialDataConstants&/gpcommerceinitialdata/import/coredata/contentCatalogs/b2cwhitelabelContentCatalog/emails
+
+# Import modulegen config properties into impex macros
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+$jarResourceCms=$config-jarResourceCmsValue                                                                
+$emailPackageName=$config-emailContextPackageName  
+
+# Email page Template                                                                                      
+INSERT_UPDATE EmailPageTemplate ; $contentCV[unique=true] ; uid[unique=true]                            ; name                                              ; active ; frontendTemplateName                ; subject(code)                                                ; htmlTemplate(code)                                        ; restrictedPageTypes(code)
+               					;						  ; SubscriptionOrderCancelledEmailTemplate		; Subscription Order Cancel EmailTemplate			; true 	 ; SubscriptionOrderCancelledEmail	   ; b2cwhitelabel_Email_Subcription_Order_Cancelled_Subject      ; b2cwhitelabel_Email_Subcription_Order_Cancelled_Body	  ; EmailPage
+# Templates for CMS Cockpit Page Edit
+UPDATE EmailPageTemplate ; $contentCV[unique=true] ; uid[unique=true]                            ; velocityTemplate[translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+						 ; 						   ; SubscriptionOrderCancelledEmailTemplate 	 ; $jarEmailResource/structure-view/structure_orderCancelledEmailTemplate.vm
+
+
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='SubscriptionOrderCancelledEmailTemplate']; validComponentTypes(code)
+   							  ; SiteLogo          ;                                                                           ;                          ; logo
+                              ; TopContent        ;                                                                           ; $wideContent             ;     
+                              ; BottomContent     ;                                                                           ; $wideContent             ;     
+
+
+									 
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]               			   ; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='SubscriptionOrderCancelledEmailTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+                                     ;                         ; SiteLogo-SubscriptionOrderCancelledEmail      ; SiteLogo              ;                                                                               ; EmailSiteLogoSlot                        ; true          
+                                     ;                         ; TopContent-SubscriptionOrderCancelledEmail    ; TopContent            ;                                                                               ; EmailTopSlot                             ; true          
+                                     ;                         ; BottomContent-SubscriptionOrderCancelledEmail ; BottomContent         ;                                                                               ; EmailBottomSlot                          ; true   
+
+# Email Pages                        
+INSERT_UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]                    ; name                                     ; masterTemplate(uid,$contentCV)              ; defaultPage ; approvalStatus(code)[default='approved']
+                        ;						  ;	SubscriptionOrderCancelledEmail		; Subscription Order Cancel Email		   ; SubscriptionOrderCancelledEmailTemplate	 ; true		   ;										 ; customerservices@hybris.com ; Customer Services Team
+
+
+
+# Email velocity templates     
+INSERT_UPDATE RendererTemplate ; code[unique=true]                                            ; contextClass                                                                                ; rendererType(code)[default='velocity']
+							   ; b2cwhitelabel_Email_Subcription_Order_Cancelled_Subject	  ; $emailPackageName.SubscriptionOrderCancelledEmailContext
+							   ; b2cwhitelabel_Email_Subcription_Order_Cancelled_Body		  ; $emailPackageName.SubscriptionOrderCancelledEmailContext
+				
+
+UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]                    ; previewImage(code, $contentCV)
+				 ; 						   ; SubscriptionOrderCancelledEmail	 ; EmailPageModel_preview
+
+
+##########email_en.impex ########
+
+# Import config properties into impex macros for modulegen
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+$emailResource=$config-emailResourceValue                                                                  
+
+# Language                                                                                                 
+$lang=en                                                                                                   
+
+# CMS components and Email velocity templates                                                              
+UPDATE RendererTemplate ; code[unique=true]                                           ; description[lang=$lang]                            ; templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+    					; b2cwhitelabel_Email_Subcription_Order_Cancelled_Subject	  ; "Subscription Order Cancel Email Subject"		   ; $jarEmailResource/email-subscriptionOrderCancelledSubject.vm 
+    					; b2cwhitelabel_Email_Subcription_Order_Cancelled_Body	      ; "Subscription Order Cancel Email Body"			   ; $jarEmailResource/email-subscriptionOrderCancelledBody.vm 
+                        
+                    
+# Email Pages           
+UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]                    ; fromEmail[lang=$lang]                ; fromName[lang=$lang]    
+              	 ;						   ; SubscriptionOrderCancelledEmail	 ; "customerservices@b2bwhitelabel.com" ; "Customer Services Team"				 
+              	 
+################### subscription cancel email ########################
+
+##### GP Learn More Page ######
+
+INSERT_UPDATE ContentPage ; $contentCV[unique=true] ; uid[unique=true]   ; name                      ; masterTemplate(uid,$contentCV) ; label              ; defaultPage[default='true'] ; approvalStatus(code)[default='approved'] ; homepage[default='false']
+                          ;                         ; learnMore 	     ; Learn More 				  ; ContentPage1Template           ; /learnMore
+
+# CMSParagraphComponent
+INSERT_UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;;;;
+;;learnMoreTextParagraph;LearnMore Paragraph;LearnMoreTextParagraph;;;;
+;;learnMoreContentParagraph;LearnMore Paragraph;LearMoreContentParagraph;;;;
+
+# ContentSlot
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;Section1Slot-LearnMore;Section1 Slot for About Us Page;true;LearnMoreTextParagraph;;;
+;;Section3Slot-LearnMore;Section3 Slot for About Us Page;true;LearMoreContentParagraph;;;
+
+# ContentSlotForPage
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='learnMore'];contentSlot(uid,$contentCV)[unique=true];;;
+;;Section1-LearnMore;Section1;;Section1Slot-LearnMore;;;
+;;Section3-LearnMore;Section3;;Section3Slot-LearnMore;;;
+
+###### End of GP Learn More page ######
+
+##################### subscription cancel email #################### 
+
+
+$contentCatalog=b2cwhitelabelContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$jarEmailResource=jar:com.gp.b2binitialdata.constants.Gpb2binitialdataConstants&/gpb2binitialdata/import/coredata/contentCatalogs/gpproContentCatalog/emails
+$wideContent=CMSImageComponent,BannerComponent,CMSLinkComponent
+$jarEmailResourceCms=jar:com.gp.commerce.initialdata.constants.GpcommerceInitialDataConstants&/gpcommerceinitialdata/import/coredata/contentCatalogs/b2cwhitelabelContentCatalog/emails
+
+# Import modulegen config properties into impex macros
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+$jarResourceCms=$config-jarResourceCmsValue                                                                
+$emailPackageName=$config-emailContextPackageName  
+
+# Email page Template                                                                                      
+INSERT_UPDATE EmailPageTemplate ; $contentCV[unique=true] ; uid[unique=true]                            ; name                                              ; active ; frontendTemplateName                ; subject(code)                                                ; htmlTemplate(code)                                        ; restrictedPageTypes(code)
+               					;						  ; SubscriptionOrderStatusEmailTemplate		; Subscription Order Status EmailTemplate			; true 	 ; SubscriptionOrderStatusEmail	   ; b2cwhitelabel_Email_Subcription_Order_Status_Subject      ; b2cwhitelabel_Email_Subcription_Order_Status_Body	  ; EmailPage
+# Templates for CMS Cockpit Page Edit
+UPDATE EmailPageTemplate ; $contentCV[unique=true] ; uid[unique=true]                            ; velocityTemplate[translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+						 ; 						   ; SubscriptionOrderStatusEmailTemplate 	 ; $jarEmailResource/structure-view/structure_orderCancelledEmailTemplate.vm
+
+
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='SubscriptionOrderStatusEmailTemplate']; validComponentTypes(code)
+   							  ; SiteLogo          ;                                                                           ;                          ; logo
+                              ; TopContent        ;                                                                           ; $wideContent             ;     
+                              ; BottomContent     ;                                                                           ; $wideContent             ;     
+
+
+									 
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]               			   ; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='SubscriptionOrderStatusEmailTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+                                     ;                         ; SiteLogo-SubscriptionOrderStatusEmail      ; SiteLogo              ;                                                                               ; EmailSiteLogoSlot                        ; true          
+                                     ;                         ; TopContent-SubscriptionOrderStatusEmail    ; TopContent            ;                                                                               ; EmailTopSlot                             ; true          
+                                     ;                         ; BottomContent-SubscriptionOrderStatusEmail ; BottomContent         ;                                                                               ; EmailBottomSlot                          ; true   
+
+# Email Pages                        
+INSERT_UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]                    ; name                                     ; masterTemplate(uid,$contentCV)              ; defaultPage ; approvalStatus(code)[default='approved']
+                        ;						  ;	SubscriptionOrderStatusEmail		; Subscription Order Status Email		   ; SubscriptionOrderStatusEmailTemplate	 ; true		   ;										 ; customerservices@hybris.com ; Customer Services Team
+
+
+
+# Email velocity templates     
+INSERT_UPDATE RendererTemplate ; code[unique=true]                                            ; contextClass                                                                                ; rendererType(code)[default='velocity']
+							   ; b2cwhitelabel_Email_Subcription_Order_Status_Subject	  ; $emailPackageName.SubscriptionOrderStatusEmailContext
+							   ; b2cwhitelabel_Email_Subcription_Order_Status_Body		  ; $emailPackageName.SubscriptionOrderStatusEmailContext
+				
+
+UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]                    ; previewImage(code, $contentCV)
+				 ; 						   ; SubscriptionOrderStatusEmail	 ; EmailPageModel_preview
+
+
+##########email_en.impex ########
+
+# Import config properties into impex macros for modulegen
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+$emailResource=$config-emailResourceValue                                                                  
+
+# Language                                                                                                 
+$lang=en                                                                                                   
+
+# CMS components and Email velocity templates                                                              
+UPDATE RendererTemplate ; code[unique=true]                                           ; description[lang=$lang]                            ; templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+    					; b2cwhitelabel_Email_Subcription_Order_Status_Subject	  ; "Subscription Order Status Email Subject"		   ; $jarEmailResource/email-subscriptionOrderStatusSubject.vm 
+    					; b2cwhitelabel_Email_Subcription_Order_Status_Body	      ; "Subscription Order Status Email Body"			   ; $jarEmailResource/email-subscriptionOrderStatusBody.vm 
+                        
+                    
+# Email Pages           
+UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]                    ; fromEmail[lang=$lang]                ; fromName[lang=$lang]    
+              	 ;						   ; SubscriptionOrderStatusEmail	 ; "customerservices@b2bwhitelabel.com" ; "Customer Services Team"				 
+              	 
+################### subscription cancel email ########################
+
+INSERT_UPDATE DynamicConstraint;active[allownull=true];id[unique=true,allownull=true];message[lang=en];language(code);expression;severity(code,itemtype(code));target;type(code);annotation
+;true;gpMapKeyAttributeLength;"Length of the key of frequency map should be less than 30 ";BEANSHELL;"return getFrequency().keySet().iterator().next().length() < 30 ;";ERROR:Severity;com.gp.commerce.core.model.GPSubscriptionFrequencyModel;GPSubscriptionFrequency;de.hybris.platform.validation.annotations.Dynamic
+
+
+
+############ B2C Subscription emails footer changes start ################
+
+$contentCatalog=b2cwhitelabelContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+
+INSERT_UPDATE SimpleBannerComponent;$contentCV[unique=true];uid[unique=true];name;urlLink
+;;TwitterBannerSubscriptionComponent;Twitter Banner Component;https://twitter.com/GPProfessional
+;;LinkedinBannerSubscriptionComponent;Linkedin Banner Component;https://www.linkedin.com/showcase/gppro/
+
+INSERT_UPDATE GPSubscriptionFooterComponent;$contentCV[unique=true];uid[unique=true];name
+;;EmailFooterBannerSubscription;EmailFooterBannerSubscription
+
+
+UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(uid,$contentCV)
+;;EmailSubscriptionFooterSlot;EmailFooterBannerSubscription
+
+INSERT_UPDATE GPSubscriptionFooterComponent;$contentCV[unique=true];uid[unique=true];name;navigationNodes(uid, $contentCV);emailFooter(uid, $contentCV)
+;;EmailFooterBannerSubscription;EmailFooterBannerSubscription;GPFooterNavigationNavNode1,GPFooterNavigationNavNode2,GPFooterNavigationNavNode3,GPFooterNavigationNavNode;TwitterBannerSubscriptionComponent,LinkedinBannerSubscriptionComponent,YouTubeBannerComponent
+#####################################
+
+
+$contentCatalog=b2cwhitelabelContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$jarEmailResource=jar:com.gp.b2binitialdata.constants.Gpb2binitialdataConstants&/gpb2binitialdata/import/coredata/contentCatalogs/b2cwhitelabelContentCatalog/emails
+$wideContent=CMSImageComponent,BannerComponent,CMSLinkComponent
+$jarEmailResourceCms=jar:com.gp.commerce.initialdata.constants.GpcommerceInitialDataConstants&/gpcommerceinitialdata/import/coredata/contentCatalogs/b2cwhitelabelContentCatalog/emails
+
+# Import modulegen config properties into impex macros
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+$jarResourceCms=$config-jarResourceCmsValue                                                                
+$emailPackageName=$config-emailContextPackageName  
+
+INSERT_UPDATE EmailPageTemplate ; $contentCV[unique=true] ; uid[unique=true]                            ; name                                              ; active ; frontendTemplateName                ; subject(code)                                            ; htmlTemplate(code)                                    ; restrictedPageTypes(code)
+								;						  ;GPDiscontinuedReplacedProductMailTemplate;Discontinued Replaced Product mail Template;true;GPDiscontinuedReplacedProductEmail;b2cwhitelabel_Email_Discontinued_Replace_Product_Subject;b2cwhitelabel_Email_Discontinued_Replace_Product_Body;EmailPage
+
+UPDATE EmailPageTemplate ; $contentCV[unique=true] ; uid[unique=true]                            ; velocityTemplate[translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+						 ;                         ;GPDiscontinuedReplacedProductMailTemplate    ;$jarResourceCms/structure-view/structure_orderCancelledEmailTemplate.vm
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='GPSubscrpOrderConfirmationMailTemplate'];validComponentTypes(code)
+           					  ; SiteLogo          ;                                                                                    ;                          ; logo
+                              ; TopContent        ;                                                                                    ; $wideContent             ;     
+;EmailSubscriptionFooter;;$wideContent;
+
+
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='SubscriptionOrderCancelledEmailTemplate']; validComponentTypes(code)
+   							  ; SiteLogo          ;                                                                           ;                          ; logo
+                              ; TopContent        ;                                                                           ; $wideContent             ;     
+;EmailSubscriptionFooter;;$wideContent;
+
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='SubscriptionOrderStatusEmailTemplate']; validComponentTypes(code)
+   							  ; SiteLogo          ;                                                                           ;                          ; logo
+                              ; TopContent        ;                                                                           ; $wideContent             ;     
+;EmailSubscriptionFooter;;$wideContent;
+                            
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='GPNextOrderSubscriptionEmailTemplate'] ; validComponentTypes(code)
+                              ; SiteLogo          ;                                                                                    ;                          ; logo
+                              ; TopContent        ;                                                                                    ; $wideContent             ;     
+;EmailSubscriptionFooter;;$wideContent;
+
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='GPDiscontinuedReplacedProductMailTemplate']; validComponentTypes(code)
+   							  ; SiteLogo          ;                                                                           ;                          ; logo
+                              ; TopContent        ;                                                                           ; $wideContent             ;     
+                              ; EmailSubscriptionFooter     ;      
+
+INSERT_UPDATE ContentSlot ; $contentCV[unique=true] ; uid[unique=true]  ; name                      ; active
+                          ;							; EmailSubscriptionFooterSlot; Subscription Footer Slot ; true
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='GPSubscrpOrderConfirmationMailTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+                                     ;                         ; SiteLogo-GPSubscrpOrderConfirmationMailTemplate      ; SiteLogo              ;                                                                                                  ; EmailSiteLogoSlot                        ; true          
+                                     ;                         ; TopContent-GPSubscrpOrderConfirmationMailTemplate    ; TopContent            ;                                                                                                  ; EmailTopSlot                             ; true          
+                                     ;                         ; EmailSubscriptionFooter-GPSubscrpOrderConfirmationMailTemplate ; EmailSubscriptionFooter         ;                                                                                                  ; EmailSubscriptionFooterSlot                          ; true          
+
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]               			   ; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='SubscriptionOrderCancelledEmailTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+                                     ;                         ; SiteLogo-SubscriptionOrderCancelledEmail      ; SiteLogo              ;                                                                               ; EmailSiteLogoSlot                        ; true          
+                                     ;                         ; TopContent-SubscriptionOrderCancelledEmail    ; TopContent            ;                                                                               ; EmailTopSlot                             ; true          
+                                     ;                         ; EmailSubscriptionFooter-SubscriptionOrderCancelledEmail ; EmailSubscriptionFooter         ;                                                                               ; EmailSubscriptionFooterSlot                          ; true   
+
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]               			   ; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='SubscriptionOrderStatusEmailTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+                                     ;                         ; SiteLogo-SubscriptionOrderStatusEmail         ; SiteLogo              ;                                                                               ; EmailSiteLogoSlot                        ; true          
+                                     ;                         ; TopContent-SubscriptionOrderStatusEmail       ; TopContent            ;                                                                               ; EmailTopSlot                             ; true          
+                                     ;                         ; EmailSubscriptionFooter-SubscriptionOrderStatusEmail    ; EmailSubscriptionFooter         ;                                                                               ; EmailSubscriptionFooterSlot                          ; true   
+                                     
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='GPNextOrderSubscriptionEmailTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-GPNextOrderSubscriptionEmail;SiteLogo;;EmailSiteLogoSlot;true          
+;;TopContent-GPNextOrderSubscriptionEmail;TopContent;;EmailTopSlot;true          
+;;EmailSubscriptionFooter-GPNextOrderSubscriptionEmail;EmailSubscriptionFooter;;EmailSubscriptionFooterSlot;true   
+
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]               			   ; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='GPDiscontinuedReplacedProductMailTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+                                     ;                         ; SiteLogo-GPDiscontinuedReplacedProductMail      ; SiteLogo              ;                                                                               ; EmailSiteLogoSlot                        ; true          
+                                     ;                         ; TopContent-GPDiscontinuedReplacedProductMail    ; TopContent            ;                                                                               ; EmailTopSlot                             ; true          
+									 ;                         ; EmailSubscriptionFooter-GPDiscontinuedReplacedProductMail; EmailSubscriptionFooter     ;                                                                ; EmailSubscriptionFooterSlot              ; true
+
+INSERT_UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]                    ; name                                    ; masterTemplate(uid,$contentCV)              ; defaultPage ; approvalStatus(code)[default='approved'] ; fromEmail[lang=en]          ; fromName[lang=en]     
+				        ;                         ;GPDiscontinuedReplacedProductEmail   ;EmailPageModel_preview
+
+INSERT_UPDATE RendererTemplate ; code[unique=true]                         ; contextClass ; rendererType(code)[default='velocity']
+                               ; b2cwhitelabel-GPSubscriptionFooterComponent-template	; java.util.Map
+
+INSERT_UPDATE RendererTemplate ; code[unique=true]                                        ; contextClass                                                ; rendererType(code)[default='velocity']
+							   ;b2cwhitelabel_Email_Discontinued_Replace_Product_Body.;$emailPackageName.GPDiscontinuedReplacedProductContext
+ 							   ;b2cwhitelabel_Email_Discontinued_Replace_Product_Subject.;$emailPackageName.GPDiscontinuedReplacedProductContext
+
+UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]                    ; previewImage(code, $contentCV)
+                 ;                         ; GPDiscontinuedReplacedProductEmail   ;EmailPageModel_preview
+
+
+#####################
+UPDATE RendererTemplate ; code[unique=true]                                        ; description[lang=$lang]                            ; templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                        ; b2cwhitelabel-GPSubscriptionFooterComponent-template        ; "Email Footer Component for Subscription"          ; $jarEmailResource/email-gpSubscriptionFooterComponentTemplate.vm                                              
+                        ; b2cwhitelabel_Email_Discontinued_Replace_Product_Body       ; "Discontinued Replacement product Email Body"      ; $jarEmailResource/email-discontinuedReplaceProductBody.vm                                                     
+                        ; b2cwhitelabel_Email_Discontinued_Replace_Product_Subject    ; "Discontinued Replacement product Email Subject"   ; $jarEmailResource/email-discontinuedReplaceProductSubject.vm                                                  
+
+UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]             ; fromEmail[lang=$lang]         ; fromName[lang=$lang]    			
+						                 ;                         ; GPDiscontinuedReplacedProductEmail  ; "customerservices@b2bwhitelabel.com" ; "Customer Services Team"
+
+################################### END ############################
+
+UPDATE RendererTemplate ; code[unique=true]                                        ; description[lang=$lang]                            ; templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+; b2cwhitelabel_Email_Share_Wishlist_Body				   ; "Share Wishlist Email Body"						; $jarEmailResource/email-shareWishlistBody.vm

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<groups xmlns="http://www.isdc.ro/wro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.isdc.ro/wro wro.xsd">
+   <group name="addons_responsive">
+      <js>/_ui/addons/xyformsstorefrontcommons/responsive/common/js/xyformsstorefrontcommons.js</js>
+      <css>/_ui/addons/xyformsstorefrontcommons/responsive/common/css/xyformsstorefrontcommons.css</css>
+      <js>/_ui/addons/xyformssamples/responsive/common/js/xyformssamples.js</js>
+      <css>/_ui/addons/xyformssamples/responsive/common/css/xyformssamples.css</css>
+      <css>/_ui/addons/b2cangularaddon/responsive/common/css/b2cangularaddon.css</css>
+      <js>/_ui/addons/personalizationsearchsamplesaddon/responsive/common/js/personalizationsearchsamplesaddon.js</js>
+      <css>/_ui/addons/personalizationsearchsamplesaddon/responsive/common/css/personalizationsearchsamplesaddon.css</css>
+      <js>/_ui/addons/configurablebundleaddon/responsive/common/js/configurablebundleaddon.js</js>
+      <css>/_ui/addons/configurablebundleaddon/responsive/common/css/configurablebundleaddon.css</css>
+      <js>/_ui/addons/stocknotificationaddon/responsive/common/js/stocknotificationaddon.js</js>
+      <css>/_ui/addons/stocknotificationaddon/responsive/common/css/stocknotificationaddon.css</css>
+      <js>/_ui/addons/customerinterestsaddon/responsive/common/js/customerinterestsaddon.js</js>
+      <css>/_ui/addons/customerinterestsaddon/responsive/common/css/customerinterestsaddon.css</css>
+      <js>/_ui/addons/notificationaddon/responsive/common/js/notificationaddon.js</js>
+      <css>/_ui/addons/notificationaddon/responsive/common/css/notificationaddon.css</css>
+      <js>/_ui/addons/consignmenttrackingaddon/responsive/common/js/consignmenttrackingaddon.js</js>
+      <css>/_ui/addons/consignmenttrackingaddon/responsive/common/css/consignmenttrackingaddon.css</css>
+      <js>/_ui/addons/smarteditaddon/shared/common/js/webApplicationInjector.js</js>
+      <js>/_ui/addons/smarteditaddon/shared/common/js/reprocessPage.js</js>
+      <js>/_ui/addons/smarteditaddon/shared/common/js/adjustComponentRenderingToSE.js</js>
+      <js>/_ui/addons/smarteditaddon/responsive/common/js/smarteditaddon.js</js>
+      <css>/_ui/addons/smarteditaddon/responsive/common/css/smarteditaddon.css</css>
+      <js>/_ui/addons/textfieldconfiguratortemplateaddon/responsive/common/js/textfieldconfiguratortemplateaddon.js</js>
+      <css>/_ui/addons/textfieldconfiguratortemplateaddon/responsive/common/css/textfieldconfiguratortemplateaddon.css</css>
+      <js>/_ui/addons/hybrisanalyticsaddon/responsive/common/js/hybrisanalyticsaddon.js</js>
+      <js>/_ui/addons/hybrisanalyticsaddon/shared/common/js/piwik-min.js</js>
+      <css>/_ui/addons/hybrisanalyticsaddon/responsive/common/css/hybrisanalyticsaddon.css</css>
+      <js>/_ui/addons/customerticketingaddon/responsive/common/js/customerticketingaddon.js</js>
+      <css>/_ui/addons/customerticketingaddon/responsive/common/css/customerticketingaddon.css</css>
+      <js>/_ui/addons/assistedservicecustomerinterestsaddon/responsive/common/js/assistedservicecustomerinterestsaddon.js</js>
+      <css>/_ui/addons/assistedservicecustomerinterestsaddon/responsive/common/css/assistedservicecustomerinterestsaddon.css</css>
+      <js>/_ui/addons/assistedserviceyprofileaddon/responsive/common/js/assistedserviceyprofileaddon.js</js>
+      <css>/_ui/addons/assistedserviceyprofileaddon/responsive/common/css/assistedserviceyprofileaddon.css</css>
+      <js>/_ui/addons/gpassistedservicesstorefront/responsive/common/js/gpassistedservicesstorefront.js</js>
+      <js>/_ui/addons/gpassistedservicesstorefront/responsive/common/js/jquery.tablesorter.pager.js</js>
+      <js>/_ui/addons/gpassistedservicesstorefront/responsive/common/js/jquery.tablesorter.min.js</js>
+      <js>/_ui/addons/gpassistedservicesstorefront/responsive/common/js/Chart.min.js</js>
+      <js>/_ui/addons/gpassistedservicesstorefront/responsive/common/js/asm.storefinder.js</js>
+      <css>/_ui/addons/gpassistedservicesstorefront/responsive/common/css/gpassistedservicesstorefront.css</css>
+      <css>/_ui/addons/gpassistedservicesstorefront/responsive/common/css/storeFinder.css</css>
+      <css>/_ui/addons/gpymktrecommendationaddon/responsive/common/css/gpymktrecommendationaddon.css</css>
+      <js>/_ui/addons/assistedservicepromotionaddon/responsive/common/js/assistedservicepromotionaddon.js</js>
+      <css>/_ui/addons/assistedservicepromotionaddon/responsive/common/css/assistedservicepromotionaddon.css</css>
+      <js>/_ui/addons/orderselfserviceaddon/responsive/common/js/orderselfserviceaddon.js</js>
+      <js>/_ui/addons/orderselfserviceaddon/responsive/common/js/cms/cancelorderaction.js</js>
+      <js>/_ui/addons/orderselfserviceaddon/responsive/common/js/cms/returnorderaction.js</js>
+      <css>/_ui/addons/orderselfserviceaddon/responsive/common/css/orderselfserviceaddon.css</css>
+      <js>/_ui/addons/captchaaddon/responsive/common/js/captchaaddon.js</js>
+      <js>/_ui/addons/adaptivesearchsamplesaddon/responsive/common/js/adaptivesearchsamplesaddon.js</js>
+      <css>/_ui/addons/adaptivesearchsamplesaddon/responsive/common/css/adaptivesearchsamplesaddon.css</css>
+   </group>
+</groups>
+

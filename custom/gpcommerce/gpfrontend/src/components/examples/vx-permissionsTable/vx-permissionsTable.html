@@ -1,0 +1,17 @@
+<div class="vx-permissions-table">
+  <div class="mb-xs-3" v-if="isMobile()">
+    <vx-dropdown-primary @selected-option="triggerSort($event)" :dropdownValues="sortOptions" ref="sortDropdown"></vx-dropdown-primary>
+  </div>
+  <table class="display responsive no-wrap table" width="100%" id="permissions-table">
+    <!-- <thead>
+      <tr>
+        <th>ID</th>
+        <th>Type</th>
+        <th>Business Unit</th>
+        <th>Time Period</th>
+        <th>Amount</th>
+        <th>Status</th>
+      </tr>
+    </thead> -->
+  </table>
+</div>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry exported="true" kind="src" path="/adaptivesearchsolr"/>
+	<classpathentry exported="true" kind="src" path="/adaptivesearchbackoffice"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry exported="true" kind="src" path="/platform"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry exported="true" kind="src" path="/pcmbackoffice"/>
+	<classpathentry kind="src" path="gensrc"/>
+	<classpathentry exported="true" kind="src" path="/multicountry"/>
+	<classpathentry kind="output" path="eclipsebin"/>
+</classpath>

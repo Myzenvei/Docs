@@ -1,0 +1,25 @@
+<div class="vx-permisions-landing-page pt-xs-4 pt-sm-5">
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>
+  </vx-spinner>
+  <div class="d-flex justify-content-between ">
+    <h3 class="mt-xs-0">{{i18n.permissionsHeading}}</h3>
+    <a href="javascript:void(0)" class="btn-link add-create-btn" @click="openPermissionsModal($event)" role='button'
+      :aria-label='i18n.createPermissionLink'>
+      {{i18n.createPermissionLink}}
+    </a>
+  </div>
+  <p class="mb-xs-4">
+    {{i18n.permissionsSubheading}}
+  </p>
+  <div class="mb-xs-3" v-if="isMobile()">
+    <vx-dropdown-primary @selected-option="triggerSort($event, '#permissions-data-table')" :dropdownValues="MobileSortOptions" ref="sortDropdown"></vx-dropdown-primary>
+  </div>
+  <table class="display responsive no-wrap table" width="100%" id="permissions-data-table">
+
+  </table>
+  <vx-modal ref="permissionModal" size="large" :heading="i18n.createHeading">
+    <vx-permissions-form slot="component" type="modal" :isEdit="false" :time-period-values="i18n.timeSpanLabels"
+      v-on:showSpinner="showLoadingSpinner" v-on:hideSpinner="hideLoadingSpinner" v-on:fetchAllPermission="fetchPermissinons"
+      v-on:closePermissionsForm="closePermissionsModal" :i18n="i18n"></vx-permissions-form>
+  </vx-modal>
+</div>

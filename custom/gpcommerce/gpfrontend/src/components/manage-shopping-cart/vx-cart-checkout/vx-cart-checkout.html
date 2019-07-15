@@ -1,0 +1,13 @@
+<div class="vx-cart-checkout">
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>
+  </vx-spinner>
+  <vx-modal ref='validateCheckoutModal' :heading='i18n.incompatibleProductHeading' size='small' @close="validateCheckoutModalClose">
+    <template slot='component'>
+      <span>{{i18n.incompatibleProductDescription}}</span>
+      <a @click="globals.navigateToUrl('contactUs')">{{i18n.incompatibleProductContact}}</a>
+    </template>
+  </vx-modal>
+  <button class="col-xs-12 checkout-button btn btn-primary checkout-btn" :disabled="(leaseError || userReview) ? true : false"
+    @click='checkoutButtonClicked'>{{i18n.btnCheckout}}</button>
+  <div class="error-msg mt-xs-2 col-xs-12 pl-xs-0" v-if="userReview">{{i18n.underReview}}</div>
+</div>

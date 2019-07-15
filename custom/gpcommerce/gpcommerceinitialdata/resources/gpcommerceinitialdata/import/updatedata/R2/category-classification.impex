@@ -1,0 +1,80 @@
+$productCatalog=gpUSProductCatalog
+$productCatalogName=GP US Product Catalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$classCatalogVersion=catalogversion(catalog(id[default='gpUSClassification']),version[default='1.0'])[unique=true,default='gpUSClassification:1.0']
+$classSystemVersion=systemVersion(catalog(id[default='gpUSClassification']),version[default='1.0'])[unique=true]
+$class=classificationClass(ClassificationClass.code,$classCatalogVersion)[unique=true]
+$supercategories=source(code, $classCatalogVersion)[unique=true]
+$categories=target(code, $catalogVersion)[unique=true]
+$attribute=classificationAttribute(code,$classSystemVersion)[unique=true]
+$unit=unit(code,$classSystemVersion)
+$lang=en
+# Insert Classification Attributes
+INSERT_UPDATE ClassificationAttribute;$classSystemVersion;code[unique=true]
+;;Sheet Count, 11014
+;;Sheet Length, 11015
+;;Sheet Width, 11016
+;;Stat Factor, 11017
+;;Shipping Container Type, 11018
+;;Square Inches (Per Sheet), 11019
+;;Square CM (Per Sheet), 11020
+;;Square Feet (Per Pack), 11021
+;;Total Pallet Height (Inches), 11022
+;;Pallet Type, 11023
+;;Truck Load Qty (Floor), 11024
+;;Truck Load Qty (Pallet), 11025
+;;Each per Ship UOM, 11026
+;;Buy Multiple UOM, 11027
+
+;;QSU Hi, 51004
+;;QSU Ti, 51005
+;;QSU TiHi, 51006
+
+
+INSERT_UPDATE ClassAttributeAssignment;$class;$attribute;position;$unit;attributeType(code[default=string]);multiValued[default=false];range[default=false];localized[default=true]
+
+;10001;Sheet Count, 11014;;;;;
+;10001;Sheet Length, 11015;;;;;
+;10001;Sheet Width, 11016;;;;;
+;10001;Stat Factor, 11017;;;;;
+;10001;Shipping Container Type, 11018;;;;;
+;10001;Square Inches (Per Sheet), 11019;;;;;
+;10001;Square CM (Per Sheet), 11020;;;;;
+;10001;Square Feet (Per Pack), 11021;;;;;
+;10001;Total Pallet Height (Inches), 11022;;;;;
+;10001;Pallet Type, 11023;;;;;
+;10001;Truck Load Qty (Floor), 11024;;;;;
+;10001;Truck Load Qty (Pallet), 11025;;;;;
+;10001;Each per Ship UOM, 11026;;;;;
+;10001;Buy Multiple UOM, 11027;;;;;
+
+;50001;QSU Hi, 51004;;;;;
+;50001;QSU Ti, 51005;;;;;
+;50001;QSU TiHi, 51006;;;;;
+
+
+
+UPDATE ClassificationAttribute;$classSystemVersion;code[unique=true];name[lang=$lang]
+;;Sheet Count, 11014;Sheet Count
+;;Sheet Length, 11015;Sheet Length
+;;Sheet Width, 11016;Sheet Width
+;;Stat Factor, 11017;Stat Factor
+;;Shipping Container Type, 11018;Shipping Container Type
+;;Square Inches (Per Sheet), 11019;Square Inches (Per Sheet)
+;;Square CM (Per Sheet), 11020;Square CM (Per Sheet)
+;;Square Feet (Per Pack), 11021;Square Feet (Per Pack)
+;;Total Pallet Height (Inches), 11022;Total Pallet Height (Inches)
+;;Pallet Type, 11023;Pallet Type
+;;Truck Load Qty (Floor), 11024;Truck Load Qty (Floor)
+;;Truck Load Qty (Pallet), 11025;Truck Load Qty (Pallet)
+;;Each per Ship UOM, 11026;Each per Ship UOM
+;;Buy Multiple UOM, 11027;Buy Multiple UOM
+
+;;QSU Hi, 51004;QSU Hi
+;;QSU Ti, 51005;QSU Ti
+;;QSU TiHi, 51006;QSU TiHi
+
+
+
+
+

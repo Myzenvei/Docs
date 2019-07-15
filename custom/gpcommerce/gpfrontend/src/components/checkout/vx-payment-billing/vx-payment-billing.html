@@ -1,0 +1,140 @@
+<div class="vx-payment-billing row">
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen></vx-spinner>
+  <vx-modal ref="addCardModal" size="large" :heading="i18n.addPaymentForm.addPaymentHeading" v-bind:is-modal-scrollable="true">
+    <vx-add-payment-form slot='component' ref="paymentForm" :i18n="i18n.addPaymentForm" @card-added="setNewCard($event)" @paypal-status="getPaypalStatus($event)"
+      :shipping-address="shippingAddress" is-checkout :showTopHeadings="true" @addPaymentFailed="dismissAddPaymentModal($event, true)"
+      :guest-email="guestEmail"></vx-add-payment-form>
+  </vx-modal>
+  <template v-if="dataLoaded">
+    <div class="row heading-section-wrapper">
+      <div v-bind:class="{'col-xs-12': addNewCard || isEditable, 'col-xs-8': !addNewCard && !isEditable, 'new-card': addNewCard,}">
+        <p class="section-header mb-xs-0 pb-xs-4" role="heading">{{sectionIndex}}. {{i18n.paymentBilling.heading}}
+        </p>
+      </div>
+      <template v-if="!addNewCard">
+        <a v-show="!isEditable" class="d-flex justify-content-end col-xs-4">
+          <span class="change" tabindex="0" :disabled="disableButton" :role="button" @click="editPayment($event)">{{i18n.paymentBilling.changeButton}}</span>
+        </a>
+      </template>
+    </div>
+    <p class="col-xs-12 section-sub-heading mb-xs-4" :class="{'editable-sub-heading' : isEditable}">
+      {{ i18n.paymentBilling.subHeading }}
+    </p>
+    <div class="payment-options col-xs-12 d-flex mb-xs-3 align-items-center">
+      <vx-radio-button-group v-show="isEditable" ref="cardRadioButton" :radiobuttonValues="cardRadioButton" :arrange-horizontal="arrangeHorizontal"
+        v-on:selected-option="paymentOption">
+        <template slot-scope="{item}">
+          <div class="form-elements visible-xs pt-xs-2 pt-md-3" v-if="item.value === paymentType && item.value === allPaymentTypes.credit">
+            <div class="card-icon-holder" :class="{'card-icon-holder-margin':(!reloadOnSuccess)}">
+              <img class="card-icon" :src="globals.assetsPath+'images/creditcardicons/MasterCard.svg'" :alt="i18n.cardTypeMaster" aria-hidden="true"
+              />
+              <span class="sr-only">{{i18n.paymentBilling.cardTypeMaster}}</span>
+              <img class="card-icon" :src="globals.assetsPath+'images/creditcardicons/Visa.svg'" :alt="i18n.cardTypeVisa" aria-hidden="true"
+              />
+              <span class="sr-only">{{i18n.paymentBilling.cardTypeVisa}}</span>
+              <img class="card-icon" :src="globals.assetsPath+'images/creditcardicons/Discover.svg'" :alt="i18n.cardTypeDiscover" aria-hidden="true"
+              />
+              <span class="sr-only">{{i18n.paymentBilling.cardTypeDiscover}}</span>
+              <img class="card-icon" :src="globals.assetsPath+'images/creditcardicons/AmericanExpress.svg'" :alt="i18n.cardTypeAmex" aria-hidden="true"
+              />
+              <span class="sr-only">{{i18n.paymentBilling.cardTypeAmex}}</span>
+              <img class="card-icon" :src="globals.assetsPath+'images/creditcardicons/DinersClub.svg'" :alt="i18n.cardTypeDiners" aria-hidden="true"
+                v-if="globals.siteConfig.isDinersCardAvailable" />
+              <span class="sr-only" v-if="globals.siteConfig.isDinersCardAvailable">{{i18n.cardTypeDiners}}</span>
+            </div>
+          </div>
+        </template>
+      </vx-radio-button-group>
+      <template v-if="!checkoutData.isSubscription">
+        <template v-if="isMobile()">
+          <div v-show="paymentType === allPaymentTypes.paypal" id="paypal-button-container" class="mb-xs-4 mb-sm-0">
+          </div>
+        </template>
+        <div id="google-pay-container"
+          v-if="(globals.siteConfig.isGooglePayEnabled && isGooglePayAvailable) && isEditable"></div>
+        <div class="ml-sm-5 mt-sm-0 mt-xs-5 apple-pay-container"
+          v-if="(globals.siteConfig.isApplePayEnabled && isApplePayAvailable) && isEditable">
+          <button class="apple-pay-button apple-pay-button-white-with-line" @click="initiateApplePay"></button>
+        </div>
+      </template>
+    </div>
+    <template v-if="addNewCard && paymentType === allPaymentTypes.credit">
+      <vx-add-payment-form slot="component" ref="paymentForm" :showTopHeadings="false" :i18n="i18n.addPaymentForm"
+        @card-added="setNewCard($event)" @paypal-status="getPaypalStatus($event)" class="px-xs-3"
+        :shipping-address="shippingAddress" is-checkout :is-first-card-images="isMobileFisrtCard" is-first-card
+        @addPaymentFailed="dismissAddPaymentModal($event, false)" :guest-email="guestEmail"></vx-add-payment-form>
+    </template>
+    <template v-if="!isMobile()">
+      <div v-show="paymentType === allPaymentTypes.paypal" id="paypal-button-container" class="ml-xs-3"></div>
+      <!-- Commented as we moved to checkout.js implementation
+        <div class="col-xs-12 d-flex">
+        <div class="paypal-button d-flex justify-content-center align-items-center" @click="paypalPayment(paypalType.nonCredit)">
+          <img class="paypal-icon" :src="globals.assetsPath+'images/paypal/paypal_blue_p.svg'" alt="i18n.paymentBilling.logo"
+            aria-hidden="true" />
+          <img class="paypal-icon" :src="globals.assetsPath+'images/paypal/paypal_blue_text.svg'" :alt="i18n.paymentBilling.paypal"
+            aria-hidden="true" />
+          <span class="sr-only">{{i18n.paymentBilling.paypal}}</span>
+        </div>
+        <div class="paypal-button paypal-credit d-flex justify-content-center align-items-center" @click="paypalPayment(paypalType.credit)"
+          v-if="globals.isB2B()">
+          <img class="paypal-icon" :src="globals.assetsPath+'images/paypal/paypal_white_p.svg'" alt="i18n.paymentBilling.logo"
+            aria-hidden="true" />
+          <img class="paypal-icon" :src="globals.assetsPath+'images/paypal/paypal_white_text.svg'" :alt="i18n.paymentBilling.paypal"
+            aria-hidden="true" />
+          <span class="sr-only">{{i18n.paymentBilling.paypal}}</span>
+          <img class="paypal-icon" :src="globals.assetsPath+'images/paypal/paypal_credit_text.svg'" :alt="i18n.paymentBilling.credit"
+            aria-hidden="true" />
+          <span class="sr-only">{{i18n.paymentBilling.credit}}</span>
+        </div>
+      </div> -->
+    </template>
+    <div v-show="!addNewCard && paymentType === allPaymentTypes.credit">
+      <div v-show="isEditable" class="col-xs-12">
+        <div class="d-flex mt-xs-4 mt-sm-5">
+          <vx-dropdown-primary class="col-xs-10 col-sm-8 px-xs-0" ref="cardDropdown" :dropdownValues="savedCards" @selected-item="handleSelected($event)"
+            @primaryDropdownMounted="handleDefault()"></vx-dropdown-primary>
+          <span class="pl-sm-3 add-new-payment col-xs-2 col-sm-4 pr-xs-0" @click="addNewPayment($event)" @keyup.enter-space="addNewPayment($event)"
+            tabindex="0" role="button" aria-label="add payment">{{ i18n.paymentBilling.addCardButton }}</span>
+        </div>
+        <div class="mt-xs-5">
+          <button :disabled="isButtonDisabled" @click="savePayment($event)" class="save-payment btn btn-primary">
+            {{ i18n.paymentBilling.savePaymentButton }}
+          </button>
+        </div>
+      </div>
+      <div v-show="!isEditable" class="col-xs-12 card-details">
+        <div class="d-flex flex-row">
+          <span class="card-img">
+            <img :src="cardImage" :alt="cardSelected.cardType" />
+          </span>
+          <span class="selected-card pl-xs-2">
+            {{ cardSelected.cardType }} {{ i18n.paymentBilling.savedCardDetails }} {{ cardSelected.cardNumber }}
+          </span>
+        </div>
+        <div>
+          <p class="section-sub-heading mt-xs-3 mb-sm-2 mb-xs-3">
+            {{ i18n.paymentBilling.billingAddress }}
+          </p>
+          <p class="address-text mb-xs-2">
+            {{ cardSelected.accountHolderName }}
+          </p>
+          <div class="address-text" tabindex="0" role="text">
+            <p class="address-text mb-xs-2" v-if="userAddress && userAddress.companyName">
+              {{ userAddress.companyName }}
+            </p>
+            <p class="address-text mb-xs-2">{{ userAddress.line1 }}</p>
+            <p class="address-text mb-xs-2" v-if="userAddress && userAddress.line2">
+              {{ userAddress.line2 }}
+            </p>
+            <p class="address-text mb-xs-2" v-if="userAddress && userAddress.region && userAddress.region.isocodeShort">
+              {{ userAddress.town }} {{ userAddress.region.isocodeShort }} {{ userAddress.postalCode }}
+            </p>
+            <p class="address-text mb-xs-2" v-if="userAddress && userAddress.country && userAddress.country.isocode">
+              {{ userAddress.country.isocode }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+</div>

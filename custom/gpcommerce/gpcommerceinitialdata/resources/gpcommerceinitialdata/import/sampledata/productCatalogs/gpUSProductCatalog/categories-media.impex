@@ -1,0 +1,187 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+# ImpEx for Importing Category Brands Medias into GP Store
+
+# Macros / Replacement Parameter definitions
+$productCatalog=gpUSProductCatalog
+$productCatalogName=GP US Product Catalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$media=@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator]
+$siteResource=jar:com.gp.commerce.initialdata.constants.GpcommerceInitialDataConstants&/gpcommerceinitialdata/import/sampledata/productCatalogs/$productCatalog
+$logos=logo(code, $catalogVersion)
+$picture=picture(code, $catalogVersion)
+
+
+# Create medias for gpemployee
+INSERT_UPDATE Media;mediaFormat(qualifier);code[unique=true];$media;mime[default='image/jpeg'];$catalogVersion;folder(qualifier)[default='images']
+;desktop;dispenserImage;$siteResource/images/gpemployee/dispensers.png;;;
+;desktop;paperProductImage;$siteResource/images/gpemployee/paper_products.png;;;
+;desktop;platesImage;$siteResource/images/gpemployee/plates.png;;;
+;desktop;bowlsImage;$siteResource/images/gpemployee/bowls.png;;;
+;desktop;toiletPaperImage;$siteResource/images/gpemployee/toiletpaper.png;;;
+;desktop;cupsImage;$siteResource/images/gpemployee/cups.png;;;
+;desktop;paperTowelImage;$siteResource/images/gpemployee/towel.png;;;
+;desktop;napkinsImage;$siteResource/images/gpemployee/napkins.png;;;
+;desktop;counterTopImage;$siteResource/images/gpemployee/countertop.png;;;
+;desktop;underCabinetImage;$siteResource/images/gpemployee/undercabinet.png;;;
+
+# Update Categories with medias
+UPDATE Category;code[unique=true];$picture;$catalogVersion
+;311;toiletPaperImage;
+;313;bowlsImage;
+;314;platesImage;
+;paperproducts;paperProductImage;
+;dispensers;dispenserImage;
+;315;cupsImage;
+;316;paperTowelImage;
+;312;napkinsImage;
+;318;counterTopImage;
+;317;underCabinetImage;
+
+
+# Create medias for b2cwhitelabel
+INSERT_UPDATE Media;mediaFormat(qualifier);code[unique=true];$media;mime[default='image/jpeg'];$catalogVersion;folder(qualifier)[default='images']
+;desktop;dispenserImage;$siteResource/images/b2cwhitelabel/dispensers.png;;;
+;desktop;paperProductImage;$siteResource/images/b2cwhitelabel/paper_products.png;;;
+;desktop;platesImage;$siteResource/images/b2cwhitelabel/plates.png;;;
+;desktop;bowlsImage;$siteResource/images/b2cwhitelabel/bowls.png;;;
+;desktop;toiletPaperImage;$siteResource/images/b2cwhitelabel/toiletpaper.png;;;
+;desktop;cupsImage;$siteResource/images/b2cwhitelabel/cups.png;;;
+;desktop;paperTowelImage;$siteResource/images/b2cwhitelabel/towel.png;;;
+;desktop;napkinsImage;$siteResource/images/b2cwhitelabel/napkins.png;;;
+;desktop;counterTopImage;$siteResource/images/b2cwhitelabel/countertop.png;;;
+;desktop;underCabinetImage;$siteResource/images/b2cwhitelabel/undercabinet.png;;;
+;tablet;dispenserImage;$siteResource/images/b2cwhitelabel/dispensers.png;;;
+;tablet;paperProductImage;$siteResource/images/b2cwhitelabel/paper_products.png;;;
+;tablet;platesImage;$siteResource/images/b2cwhitelabel/plates.png;;;
+;tablet;bowlsImage;$siteResource/images/b2cwhitelabel/bowls.png;;;
+;tablet;toiletPaperImage;$siteResource/images/b2cwhitelabel/toiletpaper.png;;;
+;tablet;cupsImage;$siteResource/images/b2cwhitelabel/cups.png;;;
+;tablet;paperTowelImage;$siteResource/images/b2cwhitelabel/towel.png;;;
+;tablet;napkinsImage;$siteResource/images/b2cwhitelabel/napkins.png;;;
+;tablet;counterTopImage;$siteResource/images/b2cwhitelabel/countertop.png;;;
+;tablet;underCabinetImage;$siteResource/images/b2cwhitelabel/undercabinet.png;;;
+;mobile;dispenserImage;$siteResource/images/b2cwhitelabel/dispensers.png;;;
+;mobile;paperProductImage;$siteResource/images/b2cwhitelabel/paper_products.png;;;
+;mobile;platesImage;$siteResource/images/b2cwhitelabel/plates.png;;;
+;mobile;bowlsImage;$siteResource/images/b2cwhitelabel/bowls.png;;;
+;mobile;toiletPaperImage;$siteResource/images/b2cwhitelabel/toiletpaper.png;;;
+;mobile;cupsImage;$siteResource/images/b2cwhitelabel/cups.png;;;
+;mobile;paperTowelImage;$siteResource/images/b2cwhitelabel/towel.png;;;
+;mobile;napkinsImage;$siteResource/images/b2cwhitelabel/napkins.png;;;
+;mobile;counterTopImage;$siteResource/images/b2cwhitelabel/countertop.png;;;
+;mobile;underCabinetImage;$siteResource/images/b2cwhitelabel/undercabinet.png;;;
+
+# Update Categories with medias
+UPDATE Category;code[unique=true];$picture;$catalogVersion
+;12957;toiletPaperImage;
+;9363;bowlsImage;
+;9363;platesImage;
+;paperproducts;paperProductImage;
+;dispensers;dispenserImage;
+;9375;cupsImage;
+;12957;paperTowelImage;
+;6250;napkinsImage;
+;9363;counterTopImage;
+;9363;underCabinetImage;
+
+
+# Create medias for b2bwhitelabel
+INSERT_UPDATE Media;mediaFormat(qualifier);code[unique=true];$media;mime[default='image/jpeg'];$catalogVersion;folder(qualifier)[default='images']
+;desktop;dispenserImage;$siteResource/images/b2bwhitelabel/dispensers.png;;;
+;desktop;paperProductImage;$siteResource/images/b2bwhitelabel/paper_products.png;;;
+;desktop;platesImage;$siteResource/images/b2bwhitelabel/plates.png;;;
+;desktop;bowlsImage;$siteResource/images/b2bwhitelabel/bowls.png;;;
+;desktop;toiletPaperImage;$siteResource/images/b2bwhitelabel/toiletpaper.png;;;
+;desktop;cupsImage;$siteResource/images/b2bwhitelabel/cups.png;;;
+;desktop;paperTowelImage;$siteResource/images/b2bwhitelabel/towel.png;;;
+;desktop;napkinsImage;$siteResource/images/b2bwhitelabel/napkins.png;;;
+;desktop;counterTopImage;$siteResource/images/b2bwhitelabel/countertop.png;;;
+;desktop;underCabinetImage;$siteResource/images/b2bwhitelabel/undercabinet.png;;;
+;tablet;dispenserImage;$siteResource/images/b2bwhitelabel/dispensers.png;;;
+;tablet;paperProductImage;$siteResource/images/b2bwhitelabel/paper_products.png;;;
+;tablet;platesImage;$siteResource/images/b2bwhitelabel/plates.png;;;
+;tablet;bowlsImage;$siteResource/images/b2bwhitelabel/bowls.png;;;
+;tablet;toiletPaperImage;$siteResource/images/b2bwhitelabel/toiletpaper.png;;;
+;tablet;cupsImage;$siteResource/images/b2bwhitelabel/cups.png;;;
+;tablet;paperTowelImage;$siteResource/images/b2bwhitelabel/towel.png;;;
+;tablet;napkinsImage;$siteResource/images/b2bwhitelabel/napkins.png;;;
+;tablet;counterTopImage;$siteResource/images/b2bwhitelabel/countertop.png;;;
+;tablet;underCabinetImage;$siteResource/images/b2bwhitelabel/undercabinet.png;;;
+;mobile;dispenserImage;$siteResource/images/b2bwhitelabel/dispensers.png;;;
+;mobile;paperProductImage;$siteResource/images/b2bwhitelabel/paper_products.png;;;
+;mobile;platesImage;$siteResource/images/b2bwhitelabel/plates.png;;;
+;mobile;bowlsImage;$siteResource/images/b2bwhitelabel/bowls.png;;;
+;mobile;toiletPaperImage;$siteResource/images/b2bwhitelabel/toiletpaper.png;;;
+;mobile;cupsImage;$siteResource/images/b2bwhitelabel/cups.png;;;
+;mobile;paperTowelImage;$siteResource/images/b2bwhitelabel/towel.png;;;
+;mobile;napkinsImage;$siteResource/images/b2bwhitelabel/napkins.png;;;
+;mobile;counterTopImage;$siteResource/images/b2bwhitelabel/countertop.png;;;
+;mobile;underCabinetImage;$siteResource/images/b2bwhitelabel/undercabinet.png;;;
+
+# Update Categories with medias
+UPDATE Category;code[unique=true];$picture;$catalogVersion
+;12957;toiletPaperImage;
+;9363;bowlsImage;
+;9363;platesImage;
+;paperproducts;paperProductImage;
+;dispensers;dispenserImage;
+;9375;cupsImage;
+;12957;paperTowelImage;
+;6250;napkinsImage;
+;9363;counterTopImage;
+;9363;underCabinetImage;
+
+# Create medias for copperandcrane
+INSERT_UPDATE Media;mediaFormat(qualifier);code[unique=true];$media;mime[default='image/jpeg'];$catalogVersion;folder(qualifier)[default='images']
+;desktop;dispenserImage;$siteResource/images/copperandcrane/dispensers.png;;;
+;desktop;paperProductImage;$siteResource/images/copperandcrane/paper_products.png;;;
+;desktop;platesImage;$siteResource/images/copperandcrane/plates.png;;;
+;desktop;bowlsImage;$siteResource/images/copperandcrane/bowls.png;;;
+;desktop;toiletPaperImage;$siteResource/images/copperandcrane/toiletpaper.png;;;
+;desktop;cupsImage;$siteResource/images/copperandcrane/cups.png;;;
+;desktop;paperTowelImage;$siteResource/images/copperandcrane/towel.png;;;
+;desktop;napkinsImage;$siteResource/images/copperandcrane/napkins.png;;;
+;desktop;counterTopImage;$siteResource/images/copperandcrane/countertop.png;;;
+;desktop;underCabinetImage;$siteResource/images/copperandcrane/undercabinet.png;;;
+;tablet;dispenserImage;$siteResource/images/copperandcrane/dispensers.png;;;
+;tablet;paperProductImage;$siteResource/images/copperandcrane/paper_products.png;;;
+;tablet;platesImage;$siteResource/images/copperandcrane/plates.png;;;
+;tablet;bowlsImage;$siteResource/images/copperandcrane/bowls.png;;;
+;tablet;toiletPaperImage;$siteResource/images/copperandcrane/toiletpaper.png;;;
+;tablet;cupsImage;$siteResource/images/copperandcrane/cups.png;;;
+;tablet;paperTowelImage;$siteResource/images/copperandcrane/towel.png;;;
+;tablet;napkinsImage;$siteResource/images/copperandcrane/napkins.png;;;
+;tablet;counterTopImage;$siteResource/images/copperandcrane/countertop.png;;;
+;tablet;underCabinetImage;$siteResource/images/copperandcrane/undercabinet.png;;;
+;mobile;dispenserImage;$siteResource/images/copperandcrane/dispensers.png;;;
+;mobile;paperProductImage;$siteResource/images/copperandcrane/paper_products.png;;;
+;mobile;platesImage;$siteResource/images/copperandcrane/plates.png;;;
+;mobile;bowlsImage;$siteResource/images/copperandcrane/bowls.png;;;
+;mobile;toiletPaperImage;$siteResource/images/copperandcrane/toiletpaper.png;;;
+;mobile;cupsImage;$siteResource/images/copperandcrane/cups.png;;;
+;mobile;paperTowelImage;$siteResource/images/copperandcrane/towel.png;;;
+;mobile;napkinsImage;$siteResource/images/copperandcrane/napkins.png;;;
+;mobile;counterTopImage;$siteResource/images/copperandcrane/countertop.png;;;
+;mobile;underCabinetImage;$siteResource/images/copperandcrane/undercabinet.png;;;
+
+# Update Categories with medias
+UPDATE Category;code[unique=true];$picture;$catalogVersion
+;12957;toiletPaperImage;
+;9363;bowlsImage;
+;9363;platesImage;
+;paperproducts;paperProductImage;
+;dispensers;dispenserImage;
+;9375;cupsImage;
+;12957;paperTowelImage;
+;6250;napkinsImage;
+;9363;counterTopImage;
+;9363;underCabinetImage;

@@ -1,0 +1,38 @@
+.vx-store-location {
+  .selected-store {
+    img {
+      max-width: 120px;
+      max-height: 120px;
+    }
+
+    .store-name {
+      font-size: @font-size-large;
+      color: @font-color-nav-link;
+      cursor: pointer;
+    }
+
+    .store-info {
+      color: @text-color;
+    }
+  }
+
+  .map-locator {
+    padding: 0 !important;
+
+    #map-canvas {
+      padding: 0 !important;
+      margin: 20px 16px;
+      width: 93% !important;
+    }
+  }
+}
+
+@media (max-width: @screen-sm-max) {
+  .vx-store-location {
+    .map-locator{
+      #map-canvas {
+        height: 260px;
+      }
+    }
+  }
+}

@@ -1,0 +1,62 @@
+
+<div class="vx-share-resource-modal">
+  <vx-spinner ref="shareResourceSpinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen></vx-spinner>
+
+  <div class="resource-name mb-xs-2">{{resource.altText}}</div>
+  <div class="resource-description">{{resource.description}}</div>
+
+  <div class="d-flex justify-content-center mx-xs-3 my-xs-4">
+    <div class="video-player" v-if="isYoutubeVideo(resource)">
+        <iframe width="100%" :src="embedURL" name="video-player" :title="resource.altText" allowfullscreen></iframe>
+    </div>
+    <a :href="resource.resourceURL" target="_blank" class="view-btn" v-else>
+      <button class="btn btn-default modal-btn-primary-small">{{i18n.viewButton}}</button>
+    </a>
+  </div>
+  <hr>
+  <form @submit.prevent="onSubmit">
+      <div class="pt-xs-4 form-group">
+        <label for="link">{{i18n.linkLabel}}</label>
+        <input type="text" class="form-control" name="link" v-model="constructedShareUrl" :aria-label="i18n.linkLabel" disabled>
+      </div>
+
+      <div class="pt-xs-3 form-group" v-if="!globals.getIsLoggedIn()">
+        <label for="link">{{i18n.senderNameLabel}}</label>
+        <input type="text" class="form-control" name="senderName" v-model="senderName" minlength="2" maxlength="120"
+        v-bind:class="{'input-error': errors.has('senderName')}" v-validate="{required: true, min: 2, max: 120}"
+        :aria-label="i18n.senderNameLabel" @focus="inputFocusIn">
+        <div class="mt-xs-2" v-show="errors.has('senderName')" :aria-hidden="!errors.has('senderName')">
+          <span class="error-msg">{{ errors.first('senderName') }}</span>
+        </div>
+      </div>
+      <div class="pt-xs-3 form-group" v-if="!globals.getIsLoggedIn()">
+          <label for="senderEmail">{{i18n.senderEmailLabel}}</label>
+          <input type="email" class="form-control" v-bind:class="{'input-error': errors.has('senderEmail')}"
+          name="senderEmail" v-model="senderEmail" v-validate="'required|email'" :aria-label="i18n.senderEmailLabel" @focus="inputFocusIn">
+          <div class="mt-xs-2" v-if="errors.has('senderEmail')">
+            <span class="error-msg">{{errors.first('senderEmail')}}</span>
+          </div>
+      </div>
+
+      <div class="pt-xs-3 pb-xs-2 form-group">
+          <label for="recipients">{{i18n.emailLabel}}</label>
+          <input type="text" class="form-control" v-bind:class="{'input-error': errors.has('recipients')}" @focus="inputFocusIn"
+          name="recipients" v-model="recipientValue" v-validate:recipients="'required|email'" :aria-label="i18n.emailLabel">
+          <div class="mt-xs-2" v-if="errors.has('recipients')">
+            <span class="error-msg">{{errors.first('recipients')}}</span>
+          </div>
+      </div>
+      <div class="copy-me form-group">
+        <input id="copy-me" type="checkbox" v-model="copyMe" :aria-label="i18n.copyLabel" />
+        <label for="copy-me">{{i18n.copyLabel}}</label>
+      </div>
+      <div class="pt-xs-3 mb-xs-5 form-group">
+        <label for="comments">{{i18n.commentLabel}}</label>
+        <input type="text" maxlength="1024" class="form-control" name="link" v-model="userComments" :aria-label="i18n.commentLabel" @focus="inputFocusIn">
+      </div>
+      <div class="mb-xs-2 d-flex justify-content-center">
+        <button type="submit" :disabled="errors.any()" :class="{'modal-btn-xs-sticky':isBtnSticky}" class="submit btn btn-primary modal-btn-primary-small modal-btn-IEspacing modal-btn-EDGEspacing">{{i18n.submitLabel}}</button>
+      </div>
+    </form>
+</div>
+

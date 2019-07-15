@@ -1,0 +1,211 @@
+#######################################Essentialdata_bazaarvoice.impex###################################
+INSERT_UPDATE BazaarvoiceConfig ; code[unique=true]  ; clientName ; ftpUserName ; ftpPassword  ; zone      ; seoKey                                     ; ftpServer                ; showReviewsScript ; showQuestionsScript ; isFamiliesEnabled ; licenseAccepted ; upcMethodName
+                                ; gpemployeeBVConfig ; angelsoft  ; angelsoft   ; p2p~JTpPQTOk ; Main Site ; angelsoft-da75c0ccdcd79cbb4d2e5b68fa5545ef ; sftp-stg.bazaarvoice.com ;                   ;                     ; false             ; true            ; ean          
+INSERT_UPDATE CMSSite ; uid[unique=true] ; bvConfig(code)     ; bvLocale
+                      ; gpemployee       ; gpemployeeBVConfig ; en_US   
+INSERT_UPDATE ServicelayerJob ; code[unique=true]              ; springId                      
+                              ; bazaarvoiceProductFeedExporter ; bazaarvoiceProductFeedExporter
+
+$productCatalog=gpUSProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+
+INSERT_UPDATE BazaarvoiceProductFeedExportCronJob ; code[unique=true]                 ; job(code)                      ; bazaarvoiceStorefront(uid) ; singleExecutable ; sessionLanguage(isocode)
+                                                  ; bvProductFeedCronjobForGPEmployee ; bazaarvoiceProductFeedExporter ; gpemployee                 ; false            ; en                      
+#; bvProductFeedCronjobForGPEmployee ; 0 2 16 * * ?
+
+###### Import Feed ######                         
+INSERT_UPDATE ServicelayerJob ; code[unique=true]                ; springId                        
+                              ; gpBazaarVoiceDataFeedDownloadJob ; gpBazaarVoiceDataFeedDownloadJob
+
+INSERT_UPDATE BazaarvoiceImportRatingsCronJob ; code[unique=true]                    ; $catalogVersion ; job(code)                        ; bazaarvoiceStorefront(uid) ; singleExecutable ; sessionLanguage(isocode)
+                                              ; bvGPEmployeeRatingsImportFeedCronJob ;                 ; gpBazaarVoiceDataFeedDownloadJob ; gpemployee                 ; false            ; en                      ;  
+#; bvGPEmployeeRatingsImportFeedCronJob ; 0 2 16 * * ?
+
+
+   
+				             
+
+
+							          
+#solr.impex GPEmployee:
+
+############  These lines are present in R1.1_PRoduction branch but not in R2   ########################################################################3
+#####################################################################################################################################################33
+$productCatalog=gpUSProductCatalog
+$catalogVersions=catalogVersions(catalog(id),version);
+$facetSearchConfigName=gpemployeeIndex
+$facetSearchConfigDescription=GP Employee Solr Index
+$searchIndexNamePrefix=gpemployee
+$solrIndexedType=gpemployeeProductType
+$indexBaseSite=gpemployee
+$indexLanguages=en
+$indexCurrencies=USD
+$solrServerUrl=$config-solrServerUrl
+
+                             ; $solrIndexedType ; bundles                              ; string            ;      ;     ; MultiSelectOr ; Alpha ; 6000 ; true ;  ; gpBundlesCategoryCodeValueProvider        ; categoryFacetDisplayNameProvider ; defaultTopValuesProvider
+                             ; $solrIndexedType ; cleaningsupply                       ; string            ;      ;     ; MultiSelectOr ; Alpha ; 6000 ; true ;  ; gpCleaningSupplyCategoryCodeValueProvider ; categoryFacetDisplayNameProvider ; defaultTopValuesProvider
+
+INSERT_UPDATE SolrIndexedProperty ; solrIndexedType(identifier)[unique=true] ; name[unique=true] ; type(code) ; sortableType(code) ; currency[default=false] ; localized[default=false] ; multiValue[default=false] ; facet[default=true] ; facetType(code) ; facetSort(code) ; priority ; visible ; useForSpellchecking[default=false] ; useForAutocomplete[default=false] ; fieldValueProvider                    ; facetDisplayNameProvider ; customFacetSortProvider ; topValuesProvider        ; rangeSets(name)  
+
+                                  ; $solrIndexedType                         ; rating            ; double     ;                    ; true                    ;                          ; true                      ;                     ; Refine          ; Alpha           ; 3000     ; true    ;                                    ;                                   ; gpBazaarvoiceRatingRangeValueProvider ;                          ;                         ; defaultTopValuesProvider ; gpRatingsRangeUSD
+
+
+SELECT {price:pk} FROM {GPCommerceProduct AS p join Site2Product as rel on {p.pk}={rel.target} join CMSSite as site on {site:pk} = {rel:source} JOIN PRICEROW as price on {price:product} = {p:pk}} WHERE  {site:uid} = 'gpemployee' AND ({p:materialStatus} in ({{select {ms:pk} from {MaterialStatusEnum as ms} where {ms:code} != 'OBSOLETE'}}) OR {p:code} IN (
+
+INSERT_UPDATE SolrIndexerQuery ; solrIndexedType(identifier)[unique=true] ; identifier[unique=true]            ; type(code) ; injectCurrentDate[default=true] ; injectCurrentTime[default=true] ; injectLastIndexTime[default=true] ; query ; user(uid)
+                               ; $solrIndexedType                         ; $searchIndexNamePrefix-fullQuery   ; full       ;                                 ;                                 ; false                             ; "     
+
+SELECT {price:pk} FROM {GPCommerceProduct AS p join Site2Product as rel on {p.pk}={rel.target} join CMSSite as site on {site:pk} = {rel:source} JOIN PRICEROW as price on {price:product} = {p:pk}} WHERE  {site:uid} = 'gpemployee' AND ({p:materialStatus} in ({{select {ms:pk} from {MaterialStatusEnum as ms} where {ms:code} != 'OBSOLETE'}}) OR {p:code} IN (
+               {{              
+                              SELECT DISTINCT {sl:productCode} FROM {StockLevel AS sl} WHERE {sl:available} > 0 AND ({sl:available} - {sl:reserved} > 0) AND {sl:inStockStatus} not in ({{ select {ins:pk} from {INSTOCKSTATUS as ins} where {ins:code} = 'forceOutOfStock'}})
+               }})) and ((to_char({price:starttime},'yyyy-MM-dd') <= to_char(NOW(),'yyyy-MM-dd')  or {price:starttime} is null) and (to_char({price:endtime},'yyyy-MM-dd') >= to_char(NOW(),'yyyy-MM-dd') or {price:endtime} is null))
+"                              ; admin                                    
+                               ; $solrIndexedType                         ; $searchIndexNamePrefix-updateQuery ; update     ;                                 ;                                 ;                                   ; "     
+
+SELECT {price:pk}   AS pk, {p:code} AS code, {p:materialStatus} as materialStatus FROM {GPCommerceProduct AS p  JOIN PRICEROW as price on {price:product} = {p:pk}} WHERE ({p:code} IN (
+       {{                           
+                    SELECT DISTINCT {sl:productCode} FROM {StockLevel AS sl} WHERE {sl:modifiedtime} >= ?lastIndexTime
+       }}) or {price:modifiedtime} >= ?lastIndexTime)
+and {p:pk} in ({{SELECT {p:PK} FROM {GPCommerceProduct AS p join Site2Product as rel on {p.pk}={rel.target} join CMSSite as site on {site:pk} = {rel:source}} WHERE {site:uid}='gpemployee'}}) AND
+({p:materialStatus} in ({{select {ms:pk} from {MaterialStatusEnum as ms} where {ms:code} != 'OBSOLETE'}}) OR {p:code} IN (
+       {{                           
+             SELECT DISTINCT {sl:productCode} FROM {StockLevel AS sl} WHERE {sl:available} > 0 AND ({sl:available} - {sl:reserved} > 0) AND {sl:inStockStatus} not in ({{ select {ins:pk} from {INSTOCKSTATUS as ins} where {ins:code} = 'forceOutOfStock'}})
+       }})) and ((to_char({price:starttime},'yyyy-MM-dd') <= to_char(NOW(),'yyyy-MM-dd')  or {price:starttime} is null) and (to_char({price:endtime},'yyyy-MM-dd') >= to_char(NOW(),'yyyy-MM-dd') or {price:endtime} is null))                        
+ORDER BY {p:code}              
+"                              ; admin                                    
+                               ; $solrIndexedType                         ; $searchIndexNamePrefix-deleteQuery ; delete     ;                                 ;                                 ; false                             ; "     
+
+SELECT DISTINCT {price:pk} FROM {GPCommerceProduct AS p join Site2Product as rel on {p.pk}={rel.target} join CMSSite as site on {site:pk} = {rel:source} JOIN PRICEROW as price on {price:product} = {p:pk}} WHERE {site:uid} = 'gpemployee' and ({p:materialStatus} in ({{select {ms:pk} from {MaterialStatusEnum as ms} where {ms:code} = 'OBSOLETE'}})
+AND {p:code} IN                
+	({{                           
+			SELECT DISTINCT {sl:productCode} FROM {StockLevel AS sl} WHERE {sl:available} = 0 or ({sl:available} - {sl:reserved} = 0) or {sl:inStockStatus} in ({{ select {ins:pk} from {INSTOCKSTATUS as ins} where {ins:code} = 'forceOutOfStock'}})
+	}})) or (to_char({price:starttime},'yyyy-MM-dd') > to_char(NOW(),'yyyy-MM-dd')) or (to_char({price:endtime},'yyyy-MM-dd') < to_char(NOW(),'yyyy-MM-dd'))
+"                              ; admin                                    
+
+
+INSERT_UPDATE SolrSort ; &sortRefID ; indexedType(identifier)[unique=true] ; code[unique=true]    ; useBoost
+                       ; sortRef4   ; $solrIndexedType                     ; numberOfReviews-desc ; false   
+
+INSERT_UPDATE SolrSortField ; sort(indexedType(identifier),code)[unique=true] ; fieldName[unique=true] ; ascending[unique=true]
+                            ; $solrIndexedType:numberOfReviews-desc           ; reviewAvgRating        ; false                 
+                            ; $solrIndexedType:numberOfReviews-desc           ; numberOfReviews        ; false                 
+
+############  These lines are present in R1.1_PRoduction branch but not in R2   ########################################################################3
+#####################################################################################################################################################33
+                            ; bundles:$solrIndexedType                        ;                        ;                       ; MultiSelectOr ;  ; categoryFacetDisplayNameProvider ; defaultTopValuesProvider
+                            ; cleaningsupply:$solrIndexedType                 ;                        ;                       ; MultiSelectOr ;  ; categoryFacetDisplayNameProvider ; defaultTopValuesProvider
+
+INSERT_UPDATE SolrSearchQueryProperty ; indexedProperty(name, solrIndexedType(identifier))[unique=true] ; facet[default=true] ; facetType(code) ; priority ; facetDisplayNameProvider ; facetSortProvider ; facetTopValuesProvider   ; includeInResponse[default=true] ; searchQueryTemplate(name, indexedType(identifier))[unique=true][default=DEFAULT:$solrIndexedType]
+                                      ; rating:$solrIndexedType                                         ;                     ; Refine          ; 3000     ;                          ;                   ; defaultTopValuesProvider ;                                 ;                                                                                                  
+
+
+
+
+
+
+
+#solr.impex VanityFair:
+############  These lines are present in R1.1_PRoduction branch but not in R2   ########################################################################3
+#####################################################################################################################################################33
+$productCatalog=gpUSProductCatalog
+$catalogVersions=catalogVersions(catalog(id),version);
+$facetSearchConfigName=vanityfairIndex
+$facetSearchConfigDescription=VanityFair Solr Index
+$searchIndexNamePrefix=vanityfair
+$solrIndexedType=vanityfairProductType
+$indexBaseSite=vanityfair
+$indexLanguages=en
+$indexCurrencies=USD
+
+$solrServerUrl=$config-solrServerUrl
+
+
+# Non-facet properties       
+INSERT_UPDATE SolrIndexedProperty ; solrIndexedType(identifier)[unique=true] ; name[unique=true] ; type(code) ; sortableType(code) ; currency[default=false] ; localized[default=false] ; multiValue[default=false] ; useForSpellchecking[default=false] ; useForAutocomplete[default=false] ; fieldValueProvider                ; valueProviderParameters[map-delimiter=|] ; ftsPhraseQuery[default=false] ; ftsPhraseQueryBoost ; ftsQuery[default=false] ; ftsQueryBoost ; ftsFuzzyQuery[default=false] ; ftsFuzzyQueryBoost ; ftsWildcardQuery[default=false] ; ftsWildcardQueryType(code)[default=POSTFIX] ; ftsWildcardQueryBoost ; ftsWildcardQueryMinTermLength
+
+                                  ; $solrIndexedType                         ; itemtype          ; string     ;                    ;                         ;                          ;                           ;                                    ;                                   ;                                   ;                                          ;                               ;                     ;                         ;               ;                              ;                    ;                                 ;                                             ;                       ;                              
+#;$solrIndexedType; primaryPromotionCode   ;string ;            ;    ;    ;    ;    ;    ;promotionCodeValueProvider            ;									;    ;   ;    ;   ;    ;  ;    ;   ;  ;
+#;$solrIndexedType; primaryPromotionBanner ;string ;            ;    ;    ;    ;    ;    ;promotionImageValueProvider           ;									;    ;   ;    ;   ;    ;  ;    ;   ;  ;
+#;$solrIndexedType; pickupAvailableFlag    ;boolean;            ;    ;    ;    ;    ;    ;productPickupAvailabilityValueProvider ;									;    ;   ;    ;   ;    ;  ;    ;   ;  ;
+#;$solrIndexedType; configurable           ;boolean;            ;    ;    ;    ;    ;    ;productConfigurableProvider            ;									;    ;   ;    ;   ;    ;  ;    ;   ;  ;
+#;$solrIndexedType; baseProductCode		  ;string ;			   ;	;	 ;	  ;	   ;	;productAttributesValueResolver			;attribute->code|skipVariants->TRUE ;	 ;	 ;	  ;	  ;	   ;  ;	   ;   ;  ;
+                                  ; $solrIndexedType                         ; weblistPrice      ; double     ;                    ; TRUE                    ;                          ;                           ;                                    ;                                   ;                                   ;                                          ;                               ;                     ;                         ;               ;                              ;                    ;                                 ;                                             ;                       ;                              
+                                  ; $solrIndexedType                         ; originalCode      ; string     ;                    ;                         ;                          ;                           ; TRUE                               ; TRUE                              ; gpProductOriginalSKUValueProvider ;                                          ;                               ;                     ; TRUE                    ; 90            ;                              ;                    ; TRUE                            ; POSTFIX                                     ; 45                    ; 3                            
+#####################################################################################################################################################33
+
+
+
+#######################     gpcommerceinitialdata\import\sampledata\backoffice\customersupport\customersupport-restrictions.impex       ############################################
+
+INSERT_UPDATE SearchRestriction ; code[unique=true]             ; principal(uid) ; query                                                                                                            ; restrictedType(code) ; active ; generate
+                                ; Anonymous_Product_Restriction ; anonymous      ; {item:catalogVersion} IN ({{select {activeCatalogVersion} from {Catalog} where {id} in ('gpUSProductCatalog')}}) ; Product              ; true   ; false   
+
+
+
+##########################################    cms-responsive-content.impex GPEMPLOYEECONTENTCATALOG    ########################################## 
+############  These lines are present in R1.1_PRoduction branch but not in R2   ########################################################################3
+#####################################################################################################################################################33
+$contentCatalog=gpemployeeContentCatalog 
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged] 
+ 
+$productCatalog=gpUSProductCatalog 
+$productCatalogName=GP B2C Product Catalog 
+$productCV=catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged] 
+$picture=media(code, $contentCV) ;
+$siteResource=jar:com.gp.commerce.initialdata.constants.GpcommerceInitialDataConstants&/gpcommerceinitialdata/import/sampledata/contentCatalogs/$contentCatalog
+$jarResourceCms=jar:com.gp.commerce.initialdata.constants.GpcommerceInitialDataConstants&/gpcommerceinitialdata/import/sampledata/cockpits/cmscockpit
+$picture=media(code, $contentCV)
+$medias=medias(code, $contentCV);
+$mediaContainer=media(qualifier, $contentCV)
+
+
+# Load the storefront context root config param
+$storefrontContextRoot=$config-storefrontContextRoot
+
+# Language
+$lang=en
+INSERT_UPDATE CMSNavigationNode;$contentCV[unique=true];uid[unique=true];title[lang=$lang];name;parent(uid, $contentCV);
+                               ;                         ; BundlesNavNode          ; Bundles                          ; Bundles                                        ; GPCategoryNavigationNode   ;                                    
+                               ;                         ; SuppliesNavNode         ; Cleaning Supplies                ; Cleaning Supplies                              ; GPCategoryNavigationNode   ;                                    
+                               ;                         ; SuppliesOverviewNavNode ; Cleaning Supplies Overview       ; Cleaning Supplies Overview                     ; SuppliesNavNode            ;                                    
+                               ;                         ; CarpetCareNavNode       ; Carpet Care                      ; Carpet Care                                    ; SuppliesOverviewNavNode    ;                                    
+                               ;                         ; FloorCareNavNode        ; Floor Care                       ; Floor Care                                     ; SuppliesOverviewNavNode    ;                                    
+                               ;                         ; KitchenCareNavNode      ; Kitchen Care                     ; Kitchen Care                                   ; SuppliesOverviewNavNode    ;                                    
+                               ;                         ; BundlesNavLink          ; Bundles                          ; /category/bundles                              ;                            ;                                    ;  ;                           
+                               ;                         ; CleaningSuppliesNavLink ; Cleaning Supplies                ; /category/cleaningsupply                       ;                            ;                                    ;  ;                           
+                               ;                         ; CarpetCareNavLink       ; Carpet Care                      ; /category/319                                  ;                            ;                                    ;  ;                           
+                               ;                         ; FloorCareNavLink        ; Floor Care                       ; /category/320                                  ;                            ;                                    ;  ;                           
+                               ;                         ; KitchenCareNavLink      ; Kitchen Care                     ; /category/321                                  ;                            ;                                    ;  ;                           
+                               ;                         ; BundlesNavNodeEntry     ; Bundles Nav Node Entry           ; BundlesNavNode                                 ; BundlesNavLink             ;                                    
+                               ;                         ; SuppliesNavNodeEntry    ; Cleaning Supplies Nav Node Entry ; SuppliesNavNode                                ; CleaningSuppliesNavLink    ;                                    
+                               ;                         ; CarpetCareNavNodeEntry  ; Carpet Care Node Entry           ; CarpetCareNavNode                              ; CarpetCareNavLink          ;                                    
+                               ;                         ; FloorCareNavNodeEntry   ; Floor Care Node Entry            ; FloorCareNavNode                               ; FloorCareNavLink           ;                                    
+                               ;                         ; KitchenCareNavNodeEntry ; Kitchen Care Node Entry          ; KitchenCareNavNode                             ; KitchenCareNavLink         ;                                    
+
+
+
+##########################################   gpUSProductCatalog\categories-classifications.impex  ##########################################
+############  These lines are present in R1.1_PRoduction branch but not in R2   ########################################################################3
+#####################################################################################################################################################33
+$productCatalog=gpUSProductCatalog
+$productCatalogName=GP US Product Catalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$classCatalogVersion=catalogversion(catalog(id[default='gpUSClassification']),version[default='1.0'])[unique=true,default='gpUSClassification:1.0']
+$classSystemVersion=systemVersion(catalog(id[default='gpUSClassification']),version[default='1.0'])[unique=true]
+$class=classificationClass(ClassificationClass.code,$classCatalogVersion)[unique=true]
+$supercategories=source(code, $classCatalogVersion)[unique=true]
+$categories=target(code, $catalogVersion)[unique=true]
+$attribute=classificationAttribute(code,$classSystemVersion)[unique=true]
+$unit=unit(code,$classSystemVersion)
+
+INSERT_UPDATE CategoryCategoryRelation ; $categories    ; $supercategories
+                                       ; bundles        ; 10001           ;  
+                                       ; cleaningsupply ; 10001           ;  
+                                       ; bundles        ; 20001           ;  
+                                       ; cleaningsupply ; 20001           ;  
+                                       ; bundles        ; 30001           ;  
+                                       ; cleaningsupply ; 30001           ;  
+                                       ; bundles        ; 40001           ;  
+                                       ; cleaningsupply ; 40001           ;  
+
+

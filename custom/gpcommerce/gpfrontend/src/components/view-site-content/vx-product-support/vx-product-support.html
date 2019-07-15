@@ -1,0 +1,29 @@
+<div class="vx-product-support" :id="componentId" :class="componentTheme">
+  <h3 class="ml-md-3 support-title" v-html="componentTitle"></h3>
+  <div class="title-underline mt-xs-2" v-if="componentTitle"></div>
+  <ul class="nav nav-tabs mb-xs-2" role="tablist">
+    <li class="px-xs-3" :class="index===activeTab?'active':''" v-for="(item, index) in tabsData">
+      <a :href="'#tab'+ index" data-toggle="tab" class="px-xs-0 py-xs-3" role="tab" :aria-controls="'tab'+index"
+        :aria-selected="index===0?'true':'false'" :tabindex="index===0?'0':'-1'" v-html="item.gpMarketingCategoryData.marketingCategoryHeader"></a>
+    </li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane" :class="ind===activeTab?'active':''" :aria-labelledby="'tab'+ind" :aria-hidden="index===0?'false':'true'"
+      :id="'tab'+ ind " v-for="(item, ind) in tabsData" role="tabpanel">
+      <div class="panel panel-default">
+        <div class="panel-heading p-xs-0">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent=".tab-pane" :href="'#collapse_ps' + ind" class="p-xs-3" :class="ind===0?'':'collapsed'">
+              <span v-html="item.gpMarketingCategoryData.marketingCategoryHeader"></span>
+            </a>
+          </h4>
+        </div>
+        <div :id="'collapse_ps' + ind" class="panel-collapse collapse" :class="ind===0?'in':''">
+          <div class="panel-body">
+            <vx-product-category :tabBody=item.gpTipsAndKnowledgeData />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

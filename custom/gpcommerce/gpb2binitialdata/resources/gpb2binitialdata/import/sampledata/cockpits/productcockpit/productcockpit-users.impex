@@ -1,0 +1,33 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+#
+# Import Sample Product Cockpit User
+# 
+
+
+$defaultPassword=1234
+
+INSERT_UPDATE UserGroup;UID[unique=true];groups(uid)[mode=append]
+;productmanagergroup;cockpitgroup,employeegroup
+
+INSERT_UPDATE Employee;UID[unique=true];password[default=$defaultPassword];description;name;groups(uid);sessionLanguage(isocode);sessionCurrency(isocode)
+;productmanager;;Product manager;Product Manager;productmanagergroup;en;USD
+
+UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];writePrincipals(uid);
+;gpUSProductCatalog;Online;productmanagergroup,productmanager;
+;gpUSProductCatalog;Staged;productmanagergroup,productmanager;
+
+# catalog version specific access rights for backofficeproductmanagergroup group
+# this allows read and write access for catalog & product item in pcmbackoffice
+INSERT_UPDATE CatalogVersion; catalog(id)[unique=true]; version[unique=true]; readPrincipals(uid)[mode=append]; writePrincipals(uid)[mode=append]
+                            ; gpUSProductCatalog	  ; Staged              ; backofficeproductmanagergroup   ; backofficeproductmanagergroup
+                            ; gpUSProductCatalog	  ; Online              ; backofficeproductmanagergroup   ; backofficeproductmanagergroup
+                            

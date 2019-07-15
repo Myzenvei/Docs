@@ -1,0 +1,54 @@
+<div class="vx-info-section pt-xs-3 pb-xs-5">
+  <div class="vx-info-section__header d-flex justify-content-between">
+    <h3 class="vx-info-section__header-title my-xs-0 py-xs-3" v-if="childUnits !== 0">{{i18n.groupLabel}} - {{childUnits}}</h3>
+    <h3 class="vx-info-section__header-title my-xs-0 py-xs-3" v-else>{{i18n.groupLabel}}</h3>
+    <div class="vx-info-section__header-buttons align-self-center" v-if="existingButton && newButton">
+      <a href="javascript:void(0)" class="existing-button px-xs-2" @click="addExisting(i18n.groupLabel)">{{i18n.addText}} {{i18n.existingText}}</a>
+      <a href="javascript:void(0)" class="new-button pl-xs-2" @click="addNew(i18n.groupLabel)">{{i18n.newText}}</a>
+    </div>
+    <div class="vx-info-section__header-buttons align-self-center" v-else-if="!existingButton && newButton">
+      <a href="javascript:void(0)" class="new-button pl-xs-2" @click="addNew(i18n.groupLabel)">{{i18n.addText}} {{i18n.newText}}</a>
+    </div>
+    <div class="vx-info-section__header-buttons align-self-center" v-else-if="existingButton">
+      <a href="javascript:void(0)" class="existing-button px-xs-2" @click="addExisting(i18n.groupLabel)">{{i18n.addText}} {{i18n.existingText}}</a>
+    </div>
+  </div>
+  <div class="vx-info-section__body d-flex flex-wrap">
+    <div class="vx-info-section__info-card" v-for="item in displayInfoData">
+      <vx-profile-card class="mx-xs-3 mb-xs-5" :hasIcons="iconClass !== undefined && iconClass !== ''" :cardClasses="'py-xs-4'"
+        v-bind:has-footer="false" :isDisabled="item.status !== undefined ? !item.status : false" :showTrash="true">
+        <template slot="heading">
+          <li class="card-heading-link d-flex justify-content-between word-wrap-all">
+
+            <a :href="`${item.link}`">
+              <h4>{{item.label}}</h4>
+            </a>
+            <span v-if="item.status !== undefined ? !item.status : false" class="disabled-text">{{i18n.disabledText}}</span>
+          </li>
+        </template>
+        <template slot="details">
+          <li class="card-item word-wrap-all" v-html=item.info></li>
+        </template>
+        <template slot="icons" v-if="item.units">
+          <li class="card-icon" v-if="iconClass !== undefined && iconClass !== '' && item.units > 1">
+            <a href="javascript:void(0)" @click="handleDelete(i18n.groupLabel, item.label, item)" :aria-label="i18n.iconDeleteTitle">
+              <span class="icon-default icon-big icon-trash" :title="i18n.iconDeleteTitle"></span>
+            </a>
+          </li>
+          <li v-else>&#8203;</li>
+        </template>
+        <template slot="icons" v-else>
+          <li class="card-icon" v-if="iconClass !== undefined && iconClass !== '' && deleteAll">
+            <a href="javascript:void(0)" @click="handleDelete(i18n.groupLabel, item.label, item)" :aria-label="i18n.iconDeleteTitle">
+              <span class="icon-default icon-big icon-trash" :title="i18n.iconDeleteTitle"></span>
+            </a>
+          </li>
+          <li v-else>&#8203;</li>
+        </template>
+        <template slot="footer">
+          &#8203;
+        </template>
+      </vx-profile-card>
+    </div>
+  </div>
+</div>

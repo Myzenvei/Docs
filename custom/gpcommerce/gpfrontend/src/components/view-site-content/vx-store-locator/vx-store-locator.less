@@ -1,0 +1,178 @@
+
+
+.vx-store-locator {
+  .input-group {
+    .form-control {
+      height: 48px; //fix for ie as the text is not visbile when user types
+      line-height: 48px; //fix for ie
+    }
+
+    .icon-search {
+      position: absolute;
+      line-height: 48px;
+      color: @tag-default-color;
+      font-size: @font-size-h2;
+      right: 106px;
+      z-index: 2;
+    }
+  }
+
+  .location-text {
+    color: @font-color-label-text;
+    font-size: @font-size-small;
+    font-weight: @font-weight-regular;
+  }
+
+  .dropdown-label {
+    color: @font-color-label-text;
+    font-weight: @font-weight-regular;
+  }
+
+  .store {
+    &__container {
+      height: 1081px;
+      overflow-y: auto;
+    }
+
+    &__found {
+      color: @text-color;
+      font-weight: @font-weight-medium;
+    }
+
+    &__details {
+      border: 1px solid @border-color;
+      border-bottom: none;
+      cursor: pointer;
+
+      &.active {
+        background: @bg-color-menu-item;
+      }
+    }
+  }
+
+  .store-name {
+    color: @font-color-stepper;
+    font-weight: @font-weight-medium;
+  }
+
+  .store-distance {
+    color: @text-color;
+    font-size: @font-size-h3;
+    font-weight: @font-weight-medium;
+    float: right;
+  }
+
+  .store-info {
+    color: @text-color;
+    font-weight: @font-weight-regular;
+    font-size: @font-size-small;
+  }
+
+  .selected-store {
+    img {
+      max-width: 120px;
+      max-height: 120px;
+    }
+
+    .store-name {
+      font-size: @font-size-large;
+      color: @font-color-nav-link;
+      cursor: pointer;
+    }
+
+    .store-info {
+      color: @text-color;
+    }
+  }
+
+  .map-locator {
+    padding: 0 !important;
+
+    #map-canvas {
+      width: 93% !important;
+    }
+  }
+
+  .no-stores {
+    background-color: @brand-secondary-8;
+    height: 284px;
+    line-height: 284px;
+    color: @font-color-label-text;
+    font-weight: @font-weight-regular;
+    text-align: center;
+  }
+
+  .narrow-search {
+    font-weight: @font-weight-medium;
+    color: @font-color-input-text;
+  }
+
+  .error-icon,
+  .error-msg {
+    color: @font-color-error;
+  }
+}
+
+@media (min-width: @screen-sm-min) {
+  .vx-store-locator {
+    margin: 32px 40px 40px;
+
+    .seperator {
+      line-height: 20px;
+      width: auto;
+    }
+
+    .location-text {
+      width: 208px;
+    }
+
+    .no-stores {
+      height: 384px;
+      line-height: 384px;
+    }
+
+    .apply-btn {
+      margin-top: 48px;
+      padding-left: 48px;
+      padding-right: 48px;
+    }
+  }
+}
+
+@media (max-width: @screen-sm-max) {
+  .vx-store-locator {
+    .apply-btn {
+      float: right;
+    }
+  }
+}
+
+@media (max-width: @screen-xs-max) {
+  .vx-store-locator {
+    .modal-body {
+      height: 85vh;
+    }
+
+    .apply-btn {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+
+    .store {
+      &__container {
+        height: auto;
+      }
+
+      &__details {
+        &:nth-child(n) {
+          border-bottom: 1px solid @border-color;
+        }
+
+        &.active {
+          background: none;
+        }
+      }
+    }
+  }
+}

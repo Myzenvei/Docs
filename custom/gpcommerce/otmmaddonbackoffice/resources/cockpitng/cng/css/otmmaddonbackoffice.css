@@ -1,0 +1,428 @@
+
+.otmmaddonbackoffice-mediareferenceeditor-border {
+    background-color: #FFFFFF;
+    border: 1px solid #CDD1D9;
+    padding: 5px 5px 5px 5px;
+    position: relative;
+}
+
+.otmmaddonbackoffice-mediareferenceeditor-border:hover {
+    background: #e6e9ed;
+}
+
+.otmmaddonbackoffice-mediareferenceeditor-borderlayout {
+    background-color: inherit;
+}
+
+.otmmaddonbackoffice-mediareferenceeditor-borderlayout .z-center {
+    background-color: inherit;
+}
+
+.otmmaddonbackoffice-mediareferenceeditor-borderlayout .z-east {
+    padding-left: 6px;
+    background-color: inherit;
+}
+
+.otmmaddonbackoffice-mediareferenceeditor-image {
+    max-width: 16px;
+    max-height: 16px;
+}
+
+.otmmaddonbackoffice-mediareferenceeditor-label {
+    font-family: arial, sans-serif;
+    font-weight: normal;
+    font-size: 12px;
+    color: #303030;
+    margin-bottom: 0;
+}
+
+.otmmaddonbackoffice-mediareferenceeditor-button {
+    background-color: inherit;
+    background-image: none;
+    border: medium none;
+    border-radius: 0;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+}
+
+.otmmaddonbackoffice-mediareferenceeditor-button:focus {
+    border-style: none !important;
+}
+
+.otmmaddonbackoffice-mediareferenceeditor-button *:focus {
+    border-style: none !important;
+}
+
+.otmmaddonbackoffice-assetassignmentwindow .z-north {
+    background-color: #FFFFFF;
+}
+
+.otmmaddonbackoffice-assetassignmentwindow .z-east {
+    background-color: #FFFFFF;
+}
+
+.otmmaddonbackoffice-assetassignmentwindow .z-south {
+    background-color: #FFFFFF;
+}
+
+.otmmaddonbackoffice-assetassignmentwindow .z-west {
+    background-color: #FFFFFF;
+}
+
+.otmmaddonbackoffice-assetassignmentwindow .z-center {
+    background-color: #FFFFFF;
+}
+
+.otmmaddonbackoffice-assetassignmentwindow .z-borderlayout {
+    background-color: #FFFFFF;
+}
+
+.otmmaddonbackoffice-assetassignmentwindow div.z-grid tr.z-row td.z-row-inner {
+    border-bottom: 0 none;
+}
+
+.otmmaddonbackoffice-assetassignmentwindow-main-south {
+    padding: 5px 5px 5px 5px;
+    border-top-style: solid;
+    border-top-color: #27394f;
+    border-top-width: 5px;
+}
+
+.otmmaddonbackoffice-assetassignmentwindow-additionalsettings-south {
+    padding: 5px 5px 5px 5px;
+}
+
+.otmmaddonbackoffice-assetassignmentwindow-additionalsettings-south .z-east-body {
+    padding-top: 8px;
+    width: 105% !important;
+}
+
+.otmmaddonbackoffice-assetassignmentwindow-additionalsettings-customkeyword-label {
+    font-weight: bold;
+    margin-left: 1px;
+    margin-bottom: 3px;
+}
+
+.otmmaddonbackoffice-assetassignmentwindow-additionalsettings-assetdeliveryselection-label {
+    font-weight: bold;
+    margin-left: 1px;
+    margin-bottom: 3px;
+}
+
+.otmmaddonbackoffice-assetassignmentwindow-main-center {
+    padding: 0 5px 0 5px;
+}
+
+.otmmaddonbackoffice-assetassignmentwindow-tree-west {
+    padding: 5px 0 0 0;
+}
+
+.otmmaddonbackoffice-assetassignmentwindow-uploadbutton-west .z-west-body {
+    overflow: hidden !important;
+}
+
+.otmmaddonbackoffice-assetassignmentwindow-rightHandComponent-center {
+    padding: 5px 0 0 5px;
+}
+
+.otmmaddonbackoffice-assetassignmentwindow .z-listheader-content {
+    line-height: 20px;
+}
+
+.otmmaddonbackoffice-assetassignmentwindow .z-treecell-text {
+    display: inline;
+}
+
+.otmmaddonbackoffice-assetassignmentwindow .ot-treecell {
+    overflow: visible;
+}
+
+.otmmaddonbackoffice-assetassignmentwindow .ot-treecell .z-treecell-text {
+    white-space: nowrap;
+}
+
+.otmmaddonbackoffice-assetassignmentwindow .z-tree-line,
+.otmmaddonbackoffice-assetassignmentwindow .z-tree-icon {
+    width: 24px;
+    min-width: 24px;
+}
+
+.otmmaddonbackoffice-assetassignmentwindow .opentext-assetlist-div-img {
+    height: 35px;
+}
+
+.otmmaddonbackoffice-assetassignmentwindow .opentext-assetlist-img {
+    max-height: 35px;
+    max-width: 100px;
+    cursor: pointer;
+}
+
+.otmmaddonbackoffice-errorwindow-bg-color {
+    background-color: #FFFFFF;
+}
+
+.otmmaddonbackoffice-assetassignmentwindow-asset-upload-drop-area {
+    opacity: 0.4;
+    /*background-color: white;*/
+}
+
+.otmmaddonbackoffice-assetassignmentwindow-asset-upload-drop-area > div {
+    /*border-radius: 10px;*/
+    border: 3px dashed #136b6b;
+    color: white;
+    font-size: 12pt;
+    font-weight: bold;
+    text-align: center;
+    background-color: #66ffff;
+    height: 600px;
+}
+
+.otmmaddonbackoffice-assetassignmentwindow-asset-upload-drop-area > div:hover {
+    border-style: solid;
+}
+
+.otmmaddonbackoffice-assetassignmentwindow-asset-upload-drop-area > div > div {
+    color: white;
+    float: left;
+    font-size: 30pt;
+    font-weight: bold;
+    opacity: 1;
+    position: absolute;
+    text-align: center;
+    left: 100px;
+    top: 280px;
+}
+
+.otmmaddonbackoffice-assetassignmentwindow tr.opentext-assetlist-selected-asset {
+    background-color: #dfe7ea;
+}
+
+.otmmaddonbackoffice-assetassignmentwindow tr.z-listitem:hover {
+    background-color: #bac9ce;
+}
+
+.otmmaddonbackoffice-assetassignmentwindow .z-listcell > .z-listcell-content,
+.otmmaddonbackoffice-assetassignmentwindow .z-listitem-selected.z-listitem > .z-listcell > .z-listcell-content,
+.otmmaddonbackoffice-assetassignmentwindow .z-listitem-selected.z-listitem:hover > .z-listcell > .z-listcell-content {
+    color: #303030;
+    padding: 5px 0 5px 0;
+}
+
+.otmmaddonbackoffice-assetassignmentwindow .z-listcell > .z-listcell-content > span.z-checkbox,
+.otmmaddonbackoffice-assetassignmentwindow th.z-listheader > .z-listheader-content > span.z-checkbox {
+    padding-left: 10px;
+    text-align: left;
+}
+
+.otmmaddonbackoffice-assetassignmentwindow input[type="checkbox"] {
+    appearance: auto;
+}
+
+.otmmaddonbackoffice-html5-assetassignmentwindow div.z-window-content {
+    height: 750px;
+}
+
+iframe#ot-damlink-backoffice-asset-assignment-iframe {
+    border: 0 none;
+}
+
+.opentext-view-asset-properties {
+    width: 24px;
+    height: 24px;
+    display: none;
+}
+
+tr.z-listitem:hover .opentext-view-asset-properties {
+    width: 24px;
+    height: 24px;
+    display: inline;
+}
+
+.otmmaddonbackoffice-errorwindow-main * {
+    font-family: 'Roboto', serif;
+    font-size: 15px;
+}
+
+.otmmaddonbackoffice-processingwindow-bg-color {
+    background-color: #FFFFFF;
+}
+
+.otmmaddonbackoffice-dropfilewidget-dropupload {
+    border: 3px dashed #ccc;
+    border-radius: 10px;
+    color: #ccc;
+    font-size: 12pt;
+    font-weight: bold;
+    text-align: center;
+    background-image: url('./images/drop_asset_here4.png');
+    background-repeat: no-repeat;
+    background-position: 50% 20%;
+    background-color: white;
+    width: 300px;
+    height: 100px;
+    padding-top: 5px;
+    padding-left: 5px;
+}
+
+.otmmaddonbackoffice-dropfilewidget-dropupload > div {
+    margin-top: 55px;
+}
+
+.otmmaddonbackoffice-dropfilewidget-label {
+    color: #ccc;
+    font-size: 12pt;
+    font-weight: bold;
+    text-align: center;
+}
+
+.otmmaddonbackoffice-dropfilewidget-dropupload-hover {
+    border: 3px dashed #000000;
+    border-radius: 10px;
+    width: 300px !important;
+    height: 100px !important;
+    padding-top: 5px;
+    padding-left: 5px;
+    /*background-color: #cccccc;*/
+    background: radial-gradient(transparent 60%, black);
+    opacity: 0.3;
+
+}
+
+.otmmaddonbackoffice-multimediareferenceeditor-listcell .ye-default-reference-editor-remove-button {
+    position: absolute;
+    right: 0;
+    top: 33%;
+    margin-top: -12px;
+    width: 24px;
+    height: 24px;
+    background-image: none;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.otmmaddonbackoffice-media-thumbnail {
+    width: 300px;
+    display: inline-block;
+    text-align: center;
+}
+
+.otmmaddonbackoffice-media-thumbnail img {
+    width: 300px;
+}
+
+/*.z-listitem-selected:hover .otmmaddonbackoffice-multimediareferenceeditor-listcell .ye-default-reference-editor-remove-button,*/
+/*.z-listitem:hover .otmmaddonbackoffice-multimediareferenceeditor-listcell .ye-default-reference-editor-remove-button {*/
+    /*background-image: url("images/icon_func_referenceselector_remove_default.png");*/
+/*}*/
+
+.otmmaddonbackoffice-multimediareferenceeditor-listcell .multimediareferenceeditor-launch-button {
+    position: absolute;
+    right: 0;
+    top: 66%;
+    margin-top: -12px;
+    width: 24px;
+    height: 24px;
+    background-image: none;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.z-listitem-selected:hover .otmmaddonbackoffice-multimediareferenceeditor-listcell .multimediareferenceeditor-launch-button,
+.z-listitem:hover .otmmaddonbackoffice-multimediareferenceeditor-listcell .multimediareferenceeditor-launch-button {
+    background-image: url("images/notification_information16_grey.png");
+}
+
+.ye-com_opentext_hybris_otmmconnector_backoffice_editors_mediareferenceeditor .otmmaddonbackoffice-multimediareferenceeditor-listcell .mediareferenceeditor-assignmentdialog-button {
+    position: absolute;
+    right: 0;
+    top: 80%;
+    margin-top: -12px;
+    width: 24px;
+    height: 24px;
+    background-image: none;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.z-listitem-selected:hover .otmmaddonbackoffice-multimediareferenceeditor-listcell .mediareferenceeditor-assignmentdialog-button,
+.z-listitem:hover .otmmaddonbackoffice-multimediareferenceeditor-listcell .mediareferenceeditor-assignmentdialog-button {
+    background-image: url("images/open_advanced_editor.gif");
+}
+
+.ye-com_opentext_hybris_otmmconnector_backoffice_editors_mediareferenceeditor .otmmaddonbackoffice-multimediareferenceeditor-listcell .ye-default-reference-editor-remove-button {
+    top: 20%;
+}
+
+.ye-com_opentext_hybris_otmmconnector_backoffice_editors_mediareferenceeditor .otmmaddonbackoffice-multimediareferenceeditor-listcell .multimediareferenceeditor-launch-button {
+    top: 50%;
+}
+
+.ye-com_opentext_hybris_otmmconnector_backoffice_editors_mediareferenceeditor .z-listcell-content > div {
+    min-height: 100px;
+}
+
+.ye-com_opentext_hybris_otmmconnector_backoffice_editors_multimediareferenceeditor .z-listcell-content > div {
+    min-height: 60px;
+}
+
+.ye-com_opentext_hybris_otmmconnector_backoffice_editors_mediareferenceeditor .ye-default-reference-editor-selected-listbox .otmmaddonbackoffice-multimediareferenceeditor-listcell .ye-default-reference-editor-selected-item-container img {
+    max-width: 80px;
+    max-height: 80px;
+}
+
+.ye-com_opentext_hybris_otmmconnector_backoffice_editors_multimediareferenceeditor .ye-default-reference-editor-selected-listbox .otmmaddonbackoffice-multimediareferenceeditor-listcell .ye-default-reference-editor-selected-item-container img {
+    max-width: 40px;
+    max-height: 40px;
+}
+
+.ye-default-reference-editor-selected-listbox .z-listitem:last-child div.ye-default-reference-editor-item-container,
+.ye-default-reference-editor-selected-listbox .z-listitem:last-child div.ye-default-reference-editor-selected-item-container {
+    height: auto;
+}
+
+.z-listitem-selected:hover .otmmaddonbackoffice-multimediareferenceeditor-listcell div.ye-default-reference-editor-selected-item-container,
+.z-listitem:hover .otmmaddonbackoffice-multimediareferenceeditor-listcell div.ye-default-reference-editor-selected-item-container {
+    background-image: none;
+}
+
+.multimediareferenceeditor-asset-assignment-launch-hlayout {
+    width: 100%;
+    float: left;
+    border: 1px solid #B7BDC8;
+}
+
+.multimediareferenceeditor-asset-assignment-launch-leftsidediv {
+    height: 30px;
+    float: left;
+    background: blue;
+}
+
+.multimediareferenceeditor-asset-assignment-launch-button, .multimediareferenceeditor-show-upload-widget-button {
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+    float: right;
+    border-left: 1px solid #B7BDC8;
+}
+
+.multimediareferenceeditor-asset-assignment-launch-button {
+    background-image: url("images/open_advanced_editor.gif");
+}
+
+.multimediareferenceeditor-asset-assignment-launch-button:hover {
+    background-color: #a6b3c4;
+    background-image: url("images/open_advanced_editor_white.gif");
+}
+
+.multimediareferenceeditor-show-upload-widget-button {
+    background-image: url("images/add_btn.gif");
+}
+
+.multimediareferenceeditor-show-upload-widget-button:hover {
+    background-color: #a6b3c4;
+}
+

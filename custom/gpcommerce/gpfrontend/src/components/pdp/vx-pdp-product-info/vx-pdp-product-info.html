@@ -1,0 +1,304 @@
+<section class="vx-pdp-product-info row d-flex">
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>
+  </vx-spinner>
+  <div class="col-xs-10 col-md-11 pdp-product-description">
+    <div class="row">
+      <template v-if="pdpProductInfo.name">
+        <h1 class="col-xs-12 h2" v-if="pdpProductInfo" v-html="pdpProductInfo.name"></h1>
+      </template>
+      <div class="py-xs-2 col-xs-12 product-subtitle" v-if="pdpProductInfo.subtitle" v-html="pdpProductInfo.subtitle">
+      </div>
+      <div class="col-xs-12 pdp-item-details" v-if="pdpProductInfo">
+        <p>
+          <span v-if="globals.isGpXpress()">{{i18n.mfgText}} {{pdpProductInfo.code}}</span>
+          <span v-if="!globals.isGpXpress()" class="sr-only">{{i18n.itemIdA11y}}  {{pdpProductInfo.code}}</span>
+          <span v-if="!globals.isGpXpress()" aria-hidden="true">{{i18n.itemId}}
+            <span>{{pdpProductInfo.code}}</span>
+          </span>
+          <span v-if="pdpProductInfo.hasOwnProperty('cmirCode')" class="separator"> | </span>
+          <span v-if="pdpProductInfo.hasOwnProperty('cmirCode') && !globals.isGpXpress()">{{i18n.cmir}}</span>
+          <span v-if="pdpProductInfo.hasOwnProperty('cmirCode') && globals.isGpXpress()">{{i18n.custText}}</span>
+          <span v-if="pdpProductInfo.hasOwnProperty('cmirCode')">{{pdpProductInfo.cmirCode}}
+          </span>
+        </p>
+      </div>
+      <div class="display-attributes" v-if="globals.siteConfig.enableDisplayAttributes && pdpProductInfo.displayAttributes" v-html="displayAttributes(pdpProductInfo.displayAttributes)">
+      </div>
+      <p class="col-xs-12 location-availability"
+        v-if="globals.isB2B() && pdpProductInfo && pdpProductInfo.isAvailableForLocation">{{i18n.locationAvailable}}</p>
+      <!-- <div class="col-xs-12 pt-xs-1 bvRatingsContainer inline-rating">
+        <div :id="bvInlineRating"></div>
+      </div> -->
+      <p class="col-xs-12 px-xs-3 error-text"
+        v-if="pdpProductInfo && pdpProductInfo.materialStatus=== ProductAvailability.OBSOLETE && pdpProductInfo.replacementProductCode && pdpProductInfo.replacementProductCode!=='' && globals.siteConfig.showProductStatus">
+        {{i18n.discontinued}} {{i18n.replacedBy}} {{pdpProductInfo.replacementProductCode}}
+      </p>
+      <p class="col-xs-12 px-xs-3 error-text"
+        v-else-if="pdpProductInfo && pdpProductInfo.materialStatus=== ProductAvailability.OBSOLETE && !pdpProductInfo.replacementProductCode && globals.siteConfig.showProductStatus">
+        {{i18n.discontinued}}
+      </p>
+      <p class="col-xs-12 px-xs-3"
+        v-else-if="pdpProductInfo && pdpProductInfo.materialStatus === ProductAvailability.COMING_SOON && globals.siteConfig.showProductStatus">
+        {{i18n.availableSoon}}
+      </p>
+      <template
+        v-if="pdpProductInfo && pdpProductInfo.materialStatus !== ProductAvailability.OBSOLETE && pdpProductInfo.materialStatus !== ProductAvailability.COMING_SOON && globals.siteConfig.showInventoryMessages">
+        <p class="col-xs-12 pdp-product-status text-danger"
+          v-if="((pdpProductInfo) && (pdpProductInfo.stock.stockLevelStatus === ProductAvailability.LOW_STOCK) && globals.siteConfig.showLowInventoryMessage)"
+          tabindex="0" role="status">{{i18n.lowInventoryMessage}}</p>
+        <p class="col-xs-12 pdp-product-status product-unavailable"
+          :class="(pdpProductInfo.stock.stockLevelStatus === ProductAvailability.OUT_OF_STOCK)?'product-unavailable':''"
+          v-if="(pdpProductInfo) && (pdpProductInfo.stock.stockLevelStatus === ProductAvailability.OUT_OF_STOCK)">
+          <span
+            v-if="(pdpProductInfo.stock.stockLevelStatus === ProductAvailability.OUT_OF_STOCK) && !(pdpProductInfo.stock.hasOwnProperty('nextAvailableDate'))">{{i18n.outOfStock}}</span>
+          <br>
+          <span v-if="(pdpProductInfo.stock.stockLevelStatus === ProductAvailability.OUT_OF_STOCK)">
+            <span v-if="(pdpProductInfo.stock.hasOwnProperty('nextAvailableDate'))">
+              {{i18n.backorderItem}} {{pdpProductInfo.stock.nextAvailableDate}}</span>
+          </span>
+        </p>
+      </template>
+      <template v-if="pdpProductInfo && isBazaarVoice === 'true'">
+        <div class="py-xs-2 col-xs-12 star-rating" id="star-rating"
+          v-if="pdpProductInfo.hasOwnProperty('bvAverageRating')">
+          <vx-star-rating :product-rating="pdpProductInfo.bvAverageRating"
+            :product-reviews="pdpProductInfo.bvNumberOfReviews" :i18n="i18n" :show-rating="showRating"
+            :show-reviews="showReviews" :number-of-stars="5"></vx-star-rating>
+        </div>
+      </template>
+      <div class="py-xs-2 col-xs-12 product-selling-smt" v-if="pdpProductInfo.sellingstmt" v-html="pdpProductInfo.sellingstmt">
+      </div>
+      <div class="py-xs-2 col-xs-12 price" v-if="pdpProductInfo && globals.siteConfig.isProductPriceEnabled">
+        <strong class="current-price" role="text" :aria-label="'price' + pdpProductInfo.price.formattedValue"><span
+            class="sr-only">{{i18n.a11yCurrentPrice}}</span>{{pdpProductInfo.price.formattedValue}}</strong>
+        <span class="pl-xs-2 actual-price" v-if="pdpProductInfo.weblistPrice">
+          <span class="sr-only">{{i18n.a11ySlashedPrice}}</span>{{pdpProductInfo.weblistPrice.formattedValue}}</span>
+      </div>
+      <div class="col-xs-12 pdp-quantity-container" v-if="pdpProductInfo">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-4 form-group pdp-stepper-control" v-if="globals.siteConfig.isQuantitySelectorEnabled">
+            <label class="qty-label">{{i18n.quantity}}</label>
+            <vx-stepper-control :value="quantityValue" :min-value="minOrderQuantity()" :stock-level="setStockLevel()" v-bind:maxValue="maxOrderQuantity()"
+              @currentCount="getQuantity($event)" @maxValueUpdated="maxValueUpdated" @minValueUpdated="minValueUpdated" @stockLevelUpdated="stockLevelUpdated" @disableAddToCart="disableAddToCart"></vx-stepper-control>
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-8 form-group dropdown" v-if="firstVariantEnabled">
+            <div v-if="sizeEnabled">
+            <label>{{i18n.size}}</label>
+            <br>
+            <vx-dropdown-primary @selected-item="updateSize($event)" :dropdownValues="sizeList" ref="sizeDropdown">
+            </vx-dropdown-primary>
+            </div>
+            <div v-if="countEnabled">
+            <label>{{i18n.count}}</label>
+            <br>
+            <vx-dropdown-primary @selected-item="updateCounts($event)" :dropdownValues="countsList" ref="countsDropdown">
+            </vx-dropdown-primary>
+            </div>
+            <div v-if="scentEnabled">
+            <label>{{i18n.scent}}</label>
+            <br>
+            <vx-dropdown-primary @selected-item="updateScent($event)" :dropdownValues="scentList" ref="scentDropdown">
+            </vx-dropdown-primary>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 pdp-facet-container" v-if="pdpProductInfo && secondVariantEnabled">
+        <div class="row">
+          <div class="col-sm-12 col-md-6 form-group dropdown" v-if="sizeEnabled">
+            <label>{{i18n.size}}</label>
+            <br>
+            <vx-dropdown-primary @selected-item="updateSize($event)" :dropdownValues="sizeList"
+              ref="sizeDropdown"></vx-dropdown-primary>
+          </div>
+          <div class="col-sm-12 col-md-6 form-group dropdown" v-if="countEnabled">
+            <label>{{i18n.count}}</label>
+            <br>
+            <vx-dropdown-primary @selected-item="updateCounts($event)" :dropdownValues="countsList"
+              ref="countsDropdown"></vx-dropdown-primary>
+          </div>
+          <div class="col-sm-12 col-md-6 form-group dropdown" v-if="scentEnabled">
+            <label>{{i18n.scent}}</label>
+            <br>
+            <vx-dropdown-primary @selected-item="updateScent($event)" :dropdownValues="scentList" ref="scentDropdown">
+            </vx-dropdown-primary>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 mb-xs-3"
+        v-if="pdpProductInfo && pdpProductInfo.stock.stockLevel && pdpProductInfo.isSubscribable && pdpProductInfo.subscriptionPrice && pdpProductInfo.subsPercentageDiscount && pdpProductInfo.materialStatus !== ProductAvailability.OBSOLETE && pdpProductInfo.stock.stockLevelStatus !== ProductAvailability.OUT_OF_STOCK">
+        <div class="form-group" v-for="(item, index) in subscriptionChecked"
+          @click="radioButtonOptionFeature(item,$event)">
+          <input tabindex="0" name="subscriptionCheckedItems" type="radio" class="form-check-input" :label="item.label"
+            :aria-label="item.label" :value="item.value" v-model="subscriptionCheckedItems" />
+          <label class="form-check-label">{{item.label}}</label>
+        </div>
+        <vx-dropdown-primary @selected-item="userChosenFrequency=$event" @primaryDropdownMounted="handleSubscriptionFrequencyDefaultValue()"
+          :dropdownValues="subscriptionFrequency" ref="subscriptionFrequencyDropdown"></vx-dropdown-primary>
+      </div>
+      <div class="col-xs-12 mb-xs-3"
+        v-if="(pdpProductInfo) && ((pdpProductInfo.stock.stockLevelStatus === ProductAvailability.OUT_OF_STOCK && pdpProductInfo.materialStatus !== ProductAvailability.OBSOLETE) || pdpProductInfo.materialStatus === ProductAvailability.COMING_SOON) && globals.siteConfig.showInventoryMessages">
+        <button class="btn btn-tertiary notify-me-btn" @click="handleNotifyMe"
+          v-if="(!(pdpProductInfo.stock.hasOwnProperty('nextAvailableDate')) || pdpProductInfo.materialStatus === ProductAvailability.COMING_SOON)">{{i18n.notifyAvailability}}</button>
+      </div>
+      <div class="col-xs-12" v-if="pdpProductInfo && styleOptionsObj && styleOptionsArr.length > 0">
+        <div class="row form-group">
+          <label class="col-xs-12">{{i18n.variant}} ({{styleVariantName}})</label>
+          <ul class="col-xs-12 pdp-variant-container" v-if="styleOptionsArr.length > 0">
+            <li class="pr-xs-3 variant"
+            v-for="{variantOptionQualifiers : variant, isSelected: isSelected, stock : stock, url : url } in styleOptionsArr">
+              <span v-for="variants in variant">
+                <a href="javascript:void(0);" v-if="variants.swatchImageUrl" :title="getVariantName(variants.value, isSelected)" @click="openSelectedVariant(url,variants)" :class="{active: isSelected}"
+                :aria-label="'open variant'+ variants.value"> <img :src="variants.swatchImageUrl" :alt="variants.value"/>
+                <span v-if="stock.stockLevel === 0" class="icon-cross"></span>
+                <span v-else>&nbsp;</span>
+                </a>
+                <a href="javascript:void(0);" v-if="variants.hexCode && !variants.swatchImageUrl" :title="getVariantName(variants.value, isSelected)" @click="openSelectedVariant(url,variants)" :class="{active: isSelected}"
+                v-bind:style="{ background: variants.hexCode }" :aria-label="'open variant'+ variants.value">
+                <span v-if="stock.stockLevel === 0" class="icon-cross"></span>
+                <span v-else>&nbsp;</span>
+                </a>
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <template v-if="globals.siteConfig.showInventoryMessages">
+        <p class="col-xs-12 max-quantity-info"
+          v-if="!globals.isDixie() && pdpProductInfo && (pdpProductInfo.hasOwnProperty('maxOrderQuantity')) && !(pdpProductInfo.hasOwnProperty('minOrderQuantity'))">
+          {{i18n.maxQuantity}}
+          {{pdpProductInfo.maxOrderQuantity}}.</p>
+          <p class="col-xs-12 max-quantity-info"
+          v-if="!globals.isDixie() && pdpProductInfo && (pdpProductInfo.hasOwnProperty('minOrderQuantity'))">
+          {{i18n.minQuantity}}
+          {{pdpProductInfo.minOrderQuantity}}.</p>
+        <div class="col-xs-12 pdp-lease-container" v-if="(pdpProductInfo) && (pdpProductInfo.isLeaseable)">
+          <span class="icon-alert-circle" :title="i18n.iconAlertCircleTitle"></span>
+          <p class="pl-xs-2">{{i18n.leaseAgreement}}</p>
+        </div>
+        <p class="col-xs-12 pt-xs-3"
+          v-if="globals.siteConfig.isFindADistributorEnabled && pdpProductInfo && pdpProductInfo.code"><a
+            :href="`${globals.getNavBaseUrl()}${globals.serviceUrls.findDistributor}/pdp?productCode=${pdpProductInfo.code}`">{{i18n.findDistributor}}</a>
+        </p>
+      </template>
+    </div>
+    <div class="row col-xs-12 mt-xs-5"
+      v-if="globals.isGpXpress() && pdpProductInfo && pdpProductInfo.approvedSampleStatus && pdpProductInfo.isSample">
+      <button class="btn btn-tertiary order-sample-btn" :aria-label="i18n.orderSample"
+        @click="addToCart">{{i18n.orderSample}}</button>
+    </div>
+    <div class="row pdp-add-to-cart-container cart-sticky-bottom"
+      v-if="(pdpProductInfo) && pdpProductInfo.materialStatus !== ProductAvailability.COMING_SOON && ((pdpProductInfo.stock.stockLevelStatus !== ProductAvailability.OUT_OF_STOCK) || ((pdpProductInfo.stock.stockLevelStatus === ProductAvailability.OUT_OF_STOCK) && (pdpProductInfo.stock.hasOwnProperty('nextAvailableDate')))) && globals.siteConfig.addToCartEnabled">
+      <div class="col-sm-12 px-xs-0 py-xs-2 px-sm-5 px-md-4">
+        <button class="btn btn-primary pull-right add-to-cart-btn" @click="handleButtonTextClick" :disabled="addToCartDisabled || !soldIndividually"
+          :aria-label="buttonText">{{buttonText}}</button>
+      </div>
+    </div>
+    <div class="row pdp-add-to-cart-container" v-if="globals.siteConfig.pdpLocateAStoreEnabled">
+      <div class="col-sm-12 px-xs-0 py-xs-2 px-sm-5 px-md-4">
+        <button class="btn btn-primary pull-right add-to-cart-btn" @click="findAStore"
+          :aria-label="i18n.findAStore">{{i18n.findAStore}}</button>
+      </div>
+    </div>
+    <span id='extole_zone_product_page' v-if="globals.siteConfig.isReferAFriend"></span>
+  </div>
+  <div class="col-sm-2 col-xs-2 col-md-1 pdp-product-cta">
+    <span class="mb-xs-3 icon-download" :title="i18n.iconDownloadTitle" v-if="(showDownload === 'true') && (globals.siteConfig.downloadPdpPdf || globals.siteConfig.downloadPdpImage)"
+      @click="handleDownloadList($event)" @keyup.enter-space="handleDownloadList($event)" tabindex="0" role="button"
+      :aria-hidden="showDownload === 'false'" aria-label="download"></span>
+    <div @click="toggleFav($event)" class="tile-icon wishlist-btn mb-xs-3 mb-sm-4" v-if="isFavorites"
+      @keyup.enter-space="toggleFav($event)" tabindex="0" role="button" aria-label="Favorites">
+      <button class="favorite" v-bind:class="{ 'active': isActive }"
+        :title="isActive ? i18n.iconSavedToFavoriteTitle : i18n.iconSaveToFavoriteTitle" :aria-label="isActive ? i18n.iconSavedToFavoriteTitle : i18n.iconSaveToFavoriteTitle">
+        <svg :preserveAspectRatio="(isSafari)?'none':'xMidYMin slice'" v-if="globals.isEmployeeStore()" width="20"
+          height="20" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink" class="heart">
+          <!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch -->
+          <desc>Created with Sketch.</desc>
+          <defs></defs>
+          <g id="UI-Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+            <g id="PDP-Desktop-/-No-Subscription-/-R1" transform="translate(-1266.000000, -293.000000)"
+              fill-rule="nonzero">
+              <g id="Save-for-later" transform="translate(1266.000000, 292.000000)">
+                <g id="heart-(5)">
+                  <path
+                    d="M23.4518256,7.5 C23.4518256,9.22443585 22.7665872,10.8781987 21.5471068,12.0971068 L12.7071068,20.9371068 C12.3165825,21.3276311 11.6834175,21.3276311 11.2928932,20.9371068 L2.45289321,12.0971068 C-0.0860186957,9.55819479 -0.0860186651,5.44180522 2.45289328,2.90289328 C4.99180522,0.363981335 9.10819479,0.363981304 11.6471068,2.90289322 L12,3.25578645 L12.3527273,2.9030592 C13.5718013,1.68341276 15.2255641,0.998174379 16.95,0.998174379 C18.6743576,0.998174379 20.3280486,1.68335058 21.5471068,2.9028932 C22.7666494,4.12195139 23.4518256,5.77564239 23.4518256,7.5 Z M12,18.8157864 L19.0728932,11.7428932 L20.1330592,10.6827273 C20.9774298,9.83875293 21.4518256,8.6938402 21.4518256,7.5 C21.4518256,6.3061598 20.9774298,5.16124707 20.1330592,4.31727273 C19.2887529,3.47257018 18.1438402,2.99817438 16.95,2.99817438 C15.7561598,2.99817438 14.6112471,3.47257018 13.7671068,4.31710678 L12.7071068,5.37710678 C12.3165825,5.76763107 11.6834175,5.76763107 11.2928932,5.37710678 L10.2328932,4.31710679 C8.47502984,2.55924345 5.62497021,2.55924347 3.86710684,4.31710684 C2.10924347,6.07497021 2.10924345,8.92502984 3.86710678,10.6828932 L12,18.8157864 Z"
+                    id="heart-outline" fill="#000000"></path>
+                  <path
+                    d="M12,18.8157864 L19.0728932,11.7428932 L20.1330592,10.6827273 C20.9774298,9.83875293 21.4518256,8.6938402 21.4518256,7.5 C21.4518256,6.3061598 20.9774298,5.16124707 20.1330592,4.31727273 C19.2887529,3.47257018 18.1438402,2.99817438 16.95,2.99817438 C15.7561598,2.99817438 14.6112471,3.47257018 13.7671068,4.31710678 L12.7071068,5.37710678 C12.3165825,5.76763107 11.6834175,5.76763107 11.2928932,5.37710678 L10.2328932,4.31710679 C8.47502984,2.55924345 5.62497021,2.55924347 3.86710684,4.31710684 C2.10924347,6.07497021 2.10924345,8.92502984 3.86710678,10.6828932 L12,18.8157864 Z"
+                    id="fill" fill="#FFFFFF"></path>
+                </g>
+              </g>
+            </g>
+          </g>
+        </svg>
+        <svg v-else version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+          class="heart" viewBox="0 0 25 25" preserveAspectRatio="none" width="20" height="20">
+          <g id="Page-1" stroke="none" stroke-width="2" fill="none" fill-rule="evenodd">
+            <g id="heart-outline" transform="translate(1.000000, 0.000000),scale(0.75, 0.8)" stroke="#999">
+              <path id="fill"
+                d="M22.3634,0.9763 C19.9054,0.9763 17.1654,1.9943 15.9764,5.2263 C15.8984,5.4373 15.5944,5.4293 15.5214,5.2163 C14.4144,1.9913 11.5714,0.9763 9.1154,0.9763 C4.4974,0.9763 0.7394,5.0363 0.7394,10.0263 C0.7394,12.3713 1.5684,14.5963 3.0754,16.2903 L15.0314,28.2673 C15.4224,28.6583 16.0564,28.6593 16.4484,28.2673 L28.1794,16.5343 C29.8234,14.8303 30.7394,12.5113 30.7394,10.0263 C30.7394,5.0363 26.9814,0.9763 22.3634,0.9763"
+                fill="#ffffff"></path>
+            </g>
+          </g>
+        </svg>
+      </button>
+    </div>
+    <span class="mb-xs-3 icon-add-to-list wishlist-btn" :title="i18n.iconAddToListTitle" v-if="!isFavorites"
+      @click="handleSelectList($event)" @keyup.enter-space="handleSelectList($event)" tabindex="0" role="button"
+      :aria-label="i18n.iconAddToListTitle"></span>
+    <span class="mb-xs-3 icon-share" ref="shareIcon" :title="globals.isB2B()? i18n.iconShareEmailTitle : i18n.iconShareTitle" @click="handleShareItem($event)"
+      @keyup.enter-space="handleShareItem($event)" tabindex="0" role="button" v-if="globals.siteConfig.shareProductEnabled"
+      :class="{'social-share-item': !globals.isB2B()}" :aria-label="globals.isB2B()? i18n.iconShareEmailTitle : i18n.iconShareTitle">
+    </span>
+    <vx-share-item slot="component" :url="prodUrl" :title="title" :is-social-share="this.isSocialShare"
+    v-if="!globals.isB2B()"></vx-share-item>
+    <template v-if="guestListName">
+        <vx-save-cart :prodQuantity="quantityValue" :cart-guid="prodId" :i18n="i18n" @list-saved="onSelectListSuccess"
+        is-product="true" :guest-list-name="guestListName"></vx-save-cart>
+    </template>
+  </div>
+  <vx-modal ref="shareItemModal" size="large" v-if="globals.isB2B()" :heading="i18n.shareItemHeading">
+    <vx-share-item slot="component" :productCode="prodId" :url="prodUrl" :i18n="i18n" :product-info="pdpProductInfo"
+      @share-item-success="onShareItemSuccess" @share-item-error="onShareItemError" :certifications-name="certificationsName"></vx-share-item>
+  </vx-modal>
+  <vx-modal ref="selectListModal" size="small" :heading="i18n.selectListHeading">
+    <vx-save-cart slot="component" :prodQuantity="quantityValue" :cart-guid="prodId" :i18n="i18n"
+      @list-saved="onSelectListSuccess" is-product="true"></vx-save-cart>
+  </vx-modal>
+  <vx-modal ref="notifyMeModal" size="extra-small" :heading="i18n.notifyMeHeading">
+    <vx-notify-me :title="i18n.notifyMeContent" :productCode="prodId" :i18n="i18n" slot="component"
+      @notify-me-success="onNotifyMeSuccess" @notify-me-error="onNotifyMeError"></vx-notify-me>
+  </vx-modal>
+  <vx-modal ref="refillsModal" size="large" :heading="i18n.refillsHeading">
+    <vx-refills slot="component" :enable-sample-cart="isSampleCart" :products=refillProductsData :i18n="i18n"
+      :is-favorites="isFavorites" @refills-error="onRefillsModalError" @refills-success="onRefillsModalSuccess"
+      @refills-no-thanks="onRefillsNoThanks" :is-bazaar-voice="isBazaarVoice" :search-browse-i18n="searchBrowseI18n">
+    </vx-refills>
+  </vx-modal>
+  <vx-modal ref="downloadInfoModal" size="large" :heading="i18n.downloadInfoHeading">
+    <vx-download-info slot="component" :is-pdp="true" :i18n="i18n" @onImageDownloadInit=onImageDownloadInit($event)
+      @onPdfDownloadInit=createPDF($event) :color-codes="colorCodes" :is-image-download-enabled="globals.siteConfig.downloadPdpImage" :is-pdf-download-enabled="globals.siteConfig.downloadPdpPdf" :certificationsName="certificationsName"></vx-download-info>
+  </vx-modal>
+  <vx-pdf-generator v-if="loadPdfGenerator" name="pdfversion" :has-sustainability-page="false" ref="pdfModule" :pdf-data="pdpProductInfo" @pdpDownloadPDF="pdpPdfDownloaded">
+    <div slot="details">
+      <div id="left-section">
+        <h5 v-if="pdpProductInfo.name" v-html="replaceText(pdpProductInfo.name)"></h5>
+        <h5 v-if="pdpProductInfo.description">Description:</h5>
+        <p v-if="pdpProductInfo.description" v-html="limitCharacters(pdpProductInfo.description)"
+          style="font-size:12px"></p>
+      </div>
+      <h5 v-if="pdpProductInfo.featureList.length" id="feature-heading">Features and Benefits:</h5>
+      <div id="features" v-if="pdpProductInfo.featureList">
+        <ol class="features" style="font-size:12px;">
+          <li v-for="feature in pdpProductInfo.featureList" v-html="replaceText(feature)"
+            v-if="pdpProductInfo.featureList"></li>
+        </ol>
+      </div>
+      <img id='itf' alt="itf"/>
+      <img id='itf1'
+        :src="pdpProductInfo.images && pdpProductInfo.images[0] && pdpProductInfo.images[0].zoomUrl ? pdpProductInfo.images[0].zoomUrl : globals.assetsPath+'images/no_image.png'" alt="no image"/>
+    </div>
+  </vx-pdf-generator>
+  <vx-extole ref="vxExtoleRef" v-if="globals.siteConfig.isReferAFriend"></vx-extole>
+</section>

@@ -1,0 +1,40 @@
+#innovia {
+  .image-title {
+    .header {
+      font-family: @font-family-heading;
+      font-size: @font-size-h4;
+      line-height: 18px;
+      letter-spacing: 0.15px;
+
+      @media (min-width: @screen-md-min) {
+        font-size: @font-size-h1;
+        line-height: 39px;
+      }
+    }
+
+    &-container {
+      .d-flex {
+        @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+          width: 33% !important;
+        }
+      }
+
+      & .bottom-block {
+        .tile-header {
+          font-size: @font-size-h4;
+          font-weight: @font-weight-medium;
+          line-height: 21px;
+
+          @media (min-width: @screen-md-min) {
+            font-size: @font-size-h2;
+            line-height: 39px;
+          }
+        }
+
+        &:before {
+          background-color: @brand-primary;
+        }
+      }
+    }
+  }
+}

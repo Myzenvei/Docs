@@ -1,0 +1,495 @@
+﻿
+
+##########################################     gpUSProductCatalog\categories.impex ##########################################
+# Macros / Replacement Parameter definitions
+$catalogVersion=catalogVersion(catalog(id[default='gpUSProductCatalog']),version[default='Staged'])[unique=true,default='gpUSProductCatalog:Staged']
+$categories=target(code, $catalogVersion)[unique=true]
+$supercategories=source(code, $catalogVersion)[unique=true]
+$lang=en
+$productCatalog=gpUSProductCatalog
+
+# Create Categories            
+INSERT_UPDATE Category ; code[unique=true]        ; $catalogVersion ; supercategories(code,$catalogVersion) ; allowedPrincipals(uid)[default='customergroup']
+ #gpxpress             
+                       ; brands                   ;                 ;                                       
+                       ; retailproducttypes       ;                 ;                                       
+                       ; retailbrands             ;                 ;                                       
+                       ; sustainablesolutions     ;                 ;                                       
+                       ; gpxpresscategories       ;                 ;                                       
+                       ; crossReferenceCategories ;                 ;
+                       
+INSERT_UPDATE Category;code[unique=true];$catalogVersion;supercategories(code,$catalogVersion);allowedPrincipals(uid)[default='customergroup'];categorizationCategory[default=true]
+;b2b;;;;
+;retail;;;;                                       
+					                  
+# Create Categories for GPXpress(Retail)
+INSERT_UPDATE Category ; code[unique=true] ; supercategories(code,$catalogVersion) ; $catalogVersion ; allowedPrincipals(uid)[default='customergroup']
+#;categories;;         
+                       ; 401               ; gpxpresscategories                    ;                 ;                                                
+                       ; 402               ; gpxpresscategories                    ;                 ;                                                
+                       ; 403               ; gpxpresscategories                    ;                 ;                                                
+                       ; 404               ; gpxpresscategories                    ;                 ;                                                
+                       ; 405               ; gpxpresscategories                    ;                 ;                                                
+                       ; 406               ; gpxpresscategories                    ;                 ;                                                
+                       ; 407               ; gpxpresscategories                    ;                 ;                                                
+                       ; 408               ; gpxpresscategories                    ;                 ;                                                
+                       ; 409               ; gpxpresscategories                    ;                 ;                                                
+                       ; 410               ; gpxpresscategories                    ;                 ;                                                
+                       ; 411               ; gpxpresscategories                    ;                 ;                                                
+                       ; 412               ; gpxpresscategories                    ;                 ;                                                
+                       ; 413               ; gpxpresscategories                    ;                 ;                                                
+                       ; 414               ; retailproducttypes                    ;                 ;                                                
+                       ; 415               ; retailproducttypes                    ;                 ;                                                
+                       ; 416               ; retailproducttypes                    ;                 ;                                                
+                       ; 417               ; retailproducttypes                    ;                 ;                                                
+                       ; 418               ; retailproducttypes                    ;                 ;                                                
+                       ; 419               ; retailproducttypes                    ;                 ;                                                
+                       ; 420               ; retailproducttypes                    ;                 ;                                                
+
+                       ; 501               ; brands                                ;                 ;                                                
+                       ; 502               ; brands                                ;                 ;                                                
+                       ; 503               ; brands                                ;                 ;                                                
+                       ; 504               ; brands                                ;                 ;                                                
+                       ; 505               ; brands                                ;                 ;                                                
+                       ; 506               ; brands                                ;                 ;                                                
+                       ; 507               ; brands                                ;                 ;                                                
+                       ; 508               ; brands                                ;                 ;                                                
+                       ; 509               ; brands                                ;                 ;                                                
+                       ; 510               ; retailbrands                          ;                 ;                                                
+                       ; 511               ; retailbrands                          ;                 ;                                                
+                       ; 512               ; retailbrands                          ;                 ;                                                
+                       ; 513               ; retailbrands                          ;                 ;                                                
+                       ; 514               ; retailbrands                          ;                 ;                                                
+                       ; 515               ; retailbrands                          ;                 ;                                                
+                       ; 516               ; retailbrands                          ;                 ;                                                
+                       ; 517               ; retailbrands                          ;                 ;                                                
+                       ; 518               ; retailbrands                          ;                 ;                                                
+
+                       ; 601               ; sustainablesolutions                  ;                 ;                                                
+                       ; 602               ; sustainablesolutions                  ;                 ;                                                
+                       ; 603               ; sustainablesolutions                  ;                 ;                                                
+                       ; 604               ; sustainablesolutions                  ;                 ;                                                
+                       ; 605               ; sustainablesolutions                  ;                 ;                                                
+                       ; 606               ; sustainablesolutions                  ;                 ;                                                
+                       ; 607               ; sustainablesolutions                  ;                 ;                                                
+                       ; 608               ; sustainablesolutions                  ;                 ;                                                
+                       ; 609               ; sustainablesolutions                  ;                 ;                                                
+                       ; 610               ; sustainablesolutions                  ;                 ;                                                
+                       ; 611               ; sustainablesolutions                  ;                 ;                                                
+
+
+##########################################     gpUSProductCatalog\categories_en.impex ##########################################
+ #gpxpress categories  
+UPDATE Category ; code[unique=true]    ; $catalogVersion ; name[lang=$lang]      ; description[lang=$lang]
+                ; brands               ;                 ; Brands                ;                        
+                ; retailproducttypes   ;                 ; Retail Product Types  ;                        
+                ; retailbrands         ;                 ; Retail Brands         ;                        
+                ; sustainablesolutions ;                 ; Sustainable Solutions ;                        
+                ; gpxpresscategories   ;                 ; Categories            ;                        
+                ; b2b                  ;                 ; B2B                   ;                        
+                ; retail               ;                 ; Retail                ;                        
+
+# Create Categories for GPXpress
+INSERT_UPDATE Category ; code[unique=true] ; $catalogVersion ; name[lang=$lang]                        ; description[lang=$lang]
+                       ; 401               ;                 ; Paper Towels & Dispensers               ;                        
+                       ; 402               ;                 ; Toilet Paper & Dispensers               ;                        
+                       ; 403               ;                 ; Facial Tissue                           ;                        
+                       ; 404               ;                 ; Skin Care & Dispensers                  ;                        
+                       ; 405               ;                 ; Air Care                                ;                        
+                       ; 406               ;                 ; Cleaning Wipers & Cloths                ;                        ;  
+                       ; 407               ;                 ; Napkins & Dispensers                    ;                        ;  
+                       ; 408               ;                 ; Plates, Platters & Bowls                ;                        ;  
+                       ; 409               ;                 ; Cups, Lids & Straws                     ;                        ;  
+                       ; 410               ;                 ; Cutlery & Dispensers                    ;                        ;  
+                       ; 411               ;                 ; Food Packaging                          ;                        ;  
+                       ; 412               ;                 ; Jobsite Protection                      ;                        ;  
+                       ; 413               ;                 ; Parts & Accessories                     ;                        ;  
+                       ; 414               ;                 ; Bath Tissue                             ;                        ;  
+                       ; 415               ;                 ; Paper Towels                            ;                        ;  
+                       ; 416               ;                 ; Livingware                              ;                        ;  
+                       ; 417               ;                 ; Paper Napkins                           ;                        ;  
+                       ; 418               ;                 ; Home Cleaning                           ;                        ;  
+                       ; 419               ;                 ; Mxed Pallets & Shippers                 ;                        ;  
+                       ; 420               ;                 ; Archive                                 ;                        ;  
+
+                       ; 501               ;                 ; Dixie®                                  ;                        ;  ;  ;  
+                       ; 502               ;                 ; enMotion®                               ;                        ;  ;  ;  
+                       ; 503               ;                 ; Sparkle® Professional                   ;                        ;  ;  ;  
+                       ; 504               ;                 ; ActiveAire™                             ;                        ;  ;  ;  
+                       ; 505               ;                 ; Compact®                                ;                        ;  ;  ;  
+                       ; 506               ;                 ; Brawny® Professional                    ;                        ;  ;  ;  
+                       ; 507               ;                 ; AngelSoft® Professional                 ;                        ;  ;  ;  
+                       ; 508               ;                 ; Pacific Blue™                           ;                        ;  ;  ;  
+                       ; 509               ;                 ; CoverMax®                               ;                        ;  ;  ;  
+                       ; 510               ;                 ; Angel Soft®                             ;                        ;  ;  ;  
+                       ; 511               ;                 ; Quilted Northern®                       ;                        ;  ;  ;  
+                       ; 512               ;                 ; MD®                                     ;                        ;  ;  ;  
+                       ; 513               ;                 ; Aria™                                   ;                        ;  ;  ;  
+                       ; 514               ;                 ; Sparkle®                                ;                        ;  ;  ;  
+                       ; 515               ;                 ; Brawny®                                 ;                        ;  ;  ;  
+                       ; 516               ;                 ; Vanity Fair®                            ;                        ;  ;  ;  
+                       ; 517               ;                 ; Mardi Gras®                             ;                        ;  ;  ;  
+                       ; 518               ;                 ; Stainmaster®                            ;                        ;  ;  ;  
+                                                               
+                       ; 601               ;                 ; EPA Compliant                           ;                        ;  ;  ;  
+                       ; 602               ;                 ; Green Seal™                             ;                        ;  ;  ;  
+                       ; 603               ;                 ; USDA BioPreferred®                      ;                        ;  ;  ;  
+                       ; 604               ;                 ; BPI® - Biodegradable Products Institute ;                        ;  ;  ;  
+                       ; 605               ;                 ; LEED® Eligible                          ;                        ;  ;  ;  
+                       ; 606               ;                 ; Waste Reducing Products                 ;                        ;  ;  ;  
+                       ; 607               ;                 ; EcoLogo®                                ;                        ;  ;  ;  
+                       ; 608               ;                 ; SFI® - Sustainable Forestry Initiative  ;                        ;  ;  ;  
+                       ; 609               ;                 ; Safer Choice                            ;                        ;  ;  ;  
+                       ; 610               ;                 ; How2Recycle®                            ;                        ;  ;  ;  
+                       ; 611               ;                 ; FSC® – Forest Stewardship Council       ;                        ;  ;  ;  
+
+# Create Cross-Reference Categories
+INSERT_UPDATE Category ; code[unique=true]        ; $catalogVersion ; supercategories(code,$catalogVersion) ; allowedPrincipals(uid)[default='customergroup'] ; order
+                       ; crossReferenceCategories ;                 ;                                       ;                                                 ; 0    
+
+INSERT_UPDATE Category ; code[unique=true]        ; $catalogVersion ; supercategories(code,$catalogVersion)[default='crossReferenceCategories'] ; allowedPrincipals(uid)[default='customergroup'] ; order
+                       ; papertowels              ;                 ;                                                                           ;                                                 ; 0    
+                       ; bathroomtissue           ;                 ;                                                                           ;                                                 ; 1    
+                       ; compacttissuespindle     ;                 ;                                                                           ;                                                 ; 2    
+                       ; papernapkins             ;                 ;                                                                           ;                                                 ; 3    
+                       ; cleaningwipes            ;                 ;                                                                           ;                                                 ; 4    
+                       ; skincare                 ;                 ;                                                                           ;                                                 ; 5    
+                       ; dispensersCrossReference ;                 ;                                                                           ;                                                 ; 6    
+#;officepaper; ;       
+#;tablecovers; ;       
+                       ; hotcups                  ;                 ;                                                                           ;                                                 ; 7    
+                       ; coldcups                 ;                 ;                                                                           ;                                                 ; 8    
+                       ; foamcups                 ;                 ;                                                                           ;                                                 ; 9    
+                       ; portioncups              ;                 ;                                                                           ;                                                 ; 10   
+                       ; cutlery                  ;                 ;                                                                           ;                                                 ; 11   
+                       ; paperplatesbowls         ;                 ;                                                                           ;                                                 ; 12   
+                       ; cartonstrays             ;                 ;                                                                           ;                                                 ; 13   
+                       ; delibrakeryfreezer       ;                 ;                                                                           ;                                                 ; 14   
+                       ; strawsandstirrers        ;                 ;                                                                           ;                                                 ; 15   
+
+# sub-categories       
+                       ; foldedpapertowels        ;                 ; papertowels                                                               ;                                                 ; 0    
+                       ; rolltowels               ;                 ; papertowels                                                               ;                                                 ; 1    
+                       ; kitchenrolltowels        ;                 ; papertowels                                                               ;                                                 ; 2    
+                       ; standardrolltissue       ;                 ; bathroomtissue                                                            ;                                                 ; 0    
+                       ; jumbotissue              ;                 ; bathroomtissue                                                            ;                                                 ; 1    
+                       ; facialtissue             ;                 ; bathroomtissue                                                            ;                                                 ; 2    
+                       ; interfoldedtissue        ;                 ; bathroomtissue                                                            ;                                                 ; 3    
+                       ; seatcovers               ;                 ; bathroomtissue                                                            ;                                                 ; 4    
+                       ; doublerollverticalstack  ;                 ; compacttissuespindle                                                      ;                                                 ; 0    
+                       ; doublerollhorizontal     ;                 ; compacttissuespindle                                                      ;                                                 ; 1    
+                       ; singleordoubleroll       ;                 ; compacttissuespindle                                                      ;                                                 ; 2    
+                       ; singleroll               ;                 ; compacttissuespindle                                                      ;                                                 ; 3    
+                       ; dinnernapkins            ;                 ; papernapkins                                                              ;                                                 ; 0    
+                       ; dispensernapkins         ;                 ; papernapkins                                                              ;                                                 ; 1    
+                       ; beveragenapkins          ;                 ; papernapkins                                                              ;                                                 ; 2    
+                       ; industrialwipers         ;                 ; cleaningwipes                                                             ;                                                 ; 0    
+                       ; foodservicewrapers       ;                 ; cleaningwipes                                                             ;                                                 ; 1    
+                       ; disposableductcloths     ;                 ; cleaningwipes                                                             ;                                                 ; 2    
+                       ; skincaredispenser        ;                 ; dispensersCrossReference                                                  ;                                                 ; 0    
+                       ; papertowldispenser       ;                 ; dispensersCrossReference                                                  ;                                                 ; 1    
+                       ; tissuedispenser          ;                 ; dispensersCrossReference                                                  ;                                                 ; 2    
+                       ; napkindispenser          ;                 ; dispensersCrossReference                                                  ;                                                 ; 3    
+                       ; paperfoamhotcups         ;                 ; hotcups                                                                   ;                                                 ; 0    
+                       ; hotcuplids               ;                 ; hotcups                                                                   ;                                                 ; 1    
+#;hotcuplids; ; coldcups;;0
+                       ; paperfoamcoldcups        ;                 ; coldcups                                                                  ;                                                 ; 0    
+                       ; plasticcoldcups          ;                 ; coldcups                                                                  ;                                                 ; 1    
+                       ; coldcuplids              ;                 ; coldcups                                                                  ;                                                 ; 2    
+                       ; drinkcarriersdispensers  ;                 ; coldcups                                                                  ;                                                 ; 3     
+                       ; individualcutlerypieces  ;                 ; cutlery                                                                   ;                                                 ; 0    
+                       ; wrappedcutlery           ;                 ; cutlery                                                                   ;                                                 ; 1    
+                       ; cutlerykits              ;                 ; cutlery                                                                   ;                                                 ; 2    
+                       ; delipaper                ;                 ; delibrakeryfreezer                                                        ;                                                 ; 0    
+                       ; freezerbutcherpaper      ;                 ; delibrakeryfreezer                                                        ;                                                 ; 1    
+                       ; bakerypapercups          ;                 ; delibrakeryfreezer                                                        ;                                                 ; 2    
+                       ; panlinersandsheets       ;                 ; delibrakeryfreezer                                                        ;                                                 ; 3    
+
+#Cross Reference Categories
+# category names       
+UPDATE Category ; code[unique=true]        ; $catalogVersion ; name[lang=$lang]                   ;  
+                ; papertowels              ;                 ; Paper Towels                       
+                ; bathroomtissue           ;                 ; Bathroom Tissue                    
+                ; compacttissuespindle     ;                 ; Compact® Tissue Spindle Replacement
+                ; papernapkins             ;                 ; Paper Napkins                      
+                ; cleaningwipes            ;                 ; Cleaning Wipes                     
+                ; skincare                 ;                 ; Skin Care & Soap                   
+                ; dispensersCrossReference ;                 ; Dispensers                         
+#;officepaper; ;Office Paper
+#;tablecovers; ;Table Covers
+                ; hotcups                  ;                 ; Hot Cups & Lids                    
+                ; coldcups                 ;                 ; Cold Cups & Lids                   
+                ; foamcups                 ;                 ; Foam Cups and Containers           
+                ; portioncups              ;                 ; Portion Cups Dishes & Lids         
+                ; cutlery                  ;                 ; Cutlery                            
+                ; paperplatesbowls         ;                 ; Paper Plates and Bowls             
+                ; cartonstrays             ;                 ; Cartons and Trays                  
+                ; delibrakeryfreezer       ;                 ; Deli, Bakery & Freezer Paper       
+                ; strawsandstirrers        ;                 ; Straws and Stirrers                
+
+#sub-category names
+                ; foldedpapertowels        ;                 ; Folded Paper Towels                
+                ; rolltowels               ;                 ; Roll Towels                        
+                ; kitchenrolltowels        ;                 ; Kitchen Roll Towels                
+                ; standardrolltissue       ;                 ; Standard Roll Tissue               
+                ; jumbotissue              ;                 ; Jumbo Tissue                       
+                ; facialtissue             ;                 ; Facial Tissue                      
+                ; interfoldedtissue        ;                 ; Interfolded Tissue                 
+                ; seatcovers               ;                 ; Seat Covers                        
+                ; doublerollverticalstack  ;                 ; Double Roll, Vertical Stacked      
+                ; doublerollhorizontal     ;                 ; Double Roll, Horizontal Stack      
+                ; singleordoubleroll       ;                 ; Single or Double Roll Multipurpose 
+                ; singleroll               ;                 ; Single Roll                        
+                ; dinnernapkins            ;                 ; Dinner and Luncheon Napkins        
+                ; dispensernapkins         ;                 ; Dispenser Napkins                  
+                ; beveragenapkins          ;                 ; Beverage Napkins                   
+                ; industrialwipers         ;                 ; Industrial Wipers                  
+                ; foodservicewrapers       ;                 ; Foodservice Wipers                 
+                ; disposableductcloths     ;                 ; Disposable Dust Cloths             
+                ; skincaredispenser        ;                 ; Skin Care Dispeners                
+                ; papertowldispenser       ;                 ; Paper Towel Dispensers             
+                ; tissuedispenser          ;                 ; Tissue Dispensers                  
+                ; napkindispenser          ;                 ; Napkin Dispensers                  
+                ; paperfoamhotcups         ;                 ; Paper and Foam Hot Cups            
+                ; hotcuplids               ;                 ; Hot Cup Lids                       
+                ; paperfoamcoldcups        ;                 ; Paper and Foam Cold Cups           
+                ; plasticcoldcups          ;                 ; Plastic Cold Cups                  
+                ; coldcuplids              ;                 ; Cold Cup Lids                      
+                ; drinkcarriersdispensers  ;                 ; Drink Carriers & Dispensers        
+                ; individualcutlerypieces  ;                 ; Individual Cutlery Pieces          
+                ; wrappedcutlery           ;                 ; Wrapped Cutlery                    
+                ; cutlerykits              ;                 ; Cutlery Kits                       
+                ; delipaper                ;                 ; Deli Papers                        
+                ; freezerbutcherpaper      ;                 ; Freezer & Butcher Paper            
+                ; bakerypapercups          ;                 ; Bakery Papers & Cups               
+                ; panlinersandsheets       ;                 ; Pan Liners & Pizza Sheets          
+
+
+##########################################   gpUSProductCatalog\categories-media.impex  ##########################################
+$productCatalog=gpUSProductCatalog
+$productCatalogName=GP US Product Catalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$media=@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator]
+$siteResource=jar:com.gp.commerce.initialdata.constants.GpcommerceInitialDataConstants&/gpcommerceinitialdata/import/sampledata/productCatalogs/$productCatalog
+$logos=logo(code, $catalogVersion)
+$picture=picture(code, $catalogVersion)
+# Create medias for b2cwhitelabel      
+INSERT_UPDATE Media ; mediaFormat(qualifier) ; code[unique=true] ; $media                                                ; mime[default='image/jpeg'] ; $catalogVersion ; folder(qualifier)[default='images']
+                    ; desktop                ; dispenserImage    ; $siteResource/images/b2cwhitelabel/dispensers.png     ;                            ;                 ;                                    
+                    ; desktop                ; paperProductImage ; $siteResource/images/b2cwhitelabel/paper_products.png ;                            ;                 ;                                    
+                    ; desktop                ; platesImage       ; $siteResource/images/b2cwhitelabel/plates.png         ;                            ;                 ;                                    
+                    ; desktop                ; bowlsImage        ; $siteResource/images/b2cwhitelabel/bowls.png          ;                            ;                 ;                                    
+                    ; desktop                ; toiletPaperImage  ; $siteResource/images/b2cwhitelabel/toiletpaper.png    ;                            ;                 ;                                    
+                    ; desktop                ; cupsImage         ; $siteResource/images/b2cwhitelabel/cups.png           ;                            ;                 ;                                    
+                    ; desktop                ; paperTowelImage   ; $siteResource/images/b2cwhitelabel/towel.png          ;                            ;                 ;                                    
+                    ; desktop                ; napkinsImage      ; $siteResource/images/b2cwhitelabel/napkins.png        ;                            ;                 ;                                    
+                    ; desktop                ; counterTopImage   ; $siteResource/images/b2cwhitelabel/countertop.png     ;                            ;                 ;                                    
+                    ; desktop                ; underCabinetImage ; $siteResource/images/b2cwhitelabel/undercabinet.png   ;                            ;                 ;                                    
+                    ; tablet                 ; dispenserImage    ; $siteResource/images/b2cwhitelabel/dispensers.png     ;                            ;                 ;                                    
+                    ; tablet                 ; paperProductImage ; $siteResource/images/b2cwhitelabel/paper_products.png ;                            ;                 ;                                    
+                    ; tablet                 ; platesImage       ; $siteResource/images/b2cwhitelabel/plates.png         ;                            ;                 ;                                    
+                    ; tablet                 ; bowlsImage        ; $siteResource/images/b2cwhitelabel/bowls.png          ;                            ;                 ;                                    
+                    ; tablet                 ; toiletPaperImage  ; $siteResource/images/b2cwhitelabel/toiletpaper.png    ;                            ;                 ;                                    
+                    ; tablet                 ; cupsImage         ; $siteResource/images/b2cwhitelabel/cups.png           ;                            ;                 ;                                    
+                    ; tablet                 ; paperTowelImage   ; $siteResource/images/b2cwhitelabel/towel.png          ;                            ;                 ;                                    
+                    ; tablet                 ; napkinsImage      ; $siteResource/images/b2cwhitelabel/napkins.png        ;                            ;                 ;                                    
+                    ; tablet                 ; counterTopImage   ; $siteResource/images/b2cwhitelabel/countertop.png     ;                            ;                 ;                                    
+                    ; tablet                 ; underCabinetImage ; $siteResource/images/b2cwhitelabel/undercabinet.png   ;                            ;                 ;                                    
+                    ; mobile                 ; dispenserImage    ; $siteResource/images/b2cwhitelabel/dispensers.png     ;                            ;                 ;                                    
+                    ; mobile                 ; paperProductImage ; $siteResource/images/b2cwhitelabel/paper_products.png ;                            ;                 ;                                    
+                    ; mobile                 ; platesImage       ; $siteResource/images/b2cwhitelabel/plates.png         ;                            ;                 ;                                    
+                    ; mobile                 ; bowlsImage        ; $siteResource/images/b2cwhitelabel/bowls.png          ;                            ;                 ;                                    
+                    ; mobile                 ; toiletPaperImage  ; $siteResource/images/b2cwhitelabel/toiletpaper.png    ;                            ;                 ;                                    
+                    ; mobile                 ; cupsImage         ; $siteResource/images/b2cwhitelabel/cups.png           ;                            ;                 ;                                    
+                    ; mobile                 ; paperTowelImage   ; $siteResource/images/b2cwhitelabel/towel.png          ;                            ;                 ;                                    
+                    ; mobile                 ; napkinsImage      ; $siteResource/images/b2cwhitelabel/napkins.png        ;                            ;                 ;                                    
+                    ; mobile                 ; counterTopImage   ; $siteResource/images/b2cwhitelabel/countertop.png     ;                            ;                 ;                                    
+                    ; mobile                 ; underCabinetImage ; $siteResource/images/b2cwhitelabel/undercabinet.png   ;                            ;                 ;                                    
+
+
+# Update Categories with medias
+UPDATE Category ; code[unique=true] ; $picture          ; $catalogVersion
+                ; 12957             ; toiletPaperImage  ;                
+                ; 9363              ; bowlsImage        ;                
+                ; 9363              ; platesImage       ;                
+                ; paperproducts     ; paperProductImage ;                
+                ; dispensers        ; dispenserImage    ;                
+                ; 9375              ; cupsImage         ;                
+                ; 12957             ; paperTowelImage   ;                
+                ; 6250              ; napkinsImage      ;                
+                ; 9363              ; counterTopImage   ;                
+                ; 9363              ; underCabinetImage ;                
+
+
+
+# Create medias for b2bwhitelabel
+INSERT_UPDATE Media ; mediaFormat(qualifier) ; code[unique=true] ; $media                                                ; mime[default='image/jpeg'] ; $catalogVersion ; folder(qualifier)[default='images']
+                    ; desktop                ; dispenserImage    ; $siteResource/images/b2bwhitelabel/dispensers.png     ;                            ;                 ;                                    
+                    ; desktop                ; paperProductImage ; $siteResource/images/b2bwhitelabel/paper_products.png ;                            ;                 ;                                    
+                    ; desktop                ; platesImage       ; $siteResource/images/b2bwhitelabel/plates.png         ;                            ;                 ;                                    
+                    ; desktop                ; bowlsImage        ; $siteResource/images/b2bwhitelabel/bowls.png          ;                            ;                 ;                                    
+                    ; desktop                ; toiletPaperImage  ; $siteResource/images/b2bwhitelabel/toiletpaper.png    ;                            ;                 ;                                    
+                    ; desktop                ; cupsImage         ; $siteResource/images/b2bwhitelabel/cups.png           ;                            ;                 ;                                    
+                    ; desktop                ; paperTowelImage   ; $siteResource/images/b2bwhitelabel/towel.png          ;                            ;                 ;                                    
+                    ; desktop                ; napkinsImage      ; $siteResource/images/b2bwhitelabel/napkins.png        ;                            ;                 ;                                    
+                    ; desktop                ; counterTopImage   ; $siteResource/images/b2bwhitelabel/countertop.png     ;                            ;                 ;                                    
+                    ; desktop                ; underCabinetImage ; $siteResource/images/b2bwhitelabel/undercabinet.png   ;                            ;                 ;                                    
+                    ; tablet                 ; dispenserImage    ; $siteResource/images/b2bwhitelabel/dispensers.png     ;                            ;                 ;                                    
+                    ; tablet                 ; paperProductImage ; $siteResource/images/b2bwhitelabel/paper_products.png ;                            ;                 ;                                    
+                    ; tablet                 ; platesImage       ; $siteResource/images/b2bwhitelabel/plates.png         ;                            ;                 ;                                    
+                    ; tablet                 ; bowlsImage        ; $siteResource/images/b2bwhitelabel/bowls.png          ;                            ;                 ;                                    
+                    ; tablet                 ; toiletPaperImage  ; $siteResource/images/b2bwhitelabel/toiletpaper.png    ;                            ;                 ;                                    
+                    ; tablet                 ; cupsImage         ; $siteResource/images/b2bwhitelabel/cups.png           ;                            ;                 ;                                    
+                    ; tablet                 ; paperTowelImage   ; $siteResource/images/b2bwhitelabel/towel.png          ;                            ;                 ;                                    
+                    ; tablet                 ; napkinsImage      ; $siteResource/images/b2bwhitelabel/napkins.png        ;                            ;                 ;                                    
+                    ; tablet                 ; counterTopImage   ; $siteResource/images/b2bwhitelabel/countertop.png     ;                            ;                 ;                                    
+                    ; tablet                 ; underCabinetImage ; $siteResource/images/b2bwhitelabel/undercabinet.png   ;                            ;                 ;                                    
+                    ; mobile                 ; dispenserImage    ; $siteResource/images/b2bwhitelabel/dispensers.png     ;                            ;                 ;                                    
+                    ; mobile                 ; paperProductImage ; $siteResource/images/b2bwhitelabel/paper_products.png ;                            ;                 ;                                    
+                    ; mobile                 ; platesImage       ; $siteResource/images/b2bwhitelabel/plates.png         ;                            ;                 ;                                    
+                    ; mobile                 ; bowlsImage        ; $siteResource/images/b2bwhitelabel/bowls.png          ;                            ;                 ;                                    
+                    ; mobile                 ; toiletPaperImage  ; $siteResource/images/b2bwhitelabel/toiletpaper.png    ;                            ;                 ;                                    
+                    ; mobile                 ; cupsImage         ; $siteResource/images/b2bwhitelabel/cups.png           ;                            ;                 ;                                    
+                    ; mobile                 ; paperTowelImage   ; $siteResource/images/b2bwhitelabel/towel.png          ;                            ;                 ;                                    
+                    ; mobile                 ; napkinsImage      ; $siteResource/images/b2bwhitelabel/napkins.png        ;                            ;                 ;                                    
+                    ; mobile                 ; counterTopImage   ; $siteResource/images/b2bwhitelabel/countertop.png     ;                            ;                 ;                                    
+                    ; mobile                 ; underCabinetImage ; $siteResource/images/b2bwhitelabel/undercabinet.png   ;                            ;                 ;                                    
+
+# Update Categories with medias
+UPDATE Category ; code[unique=true] ; $picture          ; $catalogVersion
+                ; 12957             ; toiletPaperImage  ;                
+                ; 9363              ; bowlsImage        ;                
+                ; 9363              ; platesImage       ;                
+                ; paperproducts     ; paperProductImage ;                
+                ; dispensers        ; dispenserImage    ;                
+                ; 9375              ; cupsImage         ;                
+                ; 12957             ; paperTowelImage   ;                
+                ; 6250              ; napkinsImage      ;                
+                ; 9363              ; counterTopImage   ;                
+                ; 9363              ; underCabinetImage ;                
+
+# Create medias for copperandcrane
+INSERT_UPDATE Media ; mediaFormat(qualifier) ; code[unique=true] ; $media                                                 ; mime[default='image/jpeg'] ; $catalogVersion ; folder(qualifier)[default='images']
+                    ; desktop                ; dispenserImage    ; $siteResource/images/copperandcrane/dispensers.png     ;                            ;                 ;                                    
+                    ; desktop                ; paperProductImage ; $siteResource/images/copperandcrane/paper_products.png ;                            ;                 ;                                    
+                    ; desktop                ; platesImage       ; $siteResource/images/copperandcrane/plates.png         ;                            ;                 ;                                    
+                    ; desktop                ; bowlsImage        ; $siteResource/images/copperandcrane/bowls.png          ;                            ;                 ;                                    
+                    ; desktop                ; toiletPaperImage  ; $siteResource/images/copperandcrane/toiletpaper.png    ;                            ;                 ;                                    
+                    ; desktop                ; cupsImage         ; $siteResource/images/copperandcrane/cups.png           ;                            ;                 ;                                    
+                    ; desktop                ; paperTowelImage   ; $siteResource/images/copperandcrane/towel.png          ;                            ;                 ;                                    
+                    ; desktop                ; napkinsImage      ; $siteResource/images/copperandcrane/napkins.png        ;                            ;                 ;                                    
+                    ; desktop                ; counterTopImage   ; $siteResource/images/copperandcrane/countertop.png     ;                            ;                 ;                                    
+                    ; desktop                ; underCabinetImage ; $siteResource/images/copperandcrane/undercabinet.png   ;                            ;                 ;                                    
+                    ; tablet                 ; dispenserImage    ; $siteResource/images/copperandcrane/dispensers.png     ;                            ;                 ;                                    
+                    ; tablet                 ; paperProductImage ; $siteResource/images/copperandcrane/paper_products.png ;                            ;                 ;                                    
+                    ; tablet                 ; platesImage       ; $siteResource/images/copperandcrane/plates.png         ;                            ;                 ;                                    
+                    ; tablet                 ; bowlsImage        ; $siteResource/images/copperandcrane/bowls.png          ;                            ;                 ;                                    
+                    ; tablet                 ; toiletPaperImage  ; $siteResource/images/copperandcrane/toiletpaper.png    ;                            ;                 ;                                    
+                    ; tablet                 ; cupsImage         ; $siteResource/images/copperandcrane/cups.png           ;                            ;                 ;                                    
+                    ; tablet                 ; paperTowelImage   ; $siteResource/images/copperandcrane/towel.png          ;                            ;                 ;                                    
+                    ; tablet                 ; napkinsImage      ; $siteResource/images/copperandcrane/napkins.png        ;                            ;                 ;                                    
+                    ; tablet                 ; counterTopImage   ; $siteResource/images/copperandcrane/countertop.png     ;                            ;                 ;                                    
+                    ; tablet                 ; underCabinetImage ; $siteResource/images/copperandcrane/undercabinet.png   ;                            ;                 ;                                    
+                    ; mobile                 ; dispenserImage    ; $siteResource/images/copperandcrane/dispensers.png     ;                            ;                 ;                                    
+                    ; mobile                 ; paperProductImage ; $siteResource/images/copperandcrane/paper_products.png ;                            ;                 ;                                    
+                    ; mobile                 ; platesImage       ; $siteResource/images/copperandcrane/plates.png         ;                            ;                 ;                                    
+                    ; mobile                 ; bowlsImage        ; $siteResource/images/copperandcrane/bowls.png          ;                            ;                 ;                                    
+                    ; mobile                 ; toiletPaperImage  ; $siteResource/images/copperandcrane/toiletpaper.png    ;                            ;                 ;                                    
+                    ; mobile                 ; cupsImage         ; $siteResource/images/copperandcrane/cups.png           ;                            ;                 ;                                    
+                    ; mobile                 ; paperTowelImage   ; $siteResource/images/copperandcrane/towel.png          ;                            ;                 ;                                    
+                    ; mobile                 ; napkinsImage      ; $siteResource/images/copperandcrane/napkins.png        ;                            ;                 ;                                    
+                    ; mobile                 ; counterTopImage   ; $siteResource/images/copperandcrane/countertop.png     ;                            ;                 ;                                    
+                    ; mobile                 ; underCabinetImage ; $siteResource/images/copperandcrane/undercabinet.png   ;                            ;                 ;                                    
+
+# Update Categories with medias
+UPDATE Category ; code[unique=true] ; $picture          ; $catalogVersion
+                ; 12957             ; toiletPaperImage  ;                
+                ; 9363              ; bowlsImage        ;                
+                ; 9363              ; platesImage       ;                
+                ; paperproducts     ; paperProductImage ;                
+                ; dispensers        ; dispenserImage    ;                
+                ; 9375              ; cupsImage         ;                
+                ; 12957             ; paperTowelImage   ;                
+                ; 6250              ; napkinsImage      ;                
+                ; 9363              ; counterTopImage   ;                
+                ; 9363              ; underCabinetImage ;                
+#--------------------------
+# Macros / Replacement Parameter definitions
+$catalogVersion=catalogVersion(catalog(id[default='gpUSProductCatalog']),version[default='Staged'])[unique=true,default='gpUSProductCatalog:Staged']
+$categories=target(code, $catalogVersion)[unique=true]
+$supercategories=source(code, $catalogVersion)[unique=true]
+$lang=en
+ 
+# INSERTUPDATE to update Categories
+INSERT_UPDATE Category;code[unique=true];$catalogVersion;supercategories(code,$catalogVersion);allowedPrincipals(uid)[default='customergroup'];name[lang=$lang];categories
+;copperandCraneCategories; ;;;;
+;vanityFairNapkinsCategories;;
+
+
+########REMOVE SUPER CATEGORIES#########
+REMOVE Category;code[unique=true];$catalogVersion;supercategories(code,$catalogVersion);allowedPrincipals(uid)[default='customergroup']
+;copperandCraneCategories;;
+;vanityFairNapkinsCategories;;
+
+
+######REMOVE Not Required Categories#########
+# Remove CopperAndCrane Categories
+REMOVE Category;code[unique=true];$catalogVersion;supercategories(code,$catalogVersion);allowedPrincipals(uid)[default='customergroup']
+;spafavorites; ;
+;luxurybath; ;
+;skincare; ;
+;bodycare; ;
+;giftsets; ;
+;scentedcandles; ;
+
+# Remove VanityFairNapkins Categories
+REMOVE Category;code[unique=true];$catalogVersion;supercategories(code,$catalogVersion);allowedPrincipals(uid)[default='customergroup']
+;everydaycollection; ;
+;entertaincollection; ;
+;extraabsorbentnapkins; ;
+#---------------------
+######THIS RELATION HAS TO BE AT THE END OF THE FILE ############                
+INSERT_UPDATE CategoryCategoryRelation;$categories;$supercategories
+;categories;10001;
+;areaofservice;10001;
+;paperproducts;10001;
+;dispensers;10001;
+;bundles;10001;
+;cleaningsupply;10001;
+
+;categories;20001;
+;areaofservice;20001;
+;paperproducts;20001;
+;dispensers;20001;
+;bundles;20001;
+;cleaningsupply;20001;
+
+;categories;30001;
+;areaofservice;30001;
+;paperproducts;30001;
+;dispensers;30001;
+;bundles;30001;
+;cleaningsupply;30001;
+
+;categories;40001;
+;areaofservice;40001;
+;paperproducts;40001;
+;dispensers;40001;
+;bundles;40001;
+;cleaningsupply;40001;
+
+;categories;50001;
+;areaofservice;50001;
+;paperproducts;50001;
+;dispensers;50001;
+;bundles;50001;
+;cleaningsupply;50001;
+
+;categories;60001;
+;areaofservice;60001;
+;paperproducts;60001;
+;dispensers;60001;
+;bundles;60001;
+;cleaningsupply;60001;
+
+######THIS RELATION HAS TO BE AT THE END OF THE FILE ############  

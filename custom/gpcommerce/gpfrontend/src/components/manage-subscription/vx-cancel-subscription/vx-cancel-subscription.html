@@ -1,0 +1,14 @@
+<div class="vx-cancel-subscription row mx-xs-0">
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>
+  </vx-spinner>
+  <p class="mb-xs-0">
+    {{i18n.cancelSubsText}}{{subscriptionId.entries[0].product.name}}{{i18n.cancelSubsquestion}}
+  </p>
+  <p>{{i18n.cancelInfoText}}</p>
+  <div class="cancel-subscription mt-xs-4 col-xs-12 px-xs-3 px-sm-0 mb-xs-3">
+    <button class="btn btn-default mr-sm-5 col-xs-12 col-sm-6"
+      @click="keepSubscription($event)">{{i18n.keepSubscription}}</button>
+    <button class="btn btn-primary col-xs-12 col-sm-6 mt-xs-3 mt-sm-0" @click="cancelSubscription($event)"
+      @keyup.enter-space="cancelSubscription($event)">{{i18n.cancelSubscriptionButton}}</button>
+  </div>
+</div>

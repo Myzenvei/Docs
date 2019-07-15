@@ -1,0 +1,7 @@
+<div class="vx-file-attachment">
+  <p class="mb-xs-4">{{i18n.helpText}}</p>
+  <vx-file-upload :i18n="i18n" @file-upload="fileUpload($event)" @attachments-updated="attachmentListUpdated"
+    :is-error="isFileSizeExceeded" :duplicate-name-error="isFileNameDuplicate" :file-size-unit="fileSizeUnit"
+    is-contact-us :file-type="fileType" :disableAttach="disableAttach" :file-size="fileSize">
+  </vx-file-upload>
+</div>

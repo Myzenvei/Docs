@@ -1,0 +1,370 @@
+// any page slot styles goes here
+
+// For accountLoginPage.jsp and register.jsp files to apply styles for login and registration pages
+
+.login-component,
+.register-component {
+  border-right: 1px solid @border-color-4;
+  justify-content: center;
+}
+
+.social-login-component,
+.business-register-component,
+.update-password-page,
+.expiry-password-page {
+  justify-content: center;
+}
+
+.business-login,
+.business-register,
+.update-password-component,
+.expiry-password-component {
+  border: 1px solid @border-color-4;
+  margin: 40px 0px 40px 0px;
+}
+
+.cart-container {
+  margin: 24px 40px 40px 40px;
+  position: relative;
+}
+
+.order-summary-section {
+  display: table-column;
+  position: sticky;
+  top: 88px;
+  margin-top: 112px;
+  padding: 0px 0px 0px 34px;
+}
+
+.checkout-order-summary-details {
+  margin-top: 66px;
+
+  .checkout-button[disabled] {
+    background-color: @btn-disabled-bg;
+    color: @btn-disabled-text-color;
+  }
+}
+
+.pdp-page {
+  .vx-tab-container {
+    margin: 16px 0 16px 0;
+  }
+
+  //42 for tab
+}
+
+.checkout-container,
+.order-approval-container {
+  margin: 0 40px;
+}
+
+.order-confirmation-container {
+  margin: 40px 40px 8px;
+}
+
+.order-details-container {
+  .vx-breadcrumb {
+    .breadcrumb {
+      padding-top: 32px;
+      padding-bottom: 0px;
+    }
+  }
+
+  margin-bottom: 8px;
+}
+
+.guest-create-account-container {
+  padding: 0 0 0 40px;
+  margin-left: 0px;
+}
+
+.business-login-page {
+  width: 100%;
+}
+
+.product-grid-right-result-component {
+  .vx-hero-banner {
+    padding: 0 40px 8px;
+  }
+
+  .banner {
+    min-height: 208px;
+
+    .banner__promotion {
+      &.hero-banner-text-content {
+        padding: 0;
+        width: auto;
+      }
+    }
+
+    &.hero-center {
+      .banner__promotion {
+        transform: translate(-50%, -50%);
+        z-index: 5;
+
+        .banner__heading {
+          font-size: 24px;
+          padding: 16px 24px 16px 24px;
+          font-weight: @font-weight-medium !important;
+        }
+      }
+    }
+  }
+}
+
+.subscribeText {
+  font-size: @font-size-large;
+  font-weight: @font-weight-medium;
+  margin-top: 40px;
+  text-align: center;
+  margin-bottom: -16px;
+}
+
+@media only screen and (min-width: @screen-xs-max) {
+  .login-component,
+  .register-component {
+    border: 0px;
+    border-right: 1px solid @border-color-4;
+  }
+}
+
+@media only screen and (max-width: @screen-sm-max) {
+  .order-summary-section {
+    padding: 0px;
+    margin-top: 0px;
+    position: fixed;
+    box-shadow: 0px -8px 6px -6px #cecece;
+    bottom: 0px;
+    top: initial;
+    z-index: 6;
+    background-color: @brand-secondary-8;
+  }
+
+  .checkout-container {
+    position: relative;
+    padding-bottom: 120px;
+  }
+
+  .mobile-order-summary-popup {
+    z-index: 8;
+    box-shadow: 0px -8px 6px -6px #cecece;
+
+    .order-summary-component {
+      height: auto;
+    }
+  }
+
+  .order-summary-component {
+    height: auto;
+  }
+
+  .cart-container {
+    margin: 0px 0 40px 0;
+
+    .order-summary-section {
+      background-color: @brand-secondary-4;
+
+      .order-summary {
+        width: 100%;
+        background-color: @brand-secondary-4;
+      }
+
+      .checkout-button {
+        width: 271px;
+        float: right;
+        margin: 16px;
+      }
+    }
+  }
+
+  .checkout-order-summary-details {
+    margin-top: 32px;
+
+    button {
+      width: 50%;
+      clear: both;
+      float: right;
+    }
+  }
+
+  .order-approval-container {
+    padding: 0 32px;
+  }
+
+  .order-confirmation-container {
+    margin: 32px;
+  }
+
+  .order-details-container {
+    .vx-breadcrumb {
+      .breadcrumb {
+        padding-top: 24px;
+        padding-bottom: 0px;
+      }
+    }
+
+    margin-bottom: 32px;
+  }
+
+  .product-grid-right-result-component {
+    .vx-hero-banner {
+      padding: 0 32px 8px;
+    }
+
+    .banner {
+      &.hero-center {
+        .banner__promotion {
+          .banner__heading {
+            font-size: 20px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: @screen-md-min) {
+  .guest-create-account-container {
+    margin: 32px 32px 0 32px;
+  }
+}
+
+@media only screen and (min-width: @screen-md) {
+  .cart-container .order-summary-section {
+    .order-summary {
+      width: 100%;
+    }
+  }
+
+  .checkout-container .checkout-order-summary-details {
+    display: table-column;
+    position: sticky;
+    top: 50px;
+  }
+}
+
+@media only screen and (max-width: @screen-xs-max) {
+  .login-component,
+  .register-component {
+    border: 0px;
+    border-bottom: 1px solid @border-color-4;
+    justify-content: left;
+  }
+
+  .social-login-component {
+    justify-content: left;
+  }
+
+  .business-login,
+  .business-register {
+    border: 0px;
+    margin: 16px 16px 24px 16px;
+  }
+
+  .login-left-content-slot,
+  .register-left-content-slot {
+    margin-bottom: 24px;
+  }
+
+  .login-right-content-slot,
+  .register-right-content-slot,
+  .login-left-content-slot,
+  .register-left-content-slot {
+    width: 100%;
+  }
+
+  .update-password-component,
+  .expiry-password-component {
+    border: 0px;
+    margin: 24px 0px 32px 0px;
+  }
+
+  .pdp-page {
+    .vx-tab-container {
+      margin: 16px 0 16px 0;
+    }
+  }
+
+  .order-confirmation-container {
+    margin: 24px 16px;
+  }
+
+  .checkout-container,
+  .order-approval-container {
+    margin: 0 16px;
+  }
+
+  .guest-create-account-container {
+    margin: 32px 16px 0px 16px;
+  }
+
+  .checkout-order-summary-details {
+    margin-top: 32px;
+
+    button {
+      width: 100%;
+    }
+  }
+
+  .cart-container {
+    .order-summary-section {
+      background-color: @brand-secondary-4;
+
+      .order-summary {
+        width: 100%;
+        background-color: @brand-secondary-4;
+      }
+
+      .checkout-button {
+        width: 100%;
+        float: none;
+        clear: both;
+        margin: 0;
+      }
+    }
+  }
+
+  .checkout-container {
+    position: relative;
+    padding-bottom: 30px;
+  }
+
+  body.page-checkoutPage {
+    .main__inner-wrapper {
+      .vx-breadcrumb {
+        padding: 16px 16px 0 0;
+      }
+    }
+  }
+
+  .order-details-container {
+    .vx-breadcrumb {
+      .breadcrumb {
+        padding-top: 16px;
+        padding-bottom: 0px;
+      }
+    }
+
+    margin-bottom: 32px;
+  }
+
+  .product-grid-right-result-component {
+    .vx-hero-banner {
+      padding: 24px 16px 0;
+
+      .banner {
+        &.hero-center {
+          .banner__promotion {
+            .banner__heading {
+              font-size: 16px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .subscribeText {
+    text-align: start;
+  }
+}

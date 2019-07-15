@@ -1,0 +1,64 @@
+#innovia {
+  .vx-image-text {
+    &.restroom-image-text {
+      .view-site-content-vx-text-tile {
+        h3 {
+          font-size: @font-size-large;
+        }
+      }
+    }
+
+    &.register-imageText-component {
+      .view-site-content-vx-text-tile {
+        h3 {
+          font-size: @font-size-h1;
+        }
+      }
+    }
+
+    .view-site-content-vx-text-tile {
+      h3 {
+        font-size: @font-size-h4;
+        font-weight: @font-weight-bold;
+
+        @media (min-width: @screen-sm-min) {
+          font-size: @font-size-h2;
+        }
+
+        @media (min-width: @screen-md-min) {
+          font-weight: @font-weight-normal;
+        }
+      }
+
+      p {
+        font-size: @font-size-small;
+        line-height: 18px;
+        letter-spacing: 0.4px;
+        font-family: @font-family-base;
+
+        @media (min-width: @screen-sm-min) {
+          font-size: @font-size-large;
+          line-height: 28px;
+        }
+
+        @media (min-width: @screen-md-min) {
+          line-height: 24px;
+        }
+      }
+
+      .cta-text {
+        font-size: @font-size-small;
+        font-weight: @font-weight-regular;
+
+        &.btn {
+          font-size: @font-size-medium;
+          font-weight: @font-weight-bold;
+          text-decoration: none;
+          width: 202px;
+          margin: 0 auto;
+          font-family: @font-family-montserrat;
+        }
+      }
+    }
+  }
+}

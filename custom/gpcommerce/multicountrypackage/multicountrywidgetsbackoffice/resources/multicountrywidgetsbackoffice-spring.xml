@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<!-- HERO PRODUCT CUSTOMIZATION -->
+	<alias alias="heroProductDefinitionService" name="multicountryHeroProductDefinitionService" />
+	<bean id="multicountryHeroProductDefinitionService"
+		  parent="defaultHeroProductDefinitionService"
+		  class="de.hybris.commercesearch.searchandizing.heroproduct.impl.MulticountryHeroProductDefinitionService">
+
+		<property name="modelService" ref="modelService" />
+		<property name="categoryService" ref="categoryService" />
+		<property name="catalogVersionService" ref="catalogVersionService" />
+		<property name="baseStoreService" ref="baseStoreService" />
+		<property name="heroProductDefinitionDao" ref="heroProductDefinitionDao" />
+		<property name="solrFacetSearchConfigSelectionStrategy" ref="solrFacetSearchConfigSelectionStrategy" />
+	</bean>
+
+	<alias alias="heroProductDefinitionDao" name="multicountryHeroProductDefinitionDao" />
+	<bean id="multicountryHeroProductDefinitionDao"
+		  class="de.hybris.commercesearch.searchandizing.heroproduct.dao.impl.DefaultMulticountryHeroProductDefinitionDao">
+		<constructor-arg value="de.hybris.platform.commercesearch.jalo.SolrHeroProductDefinition" />
+	</bean>
+
+	<bean id="multicountrySolrHeroProductPrepareInterceptor"
+		  class="de.hybris.commercesearch.searchandizing.heroproduct.interceptors.MulticountryHeroProductPrepareInterceptor" />
+
+	<bean id="multicountrySolrHeroProductPrepareInterceptorMapping"
+		  class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+		<property name="interceptor" ref="multicountrySolrHeroProductPrepareInterceptor" />
+		<property name="typeCode" value="SolrHeroProductDefinition" />
+		<property name="replacedInterceptors" ref="solrHeroProductPrepareInterceptor" />
+	</bean>
+	
+	<bean id="solrHeroProductValidator" class="de.hybris.commercesearch.searchandizing.heroproduct.interceptors.MulticountrySolrHeroProductValidator">
+		<property name="heroProductDefinitionDao" ref="heroProductDefinitionDao" />
+	</bean>
+
+	<!-- CATEGORY SEARCH CUSTOMIZATION -->
+	<alias name="multicountrySearchProfileDao" alias="searchProfileDao" />
+	<bean id="multicountrySearchProfileDao"
+		  parent="defaultSearchProfileDao"
+		  class="de.hybris.commercesearch.searchandizing.searchprofile.dao.impl.DefaultMulticountrySearchProfileDao" />
+
+	<alias alias="categorySearchProfileService" name="multicountryCategorySearchProfileService" />
+	<bean id="multicountryCategorySearchProfileService"
+		  parent="defaultCategorySearchProfileService"
+		  class="de.hybris.commercesearch.searchandizing.searchprofile.impl.MulticountryCategorySearchProfileService">
+		<property name="categorySearchProfileMatchStrategy" ref="categorySolrSearchProfileMatchStrategy" />
+		<property name="commerceCategoryService" ref="commerceCategoryService" />
+		<property name="modelService" ref="modelService" />
+		<property name="searchProfileDao" ref="searchProfileDao" />
+		<property name="baseStoreService" ref="baseStoreService" />
+	</bean>
+
+	<bean id="multicountrySearchProfilePrepareInterceptor"
+		  class="de.hybris.commercesearch.searchandizing.searchprofile.interceptors.MulticountrySearchProfilePrepareInterceptor" />
+
+	<bean id="multicountrySearchProfilePrepareInterceptorMapping"
+		  class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+		<property name="interceptor" ref="multicountrySearchProfilePrepareInterceptor" />
+		<property name="typeCode" value="AbstractSolrSearchProfile" />
+	</bean>
+
+	<alias alias="globalSearchProfileService" name="multicountryGlobalSearchProfileService" />
+	<bean id="multicountryGlobalSearchProfileService"
+		  parent="defaultGlobalSearchProfileService"
+		  class="de.hybris.commercesearch.searchandizing.searchprofile.impl.MulticountryGlobalSearchProfileService">
+
+		<property name="modelService" ref="modelService" />
+		<property name="searchProfileDao" ref="searchProfileDao" />
+		<property name="facetSearchConfigDao" ref="defaultSolrFacetSearchConfigDao" />
+		<property name="baseStoreService" ref="baseStoreService" />
+	</bean>
+
+	<alias alias="boostService" name="multicountryBoostService" />
+	<bean id="multicountryBoostService"
+		  parent="defaultBoostService"
+		  class="de.hybris.commercesearch.searchandizing.boost.impl.MulticountryBoostService">
+
+		<property name="facetSearchConfigDao" ref="defaultSolrFacetSearchConfigDao" />
+		<property name="categorySearchProfileMatchStrategy" ref="categorySolrSearchProfileMatchStrategy" />
+		<property name="searchProfileDao" ref="searchProfileDao" />
+		<property name="commerceCategoryService" ref="commerceCategoryService" />
+		<property name="modelService" ref="modelService" />
+		<property name="globalSearchProfileService" ref="globalSearchProfileService" />
+		<property name="categorySearchProfileService" ref="categorySearchProfileService" />
+		<property name="facetSearchConfigService" ref="facetSearchConfigService" />
+		<property name="baseStoreService" ref="baseStoreService" />
+	</bean>
+
+	<!-- Multicountry categorySolrSearchProfileValidator and mapping -->
+	<bean id="multicountryCategorySolrSearchProfileValidator"
+		  class="de.hybris.commercesearch.searchandizing.searchprofile.interceptors.MulticountryCategorySolrSearchProfileValidator">
+		<property name="searchProfileDao" ref="multicountrySearchProfileDao" />
+	</bean>
+
+	<bean id="multicountryCategorySolrSearchProfileValidatorMapping"
+		  class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+		<property name="interceptor" ref="multicountryCategorySolrSearchProfileValidator" />
+		<property name="typeCode" value="CategorySolrSearchProfile" />
+		<property name="replacedInterceptors" ref="categorySolrSearchProfileValidator" />
+	</bean>
+
+	<!-- globalSolrSearchProfileValidator and mapping -->
+	<bean id="multicountryGlobalSolrSearchProfileValidator"
+		  class="de.hybris.commercesearch.searchandizing.searchprofile.interceptors.MulticountryGlobalSolrSearchProfileValidator">
+		<property name="searchProfileDao" ref="multicountrySearchProfileDao" />
+	</bean>
+
+	<bean id="multicountryGlobalSolrSearchProfileValidatorMapping"
+		  class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+		<property name="interceptor" ref="multicountryGlobalSolrSearchProfileValidator" />
+		<property name="typeCode" value="GlobalSolrSearchProfile" />
+		<property name="replacedInterceptors" ref="globalSolrSearchProfileValidator" />
+	</bean>
+
+
+
+	<!-- Multicountry GlobalFacetAdminService BaseStore aware-->
+	<alias alias="globalFacetAdminService" name="multicountryGlobalFacetAdminService"/>
+	<bean id="multicountryGlobalFacetAdminService"
+		  parent="defaultGlobalFacetAdminService"
+		  class="de.hybris.commercesearch.searchandizing.facet.reconfiguration.impl.MulticountryGlobalFacetAdminService">
+		<property name="multicountrySearchProfileDao" ref="multicountrySearchProfileDao"/>
+		<property name="multicountryModelService" ref="modelService" />
+		<property name="baseStoreService" ref="baseStoreService" />
+	</bean>
+	
+	
+	
+	<!-- Adaptive Search -->
+	<!-- <alias name="multiCountrySolrAsSearchProvider" alias="solrAsSearchProvider" />
+    <bean id="multiCountrySolrAsSearchProvider" class="com.hybris.multicountry.solrsearch.MultiCountrySolrAsSearchProvider" parent="defaultSolrAsSearchProvider">
+        <property name="multicountryRestrictionService" ref="multicountryRestrictionService" />
+    </bean> -->
+    
+    
+    <bean id="asSearchProviderAspect" class="com.hybris.multicountry.solrsearch.AsSearchProviderAspect">
+     	<property name="multicountryRestrictionService" ref="multicountryRestrictionService" />
+     	<property name="sessionService" ref="sessionService" />
+     	
+     	
+     	
+    </bean>
+    
+    
+    <aop:config proxy-target-class="true">
+
+    	<aop:aspect id="asSearchProviderAspectAOP" ref="asSearchProviderAspect">
+       		<aop:around pointcut="bean(solrAsSearchProvider)" method="search"/>
+    	</aop:aspect>
+		
+ 	</aop:config>
+    
+
+</beans>

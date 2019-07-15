@@ -1,0 +1,31 @@
+<section class="search-browse-panel">
+  <div class="compare-panel" :aria-label="i18n.compareProductsA11y" tabindex="0" v-if="!hideComparePanel" role="dialog">
+    <div class="d-flex compare-products justify-content-between">
+      <h5 class="panel-message">{{i18n.panelMessage1}} {{maxProductsCompare}} {{i18n.panelMessage2}}</h5>
+    </div>
+    <div class="compare-product-panel">
+      <div class="panel-tile" v-for="product in products">
+        <div class="remove-product-option">
+          <span class="icon-x-circle" role="button" @click="removePanel(product)" @keyup.enter-space="removePanel(product)"
+            tabindex="0" :aria-label="i18n.label.remove" :title="i18n.iconXCircleTitle"></span>
+          <span class="remove-text">{{i18n.label.remove}}</span>
+        </div>
+        <div class="col-xs-12 tile-image d-flex justify-content-center">
+          <img tabindex="0" :alt="decodeURI(product.name)" class="compare-page-image" :src="product.images[0].url" v-if="product.images && product.images[0] && product.images[0].url" />
+          <img tabindex="0" v-bind:src="globals.assetsPath + 'images/no_image.svg'" v-else :alt='decodeURI(product.name)' />
+        </div>
+      </div>
+    </div>
+    <div class="d-flex justify-content-end">
+      <button type="button" class="btn btn-tertiary" :disabled="disableButtonFalse" v-on:click="viewDetails()">{{i18n.primaryButtonText}}</button>
+    </div>
+    <div class="remove-icon-mobile">
+      <span class="icon-x" @click="closePanel" aria-label="Close panel" @keyup.enter-space="closePanel" tabindex="0"
+        role="button" :title="i18n.iconXTitle"></span>
+    </div>
+  </div>
+  <div class="d-flex justify-content-end panel-mobile" v-else>
+    <button type="button" class="btn btn-tertiary compare-button" v-on:click="closePanel">Compare
+      {{products.length}}</button>
+  </div>
+</section>

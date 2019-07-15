@@ -1,0 +1,35 @@
+<div class="vx-support-ticket">
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>
+  </vx-spinner>
+  <div class="d-flex justify-content-between">
+    <h1 class="supportTicketHeading">{{i18n.supportTicketHeading}}</h1>
+    <h1 class="createTicketHeading">
+      <a href="javascript:void(0)" @click="handleCreateTicket()">{{i18n.createTicket}}</a>
+    </h1>
+  </div>
+  <div class="contact-info-section mb-xs-4">
+    <div class="contact-information m-xs-4">
+      <a href="javascript:void(0)">{{i18n.contactNumber}}</a>
+      <p class="mt-xs-2">{{i18n.contactTime}}</p>
+    </div>
+    <div class="live-chat m-xs-4">
+      <template v-if="i18n.liveChat">
+        <a class="btn btn-tertiary btn-small-text py-xs-0 d-flex justify-content-center align-items-center"
+          target="_blank" v-show="showButtons" ref="chatOnline" @click="triggerChat($event)">{{i18n.liveChat}}</a>
+        <a class="btn btn-tertiary btn-small-text py-xs-0 d-flex justify-content-center align-items-center"
+          target="_blank" v-show="showButtons" disabled ref="chatOffline">{{i18n.liveChat}}</a>
+      </template>
+      <p class="mt-xs-2">{{i18n.liveChatTime}}</p>
+    </div>
+  </div>
+  <template v-if="isMobile() && tableData.length">
+    <vx-dropdown-primary class="mb-xs-3" @primaryDropdownMounted="populateDefaultMessage"
+      @selected-option="triggerSort($event)" :dropdownValues="mobileSortOptions" ref="sortDropdown">
+    </vx-dropdown-primary>
+  </template>
+  <div class="table-container">
+    <table class="display responsive no-wrap table" id="support-ticket-data-table" width="100%"
+      ref="supportTicketTable">
+    </table>
+  </div>
+</div>

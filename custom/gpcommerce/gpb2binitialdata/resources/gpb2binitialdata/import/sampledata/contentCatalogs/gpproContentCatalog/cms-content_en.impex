@@ -1,0 +1,295 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+##******************************This file is generated - please do not edit it. It will be regenerated after every build.********************************#
+
+$contentCatalog=gpproContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$picture=media(code, $contentCV);
+$siteResource=jar:com.gp.b2binitialdata.constants.Gpb2binitialdataConstants&/gpb2binitialdata/import/sampledata/contentCatalogs/$contentCatalog
+$medias=medias(code, $contentCV);
+$mediaContainer=media(qualifier, $contentCV)[lang=$lang];
+
+
+# Language
+$lang=en
+
+# Site Logo Component
+UPDATE SimpleBannerComponent;$contentCV[unique=true];uid[unique=true];$picture[lang=$lang]
+;;SiteLogoComponent;/images/theme/logo_hybris_b2b_responsive.svg
+
+# CMS Link Components
+UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];linkName[lang=$lang]
+;;AddressBookLink;"Address Book"
+;;ApprovalDashboardLink;"Approval Dashboard"
+;;ContactUsLink;"Contact Us"
+;;FAQLink;"FAQ"
+;;FacebookLink;"Facebook"
+;;HomepageNavLink;"Home"
+;;ImportSavedCartLink;"Import Saved Cart"
+;;LinkedInLink;"Linked In"
+;;MyQuotesLink;"Quotes"
+;;MyReplenishmentOrdersLink;"Replenishment Orders"
+;;OrderFormsLink;"Order Forms"
+;;OrderHistoryLink;"Order History"
+;;PaymentDetailsLink;"Payment Details"
+;;PersonalDetailsLink;"Personal Details"
+;;QuickOrderLink;"Quick Order"
+;;SavedCartsLink;"Saved Carts"
+;;TwitterLink;"Twitter"
+;;UpdateEmailLink;"Email Address"
+;;UpdatePasswordLink;"Password"
+
+# CMS Link Components
+#UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];linkName[lang=en]
+
+## GP Links ##
+;;LinkedInLink;"LinkedIn"
+;;FacebookLink;"Facebook"
+;;TwitterLink;"Twitter"
+;;InstagramLink;"Instagram"
+;;PinterestLink;"Pinterest"
+;;YouTubeLink;"YouTube"
+;;SnapchatLink;"Snapchat"
+#;;FAQLink;"Help"
+;;AboutUsLink;"About Us"
+;;TermsAndConditionsLink;"Legal Disclaimer"
+;;ContactUsLink;"Contact Us"
+;;ProfilePreferencesLink;"Profile & Preferences"
+;;AddressesLink;"Addresses"
+;;BusinessUnitsLink;"Business Units"
+;;UsersLink;"Users"
+;;UserGroupsLink;"User Groups"
+;;PermissionsLink;"Permissions"
+;;ApprovalsLink;"Approvals"
+;;PaymentsLink;"Payment Methods"
+;;ListsLink;"Lists"
+
+# Lightbox Banner for Mini Cart (banner is not localizable so we must create a separate banner per language)
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime[default='image/jpeg'];&imageRef;folder(qualifier)[default='images'];altText
+;;GPPro_358x45_HomeDeliveryBanner_EN_01.gif;$siteResource/images/banners/site/GPPro_358x45_HomeDeliveryBanner_EN_01.gif;;GPPro_358x45_HomeDeliveryBanner_EN_01.gif;;"Order before 6pm for next day delivery"
+
+UPDATE SimpleBannerComponent;$contentCV[unique=true];uid[unique=true];$picture[lang=$lang]
+;;LightboxHomeDeliveryBannerComponent;GPPro_358x45_HomeDeliveryBanner_EN_01.gif
+
+# CMS Mini Cart Component
+UPDATE MiniCartComponent;$contentCV[unique=true];uid[unique=true];name;title[lang=$lang]
+;;MiniCart;Mini Cart;"YOUR SHOPPING CART"
+
+# CMS tabs components
+UPDATE CMSTabParagraphComponent;$contentCV[unique=true];uid[unique=true];title[lang=$lang];content[lang=$lang]
+;;deliveryTab;Delivery;"<div class=""tab-delivery"">Lorem ipsum dolor sit amet, dolor sed, ut nam ut. Senectus mauris egestas a massa, enim placeat wisi congue purus fermentum. Ut aptent mauris dapibus congue in sit. Sed dolor varius amet feugiat volutpat dignissim, pede a rhoncus sodales aliquam adipiscing, dapibus massa fusce. Dui egestas ornare urna nibh facilisi, cras posuere. Lorem aliquam accumsan eleifend sem libero lorem, aliquam sequi sed urna nec. Eget dolor quisque dolor, amet suspendisse ullamcorper minus elit lectus nunc, est mattis dui id eu et facilisis, conubia sit tristique. Ac fusce gravida condimentum iaculis neque, a platea curabitur accumsan porttitor vel justo. Amet potenti ac, eget amet ducimus sit nulla, ac porttitor rhoncus, justo proin tortor integer turpis nulla vitae. Egestas mollis litora nunc platea dui, eu semper mauris diam, erat quam, porta maecenas fusce libero non aliquet. Amet tellus taciti ligula sed sollicitudin, nonummy cursus enim, hendrerit nec, sed lacus sed at sit quis, semper a arcu mollis sapien nec pretium. Ante mauris eros nec, nonummy mauris, nulla lacinia vel. Volutpat luctus velit eu.</div>"
+
+# CMS Footer Component
+UPDATE FooterNavigationComponent;$contentCV[unique=true];uid[unique=true];notice[lang=en]
+;;FooterNavigationComponent;"| Georgia-Pacific"
+
+# CMS ProductReferences Components
+UPDATE ProductReferencesComponent;$contentCV[unique=true];uid[unique=true];title[lang=$lang]
+;;Similar;"You may also like..."
+;;accessories;"Accessories"
+
+# CMS PurchasedCategorySuggestion Components
+UPDATE PurchasedCategorySuggestionComponent;$contentCV[unique=true];uid[unique=true];title[lang=$lang]
+
+# Category Pages
+UPDATE CategoryPage;$contentCV[unique=true];uid[unique=true];title[lang=$lang]
+
+# CMS Navigation Nodes
+UPDATE CMSNavigationNode;$contentCV[unique=true];uid[unique=true];title[lang=$lang]
+;;MyAccountNavNode;"My Account"
+;;SiteRootNode;"SiteRoot"
+
+# CMS Navigation Nodes
+#UPDATE CMSNavigationNode;$contentCV[unique=true];uid[unique=true];title[lang=en]
+ 
+## GP Nav Nodes ##
+;;AboutGPCompanyNavNode;"About Us"
+;;GPCompanyNavNode;"About Company"
+;;AboutGPTermsAndConditionNavNode;"Legal Disclaimer"
+;;GPTermsAndConditionNavNode;"Terms And Conditions"
+;;GPContactUsNavNode;"Contact Us"
+;;GPFollowUsNavNode;"Follow Us"
+;;FAQNavNode;"Help"
+;;ContactUsNavNode;"Contact Us"
+;;TwitterNavNode;"Twitter"
+;;LinkedInNavNode;"LinkedIn"
+;;YouTubeNavNode;"YouTube"
+;;CheckoutFooterNavNode;""
+;;GPNavigationNavNode;""
+;;GPYourAccountNavNode;"Your Account"
+;;GPProfilePrefNavNode;"Profile & Preferences"
+;;GPAddressNavNode;"Addresses"
+;;GPPaymentNavNode;"Payment Methods"
+;;GPYourCompanyNavNode;"YOUR COMPANY"
+;;GPBusinessUnitNavNode;"Business Units"
+;;GPUserNavNode;"Users"
+;;GPUserGroupNavNode;"User Groups"
+;;GPPermissionsNavNode;"Permissions"
+;;GPApprovalsNavNode;"Approvals"
+;;GPAgreementNavNode;"Lease Agreements"
+;;GPOrderNavNode;"Order History"
+;;GPReturnNavNode;"Returns"
+#;;GPListNavNode;"Lists"
+;;GPSubscriptionNavNode;"Subscriptions"
+;;GPAccountListNavNode;"Lists"
+
+# GP B2BOrder Expired Page
+
+UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];content[lang=en];
+;;orderExpiredMenuParagraph;;
+;;orderExpiredTextParagraph;"<div class='cms-content order-expired'><div class='information_message neutral'><span class='single'></span><p>This page has expired.</p></div><h2>Dear Customer,</h2><p>Order Status for guest users are only kept for 3 months following the date the order was placed.<br>If you have not received your delivery or have other inquiries, please contact our Customer Service Dept.</p><h3>Be prepared with:</h3><ul class='bullet-list'><li>Your Name</li><li>Order Number (Your Order Number can be found on the confirmation email sent shortly after your order was placed.)</li><li>Order Delivery Address or Pick Up in Store Location</li></ul><p>Our Customer Service professionals will be happy to update you on the status of your order.</p><p class='cms-content-emphasized-big'>Thank you for shopping at hybrisstore.</p></div>";
+
+# GP B2BHomepage
+
+UPDATE ProductCarouselComponent;$contentCV[unique=true];uid[unique=true];title[lang=en]
+ ;;PremiumbuyersgroupHomepageProductCarouselComponent;"Our Bestselling Products"
+
+INSERT_UPDATE Media;mediaFormat(qualifier);code[unique=true];@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];realfilename;altText;mime[default='image/jpeg'];$contentCV[unique=true];folder(qualifier)[default=images];
+;widescreen;GPPro_1400x480_BigSplash_EN_01_1400W.jpg;$siteResource/images/banners/homepage/responsive/GPPro_1400x480_BigSplash_EN_01_1400W.jpg;GPPro_1400x480_BigSplash_EN_01_1400W.jpg;"The Most Powerful Tools in their Price Range";
+;widescreen;GPPro_1400x70_Brands_EN_01_1400W.jpg;$siteResource/images/banners/homepage/responsive/GPPro_1400x70_Brands_EN_01_1400W.jpg;GPPro_1400x70_Brands_EN_01_1400W.jpg;"Bosch | Black & Decker | Einhall | Skil | Hitachi";
+;mobile;GPPro_160x139_24Service_EN_01_160W.jpg;$siteResource/images/banners/homepage/responsive/GPPro_160x139_24Service_EN_01_160W.jpg;GPPro_160x139_24Service_EN_01_160W.jpg;"24/7 - Great Service After You Buy";
+;mobile;GPPro_160x139_25Deal_EN_01_160W.jpg;$siteResource/images/banners/homepage/responsive/GPPro_160x139_25Deal_EN_01_160W.jpg;GPPro_160x139_25Deal_EN_01_160W.jpg;"25% Great Prices and Great Deals";
+;mobile;GPPro_160x139_30Day_EN_01_160W.jpg;$siteResource/images/banners/homepage/responsive/GPPro_160x139_30Day_EN_01_160W.jpg;GPPro_160x139_30Day_EN_01_160W.jpg;"30 Day - Shop with Confidence";
+;mobile;GPPro_160x139_6pm_EN_01_160W.jpg;$siteResource/images/banners/homepage/responsive/GPPro_160x139_6pm_EN_01_160W.jpg;GPPro_160x139_6pm_EN_01_160W.jpg;"6pm - Order by 6pm for Same Day Shipping";
+;desktop;GPPro_240x200_24Service_EN_01_240W.jpg;$siteResource/images/banners/homepage/responsive/GPPro_240x200_24Service_EN_01_240W.jpg;GPPro_240x200_24Service_EN_01_240W.jpg;"24/7 - Great Service After You Buy";
+;desktop;GPPro_240x200_25Deal_EN_01_240W.jpg;$siteResource/images/banners/homepage/responsive/GPPro_240x200_25Deal_EN_01_240W.jpg;GPPro_240x200_25Deal_EN_01_240W.jpg;"25% Great Prices and Great Deals";
+;desktop;GPPro_240x200_30Day_EN_01_240W.jpg;$siteResource/images/banners/homepage/responsive/GPPro_240x200_30Day_EN_01_240W.jpg;GPPro_240x200_30Day_EN_01_240W.jpg;"30 Day - Shop with Confidence";
+;desktop;GPPro_240x200_6pm_EN_01_240W.jpg;$siteResource/images/banners/homepage/responsive/GPPro_240x200_6pm_EN_01_240W.jpg;GPPro_240x200_6pm_EN_01_240W.jpg;"6pm - Order by 6pm for Same Day Shipping";
+;desktop;GPPro_240x200_AngleGrinders_EN_01_240W.jpg;$siteResource/images/banners/homepage/responsive/GPPro_240x200_AngleGrinders_EN_01_240W.jpg;GPPro_240x200_AngleGrinders_EN_01_240W.jpg;"Angle Grinders";
+;desktop;GPPro_240x200_PowerDrills_EN_01_240W.jpg;$siteResource/images/banners/homepage/responsive/GPPro_240x200_PowerDrills_EN_01_240W.jpg;GPPro_240x200_PowerDrills_EN_01_240W.jpg;"Power Drills";
+;desktop;GPPro_240x200_Sanders_EN_01_240W.jpg;$siteResource/images/banners/homepage/responsive/GPPro_240x200_Sanders_EN_01_240W.jpg;GPPro_240x200_Sanders_EN_01_240W.jpg;"Sanders";
+;desktop;GPPro_240x200_Screwdrivers_EN_01_240W.jpg;$siteResource/images/banners/homepage/responsive/GPPro_240x200_Screwdrivers_EN_01_240W.jpg;GPPro_240x200_Screwdrivers_EN_01_240W.jpg;"Screwdrivers";
+;mobile;GPPro_320x100_Brands_EN_01_320W.jpg;$siteResource/images/banners/homepage/responsive/GPPro_320x100_Brands_EN_01_320W.jpg;GPPro_320x100_Brands_EN_01_320W.jpg;"Bosch | Black & Decker | Einhall | Skil | Hitachi";
+;mobile;GPPro_320x260_AngleGrinders_EN_01_320W.jpg;$siteResource/images/banners/homepage/responsive/GPPro_320x260_AngleGrinders_EN_01_320W.jpg;GPPro_320x260_AngleGrinders_EN_01_320W.jpg;"Angle Grinders";
+;mobile;GPPro_320x260_PowerDrills_EN_01_320W.jpg;$siteResource/images/banners/homepage/responsive/GPPro_320x260_PowerDrills_EN_01_320W.jpg;GPPro_320x260_PowerDrills_EN_01_320W.jpg;"Power Drills";
+;mobile;GPPro_320x260_Sanders_EN_01_320W.jpg;$siteResource/images/banners/homepage/responsive/GPPro_320x260_Sanders_EN_01_320W.jpg;GPPro_320x260_Sanders_EN_01_320W.jpg;"Sanders";
+;mobile;GPPro_320x260_Screwdrivers_EN_01_320W.jpg;$siteResource/images/banners/homepage/responsive/GPPro_320x260_Screwdrivers_EN_01_320W.jpg;GPPro_320x260_Screwdrivers_EN_01_320W.jpg;"Screwdrivers";
+;mobile;GPPro_320x300_BigSplash_EN_01_320W.jpg;$siteResource/images/banners/homepage/responsive/GPPro_320x300_BigSplash_EN_01_320W.jpg;GPPro_320x300_BigSplash_EN_01_320W.jpg;"The Most Powerful Tools in their Price Range";
+;widescreen;GPPro_350x280_24Service_EN_01_350W.jpg;$siteResource/images/banners/homepage/responsive/GPPro_350x280_24Service_EN_01_350W.jpg;GPPro_350x280_24Service_EN_01_350W.jpg;"24/7 - Great Service After You Buy";
+;widescreen;GPPro_350x280_25Deal_EN_01_350W.jpg;$siteResource/images/banners/homepage/responsive/GPPro_350x280_25Deal_EN_01_350W.jpg;GPPro_350x280_25Deal_EN_01_350W.jpg;"25% Great Prices and Great Deals";
+;widescreen;GPPro_350x280_30Day_EN_01_350W.jpg;$siteResource/images/banners/homepage/responsive/GPPro_350x280_30Day_EN_01_350W.jpg;GPPro_350x280_30Day_EN_01_350W.jpg;"30 Day - Shop with Confidence";
+;widescreen;GPPro_350x280_6pm_EN_01_350W.jpg;$siteResource/images/banners/homepage/responsive/GPPro_350x280_6pm_EN_01_350W.jpg;GPPro_350x280_6pm_EN_01_350W.jpg;"6pm - Order by 6pm for Same Day Shipping";
+;widescreen;GPPro_350x290_AngleGrinders_EN_01_350W.jpg;$siteResource/images/banners/homepage/responsive/GPPro_350x290_AngleGrinders_EN_01_350W.jpg;GPPro_350x290_AngleGrinders_EN_01_350W.jpg;"Angle Grinders";
+;widescreen;GPPro_350x290_PowerDrills_EN_01_350W.jpg;$siteResource/images/banners/homepage/responsive/GPPro_350x290_PowerDrills_EN_01_350W.jpg;GPPro_350x290_PowerDrills_EN_01_350W.jpg;"Power Drills";
+;widescreen;GPPro_350x290_Sanders_EN_01_350W.jpg;$siteResource/images/banners/homepage/responsive/GPPro_350x290_Sanders_EN_01_350W.jpg;GPPro_350x290_Sanders_EN_01_350W.jpg;"Sanders";
+;widescreen;GPPro_350x290_Screwdrivers_EN_01_350W.jpg;$siteResource/images/banners/homepage/responsive/GPPro_350x290_Screwdrivers_EN_01_350W.jpg;GPPro_350x290_Screwdrivers_EN_01_350W.jpg;"Screwdrivers";
+;tablet;GPPro_385x280_24Service_EN_01_385W.jpg;$siteResource/images/banners/homepage/responsive/GPPro_385x280_24Service_EN_01_385W.jpg;GPPro_385x280_24Service_EN_01_385W.jpg;"24/7 - Great Service After You Buy";
+;tablet;GPPro_385x280_25Deal_EN_01_385W.jpg;$siteResource/images/banners/homepage/responsive/GPPro_385x280_25Deal_EN_01_385W.jpg;GPPro_385x280_25Deal_EN_01_385W.jpg;"25% Great Prices and Great Deals";
+;tablet;GPPro_385x280_30Day_EN_01_385W.jpg;$siteResource/images/banners/homepage/responsive/GPPro_385x280_30Day_EN_01_385W.jpg;GPPro_385x280_30Day_EN_01_385W.jpg;"30 Day - Shop with Confidence";
+;tablet;GPPro_385x280_6pm_EN_01_385W.jpg;$siteResource/images/banners/homepage/responsive/GPPro_385x280_6pm_EN_01_385W.jpg;GPPro_385x280_6pm_EN_01_385W.jpg;"6pm - Order by 6pm for Same Day Shipping";
+;tablet;GPPro_385x290_AngleGrinders_EN_01_385W.jpg;$siteResource/images/banners/homepage/responsive/GPPro_385x290_AngleGrinders_EN_01_385W.jpg;GPPro_385x290_AngleGrinders_EN_01_385W.jpg;"Angle Grinders";
+;tablet;GPPro_385x290_PowerDrills_EN_01_385W.jpg;$siteResource/images/banners/homepage/responsive/GPPro_385x290_PowerDrills_EN_01_385W.jpg;GPPro_385x290_PowerDrills_EN_01_385W.jpg;"Power Drills";
+;tablet;GPPro_385x290_Sanders_EN_01_385W.jpg;$siteResource/images/banners/homepage/responsive/GPPro_385x290_Sanders_EN_01_385W.jpg;GPPro_385x290_Sanders_EN_01_385W.jpg;"Sanders";
+;tablet;GPPro_385x290_Screwdrivers_EN_01_385W.jpg;$siteResource/images/banners/homepage/responsive/GPPro_385x290_Screwdrivers_EN_01_385W.jpg;GPPro_385x290_Screwdrivers_EN_01_385W.jpg;"Screwdrivers";
+;tablet;GPPro_770x350_BigSplash_EN_01_770W.jpg;$siteResource/images/banners/homepage/responsive/GPPro_770x350_BigSplash_EN_01_770W.jpg;GPPro_770x350_BigSplash_EN_01_770W.jpg;"The Most Powerful Tools in their Price Range";
+;tablet;GPPro_770x70_Brands_EN_01_770W.jpg;$siteResource/images/banners/homepage/responsive/GPPro_770x70_Brands_EN_01_770W.jpg;GPPro_770x70_Brands_EN_01_770W.jpg;"Bosch | Black & Decker | Einhall | Skil | Hitachi";
+;desktop;GPPro_960x400_BigSplash_EN_01_960W.jpg;$siteResource/images/banners/homepage/responsive/GPPro_960x400_BigSplash_EN_01_960W.jpg;GPPro_960x400_BigSplash_EN_01_960W.jpg;"The Most Powerful Tools in their Price Range";
+;desktop;GPPro_960x70_Brands_EN_01_960W.jpg;$siteResource/images/banners/homepage/responsive/GPPro_960x70_Brands_EN_01_960W.jpg;GPPro_960x70_Brands_EN_01_960W.jpg;"Bosch | Black & Decker | Einhall | Skil | Hitachi";
+
+INSERT_UPDATE MediaContainer;qualifier[unique=true];$medias;$contentCV[unique=true]
+;GPPro_homepage-24/7service-en;GPPro_350x280_24Service_EN_01_350W.jpg,GPPro_240x200_24Service_EN_01_240W.jpg,GPPro_160x139_24Service_EN_01_160W.jpg,GPPro_385x280_24Service_EN_01_385W.jpg
+;GPPro_homepage-25%-deal-en;GPPro_350x280_25Deal_EN_01_350W.jpg,GPPro_240x200_25Deal_EN_01_240W.jpg,GPPro_160x139_25Deal_EN_01_160W.jpg,GPPro_385x280_25Deal_EN_01_385W.jpg
+;GPPro_homepage-30Day-en;GPPro_350x280_30Day_EN_01_350W.jpg,GPPro_240x200_30Day_EN_01_240W.jpg,GPPro_160x139_30Day_EN_01_160W.jpg,GPPro_385x280_30Day_EN_01_385W.jpg
+;GPPro_homepage-6pm-en;GPPro_350x280_6pm_EN_01_350W.jpg,GPPro_240x200_6pm_EN_01_240W.jpg,GPPro_160x139_6pm_EN_01_160W.jpg,GPPro_385x280_6pm_EN_01_385W.jpg
+;GPPro_homepage-anglegranders-en;GPPro_350x290_AngleGrinders_EN_01_350W.jpg,GPPro_240x200_AngleGrinders_EN_01_240W.jpg,GPPro_320x260_AngleGrinders_EN_01_320W.jpg,GPPro_385x290_AngleGrinders_EN_01_385W.jpg
+;GPPro_homepage-brands-en;GPPro_1400x70_Brands_EN_01_1400W.jpg,GPPro_960x70_Brands_EN_01_960W.jpg,GPPro_320x100_Brands_EN_01_320W.jpg,GPPro_770x70_Brands_EN_01_770W.jpg
+;GPPro_homepage-powerdrills-en;GPPro_350x290_PowerDrills_EN_01_350W.jpg,GPPro_240x200_PowerDrills_EN_01_240W.jpg,GPPro_320x260_PowerDrills_EN_01_320W.jpg,GPPro_385x290_PowerDrills_EN_01_385W.jpg
+;GPPro_homepage-sanders-en;GPPro_350x290_Sanders_EN_01_350W.jpg,GPPro_240x200_Sanders_EN_01_240W.jpg,GPPro_320x260_Sanders_EN_01_320W.jpg,GPPro_385x290_Sanders_EN_01_385W.jpg
+;GPPro_homepage-screwdrivers-en;GPPro_350x290_Screwdrivers_EN_01_350W.jpg,GPPro_240x200_Screwdrivers_EN_01_240W.jpg,GPPro_320x260_Screwdrivers_EN_01_320W.jpg,GPPro_385x290_Screwdrivers_EN_01_385W.jpg
+;GPPro_homepage-spalsh-en;GPPro_1400x480_BigSplash_EN_01_1400W.jpg,GPPro_960x400_BigSplash_EN_01_960W.jpg,GPPro_320x300_BigSplash_EN_01_320W.jpg,GPPro_770x350_BigSplash_EN_01_770W.jpg
+
+INSERT_UPDATE SimpleResponsiveBannerComponent;$contentCV[unique=true];uid[unique=true];$mediaContainer
+;;GPPro_Hompage24/7BannerComponent;GPPro_homepage-24/7service-en
+;;GPPro_Hompage25%BannerComponent;GPPro_homepage-25%-deal-en
+;;GPPro_Hompage30dayBannerComponent;GPPro_homepage-30Day-en
+;;GPPro_Hompage6pmBannerComponent;GPPro_homepage-6pm-en
+;;GPPro_HompageAngleGrindersBannerComponent;GPPro_homepage-anglegranders-en
+;;GPPro_HompageBrandsBannerComponent;GPPro_homepage-brands-en
+;;GPPro_HompagePowerDrillsBannerComponent;GPPro_homepage-powerdrills-en
+;;GPPro_HompageSandersBannerComponent;GPPro_homepage-sanders-en
+;;GPPro_HompageScrewdriversBannerComponent;GPPro_homepage-screwdrivers-en
+;;GPPro_HompageSplashBannerComponent;GPPro_homepage-spalsh-en
+
+
+# GP B2BSearch Results Page
+
+# Media Content
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime[default='image/jpeg'];folder(qualifier)[default='images'];altText
+;;GPPro_148x318_SearchResultsSideBanner_EN_01.jpg;$siteResource/images/banners/site/GPPro_148x318_SearchResultsSideBanner_EN_01.jpg;;;""
+
+UPDATE SimpleBannerComponent;$contentCV[unique=true];uid[unique=true];$picture[lang=$lang]
+;;SearchResultsSideBanner;GPPro_148x318_SearchResultsSideBanner_EN_01.jpg
+
+UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];content[lang=$lang]
+;;EmptyCartParagraphComponent;"<h2>Your shopping cart is empty</h2><p>Suggestions</p><ul><li>Browse our products by selecting a category above</li></ul>"
+;;NoSearchResultsParagraphComponent;"<h2>Sorry, we couldn't find any results for your search</h2><p>Suggestions:</p><ul><li>You may have typed your keywords incorrectly - please check for misspellings.</li><li>You may have been too specific - please broaden your search by using fewer keywords.</li><li>Browse our products by selecting a category above.</li></ul>"
+
+# GP B2BCart Page
+
+# Media Content
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime[default='image/jpeg'];folder(qualifier)[default='images'];altText
+;;GPPro_148x300_HelpBanner_EN_01.jpg;$siteResource/images/banners/site/GPPro_148x300_HelpBanner_EN_01.jpg;;;"Need Help? Click here for help with checking out"
+;;GPPro_788x120_HomeDeliveryBanner_EN_01.jpg;$siteResource/images/banners/site/GPPro_788x120_HomeDeliveryBanner_EN_01.jpg;;;"Order before 6pm for next day delivery"
+
+UPDATE SimpleBannerComponent;$contentCV[unique=true];uid[unique=true];$picture[lang=$lang]
+;;HelpBanner;GPPro_148x300_HelpBanner_EN_01.jpg
+;;NextDayDeliveryBanner120;GPPro_788x120_HomeDeliveryBanner_EN_01.jpg
+
+UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];content[lang=$lang]
+;;EmptyCartParagraphComponent;"<h2>Your shopping cart is empty</h2><p>Suggestions</p><ul><li>Browse our products by clicking a category above</li></ul>"
+;;HelpParagraphComponent;"<strong>Need Help with your checkout process?</strong> <span>Contact Us or Call phone number.</span>"
+
+# GP B2BStore Finder Page
+
+# Media Content
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime[default='image/jpeg'];folder(qualifier)[default='images'];altText
+;;GPPro_148x318_StoreFinderSideBanner_EN_01.jpg;$siteResource/images/banners/site/GPPro_148x318_StoreFinderSideBanner_EN_01.jpg;;;""
+
+UPDATE SimpleBannerComponent;$contentCV[unique=true];uid[unique=true];$picture[lang=$lang]
+;;StoreFinderSideBanner;GPPro_148x318_StoreFinderSideBanner_EN_01.jpg;
+
+
+INSERT_UPDATE Media;mediaFormat(qualifier);code[unique=true];@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];realfilename;altText;mime[default='image/svg+xml'];$contentCV[unique=true];folder(qualifier)[default=images]
+;widescreen;GPPro_1400x401_ErrorPage_EN_1400W.svg;$siteResource/images/banners/site/GPPro_1400x401_ErrorPage_EN_1400W.svg;GPPro_1400x401_ErrorPage_EN_1400W.svg;"Page not found";
+;mobile;GPPro_480x170_ErrorPage_EN_480W.svg;$siteResource/images/banners/site/GPPro_1400x401_ErrorPage_EN_1400W.svg;GPPro_1400x401_ErrorPage_EN_1400W.svg;"Page not found";
+;tablet;GPPro_770x221_ErrorPage_EN_770W.svg;$siteResource/images/banners/site/GPPro_1400x401_ErrorPage_EN_1400W.svg;GPPro_1400x401_ErrorPage_EN_1400W.svg;"Page not found";
+;desktop;GPPro_960x275_ErrorPage_EN_960W.svg;$siteResource/images/banners/site/GPPro_1400x401_ErrorPage_EN_1400W.svg;GPPro_1400x401_ErrorPage_EN_1400W.svg;"Page not found";
+
+INSERT_UPDATE MediaContainer;qualifier[unique=true];$medias;$contentCV[unique=true]
+;GPPro_errorpage-pagenotfound-en;GPPro_480x170_ErrorPage_EN_480W.svg,GPPro_770x221_ErrorPage_EN_770W.svg,GPPro_960x275_ErrorPage_EN_960W.svg,GPPro_1400x401_ErrorPage_EN_1400W.svg
+
+INSERT_UPDATE SimpleResponsiveBannerComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;$mediaContainer
+;;GPPro_tronicsErrorpageBannerComponent;GPPro_tronics Error Page Banner Component;GPPro_tronicsErrorpageBannerComponent;GPPro_errorpage-pagenotfound-en
+
+	
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];linkName[lang=$lang];url;styleAttributes;target(code)[default='sameWindow'];external[default=false];socialLink[default=false];markAsViewAll[default=false]
+;;HelpLink;Help;/faq;;;;
+#;;FindStoreLink;Find a Distributor;/find/locatestore;;;;
+;;LoginLink;Login;/login;;;;
+;;LogoutLink;Logout;/logout;;;;
+;;CreateAccountLink;Create Account;/register;;;;
+#;;ProductsNavLink;Products Nav Link;/category/categories;;;;
+
+INSERT_UPDATE CMSNavigationNode;$contentCV[unique=true];uid[unique=true];title[lang=$lang];name;parent(uid, $contentCV);
+;;GPHeaderNavigationNode;Main Header Nav Node;Main Header Nav Node;SiteRootNode;
+;;GPCheckoutNavNode;Checkout Nav Node;Checkout Nav Node;GPHeaderNavigationNode;
+;;GPFindStoreNavNode;Find Store Nav Node;Find Store Nav Node;GPHeaderNavigationNode;
+;;GPLoginMenuNavNode;Login Nav Node;Login Nav Node;GPHeaderNavigationNode;
+;;GPLogoutMenuNavNode;Logout Nav Node;Logout Nav Node;GPHeaderNavigationNode;
+;;GPCategoryNavigationNode;Category Navigation Node;Category Navigation Node;GPHeaderNavigationNode;
+;;ProductsNavNode;Products;Products;GPCategoryNavigationNode;
+;;ProductOverviewNavNode;Product Overview;Product Overview;ProductsNavNode;
+
+INSERT_UPDATE GPCartSuggestionComponent;$contentCV[unique=true];uid[unique=true];title[lang=$lang]
+;;gpQuickOrderSuggestions;Items you might be interested in
+
+INSERT_UPDATE CMSSAPRecommendationComponent;$contentCV[unique=true];uid[unique=true];title[lang=$lang]
+;;TopSoldProductsComponent;Top Selling Products

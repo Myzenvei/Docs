@@ -1,0 +1,119 @@
+#gp-employee {
+  .vx-tab-container {
+    margin: 30px 0;
+    .nav-tabs {
+      border-bottom: none;
+      > li {
+        padding: 12px 48px;
+        a {
+          font-size: 24px;
+          font-weight: @font-weight-bold;
+          padding-top: 0;
+          padding-bottom: 0;
+          border: none;
+        }
+        &.active {
+          padding: 12px 28px;
+          border-top-left-radius: @card-layout-border-radius;
+          border-top-right-radius: @card-layout-border-radius;
+          background-color: @tab-background-color-active;
+        }
+        &:nth-child(n + 2) {
+          display: none;
+        }
+        &:nth-child(2) {
+          order: -1;
+        }
+      }
+    }
+    .tab-content {
+      background-color: @card-layout-bg-color;
+      border-radius: @card-layout-border-radius;
+    }
+  }
+}
+
+@media screen and (max-width: @screen-sm-max) {
+  #gp-employee {
+    .vx-tab-container {
+      .nav-tabs {
+        > li {
+          &.active {
+            padding: 12px 23px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: @screen-xs-max) {
+  #gp-employee {
+    .vx-tab-container {
+      margin-top: 16px;
+      > div {
+        padding-left: 16px !important;
+        padding-right: 16px !important;
+      }
+      .product-details-tab__container {
+        padding: 0;
+        & > .row {
+          .product-details-tab__pspecholder {
+            .product-details-tab__bottomheading {
+              padding-bottom: 8px;
+              font-weight: @font-weight-medium;
+            }
+            .product-details-tab__pspeccontainer {
+              .col-container {
+                & > .onlytopborder:not(:first-child) {
+                  border-top: none;
+                }
+              }
+              .product-details-tab-specs__heading {
+                margin: 8px 0;
+              }
+            }
+          }
+        }
+      }
+      #pane-reviews,
+      #pane-resources,
+      #pane-related-products,
+      #pane-compare-products {
+        display: none !important;
+      }
+      .tab-pane {
+        border: none;
+        // &:first-child {
+        //   padding-top: 16px;
+        // }
+        // &:last-child {
+        //   padding-bottom: 24px;
+        // }
+        .card-header h5 {
+          padding: 8px 0;
+          margin: 0;
+          a {
+            font-size: 24px;
+            font-weight: @font-size-medium;
+            color: @pdp-heading-color;
+            span {
+              position: relative;
+              font-size: 20px;
+              &:before {
+                content: '\e917';
+              }
+            }
+            &[aria-expanded='true'] {
+              & span {
+                &:before {
+                  content: '\e91a';
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

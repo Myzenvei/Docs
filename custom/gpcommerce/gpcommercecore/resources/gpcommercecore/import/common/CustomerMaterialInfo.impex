@@ -1,0 +1,6 @@
+INSERT_UPDATE GPCustomerMaterialInfo;productCode;soldToId[unique=true];cmirCode[unique = true]
+									;1234       			 ;abc     ;ghf
+									;300441142               ;abc 	  ;routine1
+									;29531                   ;abc 	  ;routine2
+									;11111                   ;abc 	  ;routine3
+										

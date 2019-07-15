@@ -1,0 +1,37 @@
+<div class="vx-build-bundle p-xs-4 m-xs-3">
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen></vx-spinner>
+  <div class="root-bundle mb-xs-5 mb-sm-4 mb-md-5">
+    <h1 class="root-bundle__name mb-xs-3 mb-sm-5 mt-xs-0">{{rootBundleData.name}}</h1>
+    <div class="root-bundle__details d-flex">
+      <div class="root-bundle__image mr-xs-3 mr-sm-4">
+        <img v-bind:src="rootBundleData.image" v-if="rootBundleData.image" :alt='rootBundleData.name' />
+        <img v-bind:src="globals.assetsPath + 'images/no_image.svg'" v-else :alt='rootBundleData.name' />
+      </div>
+      <p class="root-bundle__description" v-html="rootBundleData.description"></p>
+    </div>
+  </div>
+  <template v-if="leafBundles.length">
+    <div class="leaf-bundle" v-for="(bundle, index) in leafBundles">
+      <vx-accordion :ref="'leafBundle'+index" @accordionStatus="showBundleProducts(index)" isSlotBased preserveAccordionState
+      @accordionMounted="expandFirstLeafBundle(index)">
+        <template slot="heading">{{bundle.name}}</template>
+        <template slot="component" v-if="bundle.isExpanded">
+          <vx-slider :product-data="bundle.products" :search-browse-i18n="i18n.productTile" :swiper-modifier-class="'leaf-carousel-'+index+'-'" :enableSimulateTouch="false" isSlotBased>
+            <template slot="slide" slot-scope="{product, i18n}">
+              <vx-product-tile-vertical :product="product" :i18n="i18n" :bundleProductStatus="updateProductState(product.code)" @productSelected="handleAddToBundle($event, product.code, bundle.id, bundle.starter)"
+              :isBundlesCheckboxDisabled="handleProductState(product.code, product.stock, product.materialStatus, bundle.maxItemsAllowed, bundle.id)" hideButtonBlock="true" isBundlesTile="true" v-bind:is-bazaar-voice="isBazaarVoice"></vx-product-tile-vertical>
+            </template>
+          </vx-slider>
+        </template>
+      </vx-accordion>
+    </div>
+  </template>
+  <div v-if="!updateBundle" class="add-to-cart-container d-flex justify-content-end">
+    <button type="button" class="btn btn-primary add-to-cart-btn" :disabled="!addToCartEnabled" @click="addBundleToCart" :aria-label="i18n.productTile.label.addToCart"
+    >{{i18n.productTile.label.addToCart}}</button>
+  </div>
+  <div v-else class="update-bundle-container d-flex justify-content-end">
+    <button type="button" class="btn btn-primary" :disabled="!isBundleUpdated || !addToCartEnabled" @click="updateCartBundle" :aria-label="i18n.updateBundle"
+    >{{i18n.updateBundle}}</button>
+  </div>
+</div>

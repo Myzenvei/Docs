@@ -1,0 +1,245 @@
+// @import '../../styles/common/variables.less';
+@import '../../styles/common/mixins.less';
+@import '../../../components/common/vx-map-locator/vx-map-locator.less';
+.mg-find-a-store {
+    max-width: 1172px;
+    margin: 0 auto;
+    h1{
+        color: @text-color-3;
+    }
+    input{
+        height: 40px;
+        border: 2px solid @border-3;
+        border-radius: 0;
+        .font(
+            21px,
+            @font-weight-regular,
+            @font-family-base,
+            @text-color-3,
+            @line-height-base
+        );
+        &.zip-code{
+            max-width: 130px;
+        }
+    }
+    .submit-btn{
+        border-radius: 0;
+        padding: 0;
+        width: 40px;
+        height: 40px;
+        border: 2px solid @border-5;
+        font-size: 21px;
+        color: @text-color-6;
+    }
+    .data-submit{
+        color:@text-color-3;
+        width: 90px;
+        span{
+            width: 10px;
+            height: 10px;
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+            border-left: 10px solid @border-3;
+            float: right;
+            margin-top: 11px;
+            margin-right: 5px;
+        }
+    }
+    .distanceRange,.productType{
+        .dropdown-primary .dropdown {
+            max-width: 220px;
+            button{
+                height: 40px;
+                border: 2px solid @border-3;
+                border-radius: 0;
+                text-align: left;
+                .font(
+                    21px,
+                    @font-weight-regular,
+                    @font-family-base,
+                    @text-color-3,
+                    @line-height-base
+                );
+                span{
+                    &.icon-chevron-down{
+                        /*triangle border css*/
+                        width: 10px;
+                        height: 10px;
+                        border-left: 10px solid transparent;
+                        border-right: 10px solid transparent;
+                        border-top: 10px solid @border-5;
+                        float: right;
+                        margin-top: 4px;
+                        &:before{
+                            content: '';
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .productType{
+        max-width: 250px;
+        .dropdown-primary .dropdown{
+            width: 250px;
+            max-width: 250px;
+        }
+    }
+    .dropdown-primary .dropdown{
+            ul{
+                width: 100%;
+                li{
+                    a{
+                        .font(
+                            21px,
+                            @font-weight-regular,
+                            @font-family-lifhack-medium,
+                            @text-color-3,
+                            @line-height-base
+                        );
+                    }
+                }
+            }
+     }
+
+
+    .paginate-list{
+        width: auto;
+        padding: 0;
+        text-align: left;
+        color:@text-color-1;
+        min-height: 200px;
+        list-style: none;
+        margin-top: 16px;
+        @media(min-width:@screen-sm-min){
+            margin-top: 0;
+        }
+        @media(min-width:@screen-sm-min) and (max-width:@screen-sm-max){
+          margin-left: 16px;
+        }
+        li{
+            display: flex;
+            a,p{
+                .font(
+                    20px,
+                    @font-weight-regular,
+                    @font-family-base,
+                    @text-color-1,
+                    1
+                );
+            }
+        }
+    }
+    .no-stores{
+        .font(
+            21px,
+            @font-weight-regular,
+            @font-family-lifehack,
+            @text-color-5,
+            @line-height-base
+        )
+    }
+    // .paginate-list {
+    //     width: auto;
+    //     margin: 0 auto;
+    //     text-align: left;
+    //   }
+
+      .paginate-links {
+        user-select: none;
+        list-style: none;
+        width: auto;
+        padding: 0;
+        @media(min-width:@screen-sm-min) and (max-width:@screen-sm-max){
+          margin-left: 16px;
+        }
+        li{
+            display: inline-block;
+            padding: 8px;
+            &.left-arrow{
+              padding-left: 0;
+            }
+            &.right-arrow{
+              padding-right: 0;
+            }
+            a {
+                cursor: pointer;
+                .font(
+                  28px,
+                  @font-weight-regular,
+                  @font-family-lifehack,
+                  @text-color-8,
+                  @line-height-base
+              );
+              }
+            &.number{
+                a{
+                    text-decoration: underline;
+                }
+                &.active{
+                    a{
+                        text-decoration: none;
+                    }
+                }
+            }
+        }
+        li.active a {
+          font-weight: bold;
+        }
+        // li.next:before {
+        //   content: ' | ';
+        //   margin-right: 13px;
+        //   color: #ddd;
+        // }
+        li.disabled a {
+          color: @text-color-3;
+          cursor: no-drop;
+        }
+      }
+
+    .online-retailers{
+        a{
+            height: 50px;
+        }
+        img{
+            width: 100%;
+            height: 100%;
+            @media only screen and (min-width: @screen-sm-min){
+                width: auto;
+            }
+        }
+        @media(min-width:@screen-sm-min) and (max-width: @screen-sm-max){
+          .text-center{
+            text-align: right;
+            margin-right: 30px;
+          }
+        }
+    }
+    .map-locator{
+        #map-canvas{
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            .store-name{
+              font-family: Verdana;
+              font-size: 10pt;
+              font-weight: bold;
+              color:@text-color-11;
+              margin: 0;
+              max-width: 226px;
+              word-break: break-all;
+            }
+            .store-address{
+              font-family: verdana;
+              font-size: 10pt;
+              color: @text-color-12;
+              padding: 10px;
+              overflow: auto;
+              display: block;
+              padding: 10px 0;
+              max-width: 226px;
+              word-break: break-word;
+            }
+        }
+    }
+}

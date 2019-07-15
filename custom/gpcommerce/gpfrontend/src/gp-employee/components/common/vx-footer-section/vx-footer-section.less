@@ -1,0 +1,102 @@
+@import '../../../styles/common/variables.less';
+
+#gp-employee {
+  .vx-employee-footer {
+    background-color: @footer-background;
+    .footer {
+      max-width: @screen-lg;
+      margin: 0 auto;
+      &__left-section {
+        width: 70%;
+        .footer__column {
+          width: 33%;
+          &-heading {
+            color: @footer-heading-color;
+            text-transform: uppercase;
+            font-weight: @font-weight-bold;
+          }
+          &-item {
+            a {
+              color: @footer-sub-links;
+              font-size: @font-size-small;
+            }
+          }
+        }
+      }
+      &__right-section {
+        width: 30%;
+        padding-right: 24px;
+        padding-top: 4px;
+        .footer__logo {
+          width: 227px;
+          float: right;
+          clear: both;
+          padding-bottom: 8px;
+        }
+        .footer__copyright {
+          width: 227px;
+          text-align: right;
+          float: right;
+        }
+      }
+      &.checkout-footer {
+        .footer__left-section {
+          .footer__column {
+            display: none;
+            &:last-child {
+              display: block;
+            }
+          }
+        }
+      }
+    }
+    a:hover,
+    a:focus {
+      color: @brand-primary;
+    }
+  }
+
+  @media only screen and (max-width: @screen-sm-max) {
+    .vx-employee-footer {
+      .footer {
+        &__left-section {
+          width: 60%;
+          .footer__column {
+            width: 33%;
+          }
+        }
+        &__right-section {
+          width: 40%;
+        }
+      }
+    }
+  }
+
+  @media only screen and (max-width: @screen-xs-max) {
+    .vx-employee-footer {
+      .footer {
+        flex-direction: column;
+        &__left-section {
+          width: 100%;
+          flex-wrap: wrap;
+          .footer__column {
+            width: 50%;
+          }
+        }
+        &__right-section {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          border-top: 1px solid @border-color;
+          .footer__logo {
+            text-align: center;
+          }
+          .footer__copyright {
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
+}

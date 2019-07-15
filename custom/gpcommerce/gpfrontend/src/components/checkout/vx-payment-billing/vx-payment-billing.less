@@ -1,0 +1,157 @@
+.vx-payment-billing {
+  .sub-heading {
+    font-size: @font-size-h6;
+    color: @font-color-label-text;
+  }
+
+  .section-header {
+    font-size: @font-size-h4;
+    font-weight: @font-weight-medium;
+    display: inline-block;
+  }
+
+  .section-sub-heading {
+    font-size: @font-size-h5;
+    font-weight: @font-weight-medium;
+  }
+
+  .change {
+    font-size: @font-size-h5;
+    color: @text-color-secondary-3;
+    font-weight: @font-weight-medium;
+  }
+
+  .add-new-payment {
+    font-size: @font-size-h5;
+    color: @text-color-secondary-3;
+    font-weight: @font-weight-medium;
+    top: 10px;
+    cursor: pointer;
+    text-align: right;
+  }
+
+  .radio-button-group {
+    .form-check .form-group .form-check-label {
+      font-size: @font-size-small;
+      font-weight: @font-weight-light;
+    }
+  }
+
+  .card-img {
+    height: 26.45px;
+    width: 40px;
+    vertical-align: middle;
+
+    img {
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  .selected-card {
+    font-size: @font-size-base;
+    font-weight: @font-weight-light;
+    vertical-align: middle;
+  }
+
+  .address-text {
+    font-size: @font-size-small;
+    font-weight: @font-weight-light;
+  }
+
+  .heading-section-wrapper {
+    span[disabled] {
+      pointer-events: none;
+      color: @font-icon-color-1;
+    }
+    margin: 0;
+  }
+
+  .form-elements {
+    .card-icon {
+      width: 40px;
+      height: 24px;
+      margin-right: 8px;
+    }
+  }
+
+  .paypal-button-size-responsive {
+    text-align: right;
+  }
+
+  #paypal-button-container {
+    width: 360px;
+
+    @media only screen and (min-width: @screen-sm-min) {
+      width: 440px;
+    }
+
+    @media only screen and (min-width: @screen-md-min) {
+      width: 480px;
+    }
+    iframe.zoid-component-frame {
+      z-index: 8!important;
+    }
+  }
+
+  .paypal-button {
+    border-radius: 19px;
+    // background: @paypal-background-color;
+    height: 31px;
+    width: 156px;
+    margin-right: 16px;
+    cursor: pointer;
+
+    @media only screen and (min-width: @screen-sm-min) {
+      width: 172px;
+    }
+
+    @media only screen and (min-width: @screen-md-min) {
+      width: 226px;
+      height: 36px;
+      margin-right: 24px;
+    }
+
+    &.paypal-credit {
+      background: @paypal-credit-background-color;
+    }
+
+    img {
+      margin-right: 2px;
+      margin-left: 2px;
+    }
+
+    .paypal-icon {
+      height: 17px;
+    }
+  }
+
+  @media only screen and (min-width: @screen-sm-min) {
+    .payment-options {
+      .radio-button-group {
+        .form-group {
+          margin-bottom: 0;
+          label {
+            margin-bottom: 0!important;
+          }
+        }
+      }
+    }
+  }
+
+  @media only screen and (max-width: @screen-xs-max) {
+    .save-payment {
+      width: 100%;
+    }
+
+    .change,
+    .add-new-payment {
+      font-size: @font-size-small;
+    }
+
+    .payment-options {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+}

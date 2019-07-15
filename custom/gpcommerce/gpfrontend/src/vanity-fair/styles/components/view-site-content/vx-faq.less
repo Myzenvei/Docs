@@ -1,0 +1,31 @@
+.vx-faq {
+  .vx-accordion {
+    .panel {
+      .panel-title {
+        a {
+          &:before {
+            color: @font-icon-color-4;
+          }
+          span {
+            font-size: @font-size-medium;
+            @media screen and (min-width: @screen-sm-min) {
+              font-size: @font-size-small;
+            }
+          }
+        }
+      }
+      .panel-body {
+        word-wrap: break-word;
+        font-size: @font-size-small;
+        padding-top: 0;
+        padding-bottom: 24px;
+        line-height: 18px;
+        @media screen and (min-width: @screen-sm-min) {
+          font-size: @font-size-medium;
+          padding-top: 8px;
+          line-height: 20px;
+        }
+      }
+    }
+  }
+}

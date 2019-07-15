@@ -1,0 +1,104 @@
+#dixie {
+  .header-section {
+    .navbar-bottom {
+      .logo {
+        width: 120px;
+        margin-left: 40px;
+        img {
+          max-height: 32px;
+        }
+      }
+      .navbar-bottom-left {
+        margin-left: 16px;
+        .navigation-menu .primary-menu .primary-menu-item {
+          &>a {
+            &:after {
+              display: inline-block;
+              width: 16px;
+              height: 16px;
+              font-size: 16px;
+              vertical-align: sub;
+              cursor: pointer;
+              font-family: icomoon!important;
+              content: "\E917";
+              padding-right: 5px;
+            }
+          }
+        }
+      }
+      .navbar-bottom-right {
+        .cart .badge {
+          left: initial;
+          right: 0;
+          top: 6px;
+        }
+        .quick-order {
+          display: inline-flex;
+        }
+      }
+    }
+  }
+  .checkout-header {
+    img {
+      height: 100%;
+    }
+  }
+}
+
+@media only screen and (max-width: @screen-sm-max) {
+  #dixie {
+    .header-section {
+      .navbar-top {
+        background-color: @background-nav-bottom;
+      }
+      .navbar-bottom,.navbar-top {
+        background-color: @brand-secondary-2;
+        .navbar-bottom-left {
+          margin-left: 0;
+        }
+        .logo {
+          margin-left: 50px;
+          top: 12px;
+          left: 0;
+          transform: translateY(0);
+          height: 32px;
+          padding: 0;
+          background: none;
+          border: 0;
+          img {
+            height: 100%;
+          }
+          padding: 0;
+          background: none;
+          border: 0;
+        }
+      }
+      .checkout-header {
+        .logo {
+          margin-left: 32px;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: @screen-xs-max) {
+  #dixie {
+    .header-section {
+      .navbar-top {
+        background-color: @background-nav-bottom;
+      }
+      .navbar-bottom {
+        background-color: @brand-secondary-2;
+        .logo {
+          margin-left: 50px;
+        }
+      }
+      .checkout-header {
+        .logo {
+          margin-left: 16px;
+        }
+      }
+    }
+  }
+}

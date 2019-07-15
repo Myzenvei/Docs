@@ -1,0 +1,15 @@
+#gp-xpress {
+  .form-group {
+    [type='checkbox']:checked + label:after,
+    [type='checkbox']:checked + label:before,
+    [type='checkbox']:not(:checked) + label:before {
+      width: 18px;
+      height: 18px;
+    }
+
+    [type='checkbox']:not(:checked) + label {
+      padding-top: 1px;
+      padding-left: 25px;
+    }
+  }
+}

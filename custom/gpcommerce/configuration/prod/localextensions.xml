@@ -1,0 +1,163 @@
+<hybrisconfig xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:noNamespaceSchemaLocation='../bin/platform/resources/schemas/extensions.xsd'>
+
+<extensions>
+<path dir='${HYBRIS_BIN_DIR}' depth="4" />
+
+<!-- ext-integration -->
+<extension dir='${HYBRIS_BIN_DIR}/ext-integration/sap/core/sapcore' />
+<extension dir='${HYBRIS_BIN_DIR}/ext-integration/sap/core/sapcorebol' />
+<extension dir='${HYBRIS_BIN_DIR}/ext-integration/sap/core/sapcoreconfiguration' />
+<extension dir='${HYBRIS_BIN_DIR}/ext-integration/sap/core/sapcoreconfigurationbackoffice' />
+<extension dir='${HYBRIS_BIN_DIR}/ext-integration/sap/core/sapcorejco' />
+<extension dir='${HYBRIS_BIN_DIR}/ext-integration/sap/core/sapcorejcorec' />
+<extension dir='${HYBRIS_BIN_DIR}/ext-integration/sap/testsupport/sapcoretest' />
+<extension dir="${HYBRIS_BIN_DIR}/ext-integration/sap/core/sapmodel"/>
+<extension dir="${HYBRIS_BIN_DIR}/ext-integration/sap/masterdata/sapcustomerb2b"/>
+<extension name='datahubadapter' />
+<extension name='datahubbackoffice' />
+<extension name='gpsaporderexchangeb2b' />
+<extension name='gpsaporderexchange'/>
+<extension name='gpsapreturnorder'/>
+<extension name='gpsaporderfulfillment' />
+<extension dir='${HYBRIS_BIN_DIR}/ext-integration/sap/asynchronousOM/saporderexchange'/>
+<extension dir='${HYBRIS_BIN_DIR}/ext-integration/sap/asynchronousOM/saporderexchangeb2b'/>
+<extension dir='${HYBRIS_BIN_DIR}/ext-integration/sap/masterdata/sapcustomerb2c'/>
+<extension dir='${HYBRIS_BIN_DIR}/ext-integration/sap/masterdata/sapcustomerb2bbackoffice'/>
+<extension dir='${HYBRIS_BIN_DIR}/ext-integration/sap/returnOrder/sapreturnsexchange'/>
+<extension dir='${HYBRIS_BIN_DIR}/ext-integration/sap/returnOrder/sapreturnsexchangeb2b'/>
+<!-- end ext-integration -->
+
+<extension name='mcc' />
+<extension name='adaptivesearchsolr' />
+<extension name='adaptivesearchbackoffice' />
+<extension name='adaptivesearchsamplesaddon' />
+<extension name='adaptivesearchwebservices' />
+<extension name='b2bcommercebackoffice' />
+<extension name='solrfacetsearchbackoffice' />
+<extension name='b2badmincockpit' />
+<extension name='solrserver' />
+<extension name='acceleratorwebservicesaddon' />
+<extension name='commerceorgaddon' />
+<extension name='commerceorgsamplesaddon' />
+<extension name='orderselfserviceaddon' />
+<extension name='assistedservicewebservices' />
+<extension name='assistedservicefacades' />
+<extension name='customerticketingaddon' />
+<extension name='customersupportbackoffice' />
+<extension name='rulebuilderbackoffice' />
+<extension name='couponbackoffice' />
+<extension name='droolsruleengineservices' />
+<extension name='couponfacades' />
+<extension name='promotionenginesamplesaddon' />
+<extension name='cmswebservices' />
+<extension name='smarteditwebservices' />
+<extension name='permissionswebservices' />
+<extension name='smarteditaddon' />
+<extension name='cmssmartedit' />
+<extension name='cmsbackoffice' />
+<extension name='previewwebservices' />
+<extension name='cmssmarteditwebservices' />
+<extension name='previewpersonalizationweb' />
+<extension name='personalizationcmsweb' />
+<extension name='personalizationsmartedit' />
+<extension name='personalizationpromotionssmartedit' />
+<extension name='personalizationsampledataaddon' />
+<extension name='personalizationpromotions' />
+<extension name='personalizationpromotionsweb' />
+<extension name='personalizationservicesbackoffice' />
+<extension name='personalizationpromotionsbackoffice' />
+<extension name='personalizationcmsbackoffice' />
+<extension name='personalizationsearchbackoffice' />
+<extension name='personalizationsearchsmartedit' />
+<extension name='personalizationsearchweb' />
+<extension name="wishlist" />
+<extension name='pcmbackofficesamplesaddon' />
+<!-- SmartEdit Extension -->
+<extension name='npmancillary' />
+
+<!--Commented during 6.7 upgrade. Removed from local for productivity. These can be added on dev environment-->
+<!--
+<extension name='personalizationsearchsamplesaddon' />
+<extension name='textfieldconfiguratortemplatebackoffice' />
+<extension name='textfieldconfiguratortemplateaddon' />
+<extension name='assistedserviceatddtests' />
+<extension name='promotionengineatddtests' />
+<extension name='textfieldconfiguratortemplateatddtests' />-->
+
+<extension name='pcmbackoffice' />
+<extension name='pcmbackofficesamplesaddon' />
+
+<extension name='gpcommercecore' />
+<extension name='gpcommercefacades' />
+<extension name='gpcommercecockpits' />
+<extension name='gpcommerceinitialdata' />
+<extension name='gpcommercefulfilmentprocess' />
+<extension name='gpcommercestorefront' />
+<extension name='gpcommercetest' />
+<extension name='gpb2bstorefront' />
+<extension name='gpcommercewebservices' />
+<extension name='gpintegration' />
+<extension name='gpb2baccaddon' />
+<extension name='gpbackoffice'/>
+<extension name='gpb2binitialdata' />
+<extension name='gpcommonaddon' />
+<extension name='gpassistedservicesstorefront' />
+<extension name='gpsapymktexpressway' />
+<extension name='arvatoAvalaraConnector' />
+<extension name='gpymktrecommendationaddon' />
+
+<extension name='gpsinglesignon' />
+<extension name='gpssobackoffice' />
+
+<!-- Product and Offer Recommendations -->
+<extension dir="${HYBRIS_BIN_DIR}/ext-integration/ymkt/sapymktcommon"/>
+<extension dir="${HYBRIS_BIN_DIR}/ext-integration/ymkt/sapymktrecommendation"/>
+<extension dir="${HYBRIS_BIN_DIR}/ext-integration/ymkt/sapymktrecommendationbuffer"/>
+<extension dir="${HYBRIS_BIN_DIR}/ext-integration/ymkt/sapymktrecommendationwebservices"/>
+
+<!-- Segmentations -->
+<extension dir="${HYBRIS_BIN_DIR}/ext-integration/ymkt/sapymktsegmentation"/>
+<extension dir="${HYBRIS_BIN_DIR}/ext-integration/ymkt/sapymktsegmentationb2b"/>
+<extension dir="${HYBRIS_BIN_DIR}/ext-integration/ymkt/sapymktsegmentationwebservices"/> 
+
+<!-- Clickstream -->
+<extension dir="${HYBRIS_BIN_DIR}/ext-integration/ymkt/sapymktclickstream"/>
+<extension dir="${HYBRIS_BIN_DIR}/ext-addon/eventtrackingwsaddon"/>
+
+<!-- Bazaarvoice -->
+<extension name="bazaarvoice"/>
+<extension name="bvbackoffice"/>
+
+
+<extension name="addonsupport"/>
+<extension name="acceleratorwebservicesaddon" />
+<extension name='stocknotificationaddon'/>
+<extension name='notificationaddon'/>
+<extension name='customerinterestsaddon'/>
+<extension name="gpstocknotifyoccaddon"/>
+
+
+ 
+<extension name="otmmaddon" />
+<extension name="otmmaddonui" />
+<extension name="otmmaddonbackoffice" />
+<extension name='otmmws' />
+<extension name='otmmsmartedit'/>
+<extension name='advancedexport' /> 
+
+<!--multicountry package -->
+<extension name='multicountry' />
+<extension name='multicountrybackoffice' />
+<extension name='multicountrywidgetsbackoffice' />
+<extension name='contextualattributevalues' />
+<extension name='contextualattributevaluesbackoffice' />
+
+<extension name='gpcontentsearchaddon' />
+
+<!-- bundles -->
+<extension name="configurablebundlecockpits"/>
+<extension name="configurablebundlefacades"/>
+<extension name="configurablebundleservices"/>
+
+</extensions>
+</hybrisconfig>

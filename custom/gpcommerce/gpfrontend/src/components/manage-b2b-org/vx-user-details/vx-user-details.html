@@ -1,0 +1,116 @@
+<div class="vx-user-details">
+
+  <div class="toast py-xs-3 px-xs-4" v-if="showResetPasswordMsg">
+    <span class="icon-check" :title="i18n.iconSuccessTitle"></span>
+    {{i18n.resetPassword}}
+    <span class="icon-x pull-right" :title="i18n.iconCloseTitle" role="button" tabindex="0" :aria-label="i18n.iconCloseTitle"
+      @click="showResetPasswordMsg = !showResetPasswordMsg" @keyup.enter-space="showResetPasswordMsg = !showResetPasswordMsg"></span>
+  </div>
+
+  <div class="toast py-xs-3 px-xs-4" v-if="showInviteMsg">
+    <span class="icon-check" :title="i18n.iconSuccessTitle"></span>
+    {{i18n.inviteUser}}
+    <span class="icon-x pull-right" :title="i18n.iconCloseTitle" role="button" tabindex="0" :aria-label="i18n.iconCloseTitle"
+      @click="showInviteMsg = !showInviteMsg" @keyup.enter-space="showInviteMsg = !showInviteMsg"></span>
+  </div>
+
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen></vx-spinner>
+
+  <vx-details-section :i18n-user-status="i18n.userStatus" :i18n="i18n.unitDetail" :details-data="detailPageData.detailsData" :edit-button="true"
+    :disable-button="true" :link-button="true" @disable="handleDisableClick" @enable="handleEnableClick" @edit="handleEditClick"
+    @link="handleResetPasswordClick"></vx-details-section>
+  <vx-info-section :i18n="i18n.parentUnits" :info-data="detailPageData.parentUnitGroupData" :delete-all="deleteAllPermissions"
+    :new-button="false" :existing-button=true :icon-class="'icon-trash'" :display-active-only=false @delete="handleRemoveClick"
+    @addExistingTo="handleAddExistingClick"></vx-info-section>
+  <vx-info-section :i18n="i18n.permissions" :info-data="detailPageData.permissionsGroupData" :new-button="false"
+    :existing-button=true :icon-class="'icon-trash'" :display-active-only=false @delete="handleRemoveClick"
+    @addExistingTo="handleAddExistingClick"></vx-info-section>
+  <vx-info-section :i18n="i18n.userGroups" :info-data="detailPageData.userGroupData" :new-button="false"
+    :existing-button=true :icon-class="'icon-trash'" :display-active-only=false @delete="handleRemoveClick"
+    @addExistingTo="handleAddExistingClick"></vx-info-section>
+
+  <vx-modal ref="disableUserModal" :heading="i18n.disableUserModal.heading" :size="'extra-small'">
+    <div class="d-flex flex-column" slot="component">
+      <p class="mb-xs-0 pb-xs-5">{{i18n.disableUserModal.message1}}</p>
+      <button class="btn btn-primary modal-btn-primary-small modal-btn-xs-sticky align-self-center" @click="sendDisableRequest">{{i18n.disableUserModal.disableText}}</button>
+    </div>
+  </vx-modal>
+
+  <vx-modal ref="enableUserModal" :heading="i18n.enableUnitModal.heading" :size="'extra-small'">
+    <div class="d-flex flex-column" slot="component">
+      <p class="mb-xs-0 pb-xs-5">{{i18n.enableUnitModal.message}} {{detailPageData.unitDetailsData.name}} ?</p>
+      <button class="btn btn-primary modal-btn-primary-small modal-btn-xs-sticky align-self-center" @click="sendEnableRequest">{{i18n.enableUnitModal.enableText}}</button>
+    </div>
+  </vx-modal>
+
+  <vx-modal ref="removeModal" :heading="`${i18n.removeModal.headingText} ${removedInfo.from}`" :size="'extra-small'">
+    <div class="d-flex flex-column" slot="component">
+      <p class="mb-xs-0 pb-xs-5" v-if="removedInfo.from === i18n.userGroups.groupLabel">{{i18n.removeModal.message}}
+        {{removedInfo.delete}} ?</p>
+      <p class="mb-xs-0 pb-xs-5" v-if="removedInfo.from === i18n.permissions.groupLabel">{{i18n.permissionRemoveMessage}}</p>
+      <p class="mb-xs-0 pb-xs-5" v-if="removedInfo.from === i18n.parentUnits.groupLabel">{{i18n.parentUnitRemoveMessage}}</p>
+      <button class="btn btn-primary modal-btn-primary-small modal-btn-xs-sticky align-self-center" @click="sendRemoveRequest">{{i18n.removeModal.removeText}}</button>
+    </div>
+  </vx-modal>
+
+  <vx-modal ref="addExistingModal" @close="resetAddedValues" :heading="`${i18n.addExistingModal.heading} ${existingAddedTo}`"
+    :size="'extra-small'">
+    <div class="row" slot="component">
+      <div class="col-xs-12" v-if="existingAddedTo === i18n.parentUnits.groupLabel">
+        <div class="mb-xs-5" v-for="(item, index) in existingParentUnits">
+          <div class="mb-xs-0">
+            <label class="checkbox-container">
+              <a :href="businessUnitDetailsUrl+item.id">{{item.id}}</a>
+              <input type="checkbox" :value="item" v-model="existingItems">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <p class="pl-xs-5 mb-xs-0">{{item.name}}</p>
+        </div>
+      </div>
+      <div class="col-xs-12" v-else-if="existingAddedTo === i18n.permissions.groupLabel">
+        <div class="mb-xs-5 existing-permissions-info" v-for="(item, index) in existingPermissions">
+          <div class="mb-xs-0">
+            <label class="checkbox-container">
+              <a :href="permissionDetailsUrl+item.code">{{item.code}}</a>
+              <input type="checkbox" :value="item.code" v-model="existingItems">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <p class="pl-xs-5 mb-xs-2">{{item.b2BPermissionTypeData.name}}</p>
+          <p class="pl-xs-5 mb-xs-2" v-if="item.periodRange">{{item.periodRange}}</p>
+          <p class="pl-xs-5 mb-xs-2">{{item.currency.symbol}}{{item.value}}</p>
+          <p class="pl-xs-5 mb-xs-2">{{item.unit.name}}</p>
+        </div>
+      </div>
+      <div class="col-xs-12" v-else-if="existingAddedTo === i18n.userGroups.groupLabel">
+        <div class="mb-xs-5" v-for="(item, index) in existingUserGroups">
+          <div class="mb-xs-0">
+            <label class="checkbox-container">
+              <a :href="userGroupDetailsUrl+item.uid">{{item.uid}}</a>
+              <input type="checkbox" :value="item.uid" v-model="existingItems">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <p class="pl-xs-5 mb-xs-0" v-html=item.name></p>
+          <p class="pl-xs-5 mb-xs-0" v-html=item.unit.uid></p>
+        </div>
+      </div>
+      <div class="col-xs-12 alert-msg p-xs-3 mb-xs-5 mt-xs-3" v-show="parentUnitsError">
+        {{i18n.deleteDefaultUnitError}}
+      </div>
+      <div class="col-xs-12 text-center">
+        <button class="btn btn-primary modal-btn-primary-small modal-btn-xs-sticky" @click="sendAddExistingRequest">{{i18n.addExistingModal.saveText}}</button>
+      </div>
+    </div>
+  </vx-modal>
+
+  <vx-modal ref="editUserModal" size="large" :heading="i18n.editUserModal.editUser">
+    <div slot="component">
+      <vx-user-form :is-email-exists="isEmailExists" :user-role="UserRoles.CUSTOMER" :business-units-list="businessUnitsList"
+        :form-data="editUserData" :i18n="i18n.editUserModal" :help-message="i18n.noFormChangeMsg" slot="component" type="modal"
+        :isEdit="true" v-on:showSpinner="showLoadingSpinner" v-on:hideSpinner="hideLoadingSpinner" v-on:closeUserModal="closeUserModal"
+        v-on:setUsers="setUsersData"></vx-user-form>
+    </div>
+  </vx-modal>
+</div>

@@ -1,0 +1,54 @@
+
+<div class="vx-qples-sign-up">
+    <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>
+    </vx-spinner>
+    <form class="d-flex flex-wrap" @submit.prevent="submitForm">
+      <div class="mb-xs-4 mb-sm-5 mb-md-4 form-group col-xs-12 col-sm-6">
+        <label for="emailID" aria-hidden="true"> {{i18n.email}}</label>
+        <br>
+        <input ref="emailID" name="emailID" v-model="signUpModel.email" class="form-control" v-validate="'required|email'"
+          :class="{'is-danger': errors.has('emailID') }" type="text" aria-label="email">
+        <span v-show="errors.has('emailID')" class="pt-xs-2 help is-danger">{{ errors.first('emailID') }}</span>
+      </div>
+      <div class="mb-xs-4 mb-sm-5 mb-md-4 form-group col-xs-12 col-sm-6">
+        <label for="confirmEmail" aria-hidden="true"> {{i18n.confirmEmail}}</label>
+        <br>
+        <input type="text" class="form-control" v-validate="'confirmed:emailID'" v-model="signUpModel.confirmEmail" name="confirmEmail"
+          aria-label="Confirm Email" :class="{'is-danger': errors.has('confirmEmail') }">
+        <span v-show="errors.has('confirmEmail')" class="pt-xs-2 help is-danger">{{ errors.first('confirmEmail') }}</span>
+      </div>
+      <div class="mb-xs-4 mb-sm-5 mb-md-4 form-group col-xs-12 col-sm-6">
+        <label for="firstName" aria-hidden="true">{{i18n.firstName}}</label>
+        <br>
+        <input v-model="signUpModel.firstName" type="text" class="form-control" v-validate="'required'" name="firstName"
+          aria-label="First name">
+        <span v-show="errors.has('firstName')" class="pt-xs-2 help is-danger">{{ errors.first('firstName') }}</span>
+      </div>
+      <div class="mb-xs-4 mb-sm-5 mb-md-4 form-group col-xs-12 col-sm-6">
+        <label for="lastName" aria-hidden="true">{{i18n.lastName}}</label>
+        <br>
+        <input v-model="signUpModel.lastName" type="text" class="form-control" v-validate="'required'" name="lastName"
+          aria-label="Last name">
+        <span v-show="errors.has('lastName')" class="pt-xs-2 help is-danger">{{ errors.first('lastName') }}</span>
+      </div>
+      <div class="mb-xs-4 mb-sm-5 mb-md-4 form-group col-xs-12 col-sm-6">
+        <label for="zipCode" aria-hidden="true"> {{i18n.zipCode}}</label>
+        <br>
+        <input v-model="signUpModel.postalCode" type="text" class="form-control" v-validate="'required|numeric|min:5'" name="zipCode"
+          aria-label="Zip" minlength="5" maxlength="5">
+        <span v-show="errors.has('zipCode')" class="pt-xs-2 help is-danger">{{ errors.first('zipCode') }}</span>
+      </div>
+      <div class="d-flex flex-xs-column flex-sm-row">
+        <label class="checkbox-container privacy-text col-xs-12">{{i18n.privacyText}}
+          <input type="checkbox" v-validate="'required'" v-model="signUpModel.opt" name="optIn"> <span class="checkmark"></span>
+          <div>
+            <span v-show="errors.has('optIn')" class="pt-xs-2 help is-danger">{{ errors.first('optIn') }}</span>
+          </div>
+        </label>
+      </div>
+      <div class="form-group col-xs-12 d-flex justify-content-left submit-form mt-xs-4">
+        <button class="btn btn-primary px-xs-5 modal-btn-primary-large" type="submit">{{i18n.btnText}}</button>
+      </div>
+    </form>
+</div>
+

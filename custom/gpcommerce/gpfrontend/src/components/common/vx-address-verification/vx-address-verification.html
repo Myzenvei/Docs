@@ -1,0 +1,32 @@
+<div class="vx-address-verification">
+  <!-- /**  * Ajax for address verification service endpoint yet to come */-->
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>
+  </vx-spinner>
+  <div class="pb-xs-3 px-xs-3 hide-verified" v-if="hideVerifiedAddress"> {{status.message}} </div>
+  <div class="d-flex flex-xs-column flex-sm-row" v-if="addressVerificationSuccess">
+    <div class="col-sm-6 col-xs-12 d-flex current-address-container">
+      <div class="current-address-heading" role="heading">{{i18n.currentAddressHeading}}</div>
+      <div class="pt-xs-3 current-address-body">
+        <span class="address-body" v-for="address in formAddressValues(unverifiedAddress)" v-html="address"></span>
+      </div>
+      <button v-if="isMobile()" type="button" @click="selectedAddress(current,$event)" class="mt-xs-4 submit btn btn-block btn-default modal-btn-IEspacing">{{i18n.useCurrentAddress}}</button>
+    </div>
+    <div v-if="!hideVerifiedAddress" class="col-sm-6 col-xs-12 d-flex verified-address-container">
+      <div class="verified-address-heading" role="heading">{{i18n.verifiedAddressHeading}}</div>
+      <div class="pt-xs-3 verified-address-body">
+        <span class="address-body" v-for="address in formAddressValues(verifiedAddress)" v-html="address"></span>
+      </div>
+      <button v-if="isMobile()" type="button" @click="selectedAddress(verified,$event)" class="mt-xs-4 submit btn btn-block btn-primary modal-btn-IEspacing">{{i18n.useVerifiedAddress}}</button>
+    </div>
+  </div>
+
+  <div v-if="!isMobile()" class="d-flex flex-xs-column flex-sm-row">
+    <div class="col-sm-6 col-xs-12 d-flex current-address-container">
+      <button type="button" @click="selectedAddress(current,$event)" class="mt-xs-4 submit btn btn-block btn-default modal-btn-IEspacing">{{i18n.useCurrentAddress}}</button>
+    </div>
+    <div v-if="!hideVerifiedAddress" class="col-sm-6 col-xs-12 d-flex verified-address-container">
+      <button type="button" @click="selectedAddress(verified,$event)" class="mt-xs-4 submit btn btn-block btn-primary modal-btn-IEspacing">{{i18n.useVerifiedAddress}}</button>
+    </div>
+  </div>
+
+</div>

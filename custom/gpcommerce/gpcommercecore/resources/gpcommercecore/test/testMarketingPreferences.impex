@@ -1,0 +1,9 @@
+$siteUid=testgppro
+
+# CMS Site
+INSERT_UPDATE CMSSite;uid[unique=true];
+;$siteUid;
+
+INSERT_UPDATE MarketingPreference;preferenceTypeId[unique=true];name;description;site(uid)[default=$siteUid]
+;PF-1;MobilePreference; Would you like to connect via Mobile?;
+;PF-2;MobilePreference; Would you like to connect via Mail?;

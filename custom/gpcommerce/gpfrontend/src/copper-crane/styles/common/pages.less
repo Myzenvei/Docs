@@ -1,0 +1,177 @@
+#copper-crane {
+  .product-grid-right-result-component {
+    .vx-hero-banner {
+      padding: 0 24px 0 40px;
+      margin-bottom: 16px;
+    }
+    .banner {
+      &.hero-center {
+        .banner__promotion {
+          .banner__heading {
+            font-family: @font-family-queulat-regular;
+          }
+        }
+      }
+    }
+  }
+  .main__inner-wrapper {
+    .login-page {
+      border: 0;
+      display: flex;
+      justify-content: center;
+      .social-login-component {
+        display: none;
+      }
+      .login-component {
+        border: 1px solid @border-color;
+        width: 40%;
+        min-width: 420px;
+        padding: 24px!important;
+        .login-left-content-slot {
+          width: 100%;
+        }
+        .vx-minimized-header {
+          display: none;
+        }
+      }
+      &.checkout-login {
+        justify-content: space-between;
+        border: 1px solid @border-color;
+        margin: 56px 40px;
+        align-items: flex-start;
+        .social-login-component {
+          display: flex;
+          padding: 0 24px!important;
+          width: 50%;
+          .login-right-content-slot {
+            display: block;
+            width: 75%;
+            .description {
+              a {
+                color: @link-color;
+                text-decoration: underline;
+              }
+            }
+          }
+        }
+        .login-component {
+          padding: 0 24px!important;
+          border: 0;
+          width: 50%;
+          border-right: 1px solid @border-color;
+          .login-right-content-slot {
+            display: none;
+          }
+          .login-left-content-slot {
+            width: 75%;
+          }
+        }
+      }
+    }
+    .support {
+      display: none;
+    }
+    .register-page {
+      border: 0;
+      display: flex;
+      justify-content: center;
+      .social-login-component {
+        display: none;
+      }
+      .register-component {
+        border: 1px solid @border-color;
+        width: 40%;
+        min-width: 420px;
+        padding: 24px 32px!important;
+        .register-left-content-slot {
+          width: 100%;
+        }
+      }
+    }
+  }
+  .cart-container {
+    .order-summary-section {
+      margin-top: 122px;
+    }
+  }
+  .checkout-container {
+    .checkout-order-summary-details {
+      margin-top: 84px;
+    }
+  }
+
+  @media screen and (max-width: @screen-sm-max) {
+    .product-grid-right-result-component {
+      .banner {
+        &.hero-center {
+          .banner__promotion {
+            .banner__heading {
+              font-size: 24px;
+            }
+          }
+        }
+      }
+    }
+    .main__inner-wrapper {
+      .login-page {
+        &.checkout-login {
+          margin-left: 16px!important;
+          margin-right: 16px!important;
+          .login-component {
+            min-width: auto;
+          }
+          .login-component .login-left-content-slot,
+          .social-login-component .login-right-content-slot {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: @screen-xs-max) {
+    .main__inner-wrapper {
+      .login-page {
+        margin-top: 24px;
+        .login-component {
+          border: 0;
+          width: 100%;
+          min-width: initial;
+          padding: 0px!important;
+        }
+        &.checkout-login {
+          flex-direction: column;
+          border: 0;
+          margin: 24px 16px!important;
+          .login-component,
+          .social-login-component {
+            width: 100%;
+            padding: 0!important;
+          }
+          .login-component {
+            border-right: none;
+            border-bottom: 1px solid @border-color;
+          }
+        }
+      }
+      .register-page {
+        margin-top: 24px;
+        .register-component {
+          border: 0;
+          width: 100%;
+          min-width: initial;
+          padding: 0px!important;
+        }
+      }
+    }
+  }
+}
+.page-contactUsForm {
+  #copper-crane {
+    .main__inner-wrapper {
+      .contact-page-heading {
+        font-family: @font-family-queulat-regular;
+      }
+    }
+  }
+}

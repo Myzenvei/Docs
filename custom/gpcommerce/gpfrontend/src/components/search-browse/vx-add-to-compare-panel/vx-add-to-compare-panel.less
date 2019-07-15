@@ -1,0 +1,123 @@
+
+.search-browse-panel {
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  left: 30%;
+  margin-left: -3%;
+  z-index: 1;
+
+  .compare-panel {
+    display: flex;
+    flex-direction: column;
+    padding: 0 24px;
+    -webkit-box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.34);
+    box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.34);
+    background-color: @body-bg;
+    position: relative;
+    .remove-icon-mobile {
+      display: inline;
+      position: absolute;
+      right: 16px;
+      top: 20px;
+      .icon-x {
+        font-size: 24px;
+        color: @font-icon-color-3;
+      }
+    }
+    .compare-product-panel {
+      display: flex;
+      flex-direction: row;
+    }
+  }
+  .panel-tile {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding-right: 25px;
+  }
+
+  .panel-tile:nth-last-child(1) {
+    padding-right: 0;
+  }
+
+  .btn {
+    word-wrap: break-word;
+    width: auto;
+    margin: 24px 0 24px 0;
+  }
+
+  .compare-products {
+    padding-top: 24px;
+    padding-bottom: 26px;
+    h5 {
+      margin: 0;
+    }
+  }
+
+  .remove-tile {
+    display: flex;
+    flex-direction: row;
+    margin-right: 50px;
+    margin-left: 50px;
+  }
+
+  .tile-image {
+    max-width: 152px;
+    max-height: 152px;
+    border: 1px solid @border-color;
+    height: 152px;
+    width: 152px;
+    justify-content: center;
+    align-items: center;
+    img{
+      flex-shrink: 0;
+    }
+  }
+
+  .btn-tertiary {
+    color: @btn-tertiary-hover-color;
+    background: @btn-tertiary-hover-bg;
+    border: 1px solid @btn-tertiary-border;
+    width: 208px;
+  }
+
+  .remove-product-option {
+    display: flex;
+    .icon-x-circle {
+      font-size: 20px;
+      color: @border-color;
+      cursor: pointer;
+    }
+    .remove-text {
+      font-size: @font-size-medium;
+      padding-left: 8px;
+      padding-bottom: 10px;
+    }
+  }
+
+  .compare-button {
+    margin: 0;
+    right: 10%;
+    position: fixed;
+    bottom: 3%;
+  }
+}
+@media screen and (max-width: @screen-sm-max) {
+  .search-browse-panel {
+    left: initial;
+    right: 0;
+    .compare-button {
+      right: 2%;
+      bottom: 2%;
+    }
+  }
+}
+@media screen and (max-width: @screen-xs-max) {
+  .search-browse-panel {
+    margin: 0;
+    min-width: 0;
+    left: 0;
+    right: initial;
+  }
+}

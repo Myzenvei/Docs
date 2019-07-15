@@ -1,0 +1,158 @@
+
+#################################### EXPORT SCRIPTS ####################################
+
+
+$catalogVersion=catalogVersion(catalog(id[default='gpUSProductCatalog']),version[default='Staged'])[unique=true,default='']
+$lang=en  
+
+# ---- Extension: adaptivesearch ---- Type: AsSimpleSearchProfile ----
+"#% impex.setTargetFile( ""AsSimpleSearchProfile.csv"" );"
+INSERT_UPDATE AsSimpleSearchProfile ; code[unique=true] ; name[lang=$lang] ; indexType ; $catalogVersion ; basestore(uid)
+"#% impex.exportItems( ""AsSimpleSearchProfile"" , false );"
+                                    
+# ---- Extension: adaptivesearch ---- Type: AsSearchProfileActivationSet ----
+"#% impex.setTargetFile( ""AsSearchProfileActivationSet.csv"" );"
+INSERT_UPDATE AsSearchProfileActivationSet ; indexType ; $catalogVersion ; searchProfiles(code,$catalogVersion)
+"#% impex.exportItems( ""AsSearchProfileActivationSet"" , false );"
+                                           
+# ---- Extension: adaptivesearch ---- Type: AsSimpleSearchConfiguration ----
+"#% impex.setTargetFile( ""AsSimpleSearchConfiguration.csv"" );"
+INSERT_UPDATE AsSimpleSearchConfiguration ; searchProfile(code,$catalogVersion)[unique=true] ; uid[unique=true] ; uniqueIdx ; facetsMergeMode(code) ; boostItemsMergeMode(code) ; boostRulesMergeMode(code) ; sortsMergeMode(code) ; $catalogVersion[unique=true]
+"#% impex.exportItems( ""AsSimpleSearchConfiguration"" , false );"
+                                          
+# ---- Extension: adaptivesearch ---- Type: AsExcludedSort ----
+"#% impex.setTargetFile( ""AsExcludedSort.csv"" );"
+INSERT_UPDATE AsExcludedSort ; searchConfiguration(uid,$catalogVersion)[unique=true] ; uid[unique=true] ; code ; priority ; applyPromotedItems ; uniqueIdx ; $catalogVersion[unique=true]
+"#% impex.exportItems( ""AsExcludedSort"" , false );"
+                             
+# ---- Extension: adaptivesearch ---- Type: AsExcludedFacet ----
+"#% impex.setTargetFile( ""AsExcludedFacet.csv"" );"
+INSERT AsExcludedFacet ; searchConfiguration(uid,$catalogVersion)[unique=true] ; uid[unique=true] ; uniqueIdx ; indexProperty[unique=true] ; facetType(code) ; $catalogVersion[unique=true]
+"#% impex.exportItems( ""AsExcludedFacet"" , false );"
+
+#################################### EXPORT SCRIPTS ####################################
+
+#################################### IMPORT SCRIPTS FOR PRODUCTION ####################################
+
+$catalogVersion=catalogVersion(catalog(id[default='gpUSProductCatalog']),version[default='Staged'])[unique=true,default='']
+$lang=en               
+
+INSERT_UPDATE AsSimpleSearchProfile ; code[unique=true]                       ; name[lang=$lang]                   ; indexType             ; $catalogVersion ; basestore(uid)   
+                                    ; default-vanityfairnapkins-searchProfile ; Vanity Fair Napkins Search Profile ; multiBrandProductType ;                 ; vanityfairnapkins
+
+INSERT_UPDATE AsSearchProfileActivationSet ; indexType[unique=true]             ; $catalogVersion ; searchProfiles(code,$catalogVersion)   
+                                           ; multiBrandProductType ;                 ; default-vanityfairnapkins-searchProfile
+
+INSERT_UPDATE AsSimpleSearchConfiguration ; searchProfile(code,$catalogVersion)[unique=true] ; uid[unique=true]                       ; uniqueIdx                               ; facetsMergeMode(code) ; boostItemsMergeMode(code) ; boostRulesMergeMode(code) ; sortsMergeMode(code) ; $catalogVersion[unique=true]
+                                          ; default-vanityfairnapkins-searchProfile          ; default-vanityfairnapkins-searchConfig ; default-vanityfairnapkins-searchProfile ; ADD_AFTER             ; ADD_AFTER                 ; ADD                       ; ADD_AFTER            ;                             
+
+INSERT_UPDATE AsExcludedSort ; searchConfiguration(uid,$catalogVersion)[unique=true] ; uid[unique=true]                 ; code       ; priority ; applyPromotedItems ; uniqueIdx            ; $catalogVersion[unique=true]
+                             ; default-vanityfairnapkins-searchConfig                ; hide-ascPrice-vanityfairnapkins  ; price-asc  ; 100      ; false              ; default-vanityfairnapkins-searchProfile  ;                             
+                             ; default-vanityfairnapkins-searchConfig                ; hide-descPrice-vanityfairnapkins ; price-desc ; 100      ; false              ; default-vanityfairnapkins-searchProfile ;                             
+
+INSERT_UPDATE AsExcludedFacet ; searchConfiguration(uid,$catalogVersion)[unique=true] ; uid[unique=true]                             ; uniqueIdx                                     ; indexProperty[unique=true] ; facetType(code) ; $catalogVersion[unique=true]
+                              ; default-vanityfairnapkins-searchConfig                ; hide-material-vanityfairnapkins              ; default-vanityfairnapkins-searchProfile       ; material                   ; MULTISELECT_OR  ;                             
+                              ; default-vanityfairnapkins-searchConfig                ; hide-brand-vanityfairnapkins                 ; default-vanityfairnapkins-searchProfile       ; brand                      ; MULTISELECT_OR  ;                             
+                              ; default-vanityfairnapkins-searchConfig                ; hide-bundles-vanityfairnapkins               ; default-vanityfairnapkins-searchProfile       ; bundles                    ; MULTISELECT_OR  ;                             
+                              ; default-vanityfairnapkins-searchConfig                ; hide-cleaningsupply-vanityfairnapkins        ; default-vanityfairnapkins-searchProfile       ; cleaningsupply             ; MULTISELECT_OR  ;                             
+                              ; default-vanityfairnapkins-searchConfig                ; hide-Color-vanityfairnapkins                 ; default-vanityfairnapkins-searchProfile       ; Color                      ; MULTISELECT_OR  ;                             
+                              ; default-vanityfairnapkins-searchConfig                ; hide-ProductType-vanityfairnapkins           ; default-vanityfairnapkins-searchProfile       ; ProductType                ; MULTISELECT_OR  ;                             
+                              ; default-vanityfairnapkins-searchConfig                ; hide-gtin-vanityfairnapkins                  ; default-vanityfairnapkins-searchProfile       ; gtin                       ; MULTISELECT_OR  ;                             
+                              ; default-vanityfairnapkins-searchConfig                ; hide-productCertifications-vanityfairnapkins ; default-vanityfairnapkins-searchProfile       ; productCertifications      ; MULTISELECT_OR  ;                             
+                              ; default-vanityfairnapkins-searchConfig                ; hide-availableLocation-vanityfairnapkins     ; default-vanityfairnapkins-searchProfile       ; availableForLocation       ; MULTISELECT_OR  ;                             
+                              ; default-vanityfairnapkins-searchConfig                ; hide-ply-vanityfairnapkins                   ; default-vanityfairnapkins-searchProfile       ; ply                        ; MULTISELECT_OR  ;                             
+                              ; default-vanityfairnapkins-searchConfig                ; hide-sample-vanityfairnapkins                ; default-vanityfairnapkins-searchProfile       ; sample                     ; REFINE          ;                             
+                              ; default-vanityfairnapkins-searchConfig                ; hide-code-vanityfairnapkins                  ; default-vanityfairnapkins-searchProfile       ; code                       ; MULTISELECT_OR  ;                             
+                              ; default-vanityfairnapkins-searchConfig                ; hide-leasable-vanityfairnapkins              ; default-vanityfairnapkins-searchProfile       ; leasable                   ; REFINE          ;                             
+                              ; default-vanityfairnapkins-searchConfig                ; hide-subbrand-vanityfairnapkins              ; default-vanityfairnapkins-searchProfile       ; subbrand                   ; MULTISELECT_OR  ;                             
+                              ; default-vanityfairnapkins-searchConfig                ; hide-dispensers-vanityfairnapkins            ; default-vanityfairnapkins-searchProfile       ; dispensers                 ; MULTISELECT_OR  ;                             
+                              ; default-vanityfairnapkins-searchConfig                ; hide-price-vanityfairnapkins                 ; default-vanityfairnapkins-searchProfile       ; price                      ; MULTISELECT_OR  ;                             
+                              ; default-vanityfairnapkins-searchConfig                ; hide-installationProduct-vanityfairnapkins   ; default-vanityfairnapkins-searchProfile       ; installationProduct        ; REFINE          ;                             
+                              ; default-vanityfairnapkins-searchConfig                ; hide-category-vanityfairnapkins              ; default-vanityfairnapkins-searchProfile       ; category                   ; MULTISELECT_OR  ;                             
+                              ; default-vanityfairnapkins-searchConfig                ; hide-areaofservice-vanityfairnapkins         ; default-vanityfairnapkins-searchProfile       ; areaofservice              ; MULTISELECT_OR  ;                             
+                              ; default-vanityfairnapkins-searchConfig                ; hide-categoryPath-vanityfairnapkins          ; default-vanityfairnapkins-searchProfile       ; categoryPath               ; MULTISELECT_OR  ;                             
+                              ; default-vanityfairnapkins-searchConfig                ; hide-Size-vanityfairnapkins                  ; default-vanityfairnapkins-searchProfile       ; Size LxWxH                 ; MULTISELECT_OR  ;                             
+
+$catalogVersion=catalogVersion(catalog(id[default='gpUSProductCatalog']),version[default='Staged'])[unique=true,default='']
+$categories=target(code, $catalogVersion)[unique=true]
+$supercategories=source(code, $catalogVersion)[unique=true]
+$lang=en                      
+$solrIndexedType=multiBrandProductType
+
+INSERT_UPDATE AsSimpleSearchProfile ; code[unique=true]                    ; name[lang=$lang]                           ; indexType        ; $catalogVersion ; basestore(uid)
+                                    ; default-dixie-searchProfile          ; Def Dixie Simple search profile            ; $solrIndexedType ;                 ; dixie         
+                                    ; default-gpemployee-searchProfile     ; Def GPEmployee Simple search profile       ; $solrIndexedType ;                 ; gpemployee    
+                                    ; default-copperandcrane-searchProfile ; Def Copper and Crane Simple search profile ; $solrIndexedType ;                 ; copperandcrane
+
+INSERT_UPDATE AsSearchProfileActivationSet ; indexType [unique=true]       ; $catalogVersion ; searchProfiles(code,$catalogVersion)                                                                                                     
+                                           ; $solrIndexedType ;                 ; default-dixie-searchProfile,default-copperandcrane-searchProfile,default-vanityfairnapkins-searchProfile,default-gpemployee-searchProfile
+
+
+INSERT_UPDATE AsSimpleSearchConfiguration ; searchProfile(code,$catalogVersion)[unique=true] ; uid[unique=true]                    ; uniqueIdx                            ; facetsMergeMode(code) ; boostItemsMergeMode(code) ; boostRulesMergeMode(code) ; sortsMergeMode(code) ; $catalogVersion[unique=true]
+                                          ; default-dixie-searchProfile                      ; default-dixie-searchConfig          ; default-dixie-searchProfile          ; ADD_AFTER             ; ADD_AFTER                 ; ADD                       ; ADD_AFTER            ;                             
+                                          ; default-gpemployee-searchProfile                 ; default-gpemployee-searchConfig     ; default-gpemployee-searchProfile     ; ADD_AFTER             ; ADD_AFTER                 ; ADD                       ; ADD_AFTER            ;                             
+                                          ; default-copperandcrane-searchProfile             ; default-copperandcrane-searchConfig ; default-copperandcrane-searchProfile ; ADD_AFTER             ; ADD_AFTER                 ; ADD                       ; ADD_AFTER            ;                             
+
+
+INSERT_UPDATE AsExcludedFacet ; searchConfiguration(uid,$catalogVersion)[unique=true] ; uid[unique=true]                          ; uniqueIdx                                  ; indexProperty[unique=true] ; facetType(code) ; $catalogVersion[unique=true]
+                              ; default-gpemployee-searchConfig                       ; hide-availableLocation-gpemployee         ; default-gpemployee-searchProfile    	   ; availableForLocation       ; MULTISELECT_OR  ;                             
+                              ; default-gpemployee-searchConfig                       ; hide-brand-gpemployee                     ; default-gpemployee-searchProfile           ; brand                      ; MULTISELECT_OR  ;                             
+                              ; default-gpemployee-searchConfig                       ; hide-occasion-gpemployee                  ; default-gpemployee-searchProfile           ; occasion                   ; MULTISELECT_OR  ;                             
+                              ; default-gpemployee-searchConfig                       ; hide-size-gpemployee                      ; default-gpemployee-searchProfile           ; Size LxWxH                 ; MULTISELECT_OR  ;                             
+                              ; default-dixie-searchConfig                            ; hide-size-dixie                           ; default-dixie-searchProfile                ; Size LxWxH                 ; MULTISELECT_OR  ;                             
+                              ; default-dixie-searchConfig                            ; hide-subbrand-dixie                       ; default-dixie-searchProfile                ; subbrand                   ; MULTISELECT_OR  ;                             
+                              ; default-dixie-searchConfig                            ; hide-leasable-dixie                       ; default-dixie-searchProfile                ; leasable                   ; REFINE          ;                             
+                              ; default-dixie-searchConfig                            ; hide-occasion-dixie                       ; default-dixie-searchProfile                ; occasion                   ; MULTISELECT_OR  ;                             
+                              ; default-dixie-searchConfig                            ; hide-sample-dixie                         ; default-dixie-searchProfile                ; sample                     ; REFINE          ;                             
+                              ; default-dixie-searchConfig                            ; hide-installationProduct-dixie            ; default-dixie-searchProfile                ; installationProduct        ; REFINE          ;                             
+                              ; default-dixie-searchConfig                            ; hide-availableLocation-dixie              ; default-dixie-searchProfile                ; availableForLocation       ; MULTISELECT_OR  ;                             
+                              ; default-copperandcrane-searchConfig                   ; hide-availableLocation-copperandcrane     ; default-copperandcrane-searchProfile       ; availableForLocation       ; MULTISELECT_OR  ;                             
+                              ; default-copperandcrane-searchConfig                   ; hide-material-copperandcrane              ; default-copperandcrane-searchProfile       ; material                   ; MULTISELECT_OR  ;                             
+                              ; default-copperandcrane-searchConfig                   ; hide-brand-copperandcrane                 ; default-copperandcrane-searchProfile       ; brand                      ; MULTISELECT_OR  ;                             
+                              ; default-copperandcrane-searchConfig                   ; hide-bundles-copperandcrane               ; default-copperandcrane-searchProfile       ; bundles                    ; MULTISELECT_OR  ;                             
+                              ; default-copperandcrane-searchConfig                   ; hide-cleaningsupply-copperandcrane        ; default-copperandcrane-searchProfile       ; cleaningsupply             ; MULTISELECT_OR  ;                             
+                              ; default-copperandcrane-searchConfig                   ; hide-Color-copperandcrane                 ; default-copperandcrane-searchProfile       ; Color                      ; MULTISELECT_OR  ;                             
+                              ; default-copperandcrane-searchConfig                   ; hide-ProductType-copperandcrane           ; default-copperandcrane-searchProfile       ; ProductType                ; MULTISELECT_OR  ;                             
+                              ; default-copperandcrane-searchConfig                   ; hide-gtin-copperandcrane                  ; default-copperandcrane-searchProfile       ; gtin                       ; MULTISELECT_OR  ;                             
+                              ; default-copperandcrane-searchConfig                   ; hide-productCertifications-copperandcrane ; default-copperandcrane-searchProfile       ; productCertifications      ; MULTISELECT_OR  ;                             
+                              ; default-copperandcrane-searchConfig                   ; hide-ply-copperandcrane                   ; default-copperandcrane-searchProfile       ; ply                        ; MULTISELECT_OR  ;                             
+                              ; default-copperandcrane-searchConfig                   ; hide-sample-copperandcrane                ; default-copperandcrane-searchProfile       ; sample                     ; REFINE          ;                             
+                              ; default-copperandcrane-searchConfig                   ; hide-code-copperandcrane                  ; default-copperandcrane-searchProfile       ; code                       ; MULTISELECT_OR  ;                             
+                              ; default-copperandcrane-searchConfig                   ; hide-leasable-copperandcrane              ; default-copperandcrane-searchProfile       ; leasable                   ; REFINE          ;                             
+                              ; default-copperandcrane-searchConfig                   ; hide-subbrand-copperandcrane              ; default-copperandcrane-searchProfile       ; subbrand                   ; MULTISELECT_OR  ;                             
+                              ; default-copperandcrane-searchConfig                   ; hide-dispensers-copperandcrane            ; default-copperandcrane-searchProfile       ; dispensers                 ; MULTISELECT_OR  ;                             
+                              ; default-copperandcrane-searchConfig                   ; hide-paperproducts-copperandcrane         ; default-copperandcrane-searchProfile       ; paperproducts              ; MULTISELECT_OR  ;                             
+                              ; default-copperandcrane-searchConfig                   ; hide-installationProduct-copperandcrane   ; default-copperandcrane-searchProfile       ; installationProduct        ; REFINE          ;                             
+                              ; default-copperandcrane-searchConfig                   ; hide-category-copperandcrane              ; default-copperandcrane-searchProfile       ; category                   ; MULTISELECT_OR  ;                             
+                              ; default-copperandcrane-searchConfig                   ; hide-areaofservice-copperandcrane         ; default-copperandcrane-searchProfile       ; areaofservice              ; MULTISELECT_OR  ;                             
+                              ; default-copperandcrane-searchConfig                   ; hide-categoryPath-copperandcrane          ; default-copperandcrane-searchProfile       ; categoryPath               ; MULTISELECT_OR  ;                             
+                              ; default-copperandcrane-searchConfig                   ; hide-Size-copperandcrane                  ; default-copperandcrane-searchProfile       ; Size LxWxH                 ; MULTISELECT_OR  ;                             
+
+                              ; default-copperandcrane-searchConfig                       ; hide-occasion-copperandcrane                  ; default-copperandcrane-searchProfile           ; occasion                   ; MULTISELECT_OR  ;                             
+
+                              ; default-dixie-searchConfig                   ; hide-gtin-dixie                  ; default-dixie-searchProfile       ; gtin                       ; MULTISELECT_OR  ;                             
+                              ; default-dixie-searchConfig                   ; hide-productCertifications-dixie ; default-dixie-searchProfile       ; productCertifications      ; MULTISELECT_OR  ;                             
+                              ; default-dixie-searchConfig                   ; hide-ply-dixie                   ; default-dixie-searchProfile       ; ply                        ; MULTISELECT_OR  ;                             
+                              ; default-dixie-searchConfig                   ; hide-ProductType-dixie           ; default-dixie-searchProfile       ; ProductType                ; MULTISELECT_OR  ;                             
+                              ; default-dixie-searchConfig                   ; hide-material-dixie              ; default-dixie-searchProfile       ; material                   ; MULTISELECT_OR  ;                             
+                              ; default-dixie-searchConfig                   ; hide-brand-dixie                 ; default-dixie-searchProfile       ; brand                      ; MULTISELECT_OR  ;                             
+                              ; default-dixie-searchConfig                   ; hide-Color-dixie                 ; default-dixie-searchProfile       ; Color                      ; MULTISELECT_OR  ;                             
+
+                              ; default-gpemployee-searchConfig                   ; hide-material-gpemployee              ; default-gpemployee-searchProfile       ; material                   ; MULTISELECT_OR  ;                             
+                              ; default-gpemployee-searchConfig                   ; hide-Color-gpemployee                 ; default-gpemployee-searchProfile       ; Color                      ; MULTISELECT_OR  ;                             
+                              ; default-gpemployee-searchConfig                   ; hide-ProductType-gpemployee           ; default-gpemployee-searchProfile       ; ProductType                ; MULTISELECT_OR  ;                             
+                              ; default-gpemployee-searchConfig                   ; hide-gtin-gpemployee                  ; default-gpemployee-searchProfile       ; gtin                       ; MULTISELECT_OR  ;                             
+                              ; default-gpemployee-searchConfig                   ; hide-productCertifications-gpemployee ; default-gpemployee-searchProfile       ; productCertifications      ; MULTISELECT_OR  ;                             
+                              ; default-gpemployee-searchConfig                   ; hide-ply-gpemployee                   ; default-gpemployee-searchProfile       ; ply                        ; MULTISELECT_OR  ;                             
+                              ; default-gpemployee-searchConfig                   ; hide-sample-gpemployee                ; default-gpemployee-searchProfile       ; sample                     ; REFINE          ;                             
+                              ; default-gpemployee-searchConfig                   ; hide-code-gpemployee                  ; default-gpemployee-searchProfile       ; code                       ; MULTISELECT_OR  ;                             
+                              ; default-gpemployee-searchConfig                   ; hide-leasable-gpemployee              ; default-gpemployee-searchProfile       ; leasable                   ; REFINE          ;                             
+                              ; default-gpemployee-searchConfig                   ; hide-subbrand-gpemployee              ; default-gpemployee-searchProfile       ; subbrand                   ; MULTISELECT_OR  ;                             
+                              ; default-gpemployee-searchConfig                   ; hide-dispensers-gpemployee            ; default-gpemployee-searchProfile       ; dispensers                 ; MULTISELECT_OR  ;                             
+                              ; default-gpemployee-searchConfig                   ; hide-installationProduct-gpemployee   ; default-gpemployee-searchProfile       ; installationProduct        ; REFINE          ;                             
+                              ; default-gpemployee-searchConfig                   ; hide-category-gpemployee              ; default-gpemployee-searchProfile       ; category                   ; MULTISELECT_OR  ;                             
+                              ; default-gpemployee-searchConfig                   ; hide-areaofservice-gpemployee         ; default-gpemployee-searchProfile       ; areaofservice              ; MULTISELECT_OR  ;                             
+                              ; default-gpemployee-searchConfig                   ; hide-categoryPath-gpemployee          ; default-gpemployee-searchProfile       ; categoryPath               ; MULTISELECT_OR  ;                             
+
+
+#################################### IMPORT SCRIPTS FOR PRODUCTION ####################################

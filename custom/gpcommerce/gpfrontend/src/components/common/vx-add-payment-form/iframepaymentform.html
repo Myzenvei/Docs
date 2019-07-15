@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+
+<body>
+  <form id="iframe-credit-card-form" action="" method="post">
+    <input type="text" name="transaction_type" value="create_payment_token" />
+    <input type="text" name="signed_field_names" value="access_key,amount,bill_to_address_city,bill_to_address_country,bill_to_address_line1,bill_to_address_postal_code,bill_to_address_state,bill_to_email,bill_to_forename,bill_to_phone,bill_to_surname,currency,locale,payment_method,profile_id,reference_number,signed_date_time,signed_field_names,transaction_type,transaction_uuid,unsigned_field_names"
+    />
+    <input type="text" name="unsigned_field_names" value="card_cvn,card_expiry_date,card_number,card_type" />
+
+    <input type="text" name="bill_to_forename" />
+    <input type="text" name="bill_to_surname" />
+    <input type="text" name="bill_to_phone" />
+    <input type="text" name="bill_to_email" />
+
+    <input type="text" name="bill_to_address_line1" />
+    <input type="text" name="bill_to_address_city" />
+    <input type="text" name="bill_to_address_state" />
+    <input type="text" name="bill_to_address_country" />
+    <input type="text" name="bill_to_address_postal_code" />
+
+    <input type="text" value="card" name="payment_method" />
+    <input type="text" name="amount" />
+    <input type="text" name="card_type" />
+    <input type="text" name="card_number" />
+    <input type="text" name="card_expiry_date" />
+    <input type="text" name="card_cvn" />
+
+    <input type="submit" name="submit" value="submit" />
+  </form>
+  <!-- <script type="text/javascript">
+      function setDefaultsForPaymentDetailsSection() {
+        window.parent.triggerClickCyberSoruce();
+      }
+      window.onload = setDefaultsForPaymentDetailsSection();
+
+    </script>
+  <script type="text/javascript">
+    function imLoaded() {
+      console.log("iframe loaded ..");
+    }
+    onload="imLoaded()" 
+  </script> -->
+</body>
+
+</html>

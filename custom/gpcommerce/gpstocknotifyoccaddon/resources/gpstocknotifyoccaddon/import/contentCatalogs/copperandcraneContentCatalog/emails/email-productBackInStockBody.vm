@@ -1,0 +1,729 @@
+## messageSource=classpath:/gpstocknotifyoccaddon/messages/email-productBackInStock_$lang.properties
+#macro( genHtmlBoldFont $text )
+#end
+#macro(genHtmlLinkStartTag $url)
+<a href="$url">
+	#end
+	#macro(genHtmlLinkEndTag)
+	</font>
+</a>
+#end
+#macro(genHtmlLink $url $textColor $bodyContent)
+<a href="$url">
+	<font color="$textColor">$bodyContent</font>
+</a>
+#end
+
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" type="text/css" href="https://cloud.typography.com/6228154/6448192/css/fonts.css" />
+	<style type="text/css">
+		body {
+			width: 100% !important;
+			-webkit-text;
+			size-adjust: 100%;
+			-ms-text-size-adjust: 100%;
+			margin: 0;
+			font-family: 'Gotham A', 'Gotham B', lato, Helvetica, Roboto, Arial, sans-serif;
+			padding: 0;
+		}
+
+		.ReadMsgBody {
+			width: 100%;
+		}
+
+		.ExternalClass {
+			width: 100%;
+		}
+
+		/* Force Hotmail to display emails at full width */
+		body {
+			-webkit-text-size-adjust: none;
+			-ms-text-size-adjust: none;
+			text-size-adjust: none;
+		}
+
+		/* Prevent Webkit and Windows Mobile platforms from changing default font sizes. */
+
+		/* Reset Styles */
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		img {
+			height: auto;
+			line-height: 100%;
+			outline: none;
+			text-decoration: none;
+			-ms-interpolation-mode: bicubic;
+		}
+
+		#backgroundTable {
+			height: 100% !important;
+			margin: 0;
+			padding: 0;
+			width: 100% !important;
+		}
+
+		table {
+			mso-table-lspace: 0pt;
+			mso-table-rspace: 0pt;
+		}
+
+
+		table td {
+			border-collapse: collapse;
+		}
+
+		.ExternalClass * {
+			line-height: 115%;
+		}
+
+		/*Themeing styles*/
+
+		.mail-heading {
+			font-size: 21px;
+			color: #222222;
+			font-weight: 400;
+			line-height: 25px;
+		}
+
+		*[class="m-show"] {
+			display: none !important;
+		}
+
+		*[class="d-hide"] {
+			display: block !important;
+		}
+
+		*[class="td-5"] {
+			margin-bottom: 24px;
+			display: block;
+		}
+
+		*[class="td-link"] {
+			color: #167BB4;
+			font-size: 14px;
+			font-weight: 500;
+			letter-spacing: 0.15px;
+			line-height: 16px;
+			text-decoration: none;
+		}
+
+		.container {
+			padding: 56px;
+		}
+
+		.social-icons {
+			padding-right: 19px;
+			padding-left: 0;
+			text-decoration: none;
+			display: inline-block;
+			width: 32px;
+			height: 32px;
+		}
+
+		.social-icons img {
+			width: 100%;
+			height: 100%;
+		}
+
+		.copyright-text {
+			color: #747678;
+			font-size: 14px;
+		}
+
+		*[class="border-top"] {
+			border-top: 1px solid #cecece;
+		}
+
+		*[class="email-footer"] {
+			background-color: #dfdfdf;
+			display: block;
+			margin-top: 32px;
+		}
+
+		.align-d-right {
+			float: right;
+		}
+
+		.mr-2 {
+			margin: 10px;
+			display: block;
+		}
+
+		.container {
+			padding: 56px;
+		}
+
+		.sm-pb-8 {
+			padding-bottom: 8px;
+		}
+
+		.sm-pb-16 {
+			padding-bottom: 16px;
+		}
+
+		.sm-pb-24 {
+			padding-bottom: 24px;
+		}
+
+		.sm-padding {
+			padding: 24px;
+		}
+
+		.product-data {
+			width: 80%;
+		}
+
+		.product-price {
+			width: 20%;
+			text-align: right;
+		}
+
+		.product {
+			width: 80%;
+		}
+
+		.product-img {
+			width: 15%;
+			padding-right: 24px;
+		}
+
+		.product-img img {
+			padding: 18px 6px;
+			border: .5px solid #CECECE;
+			height: 142px;
+			width: 142px;
+		}
+
+		.order-summary {
+			margin: 32px 40px 32px 0;
+			margin-left: 65%;
+		}
+
+		/* These are our mobile screen media queries */
+
+		@media screen and (max-width: 767px) {
+
+
+			/* Display block allows us to stack elements */
+			*[class="mobile-column"] {
+				display: block;
+			}
+
+			/* Some more stacking elements */
+			*[class="mob-column"] {
+				float: none !important;
+				width: 100% !important;
+			}
+
+			/* Hide stuff */
+			*[class="d-hide"] {
+				display: none !important;
+			}
+
+			*[class="m-show"] {
+				display: block !important;
+			}
+
+			/* This sets elements to 100% width and fixes the height issues too, a god send */
+			*[class="100p"] {
+				width: 100% !important;
+				height: auto !important;
+			}
+
+			/* For the 2x2 stack */
+			*[class="condensed"] {
+				padding-bottom: 40px !important;
+				display: block;
+			}
+
+			/* Centers content on mobile */
+			*[class="center"] {
+				text-align: center !important;
+				width: 100% !important;
+				height: auto !important;
+			}
+
+			/* 100percent width section with 20px padding */
+			*[class="100pad"] {
+				width: 100% !important;
+				padding: 20px;
+			}
+
+			/* 100percent width section with 20px padding left & right */
+			*[class="100padleftright"] {
+				width: 100% !important;
+				padding: 0 20px 0 20px;
+			}
+
+			/* 100percent width section with 20px padding top & bottom */
+			*[class="100padtopbottom"] {
+				width: 100% !important;
+				padding: 20px 0 20px 0;
+			}
+
+			*[class="td-m-block"] {
+				display: block;
+			}
+
+			.footer-m-block {
+				display: block;
+			}
+
+			.followUs-m-left {
+				margin: 10px 10px 10px 3px;
+			}
+
+			.align-m-left {
+				float: left;
+			}
+
+			.align-d-right {
+				float: left;
+			}
+		}
+
+		h1,
+		h2,
+		h3,
+		h4,
+		h5,
+		h6,
+		p,
+		i,
+		b,
+		a,
+		ul,
+		li,
+		blockquote,
+		hr,
+		img,
+		div,
+		span,
+		strong {
+			margin: 0;
+			padding: 0;
+			line-height: 1.428571429;
+		}
+
+		/*  Other styles */
+
+		/* Typography Start */
+		h1 {}
+
+		h2 {}
+
+		h3 {}
+
+		h4 {}
+
+		p {
+			letter-spacing: 0.4px;
+		}
+
+		strong {}
+
+		a {
+			color: #0074E4;
+			letter-spacing: 0.15;
+		}
+
+		/* Typography End */
+		/* Typography Helpers Start */
+
+		.txt-large {
+			font-size: 21px;
+		}
+
+		.txt-regular {
+			font-size: 14px;
+		}
+
+		.txt-item-color {
+			color: #747678;
+		}
+
+		.txt-default-color {
+			color: #222222;
+		}
+
+		.txt-price-color {
+			color: #417505;
+		}
+
+		.txt-error-color {
+			color: #e42610;
+		}
+
+		.txt-weight-regular {
+			font-weight: 400;
+		}
+
+		.txt-weight-semi-bold {
+			font-weight: 500;
+		}
+
+		.txt-weight-bold {
+			font-weight: 700;
+		}
+
+		/* Typography Helpers End */
+		/* Custom CSS Start */
+		a>strong {}
+
+		h2>strong {}
+
+		h4>strong {
+			font-weight: 500;
+		}
+
+		p>strong {}
+
+		/* Border Classes Start */
+		.border-all {
+			border: 1px solid #cecece;
+		}
+
+		.border-white {
+			border-top: 20px solid #ffffff;
+		}
+
+		.border-top {
+			border-top: 1px solid #cecece;
+		}
+
+		.border-bottom {
+			border-bottom: 1px solid #cecece;
+		}
+
+		.border-left {
+			border-left: 1px solid #cecece;
+		}
+
+		.border-right {
+			border-right: 1px solid #cecece;
+		}
+
+		.border-collapse {
+			border-collapse: collapse;
+		}
+
+		/* Border Classes End */
+		/* Background Classes Start */
+		.bg-summary {
+			background-color: #fafafa;
+		}
+
+		.bg-order-details {
+			background-color: #F1F2F4;
+		}
+
+		.bg-default {
+			background-color: #ffffff;
+		}
+
+		/* Background Classes End */
+		/* Spacer Classes Start */
+		.pt-0 {
+			padding-top: 0px;
+		}
+
+		.pt-1 {
+			padding-top: 4px;
+		}
+
+		.pt-2 {
+			padding-top: 8px;
+		}
+
+		.pt-3 {
+			padding-top: 16px;
+		}
+
+		.pt-4 {
+			padding-top: 24px;
+		}
+
+		.pt-5 {
+			padding-top: 32px;
+		}
+
+		.pt-6 {
+			padding-top: 40px;
+		}
+
+		.pb-0 {
+			padding-bottom: 0px;
+		}
+
+		.pb-1 {
+			padding-bottom: 4px;
+		}
+
+		.pb-2 {
+			padding-bottom: 8px;
+		}
+
+		.pb-3 {
+			padding-bottom: 16px;
+		}
+
+		.pb-4 {
+			padding-bottom: 24px;
+		}
+
+		.pb-5 {
+			padding-bottom: 32px;
+		}
+
+		.pb-6 {
+			padding-bottom: 40px;
+		}
+
+		.pl-0 {
+			padding-left: 0px;
+		}
+
+		.pl-1 {
+			padding-left: 4px;
+		}
+
+		.pl-2 {
+			padding-left: 8px;
+		}
+
+		.pl-3 {
+			padding-left: 16px;
+		}
+
+		.pl-4 {
+			padding-left: 24px;
+		}
+
+		.pl-5 {
+			padding-left: 32px;
+		}
+
+		.pl-6 {
+			padding-left: 40px;
+		}
+
+		.pr-0 {
+			padding-right: 0px;
+		}
+
+		.pr-1 {
+			padding-right: 4px;
+		}
+
+		.pr-2 {
+			padding-right: 8px;
+		}
+
+		.pr-3 {
+			padding-right: 16px;
+		}
+
+		.pr-4 {
+			padding-right: 24px;
+		}
+
+		.pr-5 {
+			padding-right: 32px;
+		}
+
+		.pr-6 {
+			padding-right: 40px;
+		}
+
+		.px-0 {
+			padding-right: 0px;
+			padding-left: 0px;
+		}
+
+		.px-1 {
+			padding-right: 4px;
+			padding-left: 4px;
+		}
+
+		.px-2 {
+			padding-right: 8px;
+			padding-left: 8px;
+		}
+
+		.px-3 {
+			padding-right: 16px;
+			padding-left: 16px;
+		}
+
+		.px-4 {
+			padding-right: 24px;
+			padding-left: 24px;
+		}
+
+		.px-5 {
+			padding-right: 32px;
+			padding-left: 32px;
+		}
+
+		.px-6 {
+			padding-right: 40px;
+			padding-left: 40px;
+		}
+
+		.py-0 {
+			padding-top: 0px;
+			padding-bottom: 0px;
+		}
+
+		.py-1 {
+			padding-top: 4px;
+			padding-bottom: 4px;
+		}
+
+		.py-2 {
+			padding-top: 8px;
+			padding-bottom: 8px;
+		}
+
+		.py-3 {
+			padding-top: 16px;
+			padding-bottom: 16px;
+		}
+
+		.py-4 {
+			padding-top: 24px;
+			padding-bottom: 24px;
+		}
+
+		.py-5 {
+			padding-top: 32px;
+			padding-bottom: 32px;
+		}
+
+		.py-6 {
+			padding-top: 40px;
+			padding-bottom: 40px;
+		}
+
+		@media screen and (max-width: 1199px) {
+			.content-slot {
+				padding-left: 32px;
+				padding-right: 32px;
+			}
+		}
+
+		@media screen and (max-width: 767px) {
+			body>table {
+				width: 360px;
+			}
+
+			.content-slot {
+				padding-left: 16px;
+				padding-right: 16px;
+			}
+		}
+
+		/* Custom CSS End */
+
+
+		.content-slot {
+			padding-left: 40px;
+			padding-right: 40px;
+		}
+	</style>
+</head>
+
+<body style="-webkit-text-size-adjust: none; -ms-text-size-adjust: none; text-size-adjust: none; margin: 0; padding: 0; width: 100%;">
+	#set ($myinterestUrl = "${ctx.secureBaseUrl}/my-account/my-interests")
+	#set ($productUrl = "${ctx.secureBaseUrl}${ctx.productData.url}")
+	#if(${ctx.baseSite.Uid} == "copperandcrane")
+		#set ($displayUid = "${ctx.messages.CandCdisplayname}")
+	#else
+		#set ($displayUid = "${ctx.baseSite.Uid}")
+	#end
+	<table cellspacing="0" cellpadding="0" align="center" border="0" width="800" bgcolor="#ffffff" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 800px;">
+		<tr>
+			<td valign="top" align="left" width="100%" style="border-collapse: collapse; font-family:'Gotham A', 'Gotham B', lato, Helvetica, Arial, Verdana, sans-serif;">
+				<table cellspacing="0" cellpadding="0" align="left" border="0" width="100%" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+					<tr>
+						<td valign="top" align="left" width="100%" height="73px" style="border-collapse: collapse; font-family:'Gotham A', 'Gotham B', lato, Helvetica, Arial, Verdana, sans-serif;">
+							<a href="${ctx.baseUrl}">${ctx.cmsSlotContents.SiteLogo}</a>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+	<table cellspacing="0" cellpadding="0" align="center" border="0" width="700" bgcolor="#ffffff" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 700px;">
+		#set ($spaceHolderPosition = "")
+		<tr>
+			#if($ctx.displayName.contains("|"))
+			<td valign="top" align="left" width="100%" class="txt-regular txt-weight-regular txt-default-color pt-4" style="font-size: 14px; color: #222222; font-weight: 400; padding-top: 24px; font-family:'Gotham A', 'Gotham B', lato, Helvetica, Arial, Verdana, sans-serif;">
+				${ctx.messages.getMessage('salutation', $ctx.displayName.substring(0,$ctx.displayName.lastIndexOf("|")).trim())}
+			</td>
+			#else
+			<td valign="top" align="left" width="100%" class="txt-regular txt-weight-regular txt-default-color pt-4" style="font-size: 14px; color: #222222; font-weight: 400; padding-top: 24px; font-family:'Gotham A', 'Gotham B', lato, Helvetica, Arial, Verdana, sans-serif;">
+				${ctx.messages.getMessage('salutation', ${ctx.displayName})}
+			</td>
+			#end
+		</tr>
+		<tr>
+			<td valign="top" align="left" width="100%" class="txt-regular txt-weight-regular txt-default-color pt-4" style="font-size: 14px; color: #222222; font-weight: 400; padding-top: 24px; font-family:'Gotham A', 'Gotham B', lato, Helvetica, Arial, Verdana, sans-serif;">
+				${ctx.messages.getMessage('productAvaiable')}
+			</td>
+		</tr>
+		<tr>
+			<td valign="top" align="left" width="100%" class="txt-regular txt-weight-regular txt-default-color pt-3" style="font-size: 14px; color: #222222; font-weight: 500; padding-top: 16px; font-family:'Gotham A', 'Gotham B', lato, Helvetica, Arial, Verdana, sans-serif;">
+				<a class="txt-regular txt-weight-regular" href="$productUrl" title=" " style=" font-weight: 400;font-size: 14px;text-decoration: none; outline: none; border: none;font-family:'Gotham A', 'Gotham B', lato, Helvetica, Arial, Verdana, sans-serif;"
+				 target="_blank">${ctx.productData.name}
+				</a>
+			</td>
+		</tr>
+	</table>
+	<table cellspacing="0" cellpadding="0" align="center" border="0" width="700" bgcolor="#ffffff" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 700px;">
+		<tr>
+			<td align="left" class="py-0" width="22%" style="padding-top: 24px; padding-bottom: 0px; font-family:'Gotham A', 'Gotham B', lato, Helvetica, Arial, Verdana, sans-serif;">
+				#foreach($image in $ctx.productData.images)
+				#if($image.imageType == "PRIMARY" && $image.format ==
+				"thumbnail" )
+				<p style="margin:0px; border-top: 1px solid #cecece; border-left: 1px solid #cecece;border-right: 1px solid #cecece;border-bottom: 1px solid #cecece;">
+					<img src="$image.url" title="$ctx.productData.name" alt="" style="border: none; text-decoration: none; -ms-interpolation-mode: bicubic; margin: 0; padding: 0; line-height: 1.428571429; display: block; outline: none;"
+					 width="130" height="130">
+				</p>
+				#end
+				#end
+			</td>
+			<td align="left" class="py-0" style="padding-top: 24px; padding-bottom: 0px; font-family:'Gotham A', 'Gotham B', lato, Helvetica, Arial, Verdana, sans-serif;">
+				&nbsp;
+			</td>
+		</tr>
+	</table>
+	<table cellspacing="0" cellpadding="0" align="center" border="0" width="700" bgcolor="#ffffff" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 700px;">
+		<tr>
+			<td valign="top" align="left" width="100%" class="txt-regular txt-weight-regular txt-default-color pt-4" style="font-size: 14px; color: #222222; font-weight: 400; padding-top: 24px; font-family:'Gotham A', 'Gotham B', lato, Helvetica, Arial, Verdana, sans-serif;">
+				${ctx.messages.complimentaryClosing}
+			</td>
+		</tr>
+		<tr>
+			<td valign="top" align="left" width="100%" class="txt-regular txt-weight-regular txt-default-color pt-3" style="font-size: 14px; color: #222222; font-weight: 400; padding-top: 16px; font-family:'Gotham A', 'Gotham B', lato, Helvetica, Arial, Verdana, sans-serif;">
+				${ctx.messages.getMessage('signature', $displayUid)}
+			</td>
+		</tr>
+	</table>
+	<table cellspacing="0" cellpadding="0" align="center" border="0" width="800" bgcolor="#ffffff" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 800px;">
+		<tr>
+			<td style="display: block; width: 100%; margin:0px; padding:0px;">
+				<a href="${ctx.baseUrl}" style="display:block; margin:0px;">${ctx.cmsSlotContents.BottomContent}</a>
+			</td>
+		</tr>
+	</table>
+</body>
+
+</html>

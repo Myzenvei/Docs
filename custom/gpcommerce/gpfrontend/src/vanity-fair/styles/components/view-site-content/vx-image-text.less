@@ -1,0 +1,38 @@
+.vx-image-text {
+  @media screen and (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+    margin: 24px 16px !important;
+  }
+  @media screen and (min-width: @screen-md-min) {
+    margin: 24px !important;
+  }
+  section {
+    text-align: unset;
+  }
+  .view-site-content-vx-text-tile {
+    h3 {
+      font-size: @font-size-base;
+      @media screen and (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+        font-size: @font-size-large;
+      }
+      @media screen and (min-width: @screen-md-min) {
+        font-size: @font-size-h3;
+      }
+      font-weight: @font-weight-medium;
+    }
+    p {
+      font-size: @font-size-small;
+      @media screen and (min-width: @screen-md-min) {
+        font-size: @font-size-small;
+      }
+    }
+    a {
+      &.cta-text {
+        font-size: @font-size-small;
+        @media screen and (min-width: @screen-sm-min) {
+          font-size: @font-size-medium;
+        }
+        font-weight: @font-weight-medium;
+      }
+    }
+  }
+}

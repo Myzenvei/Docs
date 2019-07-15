@@ -1,0 +1,220 @@
+############################################  email-content.impex   GPEmployee ####################################
+$contentCatalog=gpemployeeContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$wideContent=CMSImageComponent,BannerComponent,CMSLinkComponent
+$jarEmailResourceCms=jar:com.gp.commerce.initialdata.constants.GpcommerceInitialDataConstants&/gpcommerceinitialdata/import/coredata/contentCatalogs/gpemployeeContentCatalog/emails
+$jarEmailResource=jar:com.gp.commerce.initialdata.constants.GpcommerceInitialDataConstants&/gpcommerceinitialdata/import/coredata/contentCatalogs/gpemployeeContentCatalog/emails
+                                                       
+# Language                                                                                                 
+$lang=en 
+# Import modulegen config properties into impex macros
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+$jarResourceCms=$config-jarResourceCmsValue                                                                
+$emailPackageName=$config-emailContextPackageName                                                          
+
+				             
+##########################################    email-content_en.impex  GPEmployee ############################################
+				                   
+				                    
+UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]             ; fromEmail[lang=$lang]                ; fromName[lang=$lang]    
+                 ;                         ; CustomerRegistrationEmail    ; "customerservices@shop-gp.com"       ; "Customer Services Team"
+                 ;                         ; PasswordResetEmail           ; "customerservices@shop-gp.com"       ; "Customer Services Team"
+                 ;                         ; DeliverySentEmail            ; "customerservices@shop-gp.com"       ; "Customer Services Team"
+                 ;                         ; ForgottenPasswordEmail       ; "customerservices@shop-gp.com"       ; "Customer Services Team"
+                 ;                         ; ShareCartEmail               ; "customerservice@shop-gp.com"        ; "Customer Services Team"
+                 ;                         ; OrderCancelledEmail          ; "customerservices@shop-gp.com"       ; "Customer Services Team"
+                 ;                         ; OrderCollectionReminderEmail ; "customerservices@shop-gp.com"       ; "Customer Services Team"
+                 ;                         ; OrderConfirmationEmail       ; "customerservices@shop-gp.com"       ; "Customer Services Team"
+                 ;                         ; OrderMoveToCsEmail           ; "customerservices@shop-gp.com"       ; "Customer Services Team"
+                 ;                         ; OrderPartiallyCanceledEmail  ; "customerservices@shop-gp.com"       ; "Customer Services Team"
+                 ;                         ; OrderPartiallyRefundedEmail  ; "customerservices@shop-gp.com"       ; "Customer Services Team"
+                 ;                         ; OrderRefundEmail             ; "customerservices@shop-gp.com"       ; "Customer Services Team"
+                 ;                         ; ReadyForPickupEmail          ; "customerservices@shop-gp.com"       ; "Customer Services Team"
+                 ;                         ; ShareWishlistEmail           ; "customerservice@shop-gp.com"        ; "Customer Services Team"
+                 ;                         ; ChangeUIDEmail               ; "customerservices@shop-gp.com"       ; "Customer Services Team"
+                 ;                         ; UpdateProfileEmail           ; "customerservices@shop-gp.com"       ; "Customer Services Team"
+                 ;                         ; FailedOrderEmail             ; "customerservices@shop-gp.com"       ; "Customer Services Team"
+                 ;                         ; OrderRejectEmail             ; "customerservices@shop-gp.com"       ; "Customer Services Team"
+
+
+#$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+##########################################  site.impex  GPEmployee         ############################################
+$productCatalog=gpUSProductCatalog
+$contentCatalog=gpemployeeContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$defaultLanguage=en
+$storeUid=gpemployee
+$siteUid=gpemployee
+$webServiceSiteUid=$siteUidWS
+$siteMapUrlLimitPerFile=50000
+$storefrontContextRoot=/gpcommercestorefront
+$siteMapLangCur=enUsd
+$siteMapPage=Homepage,Product,CategoryLanding,Category,Store,Content,Custom
+$customSiteMapUrls=/Kategorien/c/categories?q=:relevance:allPromotions:BOGOFApparel:allPromotions:10DiscountShoes:allPromotions:MultiBuyApparel:allPromotions:PerfectPartnerApparel:allPromotions:ProductBundleApparel,/Kategorien/Snowwear-Women/Snowboard-Jacken-Women/c/200100?q=%3Arelevance%3AswatchColors%3AORANGE&text=#,/Kategorien/Streetwear-Women/T-Shirts-Women/c/260100?q=%3Arelevance%3AswatchColors%3AGREEN&text=#,/Kategorien/Accessoires-Women/Taschen-Women/c/160400?q=%3Arelevance%3AswatchColors%3ABROWN&text=#,/Kategorien/Bekleidung/Schuhe/Sandals/c/sandals?q=%3Arelevance%3Abrand%3AReef%3AswatchColors%3AWHITE&text=#
+
+# Import config properties into impex macros
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+
+# Import modulegen config properties into impex macros
+$jarResource=$config-jarResource
+
+# SiteMap Configuration
+INSERT_UPDATE SiteMapLanguageCurrency;&siteMapLanguageCurrency;language(isoCode)[unique=true];currency(isocode)[unique=true];
+;enUsd;en;USD;
+
+INSERT_UPDATE CatalogUnawareMedia;&siteMapMediaId;code[unique=true];realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime[default='text/plain']
+;$siteUid-siteMapMedia;$siteUid-siteMapMedia;siteMapTemplate.vm;$jarResource/site-siteMapTemplate.vm;
+
+INSERT_UPDATE RendererTemplate;&siteMapRenderer;code[unique=true];content(&siteMapMediaId);contextClass;rendererType(code)[default='velocity'];
+;$siteUid-siteMapTemplate;$siteUid-siteMapTemplate;$siteUid-siteMapMedia;de.hybris.platform.acceleratorservices.sitemap.renderer.SiteMapContext;
+
+
+
+##########################################  site-responsive.impex  GPEmployee         ############################################
+$productCatalog=gpUSProductCatalog
+$contentCatalog=gpemployeeContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$defaultLanguage=en
+$storeUid=gpemployee
+$siteUid=gpemployee
+$webServiceSiteUid=$siteUidWS
+$siteMapUrlLimitPerFile=50000
+$storefrontContextRoot=/gpcommercestorefront
+$siteMapLangCur=enUsd
+$siteMapPage=Homepage,Product,CategoryLanding,Category,Store,Content,Custom
+$customSiteMapUrls=/Kategorien/c/categories?q=:relevance:allPromotions:BOGOFApparel:allPromotions:10DiscountShoes:allPromotions:MultiBuyApparel:allPromotions:PerfectPartnerApparel:allPromotions:ProductBundleApparel,/Kategorien/Snowwear-Women/Snowboard-Jacken-Women/c/200100?q=%3Arelevance%3AswatchColors%3AORANGE&text=#,/Kategorien/Streetwear-Women/T-Shirts-Women/c/260100?q=%3Arelevance%3AswatchColors%3AGREEN&text=#,/Kategorien/Accessoires-Women/Taschen-Women/c/160400?q=%3Arelevance%3AswatchColors%3ABROWN&text=#,/Kategorien/Bekleidung/Schuhe/Sandals/c/sandals?q=%3Arelevance%3Abrand%3AReef%3AswatchColors%3AWHITE&text=#
+
+# Remove black and blue themes for responsive
+REMOVE SiteTheme;code[unique=true]
+;black
+;blue
+
+# Import config properties into impex macros
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+
+# Import modulegen config properties into impex macros
+$jarResource=$config-jarResource
+
+
+# SiteMap Configuration
+INSERT_UPDATE SiteMapLanguageCurrency;&siteMapLanguageCurrency;language(isoCode)[unique=true];currency(isocode)[unique=true];
+;enUsd;en;USD;
+
+INSERT_UPDATE CatalogUnawareMedia;&siteMapMediaId;code[unique=true];realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime[default='text/plain']
+;$siteUid-siteMapMedia;$siteUid-siteMapMedia;siteMapTemplate.vm;$jarResource/site-siteMapTemplate.vm;
+
+INSERT_UPDATE RendererTemplate;&siteMapRenderer;code[unique=true];content(&siteMapMediaId);contextClass;rendererType(code)[default='velocity'];
+;$siteUid-siteMapTemplate;$siteUid-siteMapTemplate;$siteUid-siteMapMedia;de.hybris.platform.acceleratorservices.sitemap.renderer.SiteMapContext;
+
+
+UPDATE CMSSite ; uid[unique=true] ; siteConfig                             
+               ; $siteUid         ; "isBazaarVoiceEnabled->false ; showDownload->false ; bv_feed_file_name->bv_angelsoft_ratings ; isRelatedEnabled->false ; isDownloadable->false ; isExcelDownloadable->false ; isSharable->true ; isBulkEnabled->false ; isDOBEnabled->false ; isGenderEnabled->false"
+
+
+
+
+ ##########################################  store.impex  GPEmployee         ############################################
+
+$productCatalog=gpUSProductCatalog
+$classificationCatalog=gpUSClassification
+$currencies=USD
+$net=true
+$storeUid=gpemployee
+$paymentProvider=Mockup
+
+$defaultCurrency=USD
+$languages=en
+$defaultLanguage=en
+$unitedStates=US
+$canada=CA
+$deliveryCountries=$unitedStates,$canada
+$shippingCountries=$unitedStates,$canada
+$orderProcessCode=order-process
+$pickupInStoreMode=BUY_AND_COLLECT
+$expressCheckoutEnabled=true
+$returnProcessCode=return-process
+
+
+INSERT_UPDATE PromotionGroup;Identifier[unique=true];
+;gpemployeePromoGrp;
+
+# Base Store
+INSERT_UPDATE BaseStore;uid[unique=true];catalogs(id);currencies(isocode);net;taxGroup(code);storelocatorDistanceUnit(code);defaultCurrency(isocode);languages(isocode);defaultLanguage(isocode);deliveryCountries(isocode);submitOrderProcessCode;pickupInStoreMode(code);paymentProvider;expressCheckoutEnabled;maxRadiusForPoSSearch;checkoutFlowGroup;createReturnProcessCode;shippingCountries(isocode);
+;$storeUid;$productCatalog,$classificationCatalog;$currencies;$net;us-taxes;km;$defaultCurrency;$languages;$defaultLanguage;$deliveryCountries;$orderProcessCode;$pickupInStoreMode;$paymentProvider;$expressCheckoutEnabled;300;apparelCheckoutGroup;$returnProcessCode;$shippingCountries;
+
+#INSERT_UPDATE BaseStore2DeliveryModeRel;source(uid)[unique=true];target(code)[unique=true]
+#;gpemployee;premium-net
+
+
+
+##########################################    cms-content.impex GPEMPLOYEECONTENTCATALOG    ########################################## 
+$contentCatalog=gpemployeeContentCatalog 
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged] 
+ 
+$productCatalog=gpUSProductCatalog 
+$productCatalogName=GP B2C Product Catalog 
+$productCV=catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged] 
+$picture=media(code, $contentCV) ;
+$siteResource=jar:com.gp.commerce.initialdata.constants.GpcommerceInitialDataConstants&/gpcommerceinitialdata/import/sampledata/contentCatalogs/$contentCatalog
+$jarResourceCms=jar:com.gp.commerce.initialdata.constants.GpcommerceInitialDataConstants&/gpcommerceinitialdata/import/sampledata/cockpits/cmscockpit
+
+# Language
+$lang=en
+$medias=medias(code, $contentCV);
+$mediaContainer=media(qualifier, $contentCV)[lang=$lang];
+
+
+# Load the storefront context root config param
+$storefrontContextRoot=$config-storefrontContextRoot
+
+INSERT_UPDATE CMSLinkComponent ; $contentCV[unique=true] ; uid[unique=true]        ; name                             ; url                                            ; category(code, $productCV) ; target(code)[default='sameWindow'] ;  ; socialLink[default=false] ; markAsViewAll[default=false]
+                               ;                         ; FacebookLink            ; Facebook Link                    ; https://www.gppro.com/                         ;                            ; newWindow                          ;  ; true                      ;                             
+                               ;                         ; TwitterLink             ; Twitter Link                     ; https://twitter.com/GPProfessional             ;                            ; newWindow                          ;  ; true                      ;                             
+                               ;                         ; InstagramLink           ; Instagram Link                   ; https://www.gppro.com/                         ;                            ; newWindow                          ;  ; true                      ;                             
+                               ;                         ; PinterestLink           ; Pinterest Link                   ; https://www.gppro.com/                         ;                            ; newWindow                          ;  ; true                      ;                             
+                               ;                         ; YouTubeLink             ; Youtube Link                     ; https://www.youtube.com/user/GeorgiaPacificPro ;                            ; newWindow                          ;  ; true                      ;                             
+                               ;                         ; LinkedInLink            ; LinkedIn Link                    ; https://www.linkedin.com/company/gppro/        ;                            ; newWindow                          ;  ; true                      ;                             
+                               ;                         ; SnapchatLink            ; Snapchat Link                    ; https://www.gppro.com/                         ;                            ; newWindow                          ;  ; true                      ;
+                               
+## START Footer GPCheckoutFooterNavigationComponent
+UPDATE GPCheckoutFooterNavigationComponent;$contentCV[unique=true];uid[unique=true];notice[lang=en]
+;;GPCheckoutFooterNavigationComponent;"| Georgia-Pacific"
+ ## END Footer GPCheckoutFooterNavigationComponent
+
+########## Shipping email update impex start ##################
+
+$contentCatalog=gpemployeeContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$jarEmailResource=jar:com.gp.commerce.initialdata.constants.GpcommerceInitialDataConstants&/gpcommerceinitialdata/import/coredata/contentCatalogs/gpemployeeContentCatalog/emails                                                                                                
+$lang=en   
+
+UPDATE RendererTemplate ; code[unique=true]                                        ; description[lang=$lang]                            ; templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                        ; gpemployee_Email_Delivery_Sent_Body                      ; "Delivery Sent Email Body"                         ; $jarEmailResource/email-deliverySentBody.vm                                                                      
+
+########## Shipping email update impex end ##################
+
+
+########## Header Navigations ##################
+INSERT_UPDATE CMSNavigationNode;$contentCV[unique=true];uid[unique=true];title[lang=$lang];name;parent(uid, $contentCV);parentPos
+;;BundlesNavNode;Bundles;Bundles;GPCategoryNavigationNode;3
+;;SuppliesNavNode;Cleaning Supplies;Cleaning Supplies;GPCategoryNavigationNode;2
+;;SuppliesOverviewNavNode;Cleaning Supplies Overview;Cleaning Supplies Overview;SuppliesNavNode;
+;;CarpetCareNavNode;Carpet Care;Carpet Care;SuppliesOverviewNavNode;
+;;FloorCareNavNode;Floor Care;Floor Care;SuppliesOverviewNavNode;
+;;KitchenCareNavNode;Kitchen Care;Kitchen Care;SuppliesOverviewNavNode;
+
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];linkName[lang=$lang];url;styleAttributes;target(code)[default='sameWindow'];external[default=false];socialLink[default=false];markAsViewAll[default=false]
+;;BundlesNavLink;Bundles;/category/bundles;;;;
+;;CleaningSuppliesNavLink;Cleaning Supplies;/category/cleaningsupply;;;;
+;;CarpetCareNavLink;Carpet Care;/category/319;;;;
+;;FloorCareNavLink;Floor Care;/category/320;;;;
+;;KitchenCareNavLink;Kitchen Care;/category/321;;;;
+
+INSERT_UPDATE CMSNavigationEntry;$contentCV[unique=true];uid[unique=true];name;navigationNode(uid,$contentCV);item(CMSLinkComponent.uid,CMSLinkComponent.$contentCV);
+;;BundlesNavNodeEntry;Bundles Nav Node Entry;BundlesNavNode;BundlesNavLink;
+;;SuppliesNavNodeEntry;Cleaning Supplies Nav Node Entry;SuppliesNavNode;CleaningSuppliesNavLink;
+;;CarpetCareNavNodeEntry;Carpet Care Node Entry;CarpetCareNavNode;CarpetCareNavLink;
+;;FloorCareNavNodeEntry;Floor Care Node Entry;FloorCareNavNode;FloorCareNavLink;
+;;KitchenCareNavNodeEntry;Kitchen Care Node Entry;KitchenCareNavNode;KitchenCareNavLink;
+########## Header Navigations ##################

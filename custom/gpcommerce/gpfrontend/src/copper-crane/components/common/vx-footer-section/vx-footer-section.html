@@ -1,0 +1,62 @@
+<footer class="cc-footer-section">
+  <div class="footer px-sm-5 pt-sm-5 mx-xs-0 row" :class="{checkoutFooterBack: isCheckoutFooter}">
+    <div class="d-flex justify-content-start flex-wrap px-sm-0 px-xs-0">
+      <template v-if="isMobile()">
+        <div class="non-printable-section footer__column" :class="{'checkout active': isCheckoutFooter}" v-for="(item, index) in filteredFooterData">
+          <h5 v-on:click.prevent="toggle($event)" class="my-xs-4 mx-xs-3 ml-sm-0 mt-sm-0 mb-sm-3 d-flex justify-content-between align-items-center">{{item.title}}
+            <button class="icon-chevron-down" :class="[!isCheckoutFooter ? 'visible-xs' : 'hidden']" aria-label="collapsed">
+            </button>
+          </h5>
+          <div class="px-xs-3 pl-sm-0 pb-xs-3 py-sm-2 footer__column__item" v-for="(subItem, subIndex) in item.links">
+            <template v-if="subItem.linkType===footerLinkTypes.SIMPLE_TEXT">
+                  <span>{{subItem.linkText}}</span>
+                </template>
+                <template v-else-if="subItem.linkType===footerLinkTypes.SIMPLE_TEL">
+                  <a :href="'tel:'+subItem.linkText">{{subItem.linkText}}</a>
+                </template>
+                <template v-else-if="subItem.linkType===footerLinkTypes.SIMPLE_MAIL">
+                    <a :href="'mailto:'+subItem.linkText">{{subItem.linkText}}</a>
+                </template>
+                <template v-else>
+                    <a :href="[subItem.external ? subItem.linkTo : globals.contextPath+subItem.linkTo]" :target="[subItem.newWindow ? '_blank' : '_self']">{{subItem.linkText}}</a>
+                </template>
+          </div>
+        </div>
+      </template>
+      <div class="social-block footer__column" v-if="!isCheckoutFooter">
+        <div class="logo p-xs-3 p-sm-0" @click="globals.navigateToUrl('home')" tabindex="-1" v-if="footerData.footerLogo">
+          <img :src="footerData.footerLogo" :alt="footerData.footerLogoAltText">
+        </div>
+        <div class="mx-xs-3 mx-sm-0 mt-sm-4 icons">
+          <template v-for="socialIcons in footerData.columns[footerDataLength-1].links">
+            <a :href="socialIcons.linkTo" class="social-icons pr-xs-3" target="_blank">
+              <img :src="globals.assetsPath+`images/copper-crane/${socialIcons.linkText.toLowerCase()}.svg`" class="my-xs-2" :alt='socialIcons.linkText'>
+            </a>
+          </template>
+          <span id='extole_zone_global_footer' v-if="globals.siteConfig.isReferAFriend"></span>
+        </div>
+        <div class="mx-xs-3 mx-sm-0 my-xs-4 mb-sm-0 mt-sm-5 copy-right">{{copyrightText}}</div>
+      </div>
+      <template v-if="!isMobile()">
+        <div class="non-printable-section footer__column" :class="{'checkout active': isCheckoutFooter}" v-for="(item, index) in filteredFooterData">
+          <h5 class="my-xs-4 mx-xs-3 ml-sm-0 mt-sm-0 mb-sm-3">{{item.title}}</h5>
+          <div class="px-xs-3 pl-sm-0 pb-xs-3 py-sm-2 footer__column__item" v-for="(subItem, subIndex) in item.links">
+            <template v-if="subItem.linkType===footerLinkTypes.SIMPLE_TEXT">
+              <span>{{subItem.linkText}}</span>
+            </template>
+            <template v-else-if="subItem.linkType===footerLinkTypes.SIMPLE_TEL">
+              <a :href="'tel:'+subItem.linkText">{{subItem.linkText}}</a>
+            </template>
+            <template v-else-if="subItem.linkType===footerLinkTypes.SIMPLE_MAIL">
+                <a :href="'mailto:'+subItem.linkText">{{subItem.linkText}}</a>
+            </template>
+            <template v-else>
+                <a :href="[subItem.external ? subItem.linkTo : globals.contextPath+subItem.linkTo]" :target="[subItem.newWindow ? '_blank' : '_self']">{{subItem.linkText}}</a>
+            </template>
+          </div>
+        </div>
+      </template>
+    </div>
+  </div>
+  <vx-extole ref="vxExtoleRef" v-if="globals.siteConfig.isReferAFriend"></vx-extole>
+</footer>

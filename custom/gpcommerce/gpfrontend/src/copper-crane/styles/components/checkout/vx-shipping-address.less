@@ -1,0 +1,76 @@
+#copper-crane {
+  .vx-shipping-address {
+    a {
+      color: @link-color;
+    }
+    & > .sub-heading {
+      color: @text-color;
+      font-size: @font-size-small;
+    }
+    .shipping-address-title {
+      .shipping-address-heading {
+        .section-header {
+          font-family: @font-family-queulat-bold;
+        }
+      }
+      .shipping-method-type {
+        a {
+          color: @link-color;
+          text-decoration: underline;
+          .shipping-location-type {
+            span {
+              font-size: @font-size-small;
+            }
+          }
+        }
+      }
+      .shipping-method-change {
+        .shipping-location-type {
+          font-size: @font-size-small;
+          text-decoration: underline;
+        }
+      }
+    }
+    .vx-single-shipping-address {
+      .dropdown-primary {
+        .dropdown {
+          button,
+          ul li a {
+            font-size: @font-size-small;
+          }
+        }
+      }
+    }
+    .vx-multi-shipping-address {
+      .vx-product-tile {
+        .product-tile {
+          .main-section {
+            .product-title {
+              a {
+                color: @link-color;
+                font-family: @font-family-queulat-bold;
+              }
+            }
+            .product-price {
+              .product-current-price {
+                font-family: @font-family-queulat-bold;
+              }
+            }
+            .product-total-price {
+              font-family: @font-family-queulat-bold;
+              font-size: @font-size-h3;
+            }
+          }
+          .vx-split-address {
+            .label-text {
+              font-size: @font-size-small;
+            }
+          }
+        }
+      }
+      .product-address-heading {
+        font-family: @font-family-queulat-bold;
+      }
+    }
+  }
+}

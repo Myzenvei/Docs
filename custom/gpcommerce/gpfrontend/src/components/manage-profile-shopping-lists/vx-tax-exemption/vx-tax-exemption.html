@@ -1,0 +1,6 @@
+<div class="vx-tax-exemption">
+  <p class="mb-xs-4">{{i18n.helpText}}</p>
+  <h4>{{i18n.title}}</h4>
+  <vx-file-upload :isError="isFileSizeExceeded" :i18n="i18n" :disableAttach="disableAttach" :fileType="fileType" @file-upload="fileUpload($event)"
+    @attachments-updated="attachmentListUpdated" v-bind:multiple-file-upload="true"></vx-file-upload>
+</div>

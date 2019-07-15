@@ -1,0 +1,92 @@
+$productCatalog=gpUSProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+
+INSERT_UPDATE Product;code[unique=true];$catalogVersion;assetCode
+;300605291;;tshirts
+;300617128;;tshirts
+;300417310;;tshirts
+;300756152;;tshirts
+;300755976;;refill
+;300742606;;refill
+;300441355;;apparel
+;300427202;;apparel
+;115118_brown;;sunShades
+;115117_green_bronze_mirror;;sunShades
+;92905_brown_w+bronze_flash;;sunShades
+;300564385;;cap
+;300650114;;cap
+;300398794;;cap
+;300564390;;cap
+;300604625;;cap
+;300441239;;mstreet
+;300610764;;mstreet
+;300613859;;mstreet
+;300495181;;mstreet
+;300438825;;mstreet
+;300413753;;mstreet
+;300398588;;mstreet
+;300441363;;wmstreet
+;300399859;;wmstreet
+;300615227;;wmstreet
+;300453357;;wmstreet
+;300678854;;wmstreet
+;300427204;;wmstreet
+;300399420;;wmstreet
+;300438785;;wmstreet
+;300459760;;wmstreet
+;300412202;;wmstreet
+;300412518;;wmstreet
+;300459763;;wmstreet;
+;300459773;;wmstreet;
+;300412020;;wmstreet;
+;300412398;;wmstreet;
+;300412211;;wmstreet;
+;300412635;;wmstreet;
+;300412404;;wmstreet;
+;300412416;;wmstreet;
+;300412380;;wmstreet;
+;300412386;;wmstreet;
+;300412392;;wmstreet;
+;300410253;;wmstreet;
+;300410422;;wmstreet;
+;300410407;;wmstreet;
+
+INSERT_UPDATE GPAttributeConfig;classificationCode[unique=true];detailEnabled[default=true];assetCode[unique=true];cmsSite(uid);name[unique=true];compareEnabled[default=true];searchEnabled[default=true]
+;333334;TRUE;wmstreet;vanityfair;Unit Dimensions LxWxH;TRUE;TRUE
+;333333;TRUE;wmstreet;vanityfair;Unit Qty;TRUE;TRUE
+;333332;TRUE;wmstreet;vanityfair;HI-Layers/Unit;TRUE;TRUE
+;333331;TRUE;wmstreet;vanityfair;TI-Qty/Layer;TRUE;TRUE
+;222224;TRUE;wmstreet;vanityfair;Each Volume;TRUE;TRUE
+;222223;TRUE;wmstreet;vanityfair;Each Dimensions;TRUE;TRUE
+;222222;TRUE;wmstreet;vanityfair;Each Net Wgt;TRUE;TRUE
+;222221;TRUE;wmstreet;vanityfair;Each Gross Weight;TRUE;TRUE
+;11114;TRUE;wmstreet;vanityfair;Case Volume;TRUE;TRUE
+;111113;TRUE;wmstreet;vanityfair;Case Net Wgt;TRUE;TRUE
+;111112;TRUE;wmstreet;vanityfair;Case Gross Wgt;TRUE;TRUE
+;111111;TRUE;wmstreet;vanityfair;Case GTIN;TRUE;TRUE
+
+;333334;TRUE;wmstreet;gpemployee;Unit Dimensions LxWxH;TRUE;TRUE
+;333333;TRUE;wmstreet;gpemployee;Unit Qty;TRUE;TRUE
+;333332;TRUE;wmstreet;gpemployee;HI-Layers/Unit;TRUE;TRUE
+;333331;TRUE;wmstreet;gpemployee;TI-Qty/Layer;TRUE;TRUE
+;222224;TRUE;wmstreet;gpemployee;Each Volume;TRUE;TRUE
+;222223;TRUE;wmstreet;gpemployee;Each Dimensions;TRUE;TRUE
+;222222;TRUE;wmstreet;gpemployee;Each Net Wgt;TRUE;TRUE
+;222221;TRUE;wmstreet;gpemployee;Each Gross Weight;TRUE;TRUE
+;11114;TRUE;wmstreet;gpemployee;Case Volume;TRUE;TRUE
+;111113;TRUE;wmstreet;gpemployee;Case Net Wgt;TRUE;TRUE
+;111112;TRUE;wmstreet;gpemployee;Case Gross Wgt;TRUE;TRUE
+;111111;TRUE;wmstreet;gpemployee;Case GTIN;TRUE;TRUE
+
+;333334;TRUE;wmstreet;gppro;Unit Dimensions LxWxH;TRUE;TRUE
+;333333;TRUE;wmstreet;gppro;Unit Qty;TRUE;TRUE
+;333332;TRUE;wmstreet;gppro;HI-Layers/Unit;TRUE;TRUE
+;333331;TRUE;wmstreet;gppro;TI-Qty/Layer;TRUE;TRUE
+;222224;TRUE;wmstreet;gppro;Each Volume;TRUE;TRUE
+;222223;TRUE;wmstreet;gppro;Each Dimensions;TRUE;TRUE
+;222222;TRUE;wmstreet;gppro;Each Net Wgt;TRUE;TRUE
+;222221;TRUE;wmstreet;gppro;Each Gross Weight;TRUE;TRUE
+;11114;TRUE;wmstreet;gppro;Case Volume;TRUE;TRUE
+;111113;TRUE;wmstreet;gppro;Case Net Wgt;TRUE;TRUE
+;111112;TRUE;wmstreet;gppro;Case Gross Wgt;TRUE;TRUE
+;111111;TRUE;wmstreet;gppro;Case GTIN;TRUE;TRUE

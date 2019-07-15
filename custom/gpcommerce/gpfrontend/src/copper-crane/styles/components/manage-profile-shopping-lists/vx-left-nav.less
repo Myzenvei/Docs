@@ -1,0 +1,29 @@
+#copper-crane {
+  .vx-left-nav {
+    .left-nav-sub-container {
+      .side-heading {
+        font-size: @font-size-h2;
+      }
+      ul {
+        li.cd-label {
+          &.selected {
+            background-color: @left-nav-active-bg-color;
+            a {
+              color: @left-nav-active-font-color;
+              font-size: @font-size-medium;
+              font-family: @font-family-queulat-bold;
+            }
+          }
+          a {
+            color: @left-nav-font-color;
+            font-size: @font-size-small;
+            font-family: @font-family-queulat-regular;
+          }
+          &:hover {
+            background-color: @left-nav-active-bg-color;
+          }
+        }
+      }
+    }
+  }
+}

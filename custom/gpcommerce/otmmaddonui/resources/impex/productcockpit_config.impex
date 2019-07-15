@@ -1,0 +1,40 @@
+#
+# Product Cockpit configurations
+#
+
+#folders for cockpit config files
+$jarResourceProductCockpit=jar:com.opentext.hybris.otmmconnector.ui.constants.OtmmaddonuiConstants&/otmmaddonui/productcockpit
+
+INSERT_UPDATE CockpitUIScriptConfigMedia;code[unique=true];allowScriptEvaluation;mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true]
+
+############## custom editor file entry  starts######################
+;editor_product_productmanagergroup_ui_config_otmm;true;text/xml;Editor_Product_ProductManager.xml;$jarResourceProductCockpit/xml/Editor_Product_ProductManager.xml
+;editor_mediacontainer_productmanagergroup_ui_config_otmm;true;text/xml;Editor_MediaContainer_ProductManager.xml;$jarResourceProductCockpit/xml/Editor_MediaContainer_ProductManager.xml
+####################### ends#####
+
+;list_media_selector_cockpitgroup_ui_config_custom;true;text/xml;ListView-Media-Selector-CockpitGroup.xml;$jarResourceProductCockpit/xml/ListView_Media_Selector_CockpitGroup.xml
+;list_opentextmedia_selector_cockpitgroup_ui_config_custom;true;text/xml;ListView-Media-Selector-CockpitGroup.xml;$jarResourceProductCockpit/xml/ListView_OpenTextMedia_Selector_CockpitGroup.xml
+;cockpitgroup_Media_advancedSearchConfigurationFactory_advancedSearch_custom;true;text/xml;advancedSearch-Media.xml;$jarResourceProductCockpit/xml/AdvancedSearch_Media.xml
+
+INSERT_UPDATE CockpitUIComponentConfiguration;code[unique=true];factoryBean;objectTemplateCode[unique=true];principal(uid)[unique=true];media(code);
+
+;listViewSelector;listViewConfigurationFactory;Media;productmanagergroup;list_media_selector_cockpitgroup_ui_config_custom
+;listViewSelector;listViewConfigurationFactory;OpenTextMedia;productmanagergroup;list_opentextmedia_selector_cockpitgroup_ui_config_custom
+;advancedSearch;advancedSearchConfigurationFactory;Media;productmanagergroup;cockpitgroup_Media_advancedSearchConfigurationFactory_advancedSearch_custom
+
+################ editor area configuration entry for hybris base product & variant product  object templates###################
+######
+;editorArea;editorConfigurationFactory;Product;productmanagergroup;editor_product_productmanagergroup_ui_config_otmm
+;editorArea;editorConfigurationFactory;VariantProduct;productmanagergroup;editor_product_productmanagergroup_ui_config_otmm	
+
+#############Add new type in future if required as done below for ApparelStyleVariantProduct (required only if hybris has already defined an editor for the objectTemplateCode)
+###### entries given below are for MensWear,ApparelProduct,ApparelStyleVariantProduct & ApparelSizeVariantProduct
+#### This is not mandatory if user need to see the OOB wizard for advance search in apparel's comment out the below entries ####
+;editorArea;editorConfigurationFactory;ApparelStyleVariantProduct;productmanagergroup;editor_product_productmanagergroup_ui_config_otmm
+;editorArea;editorConfigurationFactory;ApparelSizeVariantProduct;productmanagergroup;editor_product_productmanagergroup_ui_config_otmm
+;editorArea;editorConfigurationFactory;ApparelProduct;productmanagergroup;editor_product_productmanagergroup_ui_config_otmm
+;editorArea;editorConfigurationFactory;MensWear;productmanagergroup;editor_product_productmanagergroup_ui_config_otmm
+;editorArea;editorConfigurationFactory;Product.Hardware;productmanagergroup;editor_product_productmanagergroup_ui_config_otmm
+
+########### MediaContainer
+;editorArea;editorConfigurationFactory;MediaContainer;productmanagergroup;editor_mediacontainer_productmanagergroup_ui_config_otmm

@@ -1,0 +1,54 @@
+<div v-if="showCouponsIFrame">
+  <iframe style="width:100%; height:600px;" frameborder="0" :src="couponUrl"></iframe>
+</div>
+<div v-else-if="!showSignUpForm" class="mg-hero-banner-v-1" :style="{'background-image': 'url(' + bannerData.backGroundImage + ')' }"
+  :class="[{'mg-teacher row':isDownloadKit},className]">
+  <div class="d-flex align-items-start flex-xs-column flex-sm-row teacher-container" :class="[bannerImg ? 'justify-content-start':'justify-content-start' ,bannerColors.rowReverse ? 'flex-sm-row-reverse flex-xs-column-reverse':'']">
+
+    <div class="col-sm-6 col-xs-12" :class="[{'text-right': isDownloadKit},{'p-xs-0':(className==='find-a-store')}]">
+      <h3 :style="{color: bannerColors.bannerTitleColor}" v-if="bannerData.headingText" v-html="bannerData.headingText"></h3>
+      <div class="m-xs-0 sub-header" :style="{color: bannerColors.bannerHeadingColor}" v-if="bannerData.subHeadingText"
+        v-html="bannerData.subHeadingText"></div>
+      <p class="mt-xs-2" v-html="bannerData.informationText" :style="{color: bannerColors.bannerInfoColor}" v-if="bannerData.informationText"></p>
+      <div class="d-flex flex-xs-column align-xs-items-center align-sm-items-end" v-if="(isShowInput && !isDownloadKit)">
+        <input type="text" placeholder="enter your email address" class="mt-xs-4 px-xs-3" v-validate="'required|email'"
+          :class="{'is-danger': errors.has('emailID')}" name="emailID" v-model="emailID" />
+        <button class="btn btn-primary mt-xs-3" @click="getCouponPermissions($event)">{{btnText}}</button>
+      </div>
+      <div class="col-sm-12 form-layout d-flex flex-sm-column flex-xs-column justify-content-end p-sm-0" v-if="isDownloadKit">
+        <div class="download-btn-form mt-xs-3">
+          <a class="btn btn-download-activity-kit text-center" :href="bannerData.downloadURL" target="_blank">
+            {{bannerData.downloadBtnLabel}}
+          </a>
+        </div>
+        <div class="sign-up-form d-flex flex-sm-row flex-xs-row justify-content-end mt-xs-3">
+          <div class="form-input">
+            <input type="email" :placeholder="i18n.signUpPlaceHolder" name="email" validation="required" class=" teacher-email px-xs-5"
+              v-validate="'required|email'" :class="{'is-danger': errors.has('email') }" v-model="emailID">
+            <!-- <span v-show="errors.has('email')" class="help is-danger">{{ errors.first('email') }}</span> -->
+          </div>
+          <div class="form-button">
+            <a class="btn btn-teachers-sign-up" @click="getCouponPermissions($event)" target="_blank">
+              <span class="hidden-xs">{{i18n.signupBtnText}}</span>
+              {{i18n.signUpBtnTextMobile}}
+            </a>
+          </div>
+        </div>
+        <!-- <div class="quick-promo d-flex flex-sm-row flex-xs-row justify-content-end text-center mt-xs-3">
+          <div class="promo-text">{{i18n.promoText}}</div>
+          <img class="promo-img" :src="globals.assetsPath+bannerColors.promoArrow" :alt="bannerColors.promoArrow">
+        </div> -->
+      </div>
+      <!--  Not required as per new VD
+      <a href="./" class="btn btn-primary mt-xs-3 pull-right" v-if="!isShowInput">{{btnText}}</a> -->
+    </div>
+    <div class="col-sm-6 col-xs-12" v-if="bannerData.imgSrcD" :class="{'p-xs-0':(className==='find-a-store')}">
+      <a href="javascript:void(0)" class="w-xs-100 py-xs-4 p-sm-0 p-md-4 default-cursor mt-sm-4">
+        <img :src="bannerData.imgSrcD" :alt="bannerData.bannerDesc">
+      </a>
+    </div>
+  </div>
+</div>
+<div v-else>
+  <mg-sign-up @customer-added="handleCouponPermissionsResponse($event)" :i18n="i18n" :firstEmail="emailID" :is-hide-age="isHideAge" :page-uid="pageUid"></mg-sign-up>
+</div>

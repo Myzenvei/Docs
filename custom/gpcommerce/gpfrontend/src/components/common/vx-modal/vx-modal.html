@@ -1,0 +1,25 @@
+<transition name="modal" v-if="showModal">
+  <focus-trap>
+    <div class="modal-mask d-flex flex-row justify-content-center align-items-center flex-wrap" role="dialog"
+      :aria-label="heading" tabindex="0" aria-modal="true">
+      <div class="modal-wrapper" :class="wrapperSize">
+        <div class="modal-container" :class="size">
+          <div class="top-bar d-flex">
+            <span class="heading-container align-items-center">
+              <h2 class="my-xs-0 ml-sm-4 ml-xs-3 py-sm-3 heading-text" v-if="heading" tabindex="-1">{{heading}}</h2>
+            </span>
+            <span class="py-xs-3 pr-sm-5 pr-xs-2 right-close-box" v-if="showCloseBtn">
+              <span class="icon-x" @click="closeModal($event)" @keyup.enter="closeModal($event)" aria-label="close"
+                tabindex="0" role='button'></span>
+            </span>
+          </div>
+          <div class="px-md-4 py-md-4 px-sm-4 py-sm-4 px-xs-3 pt-xs-4 modal-body" :class="{'modal-scrollable': isModalScrollable}">
+            <slot name="component">
+              default body
+            </slot>
+          </div>
+        </div>
+      </div>
+    </div>
+  </focus-trap>
+</transition>

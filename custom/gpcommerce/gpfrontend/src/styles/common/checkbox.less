@@ -1,0 +1,148 @@
+.form-group {
+  [type='checkbox']:not(:checked),
+  [type='checkbox']:checked {
+    position: absolute;
+    opacity: 0;
+  }
+
+  [type='checkbox']:not(:checked) + label,
+  [type='checkbox']:checked + label {
+    position: relative;
+    cursor: pointer;
+    font-weight: @checkbox-text-font-weight;
+    font-family: @font-family-base;
+    color: @checkbox-label-color;
+    padding-left: 27px;
+    color: @checkbox-label-color;
+    font-size: @checkbox-default-font-size;
+  }
+
+  /* checkbox aspect */
+
+  [type='checkbox']:not(:checked) + label:before,
+  [type='checkbox']:checked + label:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 2px;
+    border: solid 1px @checkbox-not-checked-border;
+    background: @checkbox-not-checked-background;
+    width: 18px;
+    height: 18px;
+    border-radius: 2px;
+  }
+
+  /* checked mark aspect */
+
+  [type='checkbox']:not(:checked) + label:after,
+  [type='checkbox']:checked + label:after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 0;
+    background: @checkbox-checked-background
+      url('@{assets-path}images/check-mark.svg') no-repeat 50%;
+    background-size: 10px;
+    width: 18px;
+    height: 18px;
+    border-radius: 3px;
+    transition: all 0.2s;
+  }
+
+  /* checked mark aspect changes */
+
+  [type='checkbox']:not(:checked) + label:after {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  [type='checkbox']:checked + label:after {
+    opacity: 1;
+    transform: scale(1);
+  }
+  // [type='checkbox']:focus + label:before {
+  //   box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.12);
+  // }
+}
+
+/* The above older checkbox still works same */
+/* For ID Free checkbox below can be used*/
+/* Usage can be found in styleguide-page.vue */
+.checkbox-container {
+  display: inline-block;
+  position: relative;
+  margin-bottom: 8px;
+  cursor: pointer;
+  font-weight: @checkbox-text-font-weight;
+  font-family: @font-family-base;
+  padding-left: 27px;
+  color: @checkbox-label-color;
+  font-size: @checkbox-default-font-size;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  /* Hide the browser's default checkbox */
+  input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    left: 0;
+    top: 0;
+  }
+
+  /* Create a custom checkbox */
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  /*For input not checked */
+  input:not(:checked) ~ .checkmark {
+    border: solid 1px @checkbox-not-checked-border;
+    width: 18px;
+    height: 18px;
+    border-radius: 2px;
+  }
+  /*For input checked */
+  input:checked ~ .checkmark {
+    width: 18px;
+    height: 18px;
+    border-radius: 3px;
+  }
+
+  // input:focus ~ .checkmark {
+  //   box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.12);
+  // }
+
+  /* For not checked condition */
+  input:not(:checked) ~ .checkmark:after {
+    display: block;
+    content: '';
+    height: 100%;
+    width: 100%;
+    background: @checkbox-not-checked-background;
+    border-radius: 2px;
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  /* Show the checkmark when checked */
+  input:checked ~ .checkmark:after {
+    display: block;
+    content: '';
+    background: @checkbox-checked-background
+      url('@{assets-path}images/check-mark.svg') no-repeat 50%;
+    height: 100%;
+    width: 100%;
+    background-size: 10px;
+    border-radius: 3px;
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .checkmark:after {
+    transition: all 0.2s;
+  }
+}

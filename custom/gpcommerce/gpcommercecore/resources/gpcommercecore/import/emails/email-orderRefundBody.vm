@@ -1,0 +1,341 @@
+## messageSource=classpath:/gpcommercecore/messages/email-orderRefund_$lang.properties
+#macro( genHtmlBoldFont $text )
+<font color="#414a4f" size="2" face="Arial, Helvetica, sans-serif"><b>$text</b></font>
+#end
+#macro(genHtmlLinkStartTag $url)
+<a href="$url"><font color="#666666">
+#end
+#macro(genHtmlLinkEndTag)
+</font></a>
+#end
+#macro(genHtmlLink $url $textColor $bodyContent)
+<a href="$url"><font color="$textColor">$bodyContent</font></a>
+#end
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=no;">
+<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
+<link rel="stylesheet" type="text/css" href="https://cloud.typography.com/6228154/6448192/css/fonts.css" />
+
+<style>
+  #outlook a {
+    padding: 0;
+  }
+
+  body {
+    width: 100% !important;
+    -webkit-text;
+    size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    margin: 0;
+    font-family: 'Gotham A', 'Gotham B', Helvetica, Roboto, Arial;
+    padding: 0;
+  }
+
+  .main-table {
+    padding: 0 250px;
+  }
+
+  .brand-icon {
+    left: 285px;
+  }
+
+  .ReadMsgBody {
+    width: 100%;
+  }
+
+  .ExternalClass {
+    width: 100%;
+  }
+
+  .backgroundTable {
+    margin: 0 auto;
+    padding: 0;
+    width: 100%;
+  }
+
+  table td {
+    border-collapse: collapse;
+  }
+
+  .ExternalClass * {
+    line-height: 115%;
+  }
+
+  /*Themeing styles*/
+
+  .mail-heading {
+    font-size: 21px;
+    color: #222222;
+    font-weight: 300;
+    line-height: 25px;
+  }
+
+  *[class="m-show"] {
+    display: none !important;
+  }
+
+  *[class="d-hide"] {
+    display: block !important;
+  }
+
+  *[class="td-5"] {
+    margin-bottom: 24px;
+    display: block;
+  }
+
+  *[class="td-link"] {
+    color: #167BB4;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.15px;
+    line-height: 16px;
+    text-decoration: none;
+  }
+
+  .social-icons {
+    padding-right: 19px;
+    padding-left: 0px;
+    text-decoration: none;
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+  }
+
+  .social-icons img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .copyright-text {
+    color: #747678;
+    font-size: 14px;
+  }
+
+  *[class="border-top"] {
+    border-top: 1px solid #cecece;
+  }
+
+  *[class="email-footer"] {
+    background-color: #dfdfdf;
+    display: block;
+    margin-top: 32px;
+  }
+
+  .align-d-right {
+    float: right;
+  }
+
+  .mr-2 {
+    margin: 10px;
+    display: block;
+  }
+
+  .container {
+    padding: 40px 40px 0 40px;
+  }
+
+  a {
+    color: #167BB4;
+    text-decoration: none;
+  }
+
+  /* These are our tablet screen media queries */
+
+  @media screen and (max-width: 1119px) {
+    .container {
+      padding: 40px 32px 0 32px;
+    }
+
+    .main-table {
+      padding: 0px;
+    }
+
+    .brand-icon {
+      display: none;
+    }
+  }
+
+  /* These are our mobile screen media queries */
+
+  @media screen and (max-width: 767px) {
+
+
+    /* Display block allows us to stack elements */
+    *[class="mobile-column"] {
+      display: block;
+    }
+
+    /* Some more stacking elements */
+    *[class="mob-column"] {
+      float: none !important;
+      width: 100% !important;
+    }
+
+    /* Hide stuff */
+    *[class="d-hide"] {
+      display: none !important;
+    }
+
+    *[class="m-show"] {
+      display: block !important;
+    }
+
+    /* This sets elements to 100% width and fixes the height issues too, a god send */
+    *[class="100p"] {
+      width: 100% !important;
+      height: auto !important;
+    }
+
+    /* For the 2x2 stack */
+    *[class="condensed"] {
+      padding-bottom: 40px !important;
+      display: block;
+    }
+
+    /* Centers content on mobile */
+    *[class="center"] {
+      text-align: center !important;
+      width: 100% !important;
+      height: auto !important;
+    }
+
+    /* 100percent width section with 20px padding */
+    *[class="100pad"] {
+      width: 100% !important;
+      padding: 20px;
+    }
+
+    /* 100percent width section with 20px padding left & right */
+    *[class="100padleftright"] {
+      width: 100% !important;
+      padding: 0 20px 0 20px;
+    }
+
+    /* 100percent width section with 20px padding top & bottom */
+    *[class="100padtopbottom"] {
+      width: 100% !important;
+      padding: 20px 0px 20px 0px;
+    }
+
+    *[class="td-m-block"] {
+      display: block;
+    }
+
+    .align-d-right {
+      float: left;
+    }
+
+    .container {
+      padding: 32px 16px 0 16px;
+    }
+
+    .main-table {
+      padding: 0px;
+    }
+
+    .brand-icon {
+      display: none;
+    }
+  }
+
+</style>
+
+<body style="padding:0; margin:0;color: #222222;">
+  <table width="100%" cellspacing="0" cellpadding="0" bgcolor="transparent" class="100p main-table" align="center"
+    style="position: relative;">
+    <tr>
+      <td>
+        <table width="100%">
+          <tr>
+            <td>
+              <table width="100%" cellspacing="0" cellpadding="0" bgcolor="transparent" class="100p">
+                <tr>
+                  <td background=" ../images/email-header.png " width="100% " height="73px " valign="top " class="100p ">
+                    <!--[if gte mso 9]>
+                <v:rect xmlns:v="urn (worry) chemas-microsoft-com:vml " fill="true " stroke="false " style="width:640px; ">
+                    <v:fill type="tile " src="./images/email-header.png " color="#3b464e " />
+                    <v:textbox style="mso-fit-shape-to-text:true " inset="0,0,0,0 ">
+                        <![endif]-->
+                    <!--[if gte mso 9]>
+                  </v:textbox>
+              </v:rect>
+              <![endif]-->
+                  </td>
+                </tr>
+                <tr>
+                   <td class="d-hide" style="position: absolute;top:24px"; background-repeat:no-repeat;background-size: contain"
+                    width="88px" height="88px">
+                    <a href="${ctx.secureBaseUrl}" style="display:block; margin-top:10px;margin-bottom:10px;">${ctx.cmsSlotContents.SiteLogo}</a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+        <table width="100%" class="container" style="margin-top: 88px; border-collapse: collapse;">
+          <tr>
+            <td width="100%" style="color: #222222;	font-size: 21px;	font-weight: 300; padding-bottom: 24px">
+              ${ctx.messages.emailSubject}
+            </td>
+          </tr>
+          <tr>
+            <td width="100%" style="color: #222222;	font-size: 16px;	font-weight: 300; padding-bottom: 24px">
+              ${ctx.messages.getMessage('emailSubTitle', ${ctx.baseSite.Uid})}
+            </td>
+          </tr>
+          <tr>
+            <td width="100%" style="	color: #222222;	font-size: 16px;	font-weight: 300; padding-bottom: 24px">
+              ${ctx.messages.getMessage('orderNumber', ${ctx.order.code})}
+            </td>
+          </tr>
+          <tr width="100%">
+            <td style="padding-bottom: 16px">
+              <span style="color: #222222;	font-size: 14px;	font-weight: 500; ">
+                ${ctx.messages.orderPlaced}
+              </span>
+              <span style="color: #222222; font-size: 12px;	font-weight: 300;">
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;${ctx.createdDate}
+              </span>
+            </td>
+          </tr>
+          <tr width="100%">
+            <td style="padding-bottom: 16px">
+              <span style="color: #222222;	font-size: 14px;	font-weight: 500;">
+                ${ctx.messages.refundAmount}
+              </span>
+              <span style="color: #222222; font-size: 12px;	font-weight: 300;">
+                &nbsp; &nbsp; &nbsp;${ctx.refundAmount}
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td style="	color: #222222;	font-size: 14px;	font-weight: 300; padding-bottom: 24px">
+              ${ctx.messages.getMessage('cardNumber', ${ctx.order.paymentInfo.cardNumber})}.
+            </td>
+          </tr>
+          <tr>
+            <td style="	color: #747678;	font-size: 14px;	font-weight: 300; padding-bottom: 24px">
+              ${ctx.messages.contactUs} <a href="${ctx.contactUsPageUrl}" style="font-size: 14px;	font-weight: 500;" target="_blank">${ctx.messages.customerCare}</a>
+            </td>
+          </tr>
+          <tr>
+            <td style="	color: #747678;	font-size: 14px;	font-weight: 300;">
+              ${ctx.messages.loremLatin}
+            </td>
+          </tr>
+        </table>
+         <table width="100%">
+          <tr class="email-footer">
+            <td class="border-top" style="display: block;width: 100%;">
+              <a href="${ctx.baseUrl}" style="display:block; margin-top:10px;margin-bottom:10px;">${ctx.cmsSlotContents.BottomContent}</a>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+

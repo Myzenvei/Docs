@@ -1,0 +1,63 @@
+#brawny {
+  .vx-tab-container {
+    .nav-tabs {
+      border-bottom: 1px solid @border-color-10;
+      > li {
+        a {
+          color: @text-color;
+          font-family: @font-family-text;
+          font-weight: @font-weight-normal;
+          @media screen and (min-width: @screen-sm-min) {
+            padding-bottom: 24px;
+          }
+          @media screen and (min-width: @screen-md-min) {
+            padding-bottom: 16px;
+          }
+        }
+        &.active {
+          a {
+            font-weight: @font-weight-bold;
+            border-bottom: 4px solid @product-tile-link-color;
+          }
+        }
+      }
+    }
+    .tab-content {
+      .product-details-tab__container {
+        .product-details-tab__toprightheading,
+        .product-details-tab__topleftheading {
+          font-size: @font-size-base;
+          @media screen and (min-width: @screen-sm-min) {
+            font-size: @font-size-large;
+            margin-top: 32px;
+          }
+          @media screen and (min-width: @screen-md-min) {
+            margin-top: 24px;
+          }
+          font-weight: @font-weight-bold;
+          font-family: @font-family-heading;
+        }
+        .product-details-tab__toprightcontent,
+        .product-details-tab__topleftcontent {
+          font-weight: @font-weight-normal;
+          font-family: @font-family-text;
+        }
+      }
+    }
+    .tab-pane {
+      .card-header {
+        h5 {
+          a {
+            font-weight: @font-weight-bold;
+            color: @link-color;
+            margin: 20px 0 20px 0;
+            span {
+              color: @font-icon-color-5;
+              font-size: 24px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

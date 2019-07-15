@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+<config xmlns="http://www.hybris.com/cockpit/config">
+
+	<!--Bazaarvoice Backoffice configuration-->
+
+	<context merge-by="module" component="explorer-tree">
+		<explorer-tree:explorer-tree xmlns:explorer-tree="http://www.hybris.com/cockpitng/config/explorertree">
+			<explorer-tree:navigation-node id="Bazaarvoice Control Panel" position="999">
+				<explorer-tree:type-node code="BazaarvoiceConfig" id="BazaarvoiceConfig"/>
+				<explorer-tree:type-node code="BazaarvoiceProductFeedExportCronJob" id="BazaarvoiceProductFeedExportCronJob"/>
+			</explorer-tree:navigation-node>
+		</explorer-tree:explorer-tree>
+	</context>
+
+	<context type="BazaarvoiceConfig" component="base">
+		<y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+			<y:labels>
+				<y:label>code</y:label>
+			</y:labels>
+		</y:base>
+	</context>
+
+	<context type="BazaarvoiceProductFeedExportCronJob" component="base">
+		<y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+			<y:labels>
+				<y:label>code</y:label>
+			</y:labels>
+		</y:base>
+	</context>
+
+	<context component="editor-area" type="BazaarvoiceProductFeedExportCronJob" merge-by="type">
+		<editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+			<editorArea:tab name="bazaarvoiceControlPanel">
+				<editorArea:section name="bazaarvoiceControlPanel">
+					<editorArea:attribute qualifier="bazaarvoiceStorefront"/>
+				</editorArea:section>
+			</editorArea:tab>
+		</editorArea:editorArea>
+	</context>
+
+	<context component="editor-area" type="CMSSite" merge-by="type" parent="auto">
+		<editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+			<editorArea:tab name="hmc.properties" position="0" merge-mode="append">
+				<editorArea:section name="bazaarvoiceConfiguration" position="99" merge-mode="append">
+					<editorArea:attribute qualifier="bvConfig"/>
+					<editorArea:attribute qualifier="bvLocale"/>
+				</editorArea:section>
+			</editorArea:tab>
+		</editorArea:editorArea>
+	</context>
+
+	<context component="editor-area" type="BazaarvoiceConfig" merge-by="type">
+		<editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+			<editorArea:tab name="bazaarvoiceControlPanel">
+				<editorArea:section name="">
+					<editorArea:attribute qualifier="code" />
+					<editorArea:attribute qualifier="extensionVersion" />
+					<editorArea:attribute qualifier="clientName" />
+					<editorArea:attribute qualifier="ftpUserName" />
+					<editorArea:attribute qualifier="ftpPassword" />
+					<editorArea:attribute qualifier="ftpServer" />
+					<editorArea:attribute qualifier="zone" />
+					<editorArea:attribute qualifier="seoKey" />
+					<editorArea:attribute qualifier="environment" />
+					<editorArea:attribute qualifier="showReviewsScript" />
+					<editorArea:attribute qualifier="showQuestionsScript" />
+					<editorArea:attribute qualifier="isFamiliesEnabled" />
+					<editorArea:attribute qualifier="upcMethodName" />
+					<editorArea:attribute qualifier="licenseAccepted" />
+				</editorArea:section>
+			</editorArea:tab>
+		</editorArea:editorArea>
+	</context>
+
+	<context type="BazaarvoiceConfig" component="create-wizard">
+		<wz:flow id="BazaarvoiceConfigWizard" title="create.title(ctx.TYPE_CODE)" xmlns:wz="http://www.hybris.com/cockpitng/config/wizard-config">
+			<wz:prepare id="BazaarvoiceConfigPrepare">
+				<wz:initialize property="newBazaarvoiceConfig" type="ctx.TYPE_CODE"/>
+			</wz:prepare>
+			<wz:step id="step1" label="New Bazaarvoice Config">
+				<wz:content id="step1.content">
+					<wz:property qualifier="newBazaarvoiceConfig.code"/>
+					<wz:property qualifier="newBazaarvoiceConfig.clientName" />
+					<wz:property qualifier="newBazaarvoiceConfig.ftpUserName" />
+					<wz:property qualifier="newBazaarvoiceConfig.ftpPassword" />
+					<wz:property qualifier="newBazaarvoiceConfig.ftpServer" />
+					<wz:property qualifier="newBazaarvoiceConfig.zone" />
+					<wz:property qualifier="newBazaarvoiceConfig.seoKey" />
+					<wz:property qualifier="newBazaarvoiceConfig.environment" />
+					<wz:property qualifier="newBazaarvoiceConfig.showReviewsScript" />
+					<wz:property qualifier="newBazaarvoiceConfig.showQuestionsScript" />
+					<wz:property qualifier="newBazaarvoiceConfig.isFamiliesEnabled" />
+					<wz:property qualifier="newBazaarvoiceConfig.upcMethodName" />
+					<wz:property qualifier="newBazaarvoiceConfig.licenseAccepted" />
+				</wz:content>
+				<wz:navigation id="step1.navigation">
+					<wz:cancel/>
+					<wz:done visible="!#empty(newBazaarvoiceConfig.code) AND newBazaarvoiceConfig.clientName!=null AND newBazaarvoiceConfig.ftpUserName!=null AND newBazaarvoiceConfig.ftpPassword!=null AND newBazaarvoiceConfig.ftpServer!=null AND newBazaarvoiceConfig.zone!=null AND newBazaarvoiceConfig.seoKey!=null AND newBazaarvoiceConfig.environment!=null">
+						<wz:save property="newBazaarvoiceConfig"/>
+					</wz:done>
+				</wz:navigation>
+			</wz:step>
+		</wz:flow>
+	</context>
+</config>

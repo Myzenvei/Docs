@@ -1,0 +1,18 @@
+<div class="vx-content-search-result">
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>
+  </vx-spinner>
+  <div class="search-result">
+    <div class="heading-container">
+      <h1 class="page-heading">{{i18n.headingPartA}}
+        <q class="searched-term">{{searchTerm}}</q>
+      </h1>
+      <p>{{i18n.subHeadingPartA}}
+        <b>'{{searchTerm}}'</b> {{i18n.subHeadingPartB}}
+        <b>{{searchResultData.TotalDocuments}}</b> {{i18n.subHeadingPartC}}</p>
+    </div>
+    <div class="search-html-results" v-html="searchResultData.SearchResult"></div>
+    <div class="total-results">
+      <a href="">{{i18n.allResults}} ({{searchResultData.TotalDocuments}})</a>
+    </div>
+  </div>
+</div>

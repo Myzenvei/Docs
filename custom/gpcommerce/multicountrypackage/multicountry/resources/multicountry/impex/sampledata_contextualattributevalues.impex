@@ -1,0 +1,57 @@
+$solrIndexedType=solrIndexedType(identifier)[unique=true]
+$indexedType=multiBrandProductType
+$productCatalog=gpUSProductCatalog
+$catalogVersion=catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default='$productCatalog:Staged']
+
+
+
+UPDATE BaseStore;uid[unique=true];contextualAttributesContext(code)
+;gpemployee;GPEmployeeContext
+;dixie;DixieContext
+;b2bwhitelabel;B2BWhitelabelContext
+;b2cwhitelabel;B2CWhitelabelContext
+;gpxpress;GPXpressContext
+;copperandcrane;CopperandCraneContext
+;vanityfairnapkins;VanityFairNapkinsContext
+
+# Update Basestore with userpricegroup and solrFacetSearchConfiguration
+INSERT_UPDATE BaseStore;uid[unique=true];userPriceGroup(code);solrFacetSearchConfiguration(name)[default=multiBrandIndex]
+;gpemployee;pricegroup-gpemployee;;
+;dixie;pricegroup-dixie;;
+;b2cwhitelabel;pricegroup-b2cwhitelabel;;
+;b2bwhitelabel;pricegroup-b2bwhitelabel;;
+;gpxpress;pricegroup-gpxpress;;
+;copperandcrane;pricegroup-copperandcrane;;
+;vanityfairnapkins;pricegroup-vanityfairnapkins;;
+
+
+
+
+$productCatalog=gpUSProductCatalog
+$targetProductCV=targetVersion(catalog(id[default=$productCatalog]),version[default='Online'])
+INSERT_UPDATE SyncAttributeDescriptorConfig;attributeDescriptor(qualifier,enclosingType(code))[unique=true];syncJob($targetProductCV)[unique=true];copyByValue
+;availability:Product;gpUSProductCatalog:Online;true
+;contextualAttributeValues:Product;gpUSProductCatalog:Online;true
+
+
+# WritePrincipals
+UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];writePrincipals(uid)[mode=append]
+#;gpUSProductCatalog;Online;productmanager-dixie;
+;gpUSProductCatalog;Staged;productmanager-dixie;
+#;gpUSProductCatalog;Online;productmanager-gpemployee;
+;gpUSProductCatalog;Staged;productmanager-gpemployee;
+#;gpUSProductCatalog;Online;productmanager-b2bwhitelabel;
+;gpUSProductCatalog;Staged;productmanager-b2bwhitelabel;
+#;gpUSProductCatalog;Online;productmanager-b2cwhitelabel;
+;gpUSProductCatalog;Staged;productmanager-b2cwhitelabel;
+#;gpUSProductCatalog;Online;productmanager-gpxpress;
+;gpUSProductCatalog;Staged;productmanager-gpxpress;
+#;gpUSProductCatalog;Online;productmanager;
+;gpUSProductCatalog;Staged;productmanager;
+#;gpUSProductCatalog;Online;backofficeproductmanagergroup;
+;gpUSProductCatalog;Staged;backofficeproductmanagergroup;
+#;gpUSProductCatalog;Online;productmanager-copperandcrane;
+;gpUSProductCatalog;Staged;productmanager-copperandcrane;
+#;gpUSProductCatalog;Online;productmanager-vanityfairnapkins;
+;gpUSProductCatalog;Staged;productmanager-vanityfairnapkins;
+

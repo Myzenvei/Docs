@@ -1,0 +1,1840 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+# 
+# ImpEx for Responsive GP Employee Site CMS Content 
+# 
+$contentCatalog=gpemployeeContentCatalog 
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged] 
+ 
+$productCatalog=gpUSProductCatalog 
+$productCatalogName=GP B2C Product Catalog 
+$productCV=catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged] 
+$picture=media(code, $contentCV) ;
+$siteResource=jar:com.gp.commerce.initialdata.constants.GpcommerceInitialDataConstants&/gpcommerceinitialdata/import/sampledata/contentCatalogs/$contentCatalog
+$jarResourceCms=jar:com.gp.commerce.initialdata.constants.GpcommerceInitialDataConstants&/gpcommerceinitialdata/import/sampledata/cockpits/cmscockpit
+$picture=media(code, $contentCV)
+$medias=medias(code, $contentCV);
+$mediaContainer=media(qualifier, $contentCV)
+
+
+# Load the storefront context root config param
+$storefrontContextRoot=$config-storefrontContextRoot
+
+# Language
+$lang=en
+
+# Create components, and put them in the template standard slots (e.g. SiteLogo, HeaderLink etc.)
+# These content slots are used by almost all templates. They are defined in coredata.
+#
+## Site Logo slot: SiteLogoComponent
+INSERT_UPDATE SimpleBannerComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;urlLink
+;;SiteLogoComponent;Site Logo Component;SiteLogoComponent;"/"
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(uid,$contentCV)
+;;SiteLogoSlot;SiteLogoComponent
+
+## HeaderLink slot: MyAccountComponent
+INSERT_UPDATE NavigationComponent;$contentCV[unique=true];uid[unique=true];name;styleClass;&componentRef;navigationNode(&nodeRef)
+;;MyAccountComponent;My Account;accNavComponent;MyAccountComponent;MyAccountNavNode
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(uid,$contentCV)
+;;HeaderLinksSlot;MyAccountComponent
+
+## SearchBox slot: SearchBox
+INSERT_UPDATE SearchBoxComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef
+;;SearchBox;Search Box;SearchBox
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(&componentRef)
+;;SearchBoxSlot;SearchBox
+
+## MiniCart slot: OrderComponent and MiniCart
+INSERT_UPDATE NavigationComponent;$contentCV[unique=true];uid[unique=true];name;styleClass;&componentRef;navigationNode(&nodeRef)
+;;OrderComponent;Order Component;nav-order-tools;OrderComponent;OrderNavNode
+
+INSERT_UPDATE MiniCartComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;totalDisplay(code);shownProductCount;;
+;;MiniCart;Mini Cart;MiniCart;SUBTOTAL;3;;
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(uid, $contentCV)
+;;MiniCartSlot;OrderComponent,MiniCart
+
+## NavigationBar slot: GPEmployeeCategoryNavComponent and BredcrumbComponent 
+INSERT_UPDATE CategoryNavigationComponent;$contentCV[unique=true];uid[unique=true];name;styleClass;&componentRef;navigationNode(&nodeRef);wrapAfter
+;;GPEmployeeCategoryNavComponent;GPEmployee Category Navigation Component;;GPEmployeeCategoryNavComponent;GPEmployeeCategoryNavNode;10
+
+INSERT_UPDATE BreadcrumbComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef
+;;breadcrumbComponent;Breadcrumb CMS Component;breadcrumbComponent
+
+## Footer slot: Footer FooterNavigationComponent
+INSERT_UPDATE FooterNavigationComponent;$contentCV[unique=true];uid[unique=true];wrapAfter;&componentRef;showLanguageCurrency;navigationNode(&nodeRef)
+;;FooterNavigationComponent;4;FooterNavigationComponent;true;FooterNavNode;
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(uid,$contentCV)
+;;FooterSlot;FooterNavigationComponent
+
+## Footer slot: Footer GPCheckoutFooterNavigationComponent
+INSERT_UPDATE GPCheckoutFooterNavigationComponent;$contentCV[unique=true];uid[unique=true];wrapAfter;&componentRef;showLanguageCurrency;navigationNode(&nodeRef)
+;;GPCheckoutFooterNavigationComponent;4;GPCheckoutFooterNavigationComponent;true;CheckoutFooterNavNode;
+
+# Create components, and put them in the template specific slots (e.g. productList etc.)
+# These content slots are used by the specific templates. They are defined in coredata.
+#
+## components in ProductLeftRefinementsSlot which is specific for productGrid, productList, searchResultList, searchResultGrid templates
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(uid,$contentCV)
+;;ProductLeftRefinementsSlot;RefinementFacetComponent
+
+INSERT_UPDATE ProductRefinementComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef
+;;RefinementFacetComponent;Product Refinement Facet Component;RefinementFacetComponent
+
+## Components for ProductDetailsPageTemplate specific slots
+INSERT_UPDATE ProductVariantSelectorComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef
+;;VariantSelector;Product Variant Selector;VariantSelector
+
+INSERT_UPDATE ProductAddToCartComponent;$contentCV[unique=true];uid[unique=true];name;actions(&actionRef);&componentRef
+;;AddToCart;Product Add To Cart;AddToCartAction,ShareOnSocialNetworkAction;AddToCart
+
+# AddToCartAction
+INSERT_UPDATE AddToCartAction;$contentCV[unique=true];uid[unique=true];url;name;restrictions(uid,$contentCV);&actionRef
+;;AddToCartAction;/cart/add;Product Add To Cart Action;ActionRestriction;AddToCartAction
+
+# ShareOnSocialNetworkAction
+INSERT_UPDATE ShareOnSocialNetworkAction;$contentCV[unique=true];uid[unique=true];url;name;restrictions(uid,$contentCV);&actionRef
+;;ShareOnSocialNetworkAction;/;Share On Social Network Action;ActionRestriction;ShareOnSocialNetworkAction
+
+INSERT_UPDATE ProductReferencesComponent;$contentCV[unique=true];uid[unique=true];name;productReferenceTypes(code);maximumNumberProducts;&componentRef;;
+;;CrossSelling;Cross Selling;CROSSELLING;5;CrossSelling;;
+;;Others;Others;OTHERS;5;Others;;
+;;Similar;Similar;SIMILAR;5;Similar;;
+
+# CMS tabs components
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;ProductImageComponent;Product Details;productImages.jsp;;ProductImageComponent
+;;ProductDetailsComponent;Product Details;productDetails.jsp;;ProductDetailsComponent
+;;ProductTabsComponent;Product Tabs;productTabs.jsp;;ProductTabsComponent
+;;GPProductReferencesComponent;Product References Tab;gpProductReferences.jsp;;GPProductReferencesComponent
+
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;LeftContent-productDetails;Left Content Slot for product details;true;ProductImageComponent;;;
+;;RightContent-productDetails;Right Content Slot for product details;true;ProductDetailsComponent;;;
+;;MiddleContent-productDetails;Middle Content Slot for product details;true;ProductTabsComponent;;;
+;;BottomContent-productDetails;Bottom Content Slot for product details;true;GPProductReferencesComponent;;;
+
+# ContentSlotForPage
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='productDetails'];contentSlot(uid,$contentCV)[unique=true];;;
+;;LeftContent-productDetails;LeftContentSlot;;LeftContent-productDetails;;;
+;;RightContent-productDetails;RightContentSlot;;RightContent-productDetails;;;
+;;MiddleContent-productDetails;MiddleContentSlot;;MiddleContent-productDetails;;;
+;;BottomContent-productDetails;BottomContentSlot;;BottomContent-productDetails;;;
+
+INSERT_UPDATE CMSTabParagraphComponent;$contentCV[unique=true];uid[unique=true];name;visible;&componentRef
+;;deliveryTab;Delivery tab;true;deliveryTab
+
+INSERT_UPDATE CMSTabParagraphContainer;$contentCV[unique=true];uid[unique=true];name;visible;simpleCMSComponents(uid, $contentCV);&componentRef
+;;TabPanelContainer;Tab container;true;deliveryTab;TabPanelContainer
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(uid,$contentCV)
+;;VariantSelectorSlot;VariantSelector
+;;AddToCartSlot;AddToCart
+;;UpSellingSlot;Similar,Others
+;;CrossSellingSlot;CrossSelling
+;;TabsSlot;TabPanelContainer
+
+## Components for ProductListPageTemplate specific slots
+INSERT_UPDATE CMSProductListComponent;$contentCV[unique=true];uid[unique=true];name;actions(uid,$contentCV);&componentRef
+;;ProductListComponent;Product List Component;ListAddToCartAction,ListOrderFormAction;ProductListComponent
+
+# ListAddToCartAction
+INSERT_UPDATE ListAddToCartAction;$contentCV[unique=true];uid[unique=true];url;name;restrictions(uid,$contentCV);&actionRef
+;;ListAddToCartAction;/cart/add;Product Add To Cart Action;ActionRestriction;ListAddToCartAction
+
+# ListOrderFormAction
+INSERT_UPDATE ListOrderFormAction;$contentCV[unique=true];uid[unique=true];url;name;restrictions(uid,$contentCV);&actionRef
+;;ListOrderFormAction;/orderForm;Order Form Action;ActionRestriction;ListOrderFormAction
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(&componentRef)
+;;ProductListSlot;ProductGridComponent
+
+## Components for ProductGridPageTemplate specific slots
+INSERT_UPDATE ProductGridComponent;$contentCV[unique=true];uid[unique=true];name;actions(uid,$contentCV);&componentRef
+;;ProductGridComponent;Product Grid Component;ListAddToCartAction,ListOrderFormAction;ProductGridComponent
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;ProductGridSlot;Product Grid Slot for Product List;true;ProductGridComponent;;;
+
+## Components for SearchResultsListPageTemplate specific slots
+INSERT_UPDATE SearchResultsListComponent;$contentCV[unique=true];uid[unique=true];name;actions(uid,$contentCV);&componentRef
+;;SearchResultsList;Search Result List Component;ListAddToCartAction,ListOrderFormAction;SearchResultsList
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;SearchResultsListSlot;Search Result List Slot for Search List;true;SearchResultsGrid;;;
+
+## Components for SearchResultsGridPageTemplate specific slots
+INSERT_UPDATE SearchResultsGridComponent;$contentCV[unique=true];uid[unique=true];name;actions(uid,$contentCV);&componentRef
+;;SearchResultsGrid;Search Result Grid Component;ListAddToCartAction,ListOrderFormAction;SearchResultsGrid
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;SearchResultsGridSlot;Search Result Grid Slot for Search List;true;SearchResultsGrid;;;
+
+## Components in SideContentSlot and TopContentSlot
+#INSERT_UPDATE SimpleBannerComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;urlLink;;;
+#;;FacebookOffersBanner;Facebook Offers Banner;FacebookOffersBanner;http://www.facebook.com/hybrissoftware;;;
+#;;MobileAppBanner;Mobile App Banner;MobileAppBanner;http://www.hybris.com/hybris/en/e-commerce-software/mobile-commerce-software.html;;;
+
+#INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(uid,$contentCV)
+#;;SideContentSlot;MobileAppBanner
+#;;TopContentSlot;FacebookOffersBanner
+ 
+
+
+# The following will create stuff for each page, we do the following steps
+#
+#1. create content slot for page
+#2. create relationship from content slot to page
+#3. create components for each slot
+#4. create preview media
+#5. update page to set the preview media
+#
+###### Homepage Start ######
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;Section1Slot-Homepage;Section1 Slot for GPEmployeeHomepage;true;
+;;Section2ASlot-Homepage;Section2A Slot for GPEmployeeHomepage;true;
+;;Section2BSlot-Homepage;Section2B Slot for GPEmployeeHomepage;true;
+;;Section2CSlot-Homepage;Section2C Slot for GPEmployeeHomepage;true;
+;;Section3Slot-Homepage;Section3 Slot for GPEmployeeHomepage;true;
+;;Section4Slot-Homepage;Section4 Slot for GPEmployeeHomepage;true;
+;;Section5Slot-Homepage;Section5 Slot for GPEmployeeHomepage;true;
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='homepage'];contentSlot(uid,$contentCV)[unique=true];;;
+;;Section1-Homepage;Section1;;Section1Slot-Homepage;;;
+;;Section2A-Homepage;Section2A;;Section2ASlot-Homepage;;;
+;;Section2B-Homepage;Section2B;;Section2BSlot-Homepage;;;
+;;Section2C-Homepage;Section2C;;Section2CSlot-Homepage;;;
+;;Section3-Homepage;Section3;;Section3Slot-Homepage;;;
+;;Section4-Homepage;Section4;;Section4Slot-Homepage;;;
+;;Section5-Homepage;Section5;;Section5Slot-Homepage;;;
+
+
+###### Product Details Page Start ######
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];folder(qualifier)[default='images'];;
+;;productDetailsPagePreview;text/png;ProductDetailsPage.png;$jarResourceCms/preview-images/gpemployee/ProductDetailsPage.png;;;
+
+UPDATE ProductPage;$contentCV[unique=true];uid[unique=true];previewImage(code, $contentCV);;;;;
+;;productDetails;productDetailsPagePreview;;;;;
+###### Product Details Page End ######
+
+
+###### Product List Page Start ######
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];folder(qualifier)[default='images'];;
+;;productListPagePreview;text/png;ProductListPage.png;$jarResourceCms/preview-images/gpemployee/ProductListPage.png;;;
+
+UPDATE CategoryPage;$contentCV[unique=true];uid[unique=true];previewImage(code, $contentCV);;;;;
+;;productList;productListPagePreview;;;;;
+###### Product List Page End ######
+
+
+###### Product Grid Page Start ######
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(uid,$contentCV);;;
+#;;Section1Slot-ProductGridPage;Section1 Slot for Product Grid Page;true;DynamicBrandBanner;;;
+;;Section1Slot-ProductGridPage;Section1 Slot for Product Grid Page;true;;;;
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='productGrid'];contentSlot(uid,$contentCV)[unique=true];;;
+;;Section1-ProductGridPage;Section1;;Section1Slot-ProductGridPage;;; 
+
+# component in section1
+#INSERT_UPDATE DynamicBannerComponent;$contentCV[unique=true];uid[unique=true];name;mediaCodePattern
+#;;DynamicBrandBanner;Dynamic brand banner component;apparel-brand-banner-{VARIABLE}
+
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];folder(qualifier)[default='images'];;
+;;productGridPagePreview;text/png;ProductGridPage.png;$jarResourceCms/preview-images/gpemployee/ProductGridPage.png;;;
+
+UPDATE CategoryPage;$contentCV[unique=true];uid[unique=true];previewImage(code, $contentCV);;;;;
+;;productGrid;productGridPagePreview;;;;;
+###### Product Grid Page End ######
+
+
+###### Search Result Page Start ######
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];folder(qualifier)[default='images'];;
+;;searchResultsPagePreview;text/png;SearchResultsPage.png;$jarResourceCms/preview-images/gpemployee/SearchResultsPage.png;;;
+
+UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];previewImage(code, $contentCV);;;;;
+;;search;searchResultsPagePreview;;;;;
+###### Search Result Page End ######
+
+
+###### Search Empty Page Start ######
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;MiddleContent-searchEmpty;Middle Slot for searchEmpty;true;;;;
+;;SideContent-searchEmpty;Narrow Slot for searchEmpty;true;;;;
+;;TopContent-searchEmpty;Top Slot for searchEmpty;true;;;;
+ 
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='searchEmpty'];contentSlot(uid,$contentCV)[unique=true];;;
+;;Middle-searchEmpty;MiddleContent;;MiddleContent-searchEmpty;;;
+;;Side-searchEmpty;SideContent;;SideContent-searchEmpty;;;
+;;Top-searchEmpty;TopContent;;TopContent-searchEmpty;;;
+
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];folder(qualifier)[default='images'];;
+;;searchResultsEmptyPagePreview;text/png;SearchResultsEmptyPage.png;$jarResourceCms/preview-images/gpemployee/SearchResultsEmptyPage.png;;;
+
+UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];previewImage(code, $contentCV);;;;;
+;;searchEmpty;searchResultsEmptyPagePreview;;;;;
+###### Search Empty Page End ######
+ 
+ 
+###### Category Page Start ######
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];folder(qualifier)[default='images'];;
+;;defaultCategoryPagePreview;text/png;DefaultCategoryPage.png;$jarResourceCms/preview-images/gpemployee/DefaultCategoryPage.png;;;
+
+UPDATE CategoryPage;$contentCV[unique=true];uid[unique=true];previewImage(code, $contentCV);;;;;
+;;category;defaultCategoryPagePreview;;;;;
+###### Category Page End ######
+
+
+###### Order Expired Page Start ######
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;Section2ASlot-OrderExpired;Section2A Slot for Order Expired Page;true;OrderExpiredMenuParagraph;;;
+;;Section2BSlot-OrderExpired;Section2B Slot for Order Expired Page;true;OrderExpiredTextParagraph;;;
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='orderExpired'];contentSlot(uid,$contentCV)[unique=true];;;
+;;Section2A-OrderExpired;Section2A;;Section2ASlot-OrderExpired;;;
+;;Section2B-OrderExpired;Section2B;;Section2BSlot-OrderExpired;;;
+
+INSERT_UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;;;;
+;;orderExpiredMenuParagraph;Order Expired Paragraph;OrderExpiredMenuParagraph;;;;
+;;orderExpiredTextParagraph;Order Expired Paragraph;OrderExpiredTextParagraph;;;;
+
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];folder(qualifier)[default='images'];;
+;;orderExpiredPagePreview;text/png;OrderExpiredPage.png;$jarResourceCms/preview-images/gpemployee/OrderExpiredPage.png;;;
+
+UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];previewImage(code, $contentCV);;;;;
+;;orderExpired;orderExpiredPagePreview;;;;;
+###### Order Expired Page End ######
+
+###### Account Address Book Page Start ######
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;SideContentSlot-address-book;Side Content Slot for Account Address Book;true;;;;
+;;BodyContentSlot-address-book;Body Content Slot for Account Address Book;true;AccountAddressBookComponent;;;
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='address-book'];contentSlot(uid,$contentCV)[unique=true];;;
+;;SideContent-address-book;SideContent;;SideContentSlot-address-book;;;
+;;BodyContent-address-book;BodyContent;;BodyContentSlot-address-book;;;
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;AccountAddressBookComponent;Account Address Book Component;accountAddressBookPage.jsp;;AccountAddressBookComponent
+
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];folder(qualifier)[default='images'];;
+;;addressBookPagePreview;text/png;AddressBook.png;$jarResourceCms/preview-images/gpemployee/AddressBookPage.png;;;
+
+UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];previewImage(code, $contentCV);;;;;
+;;address-book;addressBookPagePreview;;;;;
+###### Account Address Book Page End ######
+
+
+###### Account Add Edit Address Page Start ######
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;SideContentSlot-add-edit-address;Side Content Slot for Add Edit Address;true;;;;
+;;BodyContentSlot-add-edit-address;Body Content Slot for Add Edit Address;true;AccountAddEditAddressComponent;;;
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='add-edit-address'];contentSlot(uid,$contentCV)[unique=true];;;
+;;SideContent-add-edit-address;SideContent;;SideContentSlot-add-edit-address;;;
+;;BodyContent-add-edit-address;BodyContent;;BodyContentSlot-add-edit-address;;;
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;AccountAddEditAddressComponent;Account Edit Address Component;accountEditAddressPage.jsp;;AccountAddEditAddressComponent
+
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];folder(qualifier)[default='images'];;
+;;addEditAddressPagePreview;text/png;AddEditAddressPage.png;$jarResourceCms/preview-images/gpemployee/AddEditAddressPage.png;;;
+
+UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];previewImage(code, $contentCV);;;;;
+;;add-edit-address;addEditAddressPagePreview;;;;;
+###### Account Add Edit Address Page End ######
+ 
+ 
+###### Account Payment Detail Page Start ######
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;SideContentSlot-payment-details;Side Content Slot for My Account payment-details;true;;;;
+;;BodyContentSlot-payment-details;Body Content Slot for My Account payment-details;true;AccountPaymentDetailsComponent;;;
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='payment-details'];contentSlot(uid,$contentCV)[unique=true];;;
+;;SideContent-payment-details;SideContent;;SideContentSlot-payment-details;;;
+;;BodyContent-payment-details;BodyContent;;BodyContentSlot-payment-details;;;
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;AccountPaymentDetailsComponent;Account Payment Details Component;accountPaymentInfoPage.jsp;;AccountPaymentDetailsComponent
+
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];folder(qualifier)[default='images'];;
+;;paymentDetailsPagePreview;text/png;PaymentDetailsPage.png;$jarResourceCms/preview-images/gpemployee/PaymentDetailsPage.png;;;
+
+UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];previewImage(code, $contentCV);;;;;
+;;payment-details;paymentDetailsPagePreview;;;;;
+###### Account Payment Detail Page End ######
+
+
+###### Account Order Details Page Start ######
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);
+;;BodyContentSlot-orderdetail;Body Content Slot for My Account Order Details;true;AccountOrderDetailsOverviewComponent;
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='order'];contentSlot(uid,$contentCV)[unique=true];;;
+;;BodyContent-orderdetail;BodyContent;;BodyContentSlot-orderdetail;;;
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;AccountOrderDetailsHeadlineComponent;Account Order Details Headline Component;accountOrderDetailHeadline.jsp;;AccountOrderDetailsHeadlineComponent
+;;AccountOrderDetailsTotalsComponent;Account Order Details Order Totals Component;accountOrderDetailOrderTotals.jsp;;AccountOrderDetailsTotalsComponent
+;;AccountOrderDetailsShippingComponent;Account Order Details Shipping Info Component;accountOrderDetailShippingInfo.jsp;;AccountOrderDetailsShippingComponent
+;;AccountOrderDetailsItemsComponent;Account Order Details Items Info Component;accountOrderDetailItems.jsp;;AccountOrderDetailsItemsComponent
+;;AccountOrderDetailsActionsComponent;Account Order Details Actions Component;accountOrderDetailActions.jsp;;AccountOrderDetailsActionsComponent
+;;AccountOrderDetailsOverviewComponent;Account Order Details Overview Info Component;accountOrderDetailOverview.jsp;;AccountOrderDetailsOverviewComponent
+
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];folder(qualifier)[default='images'];;
+;;orderDetailsPagePreview;text/png;OrderDetailsPage.png;$jarResourceCms/preview-images/gpemployee/OrderDetailsPage.png;;;
+
+UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];previewImage(code, $contentCV);;;;;
+;;order;orderDetailsPagePreview;;;;;
+###### Account Order Details Page End ######
+
+
+###### Account Order History Page Start ######
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;SideContentSlot-orders;Side Content Slot for My Account Order History;true;OrderHistoryTextComponent;;;
+;;BodyContentSlot-orders;Body Content Slot for My Account Order History;true;AccountOrderHistoryComponent;;;
+;;Section1Slot-orders;Section1Slot for My Account Order History;true;GPNavigationComponent;;;
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='orders'];contentSlot(uid,$contentCV)[unique=true];;;
+;;SideContent-orders;SideContent;;SideContentSlot-orders;;;
+;;BodyContent-orders;BodyContent;;BodyContentSlot-orders;;;
+;;Section1-orders;Section1;; Section1Slot-orders;;;
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;AccountOrderHistoryComponent;Account History Component;accountOrderHistoryPage.jsp;ViewOrderAction;AccountOrderHistoryComponent
+
+# ViewOrderAction
+INSERT_UPDATE ViewOrderAction;$contentCV[unique=true];uid[unique=true];url;name;restrictions(uid,$contentCV);&actionRef
+;;ViewOrderAction;/my-account/order/{orderCode};View Order Action;ActionRestriction;ViewOrderAction
+
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];folder(qualifier)[default='images'];;
+;;orderHistoryPagePreview;text/png;OrderHistoryPage.png;$jarResourceCms/preview-images/gpemployee/OrderHistoryPage.png;;;
+
+UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];previewImage(code, $contentCV);;;;;
+;;orders;orderHistoryPagePreview;;;;;
+
+INSERT_UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;;;;
+;;OrderHistoryTextComponent;Order History Paragraph;OrderHistoryTextComponent;;;;
+###### Account Order History Page End ######
+
+
+###### Account Update Password Page Start ######
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;SideContentSlot-updatePassword;Side Content Slot for Update Password;true;;;;
+;;BodyContentSlot-updatePassword;Body Content Slot for Update Password;true;UpdatePasswordComponent;;;
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='updatePassword'];contentSlot(uid,$contentCV)[unique=true];;;
+;;SideContent-updatePassword;SideContent;;SideContentSlot-updatePassword;;;
+;;BodyContent-updatePassword;BodyContent;;BodyContentSlot-updatePassword;;;
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;UpdatePasswordComponent;Update Password Component;accountChangePasswordPage.jsp;;UpdatePasswordComponent
+
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];folder(qualifier)[default='images'];;
+;;updateForgottenPasswordPagePreview;text/png;UpdateForgottenPasswordPage.png;$jarResourceCms/preview-images/gpemployee/UpdateForgottenPasswordPage.png;;;
+
+UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];previewImage(code, $contentCV);;;;;
+;;updatePassword;updateForgottenPasswordPagePreview;;;;;
+###### Account Update Password Page Start ######
+
+
+###### Account Update Profile Page Start ######
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;SideContentSlot-update-profile;Side Content Slot for Update Profile;true;;;;
+;;BodyContentSlot-update-profile;Body Content Slot for Update Profile;true;UpdateProfileComponent;;;
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='update-profile'];contentSlot(uid,$contentCV)[unique=true];;;
+;;SideContent-update-profile;SideContent;;SideContentSlot-update-profile;;;
+;;BodyContent-update-profile;BodyContent;;BodyContentSlot-update-profile;;;
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;UpdateProfileComponent;Update Profile Component;accountProfileEditPage.jsp;;UpdateProfileComponent
+###### Account Update Profile Page End ######
+ 
+ 
+###### Account Update Email Page Start ######
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;SideContentSlot-update-email;Side Content Slot for Update Email;true;;;;
+;;BodyContentSlot-update-email;Body Content Slot for Update Email;true;UpdateEmailComponent;;;
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='update-email'];contentSlot(uid,$contentCV)[unique=true];;;
+;;SideContent-update-email;SideContent;;SideContentSlot-update-email;;;
+;;BodyContent-update-email;BodyContent;;BodyContentSlot-update-email;;;
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;UpdateEmailComponent;Update Email Component;accountProfileEmailEditPage.jsp;;UpdateEmailComponent
+###### Account Update Email Page Start ######
+
+
+###### Account Consent Management Page Start ######
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;SideContentSlot-consents;Side Content Slot for Consent Management;true;;;;
+;;BodyContentSlot-consents;Body Content Slot for Consent Management;true;ConsentManagementComponent;;;
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='consents'];contentSlot(uid,$contentCV)[unique=true];;;
+;;SideContent-consents;SideContent;;SideContentSlot-consents;;;
+;;BodyContent-consents;BodyContent;;BodyContentSlot-consents;;;
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;ConsentManagementComponent;Consent Management Component;accountConsentManagementPage.jsp;;ConsentManagementComponent
+###### Account Consent Management Page End ######
+
+###### Anonymous Consent Management Page/Cookie notification Start ######
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;AnonymousConsentManagementComponent;Anonymous Consent Management Component;/WEB-INF/views/responsive/pages/consent/consentmanagement.jsp;;AnonymousConsentManagementComponent
+;;CookieNotificationComponent;Cookie Notification Component;/WEB-INF/views/responsive/pages/consent/cookienotification.jsp;;CookieNotificationComponent
+
+
+###### Anonymous Consent Management Page/Cookie notification End ######
+
+###### Account Close Account Page Start ######
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;SideContentSlot-close-account;Side Content Slot for Close Account;true;;;;
+;;BodyContentSlot-close-account;Body Content Slot for Close Account;true;CloseAccountComponent;;;
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='close-account'];contentSlot(uid,$contentCV)[unique=true];;;
+;;SideContent-close-account;SideContent;;SideContentSlot-close-account;;;
+;;BodyContent-close-account;BodyContent;;BodyContentSlot-close-account;;;
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;CloseAccountComponent;Close Account Component;accountCloseAccountPage.jsp;;CloseAccountComponent
+###### Account Close Account Page End ######
+
+
+###### Account Saved Cart Details Page Start ######
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;SideContentSlot-savedCartDetailsPage;Side Content Slot for Saved Cart Details Page;true;;;;
+;;BodyContentSlot-savedCartDetailsPage;Body Content Slot for Saved Cart Details Page;true;AccountSavedCartDetailsHeadlineComponent,AccountSavedCartDetailsOverviewComponent,AccountSavedCartDetailsItemsComponent,AccountSavedCartDetailsActionComponent;;;
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='savedCartDetailsPage'];contentSlot(uid,$contentCV)[unique=true];;;
+;;SideContent-savedCartDetailsPage;SideContent;;SideContentSlot-savedCartDetailsPage;;;
+;;BodyContent-savedCartDetailsPage;BodyContent;;BodyContentSlot-savedCartDetailsPage;;;
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;AccountSavedCartDetailsHeadlineComponent;Account Saved Cart Details Headline Component;accountSavedCartDetailsHeadline.jsp;;AccountSavedCartDetailsHeadlineComponent
+;;AccountSavedCartDetailsOverviewComponent;Account Saved Cart Details Overview Component;accountSavedCartDetailsOverview.jsp;;AccountSavedCartDetailsOverviewComponent
+;;AccountSavedCartDetailsItemsComponent;Account Saved Cart Details Items Component;accountSavedCartDetailsItems.jsp;;AccountSavedCartDetailsItemsComponent
+;;AccountSavedCartDetailsActionComponent;Account Order Details Action Component;accountSavedCartDetailsAction.jsp;;AccountSavedCartDetailsActionComponent
+
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];folder(qualifier)[default='images'];;
+;;savedCartDetailsPagePreview;text/png;SavedCartDetailsPage.png;$jarResourceCms/preview-images/gpemployee/SavedCartDetailsPage.png;;;
+
+UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];previewImage(code, $contentCV);;;;;
+;;savedCartDetailsPage;savedCartDetailsPagePreview;;;;;
+###### Account Saved Cart Details Page Start ######
+
+
+###### Account Saved Carts Page Start ######
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;SideContentSlot-saved-carts;Side Content Slot for Saved Carts;true;;;;
+;;BodyContentSlot-saved-carts;Body Content Slot for Saved Carts;true;SavedCartsComponent;;;
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='saved-carts'];contentSlot(uid,$contentCV)[unique=true];;;
+;;SideContent-saved-carts;SideContent;;SideContentSlot-saved-carts;;;
+;;BodyContent-saved-carts;BodyContent;;BodyContentSlot-saved-carts;;;
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;SavedCartsComponent;Saved Carts Component;accountSavedCartsPage.jsp;;SavedCartsComponent
+
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];folder(qualifier)[default='images'];;
+;;savedCartsPagePreview;text/png;SavedCartsPage.png;$jarResourceCms/preview-images/gpemployee/SavedCartsPage.png;;;
+
+UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];previewImage(code, $contentCV);;;;;
+;;saved-carts;savedCartsPagePreview;;;;;
+###### Account Saved Carts Page End ######
+
+
+###### Cart Page Start ######
+
+# ContentSlot 
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(uid,$contentCV)
+;;EmptyCartMiddleContent-cartPage;Middle Slot for Cart Page;true;GPEmptyCartComponent
+;;TopContentSlot-cartPage;Top Content Slot for Cart Page;true;CartComponent
+;;CenterLeftContentSlot-cartPage;Center Left Content Slot for Cart Page;true;CheckoutComponent
+;;CenterRightContentSlot-cartPage;Center Right Content Slot for Cart Page;true;CartTotalsComponent
+;;BottomContentSlot-cartPage;Bottom Content Slot for Cart Page;true;GPCartSuggestions
+
+# ContentSlotForPage 
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='cartPage'];contentSlot(uid,$contentCV)[unique=true]
+;;EmptyCartMiddleForCartPage;EmptyCartMiddleContent;;EmptyCartMiddleContent-cartPage
+;;TopContentSlotForCartPage;TopContent;;TopContentSlot-cartPage
+;;CenterLeftContentSlotForCartPage;CenterLeftContentSlot;;CenterLeftContentSlot-cartPage
+;;CenterRightContentSlotForCartPage;CenterRightContentSlot;;CenterRightContentSlot-cartPage
+;;BottomContentSlotForCartPage;BottomContentSlot;;BottomContentSlot-cartPage
+
+# component in TopContent
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;CartComponent;Cart Display Component;cartDisplay.jsp;;CartComponent
+
+# component in emptyMiddleContent
+INSERT_UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;;;;
+;;EmptyCartParagraphComponent;Empty Cart Paragraph Component;EmptyCartParagraphComponent;;;;
+
+# component in centerLeft
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;PromotionsComponent;Promotions Component;cartPromotionsDisplay.jsp;;PromotionsComponent
+;;PotentialPromotionsComponent;Potential Promotions Component;potentialPromotionsDisplay.jsp;;PotentialPromotionsComponent
+
+# component in centerRight
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;CartTotalsComponent;Cart Totals Display Component;cartTotalsDisplay.jsp;;CartTotalsComponent
+
+# component in bottomContent
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;CheckoutComponent;Checkout Display Component;checkoutDisplay.jsp;;CheckoutComponent
+
+INSERT_UPDATE GPCartSuggestionComponent;$contentCV[unique=true];uid[unique=true];name;productReferenceTypes(code);maximumNumberProducts;filterPurchased;&componentRef
+;;GPCartSuggestions;GP Cart Suggestions;CROSSELLING,DIFF_ORDERUNIT,CONSISTS_OF,FOLLOWUP,OTHERS;20;true;GPCartSuggestions
+ 
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];folder(qualifier)[default='images'];;
+;;cartPagePreview;text/png;CartPage.png;$jarResourceCms/preview-images/gpemployee/CartPage.png;;;
+
+UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];previewImage(code, $contentCV);;;;;
+;;cartPage;cartPagePreview;;;;;
+
+
+## Components for cart ##
+#INSERT_UPDATE GPBannerComponent;$contentCV[unique=true];uid[unique=true];name;urlLink;&componentRef
+#;;GPCartBannerComponent;GP Cart Banner Component;/;GPCartBannerComponent
+
+INSERT_UPDATE GPImageTextComponent;$contentCV[unique=true];uid[unique=true];name;urlLink;&componentRef
+;;GPCartImageTextComponent;GP Cart Image Text Component;/;GPCartImageTextComponent
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+#;;BannerMiddleContentSlot;Banner Middle Content Slot for Cart Page;true;GPCartBannerComponent
+;;BannerMiddleContentSlot;Banner Middle Content Slot for Cart Page;true;GPCartImageTextComponent
+
+INSERT_UPDATE GPRotatingImagesComponent;$contentCV[unique=true];uid[unique=true];cmsComponents(uid,$contentCV);&componentRef
+;;GPEmptyCartComponent;GPEmptyCartShopping;GPEmptyCartComponent
+
+INSERT_UPDATE GPImageComponent;$contentCV[unique=true];uid[unique=true];headingText;ctaText;ctaBgColor;ctaColor;subHeadingText;showTextFullWidth;subHeadBgColor
+;;GPEmptyCartShopping;Your shopping cart is empty;CONTINUE SHOPPING;#126ca8;#FFFFFF;Provide messing around product promotions or coupon deals;true;#FFFFFF
+
+## Cart Page Start ##
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='cartPage'];contentSlot(uid,$contentCV)[unique=true]
+;;BannerMiddleContentSlotForCartPage;BannerMiddleContent;;BannerMiddleContentSlot
+###### Cart Page End ######
+
+
+###### Login Page Start ######
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;LeftContentSlot-login;Left Content Slot for Customer Login;true;ReturningCustomerLoginComponent;;;
+;;RightContentSlot-login;Right Content Slot for Customer Login;true;NewCustomerLoginComponent;;;
+;;PlaceholderContentSlot-login;Placeholder Content Slot;true;GuestCheckoutLoginComponent;;;
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='login'];contentSlot(uid,$contentCV)[unique=true];;;
+;;LeftContentSlot-login;LeftContentSlot;;LeftContentSlot-login;;;
+;;RightContentSlot-login;RightContentSlot;;RightContentSlot-login;;;
+;;PlaceholderContentSlot-login;PlaceholderContentSlot;;PlaceholderContentSlot-login;;;
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;NewCustomerLoginComponent;New Customer Login Component;accountNewCustomerLogin.jsp;;NewCustomerLoginComponent
+;;ReturningCustomerLoginComponent;Returning Customer Login Component;accountReturningCustomerLogin.jsp;;ReturningCustomerLoginComponent
+;;GuestCheckoutLoginComponent;Guest Checkout Login Component;checkoutGuestLogin.jsp;;GuestCheckoutLoginComponent
+
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];folder(qualifier)[default='images'];;
+;;loginPagePreview;text/png;LoginPage.png;$jarResourceCms/preview-images/gpemployee/LoginPage.png;;;
+
+UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];previewImage(code, $contentCV);;;;;
+;;login;loginPagePreview;;;;;
+
+UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];linkComponents(uid, $contentCV)
+;;login;LoginLink
+
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];name;url;category(code, $productCV);target(code)[default='sameWindow'];;socialLink[default=false];markAsViewAll[default=false]
+;;LoginLink;Login Link;/login;;;
+###### Login Page End ######
+
+
+###### Checkout Login Page Start ######
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;LeftContentSlot-checkout-login;Left Content Slot for Checkout Login;true;ReturningCustomerCheckoutLoginComponent;;;
+;;CenterContentSlot-checkout-login;Center Content Slot for Checkout Login;true;;;;
+;;RightContentSlot-checkout-login;Right Content Slot for Checkout Login;true;GuestCheckoutLoginComponent;;;
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='checkout-login'];contentSlot(uid,$contentCV)[unique=true];;;
+;;LeftContent-checkout-login;LeftContentSlot;;LeftContentSlot-checkout-login;;;
+;;CenterContent-checkout-login;CenterContentSlot;;CenterContentSlot-checkout-login;;;
+;;RightContent-checkout-login;RightContentSlot;;RightContentSlot-checkout-login;;;
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;ReturningCustomerCheckoutLoginComponent;Returning Customer Checkout Login Component;checkouReturningCustomerLogin.jsp;;ReturningCustomerCheckoutLoginComponent
+;;GuestCheckoutLoginComponent;Guest Checkout Login Component;checkoutGuestLogin.jsp;;GuestCheckoutLoginComponent
+
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];folder(qualifier)[default='images'];;
+;;checkoutLoginPagePreview;text/png;CheckoutLoginPage.png;$jarResourceCms/preview-images/gpemployee/CheckoutLoginPage.png;;;
+
+UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];previewImage(code, $contentCV);;;;;
+;;checkout-login;checkoutLoginPagePreview;;;;;
+###### Checkout Login Page End ######
+
+
+###### Multi Step Checkout SummaryPage Start ######
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;SideContentSlot-multiStepCheckoutSummaryPage;Side Slot for multiStepCheckoutSummaryPage;true;;;;
+ 
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true];contentSlot(uid,$contentCV)[unique=true];;;
+;;SideContent-multiStepCheckoutSummaryPage;SideContent;multiStepCheckoutSummaryPage;SideContentSlot-multiStepCheckoutSummaryPage;;;
+
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];folder(qualifier)[default='images'];;
+;;multiStepCheckoutSummaryPagePreview;text/png;MultiStepCheckoutSummaryPage.png;$jarResourceCms/preview-images/gpemployee/MultiStepCheckoutSummaryPage.png;;;
+
+UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];previewImage(code, $contentCV);;;;;
+;;multiStepCheckoutSummaryPage;multiStepCheckoutSummaryPagePreview;;;;;
+###### Multi Step Checkout SummaryPage End ######
+
+
+###### Order Confirmation Page Start ######
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;SideContent-orderConfirmation;Side Content Slot for Order Confirmation;true;OrderConfirmationOrderSummaryComponent
+;;BodyContent-orderConfirmation;Body Content Slot for Order Confirmation;true;OrderConfirmationThankMessageComponent
+;;PlaceholderContentSlot-orderConfirmation;Placeholder Content Slot for Order Confirmation;true;GPOrderConfirmationBannerComponent
+;;BottomContent-orderConfirmation;Bottom Content Slot for Order Confirmation;true;OrderConfirmationMarketingComponent
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='orderConfirmationPage'];contentSlot(uid,$contentCV)[unique=true];;;
+;;SideContent-orderConfirmation;SideContent;;SideContent-orderConfirmation;;;
+;;BodyContent-orderConfirmation;BodyContent;;BodyContent-orderConfirmation;;;
+;;PlaceholderContentSlot-orderConfirmation;PlaceholderContentSlot;;PlaceholderContentSlot-orderConfirmation;;;
+;;BottomContent-orderConfirmation;BottomContent;;BottomContent-orderConfirmation;;;
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;OrderConfirmationThankMessageComponent;Order Confirmation Thank You Message Component;checkoutConfirmationThankMessage.jsp;;OrderConfirmationThankMessageComponent
+;;OrderConfirmationOrderSummaryComponent;Order Confirmation Order Summary Component;checkoutConfirmationOrderSummary.jsp;;OrderConfirmationOrderSummaryComponent
+
+INSERT_UPDATE GPBannerComponent;$contentCV[unique=true];uid[unique=true];name;urlLink;&componentRef
+;;GPOrderConfirmationBannerComponent;GPOrderConfirmation Banner Component;/;GPOrderConfirmationBannerComponent
+
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];folder(qualifier)[default='images'];;;
+;;orderConfirmationPagePreview;text/png;OrderConfirmationPage.png;$jarResourceCms/preview-images/vanityfair/OrderConfirmationPage.png;;;
+
+UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];previewImage(code, $contentCV);;;;;
+;;orderConfirmationPage;orderConfirmationPagePreview;;;;;
+
+INSERT_UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;;;;
+;;OrderConfirmationMarketingComponent;Order Confirmation Paragraph;OrderConfirmationMarketingComponent;;;;
+###### Order Confirmation Page End ######
+
+
+###### Store Finder Page Start ######
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;MiddleContentSlot-StoreFinder;Middle Slot for Store Finder Page;true;StoreFinderComponent
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='storefinderPage'];contentSlot(uid,$contentCV)[unique=true]
+;;MiddleContent-StoreFinder;MiddleContent;;MiddleContentSlot-StoreFinder
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;StoreFinderComponent;Store Finder Component;storeFinderContent.jsp;;StoreFinderComponent
+
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];folder(qualifier)[default='images'];;
+;;storefinderPagePreview;text/png;StoreFinderPage.png;$jarResourceCms/preview-images/gpemployee/StoreFinderPage.png;;;
+
+UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];previewImage(code, $contentCV);;;;;
+;;storefinderPage;storefinderPagePreview;;;;;
+
+UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];linkComponents(uid, $contentCV)
+;;storefinderPage;StoreFinderLink
+
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];name;url;category(code, $productCV);target(code)[default='sameWindow'];;socialLink[default=false];markAsViewAll[default=false]
+;;StoreFinderLink;Store Finder Link;/store-finder;;;
+###### Store Finder Page End ######
+
+
+###### Not Found Page Start ######
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;GPEmployee-MiddleContent-Errorpage;GPEmployee Middle Content Slot for Error Page;true;GPEmployeeErrorpageBannerComponent;;;
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='notFound'];contentSlot(uid,$contentCV)[unique=true]
+;;GPEmployee-MiddleContent-Errorpage;MiddleContent;;GPEmployee-MiddleContent-Errorpage
+
+INSERT_UPDATE SimpleResponsiveBannerComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef
+;;GPEmployeeErrorpageBannerComponent;GPEmployee Error Page Banner Component;GPEmployeeErrorpageBannerComponent
+
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];folder(qualifier)[default='images'];;
+;;notFoundPagePreview;text/png;NotFoundPage.png;$jarResourceCms/preview-images/gpemployee/NotFoundPage.png;;;
+
+UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];previewImage(code, $contentCV);;;;;
+;;notFound;notFoundPagePreview;;;;;
+###### Not Found Page End ######
+
+
+###### Import CSV SavedCart Page Start ######
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;SideContent-importCSVSavedCartPage;Side Content Slot for Import CSV as Saved Cart Page;true;;;;
+;;BodyContent-importCSVSavedCartPage;Body Content Slot for Import CSV as Saved Cart Page;true;ImportCSVSavedCartComponent;;;
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='importCSVSavedCartPage'];contentSlot(uid,$contentCV)[unique=true];;;
+;;SideContent-importCSVSavedCartPage;SideContent;;SideContent-importCSVSavedCartPage;;;
+;;BodyContent-importCSVSavedCartPage;BodyContent;;BodyContent-importCSVSavedCartPage;;;
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;ImportCSVSavedCartComponent;Import CSV as Saved Cart Component;csv/importCSVSavedCartPage.jsp;;ImportCSVSavedCartComponent
+
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];folder(qualifier)[default='images']
+;;importCSVSavedCartPagePreview;text/png;OrderHistoryPage.png;$jarResourceCms/preview-images/gpemployee/OrderHistoryPage.png
+
+UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];previewImage(code, $contentCV)
+;;importCSVSavedCartPage;importCSVSavedCartPagePreview
+###### Import CSV SavedCart Page End ######
+
+
+###### Quick Order Page Start ######
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;TopContent-quickOrderPage;Top Content Slot for Quick Order Page;true;QuickOrderInfoParagraphComponent;;;
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='quickOrderPage'];contentSlot(uid,$contentCV)[unique=true];;;
+;;TopContent-quickOrderPage;TopContent;;TopContent-quickOrderPage;;;
+
+INSERT_UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef
+;;QuickOrderInfoParagraphComponent;Quick Order Info Paragraph Component;QuickOrderInfoParagraphComponent
+###### Quick Order Page End ######
+
+
+
+###### Restriction Start ######
+# create a user restriction
+INSERT_UPDATE CMSUserRestriction;$contentCV[unique=true];&userRestriction;name;uid[unique=true];users(uid)
+;;anonymousUserRestriction;Anonymous User Restriction;anonymousUserRestriction;anonymous
+
+# create a inverse restriction
+INSERT_UPDATE CMSInverseRestriction;$contentCV[unique=true];name;originalRestriction(&userRestriction)[allownull=true];uid[unique=true];components(&componentRef)
+;;Logged in User;anonymousUserRestriction;loggedInUser;MyAccountComponent
+
+# CMS Action Restrictions
+INSERT_UPDATE CMSActionRestriction;$contentCV[unique=true];uid[unique=true];name;
+;;ActionRestriction;A CMSAction restriction;
+###### Restriction End ######
+
+
+
+###### Navigation Tree Start ######
+## navigation is in tree structure ##
+#
+## level 0 -- root ##
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);children(uid,$contentCV)[mode=append];links(uid, $contentCV);&nodeRef;
+;root;;root;;;;root;
+
+## level 1 -- Site Root: child of root ##
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);children(uid,$contentCV)[mode=append];links(uid, $contentCV);&nodeRef;
+;SiteRootNode;;SiteRootNode;root;;;SiteRootNode;
+
+## level 2 -- GPEmployee Site: child of SiteRootNode ##
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);children(uid,$contentCV)[mode=append];links(uid, $contentCV);&nodeRef;
+;GPEmployeeNavNode;;GPEmployee Site;SiteRootNode;;;GPEmployeeNavNode;
+
+## level 3 -- My Account, Order, Categories, Footer Pages: children of GPEmployeeNavNode ##
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);links(&linkRef);&nodeRef
+;MyAccountNavNode;;My Account;GPEmployeeNavNode;;MyAccountNavNode
+;OrderNavNode;;Order;GPEmployeeNavNode;;OrderNavNode
+;GPEmployeeCategoryNavNode;;Categories;GPEmployeeNavNode;;GPEmployeeCategoryNavNode
+;FooterNavNode;;Footer Pages;GPEmployeeNavNode;;FooterNavNode
+;CheckoutFooterNavNode;;Checkout Footer Pages;GPEmployeeNavNode;;CheckoutFooterNavNode
+
+## level 4 -- Personal Details etc. : children of MyAccountNavNode ##
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);links(&linkRef);&nodeRef
+;PersonalDetailsNavNode;;Personal Details;MyAccountNavNode;;PersonalDetailsNavNode
+;UpdateEmailNavNode;;Update Email;MyAccountNavNode;;UpdateEmailNavNode
+;PaymentDetailsNavNode;;Payment Details;MyAccountNavNode;;PaymentDetailsNavNode
+;ChangePasswordNavNode;;Change Password;MyAccountNavNode;;ChangePasswordNavNode
+;OrderHistoryNavNode;;Order History;MyAccountNavNode;;OrderHistoryNavNode
+;AddressBookNavNode;;Address Book;MyAccountNavNode;;AddressBookNavNode
+;SavedCartsNavNode;;Saved Carts;MyAccountNavNode;;SavedCartsNavNode
+;ConsentManagementNavNode;;Consent Management;MyAccountNavNode;;ConsentManagementNavNode
+;CloseAccountNavNode;;Close Account;MyAccountNavNode;;CloseAccountNavNode
+
+# entries of the above navigation nodes
+INSERT_UPDATE CMSNavigationEntry;uid[unique=true];$contentCV[unique=true];name;navigationNode(&nodeRef);item(&linkRef);
+;PersonalDetailsNavNodeEntry;;PersonalDetailsNavNodeEntry;PersonalDetailsNavNode;PersonalDetailsLink;
+;UpdateEmailNavNodeEntry;;UpdateEmailNavNodeEntry;UpdateEmailNavNode;UpdateEmailLink;
+;ChangePasswordNavNodeEntry;;ChangePasswordNavNodeEntry;ChangePasswordNavNode;UpdatePasswordLink;
+;AddressBookNavNodeEntry;;AddressBookNavNodeEntry;AddressBookNavNode;AddressBookLink;
+;PaymentDetailsNavNodeEntry;;PaymentDetailsNavNodeEntry;PaymentDetailsNavNode;PaymentDetailsLink;
+;OrderHistoryNavNodeEntry;;OrderHistoryNavNodeEntry;OrderHistoryNavNode;OrderHistoryLink;
+;SavedCartsNavNodeEntry;;SavedCartsNavNodeEntry;SavedCartsNavNode;SavedCartsLink;
+;ConsentManagementNavNodeEntry;;ConsentManagementNavNodeEntry;ConsentManagementNavNode;ConsentManagementLink;
+;CloseAccountNavNodeEntry;;CloseAccountNavNodeEntry;CloseAccountNavNode;CloseAccountLink;
+
+# links of the above navigation entries
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];name;url;&linkRef;target(code)[default='sameWindow'];socialLink[default=false];markAsViewAll[default=false]
+;;PersonalDetailsLink;PersonalDetailsLink;/my-account/update-profile;PersonalDetailsLink;
+;;UpdateEmailLink;UpdateEmailLink;/my-account/update-email;UpdateEmailLink;
+;;UpdatePasswordLink;UpdatePasswordLink;/my-account/update-password;UpdatePasswordLink;
+;;AddressBookLink;AddressBookLink;/my-account/address-book;AddressBookLink;
+;;PaymentDetailsLink;PaymentDetailsLink;/my-account/payment-details;PaymentDetailsLink;
+;;OrderHistoryLink;OrderHistoryLink;/my-account/orders;OrderHistoryLink;
+;;SavedCartsLink;SavedCartsLink;/my-account/saved-carts;SavedCartsLink;
+;;ConsentManagementLink;ConsentManagementLink;/my-account/consents;ConsentManagementLink;
+;;CloseAccountLink;CloseAccountLink;/my-account/close-account;CloseAccountLink;
+
+## level 4 -- Quick Order, Import Saved Cart : children of OrderNavNode ##
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);links(&linkRef);&nodeRef
+;QuickOrderNavNode;;Quick Order;OrderNavNode;;QuickOrderNavNode
+;ImportSavedCartNavNode;;Import Saved Cart;OrderNavNode;;ImportSavedCartNavNode
+# entries of the above navigation nodes
+INSERT_UPDATE CMSNavigationEntry;uid[unique=true];$contentCV[unique=true];name;navigationNode(&nodeRef);item(&linkRef);
+;QuickOrderNavNodeEntry;;QuickOrderNavNodeEntry;QuickOrderNavNode;QuickOrderLink;
+;ImportSavedCartNavNodeEntry;;ImportSavedCartNavNodeEntry;ImportSavedCartNavNode;ImportSavedCartLink;
+# links of the above navigation entries
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];name;url;styleAttributes;&linkRef;target(code)[default='sameWindow']
+;;QuickOrderLink;Quick Order Link;/quickOrder;;QuickOrderLink;;
+;;ImportSavedCartLink;Import Saved Cart Link;/import/csv/saved-cart;;ImportSavedCartLink;;
+
+
+########## Footer Pages Starts - FAQ, AboutUs, Terms and Conditions ###########
+# Simple Content Pages
+INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);label;defaultPage[default='true'];approvalStatus(code)[default='approved'];homepage[default='false']
+;;termsAndConditions;Terms and Conditions Page;ContentPage1Template;/termsAndConditions
+
+INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);label;defaultPage[default='true'];approvalStatus(code)[default='approved'];homepage[default='false']
+;;aboutUs;About Us Page;GPLandingPage2Template;/aboutUs
+
+
+INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);label;defaultPage[default='true'];approvalStatus(code)[default='approved'];homepage[default='false']
+;;faq;Frequently Asked Questions Page;GPLandingPage2Template;/faq
+
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];name;url;category(code, $productCV);target(code)[default='newWindow'];external[default=false];socialLink[default=false];markAsViewAll[default=false]
+;;TermsAndConditionsLink;Terms and Conditions Link;/termsAndConditions;;newWindow;;
+;;AboutUsLink;About Us Link;/aboutUs;;newWindow;;
+;;FAQLink;FAQ Link;/faq;;newWindow;;
+;;FacebookLink;Facebook Link;https://www.vanityfair.com/;;newWindow;true;
+;;TwitterLink;Twitter Link;https://twitter.com/vanityfairfessional;;newWindow;true;
+;;InstagramLink;Instagram Link;https://www.vanityfair.com/;;newWindow;true;
+;;PinterestLink;Pinterest Link;https://www.vanityfair.com/;;newWindow;true;
+;;YouTubeLink;Youtube Link;https://www.youtube.com/user/GeorgiaPacificPro;;newWindow;true;
+;;LinkedInLink;LinkedIn Link;https://www.linkedin.com/company/vanityfair/;;newWindow;true;
+;;SnapchatLink;Snapchat Link;https://www.vanityfair.com/;;newWindow;true;
+
+##### GP Terms And Conditions Page
+# CMSParagraphComponent
+INSERT_UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;;;;
+;;termsAndConditionsTextParagraph;Terms and Conditions Paragraph;TermsAndConditionsTextParagraph;;;;
+
+# ContentSlot
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;Section1Slot-TermsAndConditions;Section1 Slot for Terms and Conditions Page;true;TermsAndConditionsTextParagraph;;;
+
+# ContentSlotForPage
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='termsAndConditions'];contentSlot(uid,$contentCV)[unique=true];;;
+;;Section1-TermsAndConditions;Section1;;Section1Slot-TermsAndConditions;;;
+
+# CMSParagraphComponent For Privacy Policy
+INSERT_UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;;;;
+;;privacyPolicyTextParagraph;Terms and Conditions Paragraph;privacyPolicyTextParagraph;;;;
+
+# ContentSlot For Privacy Policy
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;Section3Slot-TermsAndConditions;Section3 Slot for Terms and Conditions Page;true;privacyPolicyTextParagraph;;;
+
+# ContentSlotForPage
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='termsAndConditions'];contentSlot(uid,$contentCV)[unique=true];;;
+;;Section3-TermsAndConditions;Section3;;Section3Slot-TermsAndConditions;;; 
+
+##### GP About Us Page 
+# CMSParagraphComponent
+INSERT_UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;;;;
+;;aboutUsTextParagraph;About Us Paragraph;AboutUsTextParagraph;;;;
+;;aboutUsContentParagraph;About Us Paragraph;AboutUsContentParagraph;;;;
+
+# ContentSlot
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;Section1Slot-AboutUs;Section1 Slot for About Us Page;true;AboutUsTextParagraph;;;
+;;Section3Slot-AboutUs;Section3 Slot for About Us Page;true;AboutUsContentParagraph;;;
+;;Section5Slot-AboutUs;Section5 Slot for About Us Page;true;;;;;
+
+# ContentSlotForPage
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='aboutUs'];contentSlot(uid,$contentCV)[unique=true];;;
+;;Section1-AboutUs;ContentSlot1;;Section1Slot-AboutUs;;;
+;;Section3-AboutUs;ContentSlot2;;Section3Slot-AboutUs;;;
+;;Section5-AboutUs;ContentSlot3;;Section5Slot-AboutUs;;;
+
+##### GP FAQ Page 
+# CMSParagraphComponent
+INSERT_UPDATE GPFAQCMSParagraphComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef
+;;faqTextComponent;FAQ Paragraph;faqTextComponent
+
+INSERT_UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef
+;;faqHeadingComponent;FAQ Heading;faqHeadingComponent
+;;faqContentComponent;FAQ Content Paragraph;faqContentComponent
+
+# ContentSlot
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;Section1-FAQ;Section1 Slot for FAQ Page;true;faqHeadingComponent
+;;Section3-FAQ;Section3 Slot for FAQ Page;true;faqTextComponent
+;;Section5-FAQ;Section5 Slot for FAQ Page;true;faqContentComponent
+
+# ContentSlotForPage
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='faq'];contentSlot(uid,$contentCV)[unique=true]
+;;Section1-FAQPage;ContentSlot1;;Section1-FAQ
+;;Section3-FAQPage;ContentSlot2;;Section3-FAQ
+;;Section5-FAQPage;ContentSlot3;;Section5-FAQ
+
+########## Footer Pages Ends - FAQ, AboutUs, Terms and Conditions ###########
+
+########## Live Chat Starts ###########
+INSERT_UPDATE PageTemplate;$contentCV[unique=true];uid[unique=true];name;frontendTemplateName;restrictedPageTypes(code);active[default=true]
+;;SupportTicketPageTemplate;Support Ticket Page Template;supportTicket/GPSupportTicketPage;ContentPage
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='SupportTicketPageTemplate'];validComponentTypes(code);compTypeGroup(code)
+;SiteLogo;;;logo
+;HeaderLinks;;;headerlinks
+;MiniCart;;;minicart
+;NavigationBar;;;navigation
+;LiveChatContentSlot;;;narrow
+;LiveChatButtonSlot;;;wide
+;CallOrTextContentSlot;;;wide
+;ServiceTicketContentSlot;;;wide
+;Footer;;;footer
+;TopHeaderSlot;;;wide
+;BottomHeaderSlot;;;wide
+;PlaceholderContentSlot;;;
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='SupportTicketPageTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-SupportTicketPage;SiteLogo;;SiteLogoSlot;true
+;;HomepageLink-SupportTicketPage;HomepageNavLink;;HomepageNavLinkSlot;true
+;;NavigationBar-SupportTicketPage;NavigationBar;;NavigationBarSlot;true
+;;MiniCart-SupportTicketPage;MiniCart;;MiniCartSlot;true
+;;Footer-SupportTicketPage;Footer;;FooterSlot;true
+;;HeaderLinks-SupportTicketPage;HeaderLinks;;HeaderLinksSlot;true
+;;SearchBox-SupportTicketPage;SearchBox;;SearchBoxSlot;true
+;;TopHeaderSlot-SupportTicketPage;TopHeaderSlot;;TopHeaderSlot;true
+;;BottomHeaderSlot-SupportTicketPage;BottomHeaderSlot;;BottomHeaderSlot;true
+;;PlaceholderContentSlot-SupportTicketPage;PlaceholderContentSlot;;PlaceholderContentSlot;true
+
+INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);label;defaultPage[default='true'];approvalStatus(code)[default='approved'];homepage[default='false']
+;;contactUsForm;support ticket contact us form;SupportTicketPageTemplate;/contact-us; 
+
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];name;url;category(code, $productCV);target(code)[default='newWindow'];external[default=false];socialLink[default=false];markAsViewAll[default=false]
+;;ContactUsLink;Contact Us Link;/contact-us;;;;
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;acsLiveChatJSPIncludeComponent;Contact Us page;liveChat.jsp;;acsLiveChatJSPIncludeComponent
+
+INSERT_UPDATE GPLiveChatComponent;$contentCV[unique=true];uid[unique=true];liveChat(&componentRef);&componentRef;informationText;name;componentTheme;showContactUs[default='true']
+;;gpLiveChatComponent;acsLiveChatJSPIncludeComponent;gpLiveChatComponent;Chat online with one of our online support specialists (Available 9:00 a.m. - 5:00 p.m. ET);GPLiveChatComponent;;
+
+# ContentSlot 
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;LiveChatButtonSlot-SERVICETICKET;LiveChatButton Slot for TICKET Page;true;gpLiveChatComponent;;;
+
+# ContentSlotForPage 
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='contactUsForm'];contentSlot(uid,$contentCV)[unique=true];;;
+;;LiveChatButtonSlot-SERVICETICKET;LiveChatButtonSlot;;LiveChatButtonSlot-SERVICETICKET;;;
+########## Live Chat Ends ###########
+
+## GP Footer Nav Start ##
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);links(&linkRef);&nodeRef;parentPos
+;GPCompanyNavNode;;Company Pages;FooterNavNode;;GPCompanyNavNode;0
+;GpSustNavNode;;GP Sustainability;GPContactUsNavNode;;GpSustNavNode;0
+;SiteTermUseNavNode;;Site Terms of use;GPContactUsNavNode;;SiteTermUseNavNode;1
+;PrivacyNavNode;;Privacy Notice;GPContactUsNavNode;;PrivacyNavNode;2
+;CAPrivacyFooterNode;;CA Privacy Rights;GPContactUsNavNode;;CAPrivacyFooterNode;3
+;ShopNode;;Shop;FooterNavNode;;ShopNode;1
+;EmployeeStoreNode;;Employee Store;FooterNavNode;;EmployeeStoreNode;1
+;MyAccountNode;;My Account;EmployeeStoreNode;;MyAccountNode;
+;WishlistNode;;Wishlist;EmployeeStoreNode;;WishlistNode;
+;BundlesNode;;Bundles;ShopNode;;BundlesNode;0
+;CleaningSuppliesNode;;Cleaning Supplies;ShopNode;;CleaningSuppliesNode;1
+;DispensersNode;;Dispensers;ShopNode;;DispensersNode;2
+;PaperProductsNode;;Paper Products;ShopNode;;PaperProductsNode;3
+;ClearanceNode;;Clearance;ShopNode;;ClearanceNode;4
+
+## Children of GP NavNode ##
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);links(&linkRef);&nodeRef;parentPos
+;AboutGPCompanyNavNode;;About Comapny Pages;GPCompanyNavNode;;AboutGPCompanyNavNode;0
+
+# entries of the above navigation nodes
+INSERT_UPDATE CMSNavigationEntry;uid[unique=true];$contentCV[unique=true];name;navigationNode(&nodeRef);item(CMSLinkComponent.uid,CMSLinkComponent.$contentCV);
+;AboutGPCompanyNavNodeEntry;;About GP Company Navigation Node Entry;AboutGPCompanyNavNode;AboutUsLink;
+;GpSustNavNodeEntry;;GP Sustainability Node Entry;GpSustNavNode;GpSustainabilityLink;
+;SiteTermUseNavNodeEntry;;Site Terms of use Node Entry;SiteTermUseNavNode;SiteTermUseLink;
+;PrivacyNavNodeEntry;;Privacy Node Entry;PrivacyNavNode;PrivacyLink;
+;CAPrivacyFooterNodeEntry;;CA Privacy Rights Node Entry;CAPrivacyFooterNode;CAPrivacyFooterLink;
+;EmployeeStoreNodeEntry;;EmployeeStore Node Entry;EmployeeStoreNode;EmployeeStoreLink;
+;MyAccountNodeEntry;;MyAccountNode Node Entry;MyAccountNode;MyAccountLink;
+;WishlistNodeEntry;;Wishlist Node Entry;WishlistNode;WishlistLink;
+;BundlesNodeEntry;;Bundles Node Entry;BundlesNode;BundlesLink;
+;CleaningSuppliesNodeEntry;;CleaningSupplies Node Entry;CleaningSuppliesNode;CleaningSuppliesLink;
+;DispensersNodeEntry;;Dispensers Node Entry;DispensersNode;DispenserLink;
+;PaperProductNodeEntry;;PaperProduct Node Entry;PaperProductsNode;PaperProductLink;
+;ClearanceNodeEntry;;Clearance Node Entry;ClearanceNode;ClearanceLink;
+## GP Footer Nav End ##
+
+# Brand banners 
+# Media 
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];folder(qualifier)[default='images'];;
+;;apparel-category-banner;;apparel-category-banner.jpg;$jarResourceCms/brand-images/gpemployee/apparel-category-banner.jpg;;;
+;;apparel-brand-banner-69 Slam;;apparel-brand-banner_69slam.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_69slam.jpg;;;
+;;apparel-brand-banner-667;;apparel-brand-banner_667.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_667.jpg;;;
+;;apparel-brand-banner-686;;apparel-brand-banner_686.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_686.jpg;;;
+;;apparel-brand-banner-adidas;;apparel-brand-banner_adidas.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_adidas.jpg;;;
+;;apparel-brand-banner-Alien Workshop;;apparel-brand-banner_alienworkshop.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_alienworkshop.jpg;;;
+;;apparel-brand-banner-Al Merrick;;apparel-brand-banner_almerrick.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_almerrick.jpg;;;
+;;apparel-brand-banner-Analog;;apparel-brand-banner_analog.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_analog.jpg;;;
+;;apparel-brand-banner-Anon;;apparel-brand-banner_anon.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_anon.jpg;;;
+;;apparel-brand-banner-Armada;;apparel-brand-banner_armada.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_armada.jpg;;;
+;;apparel-brand-banner-Bench;;apparel-brand-banner_bench.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_bench.jpg;;;
+;;apparel-brand-banner-Billabong;;apparel-brand-banner_billabong.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_billabong.jpg;;;
+;;apparel-brand-banner-Blue Tomato;;apparel-brand-banner_bluetomato.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_bluetomato.jpg;;;
+;;apparel-brand-banner-Burton;;apparel-brand-banner_burton.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_burton.jpg;;;
+;;apparel-brand-banner-Carhartt;;apparel-brand-banner_carhartt.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_carhartt.jpg;;;
+;;apparel-brand-banner-Dainese;;apparel-brand-banner_dainese.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_dainese.jpg;;;
+;;apparel-brand-banner-Dalbello;;apparel-brand-banner_dalbello.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_dalbello.jpg;;;
+;;apparel-brand-banner-DC;;apparel-brand-banner_dc.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_dc.jpg;;;
+;;apparel-brand-banner-droid;;apparel-brand-banner_droid.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_droid.jpg;;;
+;;apparel-brand-banner-Element;;apparel-brand-banner_element.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_element.jpg;;;
+;;apparel-brand-banner-Elm;;apparel-brand-banner_elm.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_elm.jpg;;;
+;;apparel-brand-banner-Femipleasure;;apparel-brand-banner_femipleasure.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_femipleasure.jpg;;;
+;;apparel-brand-banner-Foursquare;;apparel-brand-banner_foursquare.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_foursquare.jpg;;;
+;;apparel-brand-banner-Fox;;apparel-brand-banner_fox.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_fox.jpg;;;
+;;apparel-brand-banner-F2-FTWO;;apparel-brand-banner_ftwo.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_ftwo.jpg;;;
+;;apparel-brand-banner-Horsefeathers;;apparel-brand-banner_horsefeathers.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_horsefeathers.jpg;;;
+;;apparel-brand-banner-Hurley;;apparel-brand-banner_hurley.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_hurley.jpg;;;
+;;apparel-brand-banner-Landing;;apparel-brand-banner_landing.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_landing.jpg;;;
+;;apparel-brand-banner-Nike;;apparel-brand-banner_nike.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_nike.jpg;;;
+;;apparel-brand-banner-Nike 6.0;;apparel-brand-banner_nike6.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_nike6.jpg;;;
+;;apparel-brand-banner-Nixon;;apparel-brand-banner_nixon.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_nixon.jpg;;;
+;;apparel-brand-banner-Oakley;;apparel-brand-banner_oakley.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_oakley.jpg;;;
+;;apparel-brand-banner-Orage;;apparel-brand-banner_orage.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_orage.jpg;;;
+;;apparel-brand-banner-Playboard;;apparel-brand-banner_playboard.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_playboard.jpg;;;
+;;apparel-brand-banner-Pro Tec;;apparel-brand-banner_protec.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_protec.jpg;;;
+;;apparel-brand-banner-PYUA;;apparel-brand-banner_pyua.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_pyua.jpg;;;
+;;apparel-brand-banner-Quiksilver;;apparel-brand-banner_quicksilver.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_quicksilver.jpg;;;
+;;apparel-brand-banner-Red;;apparel-brand-banner_red.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_red.jpg;;;
+;;apparel-brand-banner-Reef;;apparel-brand-banner_reef.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_reef.jpg;;;
+;;apparel-brand-banner-Rip Curl;;apparel-brand-banner_ripcurl.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_ripcurl.jpg;;;
+;;apparel-brand-banner-Roxy;;apparel-brand-banner_roxy.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_roxy.jpg;;;
+;;apparel-brand-banner-Sessions;;apparel-brand-banner_sessions.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_sessions.jpg;;;
+;;apparel-brand-banner-Special Blend;;apparel-brand-banner_specialblend.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_specialblend.jpg;;;
+;;apparel-brand-banner-Toko;;apparel-brand-banner_toko.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_toko.jpg;;;
+;;apparel-brand-banner-Vans;;apparel-brand-banner_vans.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_vans.jpg;;;
+;;apparel-brand-banner-VIVO;;apparel-brand-banner_vivo.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_vivo.jpg;;;
+;;apparel-brand-banner-Volcom;;apparel-brand-banner_volcom.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_volcom.jpg;;;
+;;apparel-brand-banner-Von Zipper;;apparel-brand-banner_vonzipper.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_vonzipper.jpg;;;
+;;apparel-brand-banner-WeSC;;apparel-brand-banner_wesc.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_wesc.jpg;;;
+;;apparel-brand-banner-WLD;;apparel-brand-banner_wld.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_wld.jpg;;;
+;;apparel-brand-banner-Zimtstern;;apparel-brand-banner_zimtstern.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_zimtstern.jpg;;;
+;;apparel-brand-banner-Aesthetiker;;apparel-brand-banner_aesthetiker.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_aesthetiker.jpg;;;
+;;apparel-brand-banner-Dakine;;apparel-brand-banner_dakine.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_dakine.jpg;;;
+;;apparel-brand-banner-GoPro Cam;;apparel-brand-banner_gopro.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_gopro.jpg;;;
+;;apparel-brand-banner-Nikita;;apparel-brand-banner_nikita.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_nikita.jpg;;;
+;;apparel-brand-banner-Periplus AC+Ion Guides;;apparel-brand-banner_periplus.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_periplus.jpg;;;
+;;apparel-brand-banner-Ride;;apparel-brand-banner_ride.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_ride.jpg;;;
+;;apparel-brand-banner-Skim One;;apparel-brand-banner_skmone.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_skmone.jpg;;;
+;;apparel-brand-banner-Skullcandy;;apparel-brand-banner_skullcandy.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_skullcandy.jpg;;;
+;;apparel-brand-banner-Southpoint;;apparel-brand-banner_southpoint.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_southpoint.jpg;;;
+;;apparel-brand-banner-Spy;;apparel-brand-banner_spy.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_spy.jpg;;;
+;;apparel-brand-banner-Surftech;;apparel-brand-banner_surftech.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_surftech.jpg;;;
+;;apparel-brand-banner-adidas eyewear;;apparel-brand-banner_adidas-eyewear.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_adidas-eyewear.jpg;;;
+;;apparel-brand-banner-TSG;;apparel-brand-banner_tsg.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_tsg.jpg;;;
+;;apparel-brand-banner-adidas Originals;;apparel-brand-banner_adidas-originals.jpg;$jarResourceCms/brand-images/gpemployee/apparel-brand-banner_adidas-originals.jpg;;;
+
+
+#INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];name;url;category(code, $productCV);target(code)[default='sameWindow'];;socialLink[default=false];markAsViewAll[default=false]
+#;;AccessoriesBeachTowelsLink;Beach Towels Link;;221200;;;
+#;;AccessoriesCamerasLink;Cameras Link;;221900;;;
+#;;AccessoriesElectronicLink;Electronic Link;;221800;;;
+#;;AccessoriesHeadphonesLink;Headphones Link;;221300;;;
+#;;AccessoriesJewelleryLink;Jewellery Link;;221500;;;
+#;;AccessoriesOthersLink;Others Link;;371200;;;
+#;;AccessoriesWomenStickerLink;Sticker Link;;221400;;;
+#;;AccessoriesVideocameraLink;Videocamera Link;;222000;;;
+#;;AccessoriesWalletsLink;Wallets Link;;220700;;;
+#;;AccessoriesWomenLink;Accessories Women Link;;370000;;;
+#;;AccessoriesWomenBandanasLink;Women Bandanas Link;;371600;;;
+#;;AccessoriesWomenBeachTowelsLink;Women Beach Towels Link;;370800;;;
+#;;AccessoriesWomenBeaniesLink;Women Beanies Link;;370200;;;
+#;;AccessoriesWomenCapsLink;Women Caps Link;;370100;;;
+#;;AccessoriesWomenGlovesLink;Women Gloves Link;;371100;;;
+#;;AccessoriesWomenJewelleryLink;Women Jewellery Link;;371800;;;
+#;;AccessoriesWomenOthersLink;Women Others Link;;371200;;;
+#;;AccessoriesWomenScarvesLink;Women Scarves Link;;371700;;;
+#;;AccessoriesWomenSocksLink;Women Socks Link;;370600;;;
+#;;AccessoriesWomenUnderwearLink;Women Underwear Link;;371000;;;
+#;;AccessoriesWomenWalletsLink;Women Wallets Link;;370300;;;
+#;;BrandsBrowseAllLink;Browse All Brands;;brands;;;
+#;;AllCategoriesLink;All Categories Link;/Categories/c/categories;;;;
+#;;AnonSunglassesLink;Anon Sunglasses Link;/Brands/Anon/c/Anon?q=:relevance:category:sunglasses;;;;
+#;;BackpacksLink;Backpacks Link;;backpack;;;
+#;;BillabongYouthTShirtsLink;Billabong Youth T-Shirts Link;/Brands/Billabong/c/Billabong?q=:relevance:category:270100;;;;
+#;;BlueTomatoYouthTShirtsLink;BlueTomato Youth T-Shirts Link;/Brands/BlueTomato/c/BlueTomato?q=:relevance:category:270100;;;;
+#;;CapsLink;Caps Link;;caps;;;
+#;;ClothesLink;Clothes Link;;clothes;;;
+#;;DaineseShirtsLink;Dainese Shirts Link;/Brands/Dainese/c/Dainese?q=:relevance:category:shirts;;;;
+#;;DakineBackpacksLink;Dakine Backpacks Link;/Brands/Dakine/c/Dakine?q=:relevance:category:backpack;;;;
+#;;DocumentationLink;Documentation Link;https://help.hybris.com;;newWindow;;
+#;;F2-FTWOShoesLink;F2-FTWO Shoes Link;/Brands/F2-FTWO/c/F2-FTWO?q=:relevance:category:shoes;;;;
+#;;FoxSunglassesLink;Fox Sunglasses Link;/Brands/Fox/c/Fox?q=:relevance:category:sunglasses;;;;
+#;;GogglesLink;Goggles Link;;goggles;;;
+#;;GuidesLink;Guides Link;;guides;;;
+#;;HelmetLink;Helmet Link;;helmet;;;
+#;;HomepageNavLink;Home Page Nav Link;/;;;;
+#;;OthersLink;Others Link;;others;;;
+#;;PlayboardShirtsLink;Playboard Shirts Link;/Brands/Playboard/c/Playboard?q=:relevance:category:shirts;;;;
+#;;QuiksilverSunglassesLink;Quiksilver Sunglasses Link;/Brands/Quiksilver/c/Quiksilver?q=:relevance:category:sunglasses;;;;
+#;;RoxySunglassesLink;Roxy Sunglasses Link;/Brands/Roxy/c/Roxy?q=:relevance:category:sunglasses;;;;
+#;;ShirtsLink;Shirts Link;;shirts;;;
+#;;ShoesLink;Shoes Link;;shoes;;;
+#;;SkiGearLink;Ski Gear Link;;skigear;;;
+#;;SnowwearMensLink;Snowwear Men Link;;190000;;;
+#;;SnowwearWomensLink;Snowwear Women Link;;"200000	";;;
+#;;SnowwearYouthLink;Snowwear Youth Link;;330000;;;
+#;;SpecialOffersLink;Special Offers Link;/Open-Catalogue/c/categories?q=:relevance:allPromotions:BOGOFApparel:allPromotions:10DiscountShoes:allPromotions:MultiBuyApparel:allPromotions:PerfectPartnerApparel:allPromotions:ProductBundleApparel;;;;
+#;;StreetwearMenLink;Streetwear Men Link;;250000;;;
+#;;StreetwearMenTShirtsAlienWorkshopLink;Streetwear Men T-Shirts Alien Workshop Link;;250100;;;
+#;;StreetwearWomenLink;Streetwear Women Link;;260000;;;
+#;;StreetwearYouthLink;Streetwear Youth Link;;270000;;;
+#;;SunglassesLink;Sunglasses Link;;sunglasses;;;
+#;;SurfLink;Surf Link;;surf;;;
+#;;VansShoesLink;Vans Shoes Link;/Brands/Vans/c/Vans?q=:relevance:category:shoes;;;;
+#;;VonZipperSunglassesLink;Von Zipper Sunglasses Link;/Brands/Von-Zipper/c/Von%20Zipper?q=:relevance:category:sunglasses;;;;
+#;;SandalsLink;Sandals Link;;sandals;;; 
+#;;BrowseAllSandalsLink;Browse Sandals Link;;sandals;;;
+#;;SandalsReefLink;Sandals Reef Link;/Collections/Surf/Sandals/c/sandals?q=:relevance:brand:Reef;;;;
+#;;SandalsRoxyLink;Sandals Roxy Link;/Collections/Surf/Sandals/c/sandals?q=:relevance:brand:Roxy;;;;
+#;;SandalsVolcomLink;Sandals Volcom Link;/Collections/Surf/Sandals/c/sandals?q=:relevance:brand:Volcom;;;;
+#;;ShadesBrowseAllLink;Shades Link;;210100;;; 
+#;;ShadesAnonLink;Shades Anon Link;/Collections/Surf/Shades/c/210100?q=:relevance:brand:Anon;;;; 
+#;;ShadesFoxLink;Shades Fox Link;/Collections/Surf/Shades/c/210100?q=:relevance:brand:Fox;;;; 
+#;;ShadesRoxyLink;Shades Roxy Link;/Collections/Surf/Shades/c/210100?q=:relevance:brand:Roxy;;;; 
+#;;ShadesQuiksilverLink;Shades Quiksilver Link;/Collections/Surf/Shades/c/210100?q=:relevance:brand:Quiksilver;;;; 
+#;;ShadesVonZipperLink;Shades VonZipper Link;/Collections/Surf/Shades/c/210100?q=:relevance:brand:Von+Zipper;;;; 
+#;;BoardsBrowseAllLink;Browse all Boards Link;;boards;;;
+#;;BoardsAlMerrickLink;Boards Al Merrick Link;Collections/Surf/Boards/c/boards?q=:relevance:brand:Al+Merrick;;;; 
+#;;BoardsSkimOneLink;Boards SkimOne Link;/Collections/Surf/Boards/c/boards?q=:relevance:brand:Skim+One;;;; 
+#;;BoardsSouthpointLink;Boards Southpoint Link;/Collections/Surf/Boards/c/boards?q=:relevance:brand:Southpoint;;;; 
+#;;BoardsSurftechLink;Boards Surftech Link;/Collections/Surf/Boards/c/boards?q=:relevance:brand:Surftech;;;; 
+#;;TShirtsLink;T-Shirts Link;;tshirts;;;
+#;;TShirtsBrowseAllLink;Browse T-Shirts Link;;tshirts;;;
+#;;TShirtsAlienWorkshopLink;T-Shirts Alien Workshop Link;/Collections/Surf/T-Shirts/c/tshirts?q=:relevance:brand:Alien+Workshop;;;; 
+#;;TShirtsBillabongLink;T-Shirts Billabong Link;/Collections/Surf/T-Shirts/c/tshirts?q=:relevance:brand:Billabong;;;; 
+#;;TShirtsBurtonLink;T-Shirts Burton Link;/Collections/Surf/T-Shirts/c/tshirts?q=:relevance:brand:Burton;;;; 
+#;;TShirtsBlueTomatoLink;T-Shirts Blue Tomato Link;/Collections/Surf/T-Shirts/c/tshirts?q=:relevance:brand:Blue+Tomato;;;; 
+#;;TShirtsCarharttLink;T-Shirts Carhartt Link;/Collections/Surf/T-Shirts/c/tshirts?q=:relevance:brand:Carhartt;;;; 
+#;;TShirtsDCLink;T-Shirts DC Link;/Collections/Surf/T-Shirts/c/tshirts?q=:relevance:brand:DC;;;; 
+#;;TShirtsElementLink;T-Shirts Element Link;/Collections/Surf/T-Shirts/c/tshirts?q=:relevance:brand:Element;;;; 
+#;;TShirtsHorsefeathersLink;T-Shirts Horsefeathers Link;/Collections/Surf/T-Shirts/c/tshirts?q=:relevance:brand:Horsefeathers;;;;   
+#;;TShirtsQuiksilverLink;T-Shirts Quiksilver Link;/Collections/Surf/T-Shirts/c/tshirts?q=:relevance:brand:Quiksilver;;;;
+#;;TShirtsRoxyLink;T-Shirts Roxy Link;/Collections/Surf/T-Shirts/c/tshirts?q=:relevance:brand:Roxy;;;;
+#;;TShirtsVolcomLink;T-Shirts Volcom Link;/Collections/Surf/T-Shirts/c/tshirts?q=:relevance:brand:Volcom;;;; 
+#;;TShirtsZimtsternLink;T-Shirts Zimtstern Link;/Collections/Surf/T-Shirts/c/tshirts?q=:relevance:brand:Zimtstern;;;
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;CompareProductsResultsComponent;Compare Products Results Component;compareProductsResultsComponent.jsp;;CompareProductsResultsComponent
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;BodyContent-compareProducts;Compare Products Results;true;CompareProductsResultsComponent;;;
+
+# ContentSlotForPage
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='compareProductsPage'];contentSlot(uid,$contentCV)[unique=true];;;
+;;BodyContent-compareProducts;BodyContent;;BodyContent-compareProducts;;;
+
+  #start changes for header category navigation
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(uid, $contentCV)
+;;TopHeaderSlot;GPHeaderNavigationComponent
+
+INSERT_UPDATE CMSNavigationNode;$contentCV[unique=true];uid[unique=true];title[lang=$lang];name;parent(uid, $contentCV);parentPos
+;;GPHeaderNavigationNode;Main Header Nav Node;Main Header Nav Node;SiteRootNode;;
+;;GPCheckoutNavNode;Checkout Nav Node;Checkout Nav Node;GPHeaderNavigationNode;;
+;;GPFindStoreNavNode;Find Store Nav Node;Find Store Nav Node;GPHeaderNavigationNode;;
+;;GPLoginMenuNavNode;Login Nav Node;Login Nav Node;GPHeaderNavigationNode;;
+;;GPLogoutMenuNavNode;Logout Nav Node;Logout Nav Node;GPHeaderNavigationNode;;
+;;GPCategoryNavigationNode;Category Navigation Node;Category Navigation Node;GPHeaderNavigationNode;;
+;;PaperProductsNavNode;Paper Products;Paper Products;GPCategoryNavigationNode;0
+;;PaperProductOverviewNavNode;Paper Products Overview;Paper Products Overview;PaperProductsNavNode;;
+;;ToiletPaperNavNode;Toilet Paper;Toilet Paper;PaperProductOverviewNavNode;;
+;;PaperTowelNavNode;Paper Towel;Paper Towel;PaperProductOverviewNavNode;;
+;;PlatesNavNode;Plates;Plates;PaperProductOverviewNavNode;;
+;;BowelsNavNode;Bowls;Bowls;PaperProductOverviewNavNode;;
+;;CupsNavNode;Cups;Cups;PaperProductOverviewNavNode;;
+;;NapkinsNavNode;Napkins;Napkins;PaperProductOverviewNavNode;;
+;;DispensersNavNode;Dispensers;Dispensers;GPCategoryNavigationNode;1
+;;DispensersOverviewNavNode;Dispensers Overview;Dispensers Overview;DispensersNavNode;;
+;;UnderCounterNavNode;Undercabinet;Undercabinet;DispensersOverviewNavNode;;
+;;CounterTopNavNode;Countertop;Countertop;DispensersOverviewNavNode;;
+;;BundlesNavNode;Bundles;Bundles;GPCategoryNavigationNode;3
+;;SuppliesNavNode;Cleaning Supplies;Cleaning Supplies;GPCategoryNavigationNode;2
+;;SuppliesOverviewNavNode;Cleaning Supplies Overview;Cleaning Supplies Overview;SuppliesNavNode;;
+;;CarpetCareNavNode;Carpet Care;Carpet Care;SuppliesOverviewNavNode;;
+;;FloorCareNavNode;Floor Care;Floor Care;SuppliesOverviewNavNode;;
+;;KitchenCareNavNode;Kitchen Care;Kitchen Care;SuppliesOverviewNavNode;;
+
+INSERT_UPDATE GPHeaderNavigationComponent;$contentCV[unique=true];uid[unique=true];name;styleClass;navigationNode(uid,$contentCV)[unique=true];wrapAfter;includeMiniCart;includeSearchBox;brandLogo;checkoutMenu(uid,$contentCV);findStoreMenu(uid,$contentCV);loginMenu(uid,$contentCV);logoutMenu(uid,$contentCV);categoryNavigationMenu(uid,$contentCV);accountNavigationMenu(uid,$contentCV);showFindAStore;showLoginRegister;promoTxt;promoUrl
+;;GPHeaderNavigationComponent;GP Header Navigation Component;;GPHeaderNavigationNode;10;true;true;images/brands/gpEmployee-header.svg;GPCheckoutNavNode;GPFindStoreNavNode;GPLoginMenuNavNode;GPLogoutMenuNavNode;GPCategoryNavigationNode;GPNavigationNavNode;false;false;FREE GROUND SHIPPING ON ALL ORDERS;
+
+INSERT_UPDATE ComponentTypeGroups2ComponentType;source(code)[unique=true];target(code)[unique=true]
+;wide;GPHeaderNavigationComponent
+;narrow;GPHeaderNavigationComponent 
+;narrow;GPLiveChatComponent
+;wide;GPLiveChatComponent 
+
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];linkName[lang=$lang];url;styleAttributes;target(code)[default='sameWindow'];external[default=false];socialLink[default=false];markAsViewAll[default=false]
+;;HelpLink;Help;/faq;;newWindow;;
+;;FindStoreLink;Find a Store;/find/locatestore;;;;
+;;LoginLink;Login;/login;;;;
+;;LogoutLink;Logout;/logout;;;;
+#;;CreateAccountLink;Create Account;/register;;;;
+;;PaperProductsNavLink;Paper Products;/category/paperproducts;;;;
+;;ToiletPaperNavLink;Toilet Paper;/category/311;;;;
+;;PaperTowelNavLink;Paper Towel;/category/316;;;;
+;;PlatesNavLink;Plates;/category/314;;;;
+;;BowelsNavLink;Bowls;/category/313;;;;
+;;CupsNavLink;Cups;/category/315;;;;
+;;NapkinsNavLink;Napkins;/category/312;;;;
+;;DispensersNavLink;Dispensers;/category/dispensers;;;;
+;;UnderCounterNavLink;Undercabinet;/category/317;;;;
+;;CounterTopNavLink;Counter Top;/category/318;;;;
+;;GpSustainabilityLink;GP Sustainability;#;;newWindow;true;
+;;PrivacyLink;Privacy Notice;#;;newWindow;true;
+;;SiteTermUseLink;Site Terms of use;#;;newWindow;true;
+;;CAPrivacyFooterLink;CA Privacy Rights;#;;newWindow;true;
+;;EmployeeStoreLink;Employee Store;#;;newWindow;true;
+;;MyAccountLink;My Store;/my-account/profile;;newWindow;false;
+;;WishlistLink;Wishlist;/my-account/listdetails;;newWindow;false;
+;;BundlesLink;Bundles;#;;newWindow;true;
+;;CleaningSuppliesLink;Cleaning;#;;newWindow;true;
+;;DispenserLink;Dispenser;#;;newWindow;true;
+;;PaperProductLink;Paper Product;#;;newWindow;true;
+;;ClearanceLink;Clearance;#;;newWindow;true;
+;;CounterTopNavLink;Countertop;/category/318;;;;
+;;BundlesNavLink;Bundles;/category/bundles;;;;
+;;CleaningSuppliesNavLink;Cleaning Supplies;/category/cleaningsupply;;;;
+;;CarpetCareNavLink;Carpet Care;/category/319;;;;
+;;FloorCareNavLink;Floor Care;/category/320;;;;
+;;KitchenCareNavLink;Kitchen Care;/category/321;;;;
+
+INSERT_UPDATE CMSNavigationEntry;$contentCV[unique=true];uid[unique=true];name;navigationNode(uid,$contentCV);item(CMSLinkComponent.uid,CMSLinkComponent.$contentCV);
+;;CheckoutHelpNavNodeEntry;Checkout Help Nav Node Entry;GPCheckoutNavNode;HelpLink;
+;;FindStoreNavNodeEntry;Find Store Nav Node Entry;GPFindStoreNavNode;FindStoreLink;
+;;LoginNavNodeEntry;Login Nav Node Entry;GPLoginMenuNavNode;LoginLink;
+;;LogoutNavNodeEntry;Logout Nav Node Entry;GPLogoutMenuNavNode;LogoutLink;
+;;LogoutHelpNavNodeEntry;Logout Help Nav Node Entry;GPLogoutMenuNavNode;HelpLink;
+#;;CreateAccountNodeEntry;Create Account Nav Node Entry;GPLoginMenuNavNode;CreateAccountLink;
+;;HelpNavNodeEntry;Help Nav Node Entry;GPLoginMenuNavNode;HelpLink;
+;;PaperProductsNavNodeEntry;Paper Products Nav Node Entry;PaperProductsNavNode;PaperProductsNavLink;
+;;ToiletPaperNavNodeEntry;Toilet Paper Nav Node Entry;ToiletPaperNavNode;ToiletPaperNavLink;
+;;PaperTowelNavNodeEntry;Paper Towel Nav Node Entry;PaperTowelNavNode;PaperTowelNavLink;
+;;PlatesNavNodeEntry;Plates Nav Node Entry;PlatesNavNode;PlatesNavLink;
+;;BowelsNavNodeEntry;Bowls Nav Node Entry;BowelsNavNode;BowelsNavLink;
+;;CupsNavNodeEntry;Cups Nav Node Entry;CupsNavNode;CupsNavLink;
+;;NapkinsNavNodeEntry;Napkins Nav Node Entry;NapkinsNavNode;NapkinsNavLink;
+;;DispensersNavNodeEntry;Dispensers Nav Node Entry;DispensersNavNode;DispensersNavLink;
+;;UnderCounterNavNodeEntry;Undercabinet Nav Node Entry;UnderCounterNavNode;UnderCounterNavLink;
+;;CounterTopNavNodeEntry;Countertop Nav Node Entry;CounterTopNavNode;CounterTopNavLink;
+;;BundlesNavNodeEntry;Bundles Nav Node Entry;BundlesNavNode;BundlesNavLink;
+;;SuppliesNavNodeEntry;Cleaning Supplies Nav Node Entry;SuppliesNavNode;CleaningSuppliesNavLink;
+;;CarpetCareNavNodeEntry;Carpet Care Node Entry;CarpetCareNavNode;CarpetCareNavLink;
+;;FloorCareNavNodeEntry;Floor Care Node Entry;FloorCareNavNode;FloorCareNavLink;
+;;KitchenCareNavNodeEntry;Kitchen Care Node Entry;KitchenCareNavNode;KitchenCareNavLink;
+
+ #end changes for header category navigation
+
+#### Register Page Start ####
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;RegisterJSPIncludeComponent;Register JSP page;register.jsp;;RegisterJSPIncludeComponent
+
+### Customer Register 
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;LeftContentSlot-REGISTER;Left content Slot for REGISTER Page;true;RegisterJSPIncludeComponent;;;
+
+# ContentSlotForPage 
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='registerPage'];contentSlot(uid,$contentCV)[unique=true];;;
+;;LeftContentSlot-REGISTER;LeftContentSlot;;LeftContentSlot-REGISTER;;;
+
+#### Register Page END ####
+
+# Responsive Banner and Empty cart Component  #
+
+## Components for cart ##
+INSERT_UPDATE GPBannerComponent;$contentCV[unique=true];uid[unique=true];name;urlLink;&componentRef
+;;GPCartBannerComponent;GP Cart Banner Component;/;GPCartBannerComponent
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;BannerMiddleContentSlot;Banner Middle Content Slot for Cart Page;true;GPCartBannerComponent
+
+INSERT_UPDATE GPRotatingImagesComponent;$contentCV[unique=true];uid[unique=true];cmsComponents(uid,$contentCV)
+;;GPEmptyCartComponent;GPEmptyCartShopping;GPEmptyCartComponent
+
+INSERT_UPDATE GPImageComponent;$contentCV[unique=true];uid[unique=true];headingText;ctaText;ctaBgColor;ctaColor;subHeadingText;showTextFullWidth;subHeadBgColor
+;;GPEmptyCartShopping;Your shopping cart is empty;CONTINUE SHOPPING;#0074E4;#FFFFFF;Provide messing around product promotions or coupon deals;true;#353333
+
+## Cart Page Start ##
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='cartPage'];contentSlot(uid,$contentCV)[unique=true]
+;;BannerMiddleContentSlotForCartPage;BannerMiddleContent;;BannerMiddleContentSlot
+
+
+########## Continue Shopping Link ###########
+# Content Slot Name
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='CartPageTemplate'];validComponentTypes(code);compTypeGroup(code)
+;GPShoppingLinkSlot;;;
+
+# Cart Page Template
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='CartPageTemplate'];contentSlot(uid,$contentCV)[unique=true];
+;;GPShoppingLinkSlot-CartPage;GPShoppingLinkSlot;;GPShoppingLinkSlot-CartPage;
+
+# GPCMSLinkComponent 
+INSERT_UPDATE GPCMSLinkComponent;$contentCV[unique=true];uid[unique=true];name;url;&componentRef;;;;
+;;GPShoppingLinkSlotComponents;Continue Shopping;www.google.com;GPShoppingLinkSlotComponents;;;;
+
+# Create ContentSlots
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;GPShoppingLinkSlot-CartPage;Cart Continue Shopping Link for Cart Page;true;GPShoppingLinkSlotComponents
+
+#### Cart Page End ####
+
+#### Store Locator Start ####
+
+INSERT_UPDATE PageTemplate;$contentCV[unique=true];uid[unique=true];name;frontendTemplateName;restrictedPageTypes(code);active[default=true]
+;;StoreLocatorPageTemplate;Store Locator Page Template;storeLocator/GPStoreLocatorPage;ContentPage
+
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='StoreLocatorPageTemplate'];validComponentTypes(code);compTypeGroup(code)
+;StoreLocatorSlot;;;wide
+;SiteLogo;;;logo
+;HeaderLinks;;;headerlinks
+;MiniCart;;;minicart
+;NavigationBar;;;navigation
+;Footer;;;footer
+;TopHeaderSlot;;;wide
+;BottomHeaderSlot;;;wide
+;PlaceholderContentSlot;;;
+
+
+INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);label;defaultPage[default='true'];approvalStatus(code)[default='approved'];homepage[default='false']
+;;storeLocator;Store Locator Page;StoreLocatorPageTemplate;/find/locatestore; 
+
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;storeLocatorJspIncludeComponent;Store Locator page;GPStoreLocator.jsp;;storeLocatorJspIncludeComponent
+
+# ContentSlot 
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;StoreLocatorSlot-findstore;Store Locator Slot for find a store;true;storeLocatorJspIncludeComponent;;;
+ 
+# ContentSlotForPage 
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='storeLocator'];contentSlot(uid,$contentCV)[unique=true];;;
+;;StoreLocatorSlot-findstore;StoreLocatorSlot;;StoreLocatorSlot-findstore;;;
+
+
+#### Store Locator End ####
+
+#### ComponentTypeGroups2ComponentType Start ###
+
+INSERT_UPDATE ComponentTypeGroups2ComponentType;source(code)[unique=true];target(code)[unique=true]
+;wide;GPTipsAndKnowledgeInfoComponent
+;narrow;GPTipsAndKnowledgeInfoComponent
+
+#### ComponentTypeGroups2ComponentType End ###
+
+#### Redirect Page Start ####
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;RedirectJSPIncludeComponent;Redirect JSP page;redirect.jsp;;RedirectJSPIncludeComponent
+
+### Customer Redirect 
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;CenterContentSlot-REDIRECT;Center content Slot for REDIRECT Page;true;RedirectJSPIncludeComponent;;;
+
+# ContentSlotForPage 
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='redirectPage'];contentSlot(uid,$contentCV)[unique=true];;;
+;;CenterContentSlot-REDIRECT;CenterContentSlot;;CenterContentSlot-REDIRECT;;;
+#### Redirect Page END ####
+
+# ContentSlotForPage 
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='storeLocator'];contentSlot(uid,$contentCV)[unique=true];;;
+;;StoreLocatorSlot-findstore;StoreLocatorSlot;;StoreLocatorSlot-findstore;;;
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV;uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='StoreLocatorPageTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;TopHeaderSlot-StoreLocatorPage;TopHeaderSlot;;TopHeaderSlot;true
+;;Footer-StoreLocatorPage;Footer;;FooterSlot;true
+
+#### Store Locator End ####    
+
+
+##### Profile page changes Start #####
+
+INSERT_UPDATE JspIncludeComponent ; $contentCV[unique=true] ; uid[unique=true]                 ; name                ; page              ; actions(uid,$contentCV) ; &componentRef                   
+                                  ;                         ; gpProfileJspIncludeComponent     ; GP Profile page     ; GPProfile.jsp     ;                         ; gpProfileJspIncludeComponent    
+                                  ;                         ; gpAddressesJspIncludeComponent   ; GP Addresses page   ; GPAddresses.jsp   ;                         ; gpAddressesJspIncludeComponent  
+                                  ;                         ; gpPaymentJspIncludeComponent     ; GP Payment page     ; GPPayment.jsp     ;                         ; gpPaymentJspIncludeComponent    
+                                  ;                         ; gpListsJspIncludeComponent       ; GP Lists page       ; GPLists.jsp       ;                         ; gpListsJspIncludeComponent      
+                                  ;                         ; gpListdetailsJspIncludeComponent ; GP Listdetails page ; GPListdetails.jsp ;                         ; gpListdetailsJspIncludeComponent
+
+
+# ContentSlot                     
+INSERT_UPDATE ContentSlot ; $contentCV[unique=true] ; uid[unique=true]               ; name                       ; active ; cmsComponents(&componentRef)     ;  ;  ;  
+                          ;                         ; GPProfileSlot-units            ; GP Profile slot            ; true   ; gpProfileJspIncludeComponent     ;  ;  ;  
+                          ;                         ; Section1Slot-gpprofilepage     ; Section1Slot GP Units slot ; true   ; GPNavigationComponent            ;  ;  ;  
+
+                          ;                         ; GPAddressesSlot-units          ; GP Addresses slot          ; true   ; gpAddressesJspIncludeComponent   ;  ;  ;  
+                          ;                         ; Section1Slot-gpaddressespage   ; Section1Slot GP Units slot ; true   ; GPNavigationComponent            ;  ;  ;  
+
+                          ;                         ; GPPaymentSlot-units            ; GP Payment slot            ; true   ; gpPaymentJspIncludeComponent     ;  ;  ;  
+                          ;                         ; Section1Slot-gppaymentpage     ; Section1Slot GP Units slot ; true   ; GPNavigationComponent            
+
+                          ;                         ; GPListsSlot-units              ; GP Lists slot              ; true   ; gpListsJspIncludeComponent       ;  ;  ;  
+                          ;                         ; Section1Slot-gplistspage       ; Section1Slot GP Units slot ; true   ; GPNavigationComponent            
+
+                          ;                         ; GPListdetailsSlot-units        ; GP Listdetails slot        ; true   ; gpListdetailsJspIncludeComponent ;  ;  ;  
+                          ;                         ; Section1Slot-gplistdetailspage ; Section1Slot GP Units slot ; true   ; GPNavigationComponent            
+
+
+
+
+INSERT_UPDATE ContentSlotForPage ; $contentCV[unique=true] ; uid[unique=true]              ; position[unique=true] ; page(uid,$contentCV)[unique=true][default='gpprofilepage'] ; contentSlot(uid,$contentCV)[unique=true] ;  ;  ;  
+                                 ;                         ; PageContentSlot-gpprofilepage ; GPProfileSlot         ;                                                            ; GPProfileSlot-units                      ;  ;  ;  
+                                 ;                         ; Section1-gpprofilepage        ; Section1              ;                                                            ; Section1Slot-gpprofilepage               ;  ;  ;  
+
+INSERT_UPDATE ContentSlotForPage ; $contentCV[unique=true] ; uid[unique=true]                ; position[unique=true] ; page(uid,$contentCV)[unique=true][default='gpaddressespage'] ; contentSlot(uid,$contentCV)[unique=true] ;  ;  ;  
+                                 ;                         ; PageContentSlot-gpaddressespage ; GPAddressesSlot       ;                                                              ; GPAddressesSlot-units                    ;  ;  ;  
+                                 ;                         ; Section1-gpaddressespage        ; Section1              ;                                                              ; Section1Slot-gpaddressespage             ;  ;  ;  
+
+INSERT_UPDATE ContentSlotForPage ; $contentCV[unique=true] ; uid[unique=true]              ; position[unique=true] ; page(uid,$contentCV)[unique=true][default='gppaymentpage'] ; contentSlot(uid,$contentCV)[unique=true] ;  ;  ;  
+                                 ;                         ; PageContentSlot-gppaymentpage ; GPPaymentSlot         ;                                                            ; GPPaymentSlot-units                      ;  ;  ;  
+                                 ;                         ; Section1-gppaymentpage        ; Section1              ;                                                            ; Section1Slot-gppaymentpage               ;  ;  ;  
+
+INSERT_UPDATE ContentSlotForPage ; $contentCV[unique=true] ; uid[unique=true]            ; position[unique=true] ; page(uid,$contentCV)[unique=true][default='gplistspage'] ; contentSlot(uid,$contentCV)[unique=true] ;  ;  ;  
+                                 ;                         ; PageContentSlot-gplistspage ; GPListsSlot           ;                                                          ; GPListsSlot-units                        ;  ;  ;  
+                                 ;                         ; Section1-gplistspage        ; Section1              ;                                                          ; Section1Slot-gplistspage                 ;  ;  ;  
+
+INSERT_UPDATE ContentSlotForPage ; $contentCV[unique=true] ; uid[unique=true]                  ; position[unique=true] ; page(uid,$contentCV)[unique=true][default='gplistdetailspage'] ; contentSlot(uid,$contentCV)[unique=true] ;  ;  ;  
+                                 ;                         ; PageContentSlot-gplistdetailspage ; GPListdetailsSlot     ;                                                                ; GPListdetailsSlot-units                  ;  ;  ;  
+                                 ;                         ; Section1-gplistdetailspage        ; Section1              ;                                                                ; Section1Slot-gplistdetailspage           ;  ;  ;  
+
+
+###### LEFT NAV CHANGES
+
+INSERT_UPDATE CMSNavigationNode ; uid[unique=true]    ; $contentCV[unique=true] ; name             ; parent(uid, $contentCV) ; links(&linkRef) ; &nodeRef           
+                                ; GPNavigationNavNode ;                         ; Navigation Pages ; GPHeaderNavigationNode       ;                 ; GPNavigationNavNode
+
+## Left slot: GP NavigationComponent
+INSERT_UPDATE GPNavigationComponent ; $contentCV[unique=true] ; uid[unique=true]      ; &componentRef         ; navigationNode(&nodeRef);
+                                    ;                         ; GPNavigationComponent ; GPNavigationComponent ; GPNavigationNavNode     ;  
+
+## GP Left Nav Start ##             
+INSERT_UPDATE CMSNavigationNode ; uid[unique=true]     ; $contentCV[unique=true] ; name          ; parent(uid, $contentCV) ; links(&linkRef) ; &nodeRef             ; parentPos
+                                ; GPYourAccountNavNode ;                         ; Account Pages ; GPNavigationNavNode     ;                 ; GPYourAccountNavNode ; 0        
+
+## Children of GP NavNode ##    
+INSERT_UPDATE CMSNavigationNode ; uid[unique=true]     ; $contentCV[unique=true] ; name                       ; parent(uid, $contentCV) ; links(&linkRef) ; &nodeRef             ; parentPos ; visible
+                                ; GPProfilePrefNavNode ;                         ; Profile & Preference Pages ; GPYourAccountNavNode    ;                 ; GPProfilePrefNavNode ; 0         ; true   
+                                ; GPAddressNavNode     ;                         ; Address Pages              ; GPYourAccountNavNode    ;                 ; GPAddressNavNode     ; 1         ; true   
+                                ; GPPaymentNavNode     ;                         ; Payment Method Pages       ; GPYourAccountNavNode    ;                 ; GPPaymentNavNode     ; 2         ; true  
+                                ; GPFavoritesNavNode   ;		                 ; Favorites Page             ; GPYourAccountNavNode    ;                 ; GPFavoritesNavNode   ; 3         ; true
+                                ; GPOrderNavNode	   ;						 ; Order History Pages		  ; GPYourAccountNavNode	;				  ; GPOrderNavNode		 ; 4         ; true
+
+# entries of the above navigation nodes
+INSERT_UPDATE CMSNavigationEntry ; uid[unique=true]          ; $contentCV[unique=true] ; name                                       ; navigationNode(&nodeRef) ; item(CMSLinkComponent.uid,CMSLinkComponent.$contentCV) ;  
+                                 ; GPProfilePrefNavNodeEntry ;                         ; Profile & Preference Navigation Node Entry ; GPProfilePrefNavNode     ; ProfilePreferencesLink                                 ;  
+                                 ; GPAddressNavNodeEntry     ;                         ; Addresses Node Entry                       ; GPAddressNavNode         ; AddressesLink                                          ;  
+                                 ; GPPaymentNavNodeEntry     ;                         ; Payment Node Entry                         ; GPPaymentNavNode         ; PaymentsLink                                           ;  
+                                 ; GPFavoritesNavNodeEntry   ;                         ; Favorites Node Entry                       ; GPFavoritesNavNode       ; FavoritesLink                                          ;
+                                 ; GPOrderNavNodeEntry		 ;									; Orders Navigation Node Entry		; GPOrderNavNode		   ; OrderHistoryLink										;
+
+INSERT_UPDATE CMSLinkComponent ; $contentCV[unique=true] ; uid[unique=true]       ; name                       ; url                       						; target(code)[default='sameWindow'] ;  
+                               ;                         ; ProfilePreferencesLink ; Profile & Preference  Link ; /my-account/profile       						;                                    ;  
+                               ;                         ; AddressesLink          ; Addresses Link             ; /my-account/addresses      					;                                    ;  
+                               ;                         ; PaymentsLink           ; Payments Link              ; /my-account/paymentdetails 					;                                    ;  
+                               ;                         ; FavoritesLink          ; Favorites Link             ; /my-account/listdetails?listName=favorites 	;                                    ;  
+
+INSERT_UPDATE ComponentTypeGroups2ComponentType ; source(code)[unique=true] ; target(code)[unique=true]
+                                                ; narrow                    ; GPNavigationComponent   
+                                                ; wide                      ; GPNavigationComponent    
+
+#### Profile page changes End ####
+
+
+### Sample Home Page####
+
+INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);label;defaultPage[default='true'];approvalStatus(code)[default='approved'];homepage[default='false']
+;;gpHomePage;view site page-gp2;LandingPage2Template ;gpHomePage
+
+								   
+INSERT_UPDATE Media;mediaFormat(qualifier);code[unique=true];@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];realfilename;altText;mime[default='image/jpeg'];$contentCV[unique=true];folder(qualifier)[default=images];
+;desktop;gpbanner1;$siteResource/images/gpimage/Gpemp_Hero_1.png;Gpemp_Hero_1.png;"Hero Carousel 1";
+;desktop;gpbanner2;$siteResource/images/gpimage/Gpemp_Hero_1.png;Gpemp_Hero_2.png;"Hero Carousel 2";
+;desktop;gpbanner3;$siteResource/images/gpimage/Gpemp_Hero_1.png;Gpemp_Hero_3.png;"Hero Carousel 3";
+;desktop;gpbanner4;$siteResource/images/gpimage/Hero_4.jpg;Hero_4.jpg;"Hero_4.jpg";
+;desktop;gpbanner5;$siteResource/images/gpimage/Home-GP-PRO.jpg;Home-GP-PRO.jpg;"Home-GP-PRO.jpg";
+;desktop;gpbanner6;$siteResource/images/gpimage/Home-GP-PRO6.jpg;Home-GP-PRO6.jpg;"Home-GP-PRO6.jpg";
+;desktop;brandbar1;$siteResource/images/gpimage/brandbar1.png;brandbar1.png;"brandbar1.png";
+;desktop;brandbar2;$siteResource/images/gpimage/brandbar2.png;brandbar2.png;"brandbar2.png";
+;desktop;brandbar3;$siteResource/images/gpimage/brandbar3.png;brandbar3.png;"brandbar3.png";
+;desktop;brandbar4;$siteResource/images/gpimage/brandbar4.png;brandbar4.png;"brandbar4.png";
+;desktop;brandbar5;$siteResource/images/gpimage/brandbar5.png;brandbar5.png;"brandbar5.png";
+;desktop;textwithimage;$siteResource/images/gpimage/Text_with_Image.jpg;Text_with_Image.jpg;"Text_with_Image.jpg";
+
+;desktop;gpbanner5-desk;$siteResource/images/gpimage/PromoBanner-desktop.png;PromoBanner-desktop.png;"Banner";
+;tablet;gpbanner5-tab;$siteResource/images/gpimage/PromoBanner-tablet.png;PromoBanner-tablet.png;"Banner Image";
+;mobile;gpbanner5-mob;$siteResource/images/gpimage/PromoBanner-mob.png;PromoBanner-mob.png;"Banner Image";
+ 
+;desktop;gpbundle-desk;$siteResource/images/gpimage/bundles-desktop.png;bundles-desktop.png;"Bundle Image";
+;tablet;gpbundle-tab;$siteResource/images/gpimage/bundles-tablet.png;bundles-tablet.png;"Bundle Image";
+;mobile;gpbundle-mob;$siteResource/images/gpimage/bundles-mobile.png;bundles-mobile.png;"Bundle Image";
+
+;desktop;gpbundle-desk2;$siteResource/images/gpimage/bundles-desktop.png;bundles-desktop.png;"Bundle Image";
+;tablet;gpbundle-tab2;$siteResource/images/gpimage/bundles-tablet.png;bundles-tablet.png;"Bundle Image";
+;mobile;gpbundle-mob2;$siteResource/images/gpimage/bundles-mobile.png;bundles-mobile.png;"Bundle Image";
+
+;desktop;gpbundle-desk3;$siteResource/images/gpimage/bundles-desktop.png;bundles-desktop3.png;"Bundle Image";
+;tablet;gpbundle-tab3;$siteResource/images/gpimage/bundles-tablet.png;bundles-tablet3.png;"Bundle Image";
+;mobile;gpbundle-mob3;$siteResource/images/gpimage/bundles-mobile.png;bundles-mobile3.png;"Bundle Image";
+ 
+;desktop;gpbundle-desk4;$siteResource/images/gpimage/bundles-desktop2.png;bundles-desktop2.png;"Bundle Image";
+;tablet;gpbundle-tab4;$siteResource/images/gpimage/bundles-tablet2.png;bundles-tablet2.png;"Bundle Image";
+;mobile;gpbundle-mob4;$siteResource/images/gpimage/bundles-mobile2.png;bundles-mobile2.png;"Bundle Image";
+
+;desktop;gpbundle-desk5;$siteResource/images/gpimage/bundles-desktop.png;bundles-desktop.png;"Bundle Image";
+;tablet;gpbundle-tab5;$siteResource/images/gpimage/bundles-tablet.png;bundles-tablet.png;"Bundle Image";
+;mobile;gpbundle-mob5;$siteResource/images/gpimage/bundles-mobile.png;bundles-mobile.png;"Bundle Image";
+ 
+;desktop;gpbundle-desk6;$siteResource/images/gpimage/bundles-desktop3.png;bundles-desktop3.png;"Bundle Image";
+;tablet;gpbundle-tab6;$siteResource/images/gpimage/bundles-tablet3.png;bundles-tablet3.png;"Bundle Image";
+;mobile;gpbundle-mob6;$siteResource/images/gpimage/bundles-mobile3.png;bundles-mobile3.png;"Bundle Image";
+  
+INSERT_UPDATE MediaContainer;qualifier[unique=true];$medias;$contentCV[unique=true]
+;hero_banner_1;gpbanner1
+;hero_banner_2;gpbanner2
+;hero_banner_3;gpbanner3
+;hero_banner_4;gpbanner4
+;gpimage1;gpbanner5
+;gpimage2;gpbanner6
+;gpimage3;textwithimage
+;emp_homepage_gpbanner;gpbanner5-tab,gpbanner5-desk,gpbanner5-mob
+;emp_homepage_gpbundle1;gpbundle-tab,gpbundle-desk,gpbundle-mob
+;emp_homepage_gpbundle2;gpbundle-tab2,gpbundle-desk2,gpbundle-mob2
+;emp_homepage_gpbundle3;gpbundle-tab3,gpbundle-desk3,gpbundle-mob3
+;emp_homepage_gpbundle4;gpbundle-tab4,gpbundle-desk4,gpbundle-mob4
+;emp_homepage_gpbundle5;gpbundle-tab5,gpbundle-desk5,gpbundle-mob5
+;emp_homepage_gpbundle6;gpbundle-tab6,gpbundle-desk6,gpbundle-mob6
+
+								   
+INSERT_UPDATE GPBannerComponent;$contentCV[unique=true];uid[unique=true];name;$mediaContainer;backgroundColor;headline;content;contentColor;ctaText;&componentRef;urlLink
+;;gpBannerComponent;gpBannerComponent;gpimage3;#3498DB;"Restroom";"Total restroom solutions for commercial facilities providing the best experience for those who use the restroom and those who manage them";#808080; Learn More;gpBannerComponent;www.google.com
+;;gpBannerComponent1;gpBannerComponent1;gpimage1;#3498DB;"Restroom";"Total restroom solutions for commercial facilities providing the best experience for those who use the restroom and those who manage them";#808080; Learn More;gpBannerComponent1;www.google.com
+;;gpBannerComponent2;gpBannerComponent2;gpimage2;#3498DB;"Restroom";"Total restroom solutions for commercial facilities providing the best experience for those who use the restroom and those who manage them";#808080; Learn More;gpBannerComponent2;www.google.com
+
+INSERT_UPDATE GPMarketingComponent;$contentCV[unique=true];name;uid[unique=true];&componentRef;headerText;backgroundColor
+;;gpmarketingComponent;gpmarketingComponent;gpmarketingComponent;sample gp header;#000000
+
+								   
+INSERT_UPDATE GPMarketingSidebySideComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;backgroundColor;marketingSideBanner(&componentRef)
+ ;;gpMarketingSidebySideComponent;gpMarketingSidebySideComponent;gpMarketingSidebySideComponent;red;gpBannerComponent1,gpBannerComponent2
+
+
+INSERT_UPDATE GPImageTileComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;componentHeader;backgroundColor;banners(&componentRef)
+;;gpImageTileComponent;gpImageTileComponent;gpImageTileComponent;"image Tile";#3498DB;gpBannerComponent,gpBannerComponent1,gpBannerComponent2
+
+INSERT_UPDATE GPImageLinkComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;url;$picture
+;;gpImageLink1;gpImageLink1;gpImageLink1;/;brandbar1
+;;gpImageLink2;gpImageLink1;gpImageLink2;/;brandbar2
+;;gpImageLink3;gpImageLink1;gpImageLink3;/;brandbar3
+;;gpImageLink4;gpImageLink1;gpImageLink4;/;brandbar4
+;;gpImageLink5;gpImageLink5;gpImageLink5;/;brandbar5
+
+
+INSERT_UPDATE GPBrandBarComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;headline;urlLink;images(&componentRef);backgroundColor
+;;gpBrandBarComponent;gpBrandBarComponent;gpBrandBarComponent;Brand Bar Sample;CLick here;gpImageLink1,gpImageLink2,gpImageLink3,gpImageLink4,gpImageLink5;#008000
+
+INSERT_UPDATE GPMediaContainerlink;$contentCV[unique=true];uid[unique=true];name;&componentRef;mediaUrl;$mediaContainer
+;;gpMediaContLink1;gpMediaContLink1;gpMediaContLink1;/;emp_homepage_gpbundle1
+;;gpMediaContLink2;gpMediaContLink2;gpMediaContLink2;/;emp_homepage_gpbundle2
+;;gpMediaContLink3;gpMediaContLink3;gpMediaContLink3;/;emp_homepage_gpbundle3
+;;gpMediaContLink4;gpMediaContLink4;gpMediaContLink4;/;emp_homepage_gpbundle4
+;;gpMediaContLink5;gpMediaContLink5;gpMediaContLink5;/;emp_homepage_gpbundle5
+;;gpMediaContLink6;gpMediaContLink6;gpMediaContLink6;/;emp_homepage_gpbundle6
+
+INSERT_UPDATE GPBundleImageComponent;$contentCV[unique=true];uid[unique=true];name;title;bundleImageList(uid, $contentCV)
+;;bundleList;bundleList;"Bundles of the Week";gpMediaContLink1,gpMediaContLink2,gpMediaContLink3,gpMediaContLink4,gpMediaContLink5,gpMediaContLink6
+
+INSERT_UPDATE GPBannerComponent;$contentCV[unique=true];uid[unique=true];name;$mediaContainer;backgroundColor;headline;content;contentColor;ctaText;&componentRef;imageLink
+;;gpBannerComponent1-emp;gpBannerComponent;emp_homepage_gpbundle1;#3498DB;;;#808080;;gpBannerComponent1-emp;/
+;;gpBannerComponent2-emp;gpBannerComponent;emp_homepage_gpbundle2;#3498DB;;;#808080;;gpBannerComponent2-emp;/
+;;gpBannerComponent3-emp;gpBannerComponent;emp_homepage_gpbundle3;#3498DB;;;#808080;;gpBannerComponent3-emp;/
+;;gpBannerComponent4-emp;gpBannerComponent;emp_homepage_gpbundle4;#3498DB;;;#808080;;gpBannerComponent4-emp;/
+;;gpBannerComponent5-emp;gpBannerComponent;emp_homepage_gpbundle5;#3498DB;;;#808080;;gpBannerComponent5-emp;/
+;;gpBannerComponent6-emp;gpBannerComponent;emp_homepage_gpbundle6;#3498DB;;;#808080;;gpBannerComponent6-emp;/
+		
+INSERT_UPDATE GPFeatureProductsComponent;$contentCV[unique=true];uid[unique=true];componentHeader;banners(uid, $contentCV)
+;;featureBundleList;"Bundles of the Week";gpBannerComponent1-emp,gpBannerComponent2-emp,gpBannerComponent3-emp,gpBannerComponent4-emp,gpBannerComponent5-emp,gpBannerComponent6-emp
+			
+INSERT_UPDATE GPImageComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;headingText;urlLink;ctaText;ctaBgColor;$mediaContainer;subHeadBgColor;subHeadingText;ctaColor;subHeadingColor;componentTheme
+;;gpImageComponent;gpImageComponent;gpImageComponent;"PARTY. ON.";#;"Shop Products";#0074E4;hero_banner_1;#ffffff;"lorem ipsum dolor sit amet consectetuer adipiscing elit";#ffffff;#222222;hero-center
+;;gpImageComponent1;gpImageComponent1;gpImageComponent1;"PARTY. ON.";#;"Shop Products";#0074E4;hero_banner_2;#ffffff;"lorem ipsum dolor sit amet consectetuer adipiscing elit";#ffffff;#222222;hero-center
+;;gpImageComponent2;gpImageComponent2;gpImageComponent2;"PARTY. ON.";#;"Shop Products";#0074E4;hero_banner_3;#ffffff;"lorem ipsum dolor sit amet consectetuer adipiscing elit";#ffffff;#222222;hero-center
+;;gpImageComponent-home;gpImageComponent-home;gpImageComponent-home;"PARTY. ON.";#;"Sign Up";#ffffff;emp_homepage_gpbanner;ffffff;"lorem ipsum dolor sit amet consectetuer adipiscing elit";#0074E4;#ffffff;hero-center
+
+INSERT_UPDATE GPRotatingImagesComponent;$contentCV[unique=true];uid[unique=true];&componentRef;name;timeout;cmscomponents(&componentRef)
+;;gpRotatingImagesComponent;gpRotatingImagesComponent;gpRotatingImagesComponent;3000;gpImageComponent,gpImageComponent1,gpImageComponent2
+
+
+INSERT_UPDATE CMSSAPRecommendationComponent;$contentCV[unique=true];uid[unique=true];recotype;leadingitemtype;leadingitemdstype;cartitemdstype
+;;TopSoldProductsComponent;YCOM_SAP_TOP_FIVE_SELLER;Product;SAP Hybris Commerce Product;SAP Hybris Commerce Product
+ 
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(uid, $contentCV)
+;;BundleHolderContentSlot;Content slot for Bundles on gpEmployee HomePage;true;featureBundleList
+;;BannerHolderContentSlot;Content slot for Banner on gpEmployee HomePage;true;gpImageComponent-home
+;;SapHolderContentSlot;Content slot for Sap Recommendation on gpEmployee HomePage;true;TopSoldProductsComponent
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(uid, $contentCV)
+;;Section1-gpHomePage;gpRotatingImagesComponent
+#;;Section2-gpHomePage;gpmarketingComponent
+#;;Section3-gpHomePage;gpImageComponent-home
+#;;Section4-gpHomePage;gpImageTileComponent,gpBrandBarComponent
+#;;Section5-gpHomePage;gpMarketingSidebySideComponent
+#;;Section6-gpHomePage;gpBannerComponent,gpMarketingSidebySideComponent
+#;;Section7-gpHomePage;gpmarketingComponent	
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='gpHomePage'];contentSlot(uid,$contentCV)[unique=true]
+;;gprotatingslot-gpHomePage;Section1;;Section1-gpHomePage
+#;;gpMarketingslot-gpHomePage;ContentSlot3;;Section2-gpHomePage
+#;;gpImageTileslot-gpHomePage;ContentSlot4;;Section3-gpHomePage
+#;;gpbrandbar-gpHomePage;Section3;;Section3-gpHomePage
+#;;gpBannerSlot-gpHomePage;Section3;;Section3-gpHomePage
+#;;gpMarketingSidebySideslots-Section5;Section5;;Section6-gpHomePage
+#;;gpMarketingSlot2-gpHomePage;ContentSlot8;;Section7-gpHomePage
+;;gpBundleSlot-gpHomePage;BundleHolderSlot;;BundleHolderContentSlot
+;;gpBannerSlot-gpHomePage;BannerHolderSlot;;BannerHolderContentSlot
+;;gpSapBundleSlot-gpHomePage;SapHolderSlot;;SapHolderContentSlot
+
+#### Checkout Page Start ####
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;CheckoutJSPIncludeComponent;Checkout JSP page;checkout.jsp;;CheckoutJSPIncludeComponent
+;;OrderSummaryJSPIncludeComponent;Order Summary JSP page;orderSummary.jsp;;OrderSummaryJSPIncludeComponent
+
+### Checkout 
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;LeftContentSlot-Checkout;Left content Slot for Checkout Page;true;CheckoutJSPIncludeComponent;;;
+;;RightContentSlot-Checkout;Right content Slot for Checkout Page;true;OrderSummaryJSPIncludeComponent;;;
+
+# ContentSlotForPage 
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='checkoutPage'];contentSlot(uid,$contentCV)[unique=true];;;
+;;LeftContentSlot-Checkout;LeftContentSlot;;LeftContentSlot-Checkout;;;
+;;RightContentSlot-Checkout;RightContentSlot;;RightContentSlot-Checkout;;;
+
+
+#### Checkout Page End ####
+
+################## Unsubscribe page starts #####################
+INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);label;defaultPage[default='true'];approvalStatus(code)[default='approved'];homepage[default='false']
+;;unsubscribe;Unsubscribe Page;ContentPage1Template;/unsubscribe
+
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];name;url;category(code, $productCV);target(code)[default='newWindow'];external[default=false];
+;;UnsubscribeLink;Unsubscribe Link;/unsubscribe;;
+
+INSERT_UPDATE GPUnsubscribeComponent;$contentCV[unique=true];uid[unique=true];name;actions(uid,$contentCV);&componentRef
+;;gpUnsubscribeJspIncludeComponent;Unsubscribe;;gpUnsubscribeJspIncludeComponent
+
+# ContentSlot
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;Section1Slot-Unsubscribe;Section1 Slot for Unsubscribe Page;true;gpUnsubscribeJspIncludeComponent
+
+# ContentSlotForPage
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='unsubscribe'];contentSlot(uid,$contentCV)[unique=true]
+;;Section1-Unsubscribe;Section1;;Section1Slot-Unsubscribe
+
+INSERT_UPDATE ComponentTypeGroups2ComponentType ; source(code)[unique=true] ; target(code)[unique=true]
+ 																; narrow 						 ;	GPUnsubscribeComponent
+                                                ; wide							 ;	GPUnsubscribeComponent
+################## Unsubscribe page ends #####################
+
+
+
+#### Checkout Page Start ####
+
+INSERT_UPDATE ComponentTypeGroups2ComponentType; source(code)[unique=true]; target(code)[unique=true]  
+                                               ; footer; GPCheckoutFooterNavigationComponent 
+                                      
+
+INSERT_UPDATE PageTemplate;$contentCV[unique=true];uid[unique=true];name;frontendTemplateName;restrictedPageTypes(code);active[default=true]
+;;CheckoutPageTemplate;Checkout Page Template;checkout/gpCheckoutPage;ContentPage
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='CheckoutPageTemplate'];validComponentTypes(code);compTypeGroup(code)
+;SiteLogo;;;logo
+;HeaderLinks;;;headerlinks
+;SearchBox;;;searchbox
+;MiniCart;;;minicart
+;NavigationBar;;;navigation
+;CheckoutFooterSlot;;;footer
+;TopHeaderSlot;;;wide
+;BottomHeaderSlot;;;wide
+;LeftContentSlot;;;wide
+;RightContentSlot;;;wide
+;CenterContentSlot;;;wide
+;PlaceholderContentSlot;;;
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;cmsComponents(uid,$contentCV)
+;;CheckoutFooterSlot;CheckoutFooterSlot;GPCheckoutFooterNavigationComponent 
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='CheckoutPageTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-CheckoutPage;SiteLogo;;SiteLogoSlot;true
+;;HomepageLink-CheckoutPage;HomepageNavLink;;HomepageNavLinkSlot;true
+;;NavigationBar-CheckoutPage;NavigationBar;;NavigationBarSlot;true
+;;MiniCart-CheckoutPage;MiniCart;;MiniCartSlot;true
+;;HeaderLinks-CheckoutPage;HeaderLinks;;HeaderLinksSlot;true
+;;CheckoutFooterSlot-CheckoutPage;CheckoutFooterSlot;;CheckoutFooterSlot;true
+;;SearchBox-CheckoutPage;SearchBox;;SearchBoxSlot;true
+;;TopHeaderSlot-CheckoutPage;TopHeaderSlot;;TopHeaderSlot;true
+;;BottomHeaderSlot-CheckoutPage;BottomHeaderSlot;;BottomHeaderSlot;true
+;;LeftContentSlot-CheckoutPage;LeftContentSlot;;LeftContentSlot;true
+;;RightContentSlot-CheckoutPage;RightContentSlot;;RightContentSlot;true
+;;CenterContentSlot-CheckoutPage;CenterContentSlot;;CenterContentSlot;true
+;;PlaceholderContentSlot-CheckoutPage;PlaceholderContentSlot;;PlaceholderContentSlot;true
+
+INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);label;defaultPage[default='true'];approvalStatus(code)[default='approved'];homepage[default='false']
+;;checkoutPage;checkout page;CheckoutPageTemplate;checkout.jsp;
+
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);links(&linkRef);&nodeRef
+;CheckoutFooterNavNode;;Checkout Footer Pages;GPEmployeeNavNode;;CheckoutFooterNavNode
+
+## GP Footer Nav Start ##
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);links(&linkRef);&nodeRef;parentPos
+;CheckoutHelpNavNode;;Help Pages Pages;CheckoutFooterNavNode;;CheckoutHelpNavNode;0
+;CheckoutColNavNode;; Checkout Col Nav Node;CheckoutFooterNavNode;;CheckoutColNavNode;1
+
+
+## Footer slot: Footer GPCheckoutFooterNavigationComponent
+INSERT_UPDATE GPCheckoutFooterNavigationComponent;$contentCV[unique=true];uid[unique=true];wrapAfter;&componentRef;showLanguageCurrency;navigationNode(&nodeRef);notice[lang=en]
+;;GPCheckoutFooterNavigationComponent;4;GPCheckoutFooterNavigationComponent;true;CheckoutFooterNavNode;"| Georgia-Pacific"
+
+## Children of GP NavNode ##
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);links(&linkRef);&nodeRef;parentPos
+;ShippingNavNode;;Shipping Page;CheckoutHelpNavNode;;ShippingNavNode;0
+;ReturnsNavNode;;Returns and Exchanges Page;CheckoutHelpNavNode;;ReturnsNavNode;1
+;ContactUsNavNode;;Contact Us Page;CheckoutHelpNavNode;;ContactUsNavNode;2
+;PrivacyNavNode;;Privacy policy Page;CheckoutColNavNode;;PrivacyNavNode;0
+;GPContactUsNavNode;;Contact Us node;CheckoutColNavNode;;GPContactUsNavNode;0
+;AboutGPTermsAndConditionNavNode;;About Terms and Condition Pages;CheckoutColNavNode;;AboutGPTermsAndConditionNavNode;1
+
+
+# entries of the above navigation nodes
+INSERT_UPDATE CMSNavigationEntry;uid[unique=true];$contentCV[unique=true];name;navigationNode(&nodeRef);item(CMSLinkComponent.uid,CMSLinkComponent.$contentCV);
+;ReturnsNavNodeEntry;;Returns Navigation Node Entry;ReturnsNavNode;ReturnsLink;
+;ShippingNavNodeEntry;;Shipping Navigation Node Entry;ShippingNavNode;ShippingLink;
+;PrivacyNavNodeEntry;;Privacy Navigation Node Entry;PrivacyNavNode;PrivacyLink;
+## GP Footer Nav End ##
+
+
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];linkName[lang=en];socialLink[default=false];markAsViewAll[default=false]
+## GP Links ##
+;;ReturnsLink;"Returns and Exchanges"
+;;ShippingLink;"Shipping"
+;;PrivacyLink;"Privacy policy"
+
+UPDATE CMSNavigationNode;$contentCV[unique=true];uid[unique=true];title[lang=en]
+## GP Nav Nodes ##
+;;CheckoutFooterNavNode;""
+;;CheckoutHelpNavNode;"Need Help?"
+;;CheckoutColNavNode;"TERMS AND CONDITIONS"
+;;ShippingNavNode;"Shipping"
+;;ReturnsNavNode;"Returns and Exchanges"
+;;PrivacyNavNode;"Privacy policy"
+#### Checkout Page End ####

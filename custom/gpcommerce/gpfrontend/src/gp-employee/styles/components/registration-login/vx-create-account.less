@@ -1,0 +1,130 @@
+#gp-employee {
+  .business-login-page {
+    margin: 0;
+    .business-register-component {
+      .create-account {
+        width: 524px;
+        background-color: @card-layout-bg-color;
+        border-radius: @card-layout-border-radius;
+        .register-heading {
+          margin: 0 !important;
+          padding: 20px 0;
+          text-align: center;
+          background-color: @modal-top-bar-background-color;
+          border-radius: @card-layout-border-radius @card-layout-border-radius 0
+            0;
+          color: @modal-heading-color;
+        }
+        form {
+          padding: 12px 0 24px;
+          max-width: 428px;
+          margin: 0 auto;
+          > div:not(.checkbox) {
+            padding-left: 64px;
+            padding-right: 64px;
+          }
+          .form-group [type='checkbox']:checked + label:after,
+          .form-group [type='checkbox']:checked + label:before,
+          .form-group [type='checkbox']:not(:checked) + label:before {
+            width: 18px;
+            height: 18px;
+          }
+          .form-group {
+            margin-bottom: 20px !important;
+            &.market-communication,
+            &.affliated-communication {
+              label {
+                font-size: @font-size-small;
+              }
+            }
+            &.market-communication {
+              margin-bottom: 0px !important;
+            }
+            &.affliated-communication {
+              //Since deffered to R2 as per YCOM-9016
+              display: none;
+            }
+          }
+          .terms-and-conditions {
+            padding-left: 64px;
+            padding-right: 64px;
+            font-size: 14px;
+            a {
+              font-size: 14px;
+            }
+          }
+          .terms-and-conditions:first-of-type {
+            display: none;
+          }
+          button.submit {
+            width: auto;
+            margin: 0 auto;
+          }
+          & > p:last-of-type,
+          .terms-and-conditions {
+            text-align: center;
+            a {
+              font-size: 14px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: @screen-sm-max) {
+  #gp-employee {
+    .business-login-page {
+      .business-register-component {
+        .create-account {
+          margin: 28px 16px 0 16px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: @screen-xs-max) {
+  #gp-employee {
+    .business-login-page {
+      .business-register-component {
+        .create-account {
+          margin-bottom: 0px;
+          form {
+            max-width: 100%;
+            > div {
+              padding-left: 16px;
+              padding-right: 16px;
+              &:not(.checkbox) {
+                padding-left: 16px;
+                padding-right: 16px;
+              }
+            }
+            .terms-and-conditions {
+              padding-left: 16px;
+              padding-right: 16px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: @screen-sm-min){
+  #gp-employee {
+    .business-login-page {
+      .business-register-component {
+        .create-account {
+          .market-communication {
+            margin-left : 16px;
+          }
+          .affliated-communication {
+            margin-left: 16px;
+          }
+        }
+      }
+    }
+  }
+}

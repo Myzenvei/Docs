@@ -1,0 +1,51 @@
+<section class="vx-promotion">
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>
+  </vx-spinner>
+  <vx-modal ref="promotionDetailsModal" size="small" :heading="i18n.promoDetailsHeading" @close="closeVoucherModal()">
+    <vx-voucher-details slot="component" :i18n="i18n" :voucher-data="voucherObject" @voucherDetailsClose="closeVoucherModal()"></vx-voucher-details>
+  </vx-modal>
+  <h4 class="promotions-label">Promotions</h4>
+  <div class="promotions-body">
+    <div class="apply-promo">
+      <div class="form-group apply-voucher d-flex">
+        <input type="text" name="" :aria-label='i18n.enterPromo' :placeholder='i18n.enterPromo' class="form-control"
+          aria-required="true" aria-invalid="false" v-model="voucherCode" v-bind:class="{'promo-error input-error': showPromoError}"
+          @keyup="showPromoError = false" @keydown.enter="applyVoucher" aria-describedby="promoCode_err_msg" tabindex="0">
+        <button class="btn btn-tertiary" type="button" @click="applyVoucher" :aria-label='i18n.applyProduct' :disabled="showPromoError">{{i18n.applyProduct}}</button>
+      </div>
+      <div class="mt-xs-2 form-group" v-show="showPromoError" :aria-hidden="!showPromoError">
+        <span class="error-style" id="promoCode_err_msg">{{promoErrorMsg}}</span>
+      </div>
+    </div>
+
+    <div class="applied-promo pl-sm-5 pl-md-0">
+      <template v-for="item in promotionData">
+          <div class="pb-xs-3 voucher-container" v-if="item && item.appliedCouponCodes.length">
+            <div class="d-flex align-items-start justify-content-between" v-for="voucherCode in item.appliedCouponCodes">
+                <span class="voucher-coupon" @click="voucherDetails(item,$event)" @keyup.enter-space="voucherDetails(item,$event)"
+                  tabindex="0" role="button">{{voucherCode}}</span>
+                <span>
+                <span class="promo-amount pr-xs-2 pull-left" v-if="calculateVoucherAmount(item.description)">-{{calculateVoucherAmount(item.description)}}</span>
+                <span class="icon-x pull-right promotion-x" :title="i18n.iconCloseTitle" role="button" tabindex="0" :aria-label="i18n.iconCloseTitle" @click="deleteVoucher(voucherCode)"
+                    @keyup.enter-space="deleteVoucher(voucherCode)"></span>
+                </span>
+            </div>
+          </div>
+      </template>
+    </div>
+    <template v-for="item in voucherData">
+        <div class="pb-xs-3 voucher-container" v-if="item.voucherCode && appliedPromotions(item.voucherCode)">
+                <div class="d-flex align-items-start justify-content-between">
+                    <span class="voucher-coupon" @click="voucherDetails(item,$event)" @keyup.enter-space="voucherDetails(item,$event)"
+                     tabindex="0" role="button">{{item.voucherCode}}</span>
+                    <span>
+                      <span class="promo-amount pr-xs-2 pull-left" v-if="item.description && calculateVoucherAmount(item.description)">-{{calculateVoucherAmount(item.description)}}</span>
+                      <span class="icon-x pull-right promotion-x" :title="i18n.iconCloseTitle" role="button" tabindex="0" :aria-label="i18n.iconCloseTitle" @click="deleteVoucher(item.voucherCode)"
+                        @keyup.enter-space="deleteVoucher(item.voucherCode)"></span>
+                    </span>
+                </div>
+          </div>
+    </template>
+
+  </div>
+</section>

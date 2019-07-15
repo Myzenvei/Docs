@@ -1,0 +1,67 @@
+
+
+.vx-info-section {
+  border-bottom: 1px solid @border-color;
+  &__header-buttons {
+    letter-spacing: @letter-spacing-default;
+  }
+  .vx-info-section__header {
+    a {
+      color: @text-color-secondary-3;
+      font-weight: @font-weight-medium;
+      border-right: 1px solid @tag-default-color;
+    }
+    a:last-of-type {
+      border-right: none;
+    }
+  }
+
+  .vx-info-section__body {
+    margin: 0 -16px;
+    .vx-info-section__info-card {
+      width: 33%;
+      .card-item {
+        letter-spacing: @letter-spacing-default;
+      }
+      .disabled-text {
+        color: @card-disabled-text-color;
+      }
+    }
+  }
+
+  .vx-profile-card {
+    .disabled {
+      a {
+        h4 {
+          color: @card-hyperlink-color;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: @screen-sm-max) {
+  .vx-info-section {
+    .vx-info-section__body {
+      .vx-info-section__info-card {
+        width: 50%;
+      }
+    }
+  }
+}
+
+@media (max-width: @screen-xs-max) {
+  .vx-info-section {
+    .vx-info-section__header {
+      h3 {
+        font-size: @font-size-large;
+      }
+    }
+    .vx-info-section__body {
+      flex-direction: column;
+      .vx-info-section__info-card {
+        width: 100%;
+      }
+    }
+  }
+}

@@ -1,0 +1,131 @@
+.vx-download-info{
+    margin-top: -16px;
+    .tab-item {
+      .nav-link {
+        font-size: @font-size-large;
+      }
+    }
+    .nav-tabs {
+      & > li {
+        background-color: @tab-background-color;
+        a {
+          color: @tab-header-text-color;
+          border: none;
+          padding-left: 0;
+          padding-right: 0;
+          margin-right: 24px;
+          font-weight: @font-weight-regular;
+          font-size: @font-size-medium;
+          background-color: @tab-background-color;
+          letter-spacing: normal;
+          &:focus {
+            border: none;
+            text-decoration: none;
+            background-color: @tab-backround-color-hover;
+          }
+          &:hover {
+            border: none;
+            text-decoration: none;
+            background-color: @tab-backround-color-hover;
+          }
+        }
+        &:focus {
+          text-decoration: none;
+          background-color: @tab-backround-color-hover;
+        }
+        &:hover {
+          text-decoration: none;
+          background-color: @tab-backround-color-hover;
+        }
+      }
+      & > li.active {
+        background-color: @tab-background-color-active;
+        & > a {
+          color: @tab-header-text-color;
+          border-bottom: 4px solid @tab-selected-border-color;
+          font-weight: @font-weight-medium;
+          background-color: @tab-background-color-active;
+        }
+      }
+    }
+  }
+  
+  @media (min-width: @screen-xs-max) {
+    .vx-download-info {
+      .nav-tabs {
+        display: flex;
+      }
+    }
+  }
+  
+  @media (max-width: @screen-xs-max) {
+    .vx-download-info {
+      .tab-pane {
+        border-top: 1px solid @border-color;
+      }
+    }
+  }
+  
+
+@media (min-width: @screen-xs-max) {
+  .vx-tab-container {
+    .nav-tabs {
+      display: flex;
+    }
+
+    .card {
+      border: none;
+    }
+
+    .card .card-header {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: @screen-xs-max) {
+  .vx-tab-container {
+    .tab-pane {
+      border-top: 1px solid @border-color;
+      &:last-child {
+        border-bottom: 1px solid @border-color;
+      }
+      .card-header {
+        h5 {
+          position: relative;
+        }
+        a {
+          font-size: @font-size-base;
+          font-weight: @font-weight-medium;
+          color: @tab-header-text-color;
+          display: block;
+          width: 100%;
+          &:focus {
+            text-decoration: none;
+          }
+          & span {
+            position: absolute;
+            right: 0;
+            font-size: @font-size-large;
+            color: @font-icon-color-3;
+            &:before {
+              content: '\e923';
+            }
+          }
+          &[aria-expanded='true'] {
+            & span {
+              &:before {
+                content: '\e91f';
+              }
+            }
+          }
+        }
+      }
+    }
+    .product-details-tab__container {
+      & > .row {
+        margin: 0;
+      }
+    }
+  }
+}

@@ -1,0 +1,134 @@
+#gp-pro {
+  .header-section {
+    .navbar-top {
+      .icon-user {
+        display: none;
+      }
+    }
+
+    .navbar-bottom {
+      .header-left-section {
+        .logo{
+          img{
+            width: auto;
+            margin: 0px;
+          }
+        }
+        .navbar-bottom-left {
+          margin-left: 0;
+        }
+      }
+
+      .navbar-bottom-right {
+        .quick-order {
+          display: none;
+        }
+        .align-search {
+          margin-right: 32px;
+        }
+      }
+      .navbar-bottom-left {
+        margin-left: 0;
+        padding-left: 0 !important;
+      }
+      .mobile-view {
+        h6,
+        .sec-title {
+          padding-top: 8px;
+          padding-bottom: 8px;
+        }
+      }
+    }
+  }
+
+  @media only screen and (max-width: @screen-sm-max) {
+    .header-section {
+      .navbar-bottom,.navbar-top {
+        .navbar-bottom-left {
+          .navigation-menu {
+            .navigation-inner-wrapper {
+              .secondary-menu {
+                ul {
+                  li {
+                    max-width: 100%;
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        .logo {
+          margin-left: 55px;
+          background: none;
+          border: 0;
+          img {
+            width: 32px !important;
+          }
+        }
+      }
+    }
+  }
+
+  @media only screen and (min-width: @screen-md-min) {
+    .header-section {
+      .navbar-bottom {
+        .navbar-bottom-left {
+          .navigation-menu {
+            .navigation-inner-wrapper {
+              .secondary-menu {
+                .sec-title {
+                  height: 40px;
+                  line-height: 40px;
+                  padding-top: 0;
+                }
+
+                .flyout-sec {
+                  flex-flow: column wrap;
+                  max-height: 260px;
+
+                  .js-secondary-child {
+                    width: auto;
+                    padding: 14px 16px !important;
+                    &:hover {
+                      background: @btn-default-hover-bg;
+
+                      .custom-word-wrap-all {
+                        color: @nav-link-hover-color;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        .logo {
+          img {
+            margin: 0 24px 0 40px !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
+  #gp-pro {
+    .header-section {
+      .navbar-bottom,.navbar-top {
+        .navbar-bottom-left {
+          .navigation-menu {
+            .navigation-inner-wrapper {
+              .secondary-menu {
+                .flyout-sec {
+                  height: 260px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

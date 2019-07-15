@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+All Product Cockpit related Spring Beans.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+
+
+	<bean id="otmmaddonui.cockpitMessages" class="com.opentext.hybris.otmmconnector.ui.messages.cockpit.Messages"/>
+
+	<bean id="otmmaddonui.cockpitExceptionHandler" class="com.opentext.hybris.otmmconnector.ui.generic.impl.ExceptionHandler">
+		<property name="messages" ref="otmmaddonui.cockpitMessages"/>
+	</bean>
+
+	<bean id="otmmaddonui.assetAssignmentSessionContext" class="com.opentext.hybris.otmmconnector.ui.assetassignment.generic.impl.AssetAssignmentSessionContext" scope="session"/>
+
+	<bean id="otmmaddonui.cockpitDoneAction" class="com.opentext.hybris.otmmconnector.ui.assetassignment.cockpit.DoneAction">
+		<property name="settings" ref="otmmaddon.assetAssignmentUiSettings"/>
+		<property name="assetAssignmentService" ref="otmmAssetAssignmentService"/>
+		<property name="multipleJobsService" ref="otmmMultipleJobsService"/>
+		<property name="userService" ref="userService"/>
+		<property name="uiHelperService" ref="otmmaddon.uiHelperService"/>
+	</bean>
+
+	<!-- ****************************************************************************************************************************** -->
+	<!-- Asset Assignment Wizard -->
+	<!-- ****************************************************************************************************************************** -->
+	<bean id="otmmaddonui.assetAssignmentWizardFirstPage" class="com.opentext.hybris.otmmconnector.ui.assetassignment.cockpit.AssetAssignmentWizardFirstPage" scope="prototype">
+		<property name="id" value="otmmaddonui.assetAssignmentWizardFirstPage"/>
+		<property name="settings" ref="otmmaddon.assetAssignmentUiSettings"/>
+		<property name="exceptionHandler" ref="otmmaddonui.cockpitExceptionHandler"/>
+	</bean>
+
+	<bean id="otmmaddonui.assetAssignmentWizardFirstPageController"
+		  class="com.opentext.hybris.otmmconnector.ui.assetassignment.cockpit.AssetAssignmentWizardFirstPageController"
+		  scope="prototype">
+		<property name="exceptionHandler" ref="otmmaddonui.cockpitExceptionHandler"/>
+		<property name="assetAssignmentControllerFactory" ref="otmmaddon.assetAssignmentControllerFactory"/>
+		<property name="messages" ref="otmmaddonui.cockpitMessages"/>
+		<property name="doneAction" ref="otmmaddonui.cockpitDoneAction"/>
+		<property name="uiSettings" ref="otmmaddon.assetAssignmentUiSettings"/>
+
+		<lookup-method name="createCockpitOtmmSessionHolder" bean="otmmaddonui.cockpitOtmmSessionHolder"/>
+	</bean>
+
+	<bean id="otmmaddonui.assetAssignmentWizard" scope="prototype" class="com.opentext.hybris.otmmconnector.ui.assetassignment.cockpit.AssetAssignmentWizard">
+		<property name="settings" ref="otmmaddon.assetAssignmentUiSettings"/>
+		<property name="defaultController" ref="otmmaddonui.assetAssignmentWizardFirstPageController"/>
+		<property name="pages">
+			<list>
+				<ref bean="otmmaddonui.assetAssignmentWizardFirstPage"/>
+			</list>
+		</property>
+	</bean>
+	<!-- ****************************************************************************************************************************** -->
+
+
+	<!--
+	These bean definitions are exactly the same as in the original cockpit extension.
+	Therefore I don't know what could be the reason to redefine it here. I will comment them out.
+	(creimann)
+	-->
+	<!--<bean id="uploadMediaSecondPage" class="de.hybris.platform.cockpit.wizards.generic.GenericItemMandatoryPage" scope="prototype">-->
+	<!--<property name="id" value="uploadMediaSecondPage"/>-->
+	<!--<property name="controller" ref="uploadMediaSecondPageController"/>-->
+	<!--</bean>-->
+
+	<!--<bean id="uploadMediaSecondPageController" class="de.hybris.platform.cockpit.wizards.media.UploadMediaSecondPageController" scope="prototype">-->
+	<!--<property name="mediaService" ref="mediaService"/>-->
+	<!--</bean>-->
+
+</beans>

@@ -1,0 +1,48 @@
+#!/bin/bash -e
+HYBRIS_HOME=/opt/Hybris_6.7/hybris
+
+
+ZIP_SOURCE_DIR=/opt/Hybris_6.7/hybris/temp/hybris/hybrisServer/
+ZIP_DESTIN_DIR=/opt/HYB_BKP/Hybris_6.7/
+WKSPC_DIR=/var/lib/jenkins/workspace/HYB_Dev_Build_No_ANT_PROD
+
+#taking the backup of existing code in custom directory
+
+#After getting pull from GIT from Jenkins, copy the custom code to target
+cd /var/lib/jenkins/workspace/HYB_Dev_Build_No_ANT_PROD/
+
+
+cp -rf /var/lib/jenkins/workspace/${JOB_NAME}/configuration/dev/local* /opt/Hybris_6.7/hybris/config/
+echo "==========copy of config files completed ======"
+
+cp -rf /var/lib/jenkins/workspace/${JOB_NAME}/gp* /opt/HYB_BKP/Uncompiled_Code_Custom/
+
+
+echo $USER
+
+chmod -R 755 /opt/HYB_BKP/Uncompiled_Code_Custom/
+echo "=============Permissions 755 given for Hybris Home of Hybris path on Jenkins server ==========="
+
+cd /opt/HYB_BKP/Uncompiled_Code_Custom/
+
+zip -r custom.zip gp*
+
+echo "=============Custom code zipped =========="
+
+chown -R jenkins:jenkins custom.zip
+
+echo "=============Owner ship changed for custom.zip with jenkins user =========="
+
+
+
+################################################################################
+scp /opt/HYB_BKP/Uncompiled_Code_Custom/custom.zip hybris@100.64.15.6:/NFS_DATA/deployment/HYB_BKP/No_Ant_Prod_CustomCode/
+
+echo "=============Custom code  zip copied to remote DEV server  =========="
+
+scp /opt/Hybris_6.7/hybris/config/local* hybris@100.64.15.6:/NFS_DATA/deployment/HYB_BKP/No_Ant_Prod_CustomCode/config/
+
+echo "=============configs files copied to remote DEV server  =========="
+
+ssh hybris@100.64.15.6 "/opt/scripts/hybris_no_custom_deploy.sh"
+echo "=======Deployment successfull======="

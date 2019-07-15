@@ -1,0 +1,88 @@
+$solrIndexedType=solrIndexedType(identifier)[unique=true]
+$indexedType=multiBrandProductType
+$productCatalog=gpUSProductCatalog
+$catalogVersion=catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default='$productCatalog:Staged']
+
+
+
+UPDATE BaseStore;uid[unique=true];contextualAttributesContext(code)
+;gpemployee;GPEmployeeContext
+;dixie;DixieContext
+;copperandcrane;CopperandCraneContext
+;vanityfairnapkins;VanityFairNapkinsContext
+
+# Update Basestore with userpricegroup and solrFacetSearchConfiguration
+INSERT_UPDATE BaseStore;uid[unique=true];userPriceGroup(code);solrFacetSearchConfiguration(name)[default=multiBrandIndex]
+;gpemployee;pricegroup-gpemployee;;
+;dixie;pricegroup-dixie;;
+;copperandcrane;pricegroup-copperandcrane;;
+;vanityfairnapkins;pricegroup-vanityfairnapkins;;
+
+
+
+
+
+
+UPDATE SolrFacetSearchConfig;name[unique=true];contexts(code)
+;multiBrandIndex;GPEmployeeContext,DixieContext,B2BWhitelabelContext,B2CWhitelabelContext,CopperandCraneContext,VanityFairNapkinsContext,GPXpressContext
+
+UPDATE SolrIndexedProperty;$solrIndexedType;name[unique=true];contextual
+;$indexedType; name; true
+;$indexedType; description; true
+
+
+
+# ProductAvailabilityGroup
+INSERT_UPDATE ProductAvailabilityGroup ; id[unique=true]                ; description[lang=en]                                          ; stores(uid)      
+                                       ; gpemployee-availability        ; Multibrand Product availability Group for GPEmployee          ; gpemployee       
+                                       ; dixie-availability             ; Multibrand Product availability Group for Dixie               ; dixie            
+                                       ; copperandcrane-availability    ; Multibrand Product availability Group for Copper and Crane    ; copperandcrane   
+                                       ; vanityfairnapkins-availability ; Multibrand Product availability Group for Vanity Fair Napkins ; vanityfairnapkins
+
+
+# Employee
+$productCatalog=gpUSProductCatalog
+$net=false
+$stores=gpemployee,dixie,b2cwhitelabel,b2bwhitelabel,gpxpress,copperandcrane,vanityfairnapkins
+$passwordEncoding=md5
+$defaultPassword=1234
+$setPassword=@password[translator=de.hybris.platform.impex.jalo.translators.ConvertPlaintextToEncodedUserPasswordTranslator][default='$passwordEncoding:$defaultPassword']
+INSERT_UPDATE Employee;UID[unique=true];$setPassword;description;name;groups(uid);sessionLanguage(isocode);sessionCurrency(isocode);managedStores(uid)
+;productmanager;;Product Manager;Product Manager;productmanagergroup,backofficeproductmanagergroup,backofficeproductadministratorgroup,multicountryadmingroup;en;USD;$stores;
+;productmanager-gpemployee;;GPEmployee Product Manager;GPEmployee Product Manager;backofficeproductmanagergroup;en;USD;gpemployee;
+;productmanager-dixie;;Dixie Product manager;Dixie Product Manager;backofficeproductmanagergroup;en;USD;dixie;
+;productmanager-copperandcrane;;Copper and Crane Product manager;Copper and Crane Product Manager;backofficeproductmanagergroup;en;USD;copperandcrane;
+;productmanager-vanityfairnapkins;;Vanity Fair Napkins Product manager;Vanity Fair Napkins Product Manager;backofficeproductmanagergroup;en;USD;vanityfairnapkins;
+
+
+
+
+$productCatalog=gpUSProductCatalog
+$targetProductCV=targetVersion(catalog(id[default=$productCatalog]),version[default='Online'])
+INSERT_UPDATE SyncAttributeDescriptorConfig;attributeDescriptor(qualifier,enclosingType(code))[unique=true];syncJob($targetProductCV)[unique=true];copyByValue
+;availability:Product;gpUSProductCatalog:Online;true
+;contextualAttributeValues:Product;gpUSProductCatalog:Online;true
+
+
+# Updating the Sync attribute - Media can be synced with Category
+UPDATE SyncAttributeDescriptorConfig;attributeDescriptor(qualifier,enclosingType(code))[unique=true];syncJob($targetProductCV)[unique=true];copyByValue
+#;picture:Category;gpUSProductCatalog:Online;true
+
+
+
+
+# WritePrincipals
+UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];writePrincipals(uid)[mode=append]
+#;gpUSProductCatalog;Online;productmanager-dixie;
+;gpUSProductCatalog;Staged;productmanager-dixie;
+#;gpUSProductCatalog;Online;productmanager-gpemployee;
+;gpUSProductCatalog;Staged;productmanager-gpemployee;
+#;gpUSProductCatalog;Online;productmanager;
+;gpUSProductCatalog;Staged;productmanager;
+#;gpUSProductCatalog;Online;backofficeproductmanagergroup;
+;gpUSProductCatalog;Staged;backofficeproductmanagergroup;
+#;gpUSProductCatalog;Online;productmanager-copperandcrane;
+;gpUSProductCatalog;Staged;productmanager-copperandcrane;
+#;gpUSProductCatalog;Online;productmanager-vanityfairnapkins;
+;gpUSProductCatalog;Staged;productmanager-vanityfairnapkins;
+

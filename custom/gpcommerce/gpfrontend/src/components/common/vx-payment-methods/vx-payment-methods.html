@@ -1,0 +1,80 @@
+<div class="vx-payment-methods">
+  <vx-spinner ref="paymentMethodsSpinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen></vx-spinner>
+  <vx-modal ref="paymentFormModal" size="large" :heading="i18n.paymentMethods.paymentFormHeading"
+    v-bind:is-modal-scrollable="true">
+    <vx-add-payment-form ref="paymentForm" :prePopulateFormFields="populatePaymentFormData" :showTopHeadings="displayTopHeadings"
+      :reloadOnSuccess="reloadingOnSuccess" :savedFormData="paymentFormData" slot='component' :i18n="i18n.addPaymentForm"
+      @card-added="newCardAdded()" @addPaymentFailed="dismissAddPaymentModal"></vx-add-payment-form>
+  </vx-modal>
+  <vx-modal ref="paymentDeleteModal" size="small" :heading="i18n.paymentMethods.deleteExistingPaymentHeading">
+    <div class="d-flex flex-column delete-payment-modal" slot="component">
+      <p class="mb-xs-0 pb-xs-1 mt-sm-2 delete-heading" role="text">{{i18n.paymentMethods.deleteExistingPayment}}</p>
+      <div class="pt-xs-1 pb-xs-5">
+        <p role="text">{{deletePaymentObj.cardHolderName}}</p>
+        <p role="text">{{deletePaymentObj.cardType}}</p>
+        <p role="text">{{deletePaymentObj.cardNumber}}</p>
+        <p role="text">{{deletePaymentObj.cardExpiry}}</p>
+        <p role="text">{{deletePaymentObj.zipCode}}</p>
+      </div>
+      <div class="d-flex justify-content-around">
+        <button class="btn btn-primary modal-btn-primary-xl modal-btn-xs-sticky align-self-center delete-payment"
+          @click="sendPaymentDeleteRequest">{{i18n.paymentMethods.yes}}</button>
+      </div>
+    </div>
+
+  </vx-modal>
+  <div class="row">
+    <h1 class="col-xs-12 top-heading">{{i18n.paymentMethods.topHeading}}</h1>
+  </div>
+
+  <div class="payment-container">
+
+    <div class="row d-flex px-xs-3 payments-cards-container">
+      <div class="col-sm-6 col-xs-12 py-xs-2 py-sm-3 add-card-wrapper" v-if="globals.siteConfig.addPaymentEnabled">
+        <vx-profile-card v-bind:card-type="'add'" v-bind:is-default-height="true" :card-classes="preferenceCardClasses"
+          v-bind:has-footer="false">
+          <template slot="details">
+            <a @click="openAddPaymentForm($event)" @keyup.enter-space="openAddPaymentForm($event)" href="javascript:void(0)" role="button" :aria-label="i18n.paymentMethods.a11yAddPayment">
+              <span class="icon-big icon-plus" :title="i18n.paymentMethods.iconAddTitle"
+                :aria-hidden="true"></span>
+              <span class="ml-xs-1 link-large link-bold">{{i18n.paymentMethods.addPaymentMethod}}</span>
+            </a>
+          </template>
+        </vx-profile-card>
+      </div>
+      <div class="col-sm-6 col-xs-12 py-xs-2 py-sm-3" v-for="(itemObj,index) in cardDetails">
+        <vx-profile-card v-bind:is-default-height="true" :card-classes="'px-xs-1 pl-xs-1 pt-xs-3 pb-xs-2'">
+          <template slot="heading">{{""}}</template>
+          <template slot="details">
+            <li class="card-item" v-for="(item,index) in itemObj" v-if="(index==='cardHolderName' || index==='cardType' || index==='cardNumber' || index==='cardExpiry' || index==='zipCode' )"
+              :key="item">{{item}}</li>
+          </template>
+          <template slot="icons">
+            <!-- <li class="card-icon">
+              <a @click="openEditPaymentModal(itemObj.id,$event)" :aria-label="i18n.paymentMethods.iconEditTitle">
+                <span class="icon-default icon-default icon-big icon-edit" :title="i18n.paymentMethods.iconEditTitle"></span>
+              </a>
+            </li> -->
+            <li class="card-icon mt-xs-2">
+              <a @click="openDeletePaymentModal(itemObj, $event)"
+                @keyup.enter-space="openDeletePaymentModal(itemObj, $event)"
+                :aria-label="i18n.paymentMethods.iconDeleteTitle" tabindex="0"
+                v-if="globals.siteConfig.deletePaymentEnabled" role="button">
+                <span class="icon-default icon-big icon-trash" :title="i18n.paymentMethods.iconDeleteTitle"></span>
+              </a>
+            </li>
+          </template>
+          <template slot="footer">
+            <p class="col-xs-12 mb-xs-0 card-item card-item-bold" v-if="itemObj.isDefaultPaymentOpt">
+              {{i18n.paymentMethods.defaultPaymentMethod}}
+            </p>
+            <template v-if="!itemObj.isDefaultPaymentOpt">
+              {{""}}
+            </template>
+          </template>
+        </vx-profile-card>
+      </div>
+    </div>
+  </div>
+
+</div>

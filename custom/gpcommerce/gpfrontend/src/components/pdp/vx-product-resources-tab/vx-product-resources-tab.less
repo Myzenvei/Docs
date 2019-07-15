@@ -1,0 +1,125 @@
+.product-resources-tab {
+  &__topleftheading,
+  &__toprightheading {
+    font-size: @font-size-large;
+    color: @text-color;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.5;
+  }
+  .subheadings {
+    display: block;
+  }
+  ul {
+    list-style-type: none;
+  }
+  li {
+    padding-left: 9px;
+  }
+  .img-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 60%;
+  }
+  .imgBlock {
+    height: 56px;
+    width: 56px;
+    background-color: @bv-histogram-color-unfilled;
+  }
+  &__pname {
+    color: @text-color;
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 0.15px;
+    line-height: 1.2;
+  }
+  &__dlink {
+    color: @brand-secondary-2;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.15px;
+    line-height: 1.2;
+  }
+  &__subheading1 {
+    color: @text-color;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.2;
+    display: block;
+  }
+  .product-resource-tab-selection {
+    display: none;
+    .heading-row {
+      width: 94%;
+      .nav-tabs {
+        li {
+          width: 49%;
+          a {
+            padding: 10px 0;
+            border: none;
+            display: inline-block;
+          }
+        }
+        li.active {
+          border-bottom: 2px solid @tab-selected-border-color;
+          a {
+            border: none;
+          }
+        }
+      }
+    }
+  }
+
+  .img-icon {
+    display: inline-block;
+    vertical-align: top;
+    max-width: 64px;
+  }
+
+  .description {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: @screen-xs-min) and (max-width: @screen-xs-max) {
+  .product-resources-tab {
+    margin-left: -16px;
+    margin-right: -16px;
+    &__productinfo-container,
+    &__productres-container {
+      margin: 0 2% 0 6%;
+      width: 92%;
+    }
+    .subheadings {
+      display: none;
+    }
+    .show-tab {
+      display: block;
+    }
+    .hide-tab {
+      display: none;
+    }
+    .heading-cols .nav-tabs {
+      display: block;
+      li {
+        width: 50%;
+        font-size: @font-size-medium;
+        font-weight: @font-weight-medium;
+      }
+    }
+    .product-resource-tab-selection {
+      display: block;
+      padding-left: 0px;
+      padding-right: 0px;
+      .heading-row {
+        width: 100%;
+        margin-left: 0px;
+        margin-right: 0px;
+        .heading-cols {
+          padding-left: 0px;
+          padding-right: 0px;
+        }
+      }
+    }
+  }
+}

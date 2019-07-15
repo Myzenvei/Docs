@@ -1,0 +1,12 @@
+<div class="vx-curated-list d-flex flex-xs-column flex-sm-row flex-wrap">
+  <div class="col-xs-12 col-sm-4 vx-curated-list__item p-xs-3" v-for="prd in curatedList.precuratedList">
+    <img :src='prd.curatedImageUrl' :alt="prd.curatedLinkText" />
+    <div class="vx-curated-list__wrapper d-flex align-items-center justify-content-center">
+      <div class="vx-curated-list__content text-center">
+        <p class="color-white" v-html="prd.curatedText"></p>
+        <a :href="prd.curatedLinkUrl" :target="prd.isExternal ? _blank : ''" class="btn btn-transparent text-uppercase"
+          v-if="prd.curatedLinkUrl && prd.curatedLinkText" v-html="prd.curatedLinkText"></a>
+      </div>
+    </div>
+  </div>
+</div>

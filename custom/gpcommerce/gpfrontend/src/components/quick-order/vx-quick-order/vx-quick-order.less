@@ -1,0 +1,213 @@
+.vx-quick-order {
+  font-family: @font-family-base;
+  h1 {
+    font-size: @font-size-xs-h1;
+  }
+  h6 {
+    font-weight: @font-weight-light;
+  }
+  .icon-add-to-list,
+  .icon-share {
+    color: @brand-secondary-5;
+  }
+  .accordion-body {
+    background-color: @card-disabled-background-color;
+  }
+  .product-image {
+    height: 130px;
+    width: 130px;
+    background-color: #ffffff;
+  }
+  .share-cart,
+  .save-cart {
+    font-size: 20px;
+  }
+  .search-info-text {
+    color: @tag-default-color;
+    font-size: 14px;
+  }
+  .file-drop-box {
+    width: 350px;
+    height: 200px;
+    padding: 10px;
+    border: 1px solid @file-dropbox-border-color;
+  }
+  .form-group {
+    .error-border {
+      border: 1px solid @font-color-error;
+      background-color: @bg-color-error;
+    }
+  }
+  .error {
+    color: @font-color-error;
+  }
+  .cursor-icon {
+    cursor: pointer;
+  }
+  .icon-trash:before {
+    content: '\E92A';
+    color: #747678;
+  }
+  .add-cart-footer {
+    position: fixed;
+    bottom: 0;
+    background-color: @text-color-secondary-2;
+    z-index: 8;
+  }
+  .clear-all {
+    color: @font-color-nav-link;
+    vertical-align: 4px;
+    font-size:@font-size-small;
+  }
+  .seperator {
+    border-left: 1px solid @font-icon-color-3;
+    padding-top: 9px;
+  }
+  .sub-total {
+    font-weight: @font-weight-light;
+    span {
+      font-size: @font-size-large;
+    }
+    .total-price {
+      font-weight: @font-weight-medium;
+    }
+    .product-title-trim {
+      width: 170px;
+    }
+  }
+  .form-group, div[class^='col'] {
+    outline: none;
+  }
+  .non-purchasable-items {
+    .vx-product-tile {
+      .card-content-right-section {
+        button {
+          order: 1;
+        }
+      }
+    }
+  }
+  .vx-accordion {
+    .accordion-header {
+      &>span.icon-container {
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
+  @media screen and (min-width: @screen-lg) {
+    .quick-search {
+      display: flex;
+      margin-bottom: 0;
+    }
+    .stepper-custom {
+      padding-right: 20%;
+      float: right;
+    }
+  }
+  @media screen and (max-width: @screen-sm-max) {
+    .upload-section {
+      display: none;
+    }
+    .add-items {
+      margin-top: 16px;
+    }
+  }
+  @media screen and (max-width: @screen-desktop) {
+    .product-image {
+      height: 130px;
+      width: 130px;
+    }
+  }
+  @media screen and (max-width: @screen-xs-max) {
+    .quick-search-wrapper,
+    .order-options {
+      overflow: hidden;
+      clear: both;
+    }
+    .product-image {
+      height: 72px;
+      width: 72px;
+    }
+    .add-cart-footer {
+      padding-left: 0px;
+      padding-right: 0px;
+      .btn {
+        margin-right: 0px;
+      }
+    }
+    .sub-total {
+      &.top {
+        span {
+          float: left !important;
+        }
+      }
+    }
+    .non-purchasable-items {
+      .vx-product-tile {
+        .card-content-right-section {
+          button {
+            order: 0;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: @screen-sm) and (max-width: @screen-sm-max) {
+  .vx-quick-order {
+    .quick-search-wrapper {
+      overflow: hidden;
+      .quick-search {
+        input {
+          width: 72%;
+        }
+        button {
+          width: 28%;
+          margin-top: 0;
+        }
+      }
+    }
+    .order-options {
+      overflow: hidden;
+      .sub-total {
+        padding-top: 0;
+      }
+    }
+    .purchasable-items {
+      .vx-product-tile {
+        .card-content {
+          .card-content-left-section {
+            .product-price {
+              .product-current-price {
+                padding-top: 24px;
+              }
+              display: flex;
+              justify-content: space-between;
+              .stepper-custom {
+                .stepper-control {
+                  margin-bottom: 0;
+                }
+              }
+            }
+          }
+          .card-content-right-section {
+            flex: 0;
+            // padding-left: 48px;
+            .product-total-price {
+              min-width: 135px;
+              padding-left: 16px;
+            }
+          }
+        }
+        &:first-child {
+          margin-top: 0 !important;
+        }
+      }
+    }
+    .non-purchasable-items {
+      margin-bottom: 32px;
+    }
+  }
+}

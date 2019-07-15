@@ -1,0 +1,44 @@
+#copper-crane {
+  .search-browse-product-tile {
+    .tile-body {
+      .product-name {
+        flex-grow: 1;
+        h6 {
+          font-size: @font-size-medium;
+          font-family: @font-family-queulat-bold;
+        }
+      }
+      .bottom-section {
+        .prices {
+          padding-top: 16px;
+          p {
+            display: inherit;
+            span {
+              display: inline;
+            }
+          }
+        }
+        p,
+        span {
+          font-family: @font-family-queulat-bold;
+        }
+      }
+      .star-rating {
+        padding-top: 8px;
+      }
+      button.favorite {
+        width: 100%;
+        height: 100%;
+      }
+      .tile-image {
+        height: 184px;
+        @media screen and (max-width: @screen-sm-max) {
+          height: 152px;
+        }
+        img {
+          padding: 0;
+        }
+      }
+    }
+  }
+}

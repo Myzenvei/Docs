@@ -1,0 +1,340 @@
+<div class="col-xs-12 px-xs-0">
+  <div class="vx-add-payment-form">
+    <h3 class="pb-xs-3 mt-xs-0" v-if="showTopHeadings">
+      <span class="brand-title"> </span>{{i18n.topHeading}}
+    </h3>
+    <form id="credit-card-form" action="" method="post" @submit.stop.prevent="submitForm">
+      <input type="hidden" name="savedPaymentFormId" id="savedPaymentFormId" v-model="savedPaymentFormId" aria-hidden="true" />
+      <div class="form-elements pb-sm-2" v-if="isFirstCardImages">
+        <h3 v-if="showTopHeadings" class="title">{{i18n.sideHeading}}</h3>
+        <div class="card-icon-holder" :class="{'card-icon-holder-margin':(!reloadOnSuccess)}">
+          <img class="card-icon" :src="globals.assetsPath+'images/creditcardicons/MasterCard.svg'" :alt="i18n.cardTypeMaster"
+            aria-hidden="true" />
+          <span class="sr-only">{{i18n.cardTypeMaster}}</span>
+          <img class="card-icon" :src="globals.assetsPath+'images/creditcardicons/Visa.svg'" :alt="i18n.cardTypeVisa"
+            aria-hidden="true" />
+          <span class="sr-only">{{i18n.cardTypeVisa}}</span>
+          <img class="card-icon" :src="globals.assetsPath+'images/creditcardicons/Discover.svg'" :alt="i18n.cardTypeDiscover"
+            aria-hidden="true" />
+          <span class="sr-only">{{i18n.cardTypeDiscover}}</span>
+          <img class="card-icon" :src="globals.assetsPath+'images/creditcardicons/AmericanExpress.svg'" :alt="i18n.cardTypeAmex"
+            aria-hidden="true" />
+          <span class="sr-only">{{i18n.cardTypeAmex}}</span>
+          <img class="card-icon" :src="globals.assetsPath+'images/creditcardicons/DinersClub.svg'" :alt="i18n.cardTypeDiners"
+              aria-hidden="true" v-if="globals.siteConfig.isDinersCardAvailable"/>
+          <span class="sr-only" v-if="globals.siteConfig.isDinersCardAvailable">{{i18n.cardTypeDiners}}</span>
+        </div>
+      </div>
+      <div class="row form-elements py-xs-2">
+        <div class="col-xs-12 col-md-6">
+          <div class="card-num-block">
+            <div class="label-text">
+              {{i18n.cardNumber}}
+            </div>
+            <div class="form-group" v-if="prePopulateFormFields">
+              <div class="card-number-holder">{{paymentform.cardNumberMasked}}</div>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control input-elements" v-bind:class="{'input-error': errors.has('cardNumber')}"
+                maxlength="30" aria-label="card number" v-validate="{ required: true,
+                  regex: creditCardNumberRegex, max:40 }"
+                name="cardNumber" v-on:keyup="fetchCreditCardType" v-model="paymentform.cardNumber" aria-describedby="card_number_error_msg" />
+              <div class="mt-xs-2" v-show="errors.has('cardNumber')" :aria-hidden="!errors.has('cardNumber')">
+                <span class="error-msg" id='card_number_error_msg'>{{ errors.first('cardNumber') }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-md-6 right-side-content mt-sm-4 mt-md-0 pl-xs-3">
+          <div class="card-name-block">
+            <div class="label-text">
+              {{i18n.cardHolderName}}
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control input-elements" v-bind:class="{'input-error': errors.has('cardHolderName')}"
+                maxlength="120" aria-label="card holder name" v-validate="{ required: true,
+                  regex: /^[a-zA-Z0-9?][a-zA-Z0-9?\-/'.,@&()!+:’]*\s{1}[a-zA-Z0-9?][a-zA-Z0-9?\-'/.,@&()!+:’]*(?:\s{1}[a-zA-Z0-9?][a-zA-Z0-9?\-'/.,@&()!+:’]+)*$/ ,max:120 }"
+                name="cardHolderName" v-model="paymentform.cardHolderName" @input="paymentform.cardHolderName=$event.target.value"
+                aria-describedby="card_holder_name_error_msg" />
+              <div class="mt-xs-2" id='card_holder_name_error_msg'>
+                <span class="error-msg" v-if="errors.has('cardHolderName')">{{errors.first('cardHolderName')}}</span>
+                <span class="error-msg" v-if="isCardNameInvalid && !errors.has('cardHolderName')">{{i18n.cardholderInvalidNameError}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row form-elements py-xs-0 py-sm-2">
+        <div class="col-xs-12 col-sm-8">
+          <div class="label-text">
+            {{i18n.cardExpiration}}
+          </div>
+          <div>
+            <div class="card-expiry-block">
+              <input type="hidden" name="card_expiry_date" aria-hidden="true" />
+              <div class="form-group month-select-box">
+                <vx-dropdown-primary ref="monthDropdown" v-validate="'required|cardexpirydate'" v-model="paymentform.month"
+                  name="paymentFormMonth" @selected-option="paymentform.month=$event" :dropdownValues="paymentformDetails.month.options"
+                  :dropdownError="errors.has('paymentFormMonth')" aria-describedby="month_error_msg"></vx-dropdown-primary>
+                <div class="mt-xs-2" v-show="errors.has('paymentFormMonth')">
+                  <span class="error-msg" id='month_error_msg' aria-live="assertive">{{errors.first('paymentFormMonth')}}</span>
+                </div>
+              </div>
+              <div class="form-group year-select-box">
+                <vx-dropdown-primary ref="yearDropdown" v-validate="'required|cardexpirydate'" v-model="paymentform.year"
+                  name="paymentFormYear" @selected-option="paymentform.year=$event" :dropdownValues="paymentformDetails.year.options"
+                  :dropdownError="errors.has('paymentFormYear')" aria-describedby="year_error_msg"></vx-dropdown-primary>
+                <div class="mt-xs-2" v-show="errors.has('paymentFormYear')">
+                  <span class="error-msg" id='year_error_msg' aria-live="assertive">{{errors.first('paymentFormYear')}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-6 col-sm-4 right-side-content" v-if="!prePopulateFormFields">
+          <div class="label-text">
+            {{i18n.cardCvv}}
+            <span class="cvv-query">
+              <a aria-hidden="true" class="tooltip-btn">{{i18n.cardCvvQuery}}</a>
+            </span>
+          </div>
+          <div class="form-group">
+            <input type="password" class="form-control input-elements" v-bind:class="{'input-error': errors.has('cardCvn')}"
+              maxlength="4" aria-label="cvv" name="cardCvn" v-validate="cvvValidation()" v-model=" paymentform.cardCvn"
+              aria-describedby="cvv_error_msg" />
+            <div class="mt-xs-2" v-show="errors.has('cardCvn')" :aria-hidden="!errors.has('cardCvn')">
+              <span class="error-msg" id='cvv_error_msg'>{{ errors.first('cardCvn') }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row form-elements py-xs-0 py-sm-2" v-if="globals.getIsLoggedIn() && !isCheckout">
+        <div class="col-sm-12 py-xs-0">
+          <div class="bottom-block py-xs-0">
+            <div class="form-group">
+              <input type="checkbox" class="form-check-input" :label="checkbox.label" :value="checkbox.value" name="defaultpaymentmethod"
+                :aria-label="i18n.defaultPaymentMethod" id="defaultpaymentmethod" v-model="paymentform.defaultPaymentMethod"
+                aria-describedby="payment_method_error_msg" tabindex="0" />
+              <label for="defaultpaymentmethod" class="form-check-label" id='payment_method_error_msg'>{{i18n.defaultPaymentMethod}}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row form-elements py-xs-0 py-sm-2" v-if="prePopulateFormFields">
+        <div class="col-xs-12 col-sm-12">
+          <h3>{{i18n.addOrEditAddress}}</h3>
+        </div>
+      </div>
+      <div class="row form-elements py-xs-0 py-sm-2 billing-address">
+        <div class="col-xs-12 col-sm-12 py-xs-0">
+          <div class="top-block">
+            <h3>{{i18n.billingAddress}}</h3>
+          </div>
+        </div>
+      </div>
+      <!-- checkbox to use shipping address as billing address -->
+      <template v-if="isCheckout">
+        <label class="checkbox-container">{{i18n.useShippingMethod}}
+          <input type="checkbox" v-model="shippingAdresssChecked">
+          <span class="checkmark"></span>
+        </label>
+      </template>
+      <div class="row form-elements py-xs-2" v-if="prePopulateFormFields">
+        <div class="col-xs-12 col-sm-12">
+          <p>{{paymentform.firstName}} {{paymentform.lastName}}</p>
+          <p>{{paymentform.country.value}}</p>
+          <p>{{paymentform.streetAddress}}</p>
+          <p>{{paymentform.city}}, {{paymentform.state.value}}, {{paymentform.postalCode}}</p>
+          <p>
+            <a @click="showSavedAddresses">{{i18n.changeAddress}}</a>
+          </p>
+        </div>
+      </div>
+      <div class="row form-elements py-xs-2" v-if="prePopulateFormFields && showSavedAddressBox">
+        <div class="px-xs-2">
+          {{i18n.savedAddresses}}
+        </div>
+        <div class="form-group col-xs-12 col-sm-12 address-select-box">
+          <vx-dropdown-primary ref="addressDropdown" v-model="paymentform.address" name="paymentFormAddress"
+            @selected-option="paymentform.address=$event" aria-label="Select Address" role='listbox' :dropdownValues="paymentformDetails.address.options"
+            :dropdownError="errors.has('paymentFormAddress')" aria-describedby="payment_address_error_msg"></vx-dropdown-primary>
+          <div class="mt-xs-2" v-show="errors.has('paymentFormAddress')">
+            <span class="error-msg" id='payment_address_error_msg' aria-live="assertive">{{errors.first('paymentFormAddress')}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="row form-elements py-xs-0 py-sm-2" v-if="!prePopulateFormFields">
+        <div class="form-group col-xs-12 col-sm-12 billing-country-block">
+          <vx-dropdown-primary ref="addressDropdown" v-if="!shippingAdresssChecked" v-validate="'required'" v-model="paymentform.address"
+            name="paymentFormAddress" @selected-option="paymentform.address=$event" aria-label='Select Address'
+            :dropdownValues="paymentformDetails.address.options" :dropdownError="errors.has('paymentFormAddress')"
+            :is-disabled="shippingAdresssChecked" aria-describedby="payment_address2_error_msg"></vx-dropdown-primary>
+          <vx-dropdown-primary ref="addressDropdown" v-if="shippingAdresssChecked" v-model="paymentform.address" name="paymentFormAddress"
+            @selected-option="paymentform.address=$event" aria-label='Select Address' :dropdownValues="paymentformDetails.address.options"
+            :dropdownError="errors.has('paymentFormAddress')" :is-disabled="shippingAdresssChecked" aria-describedby="payment_address2_error_msg"></vx-dropdown-primary>
+          <div class="mt-xs-2" v-show="errors.has('paymentFormAddress')">
+            <span class="error-msg" id='payment_address2_error_msg' aria-live="assertive">{{errors.first('paymentFormAddress')}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="row form-elements py-xs-0 py-sm-2" v-if="!prePopulateFormFields">
+        <div class="col-xs-12 col-sm-6 billing-country-block">
+          <div class="label-text">
+            {{i18n.country}}
+          </div>
+          <div class="form-group col-sm-12 country-select-box">
+            <vx-dropdown-primary ref="countryDropdown" v-if="!shippingAdresssChecked" v-validate="'required'" v-model="paymentform.country"
+              name="paymentFormCountry" @selected-option="paymentform.country=$event" aria-label='Select Country'
+              :dropdownValues="paymentformDetails.country.options" :dropdownError="errors.has('paymentFormCountry')"
+              :is-disabled="shippingAdresssChecked || addressDropdownSelected" aria-describedby="payment_country_error_msg"></vx-dropdown-primary>
+            <vx-dropdown-primary ref="countryDropdown" v-if="shippingAdresssChecked" v-model="paymentform.country" name="paymentFormCountry"
+              @selected-option="paymentform.country=$event" aria-label='Select Country' :dropdownValues="paymentformDetails.country.options"
+              :dropdownError="errors.has('paymentFormCountry')" :is-disabled="shippingAdresssChecked" aria-describedby="payment_country_error_msg"></vx-dropdown-primary>
+            <div class="mt-xs-2" v-show="errors.has('paymentFormCountry')">
+              <span class="error-msg" id='payment_country_error_msg' aria-live="assertive">{{errors.first('paymentFormCountry')}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row form-elements py-xs-0 py-sm-2" v-if="!prePopulateFormFields">
+        <div class="col-xs-12 col-md-6 extra-padding-right">
+          <div class="label-text">
+            {{i18n.billingAddress1}}
+          </div>
+          <div class="form-group">
+            <input type="text" :disabled="(!ifNewAddress && shippingAdresssChecked) || addressDropdownSelected" class="form-control input-elements"
+              v-bind:class="{'input-error': errors.has('billToAddressLine1')}" :aria-label="i18n.billingAddress1"
+              maxlength="60" name="billToAddressLine1" v-validate="'required|max:60'" v-model="paymentform.billToAddressLine1"
+              aria-describedby="bill_address1_error_msg" />
+            <div class="mt-xs-2" v-show="errors.has('billToAddressLine1')" :aria-hidden="!errors.has('billToAddressLine1')">
+              <span class="error-msg" id='bill_address1_error_msg'>{{ errors.first('billToAddressLine1') }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-md-6 extra-padding-left-top">
+          <div class="label-text">
+            {{i18n.billingAddress2}}
+          </div>
+          <div class="form-group">
+            <input type="text" :disabled="(!ifNewAddress && shippingAdresssChecked) || addressDropdownSelected" class="form-control input-elements"
+              v-bind:class="{'input-error': errors.has('billToAddressLine2')}" :aria-label="i18n.billingAddress2"
+              maxlength="60" name="billToAddressLine2" v-validate="'max:60'" v-model="paymentform.billToAddressLine2"
+              aria-describedby="bill_address2_error_msg" />
+            <div class="mt-xs-2" v-show="errors.has('billToAddressLine2')" :aria-hidden="!errors.has('billToAddressLine2')">
+              <span class="error-msg" id='bill_address2_error_msg'>{{ errors.first('billToAddressLine2') }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row form-elements py-xs-0 py-sm-2" v-if="!prePopulateFormFields">
+        <div class="col-xs-12 col-sm-4 pb-xs-3">
+          <div class="label-text">
+            {{i18n.city}}
+          </div>
+          <div class="form-group">
+            <input type="text" :disabled="(!ifNewAddress && shippingAdresssChecked) || addressDropdownSelected" class="form-control input-elements"
+              v-bind:class="{'input-error': errors.has('billToAddressCity')}" :aria-label="i18n.city" maxlength="40"
+              name="billToAddressCity" v-validate="'required|max:40'" v-model="paymentform.billToAddressCity"
+              aria-describedby="bill_city_error_msg" />
+            <div class="mt-xs-2" v-show="errors.has('billToAddressCity')" :aria-hidden="!errors.has('billToAddressCity')">
+              <span class="error-msg" id='bill_city_error_msg'>{{ errors.first('billToAddressCity') }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-4">
+          <div class="label-text">
+            {{i18n.state}}
+          </div>
+          <div class="form-group state-select-box">
+            <vx-dropdown-primary ref="stateDropdown" v-if="!shippingAdresssChecked" v-validate="'required'" v-model="paymentform.state"
+              name="paymentFormState" @selected-option="paymentform.state=$event" :aria-label="i18n.state"
+              :dropdownValues="paymentformDetails.state.options" :dropdownError="errors.has('paymentFormState')"
+              :is-disabled="shippingAdresssChecked || addressDropdownSelected" aria-describedby="payment_state_error_msg"></vx-dropdown-primary>
+            <vx-dropdown-primary ref="stateDropdown" v-if="shippingAdresssChecked" v-model="paymentform.state" name="paymentFormState"
+              @selected-option="paymentform.state=$event" :aria-label="i18n.state" :dropdownValues="paymentformDetails.state.options"
+              :dropdownError="errors.has('paymentFormState')" :is-disabled="shippingAdresssChecked || addressDropdownSelected"
+              aria-describedby="payment_state_error_msg"></vx-dropdown-primary>
+            <div class="mt-xs-2" v-show="errors.has('paymentFormState')">
+              <span class="error-msg" id='payment_state_error_msg' aria-live="assertive">{{errors.first('paymentFormState')}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-4 zipcode-field">
+          <div class="label-text">
+            {{i18n.zipcode}}
+          </div>
+          <div class="form-group">
+            <input type="text" :disabled="(!ifNewAddress && shippingAdresssChecked) || addressDropdownSelected" class="form-control input-elements"
+              v-bind:class="{'input-error': errors.has('billToAddressPostalCode')}" :aria-label="i18n.zipcode"
+              maxlength="30" name="billToAddressPostalCode" v-validate="zipCodeValidation()" v-model="paymentform.billToAddressPostalCode"
+              aria-describedby="bill_postal_error_msg" />
+            <div class="mt-xs-2" v-show="errors.has('billToAddressPostalCode')" :aria-hidden="!errors.has('billToAddressPostalCode')">
+              <span class="error-msg" id='bill_postal_error_msg'>{{ errors.first('billToAddressPostalCode') }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row form-elements py-xs-0 py-sm-2" v-if="globals.getIsLoggedIn() && isCheckout">
+        <div class="col-sm-12 py-xs-0">
+          <div class="bottom-block py-xs-0">
+            <div class="form-group">
+              <input type="checkbox" class="form-check-input" :label="checkbox.label" :value="checkbox.value" name="saveForLater"
+                :aria-label="i18n.saveForLater" id="saveForLater" v-model="saveForLater" aria-describedby="payment_method_error_msg" />
+              <label for="saveForLater" class="form-check-label" id='payment_method_error_msg'>{{i18n.saveForLater}}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- commented since this has been removed -->
+      <!-- <div class="row form-elements py-xs-0" v-if="(globals.isB2C() || pageReloadOnSuccess || globals.isEmployeeStore()) && isShow ">
+        <div class="top-block col-xs-12 col-sm-12">
+          <h3>{{i18n.contactInfo}}</h3>
+        </div>
+        <div class="bottom-block">
+          <div class="col-sm-6">
+            <div>
+              {{i18n.email}}
+            </div>
+            <div class="form-group">
+              <input type="email" class="form-control input-elements" v-bind:class="{'input-error': errors.has('billToEmail')}"
+                maxlength="80" :aria-label="i18n.email" name="billToEmail" v-validate="'required|email|max:80'" v-model="paymentform.billToEmail"
+                aria-describedby="bill_email_error_msg" />
+              <div class="mt-xs-2" v-if="errors.has('billToEmail')">
+                <span class="error-msg" id='bill_email_error_msg'>{{ errors.first('billToEmail') }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 pt-xs-3 py-sm-0 py-md-0">
+            <div>
+              {{i18n.phone}}
+            </div>
+            <div class="form-group">
+              <the-mask :masked="masked" class="phone-number input-elements form-control" v-bind:class="{'input-error': errors.has('billToPhone')}"
+                mask="+1 ###-###-####" v-model="paymentform.billToPhone" v-validate="'required: true|min:10'"
+                min-length="10" type="tel" name="billToPhone" :aria-label="i18n.phone" aria-describedby="bill_phone_error_msg">
+              </the-mask>
+              <div class="mt-xs-2" v-if="errors.has('billToPhone')">
+                <span class="error-msg" id='bill_phone_error_msg'>{{ errors.first('billToPhone') }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> -->
+      <div class="row form-elements pt-xs-1 pt-sm-4">
+        <div class="col-sm-12 submit-btn-block" :class="{'d-flex justify-content-start':isFirstCard}">
+          <input v-if="reloadOnSuccess" class="payment-submit-btn modal-btn-primary-large btn btn-primary" :disabled="errors.any()"
+            type="submit" name="submit" :value="i18n.saveBtn" />
+          <input v-else class="payment-submit-btn modal-btn-primary-large btn btn-primary" :disabled="errors.any()"
+            type="submit" name="submit" :value="i18n.saveAndContinueBtn" />
+        </div>
+      </div>
+    </form>
+
+    <iframe id="destination" class="payment-form-iframe" name="paymentformiframe" src="" height="540" width="690"
+      aria-hidden="true" tabindex="-1">
+
+    </iframe>
+
+  </div>
+</div>

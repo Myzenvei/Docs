@@ -1,0 +1,30 @@
+<div class="vx-users-landing pt-xs-4 pt-sm-0 mt-sm-5">
+
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen></vx-spinner>
+  <vx-modal ref="addUserModal" size="large" :heading="i18n.addUser">
+    <div slot="component">
+      <vx-user-form :is-email-exists="isEmailExists" :user-role="UserRoles.CUSTOMER" :business-units-list="businessUnitsList"
+        :form-data="userDetails" :i18n="i18n" slot="component" type="modal" :isEdit="false" v-on:showSpinner="showLoadingSpinner"
+        v-on:hideSpinner="hideLoadingSpinner" v-on:closeUserModal="closeUserModal" v-on:setUsers="setUsersData"></vx-user-form>
+    </div>
+  </vx-modal>
+  <div class="d-flex justify-content-between">
+    <h3 class="mt-xs-0">{{i18n.users}}</h3>
+    <a href="javascript:void(0)" class="btn-link add-create-btn" @click="openAddUserModal($event)" role='button'
+      :aria-label='i18n.addUsers'>
+      {{i18n.addUsers}}
+    </a>
+  </div>
+  <p class="mb-xs-4">
+    {{i18n.description}}
+  </p>
+  <div class="toast py-xs-3 px-xs-4" v-if="showInviteMsg">
+    <span class="icon-check" :title="i18n.iconSuccessTitle"></span>
+    {{i18n.inviteUser}}
+    <span class="icon-x pull-right" @click="showInviteMsg = !showInviteMsg" :title="i18n.iconCloseTitle" :aria-label="i18n.iconCloseTitle"></span>
+  </div>
+  <div class="mb-xs-3" v-if="isMobile()">
+    <vx-dropdown-primary @selected-option="triggerSort($event, '#users-data-table')" :dropdownValues="sortOptions" ref="sortDropdown"></vx-dropdown-primary>
+  </div>
+  <table class="display responsive no-wrap table" id="users-data-table" width="100%" ref="usersTable"></table>
+</div>

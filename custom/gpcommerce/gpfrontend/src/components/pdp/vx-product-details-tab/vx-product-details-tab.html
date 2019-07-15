@@ -1,0 +1,50 @@
+<div class="product-details-tab">
+  <div class="product-details-tab__container">
+    <div class="section row">
+      <div class="top-left-section col-md-6 col-sm-6 col-xs-12">
+        <h3 class="product-details-tab__topleftheading pl-md-4">{{i18n.topLeftHeading}}</h3>
+        <div>
+          <p class="product-details-tab__topleftcontent pr-md-5 pr-sm-5 pr-xs-3 pl-md-4">
+            <span v-html="productDetailsTabData.description"></span>
+            <span class="price-text" v-if="productDetailsTabData.priceText">{{productDetailsTabData.priceText}}</span>
+            <div class="img-container pl-md-4 pt-md-4 pt-sm-4" v-if="productDetailsTabData && productDetailsTabData.gpCertifications">
+              <template v-for="product in productDetailsTabData.gpCertifications">
+                <div v-if="product.url">
+                <a :href="product.url" target="_blank">
+                  <img class="imgBlock mr-sm-3 mb-sm-3" v-if="product.id" :src="globals.assetsPath+'images/sustainabilitygrid/'+product.id.toLowerCase()+'.png'" :alt='product.id'/>
+                </a>
+              </div>
+              <div v-else>
+                  <img class="imgBlock mr-sm-3 mb-sm-3" v-if="product.id" :src="globals.assetsPath+'images/sustainabilitygrid/'+product.id.toLowerCase()+'.png'" :alt='product.id'/>
+              </div>
+              </template>
+            </div>
+          </p>
+        </div>
+      </div>
+      <div class="top-right-section col-md-6 col-sm-6 col-xs-12" v-if="globals.siteConfig.showProductFeatures">
+        <h3 class="product-details-tab__toprightheading">{{i18n.topRightHeading}}</h3>
+        <div>
+          <ul class="product-details-tab__toprightcontent px-xs-3 py-xs-1">
+            <li v-for="(productFeature,index) in productDetailsTabData.featureList">
+              <span v-html="productFeature"></span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col-md-12 col-sm-12 col-xs-12 product-details-tab__pspecholder px-xs-0 pb-sm-5 pb-md-5 px-md-6" v-if="(productDetailsTabData.hasOwnProperty('specifications') && productDetailsTabData.specifications.length > 0) && globals.siteConfig.showProductSpecs">
+        <h3 class="product-details-tab__bottomheading pl-xs-3 pl-sm-5 pl-md-0">{{i18n.bottomHeading}}</h3>
+        <div class="product-details-tab__pspeccontainer">
+          <div class="col-container px-xs-0 px-sm-0 mx-xs-0 ml-xs-0">
+            <div class="col-md-3 col-sm-6 col-xs-12 px-xs-0 px-sm-0 py-xs-3 py-sm-3 col onlybottomborder onlytopborder"
+              :class="{'onlyleftborder': (index%2 === 1) }" v-for="(productSpecData,index) in productDetailsTabData.specifications">
+              <vx-product-details-tab-specs :productDetailsSpecificationData="productSpecData" :indexNo="index">
+              </vx-product-details-tab-specs>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

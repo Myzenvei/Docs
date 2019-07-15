@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2018 SAP SE or an SAP affiliate company.  All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+<config xmlns="http://www.hybris.com/cockpit/config"
+		xmlns:list-view="http://www.hybris.com/cockpitng/component/listView"
+        xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea"
+		xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch"
+		xmlns:y="http://www.hybris.com/cockpit/config/hybris"
+		xmlns:wz="http://www.hybris.com/cockpitng/config/wizard-config">
+
+	<!-- gpbackoffice UI configuration should be provided here -->
+	<context merge-by="type" parent="GenericItem" type="GPAttributeConfig" component="create-wizard">
+        <wz:flow xmlns:wz="http://www.hybris.com/cockpitng/config/wizard-config" id="GPWizard" title="create.title(ctx.TYPE_CODE)">
+        <wz:prepare id="GPWizardPrepare">
+                <wz:initialize property="CMSSite_GPAttributeConfig" type="ctx.TYPE_CODE"/>
+                <wz:assign property="CMSSite_GPAttributeConfig.name" value="ctx.name"/>
+            </wz:prepare>
+            <wz:step id="step1" label="create.gp.attribute.config.label">
+                <wz:content id="step1.content">
+                    <wz:property-list root="CMSSite_GPAttributeConfig">
+                        <wz:property qualifier="name" type="java.lang.String"/>
+                        <wz:property qualifier="assetCode" type="java.lang.String"/>
+                        <wz:property qualifier="cmsSite" editor="com.hybris.cockpitng.editor.defaultreferenceeditor" type="Reference(CMSSite)"/>
+                        <wz:property qualifier="classificationCode" type="java.lang.Integer"/>
+                                       <wz:property qualifier="searchEnabled" type="java.lang.Boolean"/>
+                                       <wz:property qualifier="compareEnabled" type="java.lang.Boolean"/>
+                                       <wz:property qualifier="detailEnabled" type="java.lang.Boolean"/>
+                    </wz:property-list>
+                </wz:content>
+                          <wz:navigation id="step1.navigation">
+                                 <wz:done visible="CMSSite_GPAttributeConfig.name != null and CMSSite_GPAttributeConfig.assetCode != null and CMSSite_GPAttributeConfig.classificationCode != null and CMSSite_GPAttributeConfig.cmsSite !=null">
+                                       <wz:save property="CMSSite_GPAttributeConfig"/>
+                                 </wz:done>
+                          </wz:navigation>
+            </wz:step>
+        </wz:flow>
+    </context>
+    
+       <context merge-by="type" type="GPAttributeConfig" component="advanced-search">
+        <advanced-search:advanced-search>
+            <advanced-search:field-list>
+            <advanced-search:field name="name" selected="true" operator="startsWith" />
+            <advanced-search:field name="assetCode" selected="true"/>
+            <advanced-search:field name="classificationCode" selected="true"/>
+            <advanced-search:field name="cmsSite" selected="true"/>
+            <advanced-search:field name="searchEnabled" selected="true"/>
+            <advanced-search:field name="compareEnabled" selected="true"/>
+            <advanced-search:field name="detailEnabled"/>
+            <advanced-search:field name="pk" selected="false" editor="com.hybris.cockpitng.editor.defaultlong"/>
+            </advanced-search:field-list>
+        </advanced-search:advanced-search>
+    </context>
+	<!--  Marketing Preference Backoffice config -->
+	<context merge-by="type" parent="GenericItem" type="MarketingPreference" component="listview">
+		<list-view:list-view>
+			<list-view:column qualifier="name" />
+			<list-view:column qualifier="description" />
+			<list-view:column qualifier="preferenceTypeId" />
+			<list-view:column qualifier="marketingPreferenceTypeId" />
+			<list-view:column qualifier="site" />
+		</list-view:list-view>
+	</context>
+	
+       <context type="MarketingPreference" component="create-wizard">
+        <wz:flow xmlns:wz="http://www.hybris.com/cockpitng/config/wizard-config" id="MarketingPreferenceWizard" title="create.title(ctx.TYPE_CODE)">
+        <wz:prepare id="mpPrepare">
+                <wz:initialize property="newMarketingPreference" type="ctx.TYPE_CODE"/>
+        </wz:prepare>
+		<wz:step id="step1" label="create.marketing.pref.config.label">
+			<wz:content id="step1.content">
+				<wz:property-list root="newMarketingPreference">
+					<wz:property qualifier="name" type="java.lang.String" />
+					<wz:property qualifier="description" type="java.lang.String"/>
+					<wz:property qualifier="site" editor="com.hybris.cockpitng.editor.defaultreferenceeditor" type="Reference(CMSSite)"/>
+					<wz:property qualifier="preferenceTypeId" type="java.lang.String"/>
+					<wz:property qualifier="marketingPreferenceTypeId" type="java.lang.String"/>
+				</wz:property-list>
+			</wz:content>
+		  <wz:navigation id="step1.navigation">
+		  <wz:cancel />
+				 <wz:done visible="newMarketingPreference.marketingPreferenceTypeId != null and newMarketingPreference.preferenceTypeId != null and newMarketingPreference.site !=null">
+					   <wz:save property="newMarketingPreference"/>
+				 </wz:done>
+		  </wz:navigation>
+		</wz:step>
+        </wz:flow>
+    </context>
+    
+       <context merge-by="type" type="MarketingPreference" component="advanced-search">
+        <advanced-search:advanced-search>
+            <advanced-search:field-list>
+            <advanced-search:field name="name" selected="true" operator="startsWith" />
+            <advanced-search:field name="description" selected="true"/>
+            <advanced-search:field name="site" selected="true"/>
+            <advanced-search:field name="preferenceTypeId" selected="true"/>
+            <advanced-search:field name="marketingPreferenceTypeId" selected="true"/>
+            <advanced-search:field name="pk" selected="false" editor="com.hybris.cockpitng.editor.defaultlong"/>
+            </advanced-search:field-list>
+        </advanced-search:advanced-search>
+    </context>
+     <context component="explorer-tree" merge-by="module">
+           <explorer-tree:explorer-tree xmlns:explorer-tree="http://www.hybris.com/cockpitng/config/explorertree">
+          <explorer-tree:navigation-node id="hmc_treenode_georgiapacific" position="99">
+                <explorer-tree:type-node code="GPAttributeConfig" id="hmc_navigationnode_gpattribute"/>
+                <explorer-tree:type-node code="MarketingPreference" id="hmc_navigationnode_marketingPreference"/>
+                <explorer-tree:type-node code="TaxExemption" id="hmc_navigationnode_taxexemption" />
+          </explorer-tree:navigation-node>
+           </explorer-tree:explorer-tree>
+     </context>
+     
+     <!-- START:  Tax exemption Backoffice configuration -->
+     <context merge-by="type" type="TaxExemption" component="advanced-search">
+		<advanced-search:advanced-search>
+			<advanced-search:field-list>
+				<advanced-search:field name="customer"
+					selected="true" operator="startsWith" />
+			</advanced-search:field-list>
+		</advanced-search:advanced-search>
+	</context>
+
+	<context merge-by="type" type="TaxExemption" component="simple-search">
+		<simple-search:simple-search
+			xmlns:simple-search="http://www.hybris.com/cockpitng/config/simplesearch">
+			<simple-search:field
+				xmlns="http://www.hybris.com/cockpitng/config/simplesearch" name="customer" selected="true" />
+		</simple-search:simple-search>
+	</context>
+	<context merge-by="type" type="TaxExemption" component="listview">
+        <list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView">
+            <list-view:column qualifier="customer"/>
+        </list-view:list-view>
+    </context>
+    
+     <!-- END: Tax exemption configuration -->
+     <!-- START:Backoffice user role configuration;Disable tools in System for specific role -->
+	<context component="explorer-tree" principal="cxmanagerrole"
+		merge-by="module">
+		<explorer-tree:explorer-tree
+			xmlns:explorer-tree="http://www.hybris.com/cockpitng/config/explorertree">
+			<explorer-tree:navigation-node
+				id="hmc_treenode_system">
+				<explorer-tree:navigation-node
+					id="hmc_treenode_systemtools" merge-mode="remove">
+				</explorer-tree:navigation-node>
+			</explorer-tree:navigation-node>
+			<explorer-tree:navigation-node id="hmc.cms2">
+				<explorer-tree:type-node code="CMSSite" id="CMSSite" merge-mode="append" />
+				<explorer-tree:type-node code="CMSPageType" id="CMSPageType" merge-mode="append" />
+				<explorer-tree:type-node code="PageTemplate" id="PageTemplate" merge-mode="append"/>
+				<explorer-tree:type-node code="ContentSlotForTemplate" id="ContentSlotForTemplate" merge-mode="append" />
+				<explorer-tree:type-node code="AbstractPage" id="AbstractPage" merge-mode="append" />
+				<explorer-tree:type-node code="ContentSlot" id="ContentSlot" merge-mode="append" />
+				<explorer-tree:type-node code="ContentSlotForPage" id="ContentSlotForPage"  merge-mode="append"/>
+				<explorer-tree:type-node code="SimpleCMSComponent" id="SimpleCMSComponent" merge-mode="append"/>
+				<explorer-tree:type-node code="ComponentTypeGroup" id="ComponentTypeGroup" merge-mode="append" />
+				<explorer-tree:type-node code="AbstractCMSComponentContainer" id="AbstractCMSComponentContainer" merge-mode="append"/>
+				<explorer-tree:type-node code="RestrictionType" id="RestrictionType" merge-mode="append"/>
+				<explorer-tree:type-node code="AbstractRestriction" id="AbstractRestriction" merge-mode="append"/>
+				<explorer-tree:type-node code="CMSNavigationNode" id="CMSNavigationNode" merge-mode="append" />
+			</explorer-tree:navigation-node>
+		</explorer-tree:explorer-tree>
+	</context>
+	<!-- END:Backoffice user role configuration; Disable tools in System for specific role -->
+    
+    <!-- START:Backoffice user role configuration;Enable B2B Commerce in left side -->
+   <context merge-by="module" parent="auto" component="explorer-tree" principal="customersupportadministratorrole">
+        <explorer-tree:explorer-tree xmlns:explorer-tree="http://www.hybris.com/cockpitng/config/explorertree">
+            <explorer-tree:navigation-node id="hmc.b2bcommercegroup" merge-mode="append">
+                <explorer-tree:type-node code="B2BUnit" id="B2BUnit" merge-mode="append"/>
+                <explorer-tree:type-node code="B2BCustomer" id="B2BCustomer" merge-mode="append"/>
+                <explorer-tree:type-node code="B2BCostCenter" id="B2BCostCenter" merge-mode="append"/>
+                <explorer-tree:type-node code="B2BBudget" id="B2BBudget" merge-mode="append"/>
+                <explorer-tree:type-node code="B2BUserGroup" id="B2BUserGroup" merge-mode="append"/>
+                <explorer-tree:type-node code="B2BReportingSet" id="B2BReportingSet" merge-mode="append"/>
+                <explorer-tree:type-node code="B2BMerchantCheck" id="B2BMerchantCheck" merge-mode="append"/>
+                <explorer-tree:type-node code="FutureStock" id="FutureStock" merge-mode="append"/>
+            </explorer-tree:navigation-node>
+        </explorer-tree:explorer-tree>
+    </context>
+     <!-- END:Backoffice user role configuration;Enable B2B Commerce in left side  -->
+     
+     <!-- START: Backoffice Custom PDP Tabs -->
+     <context merge-by="type" type="Product" component="editor-area">
+     <editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+     <editorArea:tab name="hmc.section.product.tabInfo">
+             <editorArea:section name="hmc.section.product.tabData" > 
+                         <editorArea:attribute qualifier="tabInfo" /> <!-- Display Tabs -->
+                </editorArea:section>
+            </editorArea:tab> 
+        </editorArea:editorArea>
+    </context>
+
+    <!-- Create wizard START-->
+ <context parent="auto" type="GPProductTabInfo" component="create-wizard">
+        <wz:flow id="GPProductTabInfoEntryWizard" title="create.title(ctx.TYPE_CODE)">
+        <wz:prepare id="GPProductTabInfoPrepare">
+                <wz:initialize property="newGPProductTabInfo" type="ctx.TYPE_CODE"/>
+            </wz:prepare>
+           <wz:step id="step1" label="create.tabInfo.essential.label">
+                <wz:content id="step1.content">
+                    <wz:property-list root="newGPProductTabInfo">
+                        <wz:property qualifier="tabKey" type="java.lang.String"/>
+                        <wz:property qualifier="sequenceNumber" type="java.lang.String"/>
+                        <wz:property qualifier="tabContent" editor="com.hybris.cockpitng.editor.wysiwyg"/>
+                    </wz:property-list>
+                </wz:content>
+                          <wz:navigation id="step1.navigation">
+                          <wz:cancel/>
+                                 <wz:done visible="newGPProductTabInfo.sequenceNumber != null and newGPProductTabInfo.tabKey != null and newGPProductTabInfo.tabContent != null">
+                                       <wz:save property="newGPProductTabInfo"/>
+                                 </wz:done>
+                          </wz:navigation>
+            </wz:step>
+        </wz:flow>
+        <!-- Create wizard END-->
+    </context>
+   <!-- END: Backoffice Custom PDP Tabs -->
+   
+     <context merge-by="type" type="Category" component="editor-area">
+     <editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+   		<editorArea:tab name="hmc.tab.category.common">
+                <editorArea:section name="hmc.section.category.description">
+                    <editorArea:attribute editor="com.hybris.cockpitng.editor.localized(com.hybris.cockpitng.editor.wysiwyg)"
+                                          qualifier="authoringContent"/>
+                   
+                </editorArea:section>
+            </editorArea:tab> 
+     </editorArea:editorArea>
+    </context>
+   
+</config>

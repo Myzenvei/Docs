@@ -1,0 +1,47 @@
+{
+  "_phantomChildren": {
+    "array-union": "1.0.2",
+    "arrify": "1.0.1",
+    "glob": "7.1.2",
+    "graceful-fs": "4.1.11",
+    "is-path-cwd": "1.0.0",
+    "is-path-in-cwd": "1.0.1",
+    "jsonfile": "2.4.0",
+    "klaw": "1.3.1",
+    "object-assign": "4.1.1",
+    "path-is-absolute": "1.0.1",
+    "pinkie-promise": "2.0.1",
+    "rimraf": "2.6.2"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "bin": {
+    "vgc": "vgc.js"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "babel-cli": "^6.3.17",
+    "babel-preset-es2015": "^6.3.13",
+    "command-line-args": "^2.1.3",
+    "del": "^2.2.0",
+    "fs-extra": "^0.26.2",
+    "gulp": "^3.9.0",
+    "gulp-babel": "^6.1.1",
+    "lodash": "^3.10.1",
+    "swig": "^1.4.2"
+  },
+  "deprecated": false,
+  "description": "Vue js component generator",
+  "devDependencies": {
+    "run-sequence": "^1.2.1"
+  },
+  "files": [
+    "dist"
+  ],
+  "license": "",
+  "main": "vgc.js",
+  "name": "vue-generate-component",
+  "version": "1.0.0"
+}

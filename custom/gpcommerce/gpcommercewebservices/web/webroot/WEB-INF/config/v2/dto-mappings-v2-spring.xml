@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- Orika : DataMapper -->
+	<alias alias="dataMapper" name="defaultDataMapper"/>
+	<bean id="defaultDataMapper" class="de.hybris.platform.webservicescommons.mapping.impl.DefaultDataMapper">
+		<property name="fieldSetBuilder" ref="fieldSetBuilder"/>
+	</bean>
+
+	<!-- Orika : Filters -->
+	<bean class="de.hybris.platform.webservicescommons.mapping.filters.GeneralFieldFilter">
+		<property name="fieldSelectionStrategy" ref="fieldSelectionStrategy"/>
+	</bean>
+
+	<!-- Orika : Mappers -->
+	<bean class="com.gp.commerce.mapping.mappers.AddressValidationDataMapper"
+	      parent="abstractCustomMapper"/>
+	<bean class="com.gp.commerce.mapping.mappers.SpellingSuggestionMapper"
+	      parent="abstractCustomMapper"/>
+	<bean class="com.gp.commerce.mapping.mappers.CCPaymentInfoDataMapper"
+	      parent="abstractCustomMapper"/>
+	<bean class="com.gp.commerce.mapping.mappers.ImageUrlMapper"
+	      parent="abstractCustomMapper"/>
+
+	<!-- Orika : Converters -->
+	<bean class="com.gp.commerce.mapping.converters.StockLevelStatusConverter"/>
+	<bean class="com.gp.commerce.mapping.converters.OrderStatusConverter"/>
+	<bean class="com.gp.commerce.mapping.converters.ConsignmentStatusConverter"/>
+	<bean class="com.gp.commerce.mapping.converters.DeliveryStatusConverter"/>
+	<bean class="com.gp.commerce.mapping.converters.ProductReferenceTypeEnumConverter"/>
+	<bean class="com.gp.commerce.mapping.converters.VoucherConverter">
+		<property name="dataMapper" ref="dataMapper" />
+		<property name="voucherFacade" ref="voucherFacade" />
+	</bean>
+
+	<!-- Field Mappings : User -->
+
+	<bean id="userSignUpFieldMapper" parent="fieldMapper">
+		<property name="sourceClass"
+		          value="de.hybris.platform.commercewebservicescommons.dto.user.UserSignUpWsDTO"/>
+		<property name="destClass"
+		          value="de.hybris.platform.commercefacades.user.data.RegisterData"/>
+		<property name="fieldMapping">
+			<map>
+				<entry key="uid" value="login"/>
+			</map>
+		</property>
+	</bean>
+	
+	<bean id="RegisterDataFieldMapper" parent="fieldMapper">
+		<property name="sourceClass"
+		          value="de.hybris.platform.commercefacades.user.data.RegisterData"/>
+		<property name="destClass"
+		          value="de.hybris.platform.commercewebservicescommons.dto.user.UserSignUpWsDTO"/>
+		<property name="fieldMapping">
+			<map>
+				<entry key="login" value="uid"/>
+			</map>
+		</property>
+	</bean>
+
+	<bean id="userFieldMapper" parent="fieldMapper">
+		<property name="sourceClass"
+		          value="de.hybris.platform.commercefacades.user.data.CustomerData"/>
+		<property name="destClass"
+		          value="de.hybris.platform.commercewebservicescommons.dto.user.UserWsDTO"/>
+		<property name="fieldMapping">
+			<map>
+				<entry key="defaultShippingAddress" value="defaultAddress"/>
+			</map>
+		</property>
+	</bean>
+
+	<!-- Field Mappings : Catalog -->
+
+	<bean id="catalogVersionFieldMapper" parent="fieldMapper">
+		<property name="sourceClass"
+		          value="de.hybris.platform.commercefacades.catalog.data.CatalogVersionData"/>
+		<property name="destClass"
+		          value="de.hybris.platform.commercewebservicescommons.dto.catalog.CatalogVersionWsDTO"/>
+		<property name="fieldMapping">
+			<map>
+				<entry key="categoriesHierarchyData" value="categories"/>
+			</map>
+		</property>
+	</bean>
+
+	<!-- Field Mappings : Cart -->
+
+	<bean id="cartModificationListFieldMapper" parent="fieldMapper">
+		<property name="sourceClass"
+		          value="de.hybris.platform.commercefacades.order.data.CartModificationDataList"/>
+		<property name="destClass"
+		          value="de.hybris.platform.commercewebservicescommons.dto.order.CartModificationListWsDTO"/>
+		<property name="fieldMapping">
+			<map>
+				<entry key="cartModificationList" value="cartModifications"/>
+			</map>
+		</property>
+	</bean>
+
+	<bean id="paymentDetailsListFieldMapper" parent="fieldMapper">
+		<property name="sourceClass"
+		          value="de.hybris.platform.commercefacades.order.data.CCPaymentInfoDatas"/>
+		<property name="destClass"
+		          value="de.hybris.platform.commercewebservicescommons.dto.order.PaymentDetailsListWsDTO"/>
+		<property name="fieldMapping">
+			<map>
+				<entry key="paymentInfos" value="payments"/>
+			</map>
+		</property>
+	</bean>
+
+	<!-- Field Mappings : Product -->
+
+	<bean id="promotionResultFieldMapper" parent="fieldMapper">
+		<property name="sourceClass"
+		          value="de.hybris.platform.commercefacades.product.data.PromotionResultData"/>
+		<property name="destClass"
+		          value="de.hybris.platform.commercewebservicescommons.dto.product.PromotionResultWsDTO"/>
+		<property name="fieldMapping">
+			<map>
+				<entry key="promotionData" value="promotion"/>
+			</map>
+		</property>
+	</bean>
+
+	<bean id="productSearchPageFieldMapper" parent="fieldMapper">
+		<property name="sourceClass"
+		          value="de.hybris.platform.commerceservices.search.facetdata.ProductSearchPageData"/>
+		<property name="destClass"
+		          value="de.hybris.platform.commercewebservicescommons.dto.search.facetdata.ProductSearchPageWsDTO"/>
+		<property name="fieldMapping">
+			<map>
+				<entry key="results" value="products"/>
+			</map>
+		</property>
+	</bean>
+
+	<!-- Field Mappings : Stores -->
+
+	<bean id="storeFinderSearchPageFieldMapper" parent="fieldMapper">
+		<property name="sourceClass"
+		          value="de.hybris.platform.commerceservices.storefinder.data.StoreFinderSearchPageData"/>
+		<property name="destClass"
+		          value="de.hybris.platform.commercewebservicescommons.dto.store.StoreFinderSearchPageWsDTO"/>
+		<property name="fieldMapping">
+			<map>
+				<entry key="results" value="stores"/>
+			</map>
+		</property>
+	</bean>
+
+	<bean id="storeFinderStockSearchPageFieldMapper" parent="fieldMapper">
+		<property name="sourceClass"
+		          value="de.hybris.platform.commercefacades.storefinder.data.StoreFinderStockSearchPageData"/>
+		<property name="destClass"
+		          value="de.hybris.platform.commercewebservicescommons.dto.store.StoreFinderStockSearchPageWsDTO"/>
+		<property name="fieldMapping">
+			<map>
+				<entry key="results" value="stores"/>
+			</map>
+		</property>
+	</bean>
+
+	<bean id="pointOfServiceStockFieldMapper" parent="fieldMapper">
+		<property name="sourceClass"
+		          value="de.hybris.platform.commercefacades.storelocator.data.PointOfServiceStockData"/>
+		<property name="destClass"
+		          value="de.hybris.platform.commercewebservicescommons.dto.store.PointOfServiceStockWsDTO"/>
+		<property name="fieldMapping">
+			<map>
+				<entry key="stockData" value="stockInfo"/>
+			</map>
+		</property>
+	</bean>
+
+
+	<!-- Field Mappings : Search -->
+
+	<bean id="paginationFieldMapper" parent="fieldMapper">
+		<property name="sourceClass"
+		          value="de.hybris.platform.commerceservices.search.pagedata.PaginationData"/>
+		<property name="destClass"
+		          value="de.hybris.platform.commercewebservicescommons.dto.search.pagedata.PaginationWsDTO"/>
+		<property name="fieldMapping">
+			<map>
+				<entry key="totalNumberOfResults" value="totalResults"/>
+				<entry key="numberOfPages" value="totalPages"/>
+			</map>
+		</property>
+	</bean>
+	
+	<bean id="dataSheetsFieldMapper" parent="fieldMapper">
+		<property name="sourceClass"
+		          value="com.gp.commerce.facades.product.data.DataSheetsData"/>
+		<property name="destClass"
+		          value="com.gp.commerce.product.data.DatasheetsWsDTO"/>
+		<property name="fieldMapping">
+			<map>
+				<entry key="dataSheets" value="dataSheet"/>
+			</map>
+		</property>
+	</bean>
+	
+	<bean id="productResourceVideosFieldMapper" parent="fieldMapper">
+		<property name="sourceClass"
+		          value="com.gp.commerce.facades.product.data.ProductResourcesVideosData"/>
+		<property name="destClass"
+		          value="com.gp.commerce.product.data.ProductResourceVideosWsDTO"/>
+		<property name="fieldMapping">
+			<map>
+				<entry key="video" value="video"/>
+			</map>
+		</property>
+	</bean>
+	<bean id="addressFieldMapper" parent="fieldMapper">
+		<property name="sourceClass"
+		          value="de.hybris.platform.commercefacades.user.data.AddressData"/>
+		<property name="destClass"
+		          value="de.hybris.platform.commercewebservicescommons.dto.user.AddressWsDTO"/>
+		<property name="fieldMapping">
+			<map>
+				<entry key="unit" value="unit"/>
+			</map>
+		</property>
+	</bean>
+		<!-- Field Mappings : Compare Products -->
+
+	<bean id="comparisonFieldMapper" parent="fieldMapper">
+		<property name="sourceClass"
+		          value="com.gp.commerce.facades.search.compare.data.ComparisonData"/>
+		<property name="destClass"
+		          value="com.gp.commerce.search.compare.data.ComparisonWsDTO"/>
+	</bean>
+	
+	<bean id="compareSpecificationsFieldMapper" parent="fieldMapper">
+		<property name="sourceClass"
+		          value="com.gp.commerce.facades.search.compare.data.CompareSpecificationsData"/>
+		<property name="destClass"
+		          value="com.gp.commerce.search.compare.data.CompareSpecificationsWsDTO"/>
+	</bean>
+
+	<bean id="compareAttributesFieldMapper" parent="fieldMapper">
+		<property name="sourceClass"
+		          value="com.gp.commerce.facades.search.compare.data.CompareAttributesData"/>
+		<property name="destClass"
+		          value="com.gp.commerce.search.compare.data.CompareAttributesWsDTO"/>
+	</bean>
+	<!-- Field Mappings : Auto Complete Search -->
+	<bean id="autocompleteSuggestionFieldMapper" parent="fieldMapper">
+		<property name="sourceClass"
+		          value="de.hybris.platform.commercefacades.search.data.AutocompleteSuggestionData"/>
+		<property name="destClass"
+		          value="com.gp.commerce.search.data.AutocompleteSuggestionWsDTO"/>
+	</bean>
+	
+	<bean id="autocompleteResultFieldMapper" parent="fieldMapper">
+		<property name="sourceClass"
+		          value="de.hybris.platform.commercefacades.search.data.AutocompleteResultData"/>
+		<property name="destClass"
+		          value="com.gp.commerce.search.data.AutocompleteResultWsDTO"/>
+	</bean>
+	
+	
+	<!-- Field Mappings : B2B Unit Node -->
+	<bean id="b2bUnitNodeFieldMapper" parent="fieldMapper">
+		<property name="sourceClass"
+		          value="com.gp.commerce.dto.company.B2BUnitWsDTO"/>
+		<property name="destClass"
+		          value="de.hybris.platform.b2bcommercefacades.company.data.B2BUnitData"/>
+	</bean>
+
+	<bean id="giftWrapFieldMapper" parent="fieldMapper">
+              <property name="sourceClass"
+                        value="com.gp.commerce.facades.product.data.GiftWrapData"/>
+              <property name="destClass"
+                        value="com.gp.commerce.product.data.GiftWrappableWsDTO"/>      
+              <property name="fieldMapping">
+                     <map>
+                           <entry key="giftWrapProductCode" value="giftWrapProductCode"/>
+                           <entry key="giftMessage" value="giftMessage"/>
+                           <entry key="giftWrapped" value="giftWrapped"/>
+                     </map>
+              </property>
+       </bean>
+       <bean id="installableFieldMapper" parent="fieldMapper">
+              <property name="sourceClass"
+                        value="com.gp.commerce.facades.product.data.InstallableData"/>
+              <property name="destClass"
+                        value="com.gp.commerce.product.data.InstallableWsDTO"/>
+              <property name="fieldMapping">
+                     <map>
+                           <entry key="installableProductCode" value="installableProductCode"/>
+                           <entry key="installable" value="installable"/>
+						   <entry key="installableMessage" value="installableMessage"/>
+                     </map>
+              </property>
+       </bean>
+       
+       <bean id="MarketingPreferenceQuestionAnsFieldMapper" parent="fieldMapper">
+              <property name="sourceClass"
+                        value="com.gp.commerce.facades.data.user.data.MarketingPreferenceQuestionAnsData"/>
+              <property name="destClass"
+                        value="com.gp.commerce.marketing.data.MarketingPreferenceQuestionAnsWsDTO"/>
+              <property name="fieldMapping">
+                     <map>
+                           <entry key="question" value="question"/>
+                           <entry key="marketingPreferencesAnsList" value="marketingPreferencesAnsList"/>
+					 </map>
+              </property>
+       </bean>
+       
+         <bean id="MarketingPreferenceQuestionAnsDataListFieldMapper" parent="fieldMapper">
+              <property name="sourceClass"
+                        value="com.gp.commerce.facades.user.data.MarketingPreferenceQuestionAnsDataList"/>
+              <property name="destClass"
+                        value="com.gp.commerce.marketing.data.MarketingPreferenceQuestionAnsListWsDTO"/>
+               <property name="fieldMapping">
+                     <map>
+                           <entry key="frequency" value="frequency"/>
+                           <entry key="marketingPrefQuestionData" value="marketingPrefQuestionData"/>
+					 </map>
+              </property>
+       </bean>
+       
+        <bean id="MarketingPreferenceFieldMapper" parent="fieldMapper">
+              <property name="sourceClass"
+                        value="com.gp.commerce.facades.data.user.data.MarketingPreferenceData"/>
+              <property name="destClass"
+                        value="com.gp.commerce.marketing.data.MarketingPreferenceWsDTO"/>
+       </bean>
+       
+	<!-- IRI Service -->
+	<bean id="CategoriesWsDTOFieldMapper" parent="fieldMapper">
+		<property name="sourceClass" value="com.gp.commerce.facades.store.data.GPStoreCategoriesData" />
+		<property name="destClass" value="com.gp.commerce.dto.company.data.CategoriesWsDTO" />
+	</bean>
+	
+	<bean id="StoreProductWsDTOFieldMapper" parent="fieldMapper">
+		<property name="sourceClass" value="com.gp.commerce.facades.store.data.GPStoreProductData" />
+		<property name="destClass" value="com.gp.commerce.dto.store.StoreProductWsDTO" />
+	</bean>
+	
+	<bean id="StoreProductListWsDTOFieldMapper" parent="fieldMapper">
+		<property name="sourceClass" value="com.gp.commerce.facades.store.data.GPStoreProductsData" />
+		<property name="destClass" value="com.gp.commerce.dto.store.StoreProductListWsDTO" />
+	</bean>
+	
+	<bean id="IncompatibleProductsWsDTOFieldMapper" parent="fieldMapper">
+		<property name="sourceClass" value="com.gp.commerce.facade.data.IncompatibleProductsData" />
+		<property name="destClass" value="com.gp.commerce.dto.cart.IncompatibleProductsWsDTO" />
+	</bean>
+	
+	<bean id="CartValidationWsDTOFieldMapper" parent="fieldMapper">
+		<property name="sourceClass" value="com.gp.commerce.facade.data.CartValidationData" />
+		<property name="destClass" value="com.gp.commerce.dto.cart.CartValidationWsDTO" />
+	</bean>
+	
+	<bean id="GPProductListWsDTOFieldMapper" parent="fieldMapper">
+      <property name="sourceClass" value="com.gp.commerce.product.data.GPProductDataList"/>
+      <property name="destClass"   value="com.gp.commerce.product.data.GPProductListWsDTO"/>
+       <property name="fieldMapping">
+       <map>
+        <entry key="prodAttributes" value="prodAttributes"/>
+		</map>
+		</property>
+    </bean>
+    
+           
+    <bean id="GPProductAttributeWsDTOFieldMapper" parent="fieldMapper">
+              <property name="sourceClass"
+                        value="com.gp.commerce.product.data.GPProductAttributeData"/>
+              <property name="destClass"
+                        value="com.gp.commerce.product.dto.GPProductAttributeWsDTO"/>
+    </bean>
+        	
+    <bean id="GPProductAttributeChangeWsDTOFieldMapper" parent="fieldMapper">
+		<property name="sourceClass" value="com.gp.commerce.product.data.GPProductAttributeChangeData" />
+		<property name="destClass" value="com.gp.commerce.product.data.GPProductAttributeChangeWsDTO" />
+	</bean>
+	
+	<bean id="GPProductReferenceListWsDTOFieldMapper" parent="fieldMapper">
+		<property name="sourceClass" value="com.gp.commerce.facades.product.references.data.GPProductReferenceData" />
+		<property name="destClass" value="com.gp.commerce.product.references.data.GPProductReferenceWsDTO" />
+	</bean>
+
+	<bean id="GPContentPageWsDTOFieldMapper" parent="fieldMapper">
+		<property name="sourceClass" value="com.gp.commerce.content.search.facades.data.GPContentPageData" />
+		<property name="destClass" value="com.gp.commerce.content.dto.GPContentPageWsDTO" />
+	</bean>
+	
+	<bean id="GPContentSearchPageWsDTOFieldMapper" parent="fieldMapper">
+		<property name="sourceClass" value="com.gp.commerce.content.search.facetdata.GPContentSearchPageData" />
+		<property name="destClass" value="com.gp.commerce.content.search.result.dto.GPContentSearchPageWsDTO" />
+		<property name="fieldMapping">
+			<map>
+				<entry key="results" value="content"/>
+			</map>
+		</property>
+	</bean>
+	
+	<bean id="GPSolrSearchResultWsDTOFieldMapper" parent="fieldMapper">
+		<property name="sourceClass" value="com.gp.commerce.content.search.data.GPSolrSearchPageData" />
+		<property name="destClass" value="com.gp.commerce.search.dto.GPSolrSearchResultWsDTO" />
+	</bean>
+	
+	<bean id="GPBundleTemplateWsDTOFieldMapper" parent="fieldMapper">
+		<property name="sourceClass" value="de.hybris.platform.configurablebundlefacades.data.BundleTemplateData" />
+		<property name="destClass" value="com.gp.commerce.configurablebundlefacades.dto.BundleTemplateWsDTO" />
+	</bean>
+	
+	<bean id="GPCouponWsDTOFieldMapper" parent="fieldMapper">
+		<property name="sourceClass" value="de.hybris.platform.commercefacades.coupon.data.CouponData" />
+		<property name="destClass" value="com.gp.commerce.dto.coupon.GPCouponWsDTO" />
+	</bean>
+	
+	<bean id="GPPdfUserDetailsWsDTOFieldMapper" parent="fieldMapper">
+		<property name="sourceClass" value="com.gp.commerce.facades.data.PdfDownloadUserData" />
+		<property name="destClass" value="com.gp.commerce.dto.PdfUserDetailsWsDTO" />
+	</bean>
+</beans>
+

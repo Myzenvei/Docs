@@ -1,0 +1,511 @@
+<section class="search-browse-filter-comp"
+  :class="{'no-result-found': noResults, 'category-page pt-sm-4 pt-xs-4': isCategoryPage}">
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>
+  </vx-spinner>
+  <vx-modal ref="shareResourceModal" size="medium" :heading="i18n.shareModal.title">
+    <vx-share-resource slot="component" :i18n="i18n.shareModal" :resource="shareResource"
+      @share-resource-success="onShareResourceSuccess"></vx-share-resource>
+  </vx-modal>
+  <vx-modal ref="selectListModal" size="small" :heading="i18n.selectAList.selectListHeading">
+    <vx-save-cart slot="component" :i18n="i18n.selectAList" :is-bulk-enabled="isBulkEnabled"
+      :selected-bulk-products="selectedBulkProducts" is-product="true" @list-saved="onSelectListSuccess"></vx-save-cart>
+  </vx-modal>
+  <vx-modal ref="shareItemModal" size="large" :heading="i18n.shareItemModal.shareItemHeading">
+    <vx-share-item slot="component" :i18n="i18n.shareItemModal" :is-bulk-enabled="isBulkEnabled"></vx-share-item>
+  </vx-modal>
+  <template v-if="dataLoaded">
+    <h3 v-if="!isCategoryPage"
+      class="search-heading-desktop visible-lg visible-md hidden-sm hidden-xs px-lg-6 px-md-5 px-sm-3 px-xs-3 pt-sm-2 py-xs-3 my-md-5"
+      v-focus>
+      {{ i18n.searchResults }}
+      <span class="searched-term">
+        <q>{{ searchData.freeTextSearch }}</q>
+      </span>
+    </h3>
+    <h3 v-if="isCategoryPage && globals.isGpXpress() && noResults"
+      class="search-heading-desktop visible-lg visible-md hidden-sm hidden-xs px-lg-6 px-md-5 px-sm-3 px-xs-3 pt-sm-2 py-xs-3 my-md-5"
+      v-focus>
+      {{ i18n.noCategoryResuts.heading }}
+    </h3>
+    <div
+      class="search-results-heading-section d-flex justify-content-between hidden-lg hidden-md visible-sm visible-xs py-xs-4 pt-sm-4 pb-sm-3 mx-sm-5"
+      :class="{'empty-search-heading': noResults}">
+      <h3 class="my-xs-0 my-sm-0" v-if="!isCategoryPage">
+        {{ i18n.searchResults }}
+        <span class="searched-term">
+          <q role="heading">{{ searchData.freeTextSearch }}</q>
+        </span>
+      </h3>
+    </div>
+    <div class="no-results-content pt-xs-3" v-if="!isCategoryPage && noResults">
+      {{ i18n.noResultMessage }}
+    </div>
+    <div class="no-results-content pt-xs-3" v-if="isCategoryPage && globals.isGpXpress() && noResults">
+      <p>{{ i18n.noCategoryResuts.message1 }}</p>
+      <p>{{ i18n.noCategoryResuts.message2 }}</p>
+    </div>
+    <template v-if="showContentTab && !noResults">
+      <div class="tab-container px-sm-5">
+        <ul id="tabs" class="nav nav-tabs px-md-2" role="tablist" aria-orientation="horizontal">
+          <li class="tab-item" :class="{'active': !defaultContentTab}">
+            <a id="tab-products" aria-controls="pane-products" href="#pane-products" class="nav-link" data-toggle="tab"
+              role="tab" tabindex="0">{{ i18n.products
+              }}</a>
+          </li>
+          <li class="tab-item" :class="{'active': defaultContentTab}" v-if="globals.siteConfig.contentSearchEnabled">
+            <a id="tab-content" v-if="contentSearchData && contentSearchData.length" aria-controls="pane-content"
+              href="#pane-content" class="nav-link" data-toggle="tab" role="tab" tabindex="0">{{ i18n.contentTab }}</a>
+          </li>
+        </ul>
+      </div>
+      <div id="content" class="tab-content" role="tablist">
+        <div id="pane-products" class="card tab-pane fade" :class="{'in active': !defaultContentTab}" role="tabpanel"
+          aria-labelledby="tab-products">
+          <div class="px-xs-3 card-header" role="tab" id="heading-products">
+            <h5 class="mb-0">
+              <a :class="{'collapsed' : !globals.isVanityfair()}" data-toggle="collapse" href="#collapse-products"
+                data-parent="#content" :aria-expanded="globals.isVanityfair()" aria-controls="collapse-products">
+                {{ i18n.products }} ({{ searchData.products.length }})
+                <span class="icon expanded"></span>
+              </a>
+            </h5>
+          </div>
+          <div id="collapse-products" class="px-sm-3 px-md-0 collapse" :class="{'in' : globals.isVanityfair()}"
+            role="tabpanel" aria-labelledby="heading-products">
+            <div class="card-body">
+              <div :class="{'no-result-found m-xs-5 p-xs-5': defaultContentTab}">
+                <h3 v-if="isCategoryPage && isSampleCart && defaultContentTab"
+                  class="search-heading-desktop visible-lg visible-md hidden-sm hidden-xs px-lg-6 px-md-5 px-sm-3 px-xs-3 pt-sm-2 py-xs-3 my-md-5"
+                  v-focus>
+                  {{ i18n.noCategoryResuts.heading }}
+                </h3>
+                <div class="no-results-content pt-xs-3 px-lg-6 px-md-5 px-sm-3 px-xs-3 pt-sm-2 py-xs-3 my-md-5"
+                  v-if="!isCategoryPage && defaultContentTab">
+                  {{ i18n.noResultMessage }}
+                </div>
+                <div class="no-results-content pt-xs-3 px-lg-6 px-md-5 px-sm-3 px-xs-3 pt-sm-2 py-xs-3 my-md-5"
+                  v-if="isCategoryPage && isSampleCart && defaultContentTab">
+                  <p>{{ i18n.noCategoryResuts.message1 }}</p>
+                  <p>{{ i18n.noCategoryResuts.message2 }}</p>
+                </div>
+              </div>
+              <div class="search-browse row mx-xs-0" v-if="!noResults && !defaultContentTab">
+                <focus-trap>
+                  <div class="facet-container col-lg-3" :class="{'filter-mobile-view': !filterHidden}">
+                    <div class="row">
+                      <div
+                        class="refine-results-heading col-xs-12 hidden-lg hidden-md visible-sm visible-xs py-xs-3 px-sm-3 px-xs-3"
+                        v-if="!filterHidden">
+                        <span class="heading-cls" tabindex="1">{{ i18n.refineResults }}
+                        </span>
+                        <span class="icon-x" @click="toggleFilter" :aria-label="i18n.iconXTitle"
+                          @keyup.enter-space="toggleFilter" role="button" tabindex="0" :title="i18n.iconXTitle"></span>
+                      </div>
+                      <div class="facet-wrapper col-xs-12 px-xs-0">
+                        <span class="sr-only">{{ i18n.filterPanel }}</span>
+                        <div class="hidden-lg hidden-md visible-sm visible-xs pt-xs-3 pb-xs-4 px-md-3 px-sm-3 px-xs-3"
+                          v-if="!filterHidden">
+                          <vx-dropdown-primary @selected-option="updateSortBy($event)" :dropdownValues="sortsArray"
+                            ref="sortBy"></vx-dropdown-primary>
+                        </div>
+                        <div v-for="filter in searchData.facets"
+                          class="facet-category ml-md-3 pl-md-4 pr-md-3 px-sm-3 px-xs-3">
+                          <div v-if="filter.name.toLowerCase() === facetName.ratingLabel.toLowerCase()">
+                            <div v-if="isBazaarVoice === 'true'">
+                              <div class="category-name" role="heading">
+                                <span class="filter-name">{{
+                                  filter.name
+                                }}</span>
+                                <!-- Deffered for R2 release -->
+                                <!-- <span class="option-count">({{filter.values.length}} {{i18n.countUnit}})</span> -->
+                              </div>
+                            </div>
+                          </div>
+                          <div v-else>
+                            <div class="category-name d-flex" role="heading">
+                              <span class="filter-name">{{ filter.name }}</span>
+                              <p class="facet-count" v-if="filter.count">
+                                ({{ filter.count }})
+                              </p>
+                              <!-- Deffered for R2 release -->
+                              <!-- <span class="option-count">({{filter.values.length}} {{i18n.countUnit}})</span> -->
+                            </div>
+                          </div>
+                          <div v-if="filter.name.toLowerCase() === facetName.ratingLabel.toLowerCase()">
+                            <div v-if="isBazaarVoice === 'true'">
+                              <div v-for="(option,index) in filter.values" :key="option.name">
+                                <div class="form-group rating-facet" v-if="option.name.charAt(0)!=='0'">
+                                  <input type="radio" name="rating" :id="'radio-'+option.name" class="m-a-0"
+                                    :ref="option.name+'-radio'" :checked="option.selected"
+                                    @click="updateFilterList(filter.name,option)" />
+                                  <label class="checked-rating" :for="'radio-'+option.name"><span class="sr-only">{{
+                                      option.name
+                                    }}</span>
+                                    <vx-star-rating :product-rating="option.name.charAt(0)" :i18n="i18n"
+                                      :show-rating="showRating" :show-reviews="showReviews"
+                                      :number-of-stars="option.name.charAt(0)"></vx-star-rating>
+                                    <span aria-hidden="true">{{
+                                      i18n.facetUpLabel
+                                    }}</span>
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div v-else>
+                            <div v-for="(option,index) in filter.values">
+                              <div class="form-group">
+                                <input type="checkbox" :id="'checkbox-'+option.name+filter.name" class="m-a-0"
+                                  :checked="option.selected" :ref="option.name+'-checkbox'"
+                                  @click="updateFilterList(filter.name,option)" />
+                                <label class="d-flex" :for="'checkbox-'+option.name+filter.name">
+                                  <p>{{ option.name }}</p>
+                                  <p class="facet-count" v-if="option.count">
+                                    ({{ option.count }})
+                                  </p>
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <button class="btn btn-default col-xs-12 hidden-lg hidden-md visible-sm visible-xs"
+                        @click="resetFilter()">
+                        {{ i18n.clearAllText }}
+                      </button>
+                      <div class="clear-all-filter visible-lg visible-md hidden-sm hidden-xs mr-md-5"
+                        @click="resetFilter()" tabindex="0" role="button">
+                        {{ i18n.clearAllText }}
+                      </div>
+                    </div>
+                  </div>
+                </focus-trap>
+                <div class="tile-container col-lg-9 pt-xs-0 px-md-2">
+                  <div class="header-bar d-flex flex-column mx-xs-3 pb-xs-0 pt-md-4"
+                    :class="{'no-border pb-md-4': !isBulkEnabled}">
+                    <div class="d-flex header-dropdown">
+                      <h1 aria-hidden="true" class="heading pb-sm-2 pb-xs-2 pb-md-0 m-xs-0 pt-xs-3 pb-xs-2"
+                        v-if="searchData && searchData.pagination && searchData.pagination.totalResults">
+                        {{ i18n.products }} -
+                        <span class="product-length-section">{{ searchData.pagination.totalResults }}
+                          {{ i18n.countUnit }}
+                        </span>
+                      </h1>
+                      <span class="sr-only"
+                        v-if="searchData && searchData.pagination && searchData.pagination.totalResults"
+                        :aria-hidden="globals.getSiteId()==='gpemployee' && isMobile()">{{ i18n.products }}
+                        {{ searchData.pagination.totalResults }}
+                        {{ i18n.countUnit }}</span>
+                      <div class="visible-lg visible-md hidden-sm hidden-xs px-md-0" v-if="filterHidden">
+                        <vx-dropdown-primary @selected-option="updateSortBy($event)" :dropdownValues="sortsArray"
+                          ref="sortBy"></vx-dropdown-primary>
+                      </div>
+                      <button class="icon-filter hidden-lg hidden-md" tabindex="0" :aria-label="i18n.iconFilterTitle"
+                        @click="toggleFilter($event)" @keyup.enter-space="toggleFilter($event)" v-if="!noResults"
+                        :title="i18n.iconFilterTitle"></button>
+                    </div>
+                    <div class="d-flex applied-filter-section">
+                      <div class="applied-filter d-flex" v-for="currentFilter in appliedFilterList"
+                        v-if="appliedFilterList.length > 0">
+                        <div class="filter-list tag align-items-center">
+                          <span class="tag-content"
+                            :aria-label="'Range:'+ currentFilter.filterValue">{{ currentFilter.filterValue }}</span>
+                          <span class="icon-x" tabindex="0" role="button" :aria-label="i18n.iconXTitle"
+                            @keyup.enter-space="removeFilters(currentFilter)" @click="removeFilters(currentFilter)"
+                            :title="i18n.iconXTitle"></span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="d-flex justify-content-between applied-filter-section mt-sm-4"
+                      v-if="isBulkEnabled && searchData.products.length > 0">
+                      <div class="form-group" :title="i18n.selectAllTitle">
+                        <input type="checkbox" id="selectAll" @click="onSelectAll($event)" :checked="selectAll" /><label
+                          for="selectAll">{{ i18n.selectAll }}</label>
+                      </div>
+                      <span class="products-selected">{{ selectedBulkProducts.length }}
+                        {{ i18n.productsSelected }}</span>
+                    </div>
+                    <div class="row d-flex">
+                      <hr class="d-flex" />
+                    </div>
+                  </div>
+                  <div class="list-page-wrapper" :class="{ 'no-filter' : !appliedFilterList.length }">
+                    <vx-list-page :products="productList" :is-favorites="isFavorites" @loadMoreProducts="loadMore"
+                      :is-bazaar-voice="isBazaarVoice" :is-bulk-enabled="isBulkEnabled"
+                      :search-browse-i18n="searchBrowseI18n" :single-product-enabled="singleProductEnabled"></vx-list-page>
+                  </div>
+                </div>
+                <div class="row bulk-btn-container">
+                  <div class="col-sm-12 px-xs-0 py-xs-2 px-sm-5 px-md-4 d-flex justify-content-end pr-md-3 bulk-btn"
+                    v-if="showPanel">
+                    <button class="btn btn-tertiary mx-sm-3 my-sm-3 mx-xs-2 my-xs-2" :aria-label="i18n.share"
+                      @click="handleShareItem($event)">
+                      {{ i18n.share }}
+                    </button>
+                    <button class="btn btn-tertiary mx-sm-3 my-sm-3 mx-xs-2 my-xs-2" :aria-label="i18n.compare"
+                      @click="handleCompare($event)" :disabled="isCompareDisabled"
+                      :class="{'disabled': isCompareDisabled}">
+                      {{ i18n.compare }} {{ compareCount }}
+                    </button>
+                    <button class="btn btn-tertiary mx-sm-3 my-sm-3 mx-xs-2 my-xs-2" :aria-label="i18n.addToList"
+                      @click="handleSelectList($event)">
+                      {{ i18n.addToList }}
+                    </button>
+                    <button class="btn btn-primary mx-sm-3 my-sm-3 mx-xs-2 my-xs-2" v-if="globals.isGpXpress() && showSampleOrderButton"
+                      :disabled="isSampleOrderDisabled" :class="{'disabled': isSampleOrderDisabled}"
+                      :aria-label="i18n.orderSample" @click="handleAddToCart($event)">
+                      {{ i18n.orderSample }}
+                    </button>
+                    <button class="btn btn-primary mx-sm-3 my-sm-3 mx-xs-2 my-xs-2" v-if="!globals.isGpXpress()" :aria-label="i18n.addToCart"
+                      @click="handleAddToCart($event)">
+                      {{ i18n.addToCart }}
+                    </button>
+                  </div>
+                </div>
+                <div id="lazyLoad" ref="lazyLoad"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="pane-content" class="card tab-pane fade" :class="{'in active': defaultContentTab}" role="tabpanel"
+          aria-labelledby="tab-content" v-if="contentSearchData && contentSearchData.length && globals.siteConfig.contentSearchEnabled">
+          <div class="px-xs-3 card-header pt-xs-3 pb-xs-2" role="tab" id="heading-content">
+            <h5 class="mb-0">
+              <a class="collapsed" data-toggle="collapse" href="#collapse-content" data-parent="#content"
+                aria-expanded="false" aria-controls="collapse-content"
+                v-if="contentSearch.pagination && contentSearch.pagination.totalResults">
+                {{ i18n.contentTab }} ({{ contentSearch.pagination.totalResults }})
+                <span class="icon expanded"></span>
+              </a>
+            </h5>
+          </div>
+          <div id="collapse-content" class="px-sm-3 px-md-0 collapse" role="tabpanel" aria-labelledby="heading-content">
+            <div class="card-body">
+              <div class="tile-container col-lg-12 pt-xs-0 px-sm-3 py-sm-3">
+                <div class="header-bar d-flex flex-column pb-xs-0 pb-md-3 px-md-3 py-md-5 mx-sm-0 pb-sm-3 mx-md-3">
+                  <div class="d-flex header-dropdown">
+                    <h1 aria-hidden="true"
+                      class="heading pb-sm-2 pb-xs-2 pb-md-0 m-xs-0 visible-lg visible-md visible-sm hidden-xs"
+                      v-if="contentSearch && contentSearch.pagination && contentSearch.pagination.totalResults">
+                      {{ i18n.contentTab }} -
+                      <span class="product-length-section">
+                        {{ contentSearch.pagination.totalResults }}
+                        {{ i18n.countUnit }}
+                      </span>
+                    </h1>
+                    <span v-if="searchData && searchData.pagination && searchData.pagination.totalResults"
+                      class="sr-only"
+                      :aria-hidden="globals.getSiteId() === brandValues.gpemployee && isMobile()">{{ i18n.products }}
+                      {{ searchData.pagination.totalResults }}
+                      {{ i18n.countUnit }}</span>
+                    <div class="visible-lg visible-md visible-sm visible-xs px-md-0 content-dropdown py-xs-3"
+                      v-if="filterHidden">
+                      <vx-dropdown-primary @selected-option="updateContentSortBy($event)"
+                        :dropdownValues="contentSortArray" ref="contentSortBy"></vx-dropdown-primary>
+                    </div>
+                  </div>
+                  <div class="row d-flex">
+                    <hr class="d-flex" />
+                  </div>
+                </div>
+                <div class="px-md-2 py-md-3 mx-md-3 content-section py-sm-3 py-xs-3 px-xs-3 px-sm-0"
+                  v-for="product in contentSearchData">
+                  <a :href="globals.contextPath + product.url"
+                    v-if="product.contentType === contentType.page">{{ product.title }}</a>
+                  <a @click="openShareModal(product)" v-else>{{
+                    product.title
+                  }}</a>
+                  <p>{{ product.description }}</p>
+                </div>
+                <div id="lazyLoad" ref="lazyLoad"></div>
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-secondary back-to-top-icon" @click="onBackToTop($event)" v-if="showBackToTop">
+            <span class="icon-chevron-up"></span>
+          </button>
+        </div>
+      </div>
+    </template>
+    <template v-else>
+      <div class="card-body">
+        <div class="search-browse row mx-xs-0" v-if="!noResults">
+          <focus-trap>
+            <div class="facet-container col-lg-3" :class="{'filter-mobile-view': !filterHidden}">
+              <div class="row">
+                <div
+                  class="refine-results-heading col-xs-12 hidden-lg hidden-md visible-sm visible-xs py-xs-3 px-sm-3 px-xs-3"
+                  v-if="!filterHidden">
+                  <span class="heading-cls" tabindex="1">{{ i18n.refineResults }}
+                  </span>
+                  <span class="icon-x" @click="toggleFilter" :aria-label="i18n.iconXTitle"
+                    @keyup.enter-space="toggleFilter" role="button" tabindex="0" :title="i18n.iconXTitle"></span>
+                </div>
+                <div class="facet-wrapper col-xs-12 px-xs-0">
+                  <span class="sr-only">{{ i18n.filterPanel }}</span>
+                  <div class="hidden-lg hidden-md visible-sm visible-xs pt-xs-3 pb-xs-4 px-md-3 px-sm-3 px-xs-3"
+                    v-if="!filterHidden">
+                    <vx-dropdown-primary @selected-option="updateSortBy($event)" :dropdownValues="sortsArray"
+                      ref="sortBy"></vx-dropdown-primary>
+                  </div>
+                  <div v-for="filter in searchData.facets"
+                    class="facet-category ml-md-3 pl-md-4 pr-md-3 px-sm-3 px-xs-3">
+                    <div v-if="filter.name.toLowerCase() === facetName.ratingLabel.toLowerCase()">
+                      <div v-if="isBazaarVoice === 'true'">
+                        <div class="category-name" role="heading">
+                          <span class="filter-name">{{ filter.name }}</span>
+                          <!-- Deffered for R2 release -->
+                          <!-- <span class="option-count">({{filter.values.length}} {{i18n.countUnit}})</span> -->
+                        </div>
+                      </div>
+                    </div>
+                    <div v-else>
+                      <div class="category-name d-flex" role="heading">
+                        <span class="filter-name">{{ filter.name }}</span>
+                        <p class="facet-count" v-if="filter.count">
+                          ({{ filter.count }})
+                        </p>
+                        <!-- Deffered for R2 release -->
+                        <!-- <span class="option-count">({{filter.values.length}} {{i18n.countUnit}})</span> -->
+                      </div>
+                    </div>
+                    <div v-if="filter.name.toLowerCase() === facetName.ratingLabel.toLowerCase()">
+                      <div v-if="isBazaarVoice === 'true'">
+                        <div v-for="(option,index) in filter.values" :key="option.name">
+                          <div class="form-group rating-facet" v-if="option.name.charAt(0)!=='0'">
+                            <input type="radio" name="rating" :id="'radio-'+option.name" class="m-a-0"
+                              :ref="option.name+'-radio'" :checked="option.selected"
+                              @click="updateFilterList(filter.name,option)" />
+                            <label class="checked-rating" :for="'radio-'+option.name"><span
+                                class="sr-only">{{ option.name }}</span>
+                              <vx-star-rating :product-rating="option.name.charAt(0)" :i18n="i18n"
+                                :show-rating="showRating" :show-reviews="showReviews"
+                                :number-of-stars="option.name.charAt(0)"></vx-star-rating>
+                              <span aria-hidden="true">{{
+                                i18n.facetUpLabel
+                              }}</span>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div v-else>
+                      <div v-for="(option,index) in filter.values">
+                        <div class="form-group">
+                          <input type="checkbox" :id="'checkbox-'+option.name+filter.name" class="m-a-0"
+                            :checked="option.selected" :ref="option.name+'-checkbox'"
+                            @click="updateFilterList(filter.name,option)" />
+                          <label class="d-flex" :for="'checkbox-'+option.name+filter.name">
+                            <p>{{ option.name }}</p>
+                            <p class="facet-count" v-if="option.count">
+                              ({{ option.count }})
+                            </p>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <button class="btn btn-default col-xs-12 hidden-lg hidden-md visible-sm visible-xs"
+                  @click="resetFilter()">
+                  {{ i18n.clearAllText }}
+                </button>
+                <div class="clear-all-filter visible-lg visible-md hidden-sm hidden-xs mr-md-5" @click="resetFilter()"
+                  tabindex="0" role="button">
+                  {{ i18n.clearAllText }}
+                </div>
+              </div>
+            </div>
+          </focus-trap>
+          <div class="tile-container col-lg-9 pt-xs-0 pl-md-2 pr-md-4 px-sm-3">
+            <div class="header-bar d-flex flex-column mx-xs-3 pb-xs-0 pt-md-4"
+              :class="{'no-border pb-md-4': !isBulkEnabled}">
+              <div class="d-flex header-dropdown">
+                <h1 aria-hidden="true" class="heading pb-sm-2 pb-xs-2 pb-md-0 m-xs-0 pt-xs-3 pb-xs-2"
+                  v-if="searchData && searchData.pagination && searchData.pagination.totalResults">
+                  {{ i18n.products }} -
+                  <span class="product-length-section">{{ searchData.pagination.totalResults }}
+                    {{ i18n.countUnit }}
+                  </span>
+                </h1>
+                <span class="sr-only" v-if="searchData && searchData.pagination && searchData.pagination.totalResults"
+                  :aria-hidden="globals.getSiteId()==='gpemployee' && isMobile()">{{ i18n.products }}
+                  {{ searchData.pagination.totalResults }}
+                  {{ i18n.countUnit }}</span>
+                <div class="visible-lg visible-md hidden-sm hidden-xs px-md-0" v-if="filterHidden">
+                  <vx-dropdown-primary @selected-option="updateSortBy($event)" :dropdownValues="sortsArray"
+                    ref="sortBy"></vx-dropdown-primary>
+                </div>
+                <button class="icon-filter hidden-lg hidden-md" tabindex="0" :aria-label="i18n.iconFilterTitle"
+                  @click="toggleFilter($event)" @keyup.enter-space="toggleFilter($event)" v-if="!noResults"
+                  :title="i18n.iconFilterTitle"></button>
+              </div>
+              <div class="d-flex applied-filter-section">
+                <div class="applied-filter d-flex" v-for="currentFilter in appliedFilterList"
+                  v-if="appliedFilterList.length > 0">
+                  <div class="filter-list tag align-items-center">
+                    <span class="tag-content"
+                      :aria-label="'Range:'+ currentFilter.filterValue">{{ currentFilter.filterValue }}</span>
+                    <span class="icon-x" tabindex="0" role="button" :aria-label="i18n.iconXTitle"
+                      @keyup.enter-space="removeFilters(currentFilter)" @click="removeFilters(currentFilter)"
+                      :title="i18n.iconXTitle"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex justify-content-between applied-filter-section mt-sm-4"
+                v-if="isBulkEnabled && searchData.products.length > 0">
+                <div class="form-group" :title="i18n.selectAllTitle">
+                  <input type="checkbox" id="selectAll" @click="onSelectAll($event)" :checked="selectAll" /><label
+                    for="selectAll">{{ i18n.selectAll }}</label>
+                </div>
+                <span class="products-selected">{{ selectedBulkProducts.length }}
+                  {{ i18n.productsSelected }}</span>
+              </div>
+              <div class="row d-flex">
+                <hr class="d-flex" />
+              </div>
+            </div>
+            <div class="list-page-wrapper" :class="{ 'no-filter' : !appliedFilterList.length }">
+              <vx-list-page :products="productList" :is-favorites="isFavorites" @loadMoreProducts="loadMore"
+                :is-bazaar-voice="isBazaarVoice" :is-bulk-enabled="isBulkEnabled"
+                :search-browse-i18n="searchBrowseI18n" :single-product-enabled="singleProductEnabled">
+              </vx-list-page>
+            </div>
+          </div>
+          <div class="row bulk-btn-container">
+            <div class="col-sm-12 px-xs-0 py-xs-2 px-sm-5 px-md-4 d-flex justify-content-end pr-md-3 bulk-btn"
+              v-if="showPanel">
+              <button class="btn btn-tertiary mx-sm-3 my-sm-3 mx-xs-2 my-xs-2" :aria-label="i18n.share"
+                @click="handleShareItem($event)">
+                {{ i18n.share }}
+              </button>
+              <button class="btn btn-tertiary mx-sm-3 my-sm-3 mx-xs-2 my-xs-2" :aria-label="i18n.compare"
+                @click="handleCompare($event)" :disabled="isCompareDisabled" :class="{'disabled': isCompareDisabled}">
+                {{ i18n.compare }} {{ compareCount }}
+              </button>
+              <button class="btn btn-tertiary mx-sm-3 my-sm-3 mx-xs-2 my-xs-2" :aria-label="i18n.addToList"
+                @click="handleSelectList($event)">
+                {{ i18n.addToList }}
+              </button>
+              <button class="btn btn-primary mx-sm-3 my-sm-3 mx-xs-2 my-xs-2" v-if="globals.isGpXpress() && showSampleOrderButton"
+                :disabled="isSampleOrderDisabled" :class="{'disabled': isSampleOrderDisabled}"
+                :aria-label="i18n.orderSample" @click="handleAddToCart($event)">
+                {{ i18n.orderSample }}
+              </button>
+              <button class="btn btn-primary mx-sm-3 my-sm-3 mx-xs-2 my-xs-2" v-if="!globals.isGpXpress()" :aria-label="i18n.addToCart"
+                @click="handleAddToCart($event)">
+                {{ i18n.addToCart }}
+              </button>
+            </div>
+          </div>
+          <div id="lazyLoad" ref="lazyLoad"></div>
+        </div>
+      </div>
+    </template>
+    <template v-if="guestListName">
+      <vx-save-cart :i18n="i18n.selectAList" :is-bulk-enabled="isBulkEnabled" @list-saved="onSelectListSuccess"
+        is-product="true" :guest-list-name="guestListName" :selected-bulk-products="selectedBulkProducts">
+      </vx-save-cart>
+    </template>
+  </template>
+</section>

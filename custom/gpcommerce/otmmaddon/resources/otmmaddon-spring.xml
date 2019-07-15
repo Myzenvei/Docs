@@ -1,0 +1,451 @@
+<!-- [y] hybris Platform Copyright (c) 2000-2013 hybris AG All rights reserved. 
+	This software is the confidential and proprietary information of hybris ("Confidential 
+	Information"). You shall not disclose such Confidential Information and shall 
+	use it only in accordance with the terms of the license agreement you entered 
+	into with hybris. -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+           http://www.springframework.org/schema/context
+		   http://www.springframework.org/schema/context/spring-context-3.1.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+           http://www.springframework.org/schema/util
+           http://www.springframework.org/schema/util/spring-util-3.1.xsd"
+    >
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+	<context:annotation-config />
+	<context:component-scan base-package="com.opentext.hybris.otmmconnector.*" />
+	<!-- The hybris platform provides one single Spring application context 
+		for beans located at the jalo layer. Each extension can add beans to this 
+		context by specifying them at this configuration file. You can use and/or 
+		redefine beans defined at configuration files of other extensions as well 
+		as adding new one. If you want to locate this file at a different location 
+		or want to use several files for better, structuring, please use the '<yourextension>.application-context' 
+		property at your project.properties file. There you can specify a comma separated 
+		list of files where first is tried to find a file per classpath and then 
+		per file system. Please be aware of the special 'tenant' scope. If you have 
+		a multi tenant system you mostly have to use this scope instead of the default 
+		Spring 'singleton' scope. If you want to configure beans for your web module 
+		please have a look at your web/webroot/WEB-INF/<extname>-web-spring.xml. -->
+
+	<!-- Example how to override a manager -->
+	<!-- <bean id="core.productManager" class="com.opentext.hybris.otmmconnector.jalo.OtmmaddonProductManager" 
+		init-method="init" destroy-method="destroy" scope="tenant" /> -->
+
+
+	<!-- Example how to configure the class to use for jalo session creation -->
+	<!-- <bean id="jalosession" class="de.hybris.platform.jalo.JaloSessionFactory"> 
+		<property name="targetClassName" value="com.opentext.hybris.otmmconnector.jalo.OtmmaddonJaloSession"/> 
+		</bean> -->
+
+
+	<!-- Example how to override an item -->
+	<!-- <bean id="de.hybris.platform.jalo.product.Product" class="com.opentext.hybris.otmmconnector.jalo.OtmmaddonProduct" 
+		scope="prototype" /> -->
+
+	<!-- Example how to register and use an AOP aspect Also see http://static.springframework.org/spring/docs/2.5.x/reference/aop.html -->
+
+	<!-- <bean id="otmmaddonProfBean" class="com.opentext.hybris.otmmconnector.aop.OtmmaddonProfilingAspect"/> 
+		<aop:config proxy-target-class="true"> <aop:aspect id="otmmaddonProfAspect" 
+		ref="otmmaddonProfBean" > <aop:pointcut id="profiledMethods" expression="execution(* 
+		getModificationTime(..))" /> <aop:around pointcut-ref="profiledMethods" method="profile" 
+		/> </aop:aspect> </aop:config> -->
+
+
+	<!-- some other examples of a pointcut that matches everything: <aop:pointcut 
+		id="profiledMethods" expression="bean(de.hybris.platform.jalo.user.Customer) 
+		&amp;&amp; !execution(* getPK(..))" /> l <aop:pointcut id="profiledMethods" 
+		expression="execution(* *(..))" /> -->
+
+
+	<bean class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+	   <property name="customTargetSourceCreators">
+	     <list>
+	       <bean class="org.springframework.aop.framework.autoproxy.target.LazyInitTargetSourceCreator"/>
+	     </list>
+	   </property>
+	</bean>
+
+	<bean id="otmmSpringContext" class="com.opentext.hybris.otmmconnector.util.OtmmSpringContextProvider"/>
+	
+	<bean id="otmmSessionService" class="com.opentext.hybris.otmmconnector.service.impl.OtmmSessionServiceImpl">
+		<property name="sessionService" ref="sessionService"/>
+		<property name="userService" ref="userService"/>
+	</bean>
+
+	<bean id="oTMMFacade" class="com.opentext.hybris.otmmconnector.facade.impl.OTMMFacadeImpl" 
+		lazy-init="true" >
+	</bean>
+	
+	<bean id="intgDao"
+		class="com.opentext.hybris.otmmconnector.dao.impl.IntgDaoImpl"
+		parent="abstractItemDao">
+	</bean>
+	<!-- <bean id="customUploadGridView" class="com.opentext.hybris.otmmconnector.productcockpit.CustomUploadGridView" 
+		scope="prototype"> </bean> -->
+
+	<!-- Start | This bean is used for invoking-Export-Service specific cron job -->
+	<bean id="otmmExportServiceJob"
+		class="com.opentext.hybris.otmmconnector.cronjobs.OTMMExportServiceJob"
+		parent="abstractJobPerformable" >
+		<property name="oTMMFacade" ref="oTMMFacade" />
+	</bean>
+
+	<!-- Start | This bean is used for Asset-Sync specific cron job -->
+	<bean id="otmmAssetSyncJob"
+		class="com.opentext.hybris.otmmconnector.cronjobs.OTMMAssetSyncJob"
+		parent="abstractJobPerformable" >
+	</bean>
+
+	<!-- Start | This bean is used for Asset-Sync specific cron job -->
+	<bean id="otmmAutoAssignJob"
+		class="com.opentext.hybris.otmmconnector.cronjobs.AutoAssignJob"
+		parent="abstractJobPerformable" >
+	</bean>
+
+	<!-- Start | This bean is used for purging-Association-Table specific cron job -->
+	<bean id="otmmAssociationPurgeJob"
+		class="com.opentext.hybris.otmmconnector.cronjobs.OTMMAssociationPurgeJob"
+		parent="abstractJobPerformable" >
+	</bean>
+	
+	<bean id="otmmMetaDataSynchronizationJob"
+		class="com.opentext.hybris.otmmconnector.cronjobs.OtmmMetaDataSynchronizationJob"
+		parent="abstractJobPerformable">
+	</bean>
+	
+	<bean id="otmmCorrespondentCreationJob"
+		class="com.opentext.hybris.otmmconnector.cronjobs.OtmmCorrespondentCreationJob"
+		parent="abstractJobPerformable">
+		<property name="correspondentCreationDao" ref="correspondentCreationDao"/>
+		<property name="otmmConnectorConfig" ref="otmmConnectorConfig"/>
+		<property name="oTMMFacade" ref="oTMMFacade"/>
+		<property name="otmmRestServices" ref="otmmRestServices"/>
+		<property name="productService" ref="productService"/>
+		<property name="otmmI18nHelper" ref="otmmI18nHelper" />
+	</bean>
+	
+	<bean id="assetAssignmentSpecDao" class="com.opentext.hybris.otmmconnector.dao.impl.AssetAssignmentSpecDaoImpl">
+		<property name="flexibleSearchService" ref="flexibleSearchService"/>
+		<property name="modelService" ref="modelService" />
+		<property name="enumerationService" ref="enumerationService" />
+	</bean>
+	
+	<bean id="otmmAssetDeliveryDao" class="com.opentext.hybris.otmmconnector.dao.impl.OtmmAssetDeliveryDaoImpl">
+		<property name="flexibleSearchService" ref="flexibleSearchService"/>
+		<property name="modelService" ref="modelService" />
+	</bean>
+	
+	<bean id="otmmCatalogVersionDao" class="com.opentext.hybris.otmmconnector.dao.impl.OtmmCatalogVersionDaoImpl">
+		<property name="flexibleSearchService" ref="flexibleSearchService"/>
+		<property name="modelService" ref="modelService" />
+		<property name="catalogVersionService" ref="catalogVersionService" />
+	</bean>
+	
+	<bean id="otmmMediaDao" class="com.opentext.hybris.otmmconnector.dao.impl.OtmmMediaDaoImpl">
+		<property name="flexibleSearchService" ref="flexibleSearchService"/>
+		<property name="modelService" ref="modelService" />
+		<property name="otmmCatalogVersionDao" ref="otmmCatalogVersionDao" />
+	</bean>
+	
+	<bean id="otmmCmsItemDao" class="com.opentext.hybris.otmmconnector.dao.impl.CMSItemDaoImpl">
+		<property name="flexibleSearchService" ref="flexibleSearchService"/>
+		<property name="modelService" ref="modelService" />
+		<property name="otmmCatalogVersionDao" ref="otmmCatalogVersionDao" />
+	</bean>
+	
+	<bean id="correspondentCreationDao" class="com.opentext.hybris.otmmconnector.dao.impl.CorrespondentCreationDaoImpl">
+		<property name="flexibleSearchService" ref="flexibleSearchService"/>
+		<property name="modelService" ref="modelService" />
+	</bean>
+	
+	<bean id="otmmContainerAssignmentDao" class="com.opentext.hybris.otmmconnector.dao.impl.OtmmContainerAssignmentDaoImpl">
+		<property name="flexibleSearchService" ref="flexibleSearchService"/>
+		<property name="modelService" ref="modelService" />	
+	</bean>
+	
+	<bean id="" class="com.opentext.hybris.otmmconnector.dao.impl.OtmmMediaContainerDaoImpl">
+		<property name="flexibleSearchService" ref="flexibleSearchService"/>
+		<property name="modelService" ref="modelService" />
+	</bean>	
+
+	<bean id="assetAssignmentConfiguration" class="com.opentext.hybris.otmmconnector.config.impl.AssetAssignmentConfigurationImpl">
+		<property name="assetAssignmentSpecDao" ref="assetAssignmentSpecDao"/>
+		<property name="otmmAssetDeliveryDao" ref="otmmAssetDeliveryDao"/>
+		<property name="modelService" ref="modelService"/>
+		<property name="typeService" ref="typeService"/>
+		<property name="modelTypeHelper" ref="modelTypeHelper"/>
+	</bean>
+	
+	<bean id="assetToMediaHandler" class="com.opentext.hybris.otmmconnector.sync.AssetToMediaHander"/>
+	<bean id="assetToMediaCollectionHandler" class="com.opentext.hybris.otmmconnector.sync.AssetToMediaCollectionHandler"/>
+	<bean id="assetToLocalizedMediaHandler" class="com.opentext.hybris.otmmconnector.sync.AssetToLocalizedMediaHandler"/>
+	<bean id="assetToMediaContainerListHandler" class="com.opentext.hybris.otmmconnector.sync.AssetToMediaContainerListHandler"/>
+	<bean id="assetToMediaContainerHandler" class="com.opentext.hybris.otmmconnector.sync.AssetToMediaContainerHandler"/>
+	<bean id="assetToLocalizedMediaContainerHandler" class="com.opentext.hybris.otmmconnector.sync.AssetToLocalizedMediaContainerHandler"/>
+	
+	<util:map id="defaultAssetToAttributeHandlers" key-type="java.lang.Integer" value-type="com.opentext.hybris.otmmconnector.sync.AssetToAttributeHandler">
+		<entry key="1" value-ref="assetToMediaHandler" />
+		<entry key="2" value-ref="assetToMediaCollectionHandler" />
+		<entry key="3" value-ref="assetToLocalizedMediaHandler" />
+		<entry key="4" value-ref="assetToMediaContainerListHandler" />
+		<entry key="5" value-ref="assetToMediaContainerHandler" />
+		<entry key="6" value-ref="assetToLocalizedMediaContainerHandler" />
+	</util:map>
+	
+	<alias name="defaultAssetToAttributeHandlers" alias="assetToAttributeHandlers"/>
+	
+	<bean id="assetToAttributeHandlerService" class="com.opentext.hybris.otmmconnector.sync.AssetToAttributeHandlerServiceImpl"/>
+	
+	<bean id="assetAssignmentSpecService" class="com.opentext.hybris.otmmconnector.config.impl.AssetAssignmentSpecServiceImpl">
+		<property name="otmmFacade" ref="oTMMFacade"/>
+		<property name="enumerationService" ref="enumerationService"/>
+		<property name="modelService" ref="modelService"/>
+		<property name="mediaService" ref="mediaService"/>
+		<property name="otmmConnectorConfig" ref="otmmConnectorConfig"/>
+		<property name="typeService" ref="typeService"/>
+		<property name="sessionService" ref="sessionService"/>
+		<property name="userService" ref="userService"/>
+		<property name="otmmAssetDeliveryDao" ref="otmmAssetDeliveryDao"/>
+		<property name="mediaServletService" ref="otmmMediaServletService" />
+		<property name="otmmMediaFolderManager" ref="otmmMediaFolderManager"/>
+		<property name="assetToAttributeHandlerService" ref="assetToAttributeHandlerService"/>
+		<property name="configService" ref="configurationService"/>
+	</bean>
+	
+	<bean id="otmmaddon.systemSetup" class="com.opentext.hybris.otmmconnector.systemsetup.OtmmaddonSystemSetup">
+		<property name="otmmMediaDao" ref="otmmMediaDao"/>
+		<property name="mediaService" ref="mediaService"/>
+		<property name="modelService" ref="modelService"/>
+		<property name="otmmCatalogVersionDao" ref="otmmCatalogVersionDao" />
+		<property name="assetAssignmentConfiguration" ref="assetAssignmentConfiguration"/>
+		<property name="assetAssignmentSpecService" ref="assetAssignmentSpecService"/>
+		<property name="otmmContainerAssignmentDao" ref="otmmContainerAssignmentDao"/>
+	</bean>
+
+	<bean id="otmmConnectorConfigPropertiesFile" 
+		class="com.opentext.hybris.otmmconnector.config.impl.OtmmConnectorConfigurationImpl"
+		abstract="true"
+		lazy-init="true"
+		init-method="init"
+		destroy-method="cleanUp">
+			<property name="configService" ref="configurationService"/>
+			<property name="i18nService" ref="i18nService"/>
+			<property name="assetAssignmentConfiguration" ref="assetAssignmentConfiguration"/>
+	</bean>
+
+	<bean id="otmmConnectorConfig" 
+		class="com.opentext.hybris.otmmconnector.config.impl.OtmmConnectorDBConfiguration"
+		lazy-init="true"
+		parent="otmmConnectorConfigPropertiesFile"  primary="true">
+	</bean>
+
+	<bean id="otmmRiaService2" 
+		class="com.opentext.hybris.otmmconnector.service.impl.OtmmRiaService2Impl"
+		lazy-init="true">
+	</bean>
+	
+	<bean id="otmmRestServices"
+		class="com.opentext.hybris.otmmconnector.rest.services.impl.OtmmRestServicesImpl"
+		lazy-init="true">
+	</bean>
+	
+	<bean id="defaultOtmmMediaTypeProvider" class="com.opentext.hybris.otmmconnector.sync.DefaultOtmmMediaTypeProvider">
+	</bean>
+	
+	<alias name="defaultOtmmMediaTypeProvider" alias="otmmMediaTypeProvider"/>
+	
+	<bean id="defaultOtmmMediaFactory" class="com.opentext.hybris.otmmconnector.sync.DefaultOtmmMediaFactory">
+	</bean>
+	
+	<alias name="defaultOtmmMediaFactory" alias="otmmMediaFactory"/>
+	
+	<bean id="otmmNotificationService" class="com.opentext.hybris.otmmconnector.service.impl.NotificationServiceImpl" 
+		lazy-init="true" >
+	</bean>
+	
+
+	
+	<bean id="otmmSharedStorageStrategy" class="com.opentext.hybris.otmmconnector.media.OtmmSharedStorageStrategy"/>
+	
+	<bean id="otmmMediaDataConverter" class="com.opentext.hybris.otmmconnector.media.SimpleMediaDataConverter"/>
+	
+	<bean id="otmmUrlStrategy" class="com.opentext.hybris.otmmconnector.media.OtmmUrlStrategy"/>
+	
+	<bean id="otmmInternalUrlStrategy" class="com.opentext.hybris.otmmconnector.media.OtmmInternalUrlStrategy"/>
+	
+	<bean id="otmmApiStatusReporter" class="com.opentext.hybris.otmmconnector.service.impl.ApiStatusReporterImpl"/>
+	
+	<bean id="contentByExportHandler" class="com.opentext.hybris.otmmconnector.rendering.impl.ContentByExportHandler"/>
+	<bean id="urlRenderingHandler" class="com.opentext.hybris.otmmconnector.rendering.impl.UrlRenderingHandler"/>
+	<bean id="mediaServletHandler" class="com.opentext.hybris.otmmconnector.rendering.impl.MediaServletHandler"/>
+	
+	<util:map id="defaultRenderingHandlers" key-type="java.lang.String" value-type="com.opentext.hybris.otmmconnector.rendering.RenderingHandler">
+		<entry key="ContentByExportDelivery" value-ref="contentByExportHandler" />
+		<entry key="UrlDelivery" value-ref="urlRenderingHandler" />
+		<entry key="MediaDeliveryService" value-ref="mediaServletHandler"/>
+	</util:map>
+	<alias name="defaultRenderingHandlers" alias="renderingHandlers"/>
+	
+	<bean id="renderingHandlerFactory" class="com.opentext.hybris.otmmconnector.rendering.impl.RenderingHandlerFactoryImpl">
+		<property name="renderingTypeHandlers" ref="renderingHandlers"/>
+		<property name="typeService" ref="typeService"/>
+	</bean>
+
+	<!-- UI stuff -->
+	<bean id="otmmaddon.assetAssignmentUiSettings" class="com.opentext.hybris.otmmconnector.ui.assetassignment.generic.impl.AssetAssignmentUiSettings">
+		<property name="width" value="800px"/>
+		<property name="backofficeWidth" value="900px"/>
+		<property name="initialTreeWidth" value="25%"/>
+		<property name="assetListboxPageSize" value="10"/>
+		<property name="numberOfAssetsToLoadWithOneWsCall" value="10"/>
+		<property name="showTitlesForComplexElementsEnabled" value="false"/>
+		<property name="specialStylingForOldInternetExplorer" value="true"/>
+	</bean>
+
+	<bean id="otmmaddon.uiHelperService" class="com.opentext.hybris.otmmconnector.ui.assetassignment.generic.impl.UiHelperService">
+		<property name="settings" ref="otmmaddon.assetAssignmentUiSettings"/>
+		<property name="riaService" ref="otmmRiaService2"/>
+		<property name="otmmFacade" ref="oTMMFacade"/>
+		<property name="commonI18nService" ref="commonI18NService"/>
+		<property name="typeService" ref="typeService"/>
+		<property name="otmmConnectorConfig" ref="otmmConnectorConfig" />
+		<property name="assetAssignmentConfiguration" ref="assetAssignmentConfiguration"/>
+	</bean>
+
+	<bean id="otmmaddon.assetAssignmentDialogDataConverter" class="com.opentext.hybris.otmmconnector.ui.assetassignment.generic.impl.AssetAssignmentDialogDataConverter"/>
+
+	<bean id="otmmaddon.assetAssignmentOtmmDataService" class="com.opentext.hybris.otmmconnector.ui.assetassignment.generic.impl.AssetAssignmentOtmmDataService">
+		<property name="settings" ref="otmmaddon.assetAssignmentUiSettings"/>
+		<property name="uiHelperService" ref="otmmaddon.uiHelperService"/>
+		<property name="riaService" ref="otmmRiaService2"/>
+	</bean>
+	
+	<bean id="otmmaddon.assetAssignmentController" class="com.opentext.hybris.otmmconnector.ui.assetassignment.generic.impl.AssetAssignmentController" scope="prototype">
+		<property name="settings" ref="otmmaddon.assetAssignmentUiSettings"/>
+		<property name="uiHelperService" ref="otmmaddon.uiHelperService"/>
+		<property name="assetAssignmentDialogDataConverter" ref="otmmaddon.assetAssignmentDialogDataConverter"/>
+		<property name="assetAssignmentOtmmDataService" ref="otmmaddon.assetAssignmentOtmmDataService"/>
+		<property name="typeService" ref="typeService"/>
+	</bean>
+
+	<bean id="otmmaddon.assetAssignmentControllerFactory" class="com.opentext.hybris.otmmconnector.ui.assetassignment.generic.impl.AssetAssignmentControllerFactory">
+		<lookup-method name="createAssetAssignmentControllerWithSpring" bean="otmmaddon.assetAssignmentController"/>
+	</bean>
+	<!-- End of UI stuff -->
+
+	<bean id="otmmUrlAttributeHandler" class="com.opentext.hybris.otmmconnector.media.OtmmUrlAttributeHandler"/>
+	
+	<bean id="otmmThumbnailAttributeHandler" class="com.opentext.hybris.otmmconnector.media.OtmmThumbnailAttributeHandler">
+		<property name="thumbnailService" ref="otmmThumbnailService"/>
+	</bean>
+	
+	<bean id="otmmUrlService" class="com.opentext.hybris.otmmconnector.media.OtmmUrlServiceImpl"/>
+	
+	<bean id="otmmTrackingInterceptor" class="com.opentext.hybris.otmmconnector.track.OtmmTrackingInterceptor" autowire="byName"/>
+	
+
+	
+    <bean id="otmmTrackingMappingForProduct" class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+    	<property name="interceptor" ref="otmmTrackingInterceptor"/>
+    	<property name="typeCode" value="Product"/>
+    	<property name="order" value="1000000"/>
+	</bean>
+	
+	<bean id="otmmTrackingMappingForCMSItem" class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+    	<property name="interceptor" ref="otmmTrackingInterceptor"/>
+    	<property name="typeCode" value="CMSItem"/>
+    	<property name="order" value="1000000"/>
+	</bean>
+	
+	<bean id="otmmTrackingMappingForMediaContainer" class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+    	<property name="interceptor" ref="otmmTrackingInterceptor"/>
+    	<property name="typeCode" value="MediaContainer"/>
+    	<property name="order" value="1000000"/>
+	</bean>
+	
+	<bean id="otmmTrackingMappingForOpenTextMedia" class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+    	<property name="interceptor" ref="otmmTrackingInterceptor"/>
+    	<property name="typeCode" value="OpenTextMedia"/>
+    	<property name="order" value="1000000"/>
+	</bean>
+	
+	<bean id="oneDefaultAssetDeliveryInterceptor" class="com.opentext.hybris.otmmconnector.config.OneDefaultAssetDeliveryInterceptor">
+		<property name="otmmAssetDeliveryDao" ref="otmmAssetDeliveryDao"/>
+	</bean>
+	
+	<bean id="oneDefaultInterceptorMapping" class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+    	<property name="interceptor" ref="oneDefaultAssetDeliveryInterceptor"/>
+    	<property name="typeCode" value="OtmmAssetDelivery"/>
+    	<property name="order" value="999999"/>
+	</bean>
+	
+	<bean id="correspondentCreationInterceptor" class="com.opentext.hybris.otmmconnector.correspondent.CorrespondentCreationInterceptor">
+		<property name="otmmConnectorConfig" ref="otmmConnectorConfig" />
+	</bean>
+	
+    <bean id="correspondentCreationMapping" class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+    	<property name="interceptor" ref="correspondentCreationInterceptor"/>
+    	<property name="typeCode" value="Product"/>
+    	<property name="order" value="999990"/>
+	</bean>
+	
+	<bean id="otmmTrackingService" class="com.opentext.hybris.otmmconnector.impl.api.OtmmTrackingServiceImpl"/>
+
+	<bean id="otmmDeleteAssetTaskRunner" class="com.opentext.hybris.otmmconnector.service.impl.OtmmDeleteAssetTaskRunner"/>
+	<bean id="otmmUpdateAssetTaskRunner" class="com.opentext.hybris.otmmconnector.service.impl.OtmmUpdateAssetTaskRunner"/>
+
+	<bean 	id="otmmMediaServletService" 
+			class="com.opentext.hybris.otmmconnector.service.impl.MediaServletServiceImpl" 
+			lazy-init="true" >
+	</bean>
+	
+	<util:map id="assetField2PropertyPath" key-type="java.lang.String" value-type="java.lang.String">
+		<entry key="ARTESIA.FIELD.MODEL" value="metadataModelId.id" />
+	</util:map>
+	
+	<bean id="defaultOtmmQueryFilter" class="com.opentext.hybris.otmmconnector.impl.api.filter.DefaultOtmmQueryFilter">
+		<property name="otmmConnectorConfig" ref="otmmConnectorConfig" />
+	</bean>
+	<alias name="defaultOtmmQueryFilter" alias="otmmQueryFilter"/>
+	
+	<bean id="otmmQueryFilterEvaluation" class="com.opentext.hybris.otmmconnector.impl.api.filter.OtmmQueryFilterEvaluationImpl">
+		<property name="otmmQueryFilter" ref="otmmQueryFilter"/>
+		<property name="apiUtil" ref="apiUtil"/>
+		<property name="assetField2PropertyPath" ref="assetField2PropertyPath"/>
+	</bean>
+	
+	<bean id="thumbnailTypeFilter" class="com.opentext.hybris.otmmconnector.service.impl.ThumbnailTypeByMimeFilter">
+		<property name="otmmConnectorConfig" ref="otmmConnectorConfig" />
+	</bean>
+	
+	<bean id="defaultOtmmThumbnailService" class="com.opentext.hybris.otmmconnector.impl.api.DefaultOtmmThumbnailService">
+		<property name="thumbnailTypeFilter" ref="thumbnailTypeFilter"/>
+		<property name="renderingHandlerFactory" ref="renderingHandlerFactory" />
+	</bean>
+	
+	<alias name="defaultOtmmThumbnailService" alias="otmmThumbnailService"/>
+	
+	<bean id="loggingThumbnailService" class="com.opentext.hybris.otmmconnector.service.impl.LoggingThumbnailService">
+		<property name="thumbnailService" ref="otmmThumbnailService"/>
+		<property name="apiUtil" ref="apiUtil"/>
+		<property name="usageLogLimit" value="10"/>
+	</bean>
+	
+	<bean id="otmmMediaFolderManager" class="com.opentext.hybris.otmmconnector.util.OtmmMediaFolderManagerImpl">
+		<property name="mediaService" ref="mediaService"/>
+		<property name="modelService" ref="modelService"/>
+	</bean>
+
+	<alias alias="mediaService" name="otmmMediaService"/>
+	<bean id="otmmMediaService"
+		  class="com.opentext.hybris.otmmconnector.service.impl.OtmmMediaServiceImpl"
+		  parent="defaultMediaService">
+	</bean>
+
+</beans>

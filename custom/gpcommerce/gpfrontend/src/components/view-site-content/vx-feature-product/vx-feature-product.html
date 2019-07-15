@@ -1,0 +1,70 @@
+<section class="image-title row" :class="imgTitleData.componentTheme" :style="backgroundStyle" :id="imgTitleData.componentId">
+  <h2 class="header my-xs-0 pb-xs-4 pt-xs-3 pt-sm-5 pb-md-5" :style="{color: imgTitleData.componentHeaderColor}" v-if="imgTitleData.componentHeader"
+    v-html="imgTitleData.componentHeader"></h2>
+  <h4 class="subheader m-xs-0" v-if="imgTitleData.subHeaderText" v-html="imgTitleData.subHeaderText">
+  </h4>
+  <div class="title-underline" :class="imgTitleData.subHeaderText ? '' : 'mt-xs-0'" :style="imgTitleData.componentHeaderColor ? {'border-bottom-color': imgTitleData.componentHeaderColor} : ''"
+    v-if="imgTitleData.componentHeader || imgTitleData.subHeaderText"></div>
+  <div class="d-flex flex-wrap justify-content-start mob image-title-container justify-content-center">
+    <div class="px-sm-2 d-flex image-tile" :style="imageTileWidth" v-for="(tile,index) in imgTitleData.tiles" :class="{ 'first-element' : (((index+1) % imgTitleData.noOfColumns) === 1), 'last-element' :  (((index+1) % imgTitleData.noOfColumns) === 0),'feature-product-single-tile': (imgTitleData.noOfColumns==1)}">
+      <div class=" mb-xs-3 w-xs-100" :style="{background: tile.backgroundColor}">
+        <template>
+          <div class="image-title__wrapper feature-product" :class="{'no-image':!(tile.imgSrcD || tile.imgSrcT || tile.imgSrcM)}">
+            <a v-if="tile.imageLink" :href="tile.isExternalImage ? tile.imageLink : globals.getUrlWithContextPath(tile.imageLink)"
+              :target="tile.isExternalImage?'_blank':''" class="feature-product-tile">
+              <picture v-if="(tile.imgSrcD || tile.imgSrcT || tile.imgSrcM)">
+                <source media="(min-width: 1200px)" :srcset="tile.imgSrcD">
+                <source media="(min-width: 768px)" :srcset="tile.imgSrcT">
+                <source media="(min-width: 360px)" :srcset="tile.imgSrcM">
+                <img :src="tile.imgSrcD" :alt="getResponsiveAlt(tile.imgSrcAltTextD, tile.imgSrcAltTextT, tile.imgSrcAltTextM)  ">
+              </picture>
+              <div class="bottom-block">
+                <div class="tile-relative custom-word-wrap-all">
+                  <img :src="tile.secondaryImgD" v-if="tile.secondaryImgD" :alt="tile.secondaryimgAltTextD">
+                  <h3 class="tile-header mb-xs-0" :class="[tile.secondaryImgD ? 'mt-xs-3' : 'mt-xs-0']" :style="{color: tile.headerColor}"
+                    v-if="tile.header" v-html="tile.header"></h3>
+                  <div class="tile-text" :class="[(tile.header || tile.secondaryImgD) ? 'mt-xs-2' : 'mt-xs-0']" :style="{color: tile.textColor}"
+                    v-if="tile.tileText" v-html="tile.tileText"></div>
+                  <div :class="[(tile.secondaryImgD || tile.tileText || tile.header) ? 'mt-xs-3' : 'mt-xs-0', imgTitleData.ctaStyle]"
+                    v-if="tile.ctaText && tile.ctaLink">
+                    <a class="tile-btn" :target="tile.isExternalLink?'_blank':''" :style="{color: tile.ctaColor}" :href="tile.isExternalLink ? tile.ctaLink : globals.getUrlWithContextPath(tile.ctaLink)"
+                      v-html="tile.ctaText" v-if="!tile.jumpToHtml"></a>
+                    <a class="tile-btn" :target="tile.isExternalLink?'_blank':''" :style="{color: tile.ctaColor}" :href="tile.isExternalLink ? tile.ctaLink : globals.getUrlWithContextPath(tile.ctaLink)"
+                      v-html="tile.ctaText" v-if="tile.jumpToHtml" @click="emitScrollSignal(tile.ctaLink)"></a>
+                  </div>
+                </div>
+              </div>
+            </a>
+            <div v-else class="feature-product-tile">
+              <picture v-if="(tile.imgSrcD || tile.imgSrcT || tile.imgSrcM)">
+                <source media="(min-width: 1200px)" :srcset="tile.imgSrcD">
+                <source media="(min-width: 768px)" :srcset="tile.imgSrcT">
+                <source media="(min-width: 360px)" :srcset="tile.imgSrcM">
+                <img :src="tile.imgSrcD" :alt="getResponsiveAlt(tile.imgSrcAltTextD, tile.imgSrcAltTextT, tile.imgSrcAltTextM)">
+              </picture>
+              <div class="bottom-block">
+                <div class="tile-relative custom-word-wrap-all">
+                  <img :src="tile.secondaryImgD" v-if="tile.secondaryImgD" :alt="tile.secondaryimgAltTextD">
+                  <h3 class="tile-header mb-xs-0" :class="[tile.secondaryImgD ? 'mt-xs-3' : 'mt-xs-0']" :style="{color: tile.headerColor}"
+                    v-if="tile.header" v-html="tile.header"></h3>
+                  <div class="tile-text" :class="[(tile.header || tile.secondaryImgD) ? 'mt-xs-2' : 'mt-xs-0']" :style="{color: tile.textColor}"
+                    v-if="tile.tileText" v-html="tile.tileText"></div>
+                  <div :class="[(tile.secondaryImgD || tile.tileText || tile.header) ? 'mt-xs-3': 'mt-xs-0', imgTitleData.ctaStyle]"
+                    v-if="tile.ctaText && tile.ctaLink">
+                    <a class="tile-btn" :target="tile.isExternalLink?'_blank':''" :style="{color: tile.ctaColor}" :href="tile.isExternalLink ? tile.ctaLink : globals.getUrlWithContextPath(tile.ctaLink)"
+                      v-html="tile.ctaText" v-if="!tile.jumpToHtml"></a>
+                    <a class="tile-btn" :target="tile.isExternalLink?'_blank':''" :style="{color: tile.ctaColor}" :href="tile.isExternalLink ? tile.ctaLink : globals.getUrlWithContextPath(tile.ctaLink)"
+                      v-html="tile.ctaText" v-if="tile.jumpToHtml" @click="emitScrollSignal(tile.ctaLink)"></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <a class="image-title__video-play-icon image-title__position__center icon-play" :target="tile.isExternalImage?'_blank':''"
+              href="javascript:void(0)" @click="openModal(tile.videoSrc)" :style="{color:tile.playIconColor}" v-if="tile.isVideo==='true'"
+              :aria-label="i18n.iconPlayTitle" :title="i18n.iconPlayTitle"></a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</section>

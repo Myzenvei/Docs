@@ -1,0 +1,61 @@
+#brawny {
+  .vx-store-locator {
+    font-family: @font-family-text;
+    label {
+      color: @text-color-sub-text;
+    }
+    .btn {
+      font-size: @font-size-base !important;
+    }
+    .dropdown-primary button,
+    input[type] {
+      border: 1px solid @border-color-secondary;
+      border-radius: 0 !important;
+    }
+    h3 {
+      font-weight: @font-weight-normal;
+    }
+    .narrow-search,
+    .store__found {
+      font-weight: @font-weight-med;
+    }
+    .location-text {
+      color: @text-color-sub-text;
+    }
+    .dropdown-primary .dropdown {
+      span {
+        &.icon-chevron-down {
+          color: @font-icon-color-5;
+        }
+      }
+    }
+    .no-stores {
+      color: @text-color-sub-text;
+    }
+    .store__details {
+      border: 1px solid @border-color-secondary;
+      border-bottom: none;
+      .store-name {
+        text-decoration: underline;
+        text-transform: uppercase;
+        color: @text-color;
+        font-weight: @font-weight-bold;
+      }
+    }
+    .selected-store {
+      .store-name {
+        text-decoration: underline;
+        text-transform: uppercase;
+        color: @text-color;
+        font-weight: @font-weight-bold;
+      }
+    }
+
+    div:empty {
+      display: none;
+    }
+    .icon-filter {
+      color: @font-icon-color-5;
+    }
+  }
+}

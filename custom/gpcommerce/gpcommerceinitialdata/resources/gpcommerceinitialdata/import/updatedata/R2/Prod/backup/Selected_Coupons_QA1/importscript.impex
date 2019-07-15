@@ -1,0 +1,5 @@
+
+#-----------------------------------------------------------
+insert_update SingleCodeCoupon;&Item;active[allownull=true];baseSite(cxConfig(code),uid)[allownull=true];couponId[unique=true,allownull=true];creationtime[forceWrite=true,dateformat=dd.MM.yyyy hh:mm:ss];endDate[dateformat=dd.MM.yyyy hh:mm:ss];maxRedemptionsPerCustomer;maxTotalRedemptions;modifiedtime[dateformat=dd.MM.yyyy hh:mm:ss];owner(&Item)[allownull=true,forceWrite=true];startDate[dateformat=dd.MM.yyyy hh:mm:ss]
+"#% impex.includeExternalDataMedia( ""SingleCodeCoupon.csv"" , ""UTF-8"", ';',  1 , -1 );"
+#-----------------------------------------------------------

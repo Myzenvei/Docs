@@ -1,0 +1,141 @@
+.vx-profile-card {
+  height: 100%;
+  h4 {
+    margin-top: 0;
+    font-weight: @font-weight-medium;
+  }
+  ul {
+    list-style-type: none;
+  }
+  /** Cards Common CSS  **/
+  .profile-card,
+  .social-card {
+    border: 1px solid @card-default-border-color;
+    height: 100%;
+  }
+  .add-card {
+    border: 1px solid @add-card-border-color;
+    background-color: @add-card-background-color;
+    text-align: center;
+    .add-card-container {
+      top: 50%;
+      position: relative;
+      transform: translateY(-50%);
+      a {
+        display: inline-block;
+        span {
+          vertical-align: middle;
+        }
+      }
+    }
+  }
+  /** Profile Card Specific CSS  **/
+  .profile-card {
+    padding: 0;
+    & > .row {
+      margin: 0;
+    }
+    &.disabled {
+      background-color: @card-disabled-background-color;
+      h4,
+      .card-item,
+      .dot {
+        color: @card-disabled-text-color;
+      }
+    }
+  }
+  /** Card Icon CSS  **/
+  .card-icon {
+    span {
+      cursor: pointer;
+    }
+  }
+  .icon-default {
+    color: @font-icon-color-3;
+  }
+  .icon-small {
+    font-size: @font-icon-size;
+  }
+  .icon-big {
+    font-size: @font-icon-size-2;
+  }
+  .vx-profile-card-icons {
+    text-align: right;
+  }
+  /** Card Item Password Style **/
+  .card-item-password {
+    .dot {
+      height: 6px;
+      width: 6px;
+      background-color: @text-color;
+      border-radius: 50%;
+      display: inline-block;
+    }
+  }
+  /** Card Typography CSS  **/
+  .card-item {
+    font-size: @font-size-medium;
+    font-weight: @font-weight-light;
+    color: @text-color;
+    margin-bottom: 8px;
+    word-break: break-all;
+  }
+  .card-item-bold {
+    font-weight: @font-weight-medium;
+  }
+  .card-heading-link {
+    h4 {
+      color: @card-hyperlink-color;
+    }
+  }
+  a {
+    &:link,
+    &:visited,
+    &:hover,
+    &:active {
+      color: @card-hyperlink-color;
+    }
+  }
+  .link-small {
+    font-size: @font-size-small;
+  }
+  .link-regular {
+    font-size: @font-size-medium;
+  }
+  .link-large {
+    font-size: @font-size-large;
+  }
+  .link-bold {
+    font-weight: @font-weight-medium;
+  }
+  /** Card Footer CSS  **/
+  .card-footer {
+    .btn-secondary {
+      border: 1px solid @btn-default-border;
+    }
+  }
+  /** Card Default Height CSS  **/
+  .card-default-height {
+    min-height: 176px;
+  }
+  /** Social Card Specific CSS  **/
+  .social-card {
+    h4 {
+      flex: 1 1 auto;
+    }
+    .card-items {
+      flex: 1 1 auto;
+    }
+  }
+}
+/** Card Mobile Specific CSS  **/
+@media screen and (max-width: @screen-xs-max) {
+  .vx-profile-card {
+    .card-footer button {
+      width: 100%;
+    }
+    button {
+      width: 136px;
+    }
+  }
+}

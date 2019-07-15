@@ -1,0 +1,1188 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+$contentCatalog=gpxpressContentCatalog
+$contentCatalogName=GPXpress Content Catalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$productCatalog=gpUSProductCatalog 
+$productCatalogName=GP US Product Catalog
+$productCV=catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$picture=media(code, $contentCV);
+$image=image(code, $contentCV);
+$media=media(code, $contentCV);
+$page=page(uid, $contentCV);
+$contentPage=contentPage(uid, $contentCV);
+$product=product(code, $productCV)
+$category=category(code, $productCV)
+$siteResource=jar:com.gp.b2binitialdata.constants.Gpb2binitialdataConstants&/gpb2binitialdata/import/sampledata/contentCatalogs/$contentCatalog
+$productResource=jar:com.gp.b2binitialdata.constants.Gpb2binitialdataConstants&/gpb2binitialdata/import/sampledata/productCatalogs/$productCatalog
+$jarResourceCms=jar:com.gp.b2binitialdata.constants.Gpb2binitialdataConstants&/gpb2binitialdata/import/sampledata/cockpits/cmscockpit
+$addonExtensionName=b2bacceleratoraddon
+$medias=medias(code, $contentCV);
+$mediaContainer=media(qualifier, $contentCV);
+$siteUid=gpxpress
+
+
+
+# Language
+$lang=en
+
+# Site Logo Component
+INSERT_UPDATE SimpleBannerComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;urlLink
+;;SiteLogoComponent;Site Logo Component;SiteLogoComponent;"/"
+ 
+# CMS Site Settings 
+UPDATE CMSSite;uid[unique=true];defaultPreviewCategory(code, $productCV);defaultPreviewProduct(code, $productCV);faviconUrl;;;;
+;gpxpress;13627;48250;/_ui/responsive/theme-alpha/images/gpxpress/favicon.ico;;;;
+ 
+
+###### Navigation Start ######
+## navigation is in tree structure ##
+## level 0 ##
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;children(uid,$contentCV)[mode=append]
+;root;;root;;
+
+
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];name;url;&linkRef;&componentRef;target(code)[default='newWindow'];external[default=false];socialLink[default=false];markAsViewAll[default=false]
+;;TermsAndConditionsLink;Terms and Conditions Link;/termsAndConditions;TermsAndConditionsLink;TermsAndConditionsLink;newWindow;
+;;FAQLink;FAQ Link;/faq;FAQLink;FAQLink;newWindow;
+;;AboutUsLink;AboutUs Link;/aboutUs;AboutUsLink;AboutUsLink;newWindow;
+;;ContactUsLink;Contact Us Link;/contact-us;;ContactUsLink;newWindow;
+;;FacebookLink;Facebook Link;https://www.B2bWhitelabel_.com/;;FacebookLink;newWindow;true;true
+;;TwitterLink;Twitter Link;https://twitter.com/GPProfessional;;TwitterLink;newWindow;true;true
+;;InstagramLink;Instagram Link;https://www.B2bWhitelabel_.com/;;InstagramLink;newWindow;true;true
+;;PinterestLink;Pinterest Link;https://www.B2bWhitelabel_.com/;;PinterestLink;newWindow;true;true
+;;YouTubeLink;Youtube Link;https://www.youtube.com/user/GeorgiaPacificPro;;YouTubeLink;newWindow;true;true
+;;LinkedInLink;LinkedIn Link;https://www.linkedin.com/showcase/gppro/;;LinkedInLink;newWindow;true;true
+;;SnapchatLink;Snapchat Link;https://www.B2bWhitelabel_.com/;;SnapchatLink;newWindow;true;true
+
+
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);links(&linkRef);&nodeRef;parentPos
+;GPCompanyNavNode;;Your Company;FooterNavNode;;GPCompanyNavNode;0
+;GPContactUsNavNode;;Help;FooterNavNode;;GPContactUsNavNode;1
+;GPTermsAndConditionNavNode;;Information;FooterNavNode;;GPTermsAndConditionNavNode;2
+;GPFollowUsNavNode;;Follow Us Pages;FooterNavNode;;GPFollowUsNavNode;3
+
+
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);links(&linkRef);&nodeRef;parentPos
+;AboutGPCompanyNavNode;;Your Company;GPCompanyNavNode;;AboutGPCompanyNavNode;0
+;AboutGPTermsAndConditionNavNode;;About Terms and Condition Pages;GPTermsAndConditionNavNode;;AboutGPTermsAndConditionNavNode;0
+;FAQNavNode;;FAQ Page;GPContactUsNavNode;;FAQNavNode;0
+;ContactUsNavNode;;Contact Us Page;GPContactUsNavNode;;ContactUsNavNode;1
+;LinkedInNavNode;;LinkedIn Page;GPFollowUsNavNode;;LinkedInNavNode;0
+;TwitterNavNode;;Twitter Page;GPFollowUsNavNode;;TwitterNavNode;1
+;YouTubeNavNode;;YouTube Page;GPFollowUsNavNode;;YouTubeNavNode;2
+
+
+
+##- level 1. SiteRoot -##
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);links(&componentRef);&nodeRef
+;SiteRootNode;;SiteRootNode;root;;SiteRootNode
+
+##-- level 2. children of SiteRoot --##
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);links(&componentRef);&nodeRef
+;GPXpress_NavNode;;GP B2BSite;SiteRootNode;;GPXpress_NavNode
+
+##--- level 3. children of GPXpress_NavNode ---##
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);links(&componentRef);&nodeRef
+;MyAccountNavNode;;My Account;GPXpress_NavNode;;MyAccountNavNode
+;OrderToolsNavNode;;Order Tools;GPXpress_NavNode;;OrderToolsNavNode
+;GPXpress_CategoryNavNode;;Categories;GPXpress_NavNode;;GPXpress_CategoryNavNode
+;FooterNavNode;;Footer Pages;GPXpress_NavNode;;FooterNavNode
+;CheckoutFooterNavNode;;Checkout Footer Pages;GPXpress_NavNode;;CheckoutFooterNavNode
+
+
+##---- level 4. children of My Account Nav ----##
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);links(&linkRef);&nodeRef
+;PersonalDetailsNavNode;;Personal Details;MyAccountNavNode;;PersonalDetailsNavNode
+;UpdateEmailNavNode;;Update Email;MyAccountNavNode;;UpdateEmailNavNode
+;PaymentDetailsNavNode;;Payment Details;MyAccountNavNode;;PaymentDetailsNavNode
+;UpdatePasswordNavNode;;Update Password;MyAccountNavNode;;UpdatePasswordNavNode
+;OrderHistoryNavNode;;Order History;MyAccountNavNode;;OrderHistoryNavNode
+;AddressBookNavNode;;Address Book;MyAccountNavNode;;AddressBookNavNode
+;MyQuotesNavNode;;My Quotes;MyAccountNavNode;;MyQuotesNavNode
+;ApprovalDashboardNavNode;;Approval Dashboard;MyAccountNavNode;;ApprovalDashboardNavNode
+;MyReplenishmentOrdersNavNode;;My Replenishment Orders;MyAccountNavNode;;MyReplenishmentOrdersNavNode
+;SavedCartsNavNode;;Saved Carts;MyAccountNavNode;;SavedCartsNavNode
+
+## entries of the above navigation nodes ##
+INSERT_UPDATE CMSNavigationEntry;uid[unique=true];$contentCV[unique=true];name;navigationNode(&nodeRef);item(&linkRef);
+;UpdateEmailNavNodeEntry;;UpdateEmailNavNodeEntry;UpdateEmailNavNode;UpdateEmailLink;
+;UpdatePasswordNavNodeEntry;;UpdatePasswordNavNodeEntry;UpdatePasswordNavNode;UpdatePasswordLink;
+;MyReplenishmentOrdersNavNodeEntry;;MyReplenishmentOrdersNavNodeEntry;MyReplenishmentOrdersNavNode;MyReplenishmentOrdersLink;
+;ApprovalDashboardNavNodeEntry;;ApprovalDashboardNavNodeEntry;ApprovalDashboardNavNode;ApprovalDashboardLink;
+
+## links of the above navigattion entries ##
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];name;url;&linkRef;target(code)[default='sameWindow'];socialLink[default=false];markAsViewAll[default=false]
+;;UpdateEmailLink;UpdateEmailLink;/my-account/update-email;UpdateEmailLink;
+;;UpdatePasswordLink;UpdatePasswordLink;/my-account/update-password;UpdatePasswordLink;
+;;MyReplenishmentOrdersLink;MyReplenishmentOrdersLink;/my-account/my-replenishment;MyReplenishmentOrdersLink;
+;;ApprovalDashboardLink;ApprovalDashboardLink;/my-account/approval-dashboard;ApprovalDashboardLink;
+
+
+##---- level 4. children of Order Tools ----##
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);links(&linkRef);&nodeRef
+;OrderFormsNavNode;;Order Forms;OrderToolsNavNode;;OrderFormsNavNode
+;QuickOrderNavNode;;Quick Order;OrderToolsNavNode;;QuickOrderNavNode
+;ImportSavedCartNavNode;;Import Saved Cart;OrderToolsNavNode;;ImportSavedCartNavNode
+
+## entries of the above navigation nodes ##
+INSERT_UPDATE CMSNavigationEntry;uid[unique=true];$contentCV[unique=true];name;navigationNode(&nodeRef);item(&linkRef);
+;OrderFormsNavNodeEntry;;OrderFormsNavNodeEntry;OrderFormsNavNode;OrderFormsLink;
+;QuickOrderNavNodeEntry;;QuickOrderNavNodeEntry;QuickOrderNavNode;QuickOrderLink;
+;ImportSavedCartNavNodeEntry;;ImportSavedCartNavNodeEntry;ImportSavedCartNavNode;ImportSavedCartLink;
+
+## links of the above navigattion entries ##
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];name;url;styleAttributes;&linkRef;target(code)[default='sameWindow']
+;;OrderFormsLink;Order Forms Link;/search/advanced;;OrderFormsLink;;
+;;QuickOrderLink;Quick Order Link;/quickOrder;;QuickOrderLink;;
+;;ImportSavedCartLink;Import Saved Cart Link;/import/csv/saved-cart;;ImportSavedCartLink;;
+
+########## Live Chat Starts ###########
+INSERT_UPDATE PageTemplate;$contentCV[unique=true];uid[unique=true];name;frontendTemplateName;restrictedPageTypes(code);active[default=true]
+;;SupportTicketPageTemplate;Support Ticket Page Template;supportTicket/GPSupportTicketPage;ContentPage
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='SupportTicketPageTemplate'];validComponentTypes(code);compTypeGroup(code)
+;SiteLogo;;;logo
+;HeaderLinks;;;headerlinks
+;MiniCart;;;minicart
+;NavigationBar;;;navigation
+;LiveChatContentSlot;;;narrow
+;LiveChatButtonSlot;;;wide
+;CallOrTextContentSlot;;;wide
+;ServiceTicketContentSlot;;;wide
+;Footer;;;footer
+;TopHeaderSlot;;;wide
+;BottomHeaderSlot;;;wide
+;PlaceholderContentSlot;;;
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='SupportTicketPageTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-SupportTicketPage;SiteLogo;;SiteLogoSlot;true
+;;HomepageLink-SupportTicketPage;HomepageNavLink;;HomepageNavLinkSlot;true
+;;NavigationBar-SupportTicketPage;NavigationBar;;NavigationBarSlot;true
+;;MiniCart-SupportTicketPage;MiniCart;;MiniCartSlot;true
+;;Footer-SupportTicketPage;Footer;;FooterSlot;true
+;;HeaderLinks-SupportTicketPage;HeaderLinks;;HeaderLinksSlot;true
+;;SearchBox-SupportTicketPage;SearchBox;;SearchBoxSlot;true
+;;TopHeaderSlot-SupportTicketPage;TopHeaderSlot;;TopHeaderSlot;true
+;;BottomHeaderSlot-SupportTicketPage;BottomHeaderSlot;;BottomHeaderSlot;true
+;;PlaceholderContentSlot-SupportTicketPage;PlaceholderContentSlot;;PlaceholderContentSlot;true
+
+INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);label;defaultPage[default='true'];approvalStatus(code)[default='approved'];homepage[default='false']
+;;contactUsForm;support ticket contact us form;SupportTicketPageTemplate;/contact-us; 
+
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];name;url;category(code, $productCV);target(code)[default='newWindow'];external[default=false];socialLink[default=false];markAsViewAll[default=false]
+;;ContactUsLink;Contact Us Link;/contact-us;;;;
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;acsLiveChatJSPIncludeComponent;Contact Us page;liveChat.jsp;;acsLiveChatJSPIncludeComponent
+
+INSERT_UPDATE GPLiveChatComponent;$contentCV[unique=true];uid[unique=true];liveChat(&componentRef);&componentRef;informationText;name;componentTheme;showContactUs[default='true']
+;;gpLiveChatComponent;acsLiveChatJSPIncludeComponent;gpLiveChatComponent;Chat online with one of our online support specialists (Available 9:00 a.m. - 5:00 p.m. ET);GPLiveChatComponent;;
+
+# ContentSlot 
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;LiveChatButtonSlot-SERVICETICKET;LiveChatButton Slot for TICKET Page;true;gpLiveChatComponent;;;
+
+# ContentSlotForPage 
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='contactUsForm'];contentSlot(uid,$contentCV)[unique=true];;;
+;;LiveChatButtonSlot-SERVICETICKET;LiveChatButtonSlot;;LiveChatButtonSlot-SERVICETICKET;;;
+########## Live Chat Ends ###########
+
+########## Footer Pages Starts - FAQ, AboutUs, Terms and Conditions ###########
+# Simple Content Pages
+INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);label;defaultPage[default='true'];approvalStatus(code)[default='approved'];homepage[default='false']
+;;termsAndConditions;Terms and Conditions Page;ContentPage1Template;/termsAndConditions
+
+INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);label;defaultPage[default='true'];approvalStatus(code)[default='approved'];homepage[default='false']
+;;aboutUs;About Us Page;ContentPage1Template;/aboutUs
+
+INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);label;defaultPage[default='true'];approvalStatus(code)[default='approved'];homepage[default='false']
+;;faq;Frequently Asked Questions Page;GPLandingPage2Template;/faq
+
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];name;url;category(code, $productCV);target(code)[default='newWindow'];external[default=false];socialLink[default=false];markAsViewAll[default=false]
+;;TermsAndConditionsLink;Terms and Conditions Link;/termsAndConditions;;newWindow;;
+;;AboutUsLink;About Us Link;/aboutUs;;newWindow;;
+;;FAQLink;FAQ Link;/faq;;newWindow;;
+
+##### GP Terms And Conditions Page
+# CMSParagraphComponent
+INSERT_UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;;;;
+;;termsAndConditionsTextParagraph;Terms and Conditions Paragraph;TermsAndConditionsTextParagraph;;;;
+
+# ContentSlot
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;Section1Slot-TermsAndConditions;Section1 Slot for Terms and Conditions Page;true;TermsAndConditionsTextParagraph;;;
+
+# ContentSlotForPage
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='termsAndConditions'];contentSlot(uid,$contentCV)[unique=true];;;
+;;Section1-TermsAndConditions;Section1;;Section1Slot-TermsAndConditions;;;
+
+##### GP About Us Page 
+# CMSParagraphComponent
+INSERT_UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;;;;
+;;aboutUsTextParagraph;About Us Paragraph;AboutUsTextParagraph;;;;
+;;aboutUsContentParagraph;About Us Paragraph;AboutUsContentParagraph;;;;
+
+# ContentSlot
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;Section1Slot-AboutUs;Section1 Slot for About Us Page;true;AboutUsTextParagraph;;;
+;;Section3Slot-AboutUs;Section3 Slot for About Us Page;true;AboutUsContentParagraph;;;
+
+# ContentSlotForPage
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='aboutUs'];contentSlot(uid,$contentCV)[unique=true];;;
+;;Section1-AboutUs;Section1;;Section1Slot-AboutUs;;;
+;;Section3-AboutUs;Section3;;Section3Slot-AboutUs;;;
+
+
+##### GP FAQ Page 
+INSERT_UPDATE GPFAQCMSParagraphComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef
+;;faqTextComponent;FAQ Paragraph;faqTextComponent
+
+INSERT_UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef
+;;faqHeadingComponent;FAQ Heading;faqHeadingComponent
+;;faqContentComponent;FAQ Content Paragraph;faqContentComponent
+
+# ContentSlot
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;Section1-FAQ;Section1 Slot for FAQ Page;true;faqHeadingComponent
+;;Section3-FAQ;Section3 Slot for FAQ Page;true;faqTextComponent
+;;Section5-FAQ;Section5 Slot for FAQ Page;true;faqContentComponent
+
+# ContentSlotForPage
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='faq'];contentSlot(uid,$contentCV)[unique=true]
+;;Section1-FAQPage;ContentSlot1;;Section1-FAQ
+;;Section3-FAQPage;ContentSlot2;;Section3-FAQ
+;;Section5-FAQPage;ContentSlot3;;Section5-FAQ
+########## Footer Pages Ends - FAQ, AboutUs, Terms and Conditions ###########
+
+## GP Footer Nav Start ##
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);links(&linkRef);&nodeRef;parentPos;title[lang=$lang];
+;GPInformationNavNode;;Information;FooterNavNode;;GPInformationNavNode;0;Information;
+;GPContactUsNavNode;;Contact;FooterNavNode;;GPContactUsNavNode;1;Contact GPXpress® Live at 877-GPXPRESS (479-7737);
+ 
+## Children of GP NavNode ##
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);links(&linkRef);&nodeRef;parentPos;title[lang=$lang];
+;GPTermsAndConditionNavNode;;Terms & Conditions;GPInformationNavNode;;GPTermsAndConditionNavNode;0;Terms & Conditions;
+;GPPrivacyNavNode;;Privacy Notice;GPInformationNavNode;;GPPrivacyNavNode;1;Privacy Notice;
+;GPTermsOfUsePrivacyNavNode;;Terms of Use;GPInformationNavNode;;GPTermsOfUsePrivacyNavNode;2;Terms of Use;
+
+# entries of the above navigation nodes
+INSERT_UPDATE CMSNavigationEntry;uid[unique=true];$contentCV[unique=true];name;navigationNode(&nodeRef);item(CMSLinkComponent.uid,CMSLinkComponent.$contentCV);
+;GPTermsAndConditionNavNodeEntry;;Terms & Conditions Navigation Node Entry;GPTermsAndConditionNavNode;TermsAndConditionsLink;
+;GPPrivacyNavNodeEntry;;Privacy Notice Navigation Node Entry;GPPrivacyNavNode;PrivacyNoticeLink;
+;GPTermsOfUsePrivacyNavNodeEntry;;Terms of Use Navigation Node Entry;GPTermsOfUsePrivacyNavNode;TermsLink;
+###### GP Footer Nav End ######
+
+
+###### ConentSlot for Templates Start ######
+## site logo slot ##
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(&componentRef)
+;;SiteLogoSlot;SiteLogoComponent
+
+INSERT_UPDATE SimpleBannerComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;urlLink
+;;SiteLogoComponent;Site Logo Component;SiteLogoComponent;"/"
+
+## homepage navigation link slot ##
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(&componentRef)
+;;HomepageNavLinkSlot;HomepageNavLink
+
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];name;url;&linkRef;&componentRef;target(code)[default='sameWindow'];socialLink[default=false];markAsViewAll[default=false]
+;;HomepageNavLink;Home Page Nav Link;/;HomepageNavLink;HomepageNavLink
+
+## navigation bar slot ##
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(uid, $contentCV)
+;;NavigationBarSlot;GPXpress_CategoryNavComponent,breadcrumbComponent
+
+INSERT_UPDATE BreadcrumbComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef
+;;breadcrumbComponent;Breadcrumb CMS Component;breadcrumbComponent
+
+INSERT_UPDATE CategoryNavigationComponent;$contentCV[unique=true];uid[unique=true];name;styleClass;&componentRef;navigationNode(&nodeRef);wrapAfter
+;;GPXpress_CategoryNavComponent;Category Navigation Component;;GPXpress_CategoryNavComponent;GPXpress_CategoryNavNode;10
+
+## miniCart slot ##
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(&componentRef)
+;;MiniCartSlot;OrderToolsComponent,MiniCart
+
+INSERT_UPDATE NavigationComponent;$contentCV[unique=true];uid[unique=true];name;styleClass;&componentRef;navigationNode(&nodeRef)
+;;OrderToolsComponent;Order Tools Component;nav-order-tools;OrderToolsComponent;OrderToolsNavNode
+
+INSERT_UPDATE MiniCartComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;totalDisplay(code);shownProductCount;lightboxBannerComponent(&componentRef)
+;;MiniCart;Mini Cart;MiniCart;SUBTOTAL;3;LightboxHomeDeliveryBannerComponent
+
+INSERT_UPDATE SimpleBannerComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;urlLink
+;;LightboxHomeDeliveryBannerComponent;Lightbox Home Delivery Banner Component;LightboxHomeDeliveryBannerComponent;
+
+## tabs slot ##
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(&componentRef)
+;;TabsSlot;TabPanelContainer
+
+# CMS tabs components
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;ProductImageComponent;Product Details;/WEB-INF/views/responsive/pages/product/productImages.jsp;;ProductImageComponent
+;;ProductDetailsComponent;Product Details;/WEB-INF/views/responsive/pages/product/productDetails.jsp;;ProductDetailsComponent
+;;ProductTabsComponent;Product Tabs;/WEB-INF/views/responsive/pages/product/productTabs.jsp;;ProductTabsComponent
+;;GPXpressductReferencesComponent;Product References Tab;/WEB-INF/views/responsive/pages/product/gpProductReferences.jsp;;GPXpressductReferencesComponent
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;LeftContent-productDetails;Left Content Slot for product details;true;ProductImageComponent;;;
+;;RightContent-productDetails;Right Content Slot for product details;true;ProductDetailsComponent;;;
+;;MiddleContent-productDetails;Middle Content Slot for product details;true;ProductTabsComponent;;;
+;;BottomContent-productDetails;Bottom Content Slot for product details;true;GPXpressductReferencesComponent;;;
+
+# ContentSlotForPage
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='productDetails'];contentSlot(uid,$contentCV)[unique=true];;;
+;;LeftContent-productDetails;LeftContentSlot;;LeftContent-productDetails;;;
+;;RightContent-productDetails;RightContentSlot;;RightContent-productDetails;;;
+;;MiddleContent-productDetails;MiddleContentSlot;;MiddleContent-productDetails;;;
+;;BottomContent-productDetails;BottomContentSlot;;BottomContent-productDetails;;;
+
+INSERT_UPDATE CMSTabParagraphComponent;$contentCV[unique=true];uid[unique=true];name;visible;&componentRef
+;;deliveryTab;Delivery tab;true;deliveryTab
+
+INSERT_UPDATE CMSTabParagraphContainer;$contentCV[unique=true];uid[unique=true];name;visible;simpleCMSComponents(uid, $contentCV);&componentRef
+;;TabPanelContainer;Tab container;true;deliveryTab;TabPanelContainer
+
+
+## footer slot ##
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(&componentRef)
+;;FooterSlot;FooterNavigationComponent
+
+INSERT_UPDATE FooterNavigationComponent;$contentCV[unique=true];uid[unique=true];wrapAfter;&componentRef;showLanguageCurrency;navigationNode(&nodeRef)
+;;FooterNavigationComponent;4;FooterNavigationComponent;true;FooterNavNode;
+
+## Footer slot: Footer GPCheckoutFooterNavigationComponent
+INSERT_UPDATE GPCheckoutFooterNavigationComponent;$contentCV[unique=true];uid[unique=true];wrapAfter;&componentRef;showLanguageCurrency;navigationNode(&nodeRef)
+;;GPCheckoutFooterNavigationComponent;4;GPCheckoutFooterNavigationComponent;true;CheckoutFooterNavNode;
+
+## headerlinks slot ##
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(uid,$contentCV)
+;;HeaderLinksSlot;MyAccountComponent
+
+INSERT_UPDATE NavigationComponent;$contentCV[unique=true];uid[unique=true];name;styleClass;&componentRef;navigationNode(&nodeRef)
+;;MyAccountComponent;My Account;accNavComponent;MyAccountComponent;MyAccountNavNode
+
+## search box slot ##
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(&componentRef)
+;;SearchBoxSlot;SearchBox
+
+INSERT_UPDATE SearchBoxComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef
+;;SearchBox;Search Box;SearchBox
+
+## variant selector slot ##
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(&componentRef)
+;;VariantSelectorSlot;VariantSelector
+
+INSERT_UPDATE ProductVariantSelectorComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef
+;;VariantSelector;Product Variant Selector;VariantSelector
+
+## add to cart slot ##
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(&componentRef)
+;;AddToCartSlot;AddToCart
+
+INSERT_UPDATE ProductAddToCartComponent;$contentCV[unique=true];uid[unique=true];name;actions(&actionRef);&componentRef
+;;AddToCart;Product Add To Cart;AddToCartAction,PickUpInStoreAction,ShareOnSocialNetworkAction;AddToCart
+
+INSERT_UPDATE AddToCartAction;$contentCV[unique=true];uid[unique=true];url;name;restrictions(uid,$contentCV);&actionRef
+;;AddToCartAction;/cart/add;Product Add To Cart Action;ActionRestriction;AddToCartAction
+
+INSERT_UPDATE PickUpInStoreAction;$contentCV[unique=true];uid[unique=true];url;name;restrictions(uid,$contentCV);&actionRef
+;;PickUpInStoreAction;/store-pickup/{productCode}/pointOfServices;Pickup in Store Action;ActionRestriction;PickUpInStoreAction
+
+INSERT_UPDATE ShareOnSocialNetworkAction;$contentCV[unique=true];uid[unique=true];url;name;restrictions(uid,$contentCV);&actionRef
+;;ShareOnSocialNetworkAction;/;Share On Social Network Action;ActionRestriction;ShareOnSocialNetworkAction
+
+## upselling slot ##
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(&componentRef)
+;;UpSellingSlot;Similar
+
+INSERT_UPDATE ProductReferencesComponent;$contentCV[unique=true];uid[unique=true];name;productReferenceTypes(code);maximumNumberProducts;&componentRef
+;;Similar;Similar;SIMILAR;5;Similar
+
+## cross selling slot ##
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(&componentRef)
+;;CrossSellingSlot;accessories
+
+INSERT_UPDATE ProductReferencesComponent;$contentCV[unique=true];uid[unique=true];name;productReferenceTypes(code);maximumNumberProducts;&componentRef
+;;accessories;Accessories;ACCESSORIES;5;accessories
+
+## product left refinement slot ##
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(&componentRef)
+;;ProductLeftRefinements;RefinementFacetComponent
+
+INSERT_UPDATE ProductRefinementComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef
+;;RefinementFacetComponent;Product Refinement Facet Component;RefinementFacetComponent
+
+## productList slot ##
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;ProductListSlot;Product List Slot for Product List;true;ProductGridComponent;;;
+
+INSERT_UPDATE CMSProductListComponent;$contentCV[unique=true];uid[unique=true];name;actions(uid,$contentCV);&componentRef
+;;ProductListComponent;Product List Component;ListPickUpInStoreAction,ListAddToCartAction,ListOrderFormAction;ProductListComponent
+
+## productGrid slot ##
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;ProductGridSlot;Product Grid Slot for Product List;true;ProductGridComponent;;;
+
+INSERT_UPDATE ProductGridComponent;$contentCV[unique=true];uid[unique=true];name;actions(uid,$contentCV);&componentRef
+;;ProductGridComponent;Product Grid Component;ListPickUpInStoreAction,ListAddToCartAction,ListOrderFormAction;ProductGridComponent
+
+## searchResultList slot ##
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;SearchResultsListSlot;Search Result List Slot for Search List;true;SearchResultsGrid;;;
+
+INSERT_UPDATE SearchResultsListComponent;$contentCV[unique=true];uid[unique=true];name;actions(uid,$contentCV);&componentRef
+;;SearchResultsList;Search Result List Component;ListPickUpInStoreAction,ListAddToCartAction,ListOrderFormAction;SearchResultsList
+
+## searchResultGrid slot ##
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;SearchResultsGridSlot;Search Result Grid Slot for Search List;true;SearchResultsGrid;;;
+
+INSERT_UPDATE SearchResultsGridComponent;$contentCV[unique=true];uid[unique=true];name;actions(uid,$contentCV);&componentRef
+;;SearchResultsGrid;Search Result Grid Component;ListPickUpInStoreAction,ListAddToCartAction,ListOrderFormAction;SearchResultsGrid
+
+## cms actions used in product list/gird, search result list/grid slot ##
+INSERT_UPDATE ListPickUpInStoreAction;$contentCV[unique=true];uid[unique=true];url;name;restrictions(uid,$contentCV);&actionRef
+;;ListPickUpInStoreAction;/store-pickup/{productCode}/pointOfServices;Pickup in Store Action;ActionRestriction;ListPickUpInStoreAction
+
+INSERT_UPDATE ListAddToCartAction;$contentCV[unique=true];uid[unique=true];url;name;restrictions(uid,$contentCV);&actionRef
+;;ListAddToCartAction;/cart/add;Product Add To Cart Action;ActionRestriction;ListAddToCartAction
+
+INSERT_UPDATE ListOrderFormAction;$contentCV[unique=true];uid[unique=true];url;name;restrictions(uid,$contentCV);&actionRef
+;;ListOrderFormAction;/orderForm;Order Form Action;ActionRestriction;ListOrderFormAction
+###### ConentSlot for Templates End ######
+
+
+###### modify some pages Start ######
+## make Product grid, Search grid page default ##
+UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];defaultPage
+;;search;false
+;;searchGrid;true
+
+UPDATE CategoryPage;$contentCV[unique=true];uid[unique=true];defaultPage
+;;productList;false
+;;productGrid;true
+
+###### modify some pages End ######
+
+
+
+###### Homepage Start ######
+## Based on landingLayout2Page.jsp ##
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='homepage'];contentSlot(uid,$contentCV)[unique=true]
+;;Section1-Homepage;Section1;;Section1Slot-Homepage
+;;Section2A-Homepage;Section2A;;Section2ASlot-Homepage
+;;Section2B-Homepage;Section2B;;Section2BSlot-Homepage
+;;Section3-Homepage;Section3;;Section3Slot-Homepage
+;;Section4-Homepage;Section4;;Section4Slot-Homepage
+;;Section5-Homepage;Section5;;Section5Slot-Homepage
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;Section1Slot-Homepage;Section1 Slot for Homepage;true;
+;;Section2ASlot-Homepage;Section2A Slot for Homepage;true;
+;;Section2BSlot-Homepage;Section2B Slot for Homepage;true;
+;;Section3Slot-Homepage;Section3 Slot for Homepage;true;
+;;Section4Slot-Homepage;Section4 Slot for Homepage;true;
+
+## slot 2C and 5: nothing to display ##
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(&componentRef)
+;;Section2CSlot-Homepage;
+;;Section5Slot-Homepage;
+
+## components in slot 4 ##
+INSERT_UPDATE SimpleResponsiveBannerComponent;$contentCV[unique=true];uid[unique=true];name;urlLink;&componentRef
+;;GPXpress_Hompage25%BannerComponent;GP B2BHomepage 25% Great Deal Banner Component;;GPXpress_Hompage25%BannerComponent
+;;GPXpress_Hompage30dayBannerComponent;GP B2BHomepage 30 Day Banner Component;;GPXpress_Hompage30dayBannerComponent
+;;GPXpress_Hompage6pmBannerComponent;GP B2BHomepage 6pm Banner Component;;GPXpress_Hompage6pmBannerComponent
+;;GPXpress_Hompage24/7BannerComponent;GP B2BHomepage 24/7 Banner Component;;GPXpress_Hompage24/7BannerComponent
+###### Homepage End ######
+
+
+###### Search Results Page Start ######
+## search result empty page ##
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='searchEmpty'];contentSlot(uid,$contentCV)[unique=true]
+;;Top-searchEmpty;TopContent;;TopContent-searchEmpty
+;;Side-searchEmpty;SideContent;;SideContent-searchEmpty
+;;Middle-searchEmpty;MiddleContent;;MiddleContent-searchEmpty
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;TopContent-searchEmpty;Top Slot for searchEmpty;true;
+;;SideContent-searchEmpty;Side Slot for searchEmpty;true;
+;;MiddleContent-searchEmpty;Middle Slot for searchEmpty;true;NoSearchResultsParagraphComponent
+
+INSERT_UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef
+;;NoSearchResultsParagraphComponent;No Search Results Paragraph Component;NoSearchResultsParagraphComponent
+
+## search page ##
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='search'];contentSlot(uid,$contentCV)[unique=true]
+;;Section4-search;Section4;;Section4Slot-search
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;Section4Slot-search;Section4 Slot for search;true;SearchResultsSideBanner
+
+INSERT_UPDATE SimpleBannerComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;urlLink
+;;SearchResultsSideBanner;Search Results Side Banner;SearchResultsSideBanner;#
+###### Search Results Page Start End ######
+
+
+###### Cart Page Start ######
+# ContentSlot 
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(uid,$contentCV)
+;;EmptyCartMiddleContent-cartPage;Middle Slot for Cart Page;true;GPEmptyCartComponent
+;;TopContentSlot-cartPage;Top Content Slot for Cart Page;true;CartComponent
+;;CenterLeftContentSlot-cartPage;Center Left Content Slot for Cart Page;true;CheckoutComponent
+;;CenterRightContentSlot-cartPage;Center Right Content Slot for Cart Page;true;CartTotalsComponent
+;;BottomContentSlot-cartPage;Bottom Content Slot for Cart Page;true;GPCartSuggestions
+
+# ContentSlotForPage 
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='cartPage'];contentSlot(uid,$contentCV)[unique=true]
+;;EmptyCartMiddleForCartPage;EmptyCartMiddleContent;;EmptyCartMiddleContent-cartPage
+;;TopContentSlotForCartPage;TopContent;;TopContentSlot-cartPage
+;;CenterLeftContentSlotForCartPage;CenterLeftContentSlot;;CenterLeftContentSlot-cartPage
+;;CenterRightContentSlotForCartPage;CenterRightContentSlot;;CenterRightContentSlot-cartPage
+;;BottomContentSlotForCartPage;BottomContentSlot;;BottomContentSlot-cartPage
+
+INSERT_UPDATE GPCartSuggestionComponent;$contentCV[unique=true];uid[unique=true];name;productReferenceTypes(code);maximumNumberProducts;filterPurchased;&componentRef
+;;GPCartSuggestions;GP Cart Suggestions;CROSSELLING,DIFF_ORDERUNIT,CONSISTS_OF,FOLLOWUP,OTHERS;20;true;GPCartSuggestions
+
+INSERT_UPDATE SimpleBannerComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;urlLink
+;;NextDayDeliveryBanner120;Next Day Delivery Banner (120);NextDayDeliveryBanner120;#
+;;HelpBanner;Help Banner;HelpBanner;# not used currently, but leave it there in case needed in future
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;CartComponent;Cart Display Component;cartDisplay.jsp;;CartComponent
+;;PromotionsComponent;Promotions Component;cartPromotionsDisplay.jsp;;PromotionsComponent
+;;PotentialPromotionsComponent;Potential Promotions Component;potentialPromotionsDisplay.jsp;;PotentialPromotionsComponent
+;;CartTotalsComponent;Cart Totals Display Component;/WEB-INF/views/responsive/pages/cart/cartTotalsDisplay.jsp;;CartTotalsComponent
+;;CheckoutComponent;Checkout Display Component;checkoutDisplay.jsp;;CheckoutComponent
+
+INSERT_UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef
+;;EmptyCartParagraphComponent;Empty Cart Paragraph Component;EmptyCartParagraphComponent
+###### Cart Page End ######
+
+
+
+
+###### Order Expired Page Start ######
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='orderExpired'];contentSlot(uid,$contentCV)[unique=true];;;
+;;Section2A-OrderExpired;Section2A;;Section2ASlot-OrderExpired;;;
+;;Section2B-OrderExpired;Section2B;;Section2BSlot-OrderExpired;;;
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;Section2ASlot-OrderExpired;Section2A Slot for Order Expired Page;true;OrderExpiredMenuParagraph;;;
+;;Section2BSlot-OrderExpired;Section2B Slot for Order Expired Page;true;OrderExpiredTextParagraph;;;
+
+INSERT_UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;;;;
+;;orderExpiredMenuParagraph;Order Expired Paragraph;OrderExpiredMenuParagraph;;;;
+;;orderExpiredTextParagraph;Order Expired Paragraph;OrderExpiredTextParagraph;;;;
+###### Order Expired Page End ######
+
+
+###### Quick Order Page Start ######
+INSERT_UPDATE GPImageComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;headingText;subHeadingText;urlLink;ctaText;backgroundColor;$mediaContainer;componentTheme
+;;gpMarketingImageComponent;GPMarketing Image Component;gpMarketingImageComponent;"Restroom";"Total restroom solutions for commercial facilities providing the best experience for those who use the restroom and those who manage them";/;"Learn More";;gpimage3;hero-left rays
+
+INSERT_UPDATE GPRotatingImagesComponent;$contentCV[unique=true];uid[unique=true];&componentRef;name;timeout;cmscomponents(&componentRef);componentTheme
+;;gpQuickOrderMarketingComponent;gpQuickOrderMarketingComponent;GPQuickOrderMarketingComponent;3000;gpMarketingImageComponent;
+
+ 
+###### Quick Order Page End ######
+
+###### Restriction Start ######
+INSERT_UPDATE CMSActionRestriction;$contentCV[unique=true];uid[unique=true];name;
+;;ActionRestriction;A CMSAction restriction;
+
+INSERT_UPDATE CMSUserRestriction;$contentCV[unique=true];&userRestriction;name;uid[unique=true];users(uid)
+;;anonymousUserRestriction;Anonymous User Restriction;anonymousUserRestriction;anonymous
+
+INSERT_UPDATE CMSInverseRestriction;$contentCV[unique=true];name;originalRestriction(&userRestriction)[allownull=true];uid[unique=true];components(&componentRef)
+;;Logged in User;anonymousUserRestriction;loggedInUser;MyAccountComponent
+
+###### Restriction End ######
+
+
+###### Media Start ######
+
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];folder(qualifier)[default='images']
+;;addEditAddressPagePreview;text/png;AddEditAddressPage.png;$jarResourceCms/preview-images/gpxpress/AddEditAddressPage.png
+;;addressBookPagePreview;text/png;AddressBook.png;$jarResourceCms/preview-images/gpxpress/AddressBookPage.png
+;;cartPagePreview;text/png;CartPage.png;$jarResourceCms/preview-images/gpxpress/CartPage.png
+;;checkoutLoginPagePreview;text/png;CheckoutLoginPage.png;$jarResourceCms/preview-images/gpxpress/CheckoutLoginPage.png
+;;multiStepCheckoutSummaryPagePreview;text/png;MultiStepCheckoutSummaryPage.png;$jarResourceCms/preview-images/gpxpress/MultiStepCheckoutSummaryPage.png
+;;homepagePreview;text/png;Homepage.png;$jarResourceCms/preview-images/gpxpress/Homepage.png
+;;importCSVSavedCartPagePreview;text/png;OrderHistoryPage.png;$jarResourceCms/preview-images/gpxpress/ImportCSVSavedCartPage.png
+;;loginPagePreview;text/png;LoginPage.png;$jarResourceCms/preview-images/gpxpress/LoginPage.png
+;;notFoundPagePreview;text/png;NotFoundPage.png;$jarResourceCms/preview-images/gpxpress/NotFoundPage.png
+;;orderConfirmationPagePreview;text/png;OrderConfirmationPage.png;$jarResourceCms/preview-images/gpxpress/OrderConfirmationPage.png
+;;orderHistoryPagePreview;text/png;OrderHistoryPage.png;$jarResourceCms/preview-images/gpxpress/OrderHistoryPage.png
+;;paymentDetailsPagePreview;text/png;PaymentDetailsPage.png;$jarResourceCms/preview-images/gpxpress/PaymentDetailsPage.png
+;;myQuotesPagePreview;text/png;MyQuotesPage.png;$jarResourceCms/preview-images/gpxpress/MyQuotesPage.png
+;;myReplenishmentOrdersPagePreview;text/png;MyReplenishmentOrdersPage.png;$jarResourceCms/preview-images/gpxpress/MyReplenishmentOrdersPage.png
+;;productDetailsPagePreview;text/png;ProductDetailsPage.png;$jarResourceCms/preview-images/gpxpress/ProductDetailsPage.png
+;;productListPagePreview;text/png;ProductListPage.png;$jarResourceCms/preview-images/gpxpress/ProductListPage.png
+;;profilePagePreview;text/png;ProfilePage.png;$jarResourceCms/preview-images/gpxpress/ProfilePage.png
+;;searchResultsEmptyPagePreview;text/png;SearchResultsEmptyPage.png;$jarResourceCms/preview-images/gpxpress/SearchResultsEmptyPage.png
+;;searchResultsPagePreview;text/png;SearchResultsPage.png;$jarResourceCms/preview-images/gpxpress/SearchResultsPage.png
+;;storefinderPagePreview;text/png;StoreFinderPage.png;$jarResourceCms/preview-images/gpxpress/StoreFinderPage.png
+;;updateForgottenPasswordPagePreview;text/png;UpdateForgottenPasswordPage.png;$jarResourceCms/preview-images/gpxpress/UpdateForgottenPasswordPage.png
+#;;productGridPagePreview;text/png;ProductGridPage.png;$jarResourceCms/preview-images/gpxpress/ProductGridPage.png
+;;orderApprovalDashboardPagePreview;text/png;OrderApprovalDashboardPage.png;$jarResourceCms/preview-images/gpxpress/OrderApprovalDashboardPage.png
+;;updatePasswordPagePreview;text/png;UpdatePasswordPage.png;$jarResourceCms/preview-images/gpxpress/UpdatePasswordPage.png
+;;myReplenishmentDetailsPreview;text/png;UpdatePasswordPage.png;$jarResourceCms/preview-images/gpxpress/MyReplenishmentDetailsPage.png
+;;quoteDetailPreview;text/png;UpdatePasswordPage.png;$jarResourceCms/preview-images/gpxpress/QuoteDetailPage.png
+;;updateProfilePreview;text/png;UpdatePasswordPage.png;$jarResourceCms/preview-images/gpxpress/UpdateProfilePage.png
+;;searchAdvancedEmptyPreview;text/png;UpdatePasswordPage.png;$jarResourceCms/preview-images/gpxpress/SearchAdvancedEmptyPage.png
+;;replenishmentConfirmationPagePreview;text/png;ReplenishmentConfirmationPage.png;$jarResourceCms/preview-images/gpxpress/ReplenishmentConfirmationPage.png
+;;defaultSoldToLogoGpxpress;text/png;GPXpresslogo.png;$jarResourceCms/preview-images/gpxpress/GPXpresslogo.png
+;;headerLogoGPxpress;text/png;LogoGpxpress.png;$jarResourceCms/preview-images/gpxpress/LogoGpxpress.png
+###### Media End ######
+
+
+###### update contentPage to set previewImage Start ######
+## set previewImage and linkComponent ##
+UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];previewImage(code, $contentCV);linkComponents(&linkRef)
+;;homepage;homepagePreview;HomepageNavLink
+
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];linkName[lang=$lang];url;&linkRef;&componentRef;target(code)[default='newWindow'];external[default=false];socialLink[default=false];markAsViewAll[default=false]
+;;TermsLink;Terms of Use;https://www.gp.com/legal/legal-notices/terms-of-use;;TermsLink;newWindow;true;
+;;PrivacyNoticeLink;Privacy Notice; https://www.gp.com/legal/legal-notices/privacy-notice;;PrivacyNoticeLink;newWindow;true;
+;;TermsAndConditionsLink;Terms & Conditions;https://www.gp.com/legal/consumer-products-sales-terms-and-conditions/gp-pro-terms-and-conditions;;TermsAndConditionsLink;newWindow;true;
+
+UPDATE ProductPage;$contentCV[unique=true];uid[unique=true];previewImage(code, $contentCV)
+;;productDetails;productDetailsPagePreview
+
+UPDATE CategoryPage;$contentCV[unique=true];uid[unique=true];previewImage(code, $contentCV)
+;;productList;productListPagePreview
+
+UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];previewImage(code, $contentCV)
+;;cartPage;cartPagePreview
+;;search;searchResultsPagePreview
+;;notFound;notFoundPagePreview
+;;searchEmpty;searchResultsEmptyPagePreview
+;;searchAdvancedEmpty;searchAdvancedEmptyPreview
+###### update contentPage to set previewImage End ######
+
+
+# Responsive Banner and Empty cart Component  #
+
+
+INSERT_UPDATE GPImageTextComponent;$contentCV[unique=true];uid[unique=true];name;urlLink;&componentRef
+;;GPCartImageTextComponent;GP Cart Image Text Component;/;GPCartImageTextComponent
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;BannerContent-cartPage;Banner Slot for Cart Page;true;GPCartImageTextComponent
+
+## Cart Page Start ##
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='cartPage'];contentSlot(uid,$contentCV)[unique=true]
+;;BannerContentSlotForCartPage;BannerContentSlot;;BannerContent-cartPage
+
+
+########## Continue Shopping Link ###########
+# Content Slot Name
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='CartPageTemplate'];validComponentTypes(code);compTypeGroup(code)
+;GPShoppingLinkSlot;;;
+
+# Cart Page Template
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='CartPageTemplate'];contentSlot(uid,$contentCV)[unique=true];
+;;GPShoppingLinkSlot-CartPage;GPShoppingLinkSlot;;GPShoppingLinkSlot-CartPage;
+
+# GPCMSLinkComponent 
+INSERT_UPDATE GPCMSLinkComponent;$contentCV[unique=true];uid[unique=true];name;url;&componentRef;;;;
+;;GPShoppingLinkSlotComponents;Continue Shopping;www.google.com;GPShoppingLinkSlotComponents;;;;
+
+# Create ContentSlots
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;GPShoppingLinkSlot-CartPage;Cart Continue Shopping Link for Cart Page;true;GPShoppingLinkSlotComponents
+
+
+#start changes for header category navigation
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(uid, $contentCV)
+;;TopHeaderSlot;GPXpressHeaderNavigationComponent
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV;uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='LandingPage2Template'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;TopHeaderSlot-LandingPage2;TopHeaderSlot;;TopHeaderSlot;true
+
+
+INSERT_UPDATE GPXpressCMSNavigationNode;$contentCV[unique=true];uid[unique=true];title[lang=$lang];name;parent(uid, $contentCV);soldTo(uid[unique=true])
+;;GPXpressCategoryNavNode;GPXpress Category Nav Node;GPXpress Category Nav Node;GPHeaderNavigationNode;
+;;GPProCategoryNavNode;GP Pro Category Nav Node;GP Pro Category Nav Node;GPXpressCategoryNavNode;
+;;GPRetailCategoryNavNode;GP Retail Category Nav Node;GP Retail Category Nav Node;GPXpressCategoryNavNode;555555
+
+
+INSERT_UPDATE CMSNavigationNode;$contentCV[unique=true];uid[unique=true];title[lang=$lang];name;parent(uid, $contentCV);
+;;GPHeaderNavigationNode;Main Header Nav Node;Main Header Nav Node;SiteRootNode;
+;;GPCheckoutNavNode;Checkout Nav Node;Checkout Nav Node;GPHeaderNavigationNode;
+;;GPFindStoreNavNode;Find Store Nav Node;Find Store Nav Node;GPHeaderNavigationNode;
+;;GPLoginMenuNavNode;Login Nav Node;Login Nav Node;GPHeaderNavigationNode;
+;;GPLogoutMenuNavNode;Logout Nav Node;Logout Nav Node;GPHeaderNavigationNode;
+
+
+INSERT_UPDATE GPXpressHeaderNavigationComponent;$contentCV[unique=true];uid[unique=true];name;styleClass;navigationNode(uid,$contentCV)[unique=true];wrapAfter;includeMiniCart;includeSearchBox;brandLogo;categoryNavigationMenu(uid,$contentCV);accountNavigationMenu(uid,$contentCV);showFindAStore;showLoginRegister;showQuickOrder;myLists(CMSLinkComponent.uid,CMSLinkComponent.$contentCV)
+;;GPXpressHeaderNavigationComponent;GPXpress Header Navigation Component;;GPHeaderNavigationNode;10;true;true;images/brands/gpxpress-color.svg;GPXpressCategoryNavNode;GPNavigationNavNode;false;false;false;SavedListsLink
+
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];name;linkName[lang=$lang];url;&linkRef;&componentRef;target(code)[default='newWindow'];external[default=false];socialLink[default=false];markAsViewAll[default=false]
+;;SavedListsLink;My Lists;My Lists;/my-account/lists;;
+
+INSERT_UPDATE ComponentTypeGroups2ComponentType;source(code)[unique=true];target(code)[unique=true]
+;wide;GPXpressHeaderNavigationComponent
+;narrow;GPXpressHeaderNavigationComponent
+;narrow;GPLiveChatComponent
+;wide;GPLiveChatComponent 
+
+INSERT_UPDATE CMSNavigationNode;$contentCV[unique=true];uid[unique=true];title[lang=$lang];name;parent(uid, $contentCV);parentPos
+;;GPProductsNavNode;Products;Products;GPProCategoryNavNode;
+;;GPProductOverviewNavNode;Product Overview;Product Overview;GPProductsNavNode;
+;;GPPaperTowelsNavNode;Paper Towels Nav Node;Paper Towels Nav Node;GPProductOverviewNavNode;0
+;;GPToiletPaperNavNode;Toilet Paper Nav Node;Toilet Paper Nav Node;GPProductOverviewNavNode;1
+;;GPFacialTissueNavNode;Facial Tissue Nav Node;Facial Tissue Nav Node;GPProductOverviewNavNode;2
+;;GPSkinCareNavNode;Skin Care Nav Node;Skin Care Nav Node;GPProductOverviewNavNode;3
+;;GPAirCareNavNode;Air Care Nav Node;Air Care Nav Node;GPProductOverviewNavNode;4
+;;GPJobsiteNavNode;Jobsite Nav Node;Jobsite Nav Node;GPProductOverviewNavNode;6
+;;GPCleaningAndWipesNode;Cleaning And Wipes Node;Cleaning And Wipes Node;GPProductOverviewNavNode;5
+;;GPNapkinNavNode;Napkin Nav Node;Napkin Nav Node;GPProductOverviewNavNode;9
+;;GPPlatesAndBowlsNavNode;Plates And Bowls Nav Node;Plates And Bowls Nav Node;GPProductOverviewNavNode;10
+;;GPCupsLidsNavNode;Cups Lids Nav Node;Cups Lids Nav Node;GPProductOverviewNavNode;7
+;;GPCutleryNavNode;Cutlery Nav Node;Cutlery Nav Node;GPProductOverviewNavNode;8
+;;GPFoodPackNavNode;Food Pack Nav Node;Food Pack Nav Node;GPProductOverviewNavNode;12
+;;GPPartsNavNode;Parts Nav Node;Parts Nav Node;GPProductOverviewNavNode;14
+;;GPPortionCupsNavNode;Portion Cups Nav Node;Portion Cups Nav Node;GPProductOverviewNavNode;11
+;;GPFoodWrapsNavNode;Food Wraps & Papers Nav Node;Food Wraps & Papers Nav Node;GPProductOverviewNavNode;13
+;;GPBrochuresNavNode;Brochures, Kits & Sell Sheets Nav Node;Brochures, Kits & Sell Sheets Nav Node;GPProductOverviewNavNode;15
+;;GPClubNavNode;Club Nav Node;Club Nav Node;GPProductOverviewNavNode;16
+
+;;GPBrandsNavNode;Brands;Brands;GPProCategoryNavNode;
+;;GPBrandsOverviewNavNode;Brands Overview;Brands Overview;GPBrandsNavNode;
+;;GPDixieNavNode;Dixie Nav Node;Dixie Nav Node;GPBrandsOverviewNavNode;3
+;;GPEnMotionNavNode;En Motion Nav Node;En Motion Nav Node;GPBrandsOverviewNavNode;7
+;;GPSparkleNavNode;Sparkle Nav Node;Sparkle Nav Node;GPBrandsOverviewNavNode;8
+;;GPActiveAireNavNode;Active Aire Nav Node;Active Aire Nav Node;GPBrandsOverviewNavNode;1
+;;GPCompactNavNode;Compact Nav Node;Compact Nav Node;GPBrandsOverviewNavNode;0
+;;GPBrawnyProfNavNode;Brawny Nav Node;Brawny Nav Node;GPBrandsOverviewNavNode;4
+;;GPAngelProfNavNode;Angel Soft Nav Node;Angel Soft Nav Node;GPBrandsOverviewNavNode;5
+;;GPPacificBlueNavNode;Pacific Blue Nav Node;Pacific Blue Nav Node;GPBrandsOverviewNavNode;6
+;;GPCoverMaxNavNode;Cover Max Nav Node;Cover Max Nav Node;GPBrandsOverviewNavNode;2
+
+;;GPSustainableNavNode;Sustainable Solutions;Sustainable Solutions;GPProCategoryNavNode;
+;;GPSustainableOverviewNavNode;Sustainable Solutions Overview;Sustainable Solutions Overview;GPSustainableNavNode;
+;;GPEPANavNode;EPA Nav Node;EPA Nav Node;GPSustainableOverviewNavNode;9
+;;GPGreenSealNavNode;Green Seal Nav Node;Green Seal Nav Node;GPSustainableOverviewNavNode;10
+;;GPUSDANavNode;USDA Nav Node;USDA Nav Node;GPSustainableOverviewNavNode;0
+;;GPBPINavNode;BPI Nav Node;BPI Nav Node;GPSustainableOverviewNavNode;2
+;;GPLEEDNavNode;LEED Nav Node;LEED Nav Node;GPSustainableOverviewNavNode;1
+;;GPWasteRedNavNode;Waste Red Nav Node;Waste Red Nav Node;GPSustainableOverviewNavNode;3
+;;GPEcoLogoNavNode;EcoLogo Nav Node;EcoLogo Nav Node;GPSustainableOverviewNavNode;4
+;;GPSFINavNode;SFI Nav Node;SFI Nav Node;GPSustainableOverviewNavNode;6
+;;GPSaferChoiceNavNode;Safer Choice Nav Node;Safer Choice Nav Node;GPSustainableOverviewNavNode;5
+;;GPHow2RecycleNavNode;How2Recycle Nav Node;How2Recycle Nav Node;GPSustainableOverviewNavNode;7
+;;GPFSCNavNode;FSC Nav Node;FSC Nav Node;GPSustainableOverviewNavNode;8
+
+;;GPRetailProdNavNode;Retail Products;Retail Products;GPRetailCategoryNavNode;
+;;GPRetailProdOverviewNavNode;Retail Prod Overview;Retail Prod Overview;GPRetailProdNavNode;
+;;GPBathTissueNavNode;Bath Tissue Nav Node;Bath Tissue Nav Node;GPRetailProdOverviewNavNode;0
+;;GPPaperNavNode;Paper Towels Nav Node;Paper Towels Nav Node;GPRetailProdOverviewNavNode;1
+;;GPLivingwareNavNode;Livingware Nav Node;Livingware Nav Node;GPRetailProdOverviewNavNode;2
+;;GPPaperNapkinsNavNode;Paper Napkins Nav Node;Paper Napkins Nav Node;GPRetailProdOverviewNavNode;3
+;;GPHomeCleanNavNode;Home Clean Node;Home Clean Node;GPRetailProdOverviewNavNode;4
+;;GPMixedPalletsNavNode;Mixed Pallets Nav Node;Mixed Pallets Nav Node;GPRetailProdOverviewNavNode;5
+;;GPArchiveNavNode;Archive Nav Node;Archive Nav Node;GPRetailProdOverviewNavNode;6
+
+;;GPRetailBrandNavNode;Retail Brands;Retail Brands;GPRetailCategoryNavNode;
+;;GPRetailBrandOverviewNavNode;Brand Overview;Brand Overview;GPRetailBrandNavNode;
+;;GPAngelSoftNavNode;AngelSoft Nav Node;AngelSoft Nav Node;GPRetailBrandOverviewNavNode;0
+;;GPQuiltedNavNode;Quilted Nav Node;Quilted Nav Node;GPRetailBrandOverviewNavNode;8
+;;GPMDNavNode;MD Nav Node;MD Nav Node;GPRetailBrandOverviewNavNode;5
+;;GPAriaNavNode;Aria Nav Node;Aria Nav Node;GPRetailBrandOverviewNavNode;1
+;;GPRetSparkleNavNode;Sparkle Nav Node;Sparkle Nav Node;GPRetailBrandOverviewNavNode;6
+;;GPBrawnyNavNode;Brawny Nav Node;Brawny Nav Node;GPRetailBrandOverviewNavNode;2
+;;GPRetDixieNavNode;Dixie Nav Node;Dixie Nav Node;GPRetailBrandOverviewNavNode;3
+;;GPVanityNavNode;Vanity Nav Node;Vanity Nav Node;GPRetailBrandOverviewNavNode;9
+;;GPMardiNavNode;Mardi Nav Node;Mardi Nav Node;GPRetailBrandOverviewNavNode;4
+;;GPStainNavNode;Stain Nav Node;Stain Nav Node;GPRetailBrandOverviewNavNode;7
+;;GPPrivateNavNode;Private Label Nav Node;Private Label Nav Node;GPRetailBrandOverviewNavNode;10
+
+;;GPCrossReferenceNavNode;Cross Reference;Cross Reference;GPProCategoryNavNode;
+
+INSERT_UPDATE CMSNavigationEntry;$contentCV[unique=true];uid[unique=true];name;navigationNode(uid,$contentCV);item(CMSLinkComponent.uid,CMSLinkComponent.$contentCV);
+;;GPProductNavEntry;Products Nav Entry;GPProductsNavNode;GPProductsNavLink;
+;;GPPaperTowelsNavEntry;Paper Towels Nav Entry;GPPaperTowelsNavNode;GPPaperTowelsLink;
+;;GPToiletPaperNavEntry;Toilet Paper Nav Entry;GPToiletPaperNavNode;GPToiletPaperLink;
+;;GPFacialTissueNavEntry;Facial Tissue Nav Entry;GPFacialTissueNavNode;GPFacialTissueLink;
+;;GPSkinCareNavEntry;Skin Care Nav Entry;GPSkinCareNavNode;GPSkinCareLink;
+;;GPAirCareNavEntry;Air Care Nav Entry;GPAirCareNavNode;GPAirCareLink;
+;;GPCleaningWipesNavEntry;Cleaning Wipes & Towels Nav Entry;GPCleaningAndWipesNode;GPCleaningWipesLink;
+;;GPNapkinNavEntry;Napkin Nav Entry;GPNapkinNavNode;GPNapkinLink;
+;;GPPlatesBowlsNavEntry;Plates And Bowls Nav Entry;GPPlatesAndBowlsNavNode;GPPlatesBowlsLink;
+;;GPCupsLidsNodeEntry;Cups, Lids & Straws Nav Entry;GPCupsLidsNavNode;GPCupsLidsLink;
+;;GPCutleryNodeEntry;Cutlery Node Entry;GPCutleryNavNode;GPCutleryLink;
+;;GPFoodPackNavEntry;Food Pack Nav Entry;GPFoodPackNavNode;GPFoodPackLink;
+;;GPJobsiteNavEntry;Jobsite Nav Entry;GPJobsiteNavNode;GPJobsiteLink;
+;;GPPartsNavEntry;Parts Nav Entry;GPPartsNavNode;GPPartsLink;
+;;GPPortionNavEntry;Portion Cups Nav Entry;GPPortionCupsNavNode;GPPortionLink;
+;;GPFoodWrapsNavEntry;Food Wraps Nav Entry;GPFoodWrapsNavNode;GPFoodWrapsLink;
+;;GPBrochuresNavEntry;Brochures Nav Entry;GPBrochuresNavNode;GPBrochuresLink;
+;;GPClubNavEntry;Club Nav Entry;GPClubNavNode;GPClubLink;
+
+;;GPBrandsNavEntry;Brands Nav Entry;GPBrandsNavNode;GPBrandsLink;
+;;GPDixieNavEntry;Dixie Nav Entry;GPDixieNavNode;GPDixieLink;
+;;GPEnMotionNavEntry;En Motion Nav Entry;GPEnMotionNavNode;GPEnMotionLink;
+;;GPSparkleNavEntry;Sparkle Nav Entry;GPSparkleNavNode;GPSparkleLink;
+;;GPActiveAireNavEntry;Active Aire Nav Entry;GPActiveAireNavNode;GPActiveAireLink;
+;;GPCompactNavEntry;Compact Nav Entry;GPCompactNavNode;GPCompactLink;
+;;GPBrawnyProfNavEntry;Brawny Nav Entry;GPBrawnyProfNavNode;GPBrawnyProfLink;
+;;GPAngelProfNavEntry;Angel Soft Nav Entry;GPAngelProfNavNode;GPAngelProfLink;
+;;GPPacificBlueNavEntry;Pacific Blue Nav Entry;GPPacificBlueNavNode;GPPacificBlueLink;
+;;GPCoverMaxNavEntry;Cover Max Nav Entry;GPCoverMaxNavNode;GPCoverMaxLink;
+
+;;GPSustainableNavEntry;Sustainable Nav Entry;GPSustainableNavNode;GPSustainableLink;
+;;GPEPANavEntry;EPA Nav Entry;GPEPANavNode;GPEPALink;
+;;GPGreenSealNavEntry;Green Seal Nav Entry;GPGreenSealNavNode;GPGreenSealLink;
+;;GPUSDANavEntry;USDA Nav Entry;GPUSDANavNode;GPUSDALink;
+;;GPBPINavEntry;BPI Nav Entry;GPBPINavNode;GPBPILink;
+;;GPLEEDNavEntry;LEED Nav Entry;GPLEEDNavNode;GPLEEDLink;
+;;GPWasteRedNavEntry;Waste Red Nav Entry;GPWasteRedNavNode;GPWasteRedLink;
+;;GPEcoLogoNavEntry;EcoLogo Nav Entry;GPEcoLogoNavNode;GPEcoLogoLink;
+;;GPSFINavEntry;SFI Nav Entry;GPSFINavNode;GPSFILink;
+;;GPSaferChoiceNavEntry;Safer Choice Nav Entry;GPSaferChoiceNavNode;GPSaferChoiceLink;
+;;GPHow2RecycleNavEntry;How2Recycle Nav Entry;GPHow2RecycleNavNode;GPHow2RecycleLink;
+;;GPFSCNavEntry;FSC Nav Entry;GPFSCNavNode;GPFSCLink;
+
+;;GPRetailProdNavEntry;Retail Products Nav Entry;GPRetailProdNavNode;GPRetailProdLink;
+;;GPBathTissueNavEntry;Bath Tissue Nav Entry;GPBathTissueNavNode;GPBathTissueLink;
+;;GPPaperNavEntry;Paper Towels Nav Entry;GPPaperNavNode;GPPaperLink;
+;;GPLivingwareNavEntry;Livingware Nav Entry;GPLivingwareNavNode;GPLivingwareLink;
+;;GPPaperNapkinsNavEntry;Paper Napkins Nav Entry;GPPaperNapkinsNavNode;GPPaperNapkinsLink;
+;;GPHomeCleanNavEntry;Home Clean Entry;GPHomeCleanNavNode;GPHomeCleanLink;
+;;GPMixedPalletsNavEntry;Mixed Pallets Nav Entry;GPMixedPalletsNavNode;GPMixedPalletsLink;
+;;GPArchiveNavEntry;Archive Nav Entry;GPArchiveNavNode;GPArchiveLink;
+
+;;GPRetailBrandNavEntry;Retail Brands Nav Entry;GPRetailBrandNavNode;GPRetailBrandLink;
+;;GPAngelSoftNavEntry;AngelSoft Nav Entry;GPAngelSoftNavNode;GPAngelSoftLink;
+;;GPQuiltedNavEntry;Quilted Nav Entry;GPQuiltedNavNode;GPQuiltedLink;
+;;GPMDNavEntry;MD Nav Entry;GPMDNavNode;GPMDLink;
+;;GPAriaNavEntry;Aria Nav Entry;GPAriaNavNode;GPAriaLink;
+;;GPRetSparkleNavEntry;Sparkle Nav Entry;GPRetSparkleNavNode;GPSparkleLink;
+;;GPBrawnyNavEntry;Brawny Nav Entry;GPBrawnyNavNode;GPBrawnyLink;
+;;GPRetDixieNavEntry;Dixie Nav Entry;GPRetDixieNavNode;GPRetDixieLink;
+;;GPVanityNavEntry;Vanity Nav Entry;GPVanityNavNode;GPVanityLink;
+;;GPMardiNavEntry;Mardi Nav Entry;GPMardiNavNode;GPMardiLink;
+;;GPStainNavEntry;Stain Nav Entry;GPStainNavNode;GPStainLink;
+;;GPPrivateNavEntry;Private Label Nav Entry;GPPrivateNavNode;GPPrivateLink;
+
+;;CrossReferenceNavNodeEntry;Cross Reference Nav Node Entry;GPCrossReferenceNavNode;CrossReferenceLink;
+
+
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];linkName[lang=$lang];url;styleAttributes;target(code)[default='sameWindow'];external[default=false];socialLink[default=false];markAsViewAll[default=false]
+;;GPProductsNavLink;"Products";/category/gpxpresscategories;;;;  
+;;GPPaperTowelsLink;"Paper Towels & Dispensers";/category/401;;;;
+;;GPToiletPaperLink;"Toilet Paper & Dispensers";/category/402;;;;
+;;GPFacialTissueLink;"Facial Tissue";/category/403;;;;
+;;GPSkinCareLink;"Skin Care & Dispensers";/category/404;;;;
+;;GPAirCareLink;"Air Care & Dispensers";/category/405;;;;
+;;GPCleaningWipesLink;"Cleaning Wipers & Cloths";/category/406;;;;
+;;GPNapkinLink;"Napkins & Dispensers";/category/407;;;;
+;;GPPlatesBowlsLink;"Plates, Platters & Bowls";/category/408;;;;
+;;GPCupsLidsLink;"Cups, Lids & Straws";/category/409;;;;
+;;GPCutleryLink;"Cutlery & Dispensers";/category/410;;;;
+;;GPFoodPackLink;"Food Packaging";/category/411;;;;
+;;GPJobsiteLink;"Jobsite Protection";/category/412;;;;
+;;GPPartsLink;"Parts & Accessories";/category/413;;;;  
+;;GPPortionLink;"Portion Cups";/category/453;;;; 
+;;GPFoodWrapsLink;"Food Wraps & Papers";/category/451;;;; 
+;;GPBrochuresLink;"Brochures, Kits & Sell Sheets";/category/450;;;; 
+;;GPClubLink;"Club";/category/455;;;; 
+
+;;GPBrandsLink;Brands;/category/brands;;;;  
+;;GPDixieLink;"Dixie<sup>®</sup>";/category/501;;;;
+;;GPEnMotionLink;"enMotion<sup>®</sup>";/category/502;;;;
+;;GPSparkleLink;"Sparkle<sup>®</sup> Professional";/category/503;;;;
+;;GPActiveAireLink;"ActiveAire<sup>TM</sup>";/category/504;;;;
+;;GPCompactLink;"Compact<sup>®</sup>";/category/505;;;;
+;;GPBrawnyProfLink;"Brawny<sup>®</sup> Professional";/category/506;;;;
+;;GPAngelProfLink;"AngelSoft<sup>®</sup> Professional";/category/507;;;;
+;;GPPacificBlueLink;"Pacific Blue<sup>TM</sup>";/category/508;;;;
+;;GPCoverMaxLink;"CoverMax<sup>®</sup>";/category/509;;;;
+
+;;GPSustainableLink;"Sustainable Solutions";/category/sustainablesolutions;;;;  
+;;GPEPALink;"EPA Compliant";/category/601;;;;
+;;GPGreenSealLink;"Green Seal<sup>TM</sup>";/category/602;;;;
+;;GPUSDALink;"USDA BioPreferred<sup>®</sup>";/category/603;;;;
+;;GPBPILink;"BPI<sup>®</sup> - Biodegradable Products Institute";/category/604;;;;
+;;GPLEEDLink;"LEED<sup>®</sup> Eligible";/category/605;;;;
+;;GPWasteRedLink;"Waste Reducing Products";/category/606;;;;
+;;GPEcoLogoLink;"EcoLogo<sup>®</sup>";/category/607;;;;
+;;GPSFILink;"SFI<sup>®</sup> - Sustainable Forestry Initiative";/category/608;;;;
+;;GPSaferChoiceLink;"Safer Choice";/category/609;;;; 
+;;GPHow2RecycleLink;"How2Recycle<sup>®</sup>";/category/610;;;;
+;;GPFSCLink;"FSC<sup>®</sup> - Forest Stewardship Council";/category/611;;;;
+
+;;GPRetailProdLink;"Retail Product Types";/category/retailproducttypes;;;;  
+;;GPBathTissueLink;"Bath Tissue";/category/414;;;;
+;;GPPaperLink;"Paper Towels";/category/415;;;;
+;;GPLivingwareLink;"Livingware";/category/416;;;;
+;;GPPaperNapkinsLink;"Paper Napkins";/category/417;;;;
+;;GPHomeCleanLink;"Home Cleaning";/category/418;;;;
+;;GPMixedPalletsLink;"Mxed Pallets & Shippers";/category/419;;;;
+;;GPArchiveLink;"Archive";/category/420;;;;
+
+;;GPRetailBrandLink;"Retail Brands";/category/retailbrands;;;;
+;;GPAngelSoftLink;"Angel Soft<sup>®</sup>";/category/510;;;; 
+;;GPQuiltedLink;"Quilted Northern<sup>®</sup>";/category/511;;;;
+;;GPMDLink;"MD<sup>®</sup>";/category/512;;;;  
+;;GPAriaLink;"Aria<sup>TM</sup>";/category/513;;;;  
+;;GPSparkleLink;"Sparkle<sup>®</sup>";/category/514;;;;
+;;GPBrawnyLink;"Brawny<sup>®</sup>";/category/515;;;;
+;;GPRetDixieLink;"Dixie<sup>®</sup>";/category/501;;;;
+;;GPVanityLink;"Vanity Fair<sup>®</sup>";/category/516;;;;
+;;GPMardiLink;"Mardi Gras<sup>®</sup>";/category/517;;;;
+;;GPStainLink;"Stainmaster<sup>®</sup> ";/category/518;;;;
+;;GPPrivateLink;"Private Label";/category/462;;;;
+
+;;CrossReferenceLink;Cross Reference;/crossReference;;;;
+
+	
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];linkName[lang=$lang];url;styleAttributes;target(code)[default='sameWindow'];external[default=false];socialLink[default=false];markAsViewAll[default=false]
+;;HelpLink;Help;/faq;;newWindow;;
+;;FindStoreLink;Find a Distributor;/find/locatestore;;;;
+;;LogoutLink;Logout;/logout;;;;
+;;CreateAccountLink;Create Account;/register;;;;
+
+
+INSERT_UPDATE CMSNavigationEntry;$contentCV[unique=true];uid[unique=true];name;navigationNode(uid,$contentCV);item(CMSLinkComponent.uid,CMSLinkComponent.$contentCV);
+;;CheckoutHelpNavNodeEntry;Checkout Help Nav Node Entry;GPCheckoutNavNode;HelpLink;
+;;FindStoreNavNodeEntry;Find Store Nav Node Entry;GPFindStoreNavNode;FindStoreLink;
+;;LogoutNavNodeEntry;Logout Nav Node Entry;GPLogoutMenuNavNode;LogoutLink;
+;;LogoutHelpNavNodeEntry;Logout Help Nav Node Entry;GPLogoutMenuNavNode;HelpLink;
+;;CreateAccountNodeEntry;Create Account Nav Node Entry;GPLoginMenuNavNode;CreateAccountLink;
+;;HelpNavNodeEntry;Help Nav Node Entry;GPLoginMenuNavNode;HelpLink;
+
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;CompareProductsResultsComponent;Compare Products Results Component;compareProductsResultsComponent.jsp;;CompareProductsResultsComponent
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;BodyContent-compareProducts;Compare Products Results;true;CompareProductsResultsComponent;;;
+
+# ContentSlotForPage
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='compareProductsPage'];contentSlot(uid,$contentCV)[unique=true];;;
+;;BodyContent-compareProductspage;BodyContent;;BodyContent-compareProducts;;;
+
+
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;BannerMiddleContentSlot;Banner Middle Content Slot for Cart Page;true;GPCartImageTextComponent
+
+INSERT_UPDATE GPRotatingImagesComponent;$contentCV[unique=true];uid[unique=true];cmsComponents(uid,$contentCV)
+;;GPEmptyCartComponent;GPEmptyCartShopping
+
+INSERT_UPDATE GPImageComponent;$contentCV[unique=true];uid[unique=true];headingText;ctaText;ctaBgColor;ctaColor;subHeadingText;showTextFullWidth;subHeadBgColor
+;;GPEmptyCartShopping;Your shopping cart is empty;CONTINUE SHOPPING;#126ca8;#FFFFFF;Provide messing around product promotions or coupon deals;true;#FFFFFF
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='cartPage'];contentSlot(uid,$contentCV)[unique=true]
+;;BannerMiddleContentSlotForCartPage;BannerMiddleContent;;BannerMiddleContentSlot
+
+INSERT_UPDATE CartSuggestionComponent;$contentCV[unique=true];uid[unique=true];name;productReferenceTypes(code);maximumNumberProducts;filterPurchased;&componentRef
+;;CartSuggestions;Cart Suggestions;CROSSELLING,DIFF_ORDERUNIT,CONSISTS_OF,FOLLOWUP,OTHERS;20;true;CartSuggestions
+
+## Cart Page End ##
+
+
+#### GP Left Nav Start ####
+INSERT_UPDATE GPNavigationComponent;$contentCV[unique=true];uid[unique=true];&componentRef;navigationNode(&nodeRef)
+;;GPNavigationComponent;GPNavigationComponent;GPNavigationNavNode;
+
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);links(&linkRef);&nodeRef
+;GPNavigationNavNode;;Navigation Pages;GPHeaderNavigationNode;;GPNavigationNavNode
+
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);links(&linkRef);&nodeRef;parentPos
+;GPYourAccountNavNode;;Account Pages;GPNavigationNavNode;;GPYourAccountNavNode;0
+;GPYourCompanyNavNode;;Company Pages;GPNavigationNavNode;;GPYourCompanyNavNode;1
+
+## Children of GP NavNode ##
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);links(&linkRef);&nodeRef;parentPos;visible
+;GPProfilePrefNavNode;;Profile & Preference Pages;GPYourAccountNavNode;;GPProfilePrefNavNode;0;true
+;GPAddressNavNode;;Address Pages;GPYourAccountNavNode;;GPAddressNavNode;1;true
+;GPPaymentNavNode;;Payment Method Pages;GPYourAccountNavNode;;GPPaymentNavNode;2;false
+;GPAccountListNavNode;;List Pages;GPYourAccountNavNode;;GPAccountListNavNode;3;false
+;GPBusinessUnitNavNode;;Business Unit Pages;GPYourCompanyNavNode;;GPBusinessUnitNavNode;0;true
+;GPUserNavNode;;User Pages;GPYourCompanyNavNode;;GPUserNavNode;1;true
+;GPUserGroupNavNode;;User Group Pages;GPYourCompanyNavNode;;GPUserGroupNavNode;2;true
+;GPPermissionsNavNode;;Permission Pages;GPYourCompanyNavNode;;GPPermissionsNavNode;3;true
+;GPApprovalsNavNode;;Approval Pages;GPYourCompanyNavNode;;GPApprovalsNavNode;4;true
+;GPAgreementNavNode;;Lease Agreement Pages;GPYourCompanyNavNode;;GPAgreementNavNode;5;false
+;GPOrderNavNode;;Order History Pages;GPYourAccountNavNode;;GPOrderNavNode;4;true
+;GPReturnNavNode;;Return Pages;GPYourCompanyNavNode;;GPReturnNavNode;7;false
+;GPSubscriptionNavNode;;Subscription Pages;GPYourCompanyNavNode;;GPSubscriptionNavNode;9;false
+
+
+# entries of the above navigation nodes
+INSERT_UPDATE CMSNavigationEntry;uid[unique=true];$contentCV[unique=true];name;navigationNode(&nodeRef);item(CMSLinkComponent.uid,CMSLinkComponent.$contentCV);
+;GPProfilePrefNavNodeEntry;;Profile & Preference Navigation Node Entry;GPProfilePrefNavNode;ProfilePreferencesLink;
+;GPAddressNavNodeEntry;;Addresses Node Entry;GPAddressNavNode;AddressesLink;
+;GPBusinessUnitNavNodeEntry;;Business Units Navigation Node Entry;GPBusinessUnitNavNode;BusinessUnitsLink;
+;GPUserNavNodeEntry;;Users Navigation Node Entry;GPUserNavNode;UsersLink;
+;GPUserGroupNavNodeEntry;;User Groups Navigation Node Entry;GPUserGroupNavNode;UserGroupsLink;
+;GPPermissionsNavNodeEntry;;Permissions Navigation Node Entry;GPPermissionsNavNode;PermissionsLink;
+;GPApprovalNavNodeEntry;;Approvals Navigation Node Entry;GPApprovalsNavNode;ApprovalsLink;
+;GPPaymentNavNodeEntry;;Payment Node Entry;GPPaymentNavNode;PaymentsLink;
+#;GPListNavNodeEntry;;List Node Entry;GPListNavNode;ListsLink;
+;GPAccountListNavNodeEntry;;List Node Entry;GPAccountListNavNode;ListsLink;
+
+
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];name;url;category(code, $productCV);target(code)[default='sameWindow'];;socialLink[default=false];markAsViewAll[default=false]
+;;ProfilePreferencesLink;Profile & Preference  Link;/my-account/profile;;;
+;;AddressesLink;Addresses Link;/my-account/addresses;;;
+;;BusinessUnitsLink;Business Units Link;/businessorg/units;;;
+;;UsersLink;Users Link;/businessorg/users;;;
+;;UserGroupsLink;User Groups Link;/businessorg/usergroups;;;
+;;PermissionsLink;Permissions Link;/businessorg/permissions;;;
+;;ApprovalsLink;Approvals Link;/businessorg/ordersapproval;;;
+;;PaymentsLink;Payments Link;/my-account/paymentdetails;;
+;;ListsLink;Lists Link;/my-account/lists;;
+
+
+################################Start b2borg components and slots##############################################
+                        
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;gpUnitsJspIncludeComponent;GP Units page;GPUnits.jsp;;gpUnitsJspIncludeComponent
+;;gpUserGroupsJspIncludeComponent;GP User Groups page;GPUserGroups.jsp;;gpUserGroupsJspIncludeComponent
+;;gpUsersJspIncludeComponent;GP Users page;GPUsers.jsp;;gpUsersJspIncludeComponent
+;;gpPermissionsJspIncludeComponent;GP Permissions page;GPPermissions.jsp;;gpPermissionsJspIncludeComponent
+;;gpAddressesJspIncludeComponent;GP Addresses page;GPAddresses.jsp;;gpAddressesJspIncludeComponent
+;;gpPermissiondetailsJspIncludeComponent;GP Permission Details page;GPPermissionDetails.jsp;;gpPermissiondetailsJspIncludeComponent
+;;gpUnitDetailsJspIncludeComponent;GP Unit Details page;GPUnitsDetails.jsp;;gpUnitDetailsJspIncludeComponent
+;;gpUserDetailsJspIncludeComponent;GP User Details page;GPUserDetails.jsp;;gpUserDetailsJspIncludeComponent
+;;gpUsergroupdetailsJspIncludeComponent;GP UserGroup Details page;GPUserGroupDetails.jsp;;gpUsergroupdetailsJspIncludeComponent
+
+;;gpOrdersApprovalJspIncludeComponent;GP Orders Approval page;GPOrdersApproval.jsp;;gpOrdersApprovalJspIncludeComponent
+;;gpOrderApprovaldetailsJspIncludeComponent;GP Order Approval Details page;GPOrderApprovalDetails.jsp;;gpOrderApprovaldetailsJspIncludeComponent
+
+
+#################################################################################End b2borg components and slots##########################################
+###B2B :My Account components and slots##
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true]          ;name                     ; page;actions(uid,$contentCV);&componentRef
+
+;;gpProfileJspIncludeComponent;GP Profile page;GPProfile.jsp;;gpProfileJspIncludeComponent
+;;gpAddressesJspIncludeComponent;GP Addresses page;GPAddresses.jsp;;gpAddressesJspIncludeComponent
+;;gpPaymentJspIncludeComponent;GP Payment page;GPPayment.jsp;;gpPaymentJspIncludeComponent
+;;gpListsJspIncludeComponent;GP Lists page;GPLists.jsp;;gpListsJspIncludeComponent
+;;gpListdetailsJspIncludeComponent;GP Listdetails page;GPListdetails.jsp;;gpListdetailsJspIncludeComponent
+
+# ContentSlot 
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+
+
+;;GPListsSlot-units;GP Lists slot;true;gpListsJspIncludeComponent;;;
+
+;;GPListdetailsSlot-units;GP Listdetails slot;true;gpListdetailsJspIncludeComponent;;;
+
+
+
+
+######### ContentSlotForPage 
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='gplistspage'];contentSlot(uid,$contentCV)[unique=true];;;
+;;PageContentSlot-gplistspage;GPListsSlot;;GPListsSlot-units;;;
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='gplistdetailspage'];contentSlot(uid,$contentCV)[unique=true];;;
+;;PageContentSlot-gplistdetailspage;GPListdetailsSlot;;GPListdetailsSlot-units;;;
+
+
+#####################END of B2B :My Account #################
+
+
+
+### Sample Home Page####
+
+INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);label;defaultPage[default='true'];approvalStatus(code)[default='approved'];homepage[default='false']
+;;gpHomePage;view site page-gp2;LandingPage2Template ;gpHomePage
+
+								   
+INSERT_UPDATE Media;mediaFormat(qualifier);code[unique=true];@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];realfilename;altText;mime[default='image/jpeg'];$contentCV[unique=true];folder(qualifier)[default=images];
+;desktop;gpbanner1;$siteResource/images/gpimage/Hero_1.jpg;Hero_1.jpg;"Hero_1.jpg";
+;desktop;gpbanner2;$siteResource/images/gpimage/Hero_2.jpg;Hero_2.jpg;"Hero_2.jpg";
+;desktop;gpbanner3;$siteResource/images/gpimage/Hero_3.jpg;Hero_3.jpg;"Hero_3.jpg";
+;desktop;gpbanner4;$siteResource/images/gpimage/Hero_4.jpg;Hero_4.jpg;"Hero_4.jpg";
+;desktop;gpbanner5;$siteResource/images/gpimage/Home-GP-PRO.jpg;Home-GP-PRO.jpg;"Home-GP-PRO.jpg";
+;desktop;gpbanner6;$siteResource/images/gpimage/Home-GP-PRO6.jpg;Home-GP-PRO6.jpg;"Home-GP-PRO6.jpg";
+;desktop;brandbar1;$siteResource/images/gpimage/brandbar1.png;brandbar1.png;"brandbar1.png";
+;desktop;brandbar2;$siteResource/images/gpimage/brandbar2.png;brandbar2.png;"brandbar2.png";
+;desktop;brandbar3;$siteResource/images/gpimage/brandbar3.png;brandbar3.png;"brandbar3.png";
+;desktop;brandbar4;$siteResource/images/gpimage/brandbar4.png;brandbar4.png;"brandbar4.png";
+;desktop;brandbar5;$siteResource/images/gpimage/brandbar5.png;brandbar5.png;"brandbar5.png";
+;desktop;textwithimage;$siteResource/images/gpimage/Text_with_Image.jpg;Text_with_Image.jpg;"Text_with_Image.jpg";
+
+INSERT_UPDATE MediaContainer;qualifier[unique=true];$medias;$contentCV[unique=true]
+;hero_banner_1;gpbanner1
+;hero_banner_2;gpbanner2
+;hero_banner_3;gpbanner3
+;hero_banner_4;gpbanner4
+;gpimage1;gpbanner5
+;gpimage2;gpbanner6
+;gpimage3;textwithimage
+
+								   
+INSERT_UPDATE GPBannerComponent;$contentCV[unique=true];uid[unique=true];name;$mediaContainer;backgroundColor;headline;content;contentColor;ctaText;&componentRef;urlLink
+;;gpBannerComponent;gpBannerComponent;gpimage3;#3498DB;"Restroom";"Total restroom solutions for commercial facilities providing the best experience for those who use the restroom and those who manage them";#808080; Learn More;gpBannerComponent;www.google.com
+;;gpBannerComponent1;gpBannerComponent1;gpimage1;#3498DB;"Restroom";"Total restroom solutions for commercial facilities providing the best experience for those who use the restroom and those who manage them";#808080; Learn More;gpBannerComponent1;www.google.com
+;;gpBannerComponent2;gpBannerComponent2;gpimage2;#3498DB;"Restroom";"Total restroom solutions for commercial facilities providing the best experience for those who use the restroom and those who manage them";#808080; Learn More;gpBannerComponent2;www.google.com
+
+INSERT_UPDATE GPMarketingComponent;$contentCV[unique=true];name;uid[unique=true];&componentRef;headerText;backgroundColor
+;;gpmarketingComponent;gpmarketingComponent;gpmarketingComponent;sample gp header;#000000
+
+								   
+INSERT_UPDATE GPMarketingSidebySideComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;backgroundColor;marketingSideBanner(&componentRef)
+ ;;gpMarketingSidebySideComponent;gpMarketingSidebySideComponent;gpMarketingSidebySideComponent;red;gpBannerComponent1,gpBannerComponent2
+
+
+INSERT_UPDATE GPImageTileComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;componentHeader;backgroundColor;banners(&componentRef)
+;;gpImageTileComponent;gpImageTileComponent;gpImageTileComponent;"image Tile";#3498DB;gpBannerComponent,gpBannerComponent1,gpBannerComponent2
+
+INSERT_UPDATE GPImageLinkComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;url;$picture
+;;gpImageLink1;gpImageLink1;gpImageLink1;/;brandbar1
+;;gpImageLink2;gpImageLink1;gpImageLink2;/;brandbar2
+;;gpImageLink3;gpImageLink1;gpImageLink3;/;brandbar3
+;;gpImageLink4;gpImageLink1;gpImageLink4;/;brandbar4
+;;gpImageLink5;gpImageLink5;gpImageLink5;/;brandbar5
+
+
+INSERT_UPDATE GPBrandBarComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;headline;urlLink;images(&componentRef);backgroundColor
+;;gpBrandBarComponent;gpBrandBarComponent;gpBrandBarComponent;Brand Bar Sample;CLick here;gpImageLink1,gpImageLink2,gpImageLink3,gpImageLink4,gpImageLink5;#008000
+
+INSERT_UPDATE GPImageComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;headingText;urlLink;ctaText;backgroundColor;$mediaContainer
+;;gpImageComponent;gpImageComponent;gpImageComponent;"Hero Banner";/;"click me";;hero_banner_1
+;;gpImageComponent1;gpImageComponent1;gpImageComponent1;"Hero Banner sample";/;"click me";;hero_banner_2
+;;gpImageComponent2;gpImageComponent2;gpImageComponent2;"Hero Banner sample";/;"click me";;hero_banner_3
+
+
+INSERT_UPDATE GPRotatingImagesComponent;$contentCV[unique=true];uid[unique=true];&componentRef;name;timeout;cmscomponents(&componentRef)
+;;gpRotatingImagesComponent;gpRotatingImagesComponent;gpRotatingImagesComponent;3000;gpImageComponent,gpImageComponent1,gpImageComponent2
+
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(uid, $contentCV)
+;;Section1-gpHomePage;gpRotatingImagesComponent,gpmarketingComponent
+#;;Section2-gpHomePage;gpmarketingComponent
+#;;Section3-gpHomePage;gpImageTileComponent
+;;Section4-gpHomePage;gpImageTileComponent,gpBrandBarComponent
+#;;Section5-gpHomePage;gpMarketingSidebySideComponent
+;;Section6-gpHomePage;gpBannerComponent,gpMarketingSidebySideComponent
+#;;Section7-gpHomePage;gpmarketingComponent	
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='gpHomePage'];contentSlot(uid,$contentCV)[unique=true]
+;;gprotatingslot-gpHomePage;Section1;;Section1-gpHomePage
+#;;gpMarketingslot-gpHomePage;ContentSlot3;;Section2-gpHomePage
+#;;gpImageTileslot-gpHomePage;ContentSlot4;;Section3-gpHomePage
+;;gpbrandbar-gpHomePage;Section3;;Section4-gpHomePage
+#;;gpBannerSlot-gpHomePage;Section4;;Section5-gpHomePage
+;;gpMarketingSidebySideslots-Section5;Section5;;Section6-gpHomePage
+#;;gpMarketingSlot2-gpHomePage;ContentSlot8;;Section7-gpHomePage
+
+
+

@@ -1,0 +1,454 @@
+/**
+/**  Variables
+/**  --------------------------------------------------
+
+/** == Colors
+/**
+/** ## brand colors for use across site. **/
+
+@brand-primary: #000000; // changed as per header color
+@brand-secondary: #f5ae23; // to be changed as per primary button hover color
+@brand-tertiary: #ee2941; // cahged as per error color
+
+@brand-swap-secondary: #f7bd2b; /** light yellow **/
+
+@brand-secondary-2: #222222; // changed as per Apply promo button
+@brand-secondary-3: #000000; // promo text section in tiles is not there
+@brand-secondary-4: #ffffff;
+@brand-secondary-5: #747678;
+@brand-secondary-7: #81bc02; // not used
+@brand-secondary-8: #fafafa; // cant find state
+@brand-secondary-9: #000000;
+@brand-secondary-10: #c6c6c6;
+@brand-secondary-11: #f9f9f9; // not used
+@brand-secondary-12: #f1f2f4; // to change body background
+@brand-secondary-13: #393939;
+/** Flyout Colors **/
+@flyout-default-bg-color: #f4f4f4;
+@flyout-success-bg-color: #eef5e7;
+@flyout-success-border-color: rgba(129, 188, 2, 0.63);
+@flyout-alert-border-color: #cecece;
+@flyout-error-border-color: rgba(228, 38, 16, 0.1);
+@flyout-success-text-color: #417505;
+@success-text-color: #417505;
+@error-border-color: rgba(228, 38, 16, 0.1);
+@alert-border-color: #0074e4;
+@flyout-error-text-color: #e42610;
+/** Flyout Colors End here **/
+
+/**  Background color for `<body>`. **/
+@body-bg: #ffffff;
+@modal-bg: rgba(68, 61, 61, 0.5);
+/** *******Typography Colors********* **/
+@text-color: #222222; // two text colours used, other one is #201f1f
+@text-color-secondary: #747678;
+@text-color-sub-text: #747678;
+@text-color-secondary-2: #ffffff;
+@text-color-secondary-3: @text-color;
+@text-color-secondary-4: @text-color;
+@text-color-error: #e42610; // #fd0202 at one place
+@link-color: @text-color;
+@link-hover-color: @text-color;
+@headline-color: @link-hover-color;
+@help-text-background-color: #eff6fa;
+@help-text-color: #747678;
+@product-tile-savings-color: #417505;
+@product-tile-link-color: #000000;
+@success-text-background-color: #eef5e7;
+@success-icon-color: #b7d975;
+@input-disabled-color: #eee;
+@error-page-font-color: @text-color;
+
+@text-color-secondary-2: #ffffff;
+
+// #322B2A text color in header
+// #3E3838 for product tile horizontal
+// #272525 in subscription tile
+// #625656 in payment cards and for name in address cards
+// #167bb4, (#006198, #0074e4) for links
+// #75A742 for savings in order summary
+// #3C3938 text color footer
+// #353333-empty cart page/labels and #151414-homepage heading
+// #969292 help text
+
+/** == Borders **/
+@border-color: #cecece;
+@border-color-secondary: #747678;
+@border-color-2: #e5e5e5;
+@border-color-3: #cccccc;
+@border-color-4: #dfdfdf;
+@border-color-5: @border-color-secondary;
+@border-color-6: #dddddd;
+@border-color-7: #979797;
+@border-color-8: #a8d156;
+@border-color-9: #d3d6d6;
+@border-color-10: #e3e4e4;
+@filter-section-border-color: #dfdfdf;
+@file-dropbox-border-color: #aaaaaa;
+
+/** == Typography **/
+
+// Three font families: Poppins, Avenir, Gotham
+// and varied font-weights for different families -- 300, 500, 600, 900-- Avenir
+/**  dont use this on other files **/
+/**  Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`. **/
+@font-family-monospace: Menlo, Monaco, Consolas, 'Courier New', monospace;
+@font-family-base: 'franklin-gothic-urw'; /** use this variable for the fonts **/
+@font-family-gotham: @font-family-base;
+
+@font-size-base: 14px;
+
+@font-size-large: 16px;
+@font-size-medium: 14px;
+@font-size-small: 12px;
+
+@font-size-xs-h1: 21px; // 30px and 32px used
+
+@font-size-h1: 32px; // 36px at a couple of places
+@font-size-h2: 24px;
+@font-size-h3: 21px;
+@font-size-h4: 16px;
+@font-size-h5: 14px;
+@font-size-h6: 12px;
+
+/**  specific fonts to brawny. Dont use this on other files **/
+@font-family-heading: @font-family-base;
+@font-family-text: @font-family-base;
+@font-weight-normal: 400;
+@font-weight-light: @font-weight-normal;
+@font-weight-regular: @font-weight-normal;
+@font-weight-bold: 700;
+@font-weight-medium: @font-weight-bold;
+@font-weight-med: 500;
+/**  Unit-less `line-height` for use in components like buttons. **/
+@line-height-base: 1.428571429; /**  20/14 **/
+/**  Computed "line-height" (`font-size` * `line-height`) for use with `margin`, `padding`, etc.  **/
+@line-height-computed: floor(
+  (@font-size-base * @line-height-base)
+); /**  ~20px **/
+@line-height: 24px;
+/** spacer **/
+@s: 8px;
+
+@assets-path: '/static/assets/';
+
+/** == Media queries breakpoints **/
+/** ## Define the breakpoints at which your layout will change, adapting to different screen sizes. **/
+
+/**  Extra small screen / phone **/
+/**  Deprecated `@screen-xs` as of v3.0.1 **/
+@screen-xs: 360px;
+/**  Deprecated `@screen-xs-min` as of v3.2.0 **/
+@screen-xs-min: @screen-xs;
+/**  Deprecated `@screen-phone` as of v3.0.1 **/
+@screen-phone: @screen-xs-min;
+
+/**  Small screen / tablet **/
+/**  Deprecated `@screen-sm` as of v3.0.1 **/
+@screen-sm: 768px;
+@screen-sm-min: @screen-sm;
+/**  Deprecated `@screen-tablet` as of v3.0.1 **/
+@screen-tablet: @screen-sm-min;
+
+/**  Medium screen / desktop **/
+/**  Deprecated `@screen-md` as of v3.0.1 **/
+@screen-md: 1200px;
+@screen-md-min: @screen-md;
+/**  Deprecated `@screen-desktop` as of v3.0.1 **/
+@screen-desktop: @screen-md-min;
+
+/**  Large screen / wide desktop **/
+/**  Deprecated `@screen-lg` as of v3.0.1 **/
+@screen-lg: 1200px;
+@screen-lg-min: @screen-lg;
+/**  Deprecated `@screen-lg-desktop` as of v3.0.1 **/
+@screen-lg-desktop: @screen-lg-min;
+
+/**  So media queries don't overlap when required, provide a maximum **/
+@screen-xs-max: (@screen-sm-min - 1);
+@screen-sm-max: (@screen-md-min - 1);
+@screen-md-max: (@screen-lg-min - 1);
+
+/** == Grid system **/
+/** ## Define your custom responsive grid. **/
+
+/**  Number of columns in the grid. **/
+@grid-columns: 12;
+/**  Padding between columns. Gets divided in half for the left and right. **/
+@grid-gutter-width: 32px;
+/**  Navbar collapse **/
+/**  Point at which the navbar becomes uncollapsed. **/
+@grid-float-breakpoint: @screen-sm-min;
+/**  Point at which the navbar begins collapsing. **/
+@grid-float-breakpoint-max: (@grid-float-breakpoint - 1);
+
+/** == Container sizes **/
+/** **/
+/** ## Define the maximum width of `.container` for different screen sizes. **/
+
+/**  Small screen / tablet **/
+@container-tablet: (720px + @grid-gutter-width);
+/**  For `@screen-sm-min` and up. **/
+@container-sm: @container-tablet;
+
+/**  Medium screen / desktop **/
+@container-desktop: (1140px + @grid-gutter-width);
+/**  For `@screen-md-min` and up. **/
+@container-md: @container-desktop;
+
+/**  Large screen / wide desktop **/
+@container-large-desktop: (1140px + @grid-gutter-width);
+/**  For `@screen-lg-min` and up. **/
+@container-lg: @container-large-desktop;
+
+/** buttons **/
+@font-size-button: 14px;
+@font-size-button-sm: 12px;
+
+/** Btn size **/
+@btn-height: 48px;
+@btn-width: 208px;
+
+/** Deafult Button State /** White **/
+@btn-default-color: #222222;
+@btn-default-bg: #ffffff;
+@btn-default-border: #cecece;
+@btn-default-text-transform: capitalize;
+@btn-border-radius: 0;
+
+@btn-default-hover-color: #222222;
+@btn-default-hover-border: #cecece;
+@btn-default-hover-bg: #ffffff;
+
+/** Disabled section not given **/
+@btn-primary-disabled-bg: #e8e8e8;
+
+/** Visited Section not given **/
+
+/** Primary Button State /** Yellow **/
+@btn-primary-color: #222222;
+@btn-primary-bg: #ffcf06;
+@btn-primary-border: #ffcf06; /** not given **/
+@btn-primary-text-decoration: none;
+
+@btn-primary-hover-color: #222222;
+@btn-primary-hover-border: #ffcf06; /** not given **/
+@btn-primary-hover-bg: #ffcf06;
+@btn-primary-hover-text-decoration: none;
+
+/** Disabled section not given **/
+@btn-primary-disabled-bg: #e8e8e8;
+
+/** Visited Section not given **/
+
+/** Tertiary Button State **/
+@btn-tertiary-color: #ffffff;
+@btn-tertiary-bg: #000000;
+@btn-tertiary-border: #000000;
+@btn-tertiary-text-decoration: none;
+
+@btn-tertiary-hover-color: #ffffff;
+@btn-tertiary-hover-border: solid 1px #000000;
+@btn-tertiary-hover-bg: #000000;
+@btn-tertiary-hover-text-decoration: none;
+
+/** Error Button State for custom dropdowns **/
+@btn-error-border: rgba(228, 38, 16, 0.1);
+@btn-error-bg: rgba(228, 38, 16, 0.1);
+
+/** Disabled Section **/
+@btn-tertiary-disabled-bg: #e8e8e8;
+
+/** disabled button color **/
+@btn-disabled-bg: #e8e8e8;
+@btn-disabled-text-color: #747678;
+@btn-disabled-text-decoration: none;
+/** Visited Section **/
+
+/** error properties **/
+@font-size-error: 12px;
+@font-color-error: #e42610;
+
+/** checkbox properties **/
+@checkbox-label-color: #222222;
+@checkbox-not-checked-border: #cecece;
+@checkbox-not-checked-background: transparent; // transparent
+@checkbox-checked-background: #000000;
+@checkbox-text-font-weight: 400;
+@checkbox-default-font-size: 14px;
+
+/** tag properties **/
+@tag-border-color: #ffffff;
+@tag-default-color: #747678;
+@tag-font-size: 12px;
+@tag-background-color: transparent;
+
+/** input properties **/
+@font-size-input-text: 14px;
+@font-size-label-text: 14px;
+@font-color-input-text: #000000;
+@font-color-label-text: #222222;
+@bg-color-error: rgba(228, 38, 16, 0.1);
+@border-color-input: #c6c6c6;
+@border-color-error: rgba(228, 38, 16, 0.1);
+@border-radius-input: 0;
+
+//not done
+/** dropdown properties **/
+@font-size-dropdown: 14px;
+@font-color-dropdown: #222222;
+@bg-color-menu-item: #fafafa;
+@bg-color-dropdown: #ffffff;
+// dropdown expanded state
+
+/**  stepper control properties **/
+@bg-color-stepper: transparent;
+@font-color-stepper: #747678;
+@stepper-disabled-icon-color: #cecece;
+
+/** badge properties **/
+@bg-color-badge: #ffcf06;
+@font-color-badge: #000000;
+@border-radius-badge: 8px;
+@font-size-badge: @font-size-small;
+@font-weight-badge: @font-weight-med;
+@badge-height: 16px;
+@badge-width: 23px;
+
+/** radio button properties **/
+@font-color-radio-label: #222222;
+@font-size-radio-label: 16px;
+@border-color-radio-checked: #000000;
+@border-color-radio-unchecked: #747678;
+@bg-color-radio: #ffffff; // need to make transparent
+// checked radio styles
+
+/** font-icon-sizes **/
+@font-icon-size: 24px;
+@font-icon-size-1: 32px;
+@font-icon-size-2: 25px;
+@font-icon-size-3: 22px;
+@font-icon-color-5: #747678;
+@font-icon-color-1: @font-icon-color-5; // to check
+@font-icon-color-2: @font-icon-color-5; // not used anywhere
+@font-icon-color-3: @font-icon-color-5;
+@font-icon-color-4: #ffffff;
+@font-icon-color-disabled: #e8e8e8;
+@font-mobile-icon-size: 20px;
+/** Promotext Background **/
+@promo-background-color: @brand-primary;
+@promo-text-color: #ffffff;
+@promo-text-size: 10px;
+
+/** Coming soon banner Background **/
+@coming-soon-background-color: #a0a0a0;
+@coming-soon-text-color: #ffffff;
+
+/** header properties **/
+@background-nav-top: #c8102e;
+@background-nav-bottom: #000000;
+@background-nav-secondary-menu: #ffffff;
+@font-color-nav: #ffffff;
+@font-color-nav-top: #ffffff;
+@font-color-nav-mobile: #ffffff; // expanded hamburger not in design
+@font-color-nav-link: #222222; // no links this time
+@font-size-nav-icon-mobile: 20px; // to do
+@font-size-nav-icon-desktop: 24px; // to do
+@secondary-nav-box-shadow: 0 5px 8px -4px rgba(193, 183, 183, 0.5);
+@secondary-nav-border-radius: 4px;
+@secondary-nav-font-color: #222222;
+@secondary-nav-heading-color: #747678;
+@secondary-nav-hover-color: #f4f4f4;
+/** Mini Cart Border **/
+@mini-cart-border-color: #ffffff;
+
+/** Auto suggest **/
+@autosuggest-border-color: #ececec;
+@autosuggest-bg-color: #fafafa;
+
+/** footer colors **/
+@footer-background: #000000;
+@footer-sub-links: #ffffff;
+@footer-copy-right: #ffffff;
+@footer-background-mobile: #000000;
+@footer-social-block-background: #000000;
+@footer-border-color: #4d4e50;
+@footer-heading-color: #ffffff;
+
+/** Bazaar Voice Variables **/
+@bv-star-color-filled: #c8102e;
+@bv-histogram-color-unfilled: #e3e4e4;
+@bv-fieldset-background-color: #ffffff;
+
+/** Tab Component **/
+@tab-background-color: transparent;
+@tab-background-color-active: transparent;
+@tab-header-text-color: @text-color;
+@tab-font-weight: @font-weight-regular;
+@tab-backround-color-hover: transparent;
+@tab-selected-border-color: #000000;
+/** Profile Card Component **/
+@card-default-border-color: #cecece;
+@card-disabled-background-color: #fafafa;
+@card-disabled-text-color: #747678;
+@add-card-border-color: #000000;
+@add-card-background-color: #f2f2f2;
+@card-hyperlink-color: #000000;
+
+/** Favorite Heart Icon **/
+@fav-icon-fill-color: #000000;
+
+/** Checkbox Disabled State **/
+@checkbox-disabled-color: #c6c6c6;
+
+/** Breadcrumbs **/
+@breadcrumb-nav-link-color: #222222;
+@breadcrumb-seperator-color: #e3e4e4;
+@breadcrumb-background-color: @body-bg; // to check
+@breadcrumb-font-size: 14px;
+@breadcrumb-text-decoration: none;
+
+/** Modal Sizes Large, Medium, Small, Extra-Small **/
+@modal-desktop-large: 736px;
+@modal-tablet-large: 640px;
+@modal-mobile-large: 100%;
+
+@modal-desktop-medium: 544px;
+@modal-tablet-medium: 544px;
+@modal-mobile-medium: 100%;
+
+@modal-desktop-small: 416px;
+@modal-tablet-small: 416px;
+@modal-mobile-small: 100%;
+
+@modal-desktop-xs: 416px;
+@modal-tablet-xs: 416px;
+@modal-mobile-xs: 100%;
+
+@modal-top-bar-font-size: 24px;
+@modal-top-bar-border-bottom: 1px solid #fafafa;
+@modal-top-bar-background-color: #fafafa;
+@modal-heading-color: #222222;
+@modal-body-color: @body-bg;
+@modal-top-bar-dismiss-icn-size: 24px;
+@modal-top-bar-height: 56px;
+
+@modal-default-cta-width: 204px;
+@modal-default-cta-height: 48px;
+@modal-small-cta-width: 160px;
+@modal-small-cta-height: 48px;
+@modal-dual-cta-width: 172px;
+@modal-label-color: #747678;
+@modal-input-border: 1px solid #747678;
+// Accordion properties
+@accordion-heading-color: #222222;
+@accordion-icon-color: #ffffff;
+
+// Social login properties
+@facebook-button-background-color: #3b5998;
+@google-button-background-color: #db4437;
+
+@product-solution-heading: #015293;
+@product-solution-tile-heading: #7fbd00;
+//star rating
+@star-stroke: #c8102e;

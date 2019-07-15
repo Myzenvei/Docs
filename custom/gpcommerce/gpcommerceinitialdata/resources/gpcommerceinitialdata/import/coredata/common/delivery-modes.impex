@@ -1,0 +1,79 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+#
+# Import Delivery Modes / Zones
+#
+#% impex.setLocale(Locale.GERMAN)
+
+# Currencies
+$usCurrency=USD
+
+# Delivery Zones
+INSERT_UPDATE Zone                  ; code[unique=true]               ; countries(isocode)
+                                    ; usa                             ; US
+                                    ; ca                              ; CA
+
+# Zone Delivery Modes
+INSERT_UPDATE ZoneDeliveryMode      ; code[unique=true]               ; net                                                                                                                                             ; active[default=true]  
+                                    ; GPS / FedEx Ground			  ; true
+                                    ; GPS / 2 Day Express             ; true
+                                    ; GPS / Next Day Express          ; true
+ 									; CC / Standard 3-5 day			  ; true
+                                    ; CC / 2-Day            		  ; true
+                                    ; CC / 1-Day                      ; true
+                                    ; Free GPS / 2 Day Express        ; true ; false
+                                    ; Free GPS / Next Day Express     ; true ; false
+                                    ; Free GPS / FedEx Ground         ; true ; false
+
+
+# USA
+INSERT_UPDATE ZoneDeliveryModeValue ; deliveryMode(code)[unique=true] ; zone(code)[default='usa'][unique=true]                                                                                                          ; currency(isocode)[unique=true] ; value  ; minimum[unique=true] ;deliveryModeType
+                                    ; GPS / FedEx Ground     		  ;                                       																										    ; $usCurrency                    ; 5,00  ; 0,00 ;standard
+                                   	; GPS / FedEx Ground     		  ;                                       																										    ; $usCurrency                    ; 0,00  ; 25,00 ;standard									
+									; GPS / 2 Day Express             ;                                       																										    ; $usCurrency                    ; 15,00 ; 0,00 ;standard
+									; GPS / 2 Day Express             ;                                        																											; $usCurrency                    ; 22,00 ; 15,00 ;standard
+                                    ; GPS / 2 Day Express             ;                                       																										    ; $usCurrency                    ; 30,00 ; 30,00 ;standard
+									; GPS / 2 Day Express             ;                                        																											; $usCurrency                    ; 40,00 ; 40,00 ;standard
+                                    ; GPS / Next Day Express          ;                                       																										 	; $usCurrency                    ; 30,00 ; 0,00 ;standard
+									; GPS / Next Day Express          ;                                        																											; $usCurrency                    ; 35,00 ; 15,00 ;standard
+									; GPS / Next Day Express          ;                                        																											; $usCurrency                    ; 40,00 ; 30,00 ;standard
+									; GPS / Next Day Express          ;                                        																											; $usCurrency                    ; 45,00 ; 40,00 ;standard
+
+									; CC / Standard 3-5 day           ;                                       																										 	; $usCurrency                    ; 6,00 ; 0,00 ;standard
+									; CC / Standard 3-5 day           ;                                        																											; $usCurrency                    ; 0,00 ; 35,00 ;standard
+									; CC / 2-Day          			  ;                                        																											; $usCurrency                    ; 11,00 ; 0,00 ;standard
+									; CC / 1-Day                      ;                                        																											; $usCurrency                    ; 16,00 ; 0,00 ;standard
+
+									; Free GPS / 2 Day Express        ;                                       																										    ; $usCurrency                    ; 0,00 ; 0,00 ;standard
+									; Free GPS / Next Day Express     ;                                       																										    ; $usCurrency                    ; 0,00 ; 0,00 ;standard
+									; Free GPS / FedEx Ground         ;                                       																										    ; $usCurrency                    ; 0,00 ; 0,00 ;standard
+
+# Canada
+INSERT_UPDATE ZoneDeliveryModeValue ; deliveryMode(code)[unique=true] ; zone(code)[default='ca'][unique=true]                                                                                                           ; currency(isocode)[unique=true] ; value  ; minimum[unique=true];deliveryModeType
+                                    ; GPS / FedEx Ground     		  ;                                       																										    ; $usCurrency                    ; 5,00  ; 0,00 ;standard
+                                    ; GPS / FedEx Ground     		  ;                                       																										    ; $usCurrency                    ; 0,00  ; 25,00 ;standard	
+									; GPS / 2 Day Express             ;                                       																										    ; $usCurrency                    ; 15,00 ; 0,00 ;standard
+									; GPS / 2 Day Express             ;                                        																											; $usCurrency                    ; 22,00 ; 15,00 ;standard
+                                    ; GPS / 2 Day Express             ;                                       																										    ; $usCurrency                    ; 30,00 ; 30,00 ;standard
+									; GPS / 2 Day Express             ;                                        																											; $usCurrency                    ; 40,00 ; 40,00 ;standard
+                                    ; GPS / Next Day Express          ;                                       																										 	; $usCurrency                    ; 30,00 ; 0,00 ;standard
+									; GPS / Next Day Express          ;                                        																											; $usCurrency                    ; 35,00 ; 15,00 ;standard
+									; GPS / Next Day Express          ;                                        																											; $usCurrency                    ; 40,00 ; 30,00 ;standard
+									; GPS / Next Day Express          ;                                        																											; $usCurrency                    ; 45,00 ; 40,00 ;standard
+
+									; CC / Standard 3-5 day           ;                                       																										 	; $usCurrency                    ; 6,00 ; 0,00 ;standard
+									; CC / Standard 3-5 day           ;                                        																											; $usCurrency                    ; 0,00 ; 35,00 ;standard
+									; CC / 2-Day          			  ;                                        																											; $usCurrency                    ; 11,00 ; 0,00 ;standard
+									; CC / 1-Day                      ;                                        																											; $usCurrency                    ; 16,00 ; 0,00 ;standard
+
+# Pickup Delivery Mode
+INSERT_UPDATE PickUpDeliveryMode    ; code[unique=true]               ; active[default=true]                                                                                                                            ; supportedMode(code)
+                                    ; pickup                          ;                                                                                                                                                 ; BUY_AND_COLLECT

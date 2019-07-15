@@ -1,0 +1,43 @@
+#vanity-fair {
+  .search-browse-product-tile {
+    .icon-add-to-list {
+      display: none;
+    }
+    .form-group [type='checkbox']:checked + label:before,
+    .form-group [type='checkbox']:not(:checked) + label:before,
+    .form-group [type='checkbox']:checked + label:after {
+      width: 18px;
+      height: 18px;
+      border: 2px solid @btn-default-border;
+    }
+    .tile-body {
+      .product-name {
+        flex-grow: 1;
+      }
+      .btn {
+        height: 40px;
+      }
+      .bottom-section {
+        .prices {
+          p {
+            display: inherit;
+          }
+        }
+      }
+    }
+    .tile-image {
+      img {
+        overflow: hidden;
+      }
+      a:hover {
+        color: @link-hover-color;
+      }
+    }
+  }
+  .star-rating {
+    .review-section {
+      font-size: 11px;
+      padding-top: 1px;
+    }
+  }
+}

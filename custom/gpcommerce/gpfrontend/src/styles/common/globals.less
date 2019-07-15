@@ -1,0 +1,436 @@
+// any custom common styles goes here
+.yComponentWrapper.yCmsComponent {
+  display: none;
+}
+.printable-section {
+  display: none !important;
+}
+.container-fluid {
+  width: 100%;
+}
+// For Asm related
+#_asm ~ div {
+  .main__inner-wrapper {
+    margin-top: 0px;
+  }
+  .header-section {
+    position: relative;
+    z-index: 9995;
+  }
+}
+
+#_asm.ASM-collapsed {
+  -webkit-transform: none;
+  -ms-transform: none;
+  transform: none;
+  margin-top: 0px;
+}
+
+.main__inner-wrapper {
+  padding-top: 85px;
+  margin-top: 0;
+  min-height: calc(100vh - 282px); //Header height 88px and 194 Footer
+  justify-content: flex-start;
+  display: flex;
+  flex-direction: column;
+
+  // Overriding addons responsive css temporarily
+  .carousel-component {
+    &.sap-reco {
+      max-height: initial;
+    }
+  }
+  .spacer-top {
+    margin-top: 8px !important;
+  }
+  .spacer-bottom {
+    margin-bottom: 8px !important;
+  }
+  .spacer-left {
+    margin-left: 8px !important;
+  }
+  .spacer-right {
+    margin-right: 8px !important;
+  }
+  .spacer-top-2 {
+    margin-top: 16px !important;
+  }
+  .spacer-bottom-2 {
+    margin-bottom: 16px !important;
+  }
+  .spacer-left-2 {
+    margin-left: 16px !important;
+  }
+  .spacer-right-2 {
+    margin-right: 16px !important;
+  }
+  .spacer-top-3 {
+    margin-top: 24px !important;
+  }
+  .spacer-bottom-3 {
+    margin-bottom: 24px !important;
+  }
+  .spacer-left-3 {
+    margin-left: 24px !important;
+  }
+  .spacer-right-3 {
+    margin-right: 24px !important;
+  }
+  .spacer-top-4 {
+    margin-top: 32px !important;
+  }
+  .spacer-bottom-4 {
+    margin-bottom: 32px !important;
+  }
+  .spacer-left-4 {
+    margin-left: 32px !important;
+  }
+  .spacer-right-4 {
+    margin-right: 32px !important;
+  }
+  .desktop-wrapper {
+    max-width: 1200px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    float: none;
+  }
+  .quick-order {
+    .carousel-component {
+      width: 90%;
+      margin: 0 auto;
+      .owl-buttons {
+        .owl-prev {
+          left: -24px;
+        }
+        .owl-next {
+          right: -24px;
+        }
+      }
+    }
+  }
+}
+body.page-checkoutPage {
+  .main__inner-wrapper {
+    padding-top: 50px;
+    margin-top: 0;
+  }
+}
+.login-page,
+.register-page,
+.employee-login-page {
+  border: 1px solid @border-color;
+  margin: auto 40px;
+}
+a {
+  color: inherit;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.error-msg,
+.error-icon {
+  color: @font-color-error;
+}
+
+//Fix for Safari Browser, .row and flex classes do not align elements correctly.
+.row.d-flex {
+  &:before {
+    width: 0;
+  }
+  &:after {
+    width: 0;
+  }
+}
+
+.form-control[disabled],
+.form-control[readonly],
+fieldset[disabled] .form-control {
+  background-color: @input-disabled-color !important;
+}
+
+.form-group [type='radio']:checked + label,
+.form-group [type='radio']:not(:checked) + label {
+  font-size: @font-size-label-text !important;
+  font-weight: @font-weight-regular;
+  letter-spacing: @letter-spacing-default;
+}
+
+.table tbody tr td {
+  word-wrap: break-all;
+}
+
+.table > thead > tr > th {
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+pre {
+  background: none;
+  border: none;
+  font-family: inherit;
+  padding: 0;
+}
+
+.carousel-indicators {
+  z-index: 8;
+}
+// For IE
+input::-ms-clear,
+input::-ms-reveal {
+  display: none;
+}
+//For Safari
+input::-webkit-contacts-auto-fill-button,
+input::-webkit-credentials-auto-fill-button {
+  visibility: hidden;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+}
+input::-webkit-caps-lock-indicator {
+  content: none;
+}
+@media only screen and (max-width: @screen-sm-max) {
+  .main__inner-wrapper {
+    padding-top: 108px;
+    margin-top: 0;
+    justify-content: flex-start;
+  }
+  .login-page,
+  .register-page,
+  .employee-login-page {
+    border: 1px solid @border-color;
+    margin: auto 16px;
+  }
+}
+
+@media only screen and (max-width: @screen-sm) {
+  .main__inner-wrapper {
+    padding-top: 102px;
+    margin-top: 0;
+  }
+  .login-page,
+  .employee-login-page {
+    margin: 24px 16px 32px 16px;
+    border: 0px;
+  }
+  .register-page {
+    margin: 16px 16px 32px 16px;
+    border: 0px;
+  }
+}
+
+@media only screen and (max-width: @screen-xs-max) {
+  body.modal-open {
+    position: fixed;
+    width: 100%;
+  }
+  .login-page,
+  .register-page,
+  .employee-login-page {
+    margin: auto 16px;
+    border: none;
+    padding-top: 24px;
+  }
+}
+//IE specific CSS
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+  .modal-btn-IEspacing,
+  .modal-bottom-spacing {
+    margin-bottom: 24px;
+  }
+}
+
+//Edge Specific CSS
+@supports (-ms-ime-align: auto) {
+  .modal-btn-EDGEspacing {
+    padding-bottom: 24px;
+  }
+  .modal-bottom-spacing {
+    margin-bottom: 24px;
+  }
+}
+
+//Firefox Specific CSS
+@-moz-document url-prefix() {
+  .modal-btn-EDGEspacing {
+    padding-bottom: 24px;
+  }
+  .modal-bottom-spacing {
+    margin-bottom: 24px;
+  }
+}
+.word-wrap-all {
+  word-break: break-all;
+}
+.custom-word-wrap-all {
+  word-break: keep-all;
+  word-wrap: break-word;
+}
+
+html {
+  -ms-overflow-style: scrollbar;
+}
+
+body {
+  background: @body-bg;
+}
+
+*:focus:not(body),
+a:focus,
+button:focus {
+  outline: 1px dotted @focus-highlight-color !important;
+}
+
+@media screen and (-ms-high-contrast: active),
+  screen and (-ms-high-contrast: none) {
+  //Updated the styling for No Image Found SVG to span 100%
+  .search-browse-product-tile .tile-image,
+  .vx-cart-product-tile .shopping-cart-product-tile .product-img,
+  .vx-product-tile .product-image,
+  .vx-thumbnail-viewer > .d-flex .product-image-container {
+    img[src*='.svg'] {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+/* Styles for displaying paragraph component as 2-column or 3-column layout */
+.two-column-text {
+  -webkit-column-count: 2;
+  -moz-column-count: 2;
+  -ms-column-count: 2;
+  column-count: 2;
+  -webkit-column-gap: 32px;
+  -moz-column-gap: 32px;
+  -ms-column-gap: 32px;
+  column-gap: 32px;
+}
+
+.three-column-text {
+  -webkit-column-count: 3;
+  -moz-column-count: 3;
+  -ms-column-count: 3;
+  column-count: 3;
+  -webkit-column-gap: 32px;
+  -moz-column-gap: 32px;
+  -ms-column-gap: 32px;
+  column-gap: 32px;
+}
+
+@media only screen and (max-width: @screen-xs-max) {
+  .two-column-text,
+  .three-column-text {
+    -webkit-column-count: 1;
+    -moz-column-count: 1;
+    -ms-column-count: 1;
+    column-count: 1;
+  }
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 0.5cm;
+  }
+  body {
+    -webkit-print-color-adjust: exact;
+  }
+  a[href]:after {
+    content: none !important;
+  }
+  .non-printable-section {
+    display: none !important;
+  }
+  .printable-section {
+    display: block !important;
+    .printabl-image {
+      background-color: @brand-primary !important;
+      -webkit-print-color-adjust: exact;
+      width: 100%;
+      img {
+        max-width: 100%;
+      }
+    }
+  }
+  img,
+  svg {
+    display: inline-block;
+    max-width: 100%;
+  }
+  .header-section,
+  .es-header-section {
+    background-color: @brand-primary !important;
+    -webkit-print-color-adjust: exact;
+  }
+  .order-summary-container {
+    position: relative !important;
+    width: 100% !important;
+    margin-top: 32px !important;
+    padding-top: 32px;
+    .vx-order-summary {
+      margin: 0 !important;
+    }
+  }
+  .vx-order-confirmation {
+    .vx-product-tile {
+      img,
+      svg {
+        display: inline-block;
+        max-width: 100%;
+        page-break-inside: avoid;
+      }
+      page-break-inside: avoid;
+    }
+  }
+  .main__inner-wrapper {
+    padding-top: 35px;
+  }
+  .vx-order-confirmation {
+    .confirmation-page-title {
+      display: block;
+      width: 100%;
+      z-index: 0;
+      position: relative;
+      ~ div {
+        width: 100%;
+        display: block;
+        position: relative;
+        z-index: 0;
+      }
+    }
+  }
+}
+
+//video play icon on hover state styles
+
+.icon-play {
+  font-size: 40px !important;
+  color: @btn-default-bg;
+
+  &::after {
+    background: @brand-secondary-5;
+    width: 60px;
+    height: 60px;
+    content: '';
+    position: absolute;
+    left: -14px;
+    border-radius: 50%;
+    top: -11px;
+    opacity: 0.5;
+    z-index: -1;
+  }
+
+  &:hover {
+    color: @btn-default-bg;
+  }
+}
+
+.icon-play {
+  z-index: 0;
+}
+.underline {
+  text-decoration: underline !important;
+}

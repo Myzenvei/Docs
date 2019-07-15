@@ -1,0 +1,15 @@
+**/gensrc/*
+**/classes/*
+**/eclipsebin/*
+*-testclasses.xml
+*-webtestclasses.xml
+*hmc.jar
+.externalToolBuilders
+.DS_Store
+platformhome.properties
+*.xsd
+/build.xml
+/ruleset.xml
+/gensrc/
+/eclipsebin/
+/bin/

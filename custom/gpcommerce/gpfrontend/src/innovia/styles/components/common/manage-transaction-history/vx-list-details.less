@@ -1,0 +1,85 @@
+#innovia {
+  .vx-list-details {
+    font-family: @font-family-text;
+    margin-top: 38px;
+
+    @media screen and (min-width: @screen-sm-min) {
+      margin-top: 42px;
+    }
+
+    @media screen and (min-width: @screen-md-min) {
+      margin-top: 36px;
+    }
+
+    .favorites {
+      margin-bottom: 29px;
+
+      @media screen and (min-width: @screen-sm-min) {
+        margin-bottom: 36px;
+      }
+
+      &>h1 {
+        font-weight: @font-weight-normal;
+        text-transform: capitalize;
+        margin: 0 !important;
+        font-family: @font-family-montserrat;
+      }
+
+      .icon-share {
+        font-size: 20px;
+        color: @header-search-icon-color;
+      }
+    }
+
+    .list-items-container {
+      .icon-trash {
+        font-size: 20px;
+        color: @header-search-icon-color;
+      }
+
+      .vx-product-tile {
+        .product-title a {
+          color: @link-text-color;
+          text-decoration: underline;
+        }
+
+        .product-title a {
+          font-weight: @font-weight-regular;
+        }
+
+        .product-total-price {
+          font-weight: @font-weight-bold;
+          font-size: 24px;
+          font-family: @font-family-montserrat;
+        }
+
+        .product-price .product-current-price {
+          font-weight: @font-weight-bold;
+          font-size: 14px;
+          font-family: @font-family-montserrat;
+        }
+
+        .product-quantity {
+          color: @brand-secondary-5;
+          font-family: @font-family-montserrat;
+        }
+
+        .item-id {
+          color: @brand-secondary-5;
+          font-size: @font-size-small;
+          font-family: @font-family-montserrat;
+        }
+
+        .quantity-section {
+          justify-content: flex-start;
+
+          .quantity-label {
+            font-size: @font-size-base;
+            color: @brand-secondary-5;
+            font-family: @font-family-montserrat;
+          }
+        }
+      }
+    }
+  }
+}

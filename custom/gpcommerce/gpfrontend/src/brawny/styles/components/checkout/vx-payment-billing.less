@@ -1,0 +1,21 @@
+#brawny {
+  .vx-payment-billing {
+    [type='checkbox']:not(:checked) + label,
+    [type='checkbox']:checked + label,
+    .form-check-label {
+      color: @text-color !important;
+    }
+    .change {
+      color: @text-color;
+      text-decoration: underline;
+      font-weight: @font-weight-bold;
+    }
+    #paypal-button-container {
+      width: 180px;
+
+      @media only screen and (min-width: @screen-md-min) {
+        width: 220px;
+      }
+    }
+  }
+}

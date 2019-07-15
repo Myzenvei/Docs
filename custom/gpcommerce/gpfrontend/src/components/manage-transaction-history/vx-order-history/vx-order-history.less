@@ -1,0 +1,84 @@
+.vx-order-history {
+  margin: 0 40px;
+  .no-of-orders {
+    font-size: @font-size-base;
+    font-weight: @font-weight-medium;
+    color: @font-color-input-text;
+  }
+  .order-history-heading {
+    font-size: @font-size-h3;
+    font-weight: @font-weight-regular;
+    margin-top: 40px;
+  }
+  .h3 {
+    font-weight: @font-weight-regular;
+  }
+  .transaction-data-dropdown {
+    flex-grow: 1;
+    float: right;
+  }
+  table th {
+    font-size: @font-size-small;
+  }
+  td {
+    max-width: 300px;
+    word-wrap: break-word;
+    p {
+      word-wrap: break-word;
+    }
+  }
+  .order-transaction-filter {
+    font-size: 20px;
+    float: right;
+    padding-top: 10px;
+    cursor: pointer;
+  }
+  .icon-filter {
+    color: @font-icon-color-3;
+    font-size: @font-icon-size;
+  }
+  .empty-table {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid @border-color;
+    div {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 580px;
+    }
+  }
+  .hide-table {
+    display: none;
+  }
+  @media (max-width: @screen-sm-max) {
+    margin: 0 32px;
+    .order-history-heading {
+      h1 {
+        max-width: calc(100% - 32px);
+        display: inline-block;
+      }
+      .order-transaction-filter {
+        padding-top: 6px;
+      }
+    }
+  }
+  @media (max-width: @screen-xs-max) {
+    margin: 0 16px;
+    .modal-body {
+      height: 85vh;
+    }
+    .order-history-heading {
+      margin-top: 24px;
+    }
+    .table[id*='order-History-data-table'] td:before {
+      top: inherit;
+    }
+    .empty-table {
+      div {
+        min-height: 245px;
+      }
+    }
+  }
+}

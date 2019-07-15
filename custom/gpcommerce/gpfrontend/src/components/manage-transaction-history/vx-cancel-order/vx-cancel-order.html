@@ -1,0 +1,9 @@
+<div class="vx-cancel-order row mx-xs-0">
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>
+  </vx-spinner>
+  <p>{{i18n.cancelOrderText}}</p>
+  <div class="cancel-order mt-xs-5 col-xs-12 px-xs-3 px-sm-0 mb-xs-3">
+    <button class="btn btn-default mr-sm-5 col-xs-12 col-sm-6" @click="keepOrder($event)">{{i18n.keepOrder}}</button>
+    <button class="btn btn-primary col-xs-12 col-sm-6 mt-xs-3 mt-sm-0" @click="cancelOrder($event)">{{i18n.cancelOrder}}</button>
+  </div>
+</div>

@@ -1,0 +1,44 @@
+<section class="vx-share-cart">
+  <!-- url will be updated later -->
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>
+  </vx-spinner>
+
+  <form @submit.prevent="onSubmit">
+    <div class="share-cart-body">
+      <p class="description" role="text">{{i18n.shareListDescription}}</p>
+      <div class="mt-xs-4 mb-xs-5 form-group">
+        <label for="recipients" :aria-hidden="isDeviceAndroid()">{{i18n.shareListEmail}}</label>
+        <input type="text" maxlength="80" class="form-control" v-bind:class="{'input-error': errors.has('recipients')}"
+          name="recipients" v-validate:recipients="'required|email'" v-model="recipientValue"
+          :aria-label="i18n.shareListEmail" aria-describedby="shareList_err_msg">
+        <!-- <input type="text" maxlength="80" class="form-control" v-bind:class="{'input-error': errors.has('recipients')}" name="recipients"
+          v-validate:recipients="'required|email'" :value="recipientValue" @input="$event.target.value=$event.target.value.substr(0,80)"
+          v-on:change="recipientValue=$event.target.value"> -->
+        <div class="mt-xs-2" v-show="errors.has('recipients')" :aria-hidden="!errors.has('recipients')">
+          <span class="error-msg" id='shareList_err_msg'>{{i18n.shareListError}}</span>
+        </div>
+      </div>
+      <div class="mb-xs-5 form-group">
+        <label for="sendername" :aria-hidden="isDeviceAndroid()">{{i18n.sendername}}</label>
+        <input type="text" maxlength="71" class="form-control" v-bind:class="{'input-error': errors.has('sendername')}"
+          name="sendername" v-validate="'required'" v-model="senderNameValue" :aria-label="i18n.sendername"
+          :aria-describedby="sender_name_err_msg">
+        <div class="mt-xs-2" v-show="errors.has('sendername')" :aria-hidden="!errors.has('sendername')">
+          <span class="error-msg" id="sender_name_err_msg">{{i18n.sender_name_err_msg}}</span>
+        </div>
+      </div>
+      <div class="mb-xs-5 form-group">
+        <label for="senderemail" :aria-hidden="isDeviceAndroid()">{{i18n.senderemail}}</label>
+        <input type="text" class="form-control" v-bind:class="{'input-error': errors.has('senderemail')}"
+          name="senderemail" v-validate="'required|email'" v-model="senderEmailValue" :aria-label="i18n.senderemail"
+          :aria-describedby="sender_email_error_msg">
+        <div class="mt-xs-2" v-show="errors.has('senderemail')" :aria-hidden="!errors.has('senderemail')">
+          <span class="error-msg" id="sender_email_error_msg">{{i18n.sender_email_error_msg}}</span>
+        </div>
+      </div>
+    </div>
+    <button type="submit" :disabled="errors.any()"
+      class="submit btn btn-primary center-block modal-btn-primary-small modal-btn-xs-sticky">{{i18n.shareListButton}}</button>
+  </form>
+
+</section>

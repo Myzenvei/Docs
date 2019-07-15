@@ -1,0 +1,135 @@
+#sparkle {
+  .header-section {
+    .navbar-top {
+      .login-menu {
+        li {
+          a {
+            font-family: @font-family-TradeGothicLT-Bold;
+          }
+        }
+      }
+    }
+
+    .navbar-bottom {
+      .navbar-bottom-left {
+        margin-left: 134px;
+
+        @media only screen and (max-width: @screen-sm-max) {
+          margin-left: 0;
+        }
+
+        .navigation-menu {
+          .primary-menu {
+            .primary-menu-item {
+              a {
+                color: @font-color-nav-bottom;
+                font-family: @font-family-TradeGothicLT-Bold;
+
+                @media only screen and (max-width: @screen-sm-max) {
+                  color: @text-color-secondary;
+                  font-family: @font-family-base;
+                }
+              }
+
+              .secondary-menu {
+                .sec-title {
+                  color: @text-color-secondary;
+                  font-size: @font-size-small;
+                  font-family: @font-family-TradeGothicLT;
+                }
+
+                .flyout-sec {
+                  .js-secondary-child {
+                    &:hover {
+                      background: @background-nav-top;
+
+                      a {
+                        color: @background-nav-bottom;
+                        font-family: @font-family-TradeGothicLT-Bold;
+                      }
+                    }
+                  }
+                }
+
+                ul {
+                  li {
+                    a {
+                      color: @font-color-nav-mobile;
+                      letter-spacing: @letter-spacing-default;
+                      line-height: 19px;
+                      font-size: @font-size-large;
+                      font-family: @font-family-TradeGothicLT;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .navbar-bottom-right {
+        .cart {
+          .badge {
+            height: 16px;
+            min-width: 24px;
+            border-radius: 8px;
+            line-height: 16px;
+            font-family: @font-family-TradeGothicLT-Bold;
+          }
+        }
+      }
+
+      .logo {
+        img {
+          position: absolute;
+          width: 134px;
+          top: -5px;
+          margin-left: 15px;
+          height: auto;
+        }
+      }
+    }
+
+    .icon-heart {
+      font-size: @font-size-nav-icon-desktop;
+      cursor: pointer;
+      padding: 14px 12px;
+      vertical-align: text-top;
+      color: @btn-default-bg;
+    }
+  }
+
+  @media only screen and (max-width: @screen-sm-max) {
+    .header-section {
+      background-color: @brand-primary;
+
+      .navbar-top {
+        background-color: @font-color-nav;
+        color: @font-color-nav;
+
+        .icon-menu {
+          color: @brand-secondary-4;
+        }
+
+        .logo {
+          top: 3px;
+          background-color: @brand-primary;
+          border: @brand-primary;
+
+          img {
+            height: 55px;
+          }
+        }
+      }
+    }
+  }
+
+  @media only screen and (max-width: @screen-xs-max) {
+    .navbar-top {
+      .logo {
+        margin-left: 40px;
+      }
+    }
+  }
+}

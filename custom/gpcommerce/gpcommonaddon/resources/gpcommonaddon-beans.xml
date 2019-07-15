@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- [y] hybris Platform Copyright (c) 2018 SAP SE or an SAP affiliate company. All rights reserved. This software is the confidential 
+	and proprietary information of SAP ("Confidential Information"). You shall not disclose such Confidential Information and shall use 
+	it only in accordance with the terms of the license agreement you entered into with SAP. -->
+<!-- ATTENTION: This is just an example file. You have to edit it according to your needs. -->
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="beans.xsd">
+
+	<bean class="com.gp.commerce.gpcommerceaddon.facades.GPMenuOptionData">
+		<property name="option" type="String" />
+		<property name="optionLink" type="String" />
+		<property name="external" type="boolean" />
+		<property name="markAsViewAll" type="boolean" />
+		<property name="socialLink" type="boolean" />
+	</bean>
+
+	<bean class="com.gp.commerce.gpcommerceaddon.facades.GPMenuData">
+		<property name="title" type="String" />
+		<property name="menuOptions" type="java.util.List&lt;com.gp.commerce.gpcommerceaddon.facades.GPMenuOptionData&gt;" />
+	</bean>
+
+	<bean class="com.gp.commerce.gpcommerceaddon.facades.GPCategoryNavigationData">
+		<property name="primary" type="String" />
+		<property name="primaryLink" type="String" />
+		<property name="external" type="boolean" />
+		<property name="secondary" type="com.gp.commerce.gpcommerceaddon.facades.GPMenuData" />
+	</bean>
+
+	<bean class="com.gp.commerce.gpcommerceaddon.facades.GPHeaderOptionsData">
+		<property name="includeMiniCart" type="boolean" />
+		<property name="includeSearchBox" type="boolean" />
+		<property name="showFindAStore" type="boolean" />
+		<property name="showLoginRegister" type="boolean" />
+		<property name="showQuickOrder" type="boolean" />
+		<property name="promoTxt" type="String" />
+		<property name="promoUrl" type="String" />
+		<property name="isExternalLink" type="boolean" />
+		<property name="brandLogo" type="String" />
+		<property name="isCheckout" type="boolean" />
+		<property name="checkoutMenu" type="com.gp.commerce.gpcommerceaddon.facades.GPMenuData" />
+		<property name="showMyList" type="boolean" />
+		<property name="brandMobileLogo" type="String" />
+		<property name="checkoutLogo" type="String" />
+	</bean>
+
+	<bean class="com.gp.commerce.gpcommerceaddon.facades.GPHeaderNavigationComponentData">
+		<property name="headerOptions" type="com.gp.commerce.gpcommerceaddon.facades.GPHeaderOptionsData" />
+		<property name="findMenu" type="com.gp.commerce.gpcommerceaddon.facades.GPMenuOptionData" />
+		<property name="loginMenu" type="com.gp.commerce.gpcommerceaddon.facades.GPMenuData" />
+		<property name="navMenu" type="java.util.List&lt;com.gp.commerce.gpcommerceaddon.facades.GPCategoryNavigationData&gt;" />
+		<property name="accountMenu" type="java.util.List&lt;com.gp.commerce.gpcommerceaddon.facades.GPNavData&gt;" />
+	</bean>
+
+	<bean class="com.gp.commerece.gpcommerceaddon.facades.MardigrasHeaderNavigationComponentData">
+		<property name="navLinks" type="java.util.List&lt;com.gp.commerce.gpcommerceaddon.facades.MardigrasMenuOptionData&gt;" />
+	</bean>
+
+	<bean class="com.gp.commerce.gpcommerceaddon.facades.MardigrasMenuOptionData">
+		<property name="linkText" type="String" />
+		<property name="linkURL" type="String" />
+		<property name="linkImg" type="String" />
+		<property name="isSocialLink" type="boolean" />
+		<property name="isSocialIcon" type="boolean" />
+		<property name="bannerDesc" type="String"/> 
+	</bean>
+
+	<bean class="com.gp.commerce.gpcommerceaddon.facades.GPFooterData">
+		<property name="title" type="String" />
+		<property name="links" type="java.util.List&lt;com.gp.commerce.gpcommerceaddon.facades.GPFooterLinksData>" />
+	</bean>
+
+	<bean class="com.gp.commerce.gpcommerceaddon.facades.GPFooterLinksData">
+		<property name="linkText" type="String" />
+		<property name="linkTo" type="String" />
+		<property name="external" type="Boolean" />
+		<property name="newWindow" type="Boolean" />
+		<property name="linkType" type="String" />
+	</bean>
+
+	<bean class="com.gp.commerce.gpcommerceaddon.facades.GPFooterNavigationComponentData">
+		<property name="columns" type="java.util.List&lt;com.gp.commerce.gpcommerceaddon.facades.GPFooterData>" />
+		<property name="footerLogo" type="String" />
+		<property name="footerLogoUrl" type="String" />
+		<property name="footerLogoAltText" type="String" />
+	</bean>
+
+	<bean class="com.gp.commerce.gpcommerceaddon.facades.GPMarketingCategoryData">
+		<property name="marketingCategoryHeader" type="String" />
+	</bean>
+
+	<bean class="com.gp.commerce.gpcommerceaddon.facades.GpTipsAndKnowledgeInfoData">
+		<property name="gpMarketingCategoryData" type="com.gp.commerce.gpcommerceaddon.facades.GPMarketingCategoryData" />
+		<property name="componentId" type="String"/>
+		<property name="gpTipsAndKnowledgeData"
+			type="java.util.List&lt;com.gp.commerce.gpcommerceaddon.facades.GpTipsAndKnowledgeData>" />
+	</bean>
+
+	<bean class="com.gp.commerce.gpcommerceaddon.facades.GpTipsAndKnowledgeData">
+		<property name="tipText" type="String" />
+		<property name="tipImageUrl" type="String" />
+		<property name="tipLinkUrl" type="String" />
+		<property name="tipLinkText" type="String" />
+		<property name="tipAltText" type="String" />
+		<property name="external" type="boolean" />
+	</bean>
+
+	<bean class="com.gp.commerce.gpcommerceaddon.facades.GPNavLinksData">
+		<property name="linkText" type="String" />
+		<property name="linkTo" type="String" />
+	</bean>
+
+	<bean class="com.gp.commerce.gpcommerceaddon.facades.GPNavData">
+		<property name="title" type="String" />
+		<property name="links" type="java.util.List&lt;com.gp.commerce.gpcommerceaddon.facades.GPNavLinksData>" />
+	</bean>
+
+	<bean class="com.gp.commerce.gpcommerceaddon.facades.GPNavigationComponentData">
+		<property name="columns" type="java.util.List&lt;com.gp.commerce.gpcommerceaddon.facades.GPNavData>" />
+	</bean>
+	
+	<bean class="com.gp.commercegpcommerceaddon.facades.MardigrasBoredomComponentData">
+		<property name="bannerTitle" type="String"/>
+		<property name="banners" type="java.util.List&lt;com.gp.commerce.gpcommerceaddon.facades.MardigrasBannerData>"/>
+	</bean>
+	
+	<bean class="com.gp.commercegpcommerceaddon.facades.MardigrasVideoComponentData">
+		<property name="wrapperTitle" type="String"/>
+		<property name="imagesList" type="java.util.List&lt;com.gp.commerce.gpcommerceaddon.facades.MardigrasBannerData>"/>
+	</bean>
+	
+	<bean class="com.gp.commercegpcommerceaddon.facades.MardigrasNapkinsComponentData">
+		<property name="bannerImgUrl" type="String"/>
+		<property name="titleText" type="String"/>
+		<property name="subTitleText" type="String"/>
+		<property name="descriptionText" type="String"/>
+	</bean>
+	
+	<bean class="com.gp.commerce.gpcommerceaddon.facades.MardigrasBannerData">
+		<property name="backgroundImage" type="String"/>
+		<property name="bannerHeading" type="String"/>
+		<property name="bannerDesc" type="String"/>
+		<property name="url" type="String"/>
+	</bean>
+	
+	<bean class="com.gp.commercegpcommerceaddon.facades.MardigrasCouponsComponentData">
+		<property name="bannerImgUrl" type="String"/>
+		<property name="titleText" type="String"/>
+		<property name="subTitleText" type="String"/>
+		<property name="descriptionText" type="String"/>
+		<property name="downloadUrl" type="String"/>
+		<property name="backgroundImg" type="String"/>
+	</bean>
+
+	<bean class="com.gp.commerce.gpcommerceaddon.facades.GPBannerImageData">
+		<property name="images" type="java.util.List&lt;com.gp.commerce.facades.component.data.GPImageComponentdata>" />
+	</bean>
+	
+	<bean class="com.gp.commerce.gpcommerceaddon.facades.GPFAQData">
+		<property name="question" type="String" />
+		<property name="answer" type="String" />
+	</bean>
+	
+	<bean class="com.gp.commerce.gpcommerceaddon.facades.GPImageAndTextData">
+		<property name="headingText" type="String" />
+		<property name="subHeadingText" type="String" />
+		<property name="informationText" type="String" />
+		<property name="imgSrcD" type="String" />
+		<property name="imgSrcM" type="String" />
+		<property name="imgSrcT" type="String" />
+		<property name="imageAlignment" type="String" />
+		<property name="backGroundImage" type="String" />
+		<property name="isSignUP" type="Boolean"/>
+		<property name="downloadURL" type="String"/>
+		<property name="downloadBtnLabel" type="String"/>
+		<property name="bannerDesc" type="String"/>
+	</bean>
+	
+	<bean class="com.gp.commerce.gpcommerceaddon.facades.GPFAQComponentData">
+	<property name="faqs" type="java.util.List&lt;com.gp.commerce.gpcommerceaddon.facades.GPFAQData>" />
+	<property name="imageAndText" type="com.gp.commerce.gpcommerceaddon.facades.GPImageAndTextData" />
+	</bean>
+	
+	<bean class="com.gp.commerce.gpcommerceaddon.facades.GPLiveChatComponentData">
+		<property name="imageText" type="com.gp.commerce.gpcommerceaddon.facades.GPImageAndTextData" />
+		<property name="jspIncludeProperties" type="String" />
+	</bean>
+	
+	<bean class="com.gp.commerece.gpcommerceaddon.facades.GpXpressHeaderNavComponentData">
+		<property name="navLinks" type="java.util.List&lt;com.gp.commerce.gpcommerceaddon.facades.GpXpressHeaderMenuOptionData&gt;" />
+	</bean>
+	
+	<bean class="com.gp.commerce.gpcommerceaddon.facades.GpXpressHeaderMenuOptionData">
+		<property name="linkText" type="String" />
+		<property name="linkURL" type="String" />
+		<property name="linkImg" type="String" />
+	</bean>
+	
+</beans>

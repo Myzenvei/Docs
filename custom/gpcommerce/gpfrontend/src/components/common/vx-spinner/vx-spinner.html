@@ -1,0 +1,6 @@
+<section class="vx-spinner">
+  <div class='spinner-container' :class="{ fullscreen: fullScreen }" v-if="spinnerVisible">
+    <img alt="Loading" :src="image" class="spinner" title="Loading">
+    <span class="text">{{text}}</span>
+  </div>
+</section>

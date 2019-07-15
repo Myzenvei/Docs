@@ -1,0 +1,76 @@
+#gp-employee {
+  .vx-shopping-lists {
+    min-height: calc(100vh - 282px);
+    background-color: @card-layout-bg-color;
+    border-radius: @card-layout-border-radius;
+    padding: 0 20px;
+    h5 {
+      display: none;
+    }
+    div:first-of-type {
+      h3 {
+        border-bottom: 4px solid @brand-primary;
+      }
+    }
+    div:nth-of-type(2) {
+      margin-top: 16px;
+      padding-bottom: 16px !important;
+    }
+  }
+}
+
+@media screen and (max-width: @screen-sm-max) {
+  #gp-employee {
+    .vx-shopping-lists {
+      margin-bottom: 16px;
+      margin-top: 28px;
+      padding: 8px 24px;
+      div:first-of-type {
+        h3 {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: @screen-xs-max) {
+  #gp-employee {
+    .vx-shopping-lists {
+      margin-bottom: 16px;
+      margin-top: 28px;
+      padding: 8px 12px;
+      div:first-of-type {
+        .icon-filter {
+          font-size: @font-icon-size;
+        }
+      }
+      #shopping-lists-data-table_wrapper {
+        table {
+          tbody {
+            .odd,
+            .even {
+              padding: 18px 12px;
+              td:nth-of-type(1) {
+                padding-top: 0;
+              }
+              td:nth-of-type(2) {
+                padding-top: 0;
+                &:before {
+                  top: 0;
+                }
+              }
+              td:nth-of-type(5) {
+                padding-bottom: 0;
+                &:before {
+                  bottom: 0;
+                  top: initial;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,37 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2018 SAP SE or an SAP affiliate company. All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+
+# you can put key/value pairs here.
+# Use Config.getParameter(..) to retrieve the values during runtime.
+
+# Specifies the location of the spring context file added automatically to the global platform application context.
+gpassistedservicesstorefront.application-context=gpassistedservicesstorefront-spring.xml
+
+yacceleratorstorefront.additionalWebSpringConfigs.gpassistedservicesstorefront=classpath:/gpassistedservicesstorefront/web/spring/gpassistedservicesstorefront-web-spring.xml
+yb2bacceleratorstorefront.additionalWebSpringConfigs.gpassistedservicesstorefront=classpath:/gpassistedservicesstorefront/web/spring/gpassistedservicesstorefront-web-spring.xml
+
+gpassistedservicesstorefront.javascript.paths.mobile=/responsive/common/js/gpassistedservicesstorefront.js;/responsive/common/js/jquery.tablesorter.pager.js;/responsive/common/js/jquery.tablesorter.min.js;/responsive/common/js/Chart.min.js;/responsive/common/js/asm.storefinder.js
+gpassistedservicesstorefront.javascript.paths.responsive=/responsive/common/js/gpassistedservicesstorefront.js;/responsive/common/js/jquery.tablesorter.pager.js;/responsive/common/js/jquery.tablesorter.min.js;/responsive/common/js/Chart.min.js;/responsive/common/js/asm.storefinder.js
+
+gpassistedservicesstorefront.css.paths.mobile=/responsive/common/css/gpassistedservicesstorefront.css;/responsive/common/css/storeFinder.css
+gpassistedservicesstorefront.css.paths.responsive=/responsive/common/css/gpassistedservicesstorefront.css;/responsive/common/css/storeFinder.css
+
+gpassistedservicesstorefront.redirect.customer_and_cart=/cart
+gpassistedservicesstorefront.redirect.customer_only=/my-account
+gpassistedservicesstorefront.redirect.error=/
+gpassistedservicesstorefront.redirect.order=/my-account/order/%s
+
+gpassistedservicesstorefront.deeplink.link=/assisted-service/emulate
+
+cscokpit.assistedservice.deeplink=true
+gpassistedservicesstorefront.profile.cookie.name=profile.tracking.pause
+# AIF AJAX call timeout in milliseconds
+gpassistedservicesstorefront.aif.timeout=7000

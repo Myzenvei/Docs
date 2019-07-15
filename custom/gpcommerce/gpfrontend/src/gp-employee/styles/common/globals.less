@@ -1,0 +1,205 @@
+#gp-employee {
+  .main__inner-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-top: 0;
+    padding-top: 142px;
+    &.login-page-wrapper {
+      padding-top: 60px;
+      margin-top: 0;
+    }
+    .wrapper {
+      .right {
+        [id*='-data-table'] {
+          table {
+            thead {
+              tr {
+                th {
+                  font-weight: @font-weight-medium;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .error-icon {
+      display: none;
+    }
+  }
+  .main__inner-wrapper + footer,
+  footer .footer-section {
+    position: relative;
+  }
+  footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+  }
+  .btn-primary {
+    &:active,
+    &:focus,
+    &:hover {
+      text-decoration: @btn-primary-hover-text-decoration;
+      color: @btn-primary-hover-color;
+      background: @btn-primary-hover-bg;
+    }
+  }
+  .btn-primary[disabled] {
+    &:active,
+    &:focus,
+    &:hover {
+      text-decoration: @btn-disabled-text-decoration;
+      color: @btn-disabled-text-color;
+      background: @btn-disabled-bg;
+    }
+  }
+  .stepper-control {
+    button,
+    input {
+      border-radius: 0;
+    }
+    button {
+      .icon-plus,
+      .icon-minus {
+        color: @brand-secondary-5;
+      }
+    }
+    button[disabled] {
+      .icon-plus,
+      .icon-minus {
+        color: @stepper-disabled-icon-color;
+      }
+    }
+  }
+  .btn {
+    font-size: @font-size-large;
+  }
+  //Global Style for Eye Icon Color as per VD
+  .vx-update-password,
+  .vx-edit-personal-details,
+  .vx-social-disconnect,
+  .create-account,
+  .registration-and-login-sign-in,
+  .update-password {
+    .icon-eye {
+      color: @font-icon-color-4;
+    }
+  }
+  a:hover,
+  a:focus {
+    color: @brand-primary;
+  }
+
+  // Ymarketing form
+  .sapCpButtonWidget {
+    .sapCRLWidgetContent {
+      .sapCpMissingMandatoryFieldText,
+      .sapCpErrorMessageText,
+      .sapCpSuccessMessageLabel {
+        color: @text-color-secondary-2;
+      }
+    }
+  }
+}
+body.page-checkoutPage {
+  #gp-employee {
+    .main__inner-wrapper {
+      padding-top: 142px;
+      margin-top: 0;
+    }
+  }
+}
+
+@media only screen and (max-width: @screen-sm-max) {
+  body.modal-open {
+    position: fixed;
+    width: 100%;
+  }
+  body.page-checkoutPage {
+    #gp-employee {
+      .main__inner-wrapper {
+        padding-top: 95px;
+        margin-top: 0;
+      }
+    }
+  }
+  #gp-employee {
+    .main__inner-wrapper {
+      padding-top: 95px;
+      margin-top: 0;
+      &.login-page-wrapper {
+        margin-top: 66px;
+      }
+    }
+    .stepper-control {
+      button,
+      input {
+        max-height: initial;
+        height: 48px;
+        width: 48px;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: @screen-xs-max) {
+  body.modal-open {
+    position: fixed;
+    width: 100%;
+  }
+
+  body.filter-open {
+    overflow: hidden;
+  }
+
+  #gp-employee {
+    .main__inner-wrapper {
+      &.login-page-wrapper {
+        padding-top: 32px;
+        margin-top: 0;
+      }
+    }
+  }
+}
+
+@media print {
+  //Hiding header, footer, title from the page
+  title {
+    display: none;
+  }
+
+  #gp-employee .footer__left-section,
+  #gp-employee .navbar-top-wrapper,
+  #gp-employee .icon-menu,
+  #gp-employee .navbar-bottom-left,
+  #gp-employee .navbar-bottom-right {
+    display: none;
+  }
+  .es-header-section{
+    background-color: @brand-secondary-4 !important;
+    -webkit-print-color-adjust: exact;
+  }
+  #gp-employee .main__inner-wrapper {
+    padding-top: 24px;
+    margin-top: 0;
+  }
+  .non-printable-section {
+    display: none !important;
+  }
+.printable-section{
+  background-color: @brand-secondary-4 !important;
+  &.printable-image{
+    img{
+      width: 230px !important;
+    }
+  }
+}
+
+  //Making sure Page is blank
+  @page {
+    size: A4;
+    margin: 20mm 10mm 10mm 10mm;
+  }
+}

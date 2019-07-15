@@ -1,0 +1,143 @@
+#vanity-fair {
+  @media screen and (min-width: @screen-md-min) {
+    position: relative;
+    min-height: 100%;
+  }
+  .form-control {
+    border-radius: 0px;
+    &:focus {
+      box-shadow: inset 0 1px 1px transparent;
+    }
+  }
+  .main__inner-wrapper {
+    padding-top: 88px;
+    max-width: 1200px;
+    margin: 0 auto;
+    @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+      .container-fluid {
+        overflow: hidden;
+      }
+    }
+    @media screen and (min-width: @screen-md-min) {
+      padding-bottom: 282px; // default height of footer;
+    }
+    .contact-page-heading {
+      padding-top: 16px !important;
+      @media screen and (min-width: @screen-sm-min) {
+        padding-left: 32px !important;
+      }
+      @media screen and (min-width: @screen-md-min) {
+        padding-left: 40px !important;
+        padding-top: 32px !important;
+      }
+    }
+  }
+  .btn-transparent {
+    &:extend(.btn);
+    &:extend(.btn-tertiary);
+  }
+  .vx-breadcrumb {
+    .breadcrumb {
+      li {
+        a {
+          color: @font-color-nav;
+          text-decoration: @link-hover-decoration;
+        }
+      }
+    }
+  }
+  .vx-thumbnail-viewer > .d-flex .product-image-container {
+    border: 1px solid @border-color-9;
+  }
+  .vx-thumbnail-viewer > .d-flex .thumbnail-container ul li {
+    border: 1px solid @border-color-9;
+  }
+  .vx-thumbnail-viewer > .d-flex .thumbnail-container button {
+    color: @font-icon-color-5;
+    &[disabled] {
+      color: @font-icon-color-disabled;
+    }
+  }
+  .vx-thumbnail-viewer {
+    .product-image-container {
+      img {
+        overflow: hidden;
+      }
+    }
+  }
+  .pdp-page {
+    .vx-tab-container {
+      margin-top: 32px;
+      @media screen and (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+        margin-top: 48px;
+      }
+      .tab-item {
+        .nav-link {
+          padding: 18px 0px;
+          color: @font-color-nav;
+        }
+      }
+      .tab-pane .card-header h5 {
+        padding: 18px 0px;
+        color: @font-color-nav;
+      }
+      .tab-content {
+        @media screen and (min-width: @screen-sm-min) {
+          padding-top: 16px;
+        }
+        @media screen and (min-width: @screen-md-min) {
+          padding-top: 24px;
+        }
+        .product-details-tab__container {
+          & > .row {
+            p,
+            li span {
+              line-height: 20px;
+              font-size: @font-size-small;
+
+              @media screen and (min-width: @screen-sm-min) {
+                line-height: 22px;
+              }
+              @media screen and (min-width: @screen-md-min) {
+                line-height: 32px;
+                font-size: @font-size-base;
+              }
+            }
+          }
+          .product-details-tab__toprightheading,
+          .product-details-tab__topleftheading {
+            font-size: @font-size-base;
+            @media screen and (min-width: @screen-sm-min) {
+              font-size: @font-size-large;
+            }
+          }
+        }
+      }
+      div {
+        &:empty {
+          display: none;
+        }
+      }
+    }
+  }
+
+  .title-underline {
+    display: block !important;
+    border-bottom: 1px solid @border-color-9;
+    margin: 0 auto 20px;
+    width: 100px;
+  }
+  .faq-page {
+    padding-left: 16px;
+    padding-top: 24px;
+    @media screen and (min-width: @screen-sm-min) {
+      padding-left: 40px;
+      padding-top: 32px;
+    }
+  }
+  @media screen and (max-width: @screen-sm-max) {
+    .main__inner-wrapper {
+      padding-top: 96px;
+    }
+  }
+}

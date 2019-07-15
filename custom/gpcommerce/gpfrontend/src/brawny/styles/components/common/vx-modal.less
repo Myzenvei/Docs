@@ -1,0 +1,32 @@
+#brawny {
+  .top-bar {
+    border-bottom: 1px solid @border-color;
+    .heading-container {
+      h2 {
+        font-weight: @font-weight-normal;
+        font-size: @font-size-large;
+        @media screen and (min-width: @screen-sm-min) {
+          font-size: @font-size-h3;
+        }
+      }
+    }
+    .icon-x {
+      font-size: 24px;
+      color: @font-icon-color-5;
+    }
+  }
+  .modal-body {
+    .form-group {
+      label {
+        color: @modal-label-color !important;
+      }
+      .dropdown-primary button,
+      input[type] {
+        border: @modal-input-border !important;
+      }
+      input[type].input-error {
+        border-color: @error-border-color !important;
+      }
+    }
+  }
+}

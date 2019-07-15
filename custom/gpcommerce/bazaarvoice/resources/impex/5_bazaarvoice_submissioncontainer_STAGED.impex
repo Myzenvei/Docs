@@ -1,0 +1,22 @@
+
+
+
+#Before executing this impexes, please pay attention on comments which describe all of them. You may need change some of them according to your needs
+#Do not forget to change catalog name according to your catalog
+#After executing this impexes for STAGED catalog version, do not forget to execute them for ONLINE
+
+
+
+#SUBMISSION CONTAINER PAGE
+$contentCatalog=electronicsContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+
+#submissionContainer. Create new page template and page
+INSERT_UPDATE PageTemplate;$contentCV[unique=true];uid[unique=true];frontendTemplateName;restrictedPageTypes(code);active[default=true]
+;;SubmissionContainerPageTemplate;addon:/bazaarvoice/pages/bvcontainer/bvSubmissionContainer;ContentPage
+INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);defaultPage;approvalStatus(code)[default='approved'];homepage[default='false']
+;;submissionContainer;Submission Container;SubmissionContainerPageTemplate;true;
+
+#Since we created new page template, we need to attach slots to it according to hybris requirenments. It does not matter which slot you will create for this page
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='SubmissionContainerPageTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo;SiteLogo;;SiteLogoSlot;true

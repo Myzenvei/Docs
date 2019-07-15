@@ -1,0 +1,91 @@
+<div class="vx-edit-subscription">
+    <vx-spinner ref="editSubscriptionSpinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>
+    </vx-spinner>
+      <div class="left-section col-xs-6 col-sm-3 mr-sm-4 mb-xs-4 mb-sm-0" >
+      <template v-if="subscriptionEntry.entries[0].product.images">
+        <a tabindex="0" :aria-label='product'
+          :href="globals.getNavigationUrl('empty')+subscriptionEntry.entries[0].product.url">
+          <img :src="globals.getThumbnailImageUrl(subscriptionEntry.entries[0].product.images)"
+            :alt="subscriptionEntry.entries[0].product.images[2].altText">
+        </a>
+      </template>
+      <template v-if="!subscriptionEntry.entries[0].product.images">
+        <img :src="globals.assetsPath + 'images/no_image.svg'" alt="no image">
+        <p class="coming-soon-status hidden-xs"
+          v-if="subscriptionEntry.entries[0].product.materialStatus === ProductAvailability.COMING_SOON">
+          {{i18n.subscriptionsLanding.comingSoonLabel}}</p>
+      </template>
+      </div>
+      <div class="col-xs-12 col-sm-8 px-xs-0">
+        <p class="product-title mb-md-3 mb-sm-2 mb-xs-3">
+          <a :href="globals.getNavigationUrl('empty')+subscriptionEntry.entries[0].product.url"
+            v-html="subscriptionEntry.entries[0].product.name"></a>
+        </p>
+        <p>
+          <span class="item-id mb-sm-3 mb-xs-4">{{i18n.subscriptionsLanding.itemID}}
+            <span>{{subscriptionEntry.entries[0].product.code}}</span>
+          </span>
+        </p>
+        <div class="d-flex justify-content-between align-items-center">
+          <h4>{{i18n.editSubscription.shipTo}}</h4>
+          <a v-if="isAddressEditable">
+            <span @click="editAddressMethod($event)" @keyup.enter-space="editAddressMethod($event)" tabindex="0"
+              role="button" :aria-label="Change">{{i18n.editSubscription.change}}</span>
+          </a>
+        </div>
+        <div class="pt-xs-2" v-if="isAddressEditable">
+          <template v-if="existingAddress">
+          <p class="address-view mb-xs-2">{{existingAddress.firstName}} {{existingAddress.lastName}}</p>
+          <p v-if="existingAddress.companyName" class="address-view mb-xs-2">{{existingAddress.companyName}}</p>
+          <p class="address-view mb-xs-2">{{existingAddress.line1}}</p>
+          <p v-if="existingAddress.line2" class="address-view mb-xs-2">{{existingAddress.line2}}</p>
+          <p v-if="existingAddress.town" class="address-view mb-xs-2">{{existingAddress.town}}
+            <template v-if="existingAddress.region && existingAddress.region.isocodeShort">
+              {{existingAddress.region.isocodeShort}}
+            </template>
+            {{existingAddress.postalCode}}</p>
+          <p class="address-view mb-xs-2" v-if="existingAddress.country  && existingAddress.country.isocode">{{existingAddress.country.isocode}}</p>
+          </template>
+        </div>
+        <template v-if="!isAddressEditable">
+          <div class="mt-xs-3 dropdownHeading">{{i18n.editSubscription.address}}</div>
+          <div class="dropdown mt-xs-2">
+            <vx-dropdown-primary ref="addressDropdown" :dropdownValues="allUserSavedAddresses"
+              @selected-item="handleChangeAddress($event)"></vx-dropdown-primary>
+          </div>
+        </template>
+        <div class="d-flex justify-content-between align-items-center pt-xs-4 pt-md-3">
+          <h4>{{i18n.editSubscription.paymentMethod}}</h4>
+          <a v-if="isPaymentEditable">
+            <span @click="editPaymentMethod($event)" @keyup.enter-space="editPaymentMethod($event)" tabindex="0"
+              role="button" :aria-label="Change">{{i18n.editSubscription.change}}</span>
+          </a>
+        </div>
+        <div class="py-xs-2" v-if="isPaymentEditable">
+          <template v-if="subscriptionEntry.payment">
+          <p v-if="subscriptionEntry.payment.cardType" class="address-text mb-xs-2">
+            {{subscriptionEntry.payment.cardType.name}}</p>
+          <p v-if="subscriptionEntry.payment.cardNumber" class="address-text mb-xs-2">
+            {{subscriptionEntry.payment.cardNumber}}</p>
+          <p v-if="subscriptionEntry.payment.expiryMonth && subscriptionEntry.payment.expiryYear"
+            class="address-text mb-xs-2">
+            {{subscriptionEntry.payment.expiryMonth}}/{{subscriptionEntry.payment.expiryYear}}</p>
+          <p v-if="subscriptionEntry.payment.accountHolderName" class="address-text mb-xs-2">
+            {{subscriptionEntry.payment.accountHolderName}}</p>
+          </template>
+        </div>
+        <template v-if="!isPaymentEditable">
+          <div class="mt-xs-3 dropdownHeading">{{i18n.editSubscription.cardLabel}}</div>
+          <div class="dropdown my-xs-2">
+            <vx-dropdown-primary ref="paymentDropdown" :dropdownValues="allUserSavedPayments"
+              @selected-item="handleChangePayment($event)"></vx-dropdown-primary>
+          </div>
+        </template>
+      </div>
+    <div class="row form-elements pt-xs-1 pt-sm-5">
+      <div class="col-xs-12 submit-btn-block edit-border">
+        <button class="modal-btn-primary-large btn btn-primary center-block mt-xs-4" @click="saveChangedSubscription($event)"
+          @keyup.enter-space="saveChangedSubscription($event)">{{i18n.editSubscription.save}}</button>
+      </div>
+    </div>
+  </div>

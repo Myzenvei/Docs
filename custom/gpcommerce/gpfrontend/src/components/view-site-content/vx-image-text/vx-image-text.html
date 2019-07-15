@@ -1,0 +1,6 @@
+<div class="vx-image-text d-flex flex-wrap" :class="[{'flex-sm-row-reverse':(imageTileData.imageAlignment==='right')},componentTheme]"
+  :id="imageTileData.componentId">
+  <vx-image-tile class="col-xs-12" :image-tile-data="imageTileData" v-if="imageTileData.imageSrcD && imageTileData.imageWidth>0"></vx-image-tile>
+
+  <vx-text-tile class="col-xs-12" :text-tile-data='textTileData' v-if="(textTileData.text || textTileData.ctaText || textTileData.text) && (100-imageTileData.imageWidth>0)"></vx-text-tile>
+</div>

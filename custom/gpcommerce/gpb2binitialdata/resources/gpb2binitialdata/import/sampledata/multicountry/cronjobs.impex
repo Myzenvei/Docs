@@ -1,0 +1,201 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+$cronjobNode=$config-cronjobNode                                                                           
+
+###Alert Product Cleanup Cronjob############                                                               
+INSERT_UPDATE CronJob ; code[unique=true]            ; job(code)                    ; sessionLanguage(isoCode)[default=en]
+                      ; gpProductAlertCleanupCronJob ; gpProductAlertCleanupCronJob ;                                     
+                      
+INSERT_UPDATE Trigger ; cronJob(code)[unique=true]   ; second[default=0] ; minute[default=5] ; hour[default=3] ; day[default=-1] ; month[default=-1] ; year[default=-1] ; relative[default=false] ; active[default=false] ; maxAcceptableDelay[default=-1]
+
+                      ; gpProductAlertCleanupCronJob ;                   ;                   ; 12              ;                 ;                   ;                  ;                         ; false                 ;                               
+					  ; gpSaveAuditRecordsCronJob    ;                   ;                   ; 9               ;                 ;                   ;                  ;                         ; true                  ;
+								              
+								              
+								              
+######### Item Cleanup CronJobs START #########
+INSERT_UPDATE FlexibleSearchRetentionRule ; code[unique=true]                     ; searchQuery                                                                                                                                                                                                                                                          ; actionReference                            ; retentionTimeSeconds
+# Find all deactivated not processed customers owning orders and past retention date (2 days) without retention state. Remove related objects of the found customers and set the their retention state to 'PROCESSED'.
+                                          ; customersWithOrdersFSRetentionRule    ; SELECT DISTINCT {c.pk}, {c.itemtype} FROM {Customer AS c JOIN Order AS o on {c.pk} = {o.user}} WHERE {c.deactivationDate} < ?CALC_RETIREMENT_TIME and {c.retentionState} IS NULL                                                                                     ; customerCleanupRelatedObjectsAction        ; 172800              
+# Find and remove all deactivated customers not owning any order currently and the current date has past deactivation date+retention date (2 days).
+                                          ; customersWithoutOrdersFSRetentionRule ; SELECT DISTINCT {c:PK}, {c.itemtype} FROM {Customer AS c} WHERE {c:PK} NOT IN ({{SELECT {c1.pk} FROM {Customer AS c1 JOIN Order AS o on {c1.pk} = {o.user}} WHERE {c1.deactivationDate} < ?CALC_RETIREMENT_TIME }}) AND {c.deactivationDate} < ?CALC_RETIREMENT_TIME ; customerNotOwningOrdersRemoveCleanupAction ; 172800              
+# Find and remove all expired orders (10 years)
+                                          ; ordersFSRetentionRule                 ; SELECT DISTINCT {pk}, {itemtype} FROM {Order} WHERE {expirationTime} < ?CALC_RETIREMENT_TIME                                                                                                                                                                         ; orderRemoveCleanupAction                   ; 315576000           
+# Find and remove all expired tickets (1 year from retentionDate) which customers have been processed.
+                                          ; ticketsFSRetentionRule                ; SELECT DISTINCT {t.pk}, {t.itemtype} FROM {CsTicket as t} WHERE {t.retentionDate} < ?CALC_RETIREMENT_TIME                                                                                                                                                            ; csTicketRemoveCleanupAction                ; 31557600            
+# Find and close all non-closed tickets which weren't updated for some period (90 days)
+                                          ; ticketsFSStagnationRule               ; SELECT DISTINCT {t.pk}, {t.itemtype},{t.state} FROM {CsTicket as t} where {t.modifiedtime} < ?CALC_RETIREMENT_TIME AND {t.state} IN ({{SELECT {s.pk} FROM {CsTicketState as s} WHERE {s.code} IN ('New', 'Open')}})                                                  ; csTicketStagnationAction                   ; 7776000             
+
+# FS JOB                                  
+INSERT_UPDATE RetentionJob ; code[unique=true]                  ; retentionRule(code)                   ; batchSize[default=100]
+                           ; customersWithOrdersRetentionJob    ; customersWithOrdersFSRetentionRule    ;                       
+                           ; customersWithoutOrdersRetentionJob ; customersWithoutOrdersFSRetentionRule ;                       
+                           ; ordersRetentionJob                 ; ordersFSRetentionRule                 ;                       
+                           ; ticketsRetentionJob                ; ticketsFSRetentionRule                ;                       
+                           ; ticketsFSStagnationJob             ; ticketsFSStagnationRule               ;                       
+
+# FS CRON JOB
+INSERT_UPDATE CronJob;code[unique=true];job(code);sessionLanguage(isoCode)[default=en];nodeID[default=$cronjobNode]
+                     ;customersWithOrdersRetentionCronJob;customersWithOrdersRetentionJob;
+                     ;customersWithoutOrdersRetentionCronJob;customersWithoutOrdersRetentionJob;
+                     ;ordersRetentionCronJob;ordersRetentionJob;
+                     ;ticketsRetentionCronJob;ticketsRetentionJob;
+                     ;ticketsStagnationJob;ticketsFSStagnationJob;
+                     ;gpCustomerDataSyncJob;gpCustomerDataSyncCronJob;
+                     ;gpOrderStatusUpdateNSJob;gpOrderStatusUpdateNSCronJob;
+                     ;gpLeaseAgreementCronJob;gpLeaseAgreementCronJob;
+                     ;gpCRMShellOrderReplicationCronJob;gpCRMShellOrderReplicationJob;
+                     ;gpRemoveRejectedAddressesJob;gpRejectedAddressesCronJob;
+                     ;gpNetsuiteOrderReplicationJob;gpNetsuiteOrderReplicationJob;
+                     ;orderShipmentCronjob;orderShipmentCronjob;
+                     ;gpPaymentCaptureJob;gpPaymentCaptureCronJob;
+                     ;gpCRMTicketReplicationJob;gpCRMTicketReplicationJob;
+                     
+                     
+# Run CronJobs at 3:05 AM every day
+INSERT_UPDATE Trigger ; cronJob(code)[unique=true]             ; second[default=0] ; minute[default=5] ; hour[default=3] ; day[default=-1] ; month[default=-1] ; year[default=-1] ; relative[default=false] ; active[default=false] ; maxAcceptableDelay[default=-1]
+                      ; customersWithOrdersRetentionCronJob    ;                   
+                      ; customersWithoutOrdersRetentionCronJob ;                   
+                      ; ordersRetentionCronJob                 ;                   
+                      ; ticketsRetentionCronJob                ;                   
+# Run the CloseStagnantServiceTicketsJob at 12:05 AM every day
+                      ; ticketsStagnationJob                   ;                   ;                   ; 12              ; 0               ;                   ;                  ;                         ; true                  ;                               
+                      ; gpLeaseAgreementCronJob                ;                   
+                      ; gpCRMShellOrderReplicationCronJob      ;                   ;                   ; 12              ;                 ;                   ;                  ;                         ; true                  ;                               
+                      ; gpRemoveRejectedAddressesJob           ;                   ;                   ; 12              ; 0               ;                   ;                  ;                         ; true                  ;                               
+# Run the GPNetsuiteOrderReplicationJob every 10mins daily
+                      ; gpNetsuiteOrderReplicationJob          ; 0                 ; 15                ; -1              ; -1              ; -1                ; -1               ; true                    ; true                  ; -1                            
+# Run the gpOrderStatusUpdateNSJob every 15mins daily
+                     ;gpOrderStatusUpdateNSJob ;0;15;-1;-1;-1;-1;true;true;-1
+# Run the gpOrderStatusUpdateNSJob every 6 hours daily
+                     ;gpPaymentCaptureJob ;0;0;6;-1;-1;-1;true;true;-1
+# Run the ymktCategoryCronJob once daily at 12:05 AM
+                      ; ymktCategoryCronJob                    ; 0                 ;                   ; 0               ; -1              ; -1                ; -1               ; false                   ; true                  ; -1                            
+# Run the ymktCategoryLinkCronJob once daily at 12:30 AM
+                      ; ymktCategoryLinkCronJob                ; 0                 ; 30                ; 0               ; -1              ; -1                ; -1               ; false                   ; true                  ; -1                            
+# Run the ymktProductCronJob once daily at 1:05 AM
+                      ; ymktProductCronJob                     ; 0                 ;                   ; 1               ; -1              ; -1                ; -1               ; false                   ; true                  ; -1                            
+# Run the ymktCustomerCronJob once daily at 2:05 AM
+                      ; ymktCustomerCronJob                    ; 0                 ;                   ; 2               ; -1              ; -1                ; -1               ; false                   ; true                  ; -1                            
+# Run the ymktSavedCartCronJob once daily at 3:05 AM
+                      ; ymktSavedCartCronJob                   ; 0                 ;                   ; 3               ; -1              ; -1                ; -1               ; false                   ; true                  ; -1                            
+# Run the ymktOrderCronJob once daily at 4:05 AM
+                      ; ymktOrderCronJob                       ; 0                 ;                   ; 4               ; -1              ; -1                ; -1               ; false                   ; false                 ; -1                            
+# Run the ymktOrderGpEmployeeCronJob once daily at 4:05 AM
+                      ; ymktOrderGpEmployeeCronJob             ; 0                 ;                   ; 4               ; -1              ; -1                ; -1               ; false                   ; true                  ; -1                            
+# Run the ymktOrderCronJob once daily at 4:05 AM
+                      ; ymktOrderDixieCronJob                  ; 0                 ;                   ; 4               ; -1              ; -1                ; -1               ; false                   ; true                  ; -1                            
+# Run the ymktAbandonedCartCronJob once daily at 5:05 AM
+                      ; ymktAbandonedCartCronJob               ; 0                 ;                   ; 5               ; -1              ; -1                ; -1               ; false                   ; true                  ; -1                            
+# Run the ymktAbandonedCartCronJob once daily at 5:05 AM
+                      ; ymktAbandonedCartGpEmployeeCronJob     ; 0                 ;                   ; 5               ; -1              ; -1                ; -1               ; false                   ; true                  ; -1                            
+# Run the ymktAbandonedCartCronJob once daily at 5:10 AM
+                      ; ymktAbandonedCartDixieCronJob          ; 0                 ; 10                ; 5               ; -1              ; -1                ; -1               ; false                   ; true                  ; -1
+# Run the gpSFDCProductReplicationJob once daily at 10:00 AM                      
+                      ; gpSFDCProductReplicationJob			   ; 0                 ; 00                ; 10               ; -1              ; -1                ; -1               ; false                   ; true                  ; -1
+# Run the gpProductReferenceReplicationJob once daily at 10:00 AM                      
+                      ; gpProductReferenceReplicationJob       ; 0                 ; 00                ; 10               ; -1              ; -1                ; -1               ; false                   ; true                  ; -1
+# Run the gpCRMTicketReplicationJob every 15mins daily
+                      ; gpCRMTicketReplicationJob	           ; 0                 ; 15                ; -1              ; -1              ; -1                ; -1               ; true                    ; true                  ; -1                         
+                                        
+                             
+
+INSERT_UPDATE FailedOrderCronjob ; code[unique=true]                ; job(code)                ; sessionLanguage(isoCode)[default=en] ; site(uid) ; nodeID[default=$cronjobNode]
+                                 ; vanityFulfillmentErrorCronjob    ; orderFulfillmentErrorJob ;                                      ; vanityfairnapkins
+                                 ; gpempFulfillmentErrorCronjob     ; orderFulfillmentErrorJob ;                                      ; gpemployee
+                                 ; mardigrasFulfillmentErrorCronjob ; orderFulfillmentErrorJob ;                                      ; mardigras 
+                                 #; sparkleFulfillmentErrorCronjob   ; orderFulfillmentErrorJob ;                                      ; sparkle   
+                                 ; gpproFulfillmentErrorCronjob     ; orderFulfillmentErrorJob ;                                      ; gppro     
+                                 ; dixieFulfillmentErrorCronjob     ; orderFulfillmentErrorJob ;                                      ; dixie     
+								                         
+INSERT_UPDATE AddressSaveCronJob ; code[unique=true]           ; job(code)                   ; sessionLanguage(isoCode)[default=en] ; site(uid) ; nodeID[default=$cronjobNode]
+                                 ; gpAfterSaveAddressesCronJob ; gpAfterSaveAddressesCronJob ;                                      ; dixie     
+								                         
+INSERT_UPDATE CustomerSaveCronJob ; code[unique=true]       ; job(code)               ; sessionLanguage(isoCode)[default=en] ; site(uid) ; nodeID[default=$cronjobNode]
+                                  ; gpUpdateCustomerCronJob ; gpUpdateCustomerCronJob ;                                      ; dixie     
+                                  ; gpCreateCustomerCronJob ; gpCreateCustomerCronJob ;                                      ; dixie     
+
+INSERT_UPDATE RemoveShareCartListCronJob ; code[unique=true]            ; job(code)                    ; sessionLanguage(isoCode)[default=en] ; site(uid)
+                                         ; gpRemoveShareCartListCronjob ; gpRemoveShareCartListCronjob ;                                      ; dixie    
+
+INSERT_UPDATE GPDistributorFeedCronJob ; code[unique=true]        ; job(code)                ; sessionLanguage(isoCode)[default=en] ; site(uid)
+                                       ; gpDistributorFeedCronJob ; gpDistributorFeedCronJob ;                                      ; dixie    
+
+INSERT_UPDATE SaveAuditRecordsCronJob   ; code[unique=true]            ; job(code)                    ; sessionLanguage(isoCode)[default=en] ;
+                                         ; gpSaveAuditRecordsCronJob    ; gpSaveAuditRecordsCronJob    ;
+                                         
+
+INSERT_UPDATE ProductReplicationCronJob ; code[unique=true]                ; job(code)                ; sessionLanguage(isoCode)[default=en]  ; 
+                                 ; gpSFDCProductReplicationJob    ; gpSFDCProductReplicationJob ;
+                                 
+INSERT_UPDATE ProductReferenceReplicationCronJob;code[unique=true];job(code);sessionLanguage(isoCode)[default=en];nodeID[default=0]
+;gpProductReferenceReplicationJob;gpProductReferenceReplicationJob;
+                                 
+INSERT_UPDATE ProductSpecificationsCronJob;code[unique=true];job(code);sessionLanguage(isoCode)[default=en];nodeID[default=0]
+;productSpecsPopulatorJob;productSpecsPopulatorJob;
+
+INSERT_UPDATE ServicelayerJob ; code[unique=true]           ; springId[unique=true]      
+                              ; orderFulfillmentErrorJob    ; orderFulfillmentErrorJob   
+                              ; orderShipmentCronjob        ; orderShipmentCronjob       
+                              ; gpAfterSaveAddressesCronJob ; gpAfterSaveAddressesCronJob
+                              ; gpCreateCustomerCronJob     ; gpCreateCustomerCronJob    
+                              ; gpUpdateCustomerCronJob     ; gpUpdateCustomerCronJob    
+							  ;gpProductAlertCleanupCronJob;gpProductAlertCleanupCronJob
+							  ; gpSFDCProductReplicationJob     ; gpSFDCProductReplicationJob   
+							  ;failedOrdersEmailNotifyJob   ;failedOrdersEmailNotifyJob
+							  ;gpCRMTicketReplicationJob;gpCRMTicketReplicationJob
+							  ; productSpecsPopulatorJob	; productSpecsPopulatorJob
+							
+INSERT_UPDATE FailedOrderEmailNotifyCronjob ; code[unique=true]                ; job(code)                ; sessionLanguage(isoCode)[default=en] ; site(uid) 
+											;vanityfairFailedOrdersEmailNotifyCronJob    ;failedOrdersEmailNotifyJob;										 ; b2bwhitelabel
+											;gpempFailedOrdersEmailNotifyCronJob    ;failedOrdersEmailNotifyJob;										 ; b2bwhitelabel
+											;mardigrasFailedOrdersEmailNotifyCronJob    ;failedOrdersEmailNotifyJob;										 ; b2bwhitelabel
+											;sparkleFailedOrdersEmailNotifyCronJob    ;failedOrdersEmailNotifyJob;										 ; b2bwhitelabel
+											;gpproFailedOrdersEmailNotifyCronJob    ;failedOrdersEmailNotifyJob;										 ; b2bwhitelabel
+											;dixieFailedOrdersEmailNotifyCronJob    ;failedOrdersEmailNotifyJob;										 ; b2bwhitelabel
+											;b2bwhitelabelFailedOrdersEmailNotifyCronJob    ;failedOrdersEmailNotifyJob;										 ; b2bwhitelabel
+											;b2cwhitelabelFailedOrdersEmailNotifyCronJob    ;failedOrdersEmailNotifyJob;										 ; b2bwhitelabel
+											;copperandcaneFailedOrdersEmailNotifyCronJob    ;failedOrdersEmailNotifyJob;										 ; b2bwhitelabel
+											;vanitynapkinsFailedOrdersEmailNotifyCronJob    ;failedOrdersEmailNotifyJob;										 ; b2bwhitelabel
+
+INSERT_UPDATE FailedOrderEmailNotifyCronjob ; code[unique=true]              ; job(code)                ; sessionLanguage(isoCode)[default=en] ; site(uid) 
+											;b2bwhitelabelOrderReportCronJob ;failedOrdersEmailNotifyJob;									   ; b2bwhitelabel
+											;b2cwhitelabelOrderReportCronJob ;failedOrdersEmailNotifyJob;									   ; b2cwhitelabel
+
+
+INSERT_UPDATE Trigger;cronjob(code)[unique=true];cronExpression
+;b2cwhitelabelOrderReportCronJob; 0 0 12,15,19 ? * * *
+;b2bwhitelabelOrderReportCronJob; 0 0 12,15,19 ? * * *
+
+
+INSERT_UPDATE GPKnowledgeCenterIndexingCronJob ; code[unique=true]                          ; job(code)                        ; sessionLanguage(isoCode)[default=en]   ; site(uid) 
+                                               ; b2bwhitelabelKnowledgeCenterIndexingCronJob; gpKnowledgeCenterIndexingCronJob ;										; b2bwhitelabel
+											   ; vanityfairnapkinsKnowledgeCenterIndexingCronJob; gpKnowledgeCenterIndexingCronJob ;									; vanityfairnapkins
+											   ; copperandcraneKnowledgeCenterIndexingCronJob; gpKnowledgeCenterIndexingCronJob ;										; copperandcrane
+                                               ; dixieKnowledgeCenterIndexingCronJob		; gpKnowledgeCenterIndexingCronJob ;										; dixie
+                                               											
+INSERT_UPDATE Trigger ; cronJob(code)[unique=true]       ; second[default=0] ; minute[default=5] ; hour[default=3] ; day[default=-1] ; month[default=-1] ; year[default=-1] ; relative[default=false] ; active[default=false] ; maxAcceptableDelay[default=-1]
+                      ; vanityFulfillmentErrorCronjob    ;                   ;                   ; 12              ;                 ;                   ;                  ; true                    ;                       
+                      ; gpempFulfillmentErrorCronjob     ;                   ;                   ; 12              ;                 ;                   ;                  ; true                    ;                       
+                      ; mardigrasFulfillmentErrorCronjob ;                   ;                   ; 12              ;                 ;                   ;                  ; true                    ;                       
+                    #  ; sparkleFulfillmentErrorCronjob   ;                   ;                   ; 12              ;                 ;                   ;                  ; true                    ;                       
+                      ; gpproFulfillmentErrorCronjob     ;                   ;                   ; 12              ;                 ;                   ;                  ; true                    ;                       
+                      ; dixieFulfillmentErrorCronjob     ;                   ;                   ; 12              ;                 ;                   ;                  ; true                    ;                       
+                      ; orderShipmentCronjob             ;                   ; 5                 ; -1              ;                 ;                   ;                  ;                         ; true                  ;                               
+                      ; gpAfterSaveAddressesCronJob      ;                   ; 15                ; -1              ;                 ;                   ;                  ;                         ; true                  ;                               
+                      ; gpUpdateCustomerCronJob          ;                   ; 15                ; -1              ;                 ;                   ;                  ;                         ; true                  ;                               
+                      ; gpCreateCustomerCronJob          ;                   ; 15                ; -1              ;                 ;                   ;                  ;                         ; true                  ;                               
+                      ; gpRemoveShareCartListCronjob     ;                   ;                   ; 0               ; 1               ;                   ;                  ;                         ; true                  ;                               
+                      ; gpDistributorFeedCronJob         ;                   ;                   ; 3               ;                 ;                   ;                  ; false                   ; true                  ;
+				      ; productSpecsPopulatorJob         ; 0                 ; 00                ; 10              ; -1              ; -1                ; -1               ; false                   ; true                  ; -1                     
+				      

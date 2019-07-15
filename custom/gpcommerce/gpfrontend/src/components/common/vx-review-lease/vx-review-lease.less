@@ -1,0 +1,42 @@
+.vx-review-lease {
+  .lease-heading {
+    color: @text-color;
+    font-size: @font-size-h2;
+    font-weight: @font-weight-regular;
+    line-height: 29px;
+    margin-top: -40px !important;
+  }
+
+  .lease-body {
+    color: @text-color;
+    font-size: @font-size-base;
+    font-weight: @font-weight-regular;
+    letter-spacing: @letter-spacing-default;
+    line-height: 24px;
+  }
+
+  @media only screen and (min-width: @screen-md-min) {
+    margin-left: 40px !important;
+    margin-right: 40px !important;
+  }
+
+  @media only screen and (max-width: @screen-sm-min) {
+    .lease-heading {
+      font-size: @font-size-large;
+      line-height: 19px;
+    }
+
+    .lease-body {
+      font-size: @font-size-small;
+      line-height: 18px;
+      letter-spacing: @letter-spacing-slashed
+    }
+  }
+
+  @media only screen and (max-width: @screen-md-min) {
+    .lease-heading {
+      font-size: @font-size-h3;
+      line-height: 25px;
+    }
+  }
+}

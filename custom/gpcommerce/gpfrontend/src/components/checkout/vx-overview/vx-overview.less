@@ -1,0 +1,136 @@
+.vx-overview {
+  .shipping-method {
+    font-size: @font-size-small;
+    font-weight: @font-weight-medium;
+    text-transform: capitalize;
+  }
+
+  .shipping-address {
+    font-size: @font-size-small;
+    font-weight: @font-weight-light;
+  }
+
+  .shipping-restriction,
+  .error-text {
+    color: @font-color-error;
+    font-size: @font-size-error;
+  }
+
+  .gift-price {
+    font-size: @font-size-small;
+    font-weight: @font-weight-medium;
+  }
+
+  .gift-message {
+    font-size: @font-size-small;
+    font-weight: @font-weight-light;
+    word-wrap: break-word;
+  }
+
+  .gift-message-heading {
+    font-size: @font-size-medium;
+    font-weight: @font-weight-medium;
+  }
+
+  .subscription {
+    font-size: @font-size-small;
+    font-weight: @font-weight-light;
+  }
+
+  .popover-subscribe {
+    vertical-align: middle;
+  }
+
+  .popover {
+    border: 1px solid @subscribe-popover-border-color;
+    border-radius: 1px;
+    background-color: @subscribe-popover-background-color;
+    width: 260px;
+
+    .popover-title {
+      display: none;
+    }
+
+    .popover-content {
+      text-align: start;
+
+      p {
+        font-size: @font-size-small;
+        font-weight: @font-weight-light;
+      }
+
+      a {
+        font-size: @font-size-small;
+      }
+    }
+
+    .arrow::before {
+      border-style: 1px solid;
+      border-bottom-color: @subscribe-popover-border-color;
+    }
+  }
+
+  .vx-product-tile {
+    .left-section {
+      margin-right: 16px;
+    }
+
+    .product-tile {
+      .product-image {
+        height: 142px;
+        width: 142px;
+      }
+
+      .product-title {
+        a {
+          font-weight: @font-weight-medium;
+        }
+      }
+
+      .product-code {
+        color: @brand-secondary-5;
+      }
+
+      .product-old-price {
+        color: @font-color-error;
+      }
+
+      .product-quantity {
+        color: @text-color;
+      }
+    }
+  }
+
+  .vx-product-icons {
+    ul {
+      li {
+        padding-right: 8px;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: @screen-xs-max) {
+
+  .vx-multi-shipping-address,
+  .vx-overview {
+    .vx-product-tile {
+      .product-tile {
+        .product-image {
+          height: 72px;
+          width: 72px;
+        }
+      }
+    }
+
+    .vx-product-icons {
+      ul {
+        li {
+          display: block;
+          padding-bottom: 8px;
+          padding-right: 0;
+        }
+      }
+    }
+  }
+}

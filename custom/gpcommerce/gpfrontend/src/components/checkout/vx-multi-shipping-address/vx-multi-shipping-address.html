@@ -1,0 +1,127 @@
+<div class="vx-multi-shipping-address">
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>
+  </vx-spinner>
+  <vx-modal ref="addNewAddressModal" size="large" :heading="i18n.shippingAddress.addAddress" v-bind:is-modal-scrollable="modalScrollable">
+    <!-- Add address form -->
+    <vx-add-edit-address :submitButtonText="i18n.shippingAddress.saveAddress" ref="addressForm" slot="component" :i18n="i18n.address"
+      :pallet-shipment="palletShipment" :editAddress="{}" @onAddressSaved="saveThisAddress" :is-bussiness-unit="globals.isB2B()">
+      <div slot="header">
+        <div class="section-header mb-xs-3">{{i18n.address.shippingAddressModal}}</div>
+      </div>
+    </vx-add-edit-address>
+  </vx-modal>
+
+  <!-- Multiple shipping address dropdown and split address functionality -->
+  <div class="mt-xs-5" v-show="!isSaved">
+    <!-- Product tile passing address dropdown by slot -->
+    <vx-product-tile slot="component" v-for='productEntry in visibleEntries' :key='productEntry.product.name'>
+      <template v-if="productEntry.product && productEntry.product.images && productEntry.product.images.length!==0 && productEntry.product.images[2] &&productEntry.product.images[2].url"
+        slot="image-slot">
+        <img :src="globals.getThumbnailImageUrl(productEntry.product.images)" :alt="productEntry.product.images[2].altText">
+      </template>
+      <template v-if="!productEntry.product.images" slot="image-slot">
+        <img :src="globals.assetsPath + 'images/no_image.svg'" alt="No Image">
+      </template>
+      <template slot="details">
+        <p class="product-title mb-xs-2">
+          <a :href="globals.getNavigationUrl('empty')+productEntry.product.url" v-html="productEntry.product.name"></a>
+        </p>
+        <span class="sr-only">{{i18n.shippingAddress.itemID}} : {{productEntry.product.code}}</span>
+        <p class="product-code mb-xs-2 label-text" aria-hidden="true">{{i18n.shippingAddress.itemID}}
+          {{productEntry.product.code}}
+        </p>
+        <p class="error-text" v-if="productEntry && productEntry.product && productEntry.product.materialStatus=== ProductAvailability.OBSOLETE && productEntry.product.replacementProductCode && productEntry.product.replacementProductCode!==''">
+          {{i18n.shippingAddress.discontinued}} {{i18n.shippingAddress.replacedBy}}
+          {{productEntry.product.replacementProductCode}}
+        </p>
+        <p class="error-text" v-if="productEntry && productEntry.product && productEntry.product.materialStatus=== ProductAvailability.OBSOLETE && !productEntry.product.replacementProductCode">
+          {{i18n.shippingAddress.discontinued}}
+        </p>
+        <template v-if="productEntry && productEntry.product && productEntry.product.materialStatus!==ProductAvailability.OBSOLETE">
+          <p class="product-stock mb-xs-3" v-if="productEntry.product.stock.stockLevelStatus!=ProductAvailability.IN_STOCK && productEntry.product.stock.stockLevelStatus!=ProductAvailability.LOW_STOCK">{{productEntry.product.stock.stockLevelStatus}}</p>
+        </template>
+        <p class="product-price mb-xs-3">
+          <span class="product-current-price"><span class="sr-only">Current price</span>{{productEntry.basePrice.formattedValue}}</span>
+          <span class="product-old-price" v-if="productEntry.product.weblistPrice">
+            <span class="sr-only">Slashed price</span>
+            <strike>{{productEntry.product.weblistPrice.formattedValue}}</strike>
+          </span>
+        </p>
+        <p class="product-quantity mb-xs-2 mb-sm-3">{{i18n.shippingAddress.quantity}}:
+          {{productEntry.quantity}}
+        </p>
+        <template v-if="restrictionError">
+          <div class="mt-xs-5" v-if="checkRestricted(productEntry.product.code)">
+            <span class="multi-restriction-heading">{{i18n.shippingAddress.multiRestrictionHeading}}</span>
+            <p class="restriction-error">
+              <span>{{i18n.shippingAddress.restrictionErrorPart1}}</span>
+              <!-- <span>{{item.country.isocode}}/{{item.region.isocode}}</span> -->
+              <!-- <span>{{i18n.shippingAddress.restrictionErrorPart2}}</span> -->
+              <span></span>
+              <span>{{i18n.shippingAddress.restrictionErrorPart3}}</span>
+              <span class="customer-service">
+                <template v-if="globals.isB2B()">
+                  <a href="https://gpxpr.es/" target="_blank">
+                    <span>{{i18n.shippingAddress.restrictionErrorPart4}}</span>
+                  </a>
+                </template>
+                <template v-else>
+                  <a :href="contactUsUrl" target="_blank">
+                    <span>{{i18n.shippingAddress.restrictionErrorPart4}}</span>
+                  </a>
+                </template>
+              </span>
+              <span>{{i18n.shippingAddress.restrictionErrorPart5}}</span>
+            </p>
+          </div>
+        </template>
+      </template>
+      <template slot="top-right" v-if="checkRestricted(productEntry.product.code)">
+        <span class="col-xs-2 px-xs-0">
+          <span class="cart-icons icon-trash" :title="i18n.shippingAddress.iconTrashTitle" @click="deleteCartItem(productEntry.entryNumber, productEntry.product.code, $event)"
+            tabindex="0" role="button" :aria-label='i18n.shippingAddress.iconTrashTitle'></span>
+        </span>
+      </template>
+      <template slot="right-section-slot">
+        <!-- <p class="product-discount">-{{productEntry.totalPrice.formattedValue}}</p> -->
+        <p class="product-discount" v-if="productEntry && productEntry.productPromotion && productEntry.productPromotion.formattedValue && productEntry.productPromotion.value != discount.discountZero"
+          aria-label="discount">-{{productEntry.productPromotion.formattedValue}}</p>
+        <p class="product-total-price" role="text" :aria-label="'total price'+productEntry.totalPrice.formattedValue">{{productEntry.totalPrice.formattedValue}}</p>
+      </template>
+      <template slot="bottom-full-slot" v-if="parentMounted">
+        <div class="col-xs-12 px-xs-0">
+          <vx-split-address :i18n="i18n.splitAddress" ref="splitQtyAddress" @selectfirstAddress="setAddressForAllEntries"
+            @splitError="showSplitError" :splitApplicable="isSplitApplicable" :productDetails="productEntry"
+            :entryNumber="productEntry.entryNumber" :defaultAddress="defaultAddress" :addresses="allUserSavedAddresses" :isShippingMultiple="isShippingMultiple"></vx-split-address>
+        </div>
+      </template>
+    </vx-product-tile>
+
+    <!-- use addresses button functionality -->
+    <div class="col-xs-12 mt-xs-5 px-xs-0">
+      <div class="sub-heading mb-xs-2 px-xs-0">{{i18n.shippingAddress.multipleShippingAddressSubText}}</div>
+      <button @click="toggleViewMode($event)" class="btn btn-primary modal-btn-primary-medium">{{i18n.shippingAddress.useMultipleShippingAddress}}</button>
+    </div>
+  </div>
+  <!-- read only mode of saved addresses -->
+  <div v-show="isSaved" class="col-xs-12 px-xs-0 d-flex flex-row flex-wrap">
+    <div v-for="(data,index) in uniqueSavedAddresses" class="mt-xs-4 col-sm-6 col-xs-12 px-xs-0">
+      <div class="product-address-heading">
+        <span>{{index + 1}}.</span>
+        <span>{{i18n.shippingAddress.shippingAddressHeading}}</span>
+      </div>
+      <div class="pt-xs-2 address-container">
+        <p class="address-view mb-xs-2">{{data.value.firstName}} {{data.value.lastName}}</p>
+        <p class="address-view mb-xs-2" v-if="data.value.companyName">{{data.value.companyName}}</p>
+        <p class="address-view mb-xs-2">{{data.value.line1}}</p>
+        <p class="address-view mb-xs-2" v-if="data.value.line2">{{data.value.line2}}</p>
+        <p class="address-view mb-xs-2"> {{data.value.town}} {{data.value.region.isocodeShort}}
+          {{data.value.postalCode}}</p>
+        <p class="address-view mb-xs-2">{{data.value.country.isocode}}</p>
+        <p class="address-view mb-xs-2" v-if="data.value.userId && globals.getIsLoggedIn()">{{data.value.userId.split('|')[0]}}</p>
+        <p class="address-view mb-xs-2" v-if="data.value.userId && !globals.getIsLoggedIn()">{{data.value.userId.split('|')[1]}}</p>
+        <p class="address-view mb-xs-2">{{data.value.phone}}</p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+<div class="row vx-notify-button">
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>
+  </vx-spinner>
+  <button class="col-xs-12 btn btn-tertiary notify-me-btn" @click="handleNotifyMe($event)">{{i18n.notifyMe}}</button>
+  <vx-modal ref="notifyMeModal" size="extra-small" :heading="i18n.notifyMeHeading" @close="modalClose">
+    <vx-notify-me :title="i18n.notifyMeContent" :productCode="productCode" :i18n="i18n" slot="component" @notify-me-success="onNotifyMeSuccess"
+      @notify-me-error="onNotifyMeError"></vx-notify-me>
+  </vx-modal>
+</div>

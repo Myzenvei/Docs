@@ -1,0 +1,53 @@
+## messageSource=classpath:/gpcommercecore/messages/email-footerText_$lang.properties
+#set ( $siteUrl = $ctx.urlResolutionService.getWebsiteUrlForSite($ctx.site,true,$ctx.urlLink) )
+#set ( $mediaUrl = $ctx.urlResolutionService.getMediaUrlForSite($ctx.site,false,$ctx.media.url) )
+<style type="text/css">
+    .footer-links {
+        padding-right: 16px;
+    }
+
+    @media screen and (max-width: 767px) {
+        .footer-section {
+            padding: 16px;
+        }
+
+        .footer-links {
+            width: 50%;
+            float: left;
+            padding: 8px 0;
+        }
+    }
+</style>
+<tfoot>
+    <tr>
+        <td style="margin:0px;padding-top:24px;">
+            <table border="0" cellspacing="0" cellpadding="0" width="100%" class="footer-section" style="background-color: #DFDFDF;border-top: 1px solid #cecece;padding: 24px 48px;overflow-y: auto;overflow-x:hidden;">
+                <tr>
+                    <td valign="top">
+                        <table>
+                            <tr>
+                                #foreach( $entry in ${ctx.navigationNodes} ) #foreach( $link in ${entry.links} )
+                                <td class="footer-links">
+                                    #if($link.url.toString().contains("https"))
+                                    #set ( $linkUrl = $link.url )
+                                    #else
+                                    #set ( $linkUrl =
+                                    $ctx.urlResolutionService.getWebsiteUrlForSite($ctx.site,true,$link.url) )
+                                    #end
+                                    <a href="${linkUrl}"
+                                        style="color: #2D5B99; font-size:14px; font-weight: 500; line-height: 16px; text-decoration:none;">${link.linkName}</a>
+                                </td>
+                                #end #end
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="font-size:14px; font-weight: 400; line-height: 16px;letter-spacing: 0.15px;color: #747678;padding-top: 24px;" align="left">
+                        &copy; $ctx.urlResolutionService.getYear() Georgia-Pacific Consumer Products LP. All rights reserved.
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</tfoot>

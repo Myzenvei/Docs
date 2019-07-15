@@ -1,0 +1,21 @@
+<section class="search-browse-compare-table mt-md-5">
+  <div class="compare-table-data d-flex flex-column">
+    <div v-for="spec in productData.specifications" class="category-block d-flex flex-column">
+      <div class="category-name d-flex align-items-center">
+        <!-- <span class="icon-star pl-md-4 pl-sm-4 pl-xs-4"></span> As per the update commenting 
+        the icons for R1 release-->
+        <h3 class="pl-md-3 pl-xs-3 pl-sm-4">{{ spec.categoryLabel }}</h3>
+      </div>
+      <div v-for="sub in spec.subCategories" class="category-data d-flex flex-column px-md-5 pb-xs-2">
+        <div class="attribute-name mt-md-4 mb-md-3 px-sm-4 px-xs-4 px-md-0">
+          <h4 class="my-md-0">{{ sub.attributeLabel }}</h4>
+        </div>
+        <div class="attribute-data d-flex mb-md-4 px-sm-4 px-xs-4 px-md-0">
+          <div class="attribute-value" v-for="column in specCols(sub.columnValues)">
+            <span v-html="column == 'NULL'? '-':column" class="word-wrap-all pl-md-0 pl-sm-0 pl-xs-0"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

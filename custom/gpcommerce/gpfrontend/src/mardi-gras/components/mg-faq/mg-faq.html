@@ -1,0 +1,6 @@
+<div class="mg-faq">
+  <vx-accordion is-slot-based v-for="item in i18n.faqs">
+    <span slot="heading" class="bold-heading py-xs-2" v-html="item.question"></span>
+    <div slot="component" v-html="item.answer"></div>
+  </vx-accordion>
+</div>

@@ -1,0 +1,131 @@
+.vx-content-search-result {
+  .search-result {
+    padding: 0 40px;
+    .heading-container {
+      h1 {
+        font-size: 24px;
+        .searched-term {
+          color: @searched-text-heading-color;
+        }
+      }
+      p {
+        font-size: 16px;
+        letter-spacing: 0.4px;
+      }
+    }
+    ul {
+      &.with-images {
+        padding-inline-start: 0;
+        margin-bottom: 0;
+      }
+      li {
+        &.search-results-item {
+          list-style-type: none;
+          padding: 24px 0;
+          border-bottom: 1px solid @cludo-border-color;
+          display: flex;
+          word-break: break-word;
+          .search-result-image {
+            border: 1px solid @cludo-image-border;
+            height: 142px;
+            width: 142px;
+            margin-right: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+          }
+          .search-result-data {
+            h2 {
+              margin: 0 0 8px 0;
+              line-height: 0;
+            }
+            p {
+              margin-bottom: 16px;
+            }
+            span {
+              margin-bottom: 24px;
+            }
+          }
+        }
+      }
+    }
+    .cludo-page-navigation {
+      padding: 32px 0;
+      ul {
+        padding-inline-start: 0;
+        list-style-type: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        li {
+          display: inline-block;
+          padding: 0 8px;
+          &.active {
+            .cludo-sr-only {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+    .total-results {
+      margin: 8px 0;
+      display: flex;
+      justify-content: center;
+      display: none;
+    }
+  }
+}
+@media screen and (max-width: @screen-sm-max) {
+  .vx-content-search-result {
+    .search-result {
+      padding: 0 32px;
+      .heading-container {
+        h1 {
+          font-size: 21px;
+          margin: 24px 0 32px 0;
+        }
+      }
+      .cludo-page-navigation {
+        padding: 32px 0 24px 0;
+      }
+    }
+  }
+}
+@media screen and (max-width: @screen-xs-max) {
+  .vx-content-search-result {
+    .search-result {
+      padding: 0 16px;
+      .heading-container {
+        h1 {
+          font-size: 16px;
+          margin: 16px 0 24px 0;
+        }
+        p {
+          font-size: 12px;
+        }
+      }
+      ul {
+        li {
+          &.search-results-item {
+            padding: 16px 0;
+            .search-result-image {
+              height: 72px;
+              width: 72px;
+              margin-right: 16px;
+            }
+            .search-result-data {
+              p {
+                margin-bottom: 8px;
+              }
+            }
+          }
+        }
+      }
+      .cludo-page-navigation {
+        padding: 16px 0;
+      }
+    }
+  }
+}

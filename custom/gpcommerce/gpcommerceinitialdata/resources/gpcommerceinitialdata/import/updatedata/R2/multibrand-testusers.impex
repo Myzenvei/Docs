@@ -1,0 +1,42 @@
+# USE CTRL-SPACE for type-ahead support
+# Employee setup for multi-brand
+$productCatalog=gpUSProductCatalog
+$net=false
+$stores=gpemployee,dixie,b2cwhitelabel,b2bwhitelabel,gpxpress,copperandcrane,vanityfairnapkins,gppro
+$passwordEncoding=md5
+
+#set password here
+$defaultPassword=1234
+$setPassword=@password[translator=de.hybris.platform.impex.jalo.translators.ConvertPlaintextToEncodedUserPasswordTranslator][default='$passwordEncoding:$defaultPassword']
+
+#add user accounts here
+INSERT_UPDATE Employee;UID[unique=true];$setPassword;description;name;groups(uid);sessionLanguage(isocode);sessionCurrency(isocode);managedStores(uid)
+                      ;testuser-gpemployee;;GPEmployee Product Manager;GPEmployee Product Manager;backofficeproductmanagergroup;en;USD;gpemployee;
+                      ;testuser-dixie;;Dixie Product manager;Dixie Product Manager;backofficeproductmanagergroup;en;USD;dixie;
+                      ;testuser-b2cwhitelabel;;B2CWhitelabel Product Manager;B2CWhitelabel Product Manager;backofficeproductmanagergroup;en;USD;b2cwhitelabel;
+                      ;testuser-b2bwhitelabel;;B2BWhitelabel Product manager;B2BWhitelabel Product Manager;backofficeproductmanagergroup;en;USD;b2bwhitelabel;
+                      ;testuser-gpxpress;;GPXpress Product manager;GPXpress Product Manager;backofficeproductmanagergroup;en;USD;gpxpress;
+                      ;testuser-copperandcrane;;Copper and Crane Product manager;Copper and Crane Product Manager;backofficeproductmanagergroup;en;USD;copperandcrane;
+                      ;testuser-vanityfairnapkins;;Vanity Fair Napkins Product manager;Vanity Fair Napkins Product Manager;backofficeproductmanagergroup;en;USD;vanityfairnapkins;
+                      ;testuser-gppro;;GPPro Product manager;GPPro Product manager;backofficeproductmanagergroup;en;USD;gppro;
+                      ;productmanager-gpxpress;;GPXpress Product manager;GPXpress Product Manager;backofficeproductmanagergroup;en;USD;gpxpress;
+
+
+# assign new users access to online/stage catalogs as appropriate
+UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];writePrincipals(uid)[mode=append]
+                     ;gpUSProductCatalog;Online;testuser-dixie;
+                     ;gpUSProductCatalog;Staged;testuser-dixie;
+                     ;gpUSProductCatalog;Online;testuser-gpemployee;
+                     ;gpUSProductCatalog;Staged;testuser-gpemployee;
+                     ;gpUSProductCatalog;Online;testuser-b2bwhitelabel;
+                     ;gpUSProductCatalog;Staged;testuser-b2bwhitelabel;
+                     ;gpUSProductCatalog;Online;testuser-b2cwhitelabel;
+                     ;gpUSProductCatalog;Staged;testuser-b2cwhitelabel;
+                     ;gpUSProductCatalog;Online;testuser-gpxpress;
+                     ;gpUSProductCatalog;Staged;testuser-gpxpress;
+                     ;gpUSProductCatalog;Online;testuser-copperandcrane;
+                     ;gpUSProductCatalog;Staged;testuser-copperandcrane;
+                     ;gpUSProductCatalog;Online;testuser-vanityfairnapkins;
+                     ;gpUSProductCatalog;Staged;testuser-vanityfairnapkins;
+                     ;gpUSProductCatalog;Online;testuser-gppro;
+                     ;gpUSProductCatalog;Staged;testuser-gppro;

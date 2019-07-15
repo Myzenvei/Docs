@@ -1,0 +1,31 @@
+<div class="vx-order-approvals">
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>
+  </vx-spinner>
+  <vx-modal ref="refineApprovalListModel" size="medium" :heading="i18n.refineModalHeading">
+    <vx-refine-approval-list ref="statusFilter" slot="component" @filterData="filterApplicable" :i18n="i18n" :filtered-options="filterData.data"
+    :selected-options-from-approvals="filterData.data" :selected-items-from-approvals="filterData.selectedItem">
+      <div slot="sortDropdown" v-if="isMobile()" class="mb-xs-3">
+        <vx-dropdown-primary @selected-option="storeSort($event)" :dropdownValues="sortOptions" ref="sortDropdown"></vx-dropdown-primary>
+      </div>
+    </vx-refine-approval-list>
+  </vx-modal>
+  <div class="d-flex justify-content-between order-approvals-heading mt-xs-6">
+    <h3 class="mt-xs-0">{{i18n.approvalsHeader}}</h3>
+    <span class="order-approvals-filter icon-filter" :aria-label='i18n.refineModalHeading' role="button" tabindex="0"
+      @click="openFilterModel($event)" @keyup.enter-space="openFilterModel($event)" :title="i18n.iconFilterTitle"></span>
+  </div>
+  <p class="mb-xs-4">
+    {{i18n.approvalsSubHeader}}
+  </p>
+  <div class="pb-xs-4 d-flex applied-filter-section">
+    <div class="applied-filter d-flex" v-for="(currentFilter, index) in filterData.selectedItem" v-if="statusApplied && filterData.selectedItem.length">
+      <div class="mr-xs-3 d-flex filter-list tag align-items-center">
+        <span class="tag-content">{{currentFilter.label}}</span>
+        <span class="icon-x" :aria-label="i18n.iconXTitle" role="button" tabindex="0" @click="removeFilters(index, $event)"
+          @keyup.enter-space="removeFilters(index, $event)" :title="i18n.iconXTitle"></span>
+      </div>
+    </div>
+  </div>
+  <table class="display responsive no-wrap table" width="100%" id="order-Approval-data-table">
+  </table>
+</div>

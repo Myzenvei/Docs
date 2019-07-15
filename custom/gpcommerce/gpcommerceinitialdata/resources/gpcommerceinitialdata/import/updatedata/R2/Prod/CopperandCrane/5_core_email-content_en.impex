@@ -1,0 +1,98 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+#
+#  Import the CMS content for the Copper and Crane site emails
+#
+
+$contentCatalog=copperandcraneContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$jarEmailResource=jar:com.gp.commerce.initialdata.constants.GpcommerceInitialDataConstants&/gpcommerceinitialdata/import/coredata/contentCatalogs/copperandcraneContentCatalog/emails
+
+# Import config properties into impex macros for modulegen
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+$emailResource=$config-emailResourceValue                                                                  
+
+# Language                                                                                                 
+$lang=en                                                                                                   
+
+# CMS components and Email velocity templates                                                              
+UPDATE RendererTemplate ; code[unique=true]                                        ; description[lang=$lang]                            ; templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                        ; copperandcrane-BannerComponent-template                      ; "CMSBannerComponent Template"                      ; $emailResource/email-bannerComponentTemplate.vm                                                               
+                        ; copperandcrane-CMSImageComponent-template                    ; "CMSImageComponent Template"                       ; $emailResource/email-cmsImageComponentTemplate.vm                                                             
+                        ; copperandcrane-CMSLinkComponent-template                     ; "CMSLinkComponent Template"                        ; $emailResource/email-cmsLinkComponentTemplate.vm                                                              
+                        ; copperandcrane-CMSParagraphComponent-template                ; "CMSParagraphComponent Template"                   ; $emailResource/email-cmsParagraphComponentTemplate.vm                                                         
+                        ; copperandcrane-SimpleBannerComponent-template                ; "CMSSimpleBannerComponent Template"                ; $emailResource/email-bannerComponentTemplate.vm                                                               
+                        ; copperandcrane_Email_Customer_Registration_Body              ; "Customer Registration Email Body"                 ; $jarEmailResource/email-customerRegistrationBody.vm                                                              
+                        ; copperandcrane_Email_Customer_Registration_Subject           ; "Customer Registration Email Subject"              ; $jarEmailResource/email-customerRegistrationSubject.vm                                                           
+                        ; copperandcrane_Email_Delivery_Sent_Body                      ; "Delivery Sent Email Body"                         ; $jarEmailResource/email-deliverySentBody.vm                                                                      
+                        ; copperandcrane_Email_Delivery_Sent_Subject                   ; "Delivery Sent Email Subject"                      ; $jarEmailResource/email-deliverySentSubject.vm                                                                   
+                        ; copperandcrane_Email_Forgotten_Password_Body                 ; "Forgotten Password Email Body"                    ; $jarEmailResource/email-forgottenPasswordBody.vm                                                                 
+                        ; copperandcrane_Email_Forgotten_Password_Subject              ; "Forgotten Password Email Subject"                 ; $jarEmailResource/email-forgottenPasswordSubject.vm    
+                        ; copperandcrane_Email_Password_Reset_Body   				   ; "Password Reset Success Email Body" 				; $jarEmailResource/email-passwordResetBody.vm    
+                        ; copperandcrane_Email_Password_Reset_Subject				   ; "Password Reset Success Email Subject"     		; $jarEmailResource/email-passwordResetSubject.vm        
+						; copperandcrane_Email_Share_Cart_Subject					   ; "Share Cart Email Subject"						    ; $jarEmailResource/email-shareCartSubject.vm
+						; copperandcrane_Email_Share_Cart_Body						   ; "Share Cart Email Body" 							; $jarEmailResource/email-shareCartBody.vm						
+                        ; copperandcrane_Email_NotPickedUpConsignment_Canceled_Body    ; "Not Picked Up Consignment Canceled Email Body"    ; $emailResource/email-notPickedUpConsignmentCanceledBody.vm                                                    
+                        ; copperandcrane_Email_NotPickedUpConsignment_Canceled_Subject ; "Not Picked Up Consignment Canceled Email Subject" ; $emailResource/email-notPickedUpConsignmentCanceledSubject.vm                                                 
+                        ; copperandcrane_Email_Order_Cancelled_Body                    ; "Order Cancelled Email Body"                       ; $jarEmailResource/email-orderCancelledBody.vm                                                                    
+                        ; copperandcrane_Email_Order_Cancelled_Subject                 ; "Order Cancelled Email Subject"                    ; $jarEmailResource/email-orderCancelledSubject.vm                                                                 
+                        ; copperandcrane_Email_Order_Collection_Reminder_Body          ; "Order Collection Reminder Email Body"             ; $emailResource/email-orderCollectionReminderBody.vm                                                           
+                        ; copperandcrane_Email_Order_Collection_Reminder_Subject       ; "Order Collection Reminder"                        ; $emailResource/email-orderCollectionReminderSubject.vm                                                        
+                        ; copperandcrane_Email_Order_Confirmation_Body                 ; "Order Confirmation Email Body"                    ; $jarEmailResource/email-orderConfirmationBody.vm                                                                 
+                        ; copperandcrane_Email_Order_Confirmation_Subject              ; "Order Confirmation Email Subject"                 ; $jarEmailResource/email-orderConfirmationSubject.vm                                                              
+                        ; copperandcrane_Email_Order_Move_To_CS_Body                   ; "Order Move To CS Email Body"                      ; $emailResource/email-orderMoveToCsBody.vm                                                                     
+                        ; copperandcrane_Email_Order_Move_To_CS_Subject                ; "Order Move To CS Subject"                         ; $emailResource/email-orderMoveToCsSubject.vm                                                                  
+                        ; copperandcrane_Email_Order_Partially_Canceled_Body           ; "Order Partially Canceled Email Body"              ; $emailResource/email-orderPartiallyCanceledBody.vm                                                            
+                        ; copperandcrane_Email_Order_Partially_Canceled_Subject        ; "Order Partially Canceled Email Subject"           ; $emailResource/email-orderPartiallyCanceledSubject.vm                                                         
+                        ; copperandcrane_Email_Order_Partially_Refunded_Body           ; "Order Partially Refunded Email Body"              ; $emailResource/email-orderPartiallyRefundedBody.vm                                                            
+                        ; copperandcrane_Email_Order_Partially_Refunded_Subject        ; "Order Partially Refunded Email Subject"           ; $emailResource/email-orderPartiallyRefundedSubject.vm                                                         
+                        ; copperandcrane_Email_Order_Refund_Body                       ; "Order Refund Email Body"                          ; $jarEmailResource/email-orderRefundBody.vm                                                                       
+                        ; copperandcrane_Email_Order_Refund_Subject                    ; "Order Refund Email Subject"                       ; $jarEmailResource/email-orderRefundSubject.vm                                                                    
+                        ; copperandcrane_Email_Ready_For_Pickup_Body                   ; "Ready For Pickup Email Body"                      ; $emailResource/email-readyForPickupBody.vm                                                                    
+                        ; copperandcrane_Email_Ready_For_Pickup_Subject                ; "Ready For Pickup Email Subject"                   ; $emailResource/email-readyForPickupSubject.vm 
+                        ; email-ChangeUIDSubject-template						   ; "change UID email subject"							; $jarEmailResource/email-changeUIDSubject.vm
+						; email-ChangeUIDBody-template							   ; "change UID email subject"							; $jarEmailResource/email-changeUIDBody.vm  
+						; email-UpdateProfileSubject-template					   ; "change UID email subject"							; $jarEmailResource/email-updateProfileSubject.vm
+						; email-UpdateProfileBody-template						   ; "change UID email subject"							; $jarEmailResource/email-updateProfileBody.vm         
+                        ; copperandcrane_Email_Share_Wishlist_Subject				   ; "Share Wishlist Email Subject"						; $jarEmailResource/email-shareWishlistSubject.vm
+						; copperandcrane_Email_Share_Wishlist_Body					   ; "Share Wishlist Email Body" 					    ; $jarEmailResource/email-shareWishlistBody.vm						
+						; copperandcrane_Email_Share_Wishlist_Body					   ; "Share Wishlist Email Body" 					    ; $jarEmailResource/email-shareWishlistBody.vm						
+                        ; copperandcrane-GPFooterComponent-template                    ;  "Email Footer Component"							; $jarEmailResource/email-gpFooterComponentTemplate.vm
+						; email-FailedOrder_Subject					               ; "Failed Order Consignment Subject"                 ; $jarEmailResource/email-failedOrderSubject.vm
+				        ; email-FailedOrder_Body						           ; "Failed Order Consignment Body"                    ; $jarEmailResource/email-failedOrderBody.vm	
+						; copperandcrane_Email_Order_Reject_Body					   ; "Order Reject Email Body"                 			; $jarEmailResource/email-orderRejectBody.vm
+				        ; copperandcrane_Email_Order_Reject_Subject					   ; "Order Reject Email Subject"                   	; $jarEmailResource/email-orderRejectSubject.vm	
+						#;copperandcrane_Email_Order_Issues_Notify_Body				   ; "Order Issues Notification BOdy"					; $jarEmailResource/email-orderIssuesNotificationBody.vm	
+ 						#;copperandcrane_Email_Order_Issues_Notify_Subject			   ; "Order Issues Notification BOdy"					; $jarEmailResource/email-orderIssuesNotificationSubject.vm	
+ 
+
+                        
+# Email Pages           
+UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]             ; fromEmail[lang=$lang]         ; fromName[lang=$lang]    
+                 ;                         ; CustomerRegistrationEmail    ; "info@copperandcrane.com" ; "Copper and Crane Customer Services Team"
+                 ;						   ; PasswordResetEmail			  ; "info@copperandcrane.com" ; "Copper and Crane Customer Services Team"
+                 ;                         ; DeliverySentEmail            ; "info@copperandcrane.com" ; "Copper and Crane Customer Services Team"
+                 ;                         ; ForgottenPasswordEmail       ; "info@copperandcrane.com" ; "Copper and Crane Customer Services Team"
+				 ;						   ; ShareCartEmail				  ; "info@copperandcrane.com" ; "Copper and Crane Customer Services Team"
+                 ;                         ; OrderCancelledEmail          ; "info@copperandcrane.com" ; "Copper and Crane Customer Services Team"
+                 ;                         ; OrderCollectionReminderEmail ; "info@copperandcrane.com" ; "Copper and Crane Customer Services Team"
+                 ;                         ; OrderConfirmationEmail       ; "info@copperandcrane.com" ; "Copper and Crane Customer Services Team"
+                 ;                         ; OrderMoveToCsEmail           ; "info@copperandcrane.com" ; "Copper and Crane Customer Services Team"
+                 ;                         ; OrderPartiallyCanceledEmail  ; "info@copperandcrane.com" ; "Copper and Crane Customer Services Team"
+                 ;                         ; OrderPartiallyRefundedEmail  ; "info@copperandcrane.com" ; "Copper and Crane Customer Services Team"
+                 ;                         ; OrderRefundEmail             ; "info@copperandcrane.com" ; "Copper and Crane Customer Services Team"
+                 ;                         ; ReadyForPickupEmail          ; "info@copperandcrane.com" ; "Copper and Crane Customer Services Team"
+                 ;                         ; UpdateProfileEmail    		  ; "info@copperandcrane.com" ; "Copper and Crane Customer Services Team"
+                 ;						   ; ChangeUIDEmail				  ; "info@copperandcrane.com" ;"Copper and Crane Customer Services Team"
+                 ;						   ; ShareWishlistEmail			  ; "info@copperandcrane.com" ; "Copper and Crane Customer Services Team"
+                 ;						   ; FailedOrderEmail			  ; "info@copperandcrane.com" ; "Copper and Crane Customer Services Team"
+                 ;						   ; OrderRejectEmail			  ; "info@copperandcrane.com" ; "Copper and Crane Customer Services Team" 
+              #   ;						   ;OrderIssuesNotifyEmail		  ; "info@copperandcrane.com" ;"Copper and Crane Customer Services Team"                  

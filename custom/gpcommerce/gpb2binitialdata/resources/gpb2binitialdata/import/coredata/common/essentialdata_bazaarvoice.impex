@@ -1,0 +1,67 @@
+######################
+# Configuration part #
+######################
+
+## Importing settings (bazaarvoiceConfig)
+#########################################
+INSERT_UPDATE BazaarvoiceConfig; code[unique=true]; clientName; ftpUserName; ftpPassword; zone; seoKey; ftpServer; showReviewsScript;showQuestionsScript; isFamiliesEnabled;licenseAccepted;upcMethodName
+;dixieBVConfig;angelsoft;angelsoft;p2p~JTpPQTOk;Main Site;angelsoft-da75c0ccdcd79cbb4d2e5b68fa5545ef;sftp-stg.bazaarvoice.com;;; false;true;ean
+;b2bwhitelabelBVConfig;angelsoft;angelsoft;p2p~JTpPQTOk;Main Site;angelsoft-da75c0ccdcd79cbb4d2e5b68fa5545ef;sftp-stg.bazaarvoice.com;;; false;true;ean
+;gpxpressBVConfig;angelsoft;angelsoft;p2p~JTpPQTOk;Main Site;angelsoft-da75c0ccdcd79cbb4d2e5b68fa5545ef;sftp-stg.bazaarvoice.com;;; false;true;ean
+
+
+## Setting bazaarvoiceConfig to websites
+########################################
+INSERT_UPDATE CMSSite; uid[unique=true]; bvConfig(code);bvLocale
+; dixie ; dixieBVConfig;en_US
+; b2bwhitelabel ; b2bwhitelabelBVConfig;en_US
+; gpxpress ; gpxpressBVConfig;en_US
+
+
+###############
+# Export part #
+###############
+
+INSERT_UPDATE ServicelayerJob;code[unique=true];springId
+;bazaarvoiceProductFeedExporter;bazaarvoiceProductFeedExporter
+
+$productCatalog=gpUSProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+
+### Creating a cronjob for exporting data to BV
+###############################################
+INSERT_UPDATE BazaarvoiceProductFeedExportCronJob;code[unique=true];job(code);bazaarvoiceStorefront(uid);singleExecutable;sessionLanguage(isocode);$catalogVersion
+;bvProductFeedCronjobForDixie;bazaarvoiceProductFeedExporter; dixie ; false; en
+;bvProductFeedCronjobForB2BWhiteLabel;bazaarvoiceProductFeedExporter; b2bwhitelabel ; false; en
+;bvProductFeedCronjobForGPXpress;bazaarvoiceProductFeedExporter; gpxpress ; false; en
+
+
+### Creating a trigger for cronjob
+##################################
+#INSERT_UPDATE Trigger;cronJob(code)[unique=true];cronExpression
+#; bvProductFeedCronjobForDixie ; 0 2 16 * * ?
+#; bvProductFeedCronjobForB2BWhiteLabel ; 0 2 16 * * ?
+#; bvProductFeedCronjobForGPXpress ; 0 2 16 * * ?
+
+
+###### Import Feed ######
+
+INSERT_UPDATE ServicelayerJob;code[unique=true];springId
+;gpBazaarVoiceDataFeedDownloadJob;gpBazaarVoiceDataFeedDownloadJob
+
+
+### Creating a cronjob for importing data from BV
+###############################################
+
+INSERT_UPDATE BazaarvoiceImportRatingsCronJob;code[unique=true];job(code);$catalogVersion;bazaarvoiceStorefront(uid);singleExecutable;sessionLanguage(isocode)
+;bvDixieRatingsImportFeedCronJob;gpBazaarVoiceDataFeedDownloadJob;; dixie ; false; en
+;bvB2BWhiteLabelRatingsImportFeedCronJob;gpBazaarVoiceDataFeedDownloadJob;; b2bwhitelabel ; false; en;
+;bvGPXpressRatingsImportFeedCronJob;gpBazaarVoiceDataFeedDownloadJob;; gpxpress ; false; en;
+
+
+### Creating a trigger for cronjob
+##################################
+#INSERT_UPDATE Trigger;cronJob(code)[unique=true];cronExpression
+#; bvDixieRatingsImportFeedCronJob ; 0 2 16 * * ?
+#; bvB2BWhiteLabelRatingsImportFeedCronJob ; 0 2 16 * * ?
+#; bvGPXpressRatingsImportFeedCronJob ; 0 2 16 * * ?

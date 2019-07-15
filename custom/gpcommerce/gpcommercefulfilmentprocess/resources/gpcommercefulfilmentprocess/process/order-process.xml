@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+<process xmlns="http://www.hybris.de/xsd/processdefinition" start="sendOrderPlacedNotification" name="order-process" processClass="de.hybris.platform.orderprocessing.model.OrderProcessModel">
+	
+	<action id="sendOrderPlacedNotification" bean="sendOrderPlacedNotificationAction">
+		<transition name="OK" to="b2bOrderApprovalChecked"/>
+	</action>
+	
+	<action id="sendInstallationProductNotification" bean="sendInstallationProductNotificationAction">
+		<transition name="OK" to="b2bOrderApprovalChecked"/>
+	</action>
+	
+	<action id="b2bOrderApprovalChecked" bean="gpB2BManualOrderApprovalAction"> 
+		<transition name="OK" to="checkOrder"/>
+		<transition name="NOK" to="sendGPFraudCheckFailedNotificationAction"/>
+		<transition name="WAIT" to="waitForManualOrderApprovalCheck"/>
+	</action>
+	
+	<wait id="waitForManualOrderApprovalCheck" then="b2bOrderApprovalChecked" prependProcessCode="false" >
+		<event>${process.code}_B2BAdminOrderVerified</event>
+	</wait>
+	
+	<action id="checkOrder" bean="gpFraudCheckOrderInternalAction"> 
+		<transition name="OK" to="checkAuthorizeOrderPayment"/>
+		<transition name="FRAUD" to="error"/>
+		<transition name="POTENTIAL" to="manualOrderCheckCSA" />
+	</action>
+
+	<action id="checkAuthorizeOrderPayment" bean="checkAuthorizeOrderPaymentAction">
+		<transition name="OK" to="success"/>
+		<transition name="NOK" to="failed"/>
+	</action>
+
+	<action id="manualOrderCheckCSA" bean="prepareOrderForManualCheckAction">
+		<transition name="OK" to="waitForManualOrderCheckCSA"/>
+	</action>
+	
+	<wait id="waitForManualOrderCheckCSA" then="orderManualChecked" prependProcessCode="false" >
+		<event>${process.code}_CSAOrderVerified</event>
+	</wait>
+
+	<action id="orderManualChecked" bean="orderManualCheckedAction">
+		<transition name="OK" to="checkAuthorizeOrderPayment"/>
+		<transition name="NOK" to="sendGPFraudCheckFailedNotificationAction"/>
+		<transition name="UNDEFINED" to="waitForManualOrderCheckCSA"/>
+	</action>
+
+	<action id="sendGPFraudCheckFailedNotificationAction" bean="sendGPFraudCheckFailedNotificationAction">
+		<transition name="OK" to="failed"/>
+	</action>
+
+	<end id="error" state="ERROR">All went wrong.</end>
+	<end id="failed" state="FAILED">Order not placed.</end>
+	<end id="success" state="SUCCEEDED">Order placed.</end>
+
+</process>

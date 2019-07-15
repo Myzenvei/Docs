@@ -1,0 +1,16 @@
+<div class="product-details-tab-specs">
+  <div class="product-details-tab-specs__holder px-sm-3 px-md-2 py-md-2">
+    <h3 class="product-details-tab-specs__heading pl-xs-3 pl-sm-3 pb-xs-3 pb-sm-3" v-html="productDetailsSpecificationData.categoryLabel"></h3>
+
+    <div class="row mb-xs-2" v-for="(productSpecsCategoryData,index) in productDetailsSpecificationData.subCategories">
+      <div class="col-md-12 col-sm-12">
+        <div class="col-md-6 col-sm-6 col-xs-6 product-details-tab-specs__key">
+          <span v-html="productSpecsCategoryData.attributeLabel"></span>
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-6 product-details-tab-specs__value">
+          <span v-html="productSpecsCategoryData.columnValues[0]"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

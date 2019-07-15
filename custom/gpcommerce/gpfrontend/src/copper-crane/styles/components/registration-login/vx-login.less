@@ -1,0 +1,25 @@
+#copper-crane {
+    .registration-and-login-sign-in {
+    form {
+      .has-feedback {
+        p:last-child {
+          a {
+            color: @link-color;
+            font-size: @font-size-small;
+            text-decoration: underline;
+          }
+        }
+      }
+      & > p {
+        span.no-account-text,
+        span {
+          font-size: @font-size-small;
+        }
+        a {
+          text-decoration: underline;
+          color: @link-color;
+        }
+      }
+    }
+  }
+}

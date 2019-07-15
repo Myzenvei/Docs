@@ -1,0 +1,875 @@
+/**
+ * Bazaar GPPro custom styling changes
+ */
+@import './variables.less';
+
+/* BV GP cusotmization Mixins */
+/* Histogram bars customization  Mixin */
+.histogram-bar-style() {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background-image: none !important;
+  height: 8px !important;
+}
+
+/* Stars representation customization */
+.star-cusotmization() {
+  .bv-rating-stars-off,
+  .bv-rating-stars-on {
+    letter-spacing: normal !important;
+  }
+
+  .bv-rating-stars-off {
+    opacity: 0.2 !important;
+    color: @bv-star-color-filled !important;
+  }
+
+  .bv-rating-stars-on {
+    color: @bv-star-color-filled !important;
+  }
+
+  .bv-rating-stars {
+    /* font-size: @font-size-large !important; */
+    // font-size: 20px !important;
+    font-size: 24px !important; //font size of stars
+  }
+}
+
+/* Styling changs */
+/**************************************
+  ******** Summary Customization ********
+  ***************************************/
+#pane-reviews {
+  #collapse-reviews {
+    #BVRRSummaryContainer {
+      .bv-compat {
+        .bv-prs-container {
+          .bv-primarySummary-rating-container {
+            padding: 0 25px !important;
+
+            .bv-summary-bar {
+              .bv-stars-container {
+                padding-bottom: 16px !important;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .bv-submission {
+      .bv-fieldsets {
+        .bv-fieldset {
+          padding: 25px 0 !important;
+        }
+      }
+    }
+
+    margin-top: 32px !important; // padding changes in desktop
+
+    /* Review Button stylings*/
+    .bv-write-review-container {
+      button.bv-write-review {
+        padding: 10px 40px !important;
+        height: 48px !important;
+      }
+    }
+
+    /* Hiding BV trust icon*/
+    .bv-content-list-container {
+      .bv-trustmarkIcon {
+        display: none !important;
+      }
+      .bv-content-placeholder {
+        padding: 0 15px !important;
+      }
+    }
+
+    #BVRRContainer {
+      .bv-header {
+        // Pagination of reviews
+        .bv-control-bar {
+          .bv-dropdown {
+            .bv-dropdown-target {
+              font-size: 16px !important;
+              margin: 0 !important;
+              position: relative !important;
+              vertical-align: top !important;
+              padding-left: 0px !important;
+            }
+          }
+
+          .bv-control-bar-count {
+            padding-left: 15px !important;
+            width: 50% !important;
+            vertical-align: top !important;
+            margin: 0 !important;
+            float: left !important;
+            position: relative !important;
+
+            .bv-content-pagination-pages-current {
+              font-size: 16px !important;
+              font-weight: @font-weight-medium !important;
+            }
+          }
+
+          .bv-control-bar-sort {
+            .bv-dropdown-label {
+              font-family: @font-family-cocogoose-light !important;
+              font-size: @font-size-medium !important;
+            }
+            .bv-dropdown-title {
+              font-family: @font-family-cocogoose-light !important;
+              font-size: @font-size-medium !important;
+            }
+            .bv-dropdown-arrow {
+              top: 42% !important;
+            }
+          }
+
+          .bv-filter-control {
+            .bv-filter-control-icon {
+              color: @font-icon-color-3!important;
+            }
+          }
+        }
+
+        /* Hiding BV Header */
+        .bv-action-bar {
+          display: none !important;
+        }
+      }
+
+      /* Rating Bar summary customization */
+      .bv-section-summary {
+        .bv-inline-histogram-ratings {
+          padding: 0 15px !important;
+
+          .bv-inline-histogram-header {
+            padding-bottom: 16px !important;
+          }
+
+          .bv-inline-histogram-ratings-star-container:hover {
+            color: @btn-tertiary-color !important;
+            // background: @btn-tertiary-bg !important;
+          }
+        }
+
+        /* Overall Ratings summary on Left */
+        .bv-content-secondary-ratings-container {
+          .histogram-bar-style();
+
+          .bv-content-secondary-ratings-value {
+            .histogram-bar-style();
+          }
+        }
+
+        /* Average customer review ratings on Right */
+        .bv-secondary-rating-summary {
+          padding: 0 20px !important;
+        }
+
+        /* Average customer review ratings on Right */
+        .bv-secondary-rating-summary-header {
+          margin-top: 44px !important;
+        }
+
+        .bv-secondary-rating-summary-list {
+          .bv-secondary-rating-summary-stars {
+            .bv-secondary-rating-summary-rating {
+              font-size: @font-size-large !important; // Rating on the right section
+            }
+          }
+
+          .bv-secondary-rating-summary-container {
+            .bv-secondary-rating-summary-bars {
+              .bv-secondary-rating-summary-bar {
+                .histogram-bar-style();
+              }
+            }
+
+            .bv-secondary-rating-summary-value {
+              .histogram-bar-style();
+            }
+          }
+        }
+      }
+
+      /* Review comments bar customization */
+      .bv-content-item-avatar-offset-on {
+        padding-left: 65px !important;
+        width: 100% !important;
+      }
+
+      .bv-content-review {
+        .bv-secondary-ratings {
+          .bv-content-secondary-ratings-container {
+            .histogram-bar-style();
+
+            .bv-content-secondary-ratings-bars {
+              .bv-content-secondary-ratings-bar {
+                .histogram-bar-style();
+              }
+            }
+
+            .bv-content-secondary-ratings-value {
+              .histogram-bar-style();
+            }
+          }
+        }
+      }
+
+      .bv-fieldset {
+        padding: 25px 0 !important;
+      }
+
+      .bv-details-bar {
+        .bv-write-review-label {
+          font-size: @font-size-medium !important;
+          font-family: @font-family-cocogoose-light !important;
+          text-decoration: underline !important;
+        }
+      }
+    }
+
+    /* Ratings review container */
+    .ratings-reviews-container {
+      /* Rating Review Container Style*/
+      .bv-section-summary {
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+
+      /*Rating Review Section Header styles  */
+      .bv-section-summary .bv-content-title {
+        .bv-inline-histogram-ratings-score,
+        .bv-inline-histogram-ratings-star {
+          color: @font-color-input-text !important;
+        }
+      }
+
+      .bv-content-data-summary .bv-content-meta .bv-author {
+        color: @font-color-input-text !important;
+        font-weight: @font-weight-medium !important;
+        font-size: @font-size-large !important;
+      }
+
+      /* Rating Review: Rating Snapshot Helper Text  */
+      .bv-section-summary
+        .bv-section-summary-inline
+        .bv-inline-histogram-ratings
+        .bv-histogram-filter-helper {
+        font-size: @font-size-medium !important;
+        color: @font-color-input-text !important;
+      }
+
+      /* Rating Review: Avg Customer Ratings labels */
+      .bv-section-summary
+        .bv-section-summary-inline
+        .bv-secondary-rating-summary
+        .bv-secondary-rating-summary-list
+        .bv-secondary-rating-summary-id {
+        color: @text-color !important;
+        font-size: @font-size-medium !important;
+        vertical-align: middle !important;
+      }
+
+      /* Rating Review: Histogram Right Side Text Style*/
+      .bv-section-summary
+        .bv-section-summary-inline
+        .bv-secondary-rating-summary
+        .bv-secondary-rating-summary-list
+        .bv-secondary-rating-summary-rating {
+        font-family: @font-family-queulat-bold !important;
+        font-size: @font-size-large !important;
+      }
+
+      /* Rating Review: Avg Customer Rating Histogram Style */
+      .bv-secondary-rating-summary-bars-container
+        .bv-secondary-rating-summary-bars,
+      .bv-secondary-rating-summary-container {
+        background-color: @bv-histogram-color-unfilled !important;
+        border: none !important;
+        box-shadow: none !important;
+      }
+
+      /* Rating Review Style for Histogram */
+      .bv-secondary-rating-summary-bars-container
+        .bv-secondary-rating-summary-bars
+        .bv-secondary-rating-summary-bar {
+        border: none !important;
+        box-shadow: none !important;
+      }
+
+      /* Rating Review Style for Rating Snapshot Histogram Filled */
+      .bv-content-secondary-ratings-value,
+      .bv-content-slider-value,
+      .bv-secondary-rating-summary-value,
+      .bv-secondary-slider-summary-value {
+        background-color: @brand-secondary-2 !important;
+        border: none !important;
+        box-shadow: none !important;
+      }
+
+      /* Rating Review Style for Star Label on left of Histogram */
+      .bv-inline-histogram-ratings td,
+      .bv-popup-histogram-ratings td {
+        color: @font-color-label-text !important;
+        font-size: @font-size-large !important;
+      }
+
+      /* Rating Review Style for Rating Snapshot Histogram */
+      .bv-content-secondary-ratings-container {
+        background-color: @bv-histogram-color-unfilled !important;
+      }
+
+      /* Rating Review Style for Rating Snapshot Histogram Unfilled */
+      .bv-inline-histogram-ratings tr.bv-inline-histogram-row-active,
+      .bv-popup-histogram-ratings tr.bv-inline-histogram-row-active {
+        background: @bv-histogram-color-unfilled !important;
+      }
+
+      /* Rating Review Style for Active Filter Container */
+      .bv-active-filters {
+        background: transparent !important;
+      }
+
+      /* Rating Review Style for Active Filter Title */
+      .bv-active-filters .bv-active-filters-list-title {
+        color: @font-color-input-text !important;
+        font-weight: @font-weight-medium !important;
+        font-size: @font-size-large !important;
+      }
+
+      /* Rating Review Style for reviewer name */
+      .bv-author .bv-avatar-author-name,
+      .bv-author .bv-avatar-popup-target,
+      .bv-popup-profull
+        .bv-content-item
+        .bv-content-author-name
+        .bv-author
+        .bv-avatar-author-name,
+      .bv-popup-profull
+        .bv-content-item
+        .bv-content-author-name
+        .bv-author
+        .bv-avatar-popup-target {
+        color: @font-color-input-text !important;
+        font-size: @font-size-medium !important;
+        font-weight: @font-weight-regular !important;
+      }
+
+      /* Rating Review Style for date time next to reviewer name */
+      .bv-content-author-by,
+      .bv-content-datetime {
+        color: @font-color-label-text !important;
+        font-family: @font-family-cocogoose-light !important;
+        font-size: @font-size-small !important;
+        font-weight: @font-weight-regular !important;
+      }
+
+      /* Rating Review Style for review title */
+      .bv-content-title {
+        color: @font-color-input-text !important;
+        font-family: @font-family-queulat-bold !important;
+        font-size: @font-size-medium !important;
+        font-weight: @font-weight-medium !important;
+      }
+
+      /* Rating Review Style for review summary */
+      .bv-content-summary p {
+        font-size: @font-size-medium !important;
+        font-weight: @font-weight-regular !important;
+        font-family: @font-family-cocogoose-light !important;
+      }
+
+      /* Rating Review */
+      .bv-content-secondary-ratings-label {
+        color: @font-color-label-text !important;
+        font-size: @font-size-small !important;
+        font-family: @font-family-cocogoose-light !important;
+      }
+
+      /* Rating and Reviews: Below Histogram */
+      .bv-content-item .bv-content-secondary-ratings-container,
+      .bv-content-item:hover .bv-content-secondary-ratings-container {
+        background: @bv-histogram-color-unfilled !important;
+      }
+
+      /*Rating and Reviews: Do you follow text */
+      .bv-content-data dl dt {
+        color: @font-color-input-text !important;
+        font-size: @font-size-small !important;
+        font-weight: @font-weight-regular !important;
+        font-family: @font-family-cocogoose-light !important;
+      }
+
+      /*Rating and Reviews: Do you follow value */
+      .bv-content-data .bv-content-data-value {
+        color: @font-color-input-text !important;
+        font-size: @font-size-medium !important;
+        font-weight: @font-weight-regular !important;
+      }
+
+      /* Rating and Reviews: Yes I recommend */
+      .bv-content-item
+        .bv-content-feedback-vote
+        .bv-content-feedback-vote-request,
+      .bv-content-item:hover
+        .bv-content-feedback-vote
+        .bv-content-feedback-vote-request {
+        color: @font-color-input-text !important;
+      }
+
+      /* Rating and Reviews: Yes I recommend */
+      .bv-content-data dl dd {
+        color: @font-color-input-text !important;
+        font-size: @font-size-small !important;
+        font-weight: @font-weight-regular !important;
+        font-family: @font-family-cocogoose-light !important;
+      }
+
+      .bv-content-noreviews-label {
+        color: @font-color-label-text !important;
+        font-size: @font-size-medium !important;
+        font-weight: @font-weight-regular !important;
+        font-family: @font-family-cocogoose-light !important;
+        top: 5px !important;
+        display: inline-block !important;
+        position: relative !important;
+      }
+
+      .bv-content-item
+        .bv-content-feedback-vote
+        .bv-content-feedback-vote-request,
+      .bv-content-item:hover
+        .bv-content-feedback-vote
+        .bv-content-feedback-vote-request {
+        color: @font-color-label-text !important;
+      }
+
+      .bv-content-btn,
+      .bv-content-btn:hover,
+      .bv-content-feedback-btn-container .bv-content-btn,
+      .bv-content-feedback-btn-container .bv-content-btn:hover,
+      .bv-content-feedback-vote-active .bv-content-report-btn,
+      .bv-content-feedback-vote-active .bv-content-report-btn:hover,
+      .bv-secondary-content-actions-container .bv-content-btn,
+      .bv-secondary-content-actions-container .bv-content-btn:hover {
+        font-style: normal !important;
+        font-stretch: normal !important;
+        letter-spacing: 0.2px !important;
+        text-align: center !important;
+        border-radius: 0 !important;
+        color: @btn-primary-color !important;
+      }
+
+      .bv-content-feedback-btn-container .bv-content-btn:hover,
+      .bv-content-feedback-vote-active .bv-content-report-btn:hover,
+      .bv-secondary-content-actions-container .bv-content-btn:hover {
+        color: @btn-tertiary-color !important;
+        background: @btn-tertiary-bg !important;
+      }
+
+      .bv-content-feedback-btn-container
+        .bv-content-btn:focus
+        .bv-content-feedback-btn-container
+        .bv-content-btn:active {
+        color: none !important;
+      }
+
+      /* Data icon changes in comments section */
+      .bv-content-data-label-container .bv-content-data-icon {
+        font-size: 22px !important;
+        color: @font-color-label-text !important;
+        vertical-align: top !important;
+      }
+
+      /* Image padding correction */
+      .bv-content-media-container {
+        margin-bottom: 0 !important;
+      }
+
+      /* Hiding search for C+C */
+      #BVRRSearchContainer {
+        display: none !important;
+      }
+    }
+
+    /* Stars cusomization starts */
+    .ratings-reviews-container,
+    .ratings-reviews-container,
+    .summary-container .bv-primarySummary-rating-container,
+    .summary-container .bv-primarySummary-rating-container {
+      .star-cusotmization();
+    }
+
+    /* Star Styles in on and off state */
+    .inline-rating .bv-inline-rating-container,
+    .ratings-reviews-container,
+    .summary-container .bv-primarySummary-rating-container {
+      .star-cusotmization();
+    }
+
+    /* Stars cusomization starts */
+    /* Text Style next to Star Rating in Inline Container */
+    .inline-rating .bv-inline-rating-container .bv-rating,
+    .inline-rating .bv-inline-rating-container .bv-rating-label,
+    .inline-rating .bv-inline-rating-container .bv-text-link,
+    .inline-rating .bv-inline-rating-container .bv-text-link:visited {
+      color: @font-color-label-text !important;
+      font-size: @font-size-large !important;
+      font-weight: @font-weight-regular !important;
+    }
+
+    /* Text Style next to Star Rating in Summary Container*/
+    .summary-container .bv-rating-ratio-number .bv-text-link > span,
+    .summary-container .bv-rating-ratio-number .bv-text-link:visited > span {
+      color: @font-color-input-text !important;
+      font-size: @font-size-medium !important;
+    }
+
+    /* Reviews Text Style next to Star Rating in Summary Container */
+    .summary-container .bv-rating-ratio-count .bv-text-link > span,
+    .summary-container .bv-rating-ratio-count .bv-text-link:active,
+    .summary-container .bv-rating-ratio-count .bv-text-link:active > span,
+    .summary-container .bv-rating-ratio-count .bv-text-link:hover,
+    .summary-container .bv-rating-ratio-count .bv-text-link:hover > span,
+    .summary-container .bv-rating-ratio-count .bv-text-link:link,
+    .summary-container .bv-rating-ratio-count .bv-text-link:link > span,
+    .summary-container .bv-rating-ratio-count .bv-text-link:visited,
+    .summary-container .bv-rating-ratio-count .bv-text-link:visited > span,
+    .summary-container .bv-text-link:active,
+    .summary-container .bv-text-link:hover,
+    .summary-container .bv-text-link:link,
+    .summary-container .bv-text-link:visited {
+      color: @link-color !important;
+      font-size: @font-size-medium !important;
+    }
+
+    /* Reviewers Recommend Text Style in Summary Container */
+    .summary-container
+      .bv-primarySummary-rating-container
+      .bv-percent-recommend-container {
+      font-size: @font-size-medium !important;
+      color: @font-color-input-text !important;
+      padding-bottom: 16px !important;
+    }
+
+    /* Histogram Styles Start - Histogram Text style on left of Bar */
+    .bv-cleanslate.bv-popup-in
+      .bv-popup-histogram-ratings
+      .bv-focusable
+      > .bv-popup-histogram-ratings-star,
+    .bv-cleanslate.bv-popup-in
+      .bv-popup-histogram-ratings
+      .bv-focusable
+      > .bv-popup-histogram-ratings-star
+      > .bv-glyph,
+    .bv-cleanslate.bv-popup-in
+      .bv-popup-histogram-ratings
+      .bv-focusable
+      > .bv-popup-histogram-ratings-star
+      > .bv-off-screen {
+      color: @font-color-label-text !important;
+      font-size: @font-size-small !important;
+    }
+
+    /* Unfilled Histogram Background style */
+    .bv-cleanslate.bv-popup-in
+      .bv-popup-histogram-ratings
+      .bv-focusable
+      > .bv-popup-histogram-ratings-bar
+      > span.bv-content-secondary-ratings-container {
+      background-color: @bv-histogram-color-unfilled !important;
+    }
+
+    /* Filled Histogram Background style */
+    .bv-cleanslate.bv-popup-in
+      .bv-popup-histogram-ratings
+      .bv-focusable
+      > .bv-popup-histogram-ratings-bar
+      span.bv-content-secondary-ratings-value {
+      background-color: @brand-secondary-2 !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+
+    /* Histogram Text style on right of Bar */
+    .bv-cleanslate.bv-popup-in .bv-popup-histogram-ratings .bv-focusable > td,
+    .bv-cleanslate.bv-popup-in .bv-popup-histogram-ratings .bv-focusable > td {
+      color: @brand-secondary-2 !important;
+    }
+  }
+}
+
+/******************************************************************
+  ******** Write a review modal window style customization **********
+  *******************************************************************/
+.bv-mbox {
+  .bv-mbox-content-container {
+    background-color: @brand-secondary-4 !important;
+
+    .bv-submission-section {
+      background-color: @brand-secondary-4 !important;
+    }
+
+    .bv-fieldsets {
+      /* Overriding the initial spacing between the fields in the Write Review modal*/
+      .bv-fieldset {
+        padding: 25px 0 !important;
+      }
+
+      [type='checkbox']:checked + label:after,
+      [type='checkbox']:checked + label:before,
+      [type='checkbox']:not(:checked) + label:after,
+      [type='checkbox']:not(:checked) + label:before {
+        display: none;
+      }
+    }
+  }
+
+  .bv-mbox-content-container > .bv-mbox-breadcrumb {
+    padding-top: 16px !important;
+    padding-bottom: 16px !important;
+    background-color: @brand-secondary-8 !important;
+    border-bottom: 1px solid @border-color !important;
+    font-weight: @font-weight-regular !important;
+    font-family: @font-family-base !important;
+    color: @font-color-input-text !important;
+    line-height: 1.1 !important;
+  }
+
+  button.bv-content-item-close,
+  button.bv-mbox-close {
+    top: 16px !important;
+  }
+
+  .bv-submission .bv-fieldsets > .bv-fieldset,
+  .bv-submission .bv-fieldsets > .bv-fieldset.bv-fieldset-active {
+    background-color: @bv-fieldset-background-color !important;
+    border-top: none !important;
+    border-bottom: none !important;
+  }
+
+  .bv-submission .bv-fieldsets > fieldset.bv-fieldset.bv-fieldset-active {
+    background-color: @bv-fieldset-background-color !important;
+    border-top: none !important;
+    border-bottom: none !important;
+  }
+
+  .bv-submission .bv-fieldsets > fieldset.bv-fieldset {
+    border-top: none !important;
+    border-bottom: none !important;
+  }
+
+  .bv-submission .bv-fieldsets #bv-fieldset-label-rating .bv-fieldset-label,
+  .bv-submission
+    .bv-fieldsets
+    #bv-fieldset-label-rating
+    .bv-fieldset-label
+    > span {
+    color: @font-color-input-text !important;
+    font-size: @font-size-large !important;
+    font-weight: @font-weight-medium !important;
+    font-family: @font-family-base !important;
+  }
+
+  .bv-submission
+    .bv-fieldsets
+    .bv-fieldset-rating
+    .bv-fieldset-rating-wrapper
+    .bv-fieldset-rating-group
+    + .bv-rating-helper,
+  .bv-submission
+    .bv-fieldsets
+    .bv-fieldset-rating
+    .bv-fieldset-rating-wrapper
+    .bv-rating-helper {
+    color: @font-color-label-text !important;
+    font-size: @font-size-medium !important;
+    font-weight: @font-weight-regular !important;
+    /* font-family: @font-family-gotham  !important; */
+  }
+
+  .bv-submission .bv-fieldsets .bv-fieldset-label-wrapper .bv-fieldset-label {
+    color: @font-color-input-text !important;
+    font-size: @font-size-large !important;
+    font-weight: @font-weight-medium !important;
+    font-family: @font-family-base !important;
+  }
+
+  .bv-submission
+    .bv-fieldsets
+    .bv-form-actions
+    .bv-actions-container
+    .bv-submission-button-submit,
+  .bv-submission
+    .bv-fieldsets
+    .bv-form-actions
+    .bv-actions-container
+    .bv-submission-button-submit:hover {
+    color: @btn-primary-color !important;
+    background: @btn-primary-bg !important;
+    border: none !important;
+    padding: 6px 16px !important;
+    text-transform: uppercase !important;
+    height: @btn-height !important;
+    font-style: normal !important;
+    font-stretch: normal !important;
+    letter-spacing: 0.2px !important;
+    text-align: center !important;
+    border-radius: 0 !important;
+    text-align: center !important;
+    margin: 0 auto !important;
+    float: none !important;
+    display: block !important;
+
+    &.bv-cancel {
+      display: none !important;
+    }
+  }
+
+  .bv-mbox-injection-container
+    .bv-submission
+    .bv-submission-section
+    .bv-fieldsets
+    .bv-form-actions.bv-fieldset
+    .bv-actions-container
+    .bv-submission-button-submit,
+  .bv-mbox-injection-container
+    .bv-submission
+    .bv-submission-section
+    .bv-fieldsets
+    .bv-form-actions.bv-fieldset
+    .bv-actions-container
+    .bv-submission-button-submit:focus,
+  .bv-mbox-injection-container
+    .bv-submission
+    .bv-submission-section
+    .bv-fieldsets
+    .bv-form-actions.bv-fieldset
+    .bv-actions-container
+    .bv-submission-button-submit:hover,
+  .bv-mbox-injection-container
+    .bv-submission
+    .bv-submission-section
+    .bv-fieldsets
+    .bv-form-actions.bv-fieldset
+    .bv-actions-container
+    .bv-submission-button-submit:hover {
+    color: @btn-primary-hover-color !important;
+    background: @btn-primary-hover-bg !important;
+    border: none !important;
+  }
+
+  .bv-submission .bv-submission-section .bv-fieldsets-actions {
+    border: none !important;
+  }
+
+  .bv-submission
+    .bv-submission-section
+    .bv-fieldsets
+    .bv-form-actions.bv-fieldset
+    .bv-review-field-content-wrapper
+    .bv-review-media
+    div.bv-review-media-actions
+    > button.bv-content-btn,
+  .bv-submission
+    .bv-submission-section
+    .bv-fieldsets
+    .bv-form-actions.bv-fieldset.bv-fieldset-active
+    .bv-review-field-content-wrapper
+    .bv-review-media
+    div.bv-review-media-actions
+    > button.bv-content-btn,
+  .bv-submission
+    .bv-submission-section
+    .bv-fieldsets
+    .bv-form-actions.bv-fieldset.bv-fieldset-active:hover
+    .bv-review-field-content-wrapper
+    .bv-review-media
+    div.bv-review-media-actions
+    > button.bv-content-btn {
+    color: @btn-primary-hover-color !important;
+    background: @btn-primary-hover-bg !important;
+  }
+}
+
+/******************************************************
+  ******** Inline Star ratings customization ************
+  *******************************************************/
+.bvRatingsContainer {
+  .bv-compat {
+    .bv-inline-rating-container {
+      .bv-stars-container {
+        .star-cusotmization();
+      }
+    }
+  }
+}
+
+// Mobile View
+@media screen and (max-width: @screen-xs-max) {
+  #pane-reviews {
+    #collapse-reviews {
+      margin-top: 24px !important; // Reviews tab and star section difference
+
+      #BVRRSummaryContainer {
+        .bv-compat {
+          .bv-prs-container {
+            .bv-primarySummary-rating-container {
+              padding: 0 0 0 10px !important;
+            }
+          }
+        }
+      }
+
+      #BVRRContainer {
+        // Pagination of reviews
+        .bv-header {
+          .bv-control-bar {
+            .bv-control-bar-count {
+              text-align: left !important; // to align the pagination of reviews to left
+              padding-left: 0 !important;
+            }
+          }
+        }
+
+        /*Filter alginment in mobile */
+        .bv-cv2-cleanslate {
+          .bv-filters {
+            padding-left: 0 !important;
+            margin: 0 !important;
+            margin-left: 0 !important;
+            padding: 15px 0 !important;
+          }
+        }
+
+        .bv-section-summary {
+          .bv-inline-histogram-ratings {
+            padding: 0 !important; // to align the histogram in mobile view
+          }
+
+          .bv-inline-histogram-ratings table {
+            width: 93% !important; //to make the histogram width full in mobile view
+          }
+
+          /* Average customer review ratings on Right */
+          .bv-secondary-rating-summary {
+            padding: 0 !important;
+          }
+
+          .bv-secondary-rating-summary-header {
+            margin-top: 0px !important; //to remove padding for average customer ratings in mobile view
+          }
+        }
+
+        /* Review comments bar customization */
+        .bv-content-item-avatar-offset-on {
+          padding-left: 0 !important;
+        }
+      }
+    }
+  }
+}

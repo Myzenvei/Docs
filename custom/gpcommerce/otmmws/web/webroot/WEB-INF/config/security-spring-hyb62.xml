@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+
+Spring Security settings for Hybris 6.2 or greater
+
+-->
+
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:p="http://www.springframework.org/schema/p"
+	   xmlns:oauth="http://www.springframework.org/schema/security/oauth2"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+		                   http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/security/oauth2
+                           http://www.springframework.org/schema/security/spring-security-oauth2.xsd
+		                   http://www.springframework.org/schema/security 
+		                   http://www.springframework.org/schema/security/spring-security.xsd">
+
+
+	<!-- Security OAuth2 -->
+
+
+	<oauth:resource-server id="otmmwsResourceServerFilter" resource-id="otmmws" token-services-ref="oauthTokenServices" entry-point-ref="otmmOauthAuthenticationEntryPoint"/>
+
+	<authentication-manager alias="authenticationManager" xmlns="http://www.springframework.org/schema/security">
+		<authentication-provider ref="wsAuthenticationProvider"/>
+	</authentication-manager>
+
+	<bean id="oauthAuthenticationEntryPoint"
+		  class="org.springframework.security.oauth2.provider.error.OAuth2AuthenticationEntryPoint"
+		  p:realmName="hybris" p:exceptionRenderer-ref="oauth2ExceptionRender"/>
+
+	<bean id="accessDecisionManager" class="org.springframework.security.access.vote.UnanimousBased"
+		  xmlns="http://www.springframework.org/schema/beans">
+		<constructor-arg>
+			<list>
+				<bean class="org.springframework.security.oauth2.provider.vote.ScopeVoter"/>
+				<bean class="org.springframework.security.access.vote.RoleVoter"/>
+				<bean class="org.springframework.security.access.vote.AuthenticatedVoter"/>
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<beans>
+
+		<http pattern="/**" entry-point-ref="otmmOauthAuthenticationEntryPoint" use-expressions="true" xmlns="http://www.springframework.org/schema/security">
+
+			<!-- Disable 'Cross Site Request Forgery' protection -->
+			<csrf disabled="true"/>
+
+			<!-- All static DAMLink UI content like html, js, css can be loaded without authentication -->
+			<intercept-url pattern="/otmmProxy/ot-damlink/damlink-ui/static/**"
+						   access="permitAll"
+						   requires-channel="#{configurationService.configuration.getString('webservicescommons.required.channel', 'https')}"/>
+			<intercept-url pattern="/damlink-ui/static/pix/dummy_media.jpg"
+						   access="permitAll"
+						   requires-channel="#{configurationService.configuration.getString('webservicescommons.required.channel', 'https')}"/>
+
+			<!-- For DAMLink REST service authentication is required -->
+			<intercept-url pattern="/damlink-ui/**"
+						   access="isAuthenticated() and (hasRole('ROLE_CMSMANAGERGROUP') or hasRole('ROLE_PRODUCTMANAGERGROUP') or hasRole('ROLE_BACKOFFICEPRODUCTMANAGERGROUP') or hasRole('ROLE_ADMINGROUP'))"
+						   requires-channel="#{configurationService.configuration.getString('webservicescommons.required.channel', 'https')}"/>
+
+
+			<!-- OTMM Thumbnails can be loaded without authentication.
+			     Attention: If you change access you will have to enable 'appendOauth2BearerTokenToThumbnailUrl' 
+			     at UI Configuration and set property otmm.thumbnail.protected = true in local.properties. -->
+			<intercept-url pattern="/otmmProxy/otmmapi/v?/renditions/*"
+						   access="permitAll"
+						   requires-channel="#{configurationService.configuration.getString('webservicescommons.required.channel', 'https')}"/>
+			<intercept-url pattern="/otmmProxy/otmmapi/v?/assets/**"
+						   access="permitAll"
+						   requires-channel="#{configurationService.configuration.getString('webservicescommons.required.channel', 'https')}"/>
+
+			<!-- For DAMLink REST service authentication is required -->
+			<intercept-url pattern="/otmmProxy/ot-damlink/api/**"
+						   access="isAuthenticated() and (hasRole('ROLE_CMSMANAGERGROUP') or hasRole('ROLE_PRODUCTMANAGERGROUP') or hasRole('ROLE_BACKOFFICEPRODUCTMANAGERGROUP') or hasRole('ROLE_ADMINGROUP'))"
+						   requires-channel="#{configurationService.configuration.getString('webservicescommons.required.channel', 'https')}"/>
+
+			<!-- Everyting else is denied -->
+			<intercept-url pattern="/**" access="denyAll"/>
+
+
+			<port-mappings>
+				<port-mapping http="#{configurationService.configuration.getProperty('tomcat.http.port')}" https="#{configurationService.configuration.getProperty('tomcat.ssl.port')}"/>
+				<port-mapping http="#{configurationService.configuration.getProperty('embeddedserver.http.port')}" https="#{configurationService.configuration.getProperty('embeddedserver.ssl.port')}"/>
+			</port-mappings>
+
+			<custom-filter ref="otmmwsResourceServerFilter" before="PRE_AUTH_FILTER"/>
+			<custom-filter ref="hybrisUserFilter" after="LAST"/>
+			<access-denied-handler ref="oauthAccessDeniedHandler"/>
+
+			<headers>
+				<content-type-options/>
+				<hsts include-subdomains="true" max-age-seconds="16070400"/>
+				<xss-protection/>
+				<frame-options policy="SAMEORIGIN"/>
+			</headers>
+		</http>
+
+		<bean id="hybrisUserFilter" class="de.hybris.platform.webservicescommons.oauth2.HybrisOauth2UserFilter"/>
+
+		<bean id="otmmOauthAuthenticationEntryPoint" class="org.springframework.security.oauth2.provider.error.OAuth2AuthenticationEntryPoint">
+			<property name="realmName" value="otmmws"/>
+			<property name="exceptionRenderer" ref="oAuth2ExceptionRenderer"/>
+		</bean>
+
+		<bean id="oauthAccessDeniedHandler" class="org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHandler">
+			<property name="exceptionRenderer" ref="oAuth2ExceptionRenderer"/>
+		</bean>
+
+		<bean id="oAuth2ExceptionRenderer" class="de.hybris.platform.webservicescommons.oauth2.OAuth2ExceptionRenderer">
+			<property name="messageConverters" ref="jaxbMessageConverters"/>
+			<property name="exceptionConverter" ref="exceptionConverter"/>
+		</bean>
+	</beans>
+</beans>

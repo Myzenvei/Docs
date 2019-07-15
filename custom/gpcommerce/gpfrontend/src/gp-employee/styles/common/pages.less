@@ -1,0 +1,413 @@
+#gp-employee {
+  .right.col-md-9 {
+    padding-right: 0;
+    .main__inner-wrapper {
+      padding-top: 0;
+    }
+  }
+  .list-details-page {
+    .vx-breadcrumb {
+      border-radius: @card-layout-border-radius @card-layout-border-radius 0 0;
+      ul {
+        background-color: @card-layout-bg-color;
+      }
+    }
+    .wrapper {
+      .right {
+        margin: 0 0 0 16px !important;
+      }
+    }
+    min-height: calc(100vh - 282px);
+    padding: 8px 8px 0px;
+  }
+
+  .cart-container {
+    margin: 0 0 40px;
+    .order-summary-section {
+      padding-left: 16px;
+      margin-top: 62px;
+      top: 132px;
+      .checkout-component {
+        .vx-cart-checkout {
+          button {
+            border-radius: 0 0 @card-layout-border-radius
+              @card-layout-border-radius;
+          }
+        }
+      }
+    }
+  }
+
+  // .checkout-page {
+  //   .vx-breadcrumb {
+  //     display: none; // To verify once
+  //   }
+  //   .checkout-container {
+  //     margin: 0;
+  //   }
+  // }
+
+  // To Add Hardik's Changes
+  .employee-login-page,
+  .business-login-page,
+  .login-page,
+  .register-page {
+    border: none;
+    margin: auto 0px;
+  }
+  .login-component,
+  .register-component {
+    border: none;
+    border-right: none;
+  }
+  .business-login-page {
+    display: flex;
+    flex-direction: column;
+    ul li a {
+      text-decoration: none;
+    }
+    a {
+      text-decoration: underline;
+    }
+    & + .support {
+      display: none;
+    }
+    .business-register-component {
+      & + .support {
+        width: 524px;
+        margin: 0 auto 32px !important;
+        padding: 8px 0 12px !important;
+        background-color: @support-section-bg-color;
+        border-radius: 0 0 @card-layout-border-radius @card-layout-border-radius;
+        p {
+          margin-bottom: 0;
+        }
+        a {
+          color: @font-color-label-text;
+          text-decoration: none;
+          font-weight: @font-weight-bold;
+        }
+      }
+    }
+  }
+  .login-component {
+    border-right: none;
+    width: 40.41666%;
+    align-self: center;
+    margin-bottom: 276px;
+    > div {
+      padding: 0 !important;
+      width: 100%;
+      border: none;
+      margin: 0;
+    }
+  }
+  .social-login-component {
+    display: none;
+  }
+  //*********** PDP Page ***********
+  .pdp-breadcrumb {
+    .vx-breadcrumb {
+      .breadcrumb {
+        padding: 16px 0px 16px 0px;
+        margin-left: 0;
+      }
+    }
+  }
+  .pdp-page {
+    > .row:first-child {
+      background-color: @card-layout-bg-color;
+      border-radius: @card-layout-border-radius;
+      padding-top: 60px;
+      padding-bottom: 85px;
+    }
+    .productDetailsPageSection1 {
+      width: 61.05%;
+    }
+    .productDetailsPageSection2 {
+      width: 38.95%;
+    }
+  }
+  //************* Checkout Page ******
+  .checkout-container {
+    margin: 0px;
+  }
+  //************* Order Confirmation Page *****
+  .order-confirmation-container {
+    margin: 16px 0 0;
+  }
+  //************* Order Details Page *****
+  .order-details-container {
+    margin: 16px 0 32px;
+    .account-section-content {
+      .back-link {
+        display: none;
+      }
+      .vx-breadcrumb {
+        .breadcrumb {
+          padding: 32px 26px 0 26px;
+          background-color: @card-layout-bg-color;
+          margin-left: 0;
+        }
+      }
+      .account-orderdetail {
+        display: none;
+      }
+      & > div:last-of-type:not(.vx-order-details) {
+        display: none;
+      }
+    }
+  }
+  .product-grid-right-result-component {
+    .vx-hero-banner {
+      padding: 0 16px;
+    }
+    .banner {
+      min-height: 180px;
+      border-radius: @card-layout-border-radius;
+      margin-bottom: 24px;
+      .banner__promotion {
+        &.hero-banner-text-content {
+          padding: 0;
+          width: auto;
+        }
+      }
+      &.hero-center {
+        .banner__promotion {
+          transform: translate(-50%, -50%);
+          z-index: 5;
+          .banner__heading {
+            font-size: 32px !important;
+            text-transform: uppercase;
+            color: @plp-banner-title-color;
+            background: @plp-banner-title-bg;
+            padding: 16px 24px 16px 24px;
+            border-radius: @card-layout-border-radius;
+            font-weight: @font-weight-bold !important;
+          }
+        }
+      }
+    }
+  }
+  .vx-breadcrumb {
+    ul {
+      li {
+        a {
+          color: @link-color;
+          &:hover {
+            color: @link-hover-color;
+          }
+        }
+      }
+    }
+  }
+  .faq-page {
+    .row.no-margin {
+      background-color: @card-layout-bg-color;
+      &:first-child {
+        border-radius: @card-layout-border-radius @card-layout-border-radius 0 0;
+        margin-top: 24px;
+        .content {
+          padding: 42px 16px 12px;
+        }
+      }
+      h1 {
+        margin: 0;
+      }
+      .vx-faq {
+        padding: 0 16px;
+      }
+      &:not(:first-child) {
+        border-radius: 0 0 @card-layout-border-radius @card-layout-border-radius;
+      }
+      &:last-child {
+        margin-bottom: 24px;
+        padding: 20px;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: @screen-sm-min) {
+  #gp-employee {
+    .category-breadcrumb {
+      .vx-breadcrumb {
+        ul {
+          padding-left: 0px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: @screen-md-min) {
+  #gp-employee {
+    .list-details-page {
+      .wrapper {
+        .right {
+          width: 75%;
+        }
+      }
+    }
+    .category-breadcrumb {
+      .vx-breadcrumb {
+        ul {
+          margin-left: 0px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: @screen-sm-max) {
+  #gp-employee {
+    .right.col-md-9 {
+      padding-right: 16px;
+      .account-section {
+        margin-top: 0px !important;
+      }
+    }
+    .list-details-page {
+      padding: 24px 16px;
+      .wrapper {
+        .right {
+          margin: 0 !important;
+        }
+      }
+    }
+
+    .cart-container {
+      & > div.yCmsComponent {
+        margin: 0 16px !important;
+        padding-top: 24px;
+      }
+      .order-summary-section {
+        padding: 0 8px;
+        top: initial;
+        .checkout-component {
+          .vx-cart-checkout {
+            button {
+              border-radius: @card-layout-border-radius;
+            }
+          }
+        }
+      }
+    }
+
+    // To Add Hardik's Changes
+    .login-component {
+      width: 64%;
+      margin-bottom: 532px;
+    }
+    .pdp-page {
+      > .row:first-child {
+        margin-left: 0px;
+        margin-right: 0px;
+        padding-bottom: 50px;
+      }
+      .productDetailsPageSection1 {
+        width: 52.44565%;
+      }
+      .productDetailsPageSection2 {
+        width: 47.5%;
+      }
+    }
+    .pdp-breadcrumb {
+      .vx-breadcrumb {
+        .breadcrumb {
+          padding-left: 16px;
+        }
+      }
+    }
+    .checkout-container {
+      margin: 0 16px;
+      padding-bottom: 16px;
+    }
+    .order-confirmation-container {
+      margin: 24px 0 0;
+      padding: 0 16px;
+    }
+    .order-details-container {
+      margin: 24px 0 32px;
+      padding: 0 16px !important;
+    }
+    .faq-page {
+      .row.no-margin {
+        margin: 0;
+        &:first-child {
+          .content {
+            padding: 42px 0 8px;
+          }
+        }
+        h1 {
+          margin: 0;
+        }
+        .vx-faq {
+          padding: 0;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: @screen-xs-max) {
+  #gp-employee {
+    .list-details-page {
+      margin: 24px 12px;
+      .vx-breadcrumb {
+        ul {
+          padding: 24px 12px 16px;
+        }
+      }
+      padding: 0;
+    }
+
+    .business-login-page {
+      padding-bottom: 88px;
+      & + p {
+        display: none;
+      }
+      .business-register-component {
+        & + .support {
+          width: calc(100% - 32px);
+        }
+      }
+    }
+    .login-component {
+      width: 91%;
+      margin-bottom: 88px;
+      > div {
+        margin-bottom: 16px;
+      }
+    }
+    .pdp-page {
+      margin-top: 16px;
+      > .row:first-child {
+        margin-left: 0px;
+        margin-right: 0px;
+        padding-top: 0px;
+        padding-bottom: 16px;
+      }
+      .productDetailsPageSection1 {
+        width: 100%;
+      }
+      .productDetailsPageSection2 {
+        width: 100%;
+      }
+    }
+    .product-grid-right-result-component {
+      .banner {
+        display: none;
+      }
+    }
+    .order-details-container {
+      .account-section-content {
+        .vx-breadcrumb {
+          .breadcrumb {
+            padding: 21px 16px 0 16px;
+          }
+        }
+      }
+    }
+  }
+}

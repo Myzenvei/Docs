@@ -1,0 +1,118 @@
+$contentCatalog=dixieContentCatalog
+$contentCatalogName=Dixie Content Catalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$productCatalog=gpUSProductCatalog 
+$productCatalogName=GP US Product Catalog
+$productCV=catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$picture=media(code, $contentCV);
+$image=image(code, $contentCV);
+$media=media(code, $contentCV);
+$page=page(uid, $contentCV);
+$contentPage=contentPage(uid, $contentCV);
+$product=product(code, $productCV)
+$category=category(code, $productCV)
+$siteResource=jar:com.gp.b2binitialdata.constants.Gpb2binitialdataConstants&/gpb2binitialdata/import/sampledata/contentCatalogs/$contentCatalog
+$productResource=jar:com.gp.b2binitialdata.constants.Gpb2binitialdataConstants&/gpb2binitialdata/import/sampledata/productCatalogs/$productCatalog
+$jarResourceCms=jar:com.gp.b2binitialdata.constants.Gpb2binitialdataConstants&/gpb2binitialdata/import/sampledata/cockpits/cmscockpit
+$addonExtensionName=b2bacceleratoraddon
+$medias=medias(code, $contentCV);
+$mediaContainer=media(qualifier, $contentCV);
+$siteUid=dixie
+
+
+###### Login page Start ######
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='login'];contentSlot(uid,$contentCV)[unique=true];;;
+;;LeftContentSlot-login;LeftContentSlot;;LeftContentSlot-login;;;;
+;;RightContentSlot-login;RightContentSlot;;RightContentSlot-login;;;
+;;PlaceholderContentSlot-login;PlaceholderContentSlot;;PlaceholderContentSlot-login;;;
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;LeftContentSlot-login;Left Content Slot for Customer Login;true;ReturningCustomerLoginComponent;;;
+;;RightContentSlot-login;Right Content Slot for Customer Login;true;NewCustomerLoginComponent;;;
+;;PlaceholderContentSlot-login;Placeholder Content Slot;true;GuestCheckoutLoginComponent;;;
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;ReturningCustomerLoginComponent;Returning Customer Login Component;accountReturningCustomerLogin.jsp;;ReturningCustomerLoginComponent
+;;NewCustomerLoginComponent;New Customer Login Component;accountNewCustomerLogin.jsp;;NewCustomerLoginComponent
+;;GuestCheckoutLoginComponent;Guest Checkout Login Component;checkoutGuestLogin.jsp;;GuestCheckoutLoginComponent
+###### Login page end ######
+
+INSERT_UPDATE B2BUnit;uid[unique=true];name;locName[lang=en];b2bUnitLevel;
+;B2BGuest;B2BGuest;B2BGuest;L1;
+
+$siteUid=dixie
+$siteMapUrlLimitPerFile=50000
+# Sitemap Generation CronJobs
+INSERT_UPDATE SiteMapMediaCronJob;code[unique=true];job(code)[default=siteMapMediaJob];contentSite(uid)[default=$siteUid];sessionLanguage(isoCode)[default=en];siteMapUrlLimitPerFile;active;
+;$siteUid-SiteMapMediaJob;;;;$siteMapUrlLimitPerFile;true;
+UPDATE CMSSite;uid[unique=true];siteConfig
+;$siteUid;"addToMarket.us.b2b->true;addToMarket.ca.b2b->false;addToMarket.other.b2b->false;default.max.product.quantity->100;gp_bvId->dixie_test;root.category->categories;taxexemptionreviewuseremail->gpuser@yopmail.com;gp_mpQues->How frequently would you like to hear from us?;socialaggrstartdate.b2b-> ;socialaggrenddate.b2b-> ;socialaggrfeedId.b2b->travel-08efe5d2-63c3-4b99-bc32-c97c29024269;socialaggrdataPer.b2b-> ;socialaggrpages.b2b-> 2;socialaggrtruncate.b2b-> ;socialaggrgutter.b2b->20 ;socialaggrcolumns.b2b->4;socialaggrinterval.b2b-> ;socialaggrfilter.b2b-> ;socialaggrstyle.b2b->widget ;socialaggroverlay.b2b-> ;GTMID->GTM-TRVPTX7;google.maps.api.key->AIzaSyDk2KFvE5UgpLcYM4nVlOLSRDWqPMB1bNI;showCompanyLinks->false;showTaxExemption->false;contactNumber->800-750-4226;termAndCondPageLabel->/termsAndConditions;gpYMarketingSiteId->ZDIXIEFOODSERVICE;ymarketing.permissions.id.origin.create->ZDIXIEFOODSERVICE;ymarketing.permissions.id.origin.update->EMAIL;ymarketing.source.system.id->ZDIXIEFOODSERVICE;ymarketing.marketing.area.id->ZGPPRO;isAvailable.enabled->true;isBazaarVoiceEnabled->false;showDownload->false;bv_feed_file_name->bv_angelsoft_ratings;isRelatedEnabled->false;isShowQuickOrder->false;isBulkEnabled->false;isFavoritesEnabled->false;isDOBEnabled->false;isGenderEnabled->false;live.agent.endpoint->https://d.la1-c2cs-iad.salesforceliveagent.com/chat;live.agent.org.id->572g00000008OeG;live.agent.deployment.id->00Dg0000001qUes;live.agent.button.id->573g00000008PB7;livechatDeployUrl->https://c.la1-c2cs-iad.salesforceliveagent.com/content/g/js/43.0/deployment.js;showVariantProducts->false;isCallUsEnabled->true;isEmailUsEnabled->false;isPayPalEnabled->true;isSocailShareEnabled->true;isContactUsFormEnabled->true;isSupportTicketsEnabled->true;isProductCompareEnabled->true;isWriteUsEnabled->false;isProductIdEnabled->true;showInStockMsg->true;showProductFeatures->true;showProductSpecs->true;showProductResources->true;isSaveCartEnabled->true;isMultipleShippingEnabled->true;showDeliveryInstructions->false;isDinersCardAvailable->true;showProductIndicators->false;isGiftingEnabled->false;isGooglePayEnabled->true;isApplePayEnabled->true;isVariantsEnabled->true;isProductPriceEnabled->true;addToCartEnabled->true;promoTextEnabled->true;showProductStatus->true;isQuantitySelectorEnabled->true;isMobileMyProfileEnabled->true;pdpLocateAStoreEnabled->false;showPoBoxShippingMsg->true;showInventoryMessages->true;isFindADistributorEnabled->true;viewTicketsForDays->365;isFindADistributorEnabled->true;showForgotPassword->true;createAcountMoreDetailsEnabled->true;editPasswordEnabled->true;editCommPrefEnabled->true;hasTaxExemption->true;addAddressEnabled->true;deleteAddressEnabled->false;addPaymentEnabled->true;deletePaymentEnabled->true;is3DImageEnabled->true;reorderEnabled->false;addCustomAttrs->false;addToListBySku->false;downloadPrdListInfo->false;downloadListPdf->false;downloadListImage->false;downloadPdpPdf->true;downloadPdpImage->true;hasCmirCode->false;isProductVisibilityCotrolled->false;customShareWishlistEnabled->false;isCheckoutEnabled->true"
+
+
+########################## Installation Email #################################
+
+
+#
+$contentCatalog=dixieContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$wideContent=CMSImageComponent,BannerComponent,CMSLinkComponent
+$jarEmailResource=jar:com.gp.b2binitialdata.constants.Gpb2binitialdataConstants&/gpb2binitialdata/import/coredata/contentCatalogs/dixieContentCatalog/emails
+
+# Import modulegen config properties into impex macros
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+$jarResourceCms=$config-jarResourceCmsValue                                                                
+$emailPackageName=$config-emailContextPackageName    
+
+# Language                                                                                                 
+$lang=en 
+
+INSERT_UPDATE EmailPageTemplate ; $contentCV[unique=true] ; uid[unique=true]                            ; name                                              ; active ; frontendTemplateName                ; subject(code)                                                ; htmlTemplate(code)                                        ; restrictedPageTypes(code)
+								;                         ; InstallationProductEmailTemplate            ; Installation Product Email Template               ; true   ; InstallationProductEmail            ; dixie_Email_Installation_Product_Subject             ; dixie_Email_Installation_Product_Body             ; EmailPage                
+
+								
+UPDATE EmailPageTemplate ; $contentCV[unique=true] ; uid[unique=true]                            ; velocityTemplate[translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+						 ;                         ; InstallationProductEmailTemplate            ; $jarEmailResource/structure-view/structure_installationProductEmailTemplate.vm
+								
+
+								
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='InstallationProductEmailTemplate'] ; validComponentTypes(code)
+                              ; SiteLogo          ;                                                                                 ;                          ; logo
+                              ; TopContent        ;                                                                                 ; $wideContent             ;     
+                              ; BottomContent     ;   
+							  
+							  
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]                     ; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='InstallationProductEmailTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+                                     ;                         ; SiteLogo-InstallationProductEmail      ; SiteLogo              ;                                                                                     ; EmailSiteLogoSlot                        ; true          
+                                     ;                         ; TopContent-InstallationProductEmail    ; TopContent            ;                                                                                     ; EmailTopSlot                             ; true          
+                                     ;                         ; BottomContent-InstallationProductEmail ; BottomContent         ;                                                                                     ; EmailBottomSlot                          ; true     
+
+									 
+INSERT_UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]                    ; name                                     ; masterTemplate(uid,$contentCV)              ; defaultPage ; approvalStatus(code)[default='approved']
+                         ;                         ; InstallationProductEmail            ; Installation Product Email               ; InstallationProductEmailTemplate            ; true        ;                                        
+
+
+INSERT_UPDATE RendererTemplate ; code[unique=true]                                    ; contextClass                                                                                ; rendererType(code)[default='velocity']						 
+                               ; dixie_Email_Installation_Product_Body                ; $emailPackageName.InstallationProductEmailContext                                            
+                               ; dixie_Email_Installation_Product_Subject             ; $emailPackageName.InstallationProductEmailContext                                            
+
+UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]                    ; previewImage(code, $contentCV)
+                 ;                         ; InstallationProductEmail            ; EmailPageModel_preview      
+
+
+$contentCatalog=dixieContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$jarEmailResource=jar:com.gp.b2binitialdata.constants.Gpb2binitialdataConstants&/gpb2binitialdata/import/coredata/contentCatalogs/dixieContentCatalog/emails
+
+# Import config properties into impex macros for modulegen
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+$emailResource=$config-emailResourceValue 
+				 
+				 
+INSERT_UPDATE RendererTemplate ; code[unique=true]                                   ; description[lang=$lang]                            ; templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]				 
+                        ; dixie_Email_Installation_Product_Body               ; "Installation Product Email Body"                  ; $jarEmailResource/email-installationProductBody.vm                                                            
+                        ; dixie_Email_Installation_Product_Subject            ; "Installation Product Email Subject"               ; $jarEmailResource/email-installationProductSubject.vm                                                         
+
+INSERT_UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]                    ; fromEmail[lang=$lang]       ; fromName[lang=$lang]    
+                 ;                         ; InstallationProductEmail            ; "info@dixiefoodservice.com" ; "Customer Services Team"
+
+################################### end #####################################

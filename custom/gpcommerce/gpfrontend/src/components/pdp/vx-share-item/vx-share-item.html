@@ -1,0 +1,110 @@
+<div class="vx-share-item-modal">
+  <vx-spinner ref="shareItemSpinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>
+  </vx-spinner>
+  <div v-if="globals.isB2B()">
+    <h4 class="share-item-modal-content pb-lg-4 pb-md-4 pb-sm-4 pb-xs-4">{{i18n.content}}</h4>
+    <form ref="shareItemForm">
+      <div class="form-group">
+        <p class="pb-lg-1 pb-md-1 pb-sm-1 pb-xs-1">{{i18n.recipientEmail}}</p>
+        <input type="text" class="form-control" name="recipients"
+          v-bind:class="{'input-error': errors.has('recipients')}" v-validate:recipients="'required|email'"
+          v-model="recipientValue" :aria-label="i18n.recipientEmail">
+        <div v-if="errors.has('recipients')">
+          <span class="error-msg">{{i18n.recipientEmailValidation}}</span>
+        </div>
+        <p class="pb-lg-4 pt-lg-2 pb-md-4 pt-md-2 pb-sm-4 pt-sm-2 pb-xs-4 pt-xs-2 share-item-helper-text">
+          {{i18n.helperText}}</p>
+        <div class="d-flex pb-lg-4 pb-md-4 pb-sm-4 pb-xs-4">
+          <div class="sender-name pr-lg-3 pr-md-3 pr-sm-3 pr-xs-3">
+            <p class="pb-lg-1 pb-md-1 pb-sm-1 pb-xs-1">{{i18n.senderName}}</p>
+            <input type="text" class="form-control" name="senderName"
+              v-bind:class="{'input-error': errors.has('senderName')}" v-model="form.senderName" v-validate="'required'"
+              maxlength="40" :aria-label="i18n.senderName">
+            <span class="error-msg">{{errors.first('senderName')}}</span>
+          </div>
+          <div class="sender-email pl-lg-3 pl-md-3 pl-sm-3 pl-xs-2">
+            <p class="pb-lg-1 pb-md-1 pb-sm-1 pb-xs-1">{{i18n.senderEmail}}</p>
+            <input type="text" class="form-control" name="sender" v-bind:class="{'input-error': errors.has('sender')}"
+              v-validate="'required|email'" v-model="form.senderEmail" :aria-label="i18n.senderEmail">
+            <span class="error-msg">{{errors.first('sender')}}</span>
+          </div>
+        </div>
+        <div class="pb-lg-4 pb-md-4 pb-sm-4 pb-xs-4">
+          <p class="pb-lg-1 pb-md-1 pb-sm-1 pb-xs-1">{{i18n.subject}}</p>
+          <input type="text" class="form-control subject" name="subject"
+            v-bind:class="{'input-error': errors.has('subject')}" v-model="form.subject" v-validate="'required'"
+            :aria-label="i18n.subject" maxlength="95">
+          <span class="error-msg">{{errors.first('subject')}}</span>
+        </div>
+        <div class="pb-lg-4 pb-md-4 pb-sm-4 pb-xs-4">
+          <p class="pb-lg-1 pb-md-1 pb-sm-1 pb-xs-1">{{i18n.message}}</p>
+          <textarea type="text" v-model="form.senderMessage" class="form-control message"
+            :aria-label="i18n.a11ySenderOptionalMsgLabel" maxlength="462"></textarea>
+        </div>
+        <div class="d-flex flex-column" v-if="productInfo || isList">
+          <div class="checkbox">
+            <div class="form-group">
+              <input id="attachPDF" type="checkbox" v-model="form.attachPDF">
+              <label for="attachPDF">{{i18n.attachPDF}}</label>
+            </div>
+          </div>
+          <div class="checkbox">
+            <div class="form-group">
+              <input id="addLink" type="checkbox" v-model="form.addLink">
+              <label for="addLink">{{i18n.addLink}}</label>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center">
+          <button type="button"
+            class="btn btn-primary mb-lg-4 mt-lg-2 px-lg-5 mb-md-4 mt-md-2 px-md-5 mb-sm-4 mt-sm-2 px-sm-5 mb-xs-4 mt-xs-2 px-xs-5 send-email-button modal-btn-primary-large"
+            @click="onSubmit">{{i18n.sendEmail}}</button>
+        </div>
+        <div class="mt-xs-4 d-flex flex-column align-items-center disclaimer modal-btn-IEspacing modal-btn-EDGEspacing">
+          <p>{{i18n.disclaimerLine1}}</p>
+          <p>{{i18n.disclaimerLine2}}</p>
+          <div class="d-flex">
+            <div class="d-flex">
+              <p class="disclaimer-line">{{i18n.disclaimerLine3}} <a
+                  :href="i18n.privacyPolicyLink">{{i18n.disclaimerLine4}}</a> {{i18n.disclaimerLine5}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="social-share" v-if="!globals.isB2B()" :class="{'show-social-share': enableSocialShare}">
+    <div class="a2a_kit a2a_default_style p-xs-0 mt-xs-2" :class="socialShareSizeClass" :data-a2a-url="url"
+      :data-a2a-title="title">
+      <a class="a2a_button_facebook mt-xs-1" v-if="isSocialShare.isSocialShareforFBEnabled"></a>
+      <a class="a2a_button_twitter mt-xs-1" v-if="isSocialShare.isSocialShareForTwitterEnabled"></a>
+      <a class="a2a_button_pinterest mt-xs-1" v-if="isSocialShare.isSocialShareForPinterestEnabled"></a>
+      <a class="a2a_button_linkedin mt-xs-1" v-if="isSocialShare.isSocialShareForLinkedInEnabled"></a>
+    </div>
+  </div>
+  <template v-if="loadPdfGenerator">
+    <vx-pdf-generator name="pdfversion" :has-sustainability-page="false" ref="pdfModule" :pdf-data="pdfData"
+      v-if="globals.isB2B() && pdfData">
+      <template v-if="!isList">
+        <div slot="details">
+          <div id="left-section">
+            <h5 v-if="pdfData.name" v-html="replaceText(pdfData.name)"></h5>
+            <h5 v-if="pdfData.description">Description:</h5>
+            <p v-if="pdfData.description" v-html="limitCharacters(pdfData.description)" style="font-size:12px">
+            </p>
+          </div>
+          <h5 v-if="pdfData.featureList && pdfData.featureList.length" id="feature-heading">Features and
+            Benefits:</h5>
+          <div id="features" v-if="pdfData.featureList">
+            <ul class="features" style="font-size:12px;">
+              <li v-for="feature in pdfData.featureList" v-html="replaceText(feature)" v-if="pdfData.featureList"></li>
+            </ul>
+          </div>
+          <img id='itf' />
+          <img id='itf1'
+            :src="pdfData.images && pdfData.images[0] && pdfData.images[0].zoomUrl ? pdfData.images[0].zoomUrl : globals.assetsPath+'images/no_image.png'" />
+        </div>
+      </template>
+    </vx-pdf-generator>
+  </template>
+</div>

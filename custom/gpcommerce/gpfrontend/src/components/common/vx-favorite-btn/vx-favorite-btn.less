@@ -1,0 +1,57 @@
+.vx-favorite-btn {
+  display: none;
+  svg.heart {
+    width: 100%;
+    fill: @border-color;
+    transition: all 3s;
+    overflow: visible !important;
+  }
+
+  button.favorite {
+    display: block;
+    outline: 0;
+    padding: 0;
+    border: none;
+    background: none;
+    overflow: visible;
+    position: relative;
+
+    &:focus {
+      outline: 0;
+    }
+
+    #heart-outline {
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    &.active {
+      svg {
+        #heart-outline {
+          stroke: @fav-icon-fill-color;
+        }
+        #fill {
+          position: absolute;
+          z-index: 10;
+          transform-origin: 20% 20%;
+          animation: heartBeat 0.5s 1 cubic-bezier(0.16, 1.32, 0.91, 1.26);
+          animation-fill-mode: forwards;
+          fill: @fav-icon-fill-color;
+        }
+      }
+    }
+  }
+  @keyframes heartBeat {
+    0% {
+      opacity: 0.5;
+    }
+    50% {
+      fill: @fav-icon-fill-color;
+      transform: scale3d(1.4, 1.4, 1.4);
+    }
+    100% {
+      opacity: 1;
+      fill: @fav-icon-fill-color;
+      transform: scale3d(1, 1, 1);
+    }
+  }
+}

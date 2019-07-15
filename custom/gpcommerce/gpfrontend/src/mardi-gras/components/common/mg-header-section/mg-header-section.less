@@ -1,0 +1,166 @@
+
+@import '../../../styles/common/mixins.less';
+.mg-header-section{
+    .navbar{
+        border: 0;
+        min-height: 48px;
+        @media only screen and (min-width: @screen-md-min){
+            background-color: @brand-primary;
+        }
+        border-radius:0;
+        @media only screen and (max-width: @screen-sm-max){
+            .container{
+                width: 100%;
+            }
+        }
+
+        &-header{
+            background-color: @brand-primary;
+            flex: 1 0 auto;
+            height: 50px;
+            @media only screen and (min-width: @screen-sm-min){
+                height: auto;
+            }
+            /**hamburger icon  and its animation*/
+            .hamburger-icon{
+                width: 20px;
+                height: 20px;
+                position: relative;
+                transform: rotate(0deg);
+                transition: .5s ease-in-out;
+                cursor: pointer;
+                span{
+                    display: block;
+                    position: absolute;
+                    height: 2px;
+                    width: 100%;
+                    background:@border-1;
+                    border-radius: 9px;
+                    opacity: 1;
+                    left: 0;
+                    transform: rotate(0deg);
+                    transition: .25s ease-in-out;
+                    &:nth-child(1){
+                        top: 30%;
+                        transform: translateY(-30%);
+                        transform-origin: left center;
+                    }
+                    &:nth-child(2){
+                        top: 60%;
+                        transform: translateY(-60%);
+                        transform-origin: left center;
+                    }
+                    &:nth-child(3){
+                        top: 90%;
+                        transform: translateY(-90%);
+                        transform-origin: left center;
+                    }
+                }
+                &.open{
+                    span{
+                        &:nth-child(1){
+                            transform: rotate(45deg);
+                            top: 3px;
+                            left: 8px;
+                        }
+                        &:nth-child(2){
+                            width: 0%;
+                            opacity: 0;
+                        }
+                        &:nth-child(3){
+                            transform: rotate(-45deg);
+                            top: 18px;
+                            left: 8px;
+                        }
+                    }
+                }
+            }
+        }
+        &-brand{
+            width: 65px;
+            height: 40px;
+            @media only screen and (min-width: @screen-md-min){
+                width: 110px;
+                height: 70px;
+            }
+            img{
+                width: 100%;
+                height: 100%;
+            }
+        }
+        .container{
+            .navbar-brand{
+                margin-left: 0;
+            }
+        }
+        &-items{
+            position: absolute;
+            top: 48px;
+            z-index: 10;
+            left: -260px;
+            transition: 500ms;
+            &.open{
+                left: 0;
+                transition: 500ms;
+            }
+            @media only screen and (min-width: @screen-md-min){
+                position:static;
+
+            }
+            ul{
+                @media only screen and (min-width: @screen-md-min){
+                    background-color: transparent;
+                    width: auto;
+                    height: auto;
+                }
+                background-color: @brand-secondary-1;
+                width: 260px;
+                margin-left: -1px !important;
+                height: 100vh;
+            }
+            li{
+                a{
+                   .font(@font-size-nav-links*2,
+                        @font-weight-bold,
+                        @font-family-base,
+                        @link-color-1,
+                        @line-height-base);
+                        @media only screen and (min-width: @screen-md-min){
+                            font-size: @font-size-nav-links;
+                            font-weight: @font-weight-regular;
+                        }
+                        &:hover,&:focus,&:visited{
+                            background-color: transparent;
+                        }
+                        text-align: left;
+                        text-transform: uppercase;
+                        &.active{
+                            display: inline-block;
+                            border-bottom: 2px solid @border-1;
+                        }
+                        img{
+                            width: 35px;
+                            height: 35px;
+                        }
+
+                }
+                &.active{
+                    a{
+                        background-color: transparent;
+                        border-bottom: 2px solid @border-1;
+                        &:hover{
+                            background-color: transparent;
+                        }
+
+                    }
+                }
+                &.social-links {
+                    a{
+                        color: @link-color-2;
+                    }
+                }
+            }
+        }
+    }
+}
+

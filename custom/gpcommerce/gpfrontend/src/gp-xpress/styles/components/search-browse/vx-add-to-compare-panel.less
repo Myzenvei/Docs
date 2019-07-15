@@ -1,0 +1,48 @@
+#gp-xpress {
+  .search-browse-panel {
+    left: initial;
+    margin-left: initial;
+    right: 40px;
+    .btn-tertiary {
+      background-color: @btn-primary-bg; // changed primary button text color
+      color: @btn-primary-color;
+      border: 1px solid @btn-default-border;
+      &:hover {
+        text-decoration: @btn-primary-hover-text-decoration;
+        color: @btn-primary-hover-color;
+        background: @btn-primary-hover-bg;
+      }
+      &.compare-button {
+        right: 40px;
+        bottom: 24px;
+      }
+    }
+  }
+}
+@media screen and (max-width: @screen-sm-max) {
+  #gp-xpress {
+    .search-browse-panel {
+      right: 0px;
+      .btn-tertiary {
+        &.compare-button {
+          right: 32px;
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: @screen-xs-max) {
+  #gp-xpress {
+    .search-browse-panel {
+      .compare-panel {
+        padding-right: 16px;
+        padding-left: 16px;
+      }
+      .btn-tertiary {
+        &.compare-button {
+          right: 16px;
+        }
+      }
+    }
+  }
+}

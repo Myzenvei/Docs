@@ -1,0 +1,19 @@
+<div ng-controller="opentextTabInnerController">
+
+    <div class="ot-new-dialog">
+        <button ng-click="openAssetAssignmentDialog()" class="btn">Open Asset Assignment Dialog</button>
+    </div>
+    
+    
+    <div class="ot-rest-url">
+        <button ng-click="executeRestUrl()" class="btn">Execute Rest URL</button>
+        <input type="text" data-ng-model="restUrl" class="form-control" />
+    </div>
+
+    <div class="ot-rest-response">
+        <label>REST Response</label>
+        <textarea data-ng-model="restResponse" class="ot-rest-response-textarea form-control"></textarea>
+
+    </div>
+
+</div>

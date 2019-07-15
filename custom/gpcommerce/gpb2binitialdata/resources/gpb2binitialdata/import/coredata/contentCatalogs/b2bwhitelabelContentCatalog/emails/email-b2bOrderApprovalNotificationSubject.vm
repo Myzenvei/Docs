@@ -1,0 +1,6 @@
+## messageSource=classpath:/gpb2binitialdata/import/coredata/contentCatalogs/b2bwhitelabelContentCatalog/messages/email-b2bOrderApprovalNotification_$lang.properties
+#if(${ctx.order.status}=='REJECTED')
+	${ctx.messages.getMessage('rejectionEmailSubject', ${ctx.order.code})}
+#else
+	${ctx.messages.getMessage('approvalEmailSubject', ${ctx.order.code})}
+#end

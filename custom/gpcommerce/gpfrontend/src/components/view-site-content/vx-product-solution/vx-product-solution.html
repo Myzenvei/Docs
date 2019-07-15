@@ -1,0 +1,60 @@
+<section class="product-solution" :class="productSolutionData.componentTheme" :id="productSolutionData.componentId">
+  <div class="row d-flex align-items-center justify-content-center flex-xs-column flex-sm-row">
+    <div class="col-xs-12 col-sm-6 text-right">
+      <div class="product-solution__wrapper">
+        <a :href="productSolutionData.isExternalImage ? productSolutionData.imageLink : globals.getUrlWithContextPath(productSolutionData.imageLink)"
+          :target="productSolutionData.isExternalImage?'_blank':''" v-if="productSolutionData.imageLink">
+          <picture>
+            <source media="(min-width: 1200px)" :srcset="productSolutionData.backgroundImageD">
+            <source media="(min-width: 768px)" :srcset="productSolutionData.backgroundImageT">
+            <source media="(min-width: 360px)" :srcset="productSolutionData.backgroundImageM">
+            <img :src="backgroundImg" :alt="[backgroundAlt]">
+          </picture>
+        </a>
+        <span :href="productSolutionData.isExternalImage ? productSolutionData.imageLink : globals.getUrlWithContextPath(productSolutionData.imageLink)"
+          :target="productSolutionData.isExternalImage?'_blank':''" v-else>
+          <picture>
+            <source media="(min-width: 1200px)" :srcset="productSolutionData.backgroundImageD">
+            <source media="(min-width: 768px)" :srcset="productSolutionData.backgroundImageT">
+            <source media="(min-width: 360px)" :srcset="productSolutionData.backgroundImageM">
+            <img :src="backgroundImg" :alt="[backgroundAlt]">
+          </picture>
+        </span>
+        <a class="image-title__video-play-icon image-title__position__center icon-play" tabindex="0" :target="productSolutionData.isExternalImage?'_blank':''"
+          href="javascript:void(0)" @click="openModal(productSolutionData.videoSrc)" :style="{color:productSolutionData.playIconColor}"
+          v-if="productSolutionData.isVideo==='true'" :aria-label="i18n.iconPlayTitle" :title="i18n.iconPlayTitle"></a>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 mt-sm-5 text-block">
+      <h4 v-if="productSolutionData.highlighterText" class="highlight-header" v-html="productSolutionData.highlighterText"></h4>
+      <h2 class="header mt-xs-0" :style="{color: productSolutionData.componentHeaderColor}" v-if="productSolutionData.componentHeader"
+        v-html="productSolutionData.componentHeader"></h2>
+      <p v-if="productSolutionData.subHeaderText" class="sub-header" v-html="productSolutionData.subHeaderText"></p>
+      <div class="row tile" v-for="tile in productSolutionData.tiles">
+        <div class="col-xs-2">
+          <img :src="tile.imgSrcD" :alt="getResponsiveAlt(tile.imgSrcAltTextD, tile.imgSrcAltTextT, tile.imgSrcAltTextM)">
+        </div>
+        <div class="col-xs-10">
+          <h6 class="tile-header" v-html="tile.header" :style="{color: tile.headerColor}"></h6>
+          <p class="tile-desc mb-xs-3" v-html="tile.tileText"></p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-md-6 mb-xs-2 text-center btn-container" v-if="productSolutionData.ctaText && productSolutionData.ctaLink">
+          <a :href="productSolutionData.isExternal ? productSolutionData.ctaLink : globals.getUrlWithContextPath(productSolutionData.ctaLink)"
+            :target="productSolutionData.isExternal ? '_blank' : ''" :class="productSolutionData.ctaStyle" class="product-solution-cta"
+            v-html="productSolutionData.ctaText" :style="{color: productSolutionData.ctaColor}" v-if="!productSolutionData.jumpToHtml"></a>
+          <a :href="productSolutionData.isExternal ? productSolutionData.ctaLink : globals.getUrlWithContextPath(productSolutionData.ctaLink)"
+            :target="productSolutionData.isExternal ? '_blank' : ''" :class="productSolutionData.ctaStyle" class="product-solution-cta"
+            v-html="productSolutionData.ctaText" :style="{color: productSolutionData.ctaColor}" v-if="productSolutionData.jumpToHtml"
+            @click="emitScrollSignal(productSolutionData.ctaLink)"></a>
+        </div>
+        <div class="col-xs-12 col-md-6 mb-xs-2 text-center btn-container" v-if="productSolutionData.ctaText2 && productSolutionData.ctaLink2">
+          <a :href="productSolutionData.isExternalCta2 ? productSolutionData.ctaLink2 : globals.getUrlWithContextPath(productSolutionData.ctaLink2)"
+            :target="productSolutionData.isExternalCta2 ? '_blank' : ''" :class="productSolutionData.ctaStyle" class="product-solution-cta"
+            v-html="productSolutionData.ctaText2" :style="{color: productSolutionData.ctaColor2}"></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

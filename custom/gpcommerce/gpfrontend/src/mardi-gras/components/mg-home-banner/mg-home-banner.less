@@ -1,0 +1,20 @@
+.mg-home-banner {
+    background: url('/static/assets/images/mardi-gras/mg_home_bg.png');
+    background-size: cover;
+    // margin-top: -20px;
+    .image-container {
+        img {
+            max-width: 80%;
+            @media only screen and (min-width: @screen-md-min){
+                max-width: 100%;
+            }
+        }
+    }
+    .header-end-tear {
+        background: url('/static/assets/images/mardi-gras/mg_section-border.png') repeat;
+        height: 35px;
+        position: relative;
+        top: 20px;
+        z-index: 1;
+    }
+}

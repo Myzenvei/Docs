@@ -1,0 +1,163 @@
+#gp-employee {
+  .vx-list-details {
+    margin-bottom: 16px;
+    background-color: @card-layout-bg-color;
+    border-radius: @card-layout-border-radius;
+    & > div {
+      padding: 36px 20px 24px 20px;
+      & > div:first-child {
+        display: block;
+        margin: 0;
+        + h5 {
+          margin-top: 16px;
+        }
+      }
+      h1 {
+        margin: 0;
+        padding: 0;
+        font-size: @font-size-section-heading;
+        width: auto;
+        border-bottom: 4px solid @brand-primary;
+        font-weight: @font-weight-medium;
+        padding-bottom: 4px;
+        text-transform: capitalize;
+        & + .icon-share {
+          float: right;
+          cursor: pointer;
+        }
+      }
+      .list-subtotal-container {
+        .icon-edit,
+        .icon-share,
+        .icon-trash {
+          margin-right: 16px !important;
+        }
+        .pull-right {
+          display: none;
+        }
+      }
+      .list-items-container {
+        padding-top: 16px;
+        .vx-product-tile {
+          .product-tile {
+            .main-section {
+              .card-content-section {
+                .card-content {
+                  .card-content-right-section {
+                    button {
+                      min-width: 170px;
+                    }
+                  }
+                }
+              }
+              .top-right {
+                right: 24px;
+              }
+            }
+          }
+        }
+        .icon-trash {
+          cursor: pointer;
+          font-size: 12px;
+          color: @font-icon-color-6;
+        }
+      }
+    }
+    .coming-soon-status {
+      border-radius: 0 @card-layout-border-radius @card-layout-border-radius 0;
+    }
+  }
+}
+
+@media screen and (max-width: @screen-sm-max) {
+  #gp-employee {
+    .vx-list-details {
+      & > div.col-xs-12 {
+        padding: 24px;
+      }
+      padding: 0;
+      & > div {
+        h3 {
+          margin: 0;
+        }
+        .list-subtotal-container {
+          padding-top: 24px;
+        }
+        .list-items-container {
+          .vx-product-tile {
+            .product-tile {
+              padding: 14px 18px;
+              .main-section {
+                .card-content-section {
+                  .card-content-left-section {
+                    .quantity-section {
+                      padding-top: 8px;
+                    }
+                  }
+                  .card-content-right-section {
+                    .product-total-price {
+                      margin-bottom: 0;
+                    }
+                  }
+                }
+                .top-right {
+                  right: 16px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: @screen-xs-max) {
+  #gp-employee {
+    .vx-list-details {
+      padding: 0px;
+      & > div.col-xs-12 {
+        padding: 24px 12px;
+        .list-items-container {
+          .vx-product-tile {
+            .product-tile {
+              padding: 16px 8px;
+              .main-section {
+                .left-section {
+                  margin-right: 8px;
+                }
+                .card-content-section {
+                  .card-content {
+                    .card-content-left-section {
+                      .product-title {
+                        max-width: calc(100% - 60px);
+                        a {
+                          font-size: @font-size-medium;
+                        }
+                      }
+                    }
+                    .card-content-right-section {
+                      button {
+                        min-width: 132px;
+                      }
+                    }
+                  }
+                }
+                .top-right {
+                  right: 16px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+@media screen and (min-width: @screen-md-min) {
+  #gp-employee {
+    .vx-list-details {
+      min-height: calc(100vh - 282px);
+    }
+  }
+}

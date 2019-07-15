@@ -1,0 +1,60 @@
+INSERT_UPDATE SearchRestriction;code[unique=true];active[default=false];generate[default=false];principal(uid);restrictedType(code);query
+
+# Search Restrictions
+#
+;Backend_ProductBrand;true;false;customergroup;Product;"
+((
+                ((?session.currentSite.uid) IN ({{Select {uid} from {cmssite} where {uid} != 'gpxpress'}}))
+                 OR
+                (
+                                ((?session.currentSite.uid) = 'gpxpress') AND
+                                (              {pk} IN ({{
+                                                SELECT {p.pk} FROM {GPCommerceProduct as p JOIN CategoryProductRelation as pcr ON {pcr.target}={p.pk} 
+ 
+                                                JOIN Category as cat on {cat.pk}= {pcr.source}
+ 
+                                                }
+ 
+                                                WHERE {cat.code} = (?session.soldToRootcategory)
+ 
+                                                AND {p.brandLabel} IN ({{ SELECT {unit2brandLabel.target} FROM {B2BUnit as b2bUnit JOIN B2B2BrandLabelRel as unit2brandLabel ON {unit2brandLabel.source}={b2bUnit.pk}}
+ 
+                                                WHERE {b2bUnit.uid} = (?session.soldToUnitId)}})
+ 
+                                                }})
+                                )
+                )
+                OR
+				(
+					((?session.currentSite.uid) = 'gpxpress') AND
+					(
+							{pk} IN ({{
+								SELECT {p:pk} FROM {GPCompetitorProduct as p} 
+							}})
+					)
+					
+				)
+))
+"
+
+;Backend_ProductReference;true;false;customergroup;ProductReference;"
+((
+                ((?session.currentSite.uid) IN ({{Select {uid} from {cmssite} where {uid} != 'gpxpress'}}))
+                 OR
+                (
+                                ((?session.currentSite.uid) = 'gpxpress') AND
+                                ( 
+{pk} IN ({{
+	SELECT {pr.pk} 
+	FROM {ProductReference as pr
+	 JOIN GPCommerceProduct as p ON {p.pk}={pr.target}
+	 JOIN CategoryProductRelation as pcr ON {pcr.target}={pr.target} 
+	 JOIN Category as cat on {cat.pk}= {pcr.source}
+	 }
+	WHERE 	{cat.code} = (?session.soldToRootcategory)
+		AND {p.brandLabel} IN ({{ SELECT {unit2brandLabel.target} FROM {B2BUnit as b2bUnit JOIN B2B2BrandLabelRel as unit2brandLabel ON {unit2brandLabel.source}={b2bUnit.pk}}
+							 WHERE {b2bUnit.uid} = (?session.soldToUnitId)}})
+		 
+}})))
+))
+"

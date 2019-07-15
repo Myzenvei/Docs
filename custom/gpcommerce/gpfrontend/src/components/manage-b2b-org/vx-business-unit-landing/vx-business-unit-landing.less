@@ -1,0 +1,140 @@
+@import '../../../styles/common/manage-b2b-org.less';
+
+.vx-business-unit-landing {
+  .heading-section {
+    a {
+      font-size: @font-size-large;
+      font-weight: @font-weight-medium;
+      color: @text-color-secondary-3;
+    }
+  }
+
+  .sub-heading {
+    width: 75%;
+  }
+
+  .parent-unit-section {
+    border: 1px solid @border-color;
+    .title-section {
+      a {
+        font-weight: @font-weight-medium;
+        color: @text-color-secondary-3;
+        font-size: @font-size-small;
+      }
+    }
+    .detail-section {
+      font-size: @font-size-small;
+      .parent-details {
+        width: 30%;
+      }
+      .parent-address {
+        width: 30%;
+      }
+      .user-section {
+        width: 40%;
+        div {
+          p {
+            font-size: @font-size-large;
+          }
+          width: 50%;
+        }
+      }
+    }
+  }
+
+  .child-units-section {
+    table {
+      .odd,
+      .even {
+        td {
+          padding-bottom: 24px;
+        }
+      }
+      .nested-row {
+        td {
+          border-top: none;
+          font-size: @font-size-small;
+          a {
+            font-size: @font-size-small;
+          }
+        }
+      }
+    }
+  }
+  .modal-body {
+    height: calc(100% - 56px);
+  }
+}
+
+@media (max-width: @screen-sm-max) {
+  .vx-business-unit-landing {
+    .parent-unit-section {
+      .detail-section {
+        .parent-details {
+          width: 33.33%;
+        }
+        .parent-address {
+          width: 33.33%;
+        }
+        .user-section {
+          width: 33.33%;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: @screen-xs-max) {
+  .vx-business-unit-landing {
+    .parent-unit-section {
+      .detail-section {
+        flex-direction: column;
+        .parent-details {
+          width: 100%;
+        }
+        .parent-address {
+          width: 100%;
+        }
+        .user-section {
+          width: 100%;
+          div {
+            width: 50%;
+          }
+        }
+      }
+    }
+
+    .child-units-section {
+      h2 {
+        font-size: 21px;
+      }
+      table {
+        thead,
+        tbody,
+        th,
+        td,
+        tr {
+          display: block;
+        }
+        thead {
+          border: 0;
+        }
+        thead tr {
+          position: absolute;
+          top: -9999px;
+          left: -9999px;
+        }
+        td[data-title='Admins'],
+        td[data-title='Buyers'] {
+          display: none;
+        }
+        .odd,
+        .even {
+          td {
+            padding-bottom: 16px;
+          }
+        }
+      }
+    }
+  }
+}

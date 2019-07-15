@@ -1,0 +1,45 @@
+.vx-share-resource-modal {
+  .resource-name {
+    color: @text-color-secondary-3;
+    font-size: 16px;
+    font-weight: @font-weight-medium;
+    line-height: 19px;
+  }
+  .resource-description {
+    font-weight: @font-weight-light;
+    letter-spacing: 0.15px;
+  }
+  .video-player {
+    width: 100%;
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  }
+  .view-btn {
+    color: @btn-default-color;
+    line-height: 16px;
+  }
+  .form-group {
+    margin-bottom: 0;
+  }
+  hr {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    border-color: @border-color;
+    margin: 0;
+  }
+  .form-group {
+    input[disabled] {
+      background-color: transparent !important;
+    }
+  }
+}

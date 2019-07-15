@@ -1,0 +1,72 @@
+.registration-and-login-sign-in {
+  h1 {
+    font-size: 24px;
+  }
+  .error-msg,
+  .error-icon {
+    color: @font-color-error;
+  }
+  .form-group {
+    label {
+      text-transform: capitalize;
+      letter-spacing: 0.15px;
+      font-weight: @font-weight-regular;
+    }
+  }
+  .error-icon {
+    display: inline-block;
+  }
+  .headingPart1 {
+    display: block;
+  }
+  .b2b-heading {
+    font-size: @font-size-h3;
+  }
+  .icon-eye {
+    font-size: @font-size-large+8;
+    color: @font-icon-color-3;
+  }
+  .btn-block {
+    letter-spacing: 0.15px;
+  }
+  .toggle-password {
+    cursor: pointer;
+    float: right;
+    position: relative;
+    bottom: 35px;
+    right: 12px;
+  }
+  .gp-express {
+    font-size: @font-size-small;
+  }
+  .b2c-guest-heading,
+  .b2c-heading {
+    font-size: @font-size-xs-h1;
+    font-weight: @font-weight-light;
+  }
+  a {
+    color: @text-color-secondary-3;
+    font-size: @font-size-medium;
+    font-weight: @font-weight-medium;
+  }
+  .no-account-text {
+    font-size: @font-size-medium;
+    font-weight: @font-weight-regular;
+    line-height: @line-height-regular;
+  }
+  @media only screen and (max-width: @screen-xs-max) {
+    .form-control {
+      width: 100%;
+      height: 40px;
+    }
+    .b2b-heading,
+    .b2c-heading,
+    .b2c-guest-heading,
+    .b2c-heading {
+      font-size: @font-size-h4;
+    }
+    .headingPart1 {
+      display: inline-block;
+    }
+  }
+}

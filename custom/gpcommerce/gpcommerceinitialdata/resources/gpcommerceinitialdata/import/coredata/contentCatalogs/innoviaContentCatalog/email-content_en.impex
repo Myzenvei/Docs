@@ -1,0 +1,111 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+#
+#  Import the CMS content for the Innovia site emails
+#
+
+$contentCatalog=innoviaContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$jarEmailResource=jar:com.gp.commerce.initialdata.constants.GpcommerceInitialDataConstants&/gpcommerceinitialdata/import/coredata/contentCatalogs/innoviaContentCatalog/emails
+
+# Import config properties into impex macros for modulegen
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+$emailResource=$config-emailResourceValue                                                                  
+
+# Language                                                                                                 
+$lang=en                                                                                                   
+
+# CMS components and Email velocity templates                                                              
+UPDATE RendererTemplate ; code[unique=true]                                    ; description[lang=$lang]                            ; templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                        ; innovia-BannerComponent-template                     ; "CMSBannerComponent Template"                      ; $emailResource/email-bannerComponentTemplate.vm                                                               
+                        ; innovia-CMSImageComponent-template                   ; "CMSImageComponent Template"                       ; $emailResource/email-cmsImageComponentTemplate.vm                                                             
+                        ; innovia-CMSLinkComponent-template                    ; "CMSLinkComponent Template"                        ; $emailResource/email-cmsLinkComponentTemplate.vm                                                              
+                        ; innovia-CMSParagraphComponent-template               ; "CMSParagraphComponent Template"                   ; $emailResource/email-cmsParagraphComponentTemplate.vm                                                         
+                        ; innovia-SimpleBannerComponent-template               ; "CMSSimpleBannerComponent Template"                ; $emailResource/email-bannerComponentTemplate.vm                                                               
+                        ; innovia_Email_Customer_Registration_Body             ; "Customer Registration Email Body"                 ; $jarEmailResource/email-customerRegistrationBody.vm                                                              
+                        ; innovia_Email_Customer_Registration_Subject          ; "Customer Registration Email Subject"              ; $jarEmailResource/email-customerRegistrationSubject.vm                                                           
+                        ; innovia_Email_Delivery_Sent_Body                     ; "Delivery Sent Email Body"                         ; $jarEmailResource/email-deliverySentBody.vm                                                                      
+                        ; innovia_Email_Delivery_Sent_Subject                  ; "Delivery Sent Email Subject"                      ; $jarEmailResource/email-deliverySentSubject.vm                                                                   
+                        ; innovia_Email_Forgotten_Password_Body                ; "Forgotten Password Email Body"                    ; $jarEmailResource/email-forgottenPasswordBody.vm                                                                 
+                        ; innovia_Email_Forgotten_Password_Subject             ; "Forgotten Password Email Subject"                 ; $jarEmailResource/email-forgottenPasswordSubject.vm    
+                        ; innovia_Email_Password_Reset_Body   				   ; "Password Reset Success Email Body" 				; $jarEmailResource/email-passwordResetBody.vm    
+                        ; innovia_Email_Password_Reset_Subject				   ; "Password Reset Success Email Subject"     		; $jarEmailResource/email-passwordResetSubject.vm        
+						; innovia_Email_Share_Cart_Subject					   ; "Share Cart Email Subject"						    ; $jarEmailResource/email-shareCartSubject.vm
+						; innovia_Email_Share_Cart_Body						   ; "Share Cart Email Body" 							; $jarEmailResource/email-shareCartBody.vm						
+                        ; innovia_Email_NotPickedUpConsignment_Canceled_Body   ; "Not Picked Up Consignment Canceled Email Body"    ; $emailResource/email-notPickedUpConsignmentCanceledBody.vm                                                    
+                        ; innovia_Email_NotPickedUpConsignment_Canceled_Subject; "Not Picked Up Consignment Canceled Email Subject" ; $emailResource/email-notPickedUpConsignmentCanceledSubject.vm                                                 
+                        ; innovia_Email_Order_Cancelled_Body                   ; "Order Cancelled Email Body"                       ; $jarEmailResource/email-orderCancelledBody.vm                                                                    
+                        ; innovia_Email_Order_Cancelled_Subject                ; "Order Cancelled Email Subject"                    ; $jarEmailResource/email-orderCancelledSubject.vm                                                                 
+                        ; innovia_Email_Order_Collection_Reminder_Body         ; "Order Collection Reminder Email Body"             ; $emailResource/email-orderCollectionReminderBody.vm                                                           
+                        ; innovia_Email_Order_Collection_Reminder_Subject      ; "Order Collection Reminder"                        ; $emailResource/email-orderCollectionReminderSubject.vm                                                        
+                        ; innovia_Email_Order_Confirmation_Body                ; "Order Confirmation Email Body"                    ; $jarEmailResource/email-orderConfirmationBody.vm                                                                 
+                        ; innovia_Email_Order_Confirmation_Subject             ; "Order Confirmation Email Subject"                 ; $jarEmailResource/email-orderConfirmationSubject.vm                                                              
+                        ; innovia_Email_Order_Move_To_CS_Body                  ; "Order Move To CS Email Body"                      ; $emailResource/email-orderMoveToCsBody.vm                                                                     
+                        ; innovia_Email_Order_Move_To_CS_Subject               ; "Order Move To CS Subject"                         ; $emailResource/email-orderMoveToCsSubject.vm                                                                  
+                        ; innovia_Email_Order_Partially_Canceled_Body          ; "Order Partially Canceled Email Body"              ; $emailResource/email-orderPartiallyCanceledBody.vm                                                            
+                        ; innovia_Email_Order_Partially_Canceled_Subject       ; "Order Partially Canceled Email Subject"           ; $emailResource/email-orderPartiallyCanceledSubject.vm                                                         
+                        ; innovia_Email_Order_Partially_Refunded_Body          ; "Order Partially Refunded Email Body"              ; $emailResource/email-orderPartiallyRefundedBody.vm                                                            
+                        ; innovia_Email_Order_Partially_Refunded_Subject       ; "Order Partially Refunded Email Subject"           ; $emailResource/email-orderPartiallyRefundedSubject.vm                                                         
+                        ; innovia_Email_Order_Refund_Body                      ; "Order Refund Email Body"                          ; $jarEmailResource/email-orderRefundBody.vm                                                                       
+                        ; innovia_Email_Order_Refund_Subject                   ; "Order Refund Email Subject"                       ; $jarEmailResource/email-orderRefundSubject.vm                                                                    
+                        ; innovia_Email_Ready_For_Pickup_Body                  ; "Ready For Pickup Email Body"                      ; $emailResource/email-readyForPickupBody.vm                                                                    
+                        ; innovia_Email_Ready_For_Pickup_Subject               ; "Ready For Pickup Email Subject"                   ; $emailResource/email-readyForPickupSubject.vm 
+                        ; email-ChangeUIDSubject-template					   ; "change UID email subject"							; $jarEmailResource/email-changeUIDSubject.vm
+						; email-ChangeUIDBody-template						   ; "change UID email subject"							; $jarEmailResource/email-changeUIDBody.vm  
+						; email-UpdateProfileSubject-template				   ; "change UID email subject"							; $jarEmailResource/email-updateProfileSubject.vm
+						; email-UpdateProfileBody-template					   ; "change UID email subject"							; $jarEmailResource/email-updateProfileBody.vm         
+                        ; innovia_Email_Share_Wishlist_Subject				   ; "Share Wishlist Email Subject"						; $jarEmailResource/email-shareWishlistSubject.vm
+						; innovia_Email_Share_Wishlist_Body					   ; "Share Wishlist Email Body" 					    ; $jarEmailResource/email-shareWishlistBody.vm						
+						; innovia_Email_Share_Wishlist_Body					   ; "Share Wishlist Email Body" 					    ; $jarEmailResource/email-shareWishlistBody.vm						
+                        ; innovia-GPFooterComponent-template                   ; "Email Footer Component"							; $jarEmailResource/email-gpFooterComponentTemplate.vm
+						; email-FailedOrder_Subject					           ; "Failed Order Consignment Subject"                 ; $jarEmailResource/email-failedOrderSubject.vm
+				        ; email-FailedOrder_Body						       ; "Failed Order Consignment Body"                    ; $jarEmailResource/email-failedOrderBody.vm	
+						; innovia_Email_Order_Reject_Body					   ; "Order Reject Email Body"                 			; $jarEmailResource/email-orderRejectBody.vm
+				        ; innovia_Email_Order_Reject_Subject				   ; "Order Reject Email Subject"                   	; $jarEmailResource/email-orderRejectSubject.vm
+				        ; innovia_Email_Share_Product_Resource_Subject	       ; "Share Product Resource Email Subject"				; $jarEmailResource/email-shareProductResourceSubject.vm
+ 						; innovia_Email_Share_Product_Resource_Body		       ; "Share Product Resource Email Body"				; $jarEmailResource/email-shareProductResourceBody.vm	
+						; innovia_Email_Order_Issues_Notify_Body			   ; "Order Issues Notification BOdy"				    ; $jarEmailResource/email-orderIssuesNotificationBody.vm	
+						; innovia_Email_Order_Issues_Notify_Subject		       ; "Order Issues Notification BOdy"   			    ; $jarEmailResource/email-orderIssuesNotificationSubject.vm	
+						; innovia_Email_Subscription_Confirmation_Body         ; "Subscription Confirmation Email Body"             ; $jarEmailResource/email-subscriptionConfirmationBody.vm
+						; innovia_Email_Subscription_Confirmation_Subject      ; "Subscription Confirmation Email Subject"          ; $jarEmailResource/email-subscriptionConfirmationSubject.vm
+    					; innovia_Email_Subcription_Order_Cancelled_Subject	   ; "Subscription Order Cancel Email Subject"		    ; $jarEmailResource/email-subscriptionOrderCancelledSubject.vm 
+    					; innovia_Email_Subcription_Order_Cancelled_Body	   ; "Subscription Order Cancel Email Body"			    ; $jarEmailResource/email-subscriptionOrderCancelledBody.vm 
+    					; innovia_Email_Subcription_Order_Status_Subject	   ; "Subscription Order Status Email Subject"		    ; $jarEmailResource/email-subscriptionOrderStatusSubject.vm 
+    					; innovia_Email_Subcription_Order_Status_Body	       ; "Subscription Order Status Email Body"			    ; $jarEmailResource/email-subscriptionOrderStatusBody.vm 
+                   	    ; innovia_Email_Next_Order_Subscription_Subject        ; "Next Order Subscription Email Subject"            ; $jarEmailResource/email-nextOrderSubscriptionSubject.vm
+					    ; innovia_Email_Next_Order_Subscription_Body           ; "Next Order Subscription Email Body"   		    ; $jarEmailResource/email-nextOrderSubscriptionBody.vm     
+# Email Pages           
+UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]             		; fromEmail[lang=$lang]          ; fromName[lang=$lang]    
+                 ;                         ; CustomerRegistrationEmail    		; "customerservices@innovia.com" ; "Customer Services Team"
+                 ;						   ; PasswordResetEmail			  		; "customerservices@innovia.com" ; "Customer Services Team"
+                 ;                         ; DeliverySentEmail            		; "customerservices@innovia.com" ; "Customer Services Team"
+                 ;                         ; ForgottenPasswordEmail       		; "customerservices@innovia.com" ; "Customer Services Team"
+				 ;						   ; ShareCartEmail				  		; "customerservices@innovia.com" ; "Customer Services Team"
+                 ;                         ; OrderCancelledEmail          		; "customerservices@innovia.com" ; "Customer Services Team"
+                 ;                         ; OrderCollectionReminderEmail 		; "customerservices@innovia.com" ; "Customer Services Team"
+                 ;                         ; OrderConfirmationEmail       		; "customerservices@innovia.com" ; "Customer Services Team"
+                 ;                         ; OrderMoveToCsEmail           		; "customerservices@innovia.com" ; "Customer Services Team"
+                 ;                         ; OrderPartiallyCanceledEmail  		; "customerservices@innovia.com" ; "Customer Services Team"
+                 ;                         ; OrderPartiallyRefundedEmail  		; "customerservices@innovia.com" ; "Customer Services Team"
+                 ;                         ; NotPickedUpConsignmentCanceledEmail; "customerservices@innovia.com" ; "Customer Services Team"
+                 ;                         ; OrderRefundEmail             		; "customerservices@innovia.com" ; "Customer Services Team"
+                 ;                         ; ReadyForPickupEmail          		; "customerservices@innovia.com" ; "Customer Services Team"
+                 ;                         ; UpdateProfileEmail    		  		; "customerservices@innovia.com" ; "Customer Services Team"
+                 ;						   ; ChangeUIDEmail				  		; "customerservices@innovia.com" ; "Customer Services Team"
+                 ;						   ; ShareWishlistEmail			  		; "customerservices@innovia.com" ; "Customer Services Team"
+                 ;						   ; FailedOrderEmail			  		; "customerservices@innovia.com" ; "Customer Services Team"
+                 ;						   ; OrderRejectEmail			  		; "customerservices@innovia.com" ; "Customer Services Team"
+                 ;						   ; ShareProductResourceEmail	  		; "customerservices@innovia.com" ; "Customer Services Team"  
+                 ;						   ; OrderIssuesNotifyEmail		  		; "customerservices@innovia.com" ; "Customer Services Team"        
+                 ;                         ; GPSubscrpOrderConfirmationEmail	; "customerservices@innovia.com" ; "Customer Services Team"          
+                 ;						   ; SubscriptionOrderCancelledEmail	; "customerservices@innovia.com" ; "Customer Services Team"
+				 ;						   ; SubscriptionOrderStatusEmail		; "customerservices@innovia.com" ; "Customer Services Team"
+ 				 ;						   ; GPNextOrderSubscriptionEmail		; "customerservices@innovia.com" ; "Customer Services Team"              

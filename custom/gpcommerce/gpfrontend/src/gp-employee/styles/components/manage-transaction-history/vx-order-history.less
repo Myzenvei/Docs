@@ -1,0 +1,94 @@
+#gp-employee {
+  .right.col-md-9 {
+    .account-section {
+      background-color: @card-layout-bg-color;
+      border-radius: @card-layout-border-radius;
+      margin-top: -40px;
+      margin-bottom: 16px;
+      .account-section-content {
+        .pr-xs-5 {
+          padding: 0 20px !important;
+        }
+        .vx-order-history {
+          min-height: calc(100vh - 282px);
+          margin: 0 8px;
+          .order-history-heading {
+            padding-top: 35px;
+            font-size: @font-size-section-heading;
+            h1 {
+              display: inline;
+              line-height: 27px;
+              padding-bottom: 6px;
+              position: relative;
+              font-weight: @font-weight-bold;
+              &.h3::after {
+                content: '';
+                position: absolute;
+                border-top: 4px solid @brand-primary;
+                width: 100%;
+                height: 4px;
+                bottom: 0;
+                left: 0;
+                border-radius: 2px;
+              }
+            }
+            span:not(.icon-filter) {
+              border-bottom: 4px solid @brand-primary;
+            }
+            & + div {
+              display: block;
+              float: right;
+              .sub-heading {
+                display: none;
+              }
+              .transaction-data-dropdown {
+                width: initial;
+                float: right;
+              }
+            }
+          }
+          .no-of-orders {
+            padding: 20px 0 !important;
+            font-weight: @font-weight-regular;
+          }
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: @screen-sm-max) {
+  #gp-employee {
+    .right.col-md-9 {
+      .account-section {
+        .account-section-content {
+          .vx-order-history {
+            .order-history-heading {
+              padding-top: 24px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: @screen-xs-max) {
+  #gp-employee {
+    .right.col-md-9 {
+      .account-section {
+        .account-section-content {
+          .pr-xs-5 {
+            padding: 0 12px !important;
+          }
+          .vx-order-history {
+            margin: 0;
+            .order-history-heading {
+              .modal-body {
+                height: 74vh;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

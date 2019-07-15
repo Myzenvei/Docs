@@ -1,0 +1,16 @@
+#brawny {
+  .image-title {
+    &-container {
+      .d-flex {
+        @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+          width: 33% !important;
+        }
+      }
+      & .bottom-block {
+        .tile-header {
+          font-size: @font-size-h2;
+        }
+      }
+    }
+  }
+}

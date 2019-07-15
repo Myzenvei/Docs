@@ -1,0 +1,16 @@
+<div class="vx-export-tool-login d-flex justify-content-center">
+  <form ref="toolLoginForm" method="post">
+    <div class="my-xs-4 form-group">
+      <label :aria-hidden='isDeviceAndroid()'>{{i18n.userName}}</label>
+      <input class="form-control" v-model="userName" :aria-label="i18n.userName" aria-describedby="login_error_msg">
+    </div>
+    <div class="my-xs-4 form-group">
+      <label :aria-hidden='isDeviceAndroid()'>{{i18n.password}}</label>
+      <input class="form-control" v-model="password" :aria-label="i18n.password" aria-describedby="login_error_msg">
+    </div>
+    <div class="mt-xs-2" v-if="loginError" :aria-hidden="loginError !== ''">
+      <span class="error-msg" id='login_error_msg'>{{loginError}}</span>
+    </div>
+    <button class="btn-block btn btn-primary" @click="loginClicked">{{i18n.login}}</button>
+  </form>
+</div>

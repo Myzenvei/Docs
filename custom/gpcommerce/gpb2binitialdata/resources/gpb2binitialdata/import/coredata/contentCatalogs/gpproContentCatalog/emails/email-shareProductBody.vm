@@ -1,0 +1,234 @@
+## messageSource=classpath:/gpb2binitialdata/import/coredata/contentCatalogs/gpproContentCatalog/messages/email-shareProduct_$lang.properties
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style type="text/css">
+        @media screen and (max-width: 1199px) {
+            body>table {
+                width: 768px;
+            }
+
+            .content-slot {
+                padding-left: 32px;
+                padding-right: 32px;
+            }
+        }
+
+        @media screen and (max-width: 767px) {
+            body>table {
+                width: 360px;
+            }
+
+            .content-slot {
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+        }
+    </style>
+    <!–[if gte mso 9]>
+</head>
+
+<body style="-webkit-text-size-adjust: none; -ms-text-size-adjust: none; text-size-adjust: none; margin: 0; padding: 0; width: 100%;">
+    <table cellspacing="0" cellpadding="0" align="center" border="0" width="800" bgcolor="#ffffff" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 800px;">
+    <tr>
+      <td valign="top" align="left" width="100%" style="font-family: Helvetica, Arial, Verdana,
+      sans-serif;">
+        <table cellspacing="0" cellpadding="0" align="left" border="0" width="100%" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+          <tr>
+            <td valign="top" align="left" width="100%" height="73px" style="font-family: Helvetica, Arial, Verdana,
+      sans-serif;" class="100p">
+          <a href="${ctx.secureBaseUrl}" style="display:block; margin-top:10px;margin-bottom:10px;">${ctx.cmsSlotContents.SiteLogo}</a>
+      </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+        <tr>
+            <td valign="top" align="left" width="100%" style="font-family: Helvetica, Arial, Verdana,
+        sans-serif;">
+                <table class="content-slot" cellspacing="0" cellpadding="0" align="left" border="0" width="100%"
+                    bgcolor="#ffffff" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding-left: 40px; padding-right: 40px;">
+                    <tr>
+                        <td valign="top" align="left" width="100%" colspan="4" class="txt-xl txt-weight-light txt-default-color pt-4"
+                            style="font-size: 24px; color: #222222; font-weight: 300; padding-top: 24px; font-family: Helvetica, Arial, Verdana,
+        sans-serif;">Shared a Product</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" align="left" class="py-5 px-6" style="padding-right: 40px; padding-left: 40px; padding-top: 32px; padding-bottom: 32px; font-family: Helvetica, Arial, Verdana,
+        sans-serif;">
+                <table class="pb-4" cellspacing="0" cellpadding="0" align="left" border="0" width="100%" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding-bottom: 24px;">
+                    <tr>
+                        <td valign="top" align="left" style="font-family: Helvetica, Arial, Verdana,
+        sans-serif;">
+                            <table cellspacing="0" cellpadding="0" align="left" border="0" width="100%" bgcolor="#ffffff"
+                                style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+                                <tr>
+                                    <td valign="top" align="left" colspan="4" style="font-family: Helvetica, Arial, Verdana,
+        sans-serif;">
+                                        <table cellspacing="0" cellpadding="0" align="center" width="100%" bgcolor="#ffffff"
+                                            style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+                                            <tr>
+                                                <td align="left" class="py-0" width="25%" style="padding-top: 0px; padding-bottom: 0px; font-family: Helvetica, Arial, Verdana,
+        sans-serif;">								#if(${ctx.image})
+                                                    <img src="${ctx.image.url}"
+                                                        alt="${ctx.image.altText}" style="height: auto; text-decoration: none; -ms-interpolation-mode: bicubic; margin: 0; padding: 0; line-height: 1.428571429; border: 1px solid #cecece; display: block; outline: none;"
+                                                        border="0" width="142" class="border-all">
+                                                     #end
+                                                </td>
+                                                <td class="pt-0" valign="top" style="padding-top: 0px; font-family: Helvetica, Arial, Verdana,
+        sans-serif;">
+                                                    <p class="txt-big txt-weight-semi-bold" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 16px; font-weight: 500; padding-bottom: 24px; font-family: Helvetica, Arial, Verdana,
+        sans-serif;">
+                                                        <strong style="margin: 0; padding: 0; line-height: 1.428571429; font-family: Helvetica, Arial, Verdana,
+        sans-serif;">${ctx.productName}</strong>
+                                                    </p>
+                                                    <br>
+                                                    <p class="txt-weight-light txt-medium pt-4" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-weight: 300; font-family: Helvetica, Arial, Verdana,
+        sans-serif;">${ctx.productCode}</p>
+                                                </td>
+                                                <td style="font-family: Helvetica, Arial, Verdana,
+        sans-serif;">
+                                                    &nbsp;
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <table cellspacing="0" cellpadding="0" align="left" border="0" width="100%"
+                                            bgcolor="#ffffff" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+                                            <tr>
+                                                <td valign="top" align="left" width="" class="pt-4" style="padding-top: 24px; font-family: Helvetica, Arial, Verdana,
+        sans-serif;">
+                                                    <p class="txt-big txt-weight-semi-bold" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 16px; font-weight: 500; font-family: Helvetica, Arial, Verdana,
+        sans-serif;">
+                                                        <strong style="margin: 0; padding: 0; line-height: 1.428571429; font-family: Helvetica, Arial, Verdana,
+        sans-serif;">Video on this product:</strong>
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td valign="top" align="left" width="" class="pt-2" style="padding-top: 8px; font-family: Helvetica, Arial, Verdana,
+        sans-serif;">
+                                                    <a class="txt-regular txt-weight-semi-bold " href="/#" title=""
+                                                        style="margin: 0; padding: 0; line-height: 1.428571429; color: #167bb4; letter-spacing: 0.15; font-size: 14px; font-weight: 500; display: block; text-decoration: none; outline: none; border: none; font-family: Helvetica, Arial, Verdana,
+        sans-serif;"
+                                                        target="_blank">
+                                                        <strong style="margin: 0; padding: 0; line-height: 1.428571429; font-family: Helvetica, Arial, Verdana,
+        sans-serif;"></strong>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td valign="top" align="left" width="" class="pt-4" style="padding-top: 24px; font-family: Helvetica, Arial, Verdana,
+        sans-serif;">
+                                                    <p class="txt-big txt-weight-semi-bold" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 16px; font-weight: 500; font-family: Helvetica, Arial, Verdana,
+        sans-serif;">
+                                                        <strong style="margin: 0; padding: 0; line-height: 1.428571429; font-family: Helvetica, Arial, Verdana,
+        sans-serif;">More Information on this product:</strong>
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td valign="top" align="left" width="" class="pt-2" style="padding-top: 8px; font-family: Helvetica, Arial, Verdana,
+        sans-serif;">
+                                                    <a class="txt-regular txt-weight-semi-bold " href="/#" title=""
+                                                        style="margin: 0; padding: 0; line-height: 1.428571429; color: #167bb4; letter-spacing: 0.15; font-size: 14px; font-weight: 500; display: block; text-decoration: none; outline: none; border: none; font-family: Helvetica, Arial, Verdana,
+        sans-serif;"
+                                                        target="_blank">
+         <strong style="margin: 0; padding: 0; line-height: 1.428571429; font-family: Helvetica, Arial, Verdana,
+        sans-serif;"><a style="color: #167BB4;" href="${ctx.secureBaseUrl}$ctx.productURL" target="_blank">Reference Guide-${ctx.productName}</a> </strong>
+
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" align="left" width="100%" style="font-family: Helvetica, Arial, Verdana,
+              sans-serif;">
+                <table cellspacing="0" cellpadding="0" align="left" border="0" width="100%" bgcolor="#cdcdcd" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+                    <tr>
+                        <td valign="top" align="center" width="100%">
+                            <table cellspacing="0" cellpadding="0" align="center" border="0" width="100%" bgcolor="#cdcdcd">
+                                <tr>
+                                    <td valign="top" align="left" width="">
+                                    </td>
+                                </tr>
+                                <tr style="margin-top: 32px;background-color: #dfdfdf;">
+                                    <td style="border-top: 1px solid #cecece;">
+                                        <table border="0" cellspacing="0" cellpadding="0" style="padding: 24px" width="100%">
+                                            <tr>
+                                                <td align="left" valign="middle" style="border-collapse:collapse" class="footer-m-block">
+                                                    <table width="100%">
+                                                        <tr>
+                                                            <td>
+                                                                <a href="javascript:void(0)" style=" color: #167BB4;font-size:14px;padding:10px,display:inline-block;text-decoration:none;outline:0;outline:none;border:0;border:none">Contact
+                                                                    Us</a>
+                                                            </td>
+                                                            <td style="color: #747678;font-size: 14px;" align="right">&copy;
+                                                                2018 | Georgia Pacific</td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                                <td align="right" valign="middle" style="border-collapse:collapse"
+                                                    class="footer-m-block">
+                                                    <table border="0" cellspacing="0" cellpadding="0" class="align-m-left">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="padding-right:10px;margin:10px;display: block;font-size: 14px;"
+                                                                    class="followUs-m-left">Follow
+                                                                    Us</td>
+                                                                <td>
+                                                                    <table border="0" cellspacing="0" cellpadding="0">
+                                                                        <tr>
+                                                                            <td>
+                                                                                <a style="font-size:0;border:0;outline:0;border:none;outline:none;text-decoration:none;padding-right:10px;padding-left: 0;"
+                                                                                    href="javascript:void(0) ">
+                                                                                    <img width="32px" height="32px" src="../images/icon-facebook.png ">
+                                                                                </a>
+                                                                            </td>
+                                                                            <td>
+                                                                                <a style="font-size:0;border:0;outline:0;border:none;outline:none;text-decoration:none;padding-right:10px;padding-left: 0;"
+                                                                                    href="javascript:void(0) ">
+                                                                                    <img width="32px" height="32px" src="../images/icon-twitter.png ">
+                                                                                </a>
+                                                                            </td>
+                                                                            <td>
+                                                                                <a style="font-size:0;border:0;outline:0;border:none;outline:none;text-decoration:none;padding-right:10px;padding-left: 0;"
+                                                                                    href="javascript:void(0) ">
+                                                                                    <img width="32px" height="32px" src="../images/icon-instagram.png ">
+                                                                                </a>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </table>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>

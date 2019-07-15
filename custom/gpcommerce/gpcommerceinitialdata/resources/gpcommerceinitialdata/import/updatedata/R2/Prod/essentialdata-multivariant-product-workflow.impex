@@ -1,0 +1,41 @@
+# Create template
+
+INSERT_UPDATE WorkflowTemplate;code[unique=true];name[lang=en];description[lang=en];owner(User.uid);visibleForPrincipals(uid)
+;MultiVariantProductWorkflowTemplate;MultiVariantProductWorkflowTemplate;Template to convert products so you could add variants;admin;backofficeadministratorrole
+
+
+#Create start and createBaseAndVariantProducts WorkflowActionTemplates and link them
+INSERT_UPDATE WorkflowActionTemplate;code[unique=true];name[lang=en];principalAssigned(User.uid);owner(User.uid);workflow(WorkflowTemplate.code);actionType(code);
+;startMultiVariantProductWorkflow;Starts the multivariant product workflow;admin;admin;MultiVariantProductWorkflowTemplate;start;
+
+
+INSERT_UPDATE AutomatedWorkflowActionTemplate;code[unique=true];name[lang=en];principalAssigned(User.uid);owner(User.uid);workflow(WorkflowTemplate.code);actionType(code);jobHandler
+;createBaseAndVariantProducts;Creates shell for base products and Variant Products;admin;admin;MultiVariantProductWorkflowTemplate;normal;createBaseAndVariantProductsJob
+
+
+INSERT_UPDATE WorkflowDecisionTemplate;code[unique=true];name[lang=en];actionTemplate(WorkflowActionTemplate.code);
+;createBaseAndVariantProductsPath;createBaseAndVariantProductsPath;startMultiVariantProductWorkflow;
+
+INSERT_UPDATE WorkflowActionTemplateLinkTemplateRelation;source(WorkflowDecisionTemplate.code)[unique=true];target(WorkflowActionTemplate.code)
+;createBaseAndVariantProductsPath;createBaseAndVariantProducts
+
+
+#Create end WorkflowActionTemplates and link with createBaseAndVariantProducts
+INSERT_UPDATE WorkflowActionTemplate;code[unique=true];name[lang=en];principalAssigned(User.uid);owner(User.uid);workflow(WorkflowTemplate.code);actionType(code);
+;endMultiVariantProductWorkflow;End;admin;admin;MultiVariantProductWorkflowTemplate;end;
+
+INSERT_UPDATE WorkflowDecisionTemplate;code[unique=true];name[lang=en];actionTemplate(WorkflowActionTemplate.code);
+;endPath;endPath;createBaseAndVariantProducts;
+
+INSERT_UPDATE WorkflowActionTemplateLinkTemplateRelation;source(WorkflowDecisionTemplate.code)[unique=true];target(WorkflowActionTemplate.code)
+;endPath;endMultiVariantProductWorkflow;
+
+
+
+
+
+
+
+
+
+

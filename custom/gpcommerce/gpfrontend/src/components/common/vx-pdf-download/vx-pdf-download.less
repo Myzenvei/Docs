@@ -1,0 +1,72 @@
+.vx-pdf-download {
+ .info-text{
+     font-weight: @font-weight-medium;
+     font-size: @font-size-medium;
+     color: @font-color-input-text;
+     padding-left: 0px;
+ }
+ .message-input{
+     min-height: 120px;
+ }
+ .form-group{
+     p{
+         color: @font-color-label-text;
+         font-size: @font-size-medium;
+         font-weight: @font-weight-regular;
+         &.info-text {
+          font-weight: @font-weight-medium;
+          font-size: @font-size-medium;
+          color: @font-color-input-text;
+          padding-left: 0px;
+         }
+     }
+ }
+ .form-control{
+     border-radius: 0;
+ }
+ .left-container{
+      padding-left: 0px;
+      padding-right: 0px;
+ }
+ .phone-number input{
+     height: 48px;
+ }
+ .disclaimer{
+     p{
+         color: @font-color-label-text;
+         font-size: @font-size-small;
+         font-weight: @font-weight-regular;
+         margin-bottom: 4px;
+     }
+     .disclaimer-line{
+       a{
+         font-size: @font-size-small;
+       }
+     }
+ }
+}
+@media (min-width: @screen-sm-min ) {
+  .coverImage {
+    width: 150px;
+    height: 223px;
+  }
+}
+
+@media (max-width: @screen-xs-max) {
+  .vx-pdf-download {
+    .right-container.col-xs-12 {
+      padding-left: 0px;
+      padding-right: 0px;
+
+      .col-xs-12 {
+        padding-left: 0px;
+        padding-right: 0px;
+      }
+    }
+
+    .coverImage {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}

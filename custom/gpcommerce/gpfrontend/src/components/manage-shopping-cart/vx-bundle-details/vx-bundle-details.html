@@ -1,0 +1,24 @@
+
+<div class="vx-bundle-details row mt-sm-5 mb-sm-0 mb-xs-3">
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen></vx-spinner>
+  <div class="root-bundle-heading d-flex justify-content-between py-sm-3 px-sm-4 p-xs-3">
+    <h4 class="root-bundle-name my-xs-0">{{bundleData.name}}</h4>
+    <span class="icon-x" @click="removeBundleFromCart" @keyup.enter="removeBundleFromCart" aria-label="delete"
+    tabindex="0" role='button' :title="i18n.removeBundle"></span>
+  </div>
+
+  <div class="leaf-bundle-section" v-for="leafBundle in bundleData.bundleTemplateList">
+    <div class="leaf-bundle-heading d-flex justify-content-between py-sm-3 px-sm-4 p-xs-3">
+      <p class="leaf-bundle-name my-xs-0">{{leafBundle.name}}</p>
+      <a :href="updateBundleUrl">
+        <span class="icon-edit" aria-label="edit" :title="i18n.edit"></span>
+      </a>
+    </div>
+    <vx-cart-product-tile v-for="product in leafBundle.products" v-bind:key="product.product.code"
+      :promotion-data="promotionData" :product-data="product" :is-b2b-lease="customerLeaseable" :i18n="i18n"
+      :installation-price="installationPrice" is-bundle-product="true" :is-product-removable="leafBundle.minItemsAllowed === 0">
+    </vx-cart-product-tile>
+  </div>
+</div>
+
+

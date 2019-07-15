@@ -1,0 +1,26 @@
+.image-title {
+  & &__wrapper {
+    &.feature-product {
+      .feature-product-tile {
+        .bottom-block {
+          h3 {
+            &.tile-header {
+              font-size: @font-size-h3;
+              font-weight: @font-weight-medium;
+            }
+          }
+          .tile-relative {
+            .mt-xs-3 {
+              display: flex;
+              justify-content: center;
+            }
+          }
+          .tile-btn {
+            &:extend(.btn);
+            &:extend(.btn-tertiary);
+          }
+        }
+      }
+    }
+  }
+}

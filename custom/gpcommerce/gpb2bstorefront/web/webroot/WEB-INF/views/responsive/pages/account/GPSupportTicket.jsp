@@ -1,0 +1,1 @@
+<vx-support-ticket :i18n="messages.manageProfileShoppingLists.supportTicket"></vx-support-ticket>

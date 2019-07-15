@@ -1,0 +1,4 @@
+<div v-if="!globals.getIsLoggedIn()" class="vx-guest-create-account">
+  <p class="text mb-xs-4">{{i18n.text}}</p>
+  <button @click="globals.navigateToUrl('register')" class="btn btn-tertiary btn-small-text">{{i18n.button}}</button>
+</div>

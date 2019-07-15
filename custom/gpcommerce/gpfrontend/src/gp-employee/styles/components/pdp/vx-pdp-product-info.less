@@ -1,0 +1,230 @@
+#gp-employee {
+  .vx-pdp-product-info {
+    padding-top: 45px;
+    .pdp-product-description {
+      width: 71.5%;
+      margin-left: 46px;
+      padding: 0;
+      h1 {
+        font-size: 32px;
+        font-weight: @font-weight-bold;
+        color: @pdp-heading-color;
+      }
+      .pdp-item-details {
+        p {
+          margin-bottom: 4px;
+          span {
+            color: @help-text-color;
+          }
+        }
+      }
+      .price {
+        .current-price {
+          font-size: 26px;
+          font-weight: @font-weight-bold;
+          color: @pdp-heading-color;
+        }
+        .actual-price {
+          font-size: 16px;
+          vertical-align: baseline;
+        }
+      }
+      .pdp-stepper-control {
+        width: 100%;
+        .qty-label {
+          font-size: 14px;
+          color: @help-text-color;
+        }
+        .stepper-control {
+          width: 100%;
+        }
+      }
+      .pdp-quantity-container {
+        .form-group {
+          &.dropdown {
+            display: none;
+          }
+        }
+      }
+      .pdp-facet-container {
+        display: none;
+        & ~ .col-xs-12 {
+          display: none;
+          &.mb-xs-3 {
+            display: block;
+          }
+        }
+      }
+      .pdp-add-to-cart-container {
+        position: relative;
+        border: none;
+        & > div {
+          padding: 0 !important;
+          button {
+            float: left !important;
+            width: auto;
+            padding: 12px 30px;
+            height: auto;
+            font-size: 18px;
+          }
+        }
+      }
+    }
+    .pdp-product-cta {
+      padding: 0;
+      width: 21.5%;
+      text-align: right;
+      padding-right: 16px;
+      span {
+        display: block;
+      }
+      .icon-share {
+        display: none;
+      }
+      .tile-icon {
+        button.favorite {
+          .heart {
+            width: 20px;
+          }
+          &.active {
+            svg {
+              #heart-outline {
+                fill: @fav-icon-fill-color;
+              }
+              #fill {
+                animation: none;
+              }
+            }
+          }
+        }
+      }
+    }
+    .notify-me-btn {
+      min-width: 165px;
+    }
+  }
+}
+
+@media screen and (max-width: @screen-sm-max) {
+  #gp-employee {
+    .vx-pdp-product-info {
+      padding-top: 0px;
+      .pdp-product-description {
+        width: 72%;
+        h1 {
+          font-size: 28px;
+        }
+      }
+      .pdp-product-cta {
+        width: 14%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: @screen-xs-max) {
+  #gp-employee {
+    .vx-pdp-product-info {
+      padding-top: 0px;
+      position: relative;
+      padding-bottom: 60px;
+      .pdp-product-description {
+        width: 86%;
+        margin-left: 0;
+        padding-left: 16px;
+        position: static;
+        .pdp-add-to-cart-container {
+          position: static;
+          & > div {
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+            left: 0;
+            padding: 0 16px !important;
+            button {
+              width: 100%;
+            }
+          }
+        }
+      }
+      .favorite {
+        max-height: auto;
+        top: 0;
+        height: 54px;
+        width: 34px;
+        .heart {
+          display: inline-block;
+        }
+      }
+      .notify-me-btn {
+        width: 100%;
+      }
+    }
+  }
+}
+
+//Media Queries Specific to Safari
+@media screen and (min-color-index: 0) and(-webkit-min-device-pixel-ratio:0) {
+  #gp-employee {
+    .vx-pdp-product-info {
+      .pdp-product-cta {
+        .tile-icon.wishlist-btn {
+          width: 100%;
+          height: auto;
+          cursor: default;
+          button.favorite {
+            display: block;
+            outline: 0;
+            padding: 0;
+            border: none;
+            background: none;
+            overflow: visible;
+            position: relative;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            .heart {
+              width: 100%;
+              height: 100%;
+              position: absolute;
+              top: 0;
+              left: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+@media not all and (min-resolution: 0.001dpcm) {
+  #gp-employee {
+    .vx-pdp-product-info {
+      .pdp-product-cta {
+        .tile-icon.wishlist-btn {
+          width: 100%;
+          height: auto;
+          cursor: default;
+          button.favorite {
+            display: block;
+            outline: 0;
+            padding: 0;
+            border: none;
+            background: none;
+            overflow: visible;
+            position: relative;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            .heart {
+              width: 100%;
+              height: 100%;
+              position: absolute;
+              top: 0;
+              left: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+}

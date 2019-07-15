@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wizard-config showPrefilledValues="true" selectMode="true" createMode="true" displaySubtypes="true">
+	<displayed-properties>
+		<group qualifier="General" visible="true" initially-opened="true">
+			<label lang="de">Stammdaten</label>
+			<label lang="en">General</label>
+			<label lang="fr">Propriétés</label>
+			<label lang="ja">プロパティ</label>
+			
+			<property qualifier="cmsitem.name"/>
+			<property qualifier="CMSBaseStoreTimeRestriction.baseStores"/>
+			<property qualifier="CMSTimeRestriction.useStoreTimeZone"/>
+			<property qualifier="CMSTimeRestriction.activeFrom"/>
+			<property qualifier="CMSTimeRestriction.activeUntil"/>
+		</group>
+	</displayed-properties>
+</wizard-config>

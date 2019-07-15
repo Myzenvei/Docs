@@ -1,0 +1,33 @@
+#brawny {
+  .vx-order-confirmation {
+    .confirmation-page-info {
+      span {
+        font-size: @font-size-small;
+        color: @text-color-sub-text;
+      }
+    }
+
+    & > .d-flex.flex-row.flex-wrap {
+      .order-info-block {
+        .order-info-heading {
+          margin-bottom: 8px;
+        }
+      }
+      .vx-product-tile {
+        .product-title a,
+        .product-price .product-current-price {
+          font-weight: @font-weight-bold;
+          font-family: @font-family-heading;
+        }
+        .product-title a {
+          color: @text-color;
+          text-decoration: underline;
+          text-transform: uppercase;
+        }
+        .product-total-price {
+          font-size: @font-size-h3;
+        }
+      }
+    }
+  }
+}

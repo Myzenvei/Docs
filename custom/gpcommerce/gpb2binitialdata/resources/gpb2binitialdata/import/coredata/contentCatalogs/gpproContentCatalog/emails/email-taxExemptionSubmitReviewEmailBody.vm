@@ -1,0 +1,380 @@
+## messageSource=classpath:/gpcommercecore/messages/email-taxExemptionSubmitReviewEmail_$lang.properties
+#macro(genHtmlLinkStartTag $url)
+<a href="$url"><font color="#666666">
+#end
+#macro(genHtmlLinkEndTag)
+</font></a>
+#end
+#macro(genHtmlLink $url $textColor $bodyContent)
+<a href="$url"><font color="$textColor">$bodyContent</font></a>
+#end
+<html lang="en">
+<head>
+  <title>Share cart Email</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      color: #222222;
+      font-family: 'Gotham A', 'Gotham B', Lato, Helvetica, Roboto, Arial, sans-serif;
+      font-size: 14px;
+      line-height: 24px;
+      margin: 0px;
+    }
+
+    .header-banner {
+      height: 72px;
+    }
+
+    .header-banner img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .brand-logo {
+      width: 84px;
+      height: 87px;
+      margin-left: 56px;
+      margin-top: -50px;
+    }
+
+    .brand-logo img {
+      height: 100%;
+      width: 100%;
+    }
+
+    .footer {
+      padding-left: 56px;
+      padding-right: 32px;
+      height: 64px;
+      background-color: #FAFAFA;
+      border-top: 1px solid #DFDFDF;
+    }
+
+    .follow {
+      padding-top: 23px;
+      font-weight: 500;
+      width: 10%;
+      float: left;
+      margin: 0px;
+    }
+
+    .icons {
+      padding-top: 16.5px;
+      width: 50%;
+      float: left;
+      margin: 0px;
+    }
+
+    .social-icons {
+      padding-left: 25px;
+    }
+
+    .social-icons img {
+      height: 30px;
+      width: 31px;
+    }
+
+    .copyright-text {
+      padding-top: 20px;
+      font-weight: 300;
+      text-align: right;
+      width: 35%;
+      float: left;
+      margin: 0px;
+    }
+
+    a {
+      color: #005293;
+      text-decoration: none;
+    }
+
+    .header-total {
+      font-size: 16px;
+      padding-top: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #CECECE;
+    }
+
+    .tile-container {
+      padding: 40px 56px 0 56px;
+    }
+
+    .subtotal-container {
+      padding: 19px 56px 32px 56px;
+    }
+
+    .product-tile {
+      border-bottom: 1px solid #CECECE;
+      padding: 24px 0;
+    }
+
+    .product-img {
+      width: 10%
+    }
+
+    .product-img img {
+      padding: 10px 4px;
+      border: 0.5px solid #CECECE;
+      height: 80px;
+      width: 80px;
+    }
+
+    .product-details {
+      width: 90%;
+      padding-left: 20px;
+    }
+
+    .price-quantity,
+    .product-final-price,
+    .cart-button,
+    .subtotal,
+    .subtotal-price,
+    .final-cart-button {
+      width: 33%;
+      display: inline-block;
+    }
+
+    .cart-button td,
+    .product-final-price td,
+    .subtotal-price td,
+    .final-cart-button td {
+      float: right;
+    }
+
+    .final-cart-button button {
+      width: 208px;
+    }
+
+    @media (max-width: 1119px) {
+      .product-img {
+        width: 15%
+      }
+      .product-details {
+        width: 80%
+      }
+      .product-final-price,
+      .subtotal-price {
+        width: 25%;
+      }
+      .cart-button,
+      .final-cart-button {
+        width: 40%
+      }
+    }
+
+    @media (max-width: 767px) {
+      .header-banner {
+        height: 56px;
+      }
+
+      .brand-logo {
+        display: none;
+      }
+      .email-content {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+
+      .footer {
+        height: 168px;
+        padding-left: 24px;
+      }
+
+      .follow {
+        padding-top: 22px;
+        width: 100%;
+      }
+
+      .icons {
+        padding-top: 13.5px;
+        width: 100%;
+      }
+
+      .social-icons {
+        padding-right: 19px;
+        padding-left: 0px;
+      }
+
+      .copyright-text {
+        padding-top: 23.5px;
+        text-align: left;
+        padding-right: 0px;
+        padding-left: 0px;
+        width: 100%;
+      }
+      .header-total {
+        font-size: 14px;
+        padding-top: 24px;
+        padding-bottom: 8px;
+        border: none;
+      }
+      .tile-container {
+        padding: 32px 16px 0 16px;
+      }
+
+      .subtotal-container {
+        padding: 20px 16px 24px 16px;
+      }
+
+      .product-tile {
+        padding: 16px 16px 24px 16px;
+        border: 1px solid #CECECE;
+        margin-top: 16px;
+
+      }
+      .product-img {
+        width: 8%;
+        position: relative;
+        top: -70px;
+      }
+      .product-img img {
+        padding: 9px 3px;
+        border: 0.5px solid #CECECE;
+        height: 72px;
+        width: 72px;
+      }
+      .product-details {
+        width: 90%
+      }
+      .price-quantity,
+      .product-final-price,
+      .cart-button {
+        width: 100%;
+        display: block;
+      }
+      .product-final-price td {
+        float: left;
+      }
+      .cart-button td {
+        padding-top: 24px;
+        float: left;
+        width: 100%;
+        display: block;
+      }
+      .subtotal,
+      .subtotal-price {
+        width: 50%;
+        display: inline-block;
+      }
+      .final-cart-button {
+        padding-top: 24px;
+        width: 100%;
+        display: block;
+      }
+      .final-cart-button td {
+        float: left;
+        width: 100%;
+        display: block;
+      }
+      .final-cart-button button {
+        width: 100%;
+      }
+    }
+
+  </style>
+</head>
+<body>
+   <table cellspacing="0" cellpadding="0" align="center" border="0" width="800" bgcolor="#ffffff" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 800px;">
+		<tr>
+			<td valign="top" align="left" width="100%" style="border-collapse: collapse; font-family:'Gotham A', 'Gotham B', lato, Helvetica, Arial, Verdana, sans-serif;">
+				<table cellspacing="0" cellpadding="0" align="left" border="0" width="100%" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+					<tr>
+						<td>
+							<a href="${ctx.baseUrl}" style="display:block;">${ctx.cmsSlotContents.SiteLogo}</a>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+	<table width="700" cellpadding="0" cellspacing="0" align="center">
+      <tr>
+         <td valign="top" align="left" width="100%">
+           <tbody>
+					<tr>
+						<td class="container">
+							<table cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
+								<tr>
+         							<td colspan="2" style="color: #222222; font-size: 21px;	font-weight: 500; padding-bottom: 24px">
+										${ctx.messages.emailSubject}
+							        </td>
+							     </tr>
+							     <tr>   
+         							<td colspan="2" style="color: #222222; font-size: 14px;	font-weight: 400; padding-bottom: 24px">
+										${ctx.messages.salutation}
+									</td>
+         						</tr>
+         						<tr>
+         						   <td valign="top" width="50%">
+										<span style="color: #222222; font-size: 14px;font-weight: 500; margin-bottom:8px;display:block;">${ctx.messages.userRequested}</span>
+										<span style="color: #222222; font-size: 14px;font-weight: 400;margin-bottom:8px;display:block;">${ctx.customerData.firstName}&nbsp;${ctx.customerData.lastName}</span>
+										<span style="color: #222222; font-size: 14px;font-weight: 400;margin-bottom:8px;display:block;">${ctx.customerData.displayUid}</span>
+										#if(${ctx.customerData.contactNumber})
+										<span style="color: #222222; font-size: 14px;font-weight: 400;margin-bottom:8px;display:block;">${ctx.customerData.contactNumber}</span>
+										#end
+									
+									</td>
+									<td valign="top" width="50%">
+										
+         								<span style="color: #222222; font-size: 14px;font-weight: 500; margin-bottom:8px;display:block;">${ctx.messages.companyDetails}</span>
+										#if(${ctx.customerData.defaultShippingAddress.companyName})
+										<span style="color: #222222; font-size: 14px;font-weight: 400;margin-bottom:8px;display:block;">${ctx.customerData.defaultShippingAddress.companyName}</span>
+										#else
+										<span style="color: #222222; font-size: 14px;font-weight: 400;margin-bottom:8px;display:block;">${ctx.customerData.unit.name}</span>
+										#end
+										#if(${ctx.customerData.defaultShippingAddress.country.name})
+										<span style="color: #222222; font-size: 14px;font-weight: 400;margin-bottom:8px;display:block;">${ctx.customerData.defaultShippingAddress.country.name}</span>
+										#end
+										#foreach($address in ${ctx.customerData.unit.addresses})
+
+										
+														    #if(${address.line1})
+															<p style="color: #222222; font-size: 14px;font-weight: 400; margin-top:0px; margin-bottom:8px;display:block">${address.line1} , #if(${address.line2})${address.line2}#end</p>
+															#end
+															#if(${address.town})
+															<p style="color: #222222; font-size: 14px;font-weight: 400; margin-top:0px; margin-bottom:8px;display:block">${address.town}, ${address.region.name}, ${address.postalCode}</p>
+															#end
+															#if(${address.phone})
+														 	<p style="color: #222222; font-size: 14px;font-weight: 400; margin-top:0px; margin-bottom:8px;display:block">${address.phone}</p>
+														    #end
+														     #if(${ctx.customerData.unit.typeOfBusiness})
+														 #	<p style="color: #222222; font-size: 14px;font-weight: 400; margin-top:0px; margin-bottom:8px;display:block">${ctx.customerData.unit.typeOfBusiness}</p>
+														    #end
+														    #if(${ctx.customerData.unit.noOfEmployees})
+														 #	<p style="color: #222222; font-size: 14px;font-weight: 400; margin-top:0px; margin-bottom:8px;display:block">${ctx.customerData.unit.noOfEmployees}</p>
+														    #end
+														    #if(${ctx.selectedRole})
+														  #  <p style="color: #222222; font-size: 14px;font-weight: 400; margin-top:0px; margin-bottom:8px;display:block">${ctx.selectedRole}</p>
+														    #end
+									#end
+									</td>
+         
+                                  </tr>
+         
+         
+         					</table>
+						</td>
+					</tr>
+			</tbody>
+         
+         <tr>
+			<td style="font-family: 'Gotham A', 'Gotham B', Lato, Helvetica, Roboto, Arial; color: #222222; font-size: 14px;font-weight: 400;padding-top:24px; display:block;">${ctx.messages.complimentaryClosing}</td>
+		</tr>
+		<tr>
+			<td style="font-family: 'Gotham A', 'Gotham B', Lato, Helvetica, Roboto, Arial; color: #222222; font-size: 14px;font-weight: 400;display:block; padding-bottom:24px;">${ctx.messages.getMessage('signature', ${ctx.baseSite.Name})}
+			</td>
+		</tr>
+		</td>
+		</tr>
+	</table>
+	<table cellspacing="0" cellpadding="0" align="center" border="0" width="800" bgcolor="#ffffff" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 800px;">
+		<tr>
+			<td style="display: block; width: 100%; margin:0px; padding:0px;">
+				<a href="${ctx.baseUrl}" style="display:block; margin:0px;">${ctx.cmsSlotContents.BottomContent}</a>
+			</td>
+		</tr>
+	</table>
+         
+</body>
+</html>

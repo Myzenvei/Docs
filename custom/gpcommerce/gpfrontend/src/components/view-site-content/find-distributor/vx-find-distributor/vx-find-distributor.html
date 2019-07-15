@@ -1,0 +1,20 @@
+<div class="vx-find-distributor col-xs-12 px-xs-0 px-sm-3 px-md-4 pb-xs-8">
+  <vx-spinner ref="pageSpinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen></vx-spinner>
+  <vx-store-search :i18n="i18n.findDistributor" @getDistributors="getDistributorsData" @getLocation="getLocation"
+    @radiusUpdate="getUpdatedDistributors" :prd-info="productInfo" :is-from-pdp="isFromPdp()"
+    :reset-filter="resetFilterFlag" :product-list="productList" :list-page-url="listPageUrl"
+    :is-link-shown="isLinkShown" :show-search-error="showSearchError" @listSelected="getProductDistributors"
+    @noListSelected="getProductDistributors" @prodcheckedPDP="getDistributorFromProdID"></vx-store-search>
+  <vx-store-list :i18n="i18n.findDistributor" :stores-list="storesList" :no-of-distributor="noOfDistributor"
+    @storeLocation="storeLocation=$event" @selectedStore="selectedStore=$event"></vx-store-list>
+  <vx-store-location :selected-store="selectedStore" :location="storeLocation" v-if="storesList.length>0">
+  </vx-store-location>
+  <template v-if="storesList.length && (pagination.totalResults > storesList.length)">
+    <vx-paginate :page-count="pagination.totalPages" :page-range="pagination.pageRange" :margin-pages="2"
+      :click-handler="paginationCallback" :prev-text="pagination.previous" :next-text="pagination.next"
+      :container-class="'pagination col-xs-12 d-flex justify-content-center'" :page-class="'page-item'"
+      v-model="distributorFilters.currentPage+1">
+    </vx-paginate>
+  </template>
+  <div class="mt-xs-5 mx-xs-3 no-stores" v-if="!storesList.length">{{i18n.findDistributor.noDistributorFound}}</div>
+</div>

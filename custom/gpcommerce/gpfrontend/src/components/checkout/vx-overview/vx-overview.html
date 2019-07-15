@@ -1,0 +1,205 @@
+<div class="vx-overview">
+  <vx-accordion is-slot-based :opened="globals.getIsSubscription()">
+    <span v-if="globals.getIsSubscription()" slot="heading" class='bold-heading'>{{i18n.subscribeHeading}}</span>
+    <span v-else slot="heading" class='bold-heading'>{{i18n.heading}} ({{getCartQuantity()}})</span>
+    <template v-for="productEntry in visibleEntries">
+      <vx-product-tile slot="component" v-if='productEntry.splitEntries' v-for='entries in productEntry.splitEntries'>
+        <template
+          v-if="productEntry.product && productEntry.product.images && productEntry.product.images.length!==0 && productEntry.product.images[2] &&productEntry.product.images[2].url"
+          slot="image-slot">
+          <img :src="globals.getThumbnailImageUrl(productEntry.product.images)"
+            :alt="productEntry.product.images[2].altText">
+        </template>
+        <template v-if="!productEntry.product.images" slot="image-slot">
+          <img :src="globals.assetsPath + 'images/no_image.svg'" alt="No Image">
+        </template>
+        <!-- <template slot="product-icons-slot" v-if="globals.siteConfig.showProductIndicators"> -->
+        <template slot="product-icons-slot">
+          <vx-product-icons v-if="productEntry.product.productIcons" :product-icons="productEntry.product.productIcons" :i18n="i18n.productIconsTitle"></vx-product-icons>
+        </template>
+        <template slot="details">
+          <template v-if="productEntry && productEntry.product && productEntry.product.name">
+            <p class="product-title mb-xs-2">
+              <a :href="globals.getNavigationUrl('empty')+productEntry.product.url" v-html="productEntry.product.name"></a>
+            </p>
+          </template>
+          <span class="sr-only">
+            {{i18n.itemId}} : {{productEntry.product.code}}
+          </span>
+          <p class="product-code mb-xs-2" aria-hidden="true">{{i18n.itemId}} {{productEntry.product.code}}</p>
+          <p class="error-text"
+            v-if="productEntry && productEntry.product && productEntry.product.materialStatus===ProductAvailability.OBSOLETE && productEntry.product.replacementProductCode && productEntry.product.replacementProductCode!==''">
+            {{i18n.discontinued}} {{i18n.replacedBy}} {{productEntry.product.replacementProductCode}}
+          </p>
+          <p class="error-text"
+            v-if="productEntry && productEntry.product && productEntry.product.materialStatus===ProductAvailability.OBSOLETE && !productEntry.product.replacementProductCode">
+            {{i18n.discontinued}}
+          </p>
+          <template
+            v-if="productEntry && productEntry.product && productEntry.product.materialStatus!==ProductAvailability.OBSOLETE">
+            <p class="product-stock mb-xs-3"
+              v-if="productEntry.product.stock.stockLevelStatus===ProductAvailability.LOW_STOCK && globals.siteConfig.showLowInventoryMessage">
+              {{i18n.lowInventoryMessage}}</p>
+            <p class="product-stock mb-xs-3"
+              v-if="productEntry.product.stock.stockLevelStatus!==ProductAvailability.IN_STOCK && productEntry.product.stock.stockLevelStatus!==ProductAvailability.LOW_STOCK">
+              {{i18n.outOfStock}}</p>
+          </template>
+          <p class="product-price mb-xs-3" v-if="!globals.getIsSubscription()">
+            <span class="product-current-price">
+              <span class="sr-only">Current price</span>{{productEntry.basePrice.formattedValue}}</span>
+            <span class="product-old-price" v-if="productEntry.product.weblistPrice">
+              <span class="sr-only">Slashed price</span>
+              <strike>{{productEntry.product.weblistPrice.formattedValue}}</strike>
+            </span>
+          </p>
+          <p class="product-quantity mb-xs-2 mb-sm-3">{{i18n.quantity}}: {{entries.qty}}</p>
+          <p class="product-promo mb-xs-3 mr-sm-3" v-if="promotionData[productEntry.entryNumber]">{{i18n.promo}}:
+            {{promotionData[productEntry.entryNumber]}}
+          </p>
+          <p class="subscription" ref="subscribeInfo" v-if="globals.getIsSubscription() && productEntry.subscriptionFrequency && productEntry.subscriptionFrequency.entry.length">{{i18n.subscribeFrequencyHeading}}{{productEntry.subscriptionFrequency.entry[0].key}}
+            <span role="button" tabindex="0" class="icon-alert-circle popover-subscribe"
+              :aria-label='i18n.subscribeIconTitle' data-toggle="popover" @mouseover='openTooltip()'></span>
+          </p>
+          <template v-if="restrictedEntries.length!==0 && restrictionError">
+            <div class="pt-xs-3" v-if="restrictedItems(productEntry.product.code)">
+              <p class="shipping-restriction">{{i18n.restrictionError}}</p>
+            </div>
+          </template>
+          <template v-if="globals.isB2C()" v-for="giftProduct in giftWrapDetails">
+            <template v-if="giftProduct.entryNumber === productEntry.entryNumber">
+              <template v-if="giftProduct.giftWrapMessage || giftProduct.giftWrapSelected">
+                <p class="gift-message-heading mb-xs-2">{{i18n.giftingOptions}}</p>
+                <p v-if="giftProduct.giftWrapMessage" class="gift-message mb-xs-3">{{i18n.giftMessage}}:
+                  {{giftProduct.giftWrapMessage}}</p>
+                <p v-if="giftProduct.giftWrapSelected" class="gift-message">{{i18n.giftWrapped}}:
+                  {{giftProduct.giftWrapCost}}</p>
+              </template>
+            </template>
+          </template>
+          <template v-if="isMultiple">
+            <p class="shipping-method mb-xs-2">
+              <span v-if="entries.deliveryAddress">{{i18n.delivery}}:</span>
+              <span v-if="entries.deliveryMode">{{getShippingMethod(entries.deliveryMode.name)}}</span>
+            </p>
+            <p class="shipping-address mb-xs-3 mb-sm-0" v-if="entries.deliveryAddress">
+              {{getAddress(entries.deliveryAddress)}}</p>
+          </template>
+        </template>
+        <template slot="right-section-slot">
+          <!-- <p class="product-discount mb-xs-2">-{{productEntry.totalPrice.formattedValue}}</p> -->
+          <template v-if="globals.getIsSubscription()">
+            <p class="product-total-price" v-if="totalPrice.formattedValue" role="text"
+              :aria-label="'total Price ' + totalPrice.formattedValue">
+              {{totalPrice.formattedValue}}</p>
+            <p class="subscription" v-if="productEntry.product.subsPercentageDiscount">
+              {{i18n.subscribeDiscount1}}{{productEntry.product.subsPercentageDiscount}}{{i18n.subscribeDiscount2}}</p>
+          </template>
+          <template v-else>
+            <p class="product-discount"
+              v-if="productEntry.splitEntries && productEntry.splitEntries.length && productEntry.splitEntries.length === 1 && productEntry.productPromotion && productEntry.productPromotion.value && (productEntry.productPromotion.value != discount.discountZero)"
+              role="text" :aria-label="'discount '+productEntry.productPromotion.formattedValue">
+              -{{productEntry.productPromotion.formattedValue}}</p>
+            <p class="product-total-price" v-if="entries && entries.price && entries.price.formattedValue" role="text"
+              :aria-label="'total price '+ entries.price.formattedValue">{{entries.price.formattedValue}}</p>
+          </template>
+        </template>
+      </vx-product-tile>
+      <vx-product-tile slot="component" v-if='!productEntry.splitEntries.length'>
+        <template
+          v-if="productEntry.product && productEntry.product.images && productEntry.product.images.length!==0 && productEntry.product.images[2] &&productEntry.product.images[2].url"
+          slot="image-slot">
+          <img :src="globals.getThumbnailImageUrl(productEntry.product.images)"
+            :alt="productEntry.product.images[2].altText">
+        </template>
+        <template v-if="!productEntry.product.images" slot="image-slot">
+          <img :src="globals.assetsPath + 'images/no_image.svg'" alt="No Image">
+        </template>
+        <!-- <template slot="product-icons-slot" v-if="globals.siteConfig.showProductIndicators"> -->
+        <template slot="product-icons-slot">
+          <vx-product-icons v-if="productEntry.product.productIcons" :product-icons="productEntry.product.productIcons" :i18n="i18n.productIconsTitle"></vx-product-icons>
+        </template>
+        <template slot="details">
+          <template v-if="productEntry && productEntry.product && productEntry.product.name">
+            <p class="product-title mb-xs-2">
+              <a :href="globals.getNavigationUrl('empty')+productEntry.product.url" v-html="productEntry.product.name"></a>
+            </p>
+          </template>
+          <span class="sr-only">
+            {{i18n.itemId}} : {{productEntry.product.code}}
+          </span>
+          <p class="product-code mb-xs-2" aria-hidden="true">{{i18n.itemId}} {{productEntry.product.code}}</p>
+          <p class="error-text"
+            v-if="productEntry && productEntry.product && productEntry.product.materialStatus===ProductAvailability.OBSOLETE && productEntry.product.replacementProductCode && productEntry.product.replacementProductCode!==''">
+            {{i18n.discontinued}} {{i18n.replacedBy}} {{productEntry.product.replacementProductCode}}
+          </p>
+          <p class="error-text"
+            v-if="productEntry && productEntry.product && productEntry.product.materialStatus===ProductAvailability.OBSOLETE && !productEntry.product.replacementProductCode">
+            {{i18n.discontinued}}
+          </p>
+          <template
+            v-if="productEntry && productEntry.product && productEntry.product.materialStatus!==ProductAvailability.OBSOLETE">
+            <p class="product-stock mb-xs-3"
+              v-if="productEntry.product.stock.stockLevelStatus===ProductAvailability.LOW_STOCK && globals.siteConfig.showLowInventoryMessage">
+              {{i18n.lowInventoryMessage}}</p>
+            <p class="product-stock mb-xs-3"
+              v-if="productEntry.product.stock.stockLevelStatus!==ProductAvailability.IN_STOCK && productEntry.product.stock.stockLevelStatus!==ProductAvailability.LOW_STOCK">
+              {{i18n.outOfStock}}</p>
+          </template>
+          <p class="product-price mb-xs-3" v-if="!globals.getIsSubscription()">
+            <span class="product-current-price">
+              <span class="sr-only">Current price</span>
+              {{productEntry.basePrice.formattedValue}}</span>
+            <span class="product-old-price" v-if="productEntry.product.weblistPrice">
+              <span class="sr-only">Slashed price</span>
+              <strike>{{productEntry.product.weblistPrice.formattedValue}}</strike>
+            </span>
+          </p>
+          <p class="product-quantity mb-xs-2 mb-sm-3">{{i18n.quantity}}: {{productEntry.quantity}}
+          </p>
+          <p class="product-promo mb-xs-3 mr-sm-3" v-if="promotionData[productEntry.entryNumber]">{{i18n.promo}}:
+            {{promotionData[productEntry.entryNumber]}}
+          </p>
+          <p class="subscription" ref="subscribeInfo" v-if="globals.getIsSubscription() && productEntry.subscriptionFrequency && productEntry.subscriptionFrequency.entry.length">{{i18n.subscribeFrequencyHeading}}{{productEntry.subscriptionFrequency.entry[0].key}}
+            <span role="button" tabindex="0" class="icon-alert-circle popover-subscribe"
+              :aria-label='i18n.subscribeIconTitle' data-toggle="popover" @mouseover='openTooltip()'></span>
+          </p>
+          <template v-if="restrictionError">
+            <div class="pt-xs-3" v-if="restrictedItems(productEntry.product.code)">
+              <p class="shipping-restriction">{{i18n.restrictionError}}</p>
+            </div>
+          </template>
+          <template v-if="globals.isB2C()" v-for="giftProduct in giftWrapDetails">
+            <template v-if="giftProduct.entryNumber === productEntry.entryNumber">
+              <template v-if="giftProduct.giftWrapMessage || giftProduct.giftWrapSelected">
+                <p class="gift-message-heading mb-xs-2">{{i18n.giftingOptions}}</p>
+                <p v-if="giftProduct.giftWrapMessage" class="gift-message mb-xs-3">{{i18n.giftMessage}}:
+                  {{giftProduct.giftWrapMessage}}</p>
+                <p v-if="giftProduct.giftWrapSelected" class="gift-message">{{i18n.giftWrapped}}:
+                  {{giftProduct.giftWrapCost}}</p>
+              </template>
+            </template>
+          </template>
+        </template>
+        <template slot="right-section-slot">
+          <!-- <p class="product-discount mb-xs-2">-{{productEntry.totalPrice.formattedValue}}</p> -->
+          <template v-if="globals.getIsSubscription()">
+            <p class="product-total-price" v-if="totalPrice.formattedValue" role="text"
+              :aria-label="'total Price ' + totalPrice.formattedValue">
+              {{totalPrice.formattedValue}}</p>
+            <p class="subscription" v-if="productEntry.product.subsPercentageDiscount">
+              {{i18n.subscribeDiscount1}}{{productEntry.product.subsPercentageDiscount}}{{i18n.subscribeDiscount2}}</p>
+          </template>
+          <template v-else>
+            <p class="product-discount"
+              v-if="productEntry && productEntry.productPromotion && productEntry.productPromotion.value && (productEntry.productPromotion.value != discount.discountZero) && productEntry.productPromotion.formattedValue"
+              role="text" aria-label="'discount '+ productEntry.productPromotion.formattedValue">
+              -{{productEntry.productPromotion.formattedValue}}</p>
+            <p class="product-total-price" role="text"
+              :aria-label="'total Price ' + productEntry.totalPrice.formattedValue">
+              {{productEntry.totalPrice.formattedValue}}</p>
+          </template>
+        </template>
+      </vx-product-tile>
+    </template>
+  </vx-accordion>
+</div>

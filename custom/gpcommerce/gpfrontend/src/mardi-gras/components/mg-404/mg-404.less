@@ -1,0 +1,62 @@
+@import '../../styles/common/variables.less';
+@import '../../styles/common/mixins.less';
+
+.mg-404 {
+    text-transform: uppercase;
+    min-height: 350px;
+    .error-title {
+        .font(
+            88px,
+            @font-weight-medium,
+            @font-family-base,
+            @btn-default-color,
+            1
+        );
+    }
+    .error-description {
+        .font(
+            28px,
+            @font-weight-bold,
+            @font-family-base,
+            @btn-default-color,
+            1
+        );
+    }
+    .error-help {
+        .font(
+            28px,
+            @font-weight-light,
+            @font-family-base,
+            @btn-default-color,
+            1
+        );
+        a {
+            .font(
+                28px,
+                @font-weight-light,
+                @font-family-base,
+                @link-color-2,
+                1
+            );
+        }
+    }
+    .btn {
+        padding: 0 50px;
+        height: 52px;
+       .font(
+            34px,
+            @font-weight-regular,
+            @font-family-base,
+            @text-color-3,
+            @line-height-base
+           );
+    }
+    @media only screen and (max-width: @screen-xs-max) {
+        .error-title {
+            font-size: 62px;
+        }
+        .error-redirect-btn {
+            text-align: center;
+        }
+    }
+}

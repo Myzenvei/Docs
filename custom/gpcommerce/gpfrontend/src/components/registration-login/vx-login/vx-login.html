@@ -1,0 +1,74 @@
+<div class="registration-and-login-sign-in">
+  <vx-modal ref="forgotPasswordModal" :heading="i18n.passwordModalHeading">
+    <vx-forgot-password slot="component" :i18n="i18n"></vx-forgot-password>
+  </vx-modal>
+  <h1 class="b2c-heading mx-xs-0 my-xs-0" v-if="(globals.isB2C() || globals.isEmployeeStore()) && (globals.getCookie('flow') !== 'checkout' && !globals.getIsSubscription())">{{i18n.headingforB2c}}</h1>
+  <h1 class="b2c-guest-heading mx-xs-0 my-xs-0" v-if="(globals.isB2C() || globals.isEmployeeStore()) && (globals.getCookie('flow') === 'checkout'  || globals.getIsSubscription())">{{i18n.headingForReturningCustomer}}</h1>
+  <h1 class="b2b-heading mx-xs-0 my-xs-0" v-if="globals.isB2B() && (globals.getCookie('flow') !== 'checkout' && !globals.getIsSubscription())">
+    <span class="headingPart1">{{i18n.headingforB2bPart1}}</span>
+  </h1>
+  <h1 class="b2b-heading mx-xs-0 my-xs-0" v-if="globals.isB2B() && (globals.getCookie('flow') === 'checkout' || globals.getIsSubscription())">
+    {{i18n.headingForReturningCustomer}}
+  </h1>
+  <form ref="loginForm" :action="actionUrl" method="post">
+    <div class="my-xs-4 form-group">
+      <label :aria-hidden='isDeviceAndroid()'>{{i18n.email}}</label>
+      <input type="text" class="form-control" maxlength="80" :disabled="disableField" :class="[{'input-error': errors.has('j_username')}]"
+        v-model="user.email" name="j_username" v-validate="'required|email|max:80'" @focus="hideServerError"
+        :aria-label="i18n.email" @input="user.email=$event.target.value" aria-describedby="username_error_msg">
+      <div class="mt-xs-2" v-show="errors.has('j_username')" :aria-hidden="!errors.has('j_username')">
+        <span class="error-msg" id='username_error_msg'>{{errors.first('j_username')}}</span>
+      </div>
+    </div>
+    <div class="mb-xs-3 mb-sm-3 mb-md-4 form-group has-feedback">
+      <label :aria-hidden='isDeviceAndroid()'>{{i18n.password}}</label>
+      <input class="password form-control" :disabled="disableField" :class="[{'input-error': errors.has('j_password')}]"
+        ref="password" type="password" name="j_password" v-model="user.password" v-validate="{ required: true,
+          regex: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@,%$*!])[A-Za-z\d@,%$*!]{8,255}$/ }"
+        maxlength="255" @focus="hideServerError" :aria-label="i18n.password" :aria-errormessage="errors.first('j_password')"
+        aria-describedby="password_error_msg" />
+      <span class="icon-eye toggle-password" v-bind:class="{'icn-eye-collapsed': showPassword}" tabindex="0" role="button"
+        :aria-label="showPassword ? i18n.iconEyeHideTitle:i18n.iconEyeShowTitle" v-on:click="togglePassword" :title="showPassword ? i18n.iconEyeHideTitle:i18n.iconEyeShowTitle"></span>
+      <div class="mt-xs-2" v-show="errors.has('j_password')" :aria-hidden="!errors.has('j_password')">
+        <span class="error-msg" id='password_error_msg'>{{errors.first('j_password')}}</span>
+      </div>
+      <p class="pt-sm-2 pt-xs-3 mx-xs-0 my-xs-0" v-if="globals.siteConfig.showForgotPassword">
+        <a tabindex="0" role="link" @click="handleForgotPassword($event)"
+          @keyup.enter-space="handleForgotPassword($event)"
+          :aria-label="i18n.forgotPassword">{{i18n.forgotPassword}}</a>
+      </p>
+    </div>
+    <div class="mt-xs-4 mb-xs-3" v-if="serverError">
+      <span class="error-msg">{{serverError}}</span>
+    </div>
+    <template v-if="token !== 'token'">
+      <input type="hidden" name="kochAuthAccessToken" :value="kochTokens.kochAuthAccessToken" v-if='globals.isEmployeeStore()'>
+      <input type="hidden" name="kochAuthIdToken" :value="kochTokens.kochAuthIdToken" v-if='globals.isEmployeeStore()'>
+      <input type="hidden" name="kochAuthRefreshToken" :value="kochTokens.kochAuthRefreshToken" v-if='globals.isEmployeeStore()'>
+      <input type="hidden" name="kochAuthTS" :value="kochTokens.kochAuthTS" v-if='globals.isEmployeeStore()'>
+      <input type="hidden" name="kochEmailId" :value="kochTokens.kochEmailId" v-if='globals.isEmployeeStore()'>
+    </template>
+    <input v-else type="hidden" name="token" value='token' v-if='globals.isEmployeeStore()'>
+
+
+    <input type="hidden" name="loginType" value="gpemployee" v-if='globals.isEmployeeStore()'>
+    <input type="hidden" name="baseSiteId" :value="globals.siteId">
+    <input type="hidden" name="CSRFToken" :value="globals.csrfToken">
+    <button v-if="!isCheckout" type="submit" :disabled="errors.any() ||  disableField" class="btn-block btn btn-primary"
+      @click="submitClicked">{{i18n.submit}}</button>
+    <button v-else type="submit" :disabled="errors.any() ||  disableField" class="btn-block btn btn-primary" @click="submitClicked">{{i18n.checkoutSubmit}}</button>
+    <!-- <div class="pt-xs-3 pt-md-2 pb-sm-5 pb-xs-4 gp-express" v-if="globals.isB2B()" role="text" tabindex="0">
+      <span>{{i18n.gpExpressLinkText}}</span>
+      <a href="https://gpxpr.es/" target="_blank">
+        <span>{{i18n.gpExpressLink}}</span>
+      </a>
+    </div>  commenting for R1 Release with reference YCOM-9687-->
+    <p class="pt-xs-2 mx-xs-0 my-xs-0">
+      <span class="no-account-text" v-if="globals.isB2B()">{{i18n.noGPAccount}}</span>
+      <span class="no-account-text" v-if="globals.isB2C() || globals.isEmployeeStore()">{{i18n.noGPAccount}}</span>
+      <a>
+        <span @click="createAccount" tabindex="0" @keyup.enter-space='createAccount' role="link">{{i18n.createAccount}}</span>
+      </a>
+    </p>
+  </form>
+</div>

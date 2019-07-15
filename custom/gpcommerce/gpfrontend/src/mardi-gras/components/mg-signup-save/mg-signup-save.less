@@ -1,0 +1,67 @@
+// @import '../../styles/common/variables.less';
+@import '../../styles/common/mixins.less';
+.mg-signup-save {
+    background-color: @brand-secondary;
+    margin: 0 auto;
+    h1{
+        .font(
+        48px,
+        @font-weight-bold,
+        @font-family-base,
+        @text-color-6,
+        @line-height-base
+        );
+        text-align: center;
+    }
+    p{
+        .font(
+            22px,
+            @font-weight-bold,
+            @font-family-base,
+            @text-color-6,
+            @line-height-base
+            );
+            text-align: center;
+    }
+    input,button{
+        height: 58px;
+        .font(
+            28px,
+            @font-weight-bold,
+            @font-family-base,
+            @text-color-1,
+            @line-height-base
+            );
+    }
+    ::-webkit-input-placeholder { /* Chrome */
+        color:@text-color-1;
+      }
+      :-ms-input-placeholder { /* IE 10+ */
+        color:@text-color-1;
+      }
+      ::-moz-placeholder { /* Firefox 19+ */
+        color:@text-color-1;
+        opacity: 1;
+      }
+      :-moz-placeholder { /* Firefox 4 - 18 */
+        color:@text-color-1;
+        opacity: 1;
+      }
+      .authorable-text{
+        border-right: 0;
+          @media(min-width:@screen-md-min){
+              border-right: 3px solid @border-1;
+          }
+      }
+      button{
+        height: 58px;
+        .font(
+            28px,
+            @font-weight-bold,
+            @font-family-base,
+            @text-color-6,
+            @line-height-base
+            );
+            background-color: @brand-primary;
+      }
+}

@@ -1,0 +1,8 @@
+
+<div class="vx-product-icons" v-if="globals.siteConfig.showProductIcons && productIconsData.length">
+  <ul>
+    <li v-for="productIcon in productIconsData">
+      <span :class="productIcon.className" :title="productIcon.title"></span>
+    </li>
+  </ul>
+</div>

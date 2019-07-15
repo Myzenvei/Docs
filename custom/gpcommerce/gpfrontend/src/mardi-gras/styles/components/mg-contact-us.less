@@ -1,0 +1,93 @@
+.h3{
+    margin: 0 !important;
+    font-size: 48px;
+    padding-left: 16px !important;
+    @media(min-width: @screen-md-min){
+        font-size: 88px;
+        padding-left: 0 !important;
+    }
+}
+.mardigras-contact-us{
+  &.container, .container{
+    @media(min-width: @screen-sm-min) and (max-width: @screen-sm-max){
+      width: 100%;
+    }
+  }
+  sup {
+    left: -0.25em;
+  }
+}
+.access-customer-service-live-chat{
+    .livechat-section{
+        margin: 0 !important;
+    }
+    .left-section{
+        display: none;
+    }
+    .right-section{
+        @media(min-width: @screen-sm-min) and (max-width:@screen-sm-max){
+          width:58.33%;
+        }
+        @media(min-width: @screen-md-min){
+            width:50%;
+        }
+        .call-text-heading{
+            h6{
+                font-size: 24px;
+                @media(min-width: @screen-md-min){
+                    font-size: 20px;
+                }
+            }
+            .icon-phone{
+                &:before{
+                    color: @text-color-10;
+                    font-size: 20px;
+                }
+            }
+        }
+        .call-text-section{
+            background-color: @brand-secondary-4;
+            padding: 32px !important;
+            margin: 0;
+            p,a{
+                font-size: 24px;
+            }
+            p{
+                display: block;
+                padding: 0 !important;
+            }
+            .call-text-number{
+                @media(min-width: @screen-md-min){
+                    display: block;
+                }
+            }
+        }
+        .email-us, .call-us, .write-us {
+          h4 {
+            font-size: 24px;
+          }
+        }
+        .email-us, .call-us, .write-us {
+          p,a{
+            font-size: 24px;
+        }
+          p{
+              display: block;
+              padding: 0 !important;
+              color: @text-color-3;
+          }
+        }
+        .email-us {
+          a {
+            color: @link-color-2;
+          }
+          span {
+            font-size: 24px;
+            color: @text-color-3
+          }
+        }
+    }
+    .full-width {
+      width: 100%;
+    }
+}

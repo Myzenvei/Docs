@@ -1,0 +1,138 @@
+
+$productCatalog=gpUSProductCatalog
+$productCatalogName=GP US Product Catalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+
+$productCatalog=gpUSProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$supercategories=supercategories(code, $catalogVersion)
+$baseProduct=baseProduct(code,$catalogVersion)
+$approved=approvalstatus(code)[default='approved']
+
+
+# Insert Variant Category                   
+INSERT_UPDATE GPDefaultVariantCategory ; code[unique=true] ; name  ; $supercategories ; hasImage ; $catalogVersion ; allowedPrincipals(uid)[default='customergroup']
+                                       ; color             ; Color ;                  ; true     
+                                       ; count             ; Count ;                  ; false    
+                                       ; size              ; Size  ;                  ; false    
+                                       ; scent             ; Scent ;                  ; false    
+
+
+##############################################VARIANTS FOR COPPER AND CRANE #############################################
+
+
+
+$catalogVersion=catalogVersion(catalog(id[default='gpUSProductCatalog']),version[default='Staged'])[unique=true,default='gpUSProductCatalog:Staged']
+$lang=en               
+
+$productCatalogName=GP US Product Catalog
+$prices=Europe1prices[translator=de.hybris.platform.europe1.jalo.impex.Europe1PricesTranslator]
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$baseProduct=baseProduct(code, catalogVersion(catalog(id[default='$productCatalog']),version[default='Staged']))
+$approved=approvalstatus(code)[default='approved']
+$taxGroup=Europe1PriceFactory_PTG(code)[default=us-sales-tax-full]
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+
+$productCatalog=gpUSProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$supercategories=supercategories(code, $catalogVersion)
+$baseProduct=baseProduct(code,$catalogVersion)
+$approved=approvalstatus(code)[default='approved']
+
+
+                                            
+INSERT_UPDATE GPCommerceProduct ; code[unique=true] ; $catalogVersion ; supercategories(code,$catalogVersion) ; ean ; unit(code) ; varianttype(code)[default='GenericVariantProduct'] ; $approved
+                                ; BP-CC-SRM-1000020 ;                 ; size                                  ;     ;            ;                                                    ; approved 
+                                ; BP-CC-ELX-1000018 ;                 ; size                                  ;     ;            ;                                                    ; approved 
+                                ; BP-CC-MST-1000016 ;                 ; size                                  ;     ;            ;                                                    ; approved 
+                                ; BP-CC-OIL-1000006 ;                 ; size                                  ;     ;            ;                                                    ; approved 
+                                ; BP-DR-1000571     ;                 ; size                                  ;     ;            ;                                                    ; approved 
+                                ; BP-DR-1000659     ;                 ; size                                  ;     ;            ;                                                    ; approved 
+                                ; BP-DR-1000555     ;                 ; size                                  ;     ;            ;                                                    ; approved 
+                                ; BP-DR-1000554     ;                 ; size                                  ;     ;            ;                                                    ; approved 
+
+
+INSERT_UPDATE GPDefaultVariantValueCategory ; code[unique=true] ; name         ; $supercategories ; sequence ; hexCode ; $catalogVersion ; allowedPrincipals(uid)[default='customergroup']
+                                            ; oz_1              ; 1 Oz         ; size             ; 1        
+                                            ; oz_0_5            ; 0.5 Oz       ; size             ; 2        
+                                            ; oz_1_5            ; 1.5 Oz       ; size             ; 3        
+                                            ; oz_2_0            ; 2.0 Oz       ; size             ; 4        
+                                            ; small_medium      ; SMALL/MEDIUM ; size             ; 5        
+                                            ; large_xlarge      ; LARGE/XLARGE ; size             ; 6        
+                                            
+
+
+INSERT_UPDATE GPGenericVariantProduct ; code[unique=true] ; $baseProduct      ; $catalogVersion ; $approved ; $supercategories
+                                      ; CC-SRM-1000020    ; BP-CC-SRM-1000020 ;                 ;           ; oz_0_5          
+                                      ; CC-SRM-1000021    ; BP-CC-SRM-1000020 ;                 ;           ; oz_1            
+                                      ; CC-ELX-1000018    ; BP-CC-ELX-1000018 ;                 ;           ; oz_0_5          
+                                      ; CC-ELX-1000019    ; BP-CC-ELX-1000018 ;                 ;           ; oz_1            
+                                      ; CC-MST-1000016    ; BP-CC-MST-1000016 ;                 ;           ; oz_0_5          
+                                      ; CC-MST-1000015    ; BP-CC-MST-1000016 ;                 ;           ; oz_1            
+                                      ; CC-OIL-1000006    ; BP-CC-OIL-1000006 ;                 ;           ; oz_0_5          
+                                      ; CC-OIL-1000007    ; BP-CC-OIL-1000006 ;                 ;           ; oz_2_0          
+                                      ; DR-1000571        ; BP-DR-1000571     ;                 ;           ; small_medium    
+                                      ; DR-1000572        ; BP-DR-1000571     ;                 ;           ; large_xlarge    
+                                      ; DR-1000659        ; BP-DR-1000659     ;                 ;           ; small_medium    
+                                      ; DR-1000660        ; BP-DR-1000659     ;                 ;           ; large_xlarge    
+                                      ; DR-1000555        ; BP-DR-1000555     ;                 ;           ; small_medium    
+                                      ; DR-1000575        ; BP-DR-1000555     ;                 ;           ; large_xlarge    
+                                      ; DR-1000554        ; BP-DR-1000554     ;                 ;           ; small_medium    
+                                      ; DR-1000574        ; BP-DR-1000554     ;                 ;           ; large_xlarge    
+                                      
+#################################################################################################
+
+###############################################VANITY FAIR VARIANTS################################################
+
+                                            
+$productCatalog=gpUSProductCatalog
+$productCatalogName=GP US Product Catalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+
+$productCatalog=gpUSProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$supercategories=supercategories(code, $catalogVersion)
+$baseProduct=baseProduct(code,$catalogVersion)
+$approved=approvalstatus(code)[default='approved']
+
+
+# Insert Variant Category                   
+INSERT_UPDATE GPDefaultVariantCategory ; code[unique=true] ; name  ; $supercategories ; hasImage ; $catalogVersion ; allowedPrincipals(uid)[default='customergroup']
+                                       ; color             ; Color ;                  ; true     
+                                       ; count             ; Count ;                  ; false    
+                                       ; size              ; Size  ;                  ; false    
+                                       ; scent             ; Scent ;                  ; false    
+
+								                               
+#Insert Variant Value Category         
+INSERT_UPDATE GPDefaultVariantValueCategory ; code[unique=true] ; name      ; $supercategories ; sequence ;hexCode; $catalogVersion ; allowedPrincipals(uid)[default='customergroup']
+                                            ; 80_Count             ; 80 Count         ; count            ; 191       
+                                            ; 160_Count             ; 160 Count         ; count            ; 192       
+                                            ; 40_Count             ; 40 Count        	 ; count            ; 193  
+                                            ; 100_Count             ; 100 Count         ; count            ; 194       
+                                            ; 200_Count             ; 200 Count         ; count            ; 195       
+                                            ; 300_Count             ; 300 Count         ; count            ; 196  
+                                           	; 450_Count             ; 450 Count         ; count            ; 197       
+                                            ; 660_Count             ; 660 Count         ; count            ; 198       
+                                       
+INSERT_UPDATE GPCommerceProduct ; code[unique=true] ; $catalogVersion ; supercategories(code,$catalogVersion) ; ean         ; unit(code) ; varianttype(code)[default='GenericVariantProduct'] ; $approved  
+                           ; BP-35130/18           ;                 ; count                       ;  ;          ;                   ; approved    
+ 						   ; BP-35515/18           ;           		 ; count                       ;  ;          ;                        ; approved   
+				     	   ; BP-35501/18           ;            	; count                       ;  ;          ;                        ; approved   
+						   ; BP-35236/18           ;            	; count                      ;  ;          ;                        ; approved    
+
+#Updating product information
+INSERT_UPDATE GPGenericVariantProduct ; code[unique=true] ; $baseProduct ; $catalogVersion ;$supercategories ; $approved                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+                                  ; 35130/18         ; BP-35130/18      ;                 ; 80_Count
+                                  ; 35132/18         ; BP-35130/18      ;                 ; 160_Count
+                                  ; 35515/18         ; BP-35515/18      ;                 ; 40_Count
+                                  ; 35518/18         ; BP-35515/18      ;                 ; 80_Count
+                                  ; 35501/18         ; BP-35501/18      ;                 ; 100_Count
+                                  ; 35502/18         ; BP-35501/18      ;                 ; 200_Count
+                                  ; 35503/18         ; BP-35501/18      ;                 ; 300_Count
+                                  ; 35272/18         ; BP-35501/18      ;                 ; 450_Count
+                                  ; 3558119         ; BP-35501/18      ;                 ; 660_Count
+                                  ; 35236/18        ; BP-35236/18      ;                 ; 80_Count
+                                  ; 35270/19        ; BP-35236/18      ;                 ; 160_Count
+                          
+                                               

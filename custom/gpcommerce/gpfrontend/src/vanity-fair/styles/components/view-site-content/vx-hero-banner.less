@@ -1,0 +1,64 @@
+#vanity-fair {
+  .banner {
+    &.hero-left {
+      .banner__promotion {
+        text-align: left;
+        .banner__heading {
+          font-size: @font-size-h1;
+          font-weight: @font-weight-medium !important;
+          line-height: 19px;
+          text-shadow: 2px 2px 2px @brand-secondary-9;
+        }
+        .banner__subheading {
+          font-size: @font-size-h3;
+          font-weight: @font-weight-regular;
+          line-height: 24px;
+          margin-top: 24px;
+          letter-spacing: @letter-spacing-slashed;
+          text-shadow: 2px 2px 2px @brand-secondary-9;
+        }
+        .btn {
+          font-size: @font-size-small !important;
+          font-weight: @font-weight-medium !important;
+          line-height: 15px;
+          letter-spacing: @letter-spacing-slashed;
+          text-align: left;
+          padding: 0px;
+        }
+      }
+    }
+    &.rays {
+      &:before {
+        background-image: url(/static/assets/images/vanity-fair/red-rays-image-M.png);
+        @media screen and (min-width: @screen-sm-min) {
+          background-image: url(/static/assets/images/vanity-fair/red-rays-image-T.png);
+        }
+        @media screen and (min-width: @screen-md-min) {
+          background-image: url(/static/assets/images/vanity-fair/red-rays-image-D.png);
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: @screen-xs-max) {
+    .banner {
+      &.hero-left {
+        .banner__promotion {
+          .banner__heading {
+            font-weight: @font-weight-regular;
+            font-size: @font-size-h2 !important;
+            line-height: 16px;
+            letter-spacing: @letter-spacing-default;
+          }
+          .banner__subheading {
+            font-size: @font-size-base !important;
+            line-height: 19px;
+            font-weight: @font-weight-medium !important;
+            line-height: 18px;
+            margin-top: 16px;
+          }
+        }
+      }
+    }
+  }
+}

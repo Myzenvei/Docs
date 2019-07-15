@@ -1,0 +1,12 @@
+<div class="vx-delete-list-modal">
+  <form ref="deleteListModal">
+    <div class="mb-md-5 mb-xs-4 form-group">
+      <p v-if="!multipleLists" role="text">{{i18n.deleteList.content}}</p>
+      <p v-if="multipleLists" role="text">{{i18n.deleteList.multipleListContent}}</p>
+      <div v-for="list in selectedListsName" role="text">{{list}}</div>
+    </div>
+    <div class="d-flex justify-content-center">
+      <button type="button" @click="deleteList" class="btn btn-primary modal-btn-primary-small modal-btn-xs-sticky">{{i18n.deleteList.delete}}</button>
+    </div>
+  </form>
+</div>

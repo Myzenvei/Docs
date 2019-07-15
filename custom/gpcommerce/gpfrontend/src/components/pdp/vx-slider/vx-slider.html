@@ -1,0 +1,28 @@
+<div class="vx-slider">
+  <div v-if="productData">
+    <h3 class="mb-xs-4" v-if='title'>{{title}}</h3>
+    <button class="swiper-button-prev icon-chevron-left" @click="slidePrev();" :aria-label="i18n.iconChevronLeftTitle"
+      tabindex="0" v-if="showNavigationArrows" :class="{'swiper-button-disabled':firstSlide}"
+      :disabled="firstSlide ? true : false">
+      <!-- <span class="icon-chevron-left"></span> -->
+    </button>
+    <swiper :options="swiperOptions">
+      <swiper-slide v-for="(product,index) in productData" :key="index">
+        <template v-if="!isSlotBased">
+          <vx-product-tile-vertical :product="product" :showSelectOption="showSelect" :is-favorite-visible="isFavorites"
+          :is-refill="isRefill" :is-bazaar-voice="isBazaarVoice" :i18n="searchBrowseI18n">
+          </vx-product-tile-vertical>
+        </template>
+
+        <template v-else>
+          <slot name="slide" :product="product" :i18n="searchBrowseI18n"></slot>
+        </template>
+      </swiper-slide>
+    </swiper>
+    <button class="swiper-button-next icon-chevron-right" @click="slideNext();" tabindex="0"
+      :aria-label='i18n.iconChevronRightTitle' v-if="showNavigationArrows" :class="{'swiper-button-disabled':lastSlide}"
+      :disabled="lastSlide ? true : false">
+      <!-- <span class="icon-chevron-right"></span> -->
+    </button>
+  </div>
+</div>

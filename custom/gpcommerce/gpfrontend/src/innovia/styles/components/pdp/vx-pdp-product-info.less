@@ -1,0 +1,62 @@
+#innovia {
+  .vx-pdp-product-info {
+    @media screen and (min-width: @screen-sm-max) {
+      padding-right: 24px;
+    }
+
+    .pdp-product-description {
+
+      h1,
+      .pdp-item-details span,
+      .price,
+      label {
+        font-family: @font-family-montserrat;
+      }
+
+      h1 {
+        font-weight: @font-weight-bold;
+      }
+
+      .price {
+        .actual-price {
+          color: @brand-secondary-5;
+        }
+      }
+
+      .product-subtitle {
+        color: @brand-secondary-5;
+        font-size: @font-size-base;
+      }
+
+      .pdp-variant-container {
+        li.variant {
+          a {
+            span {
+              font-size: @font-size-medium;
+            }
+          }
+        }
+      }
+
+      .pdp-product-cta {
+        span {
+          color: @header-search-icon-color;
+        }
+      }
+    }
+
+    .pdp-product-cta {
+
+      span,
+      button {
+        color: @btn-disabled-text-color;
+      }
+
+      .social-share-item {
+        margin-top: 24px;
+      }
+
+    }
+  }
+
+}

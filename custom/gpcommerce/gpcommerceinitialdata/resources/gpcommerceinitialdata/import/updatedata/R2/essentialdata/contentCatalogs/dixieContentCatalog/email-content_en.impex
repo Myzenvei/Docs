@@ -1,0 +1,136 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+#
+# Import the CMS content for the site emails
+#
+$contentCatalog=dixieContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$jarEmailResource=jar:com.gp.b2binitialdata.constants.Gpb2binitialdataConstants&/gpb2binitialdata/import/coredata/contentCatalogs/dixieContentCatalog/emails
+
+# Import config properties into impex macros for modulegen
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+$emailResource=$config-emailResourceValue
+
+# Language
+$lang=en
+
+# CMS components and Email velocity templates
+UPDATE RendererTemplate;code[unique=true];description[lang=$lang];templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+ ;dixie-BannerComponent-template;"CMSBannerComponent Template";$emailResource/email-bannerComponentTemplate.vm
+ ;dixie-CMSImageComponent-template;"CMSImageComponent Template";$emailResource/email-cmsImageComponentTemplate.vm
+ ;dixie-CMSLinkComponent-template;"CMSLinkComponent Template";$emailResource/email-cmsLinkComponentTemplate.vm
+ ;dixie-CMSParagraphComponent-template;"CMSParagraphComponent Template";$emailResource/email-cmsParagraphComponentTemplate.vm
+ ;dixie-SimpleBannerComponent-template;"CMSSimpleBannerComponent Template";$emailResource/email-bannerComponentTemplate.vm
+ ;dixie_Email_Customer_Registration_Body;"Customer Registration Email Body";$jarEmailResource/email-customerRegistrationBody.vm
+ ;dixie_Email_Customer_Registration_Subject;"Customer Registration Email Subject";$jarEmailResource/email-customerRegistrationSubject.vm
+ ;dixie_Email_Delivery_Sent_Body;"Delivery Sent Email Body";$jarEmailResource/email-deliverySentBody.vm
+ ;dixie_Email_Delivery_Sent_Subject;"Delivery Sent Email Subject";$jarEmailResource/email-deliverySentSubject.vm
+ ;dixie_Email_Forgotten_Password_Body;"Forgotten Password Email Body";$jarEmailResource/email-forgottenPasswordBody.vm
+ ;dixie_Email_Forgotten_Password_Subject;"Forgotten Password Email Subject";$jarEmailResource/email-forgottenPasswordSubject.vm
+ ;dixie_Email_Password_Reset_Body;"PasswordResetSuccessEmailBody";$jarEmailResource/email-passwordResetBody.vm
+ ;dixie_Email_Password_Reset_Subject;"PasswordResetSuccessEmailSubject";$jarEmailResource/email-passwordResetSubject.vm
+ ;dixie_Email_Share_Cart_Subject;"ShareCartEmailSubject";$jarEmailResource/email-shareCartSubject.vm
+ ;dixie_Email_Share_Cart_Body;"ShareCartEmailBody";$jarEmailResource/email-shareCartBody.vm        
+ ;dixie_Email_NotPickedUpConsignment_Canceled_Body;"Not Picked Up Consignment Canceled Email Body";$emailResource/email-notPickedUpConsignmentCanceledBody.vm
+ ;dixie_Email_NotPickedUpConsignment_Canceled_Subject;"Not Picked Up Consignment Canceled Email Subject";$emailResource/email-notPickedUpConsignmentCanceledSubject.vm
+ ;dixie_Email_Order_Cancelled_Body;"Order Cancelled Email Body";$jarEmailResource/email-orderCancelledBody.vm
+ ;dixie_Email_Order_Cancelled_Subject;"Order Cancelled Email Subject";$jarEmailResource/email-orderCancelledSubject.vm
+ ;dixie_Email_Order_Collection_Reminder_Body;"Order Collection Reminder Body";$emailResource/email-orderCollectionReminderBody.vm
+ ;dixie_Email_Order_Collection_Reminder_Subject;"Order Collection Reminder Subject";$emailResource/email-orderCollectionReminderSubject.vm
+ ;dixie_Email_Order_Confirmation_Body;"Order Confirmation Email Body";$jarEmailResource/email-orderConfirmationBody.vm
+ ;dixie_Email_Order_Confirmation_Subject;"Order Confirmation Email Subject";$jarEmailResource/email-orderConfirmationSubject.vm
+ ;dixie_Email_Order_Move_To_CS_Body;"Order Move To CS Body";$emailResource/email-orderMoveToCsBody.vm
+ ;dixie_Email_Order_Move_To_CS_Subject;"Order Move To CS Subject";$emailResource/email-orderMoveToCsSubject.vm
+ ;dixie_Email_Order_Partially_Canceled_Body;"Order Partially Canceled Email Body";$emailResource/email-orderPartiallyCanceledBody.vm
+ ;dixie_Email_Order_Partially_Canceled_Subject;"Order Partially Canceled Email Subject";$emailResource/email-orderPartiallyCanceledSubject.vm
+ ;dixie_Email_Order_Partially_Refunded_Body;"Order Partially Refunded Email Body";$emailResource/email-orderPartiallyRefundedBody.vm
+ ;dixie_Email_Order_Partially_Refunded_Subject;"Order Partially Refunded Email Subject";$emailResource/email-orderPartiallyRefundedSubject.vm
+ ;dixie_Email_Order_Refund_Body;"Order Refund Email Body";$jarEmailResource/email-orderRefundBody.vm
+ ;dixie_Email_Order_Refund_Subject;"Order Refund Email Subject";$jarEmailResource/email-orderRefundSubject.vm
+ ;dixie_Email_Quote_Buyer_Cancellation_Body;"Quote Buyer Cancellation Email Body";$emailResource/email-quoteBuyerCancellationBody.vm
+ ;dixie_Email_Quote_Buyer_Cancellation_Subject;"Quote Buyer Cancellation Email Subject";$emailResource/email-quoteBuyerCancellationSubject.vm
+ ;dixie_Email_Quote_Buyer_Submission_Body;"Quote Buyer Submission Email Body";$emailResource/email-quoteBuyerSubmissionBody.vm
+ ;dixie_Email_Quote_Buyer_Submission_Subject;"Quote Buyer Submission Email Subject";$emailResource/email-quoteBuyerSubmissionSubject.vm
+ ;dixie_Email_Quote_Expired_Body;"Quote Expired Body";$emailResource/email-quoteExpiredBody.vm
+ ;dixie_Email_Quote_Expired_Subject;"Quote Expired Subject";$emailResource/email-quoteExpiredSubject.vm
+ ;dixie_Email_Quote_To_Expire_Soon_Body;"Quote To Expire Soon Body";$emailResource/email-quoteToExpireSoonBody.vm
+ ;dixie_Email_Quote_To_Expire_Soon_Subject;"Quote To Expire Soon Subject";$emailResource/email-quoteToExpireSoonSubject.vm
+ ;dixie_Email_Ready_For_Pickup_Body;"Ready For Pickup Email Body";$emailResource/email-readyForPickupBody.vm
+ ;dixie_Email_Ready_For_Pickup_Subject;"Ready For Pickup Email Subject";$emailResource/email-readyForPickupSubject.vm
+ ;dixie_Email_Share_Product_Body;"Share Product Email Body";$jarEmailResource/email-shareProductBody.vm
+ ;dixie_Email_Share_Product_Subject;"Share Product Email Subject";$jarEmailResource/email-shareProductSubject.vm
+ ;dixie_Email_GP_Address_Notification_Body;"GP processes Email Body";$jarEmailResource/email-gpAddressNotificationBody.vm
+ ;dixie_Email_GP_Address_Notification_Subject;"GP processes Email Subject";$jarEmailResource/email-gpAddressNotificationSubject.vm
+ ;dixie_Email_GP_Order_Approval_Subject;"GP Email Order Approval Subject";$jarEmailResource/email-gpOrderApprovalSubject.vm
+ ;dixie_Email_GP_Order_Approval_Body;"GP Email Order Approval Body";$jarEmailResource/email-gpOrderApprovalBody.vm
+ ;email-UpdateProfileSubject-template;"change UID email subject";$jarEmailResource/email-updateProfileSubject.vm
+ ;email-UpdateProfileBody-template;"change UID email subject";$jarEmailResource/email-updateProfileBody.vm
+ ;email-ChangeUIDSubject-template;"change UID email subject";$jarEmailResource/email-changeUIDSubject.vm
+ ;email-ChangeUIDBody-template;"change UID email subject";$jarEmailResource/email-changeUIDBody.vm
+ ;dixie_Email_Quick_Order_Body;"Quick Order Email Body"; $jarEmailResource/email-quickorderBody.vm
+ ;dixie_Email_Quick_Order_Subject; "Quick Order Email Subject";$jarEmailResource/email-quickorderSubject.vm
+ ;dixie_Email_Share_Wishlist_Subject;"Share Wishlist Email Subject";$jarEmailResource/email-shareWishlistSubject.vm
+ ;dixie_Email_Share_Wishlist_Body;"Share Wishlist Email Body";$jarEmailResource/email-shareWishlistBody.vm
+ ;dixie-GPFooterComponent-template;"Email Footer Component";$emailResource/email-gpFooterComponentTemplate.vm
+ 
+# CMS components and Email velocity templates
+UPDATE RendererTemplate;code[unique=true];description[lang=$lang];templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+ ;dixie_Email_Order_ApprovalRejection_Body;"Buyer Approval Rejection Email Body";$jarEmailResource/email-orderApprovalRejectionBody.vm
+ ;dixie_Email_Order_ApprovalRejection_Subject;"Order Approval Rejection Email Subject";$jarEmailResource/email-orderApprovalRejectionSubject.vm
+ ;dixie_Email_Order_PendingApproval_Body;"Order Pending Approval Email Body";$jarEmailResource/email-orderPendingApprovalBody.vm
+ ;dixie_Email_Order_PendingApproval_Subject;"Order Pending Approval Email Subject";$jarEmailResource/email-orderPendingApprovalSubject.vm
+ ;dixie_Email_Replenishment_Order_Confirmation_Body;"";$jarEmailResource/email-replenishmentOrderConfirmationBody.vm
+ ;dixie_Email_Replenishment_Order_Confirmation_Subject;"Order Confirmation Email Subject";$jarEmailResource/email-replenishmentOrderConfirmationSubject.vm
+ ;dixie_Email_Replenishment_Order_Placed_Body;"Order Confirmation Email Subject";$jarEmailResource/email-replenishmentOrderPlacedBody.vm
+ ;dixie_Email_Replenishment_Order_Placed_Subject;"Order Confirmation Email Subject";$jarEmailResource/email-replenishmentOrderPlacedSubject.vm
+ ;dixie_Email_taxExemption_SubmitReview_Body;";TaxExemption Docs Submit Review Email Body";$jarEmailResource/email-taxExemptionSubmitReviewEmailBody.vm
+ ;dixie_Email_taxExemption_SubmitReview_Subject;";TaxExemption Docs Submit Review Email Subject";$jarEmailResource/email-taxExemptionSubmitReviewEmailSubject.vm
+ ; email-FailedOrder_Subject; "Failed Order Consignment Subject"; $jarEmailResource/email-failedOrderSubject.vm
+ ; email-FailedOrder_Body; "Failed Order Consignment Body"; $jarEmailResource/email-failedOrderBody.vm
+ ; dixie_Email_Order_Reject_Body; "Order Reject Email Body"; $jarEmailResource/email-orderRejectBody.vm
+ ; dixie_Email_Order_Reject_Subject; "Order Reject Email Subject"; $jarEmailResource/email-orderRejectSubject.vm	
+ ;dixie_Email_Order_Issues_Notify_Body; "Order Issues Notification BOdy"; $jarEmailResource/email-orderIssuesNotificationBody.vm	
+ ;dixie_Email_Order_Issues_Notify_Subject; "Order Issues Notification BOdy"; $jarEmailResource/email-orderIssuesNotificationSubject.vm	
+ 	
+# Email Pages
+UPDATE EmailPage;$contentCV[unique=true];uid[unique=true];fromEmail[lang=$lang];fromName[lang=$lang]
+ ;;CustomerRegistrationEmail;"info@dixiefoodservice.com";"Customer Services Team"
+ ;;DeliverySentEmail;"info@dixiefoodservice.com";"Customer Services Team"
+ ;;ForgottenPasswordEmail;"info@dixiefoodservice.com";"Customer Services Team"
+ ;;PasswordResetEmail;"info@dixiefoodservice.com";"CustomerServicesTeam"
+ ;;ShareCartEmail;"info@dixiefoodservice.com";"CustomerServicesTeam"				                  
+ ;;OrderApprovalRejectionEmail;"info@dixiefoodservice.com";"Customer Services Team"
+ ;;OrderCancelledEmail;"info@dixiefoodservice.com";"Customer Services Team"
+ ;;OrderCollectionReminderEmail;"info@dixiefoodservice.com";"Customer Services Team"
+ ;;OrderConfirmationEmail;"info@dixiefoodservice.com";"Customer Services Team"
+ ;;OrderMoveToCsEmail;"info@dixiefoodservice.com";"Customer Services Team"
+ ;;OrderPartiallyCanceledEmail;"info@dixiefoodservice.com";"Customer Services Team"
+ ;;OrderPartiallyRefundedEmail;"info@dixiefoodservice.com";"Customer Services Team"
+ ;;OrderPendingApprovalEmail;"info@dixiefoodservice.com";"Customer Services Team"
+ ;;OrderRefundEmail;"info@dixiefoodservice.com";"Customer Services Team"
+ ;;QuoteBuyerCancellationEmail;"info@dixiefoodservice.com";"Customer Services Team"
+ ;;QuoteBuyerSubmissionEmail;"info@dixiefoodservice.com";"Customer Services Team"
+ ;;QuoteExpiredEmail;"info@dixiefoodservice.com";"Customer Services Team"
+ ;;QuoteToExpireSoonEmail;"info@dixiefoodservice.com";"Customer Services Team"
+ ;;ReadyForPickupEmail;"info@dixiefoodservice.com";"Customer Services Team"
+ ;;ReplenishmentOrderConfirmationEmail;"info@dixiefoodservice.com";"Customer Services Team"
+ ;;ReplenishmentOrderPlacedEmail;"info@dixiefoodservice.com";"Customer Services Team"
+ ;;taxExemptionSubmitReviewEmail;"info@dixiefoodservice.com";"Customer Services Team"
+ ;;ShareProductEmail;"info@dixiefoodservice.com";"Customer Services Team"
+ ;;ShareWishlistEmail;"info@dixiefoodservice.com" ; "Customer Services Team"
+ ;;GPAddressNotificationEmail;"info@dixiefoodservice.com";"Customer Services Team"
+ ;;GPOrderApprovalEmail;"info@dixiefoodservice.com";"Customer Services Team"
+ ;;UpdateProfileEmail;"info@dixiefoodservice.com";"Customer Services Team"
+ ;;ChangeUIDEmail;"info@dixiefoodservice.com";"Customer Services Team"
+ ;;QuickOrderEmail;	"info@dixiefoodservice.com" ; "Customer Services Team"
+ ;;FailedOrderEmail; "info@dixiefoodservice.com" ; "Customer Services Team"
+ ;;OrderRejectEmail; "info@dixiefoodservice.com" ; "Customer Services Team"                 
+;;OrderIssuesNotifyEmail;"info@dixiefoodservice.com";"Customer Services Team"

@@ -1,0 +1,20 @@
+#b2b-white-label {
+  .vx-order-summary {
+    .order-summary {
+      .order-summary-details-container {
+        padding-top: 16px !important;
+      }
+      .vx-order-summary-details {
+        .progress.shipping-progress {
+          & + .section-divider {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+  .vx-place-order .btn-primary[disabled]:hover {
+    color: @btn-disabled-text-color;
+    background-color: @btn-disabled-bg;
+  }
+}

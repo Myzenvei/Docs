@@ -1,0 +1,4 @@
+INSERT_UPDATE SyncAttributeDescriptorConfig;syncJob(code)[unique=true,path-delimiter=!];attributeDescriptor(enclosingType(code),qualifier)[unique=true];includedInSync;copyByValue
+;sync gpUSProductCatalog:Staged->Online;Product:alternateUOM;true;true
+;sync gpUSProductCatalog:Staged->Online;Product:bvNumberOfReviews;false;false
+;sync gpUSProductCatalog:Staged->Online;Product:bvAverageRating;false;false

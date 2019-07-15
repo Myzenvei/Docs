@@ -1,0 +1,34 @@
+.vx-bundle-details {
+  border: 1px solid @border-color;
+  .root-bundle-heading {
+    border-bottom: 1px solid @border-color;
+    .root-bundle-name {
+      font-weight: @font-weight-medium;
+    }
+    .icon-x {
+      color: @font-icon-color-3;
+    }
+  }
+  .leaf-bundle-section {
+    .leaf-bundle-heading {
+      border-bottom: 1px solid @border-color;
+      background-color: @brand-secondary-8;
+      .icon-edit {
+        font-size: @font-icon-size;
+        color: @font-icon-color-3;
+      }
+    }
+    .vx-cart-product-tile {
+      .shopping-cart-product-tile {
+        margin: 0!important;
+        border: 0;
+        border-bottom: 1px solid @border-color;
+      }
+    }
+    &:last-child {
+      .shopping-cart-product-tile {
+        border-bottom: 0;
+      }
+    }
+  }
+}

@@ -1,0 +1,59 @@
+#gp-employee {
+  .vx-address-verification {
+    .current-address-heading,
+    .verified-address-heading {
+      font-size: @font-size-large;
+    }
+
+    .current-address-body,
+    .verified-address-body {
+      font-size: @font-size-large;
+      span {
+        margin-bottom: 8px;
+      }
+      .address-body{
+        word-wrap: break-all;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: @screen-xs-max) {
+  #gp-employee {
+    .vx-address-verification {
+      position: relative;
+      padding-bottom: 140px;
+      margin-bottom: 16px;
+      .current-address-container,
+      .verified-address-container {
+        position: static;
+        button {
+          position: absolute;
+          left: 0;
+          &.btn-primary {
+            bottom: 0;
+          }
+          &.btn-default {
+            bottom: 64px;
+          }
+        }
+      }
+      .current-address-heading,
+      .verified-address-heading {
+        text-align: left;
+      }
+      .current-address-container {
+        padding-bottom: 24px;
+      }
+      .current-address-body,
+      .verified-address-body {
+      .address-body{
+        word-wrap: break-word;
+      }
+    }
+    .submit {
+      margin-bottom: 0;
+    }
+    }
+  }
+}

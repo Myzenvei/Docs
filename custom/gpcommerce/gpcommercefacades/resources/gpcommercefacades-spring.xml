@@ -1,0 +1,1290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:util="http://www.springframework.org/schema/util"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+
+	<context:annotation-config/>
+
+	<alias alias="simpleSuggestionFacade" name="defaultSimpleSuggestionFacade"/>
+	<bean id="defaultSimpleSuggestionFacade" class="com.gp.commerce.facades.suggestion.impl.DefaultSimpleSuggestionFacade" >
+		<property name="simpleSuggestionService" ref="simpleSuggestionService"/>
+		<property name="userService" ref="userService"/>
+		<property name="categoryService" ref="categoryService"/>
+		<property name="productService" ref="productService"/>
+		<property name="productConverter" ref="carouselProductConverter"/>
+		<property name="cartService" ref="cartService"/>
+	</bean>
+
+	<bean id="carouselProductConverter" parent="defaultProductConverter">
+		<property name="populators">
+			<list merge="true">
+				<ref bean="productPricePopulator"/>
+				<ref bean="productStockPopulator"/>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- accelerator Image Format Mappings -->
+	<alias name="acceleratorImageFormatMapping" alias="imageFormatMapping"/>
+	<bean id="acceleratorImageFormatMapping" parent="defaultImageFormatMapping">
+		<property name="mapping">
+			<map>
+				<entry key="superZoom" value="1200Wx1200H"/>
+				<entry key="zoom" value="515Wx515H"/>
+				<entry key="store" value="365Wx246H"/>
+				<entry key="product" value="300Wx300H"/>
+				<entry key="thumbnail" value="96Wx96H"/>
+				<entry key="cartIcon" value="65Wx65H"/>
+				<entry key="styleSwatch" value="30Wx30H"/>
+			</map>
+		</property>
+	</bean>
+
+	<alias name="acceleratorProductPrimaryImagePopulator" alias="productPrimaryImagePopulator" />
+	<bean id="acceleratorProductPrimaryImagePopulator" parent="defaultProductPrimaryImagePopulator">
+		<property name="imageFormats">
+			<list>
+				<value>zoom</value>
+				<value>product</value>
+				<value>thumbnail</value>
+				<value>cartIcon</value>
+			</list>
+		</property>
+	</bean>
+
+	<alias name="acceleratorProductGalleryImagesPopulator" alias="productGalleryImagesPopulator" />
+	<bean id="acceleratorProductGalleryImagesPopulator" parent="defaultProductGalleryImagesPopulator">
+		<property name="imageFormats">
+			<list>
+				<value>superZoom</value>
+				<value>zoom</value>
+				<value>product</value>
+				<value>thumbnail</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="customerEmailContext" class="com.gp.commerce.facades.process.email.context.CustomerEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="customerConverter" ref="customerConverter"/>
+	</bean>
+
+	<bean id="forgottenPasswordEmailContext" class="com.gp.commerce.facades.process.email.context.ForgottenPasswordEmailContext" parent="customerEmailContext" scope="prototype" >
+		<property name="customerConverter" ref="customerConverter"/>
+	</bean>
+
+	<bean id="orderNotificationEmailContext" class="com.gp.commerce.facades.process.email.context.OrderNotificationEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="orderConverter" ref="orderConverter"/>
+	</bean>
+
+	<bean id="quoteNotificationEmailContext" class="com.gp.commerce.facades.process.email.context.QuoteNotificationEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="quoteService" ref="quoteService"/>
+		<property name="quoteConverter" ref="quoteConverter"/>
+	</bean>
+
+	<bean id="deliverySentEmailContext" class="com.gp.commerce.facades.process.email.context.DeliverySentEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="orderConverter" ref="orderConverter"/>
+		<property name="consignmentConverter" ref="consignmentConverter"/>
+		<property name="consignmentEntryConverter" ref="consignmentEntryConverter"/>
+		<property name="gpConsignmentTrackingConverter" ref="gpConsignmentTrackingConverter"/>
+	</bean>
+	
+	
+	<bean id="gpNextOrderSubscriptionContext" class="com.gp.commerce.facades.process.email.context.GPNextOrderSubscriptionContext" parent="abstractEmailContext" scope="prototype"/>
+	
+
+	<bean id="readyForPickupEmailContext" class="com.gp.commerce.facades.process.email.context.ReadyForPickupEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="consignmentConverter" ref="consignmentConverter"/>
+	</bean>
+
+	<bean id="orderCancelledEmailContext" class="com.gp.commerce.facades.process.email.context.OrderCancelledEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="orderConverter" ref="orderConverter"/>
+		<property name="consignmentEntryConverter" ref="consignmentEntryConverter"/>
+	</bean>
+
+	<bean id="orderRefundEmailContext" class="com.gp.commerce.facades.process.email.context.OrderRefundEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="orderConverter" ref="orderConverter"/>
+	</bean>
+	<bean id="consignmentCollectionReminderEmailContext" class="com.gp.commerce.facades.process.email.context.ConsignmentCollectionReminderEmailContext" parent="abstractEmailContext" scope="prototype">
+		<property name="consignmentConverter" ref="consignmentConverter"/>
+		<property name="formatFactory" ref="formatFactory"/>
+		<property name="customerServiceUncollectedConsignmentStrategy" ref="customerServiceUncollectedConsignmentStrategy" />
+		<property name="orderConverter" ref="orderConverter"/>
+	</bean>
+
+	<bean id="orderPartiallyModifiedEmailContext" class="com.gp.commerce.facades.process.email.context.OrderPartiallyModifiedEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="orderConverter" ref="orderConverter"/>
+		<property name="orderEntryConverter" ref="orderEntryConverter"/>
+		<property name="priceDataFactory" ref="priceDataFactory"/>
+	</bean>
+
+	<bean id="orderPartiallyCanceledEmailContext" class="com.gp.commerce.facades.process.email.context.OrderPartiallyCanceledEmailContext" parent="orderPartiallyModifiedEmailContext" scope="prototype" >
+	</bean>
+
+	<bean id="orderPartiallyRefundedEmailContext" class="com.gp.commerce.facades.process.email.context.OrderPartiallyRefundedEmailContext" parent="orderPartiallyModifiedEmailContext" scope="prototype" >
+	</bean>
+
+	<bean id="notPickedUpConsignmentCanceledEmailContext" class="com.gp.commerce.facades.process.email.context.NotPickedUpConsignmentCanceledEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="consignmentConverter" ref="consignmentConverter"/>
+		<property name="priceDataFactory" ref="priceDataFactory"/>
+	</bean>
+	
+	<bean id="gpQuickOrderEmailContext" class="com.gp.commerce.facades.process.email.context.GPQuickOrderEmailContext" parent="abstractEmailContext" scope="prototype" >
+	</bean>
+	
+
+	<alias name="yacceleratorSearchPagePointOfServiceDistancePopulator" alias="searchPagePointOfServiceDistancePopulator" />
+	<bean id="yacceleratorSearchPagePointOfServiceDistancePopulator" class="com.gp.commerce.facades.storefinder.populators.SearchPagePointOfServiceDistancePopulator" >
+		<property name="pointOfServiceDistanceConverter" ref="pointOfServiceDistanceConverter"/>
+	</bean>
+
+	<bean id="genderData" class="com.gp.commerce.facades.product.data.GenderData" scope="prototype"/>
+	<!-- <alias name="defaultGPUserFacade" alias="gpUserFacade"/>
+	<bean id="defaultGPUserFacade" class="com.gp.commerce.core.facades.impl.DefaultGPUserFacade">
+		<property name="customerAccountService" ref="customerAccountService"/>
+		<property name="commerceCommonI18NService" ref="commerceCommonI18NService"/>
+		<property name="commonI18NService" ref="commonI18NService"/>
+		<property name="modelService" ref="modelService"/>
+		<property name="cartService" ref="cartService"/>
+		<property name="gpUserService" ref="gpUserService"/>
+		</bean>
+
+		<alias name="defaultGPUserService" alias="gpUserService"/>
+	<bean id="defaultGPUserService" class="com.gp.commerce.core.services.impl.DefaultGPUserService">
+	</bean> -->
+	
+	<alias name="gpUserFacade" alias="userFacade"/>
+    <bean id="gpUserFacade" class="com.gp.commerce.facades.user.impl.GPDefaultUserFacade" parent="defaultUserFacade">
+       <property name="userService" ref="gpUserService"/>
+       <property name="baseSiteService" ref="baseSiteService"/>
+       <property name="marketingPreferenceConverter" ref="marketingPreferenceConverter"/>
+	   <property name="quplesService" ref="gpQuplesService"/>
+    </bean>
+    
+	<bean id="gpDefaultCustomerFacade" class="com.gp.commerce.facades.customer.impl.GpDefaultCustomerFacade" parent="defaultCustomerFacade">
+		<property name="socialAccountService" ref="gpCommerceSocialAccountService"/>
+		<property name="gpCustomerAccountService" ref="defaultGPCustomerAccountService"/>
+		<property name="configurationService" ref="configurationService" />
+		<property name="b2bUnitService" ref="b2bUnitService"/>
+		<property name="baseSiteService" ref="baseSiteService"/>
+		<property name="gpCommerceKochAuthService" ref="gpCommerceKochAuthService"/>
+		<property name="catalogVersionService" ref="catalogVersionService"/>
+		<property name="mediaService" ref="mediaService"/>
+		<property name="b2BCustomerReverseConverter" ref="b2BCustomerReverseConverter" />
+		<property name="guidKeyGenerator" ref="guidKeyGenerator" />
+		<property name="tokenValiditySeconds" value="#{configurationService.configuration.getProperty('email.token.expiration.time')}"/>
+		<property name="secureTokenService" ref="secureTokenService" />
+		<property name="gpDefaultCustomerNameStrategy" ref="gpDefaultCustomerNameStrategy" />
+		<property name="quplesService" ref="gpQuplesService"/>
+		<property name="gpDefaultPdfUserDetailsPopulator" ref="gpDefaultPdfUserDetailsPopulator" />
+	</bean>
+
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="extendedCartConverter"/>
+		<property name="add" ref="gpOrderPopulator"/>
+	</bean>
+	
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="orderConverter"/>
+		<property name="add" ref="gpOrderPopulator"/>
+	</bean>
+	
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="cartConverter"/>
+		<property name="remove" ref="groupOrderEntryPopulator"/>
+	</bean>
+	
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="extendedCartConverter"/>
+		<property name="remove" ref="groupOrderEntryPopulator"/>
+	</bean>
+	
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="orderConverter"/>
+		<property name="remove" ref="groupOrderEntryPopulator"/>
+	</bean>
+	
+		<bean parent="modifyPopulatorList">
+		<property name="list" ref="orderConverter"/>
+		<property name="remove" ref="groupOrderConsignmentEntryPopulator"/>
+	</bean>
+
+	<bean id="gpOrderPopulator"
+			class="com.gp.commerce.facades.order.converters.populator.GPOrderPopulator">
+					<property name="priceDataFactory" ref="priceDataFactory"/>
+					<property name="gpInstallationConverter" ref="gpInstallationConverter"/>
+					<property name="promotionResultConverter" ref="promotionResultConverter"/>
+					<property name="promotionsService" ref="promotionsService"/>
+			</bean>
+			
+	<bean id="passwordResetEmailContext" class="com.gp.commerce.facades.process.email.context.PasswordResetEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="customerConverter" ref="customerConverter"/>
+	</bean>
+	
+	<bean id="SubscriptionOrderCancelledEmailContext" class="com.gp.commerce.facades.process.email.context.SubscriptionOrderCancelledEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="emailCartConverter" ref="emailCartConverter"/>
+		<property name="mediaService" ref="mediaService"/>
+		<property name="catalogVersionService" ref="catalogVersionService"/>
+	</bean>
+	
+	<bean id="emailProductPopulator" class="com.gp.commerce.facades.populators.GPEmailProductPopulator">
+		<property name="productConverter" ref="productConverter"/>
+	</bean>
+	
+	<bean id="emailProductConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="de.hybris.platform.commercefacades.product.data.ProductData"/>
+		<property name="populators">
+			<list>
+				<ref bean="emailProductPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="shareProductContext" class="com.gp.commerce.facades.process.email.context.ShareProductContext" parent="abstractEmailContext" scope="prototype">
+		<property name="emailProductConverter" ref="emailProductConverter"/>
+	</bean>
+	
+	<bean id="emailCartPopulator" class="com.gp.commerce.facades.populators.GPEmailCartPopulator">
+		<property name="cartConverter" ref="cartConverter"/>
+	</bean>
+	
+	
+
+	<bean id="emailCartConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="de.hybris.platform.commercefacades.order.data.CartData"/>
+		<property name="populators">
+			<list>
+				<ref bean="emailCartPopulator"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="shareCartEmailContext" class="com.gp.commerce.facades.process.email.context.ShareCartEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="emailService" ref="emailService"/>
+		<property name="defaultGPEmailGenerationService" ref="defaultGPEmailGenerationService"/>
+		<property name="emailCartConverter" ref="emailCartConverter"/>
+		<property name="defaultGPEmailService" ref="defaultGPEmailService"/>
+		<property name="addressConverter" ref="addressConverter"/>
+		<property name="mediaService" ref="mediaService"/>
+		<property name="catalogVersionService" ref="catalogVersionService"/>
+	</bean>
+	<!--  Survey Related beans : START -->
+	<bean id="gpSurveyFacade" class="com.gp.commerce.facades.customer.survey.impl.GPSurveyFacadeImpl">
+		<property name="gpSurveyService" ref="gpSurveyService"/>
+		<property name="userService" ref="userService"/>
+		<property name="modelService" ref="modelService"/>
+		<property name="addressReversePopulator" ref="addressReversePopulator"/>
+		<property name="baseSiteService" ref="baseSiteService"/>
+		<property name="gpSurveyConverter" ref="gpSurveyConverter"/>
+		<property name="configurationService" ref="configurationService"/>
+	</bean>
+
+	<bean id="gpSurveyConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.gp.commerce.facades.user.data.SurveyRegisterData"/>
+		<property name="populators">
+			<list>
+				<ref bean="gpSurveyPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="gpSurveyPopulator"
+		  class="com.gp.commerce.facade.survey.converters.populator.GPSurveyPopulator">
+		<property name="gpQuestionConverter" ref="gpQuestionConverter"/>
+	</bean>
+
+	<bean id="gpQuestionConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.gp.commerce.facades.survey.data.QuestionData"/>
+		<property name="populators">
+			<list>
+				<ref bean="gpQuestionPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="gpQuestionPopulator"
+		  class="com.gp.commerce.facade.survey.converters.populator.GPQuestionPopulator">
+		<property name="gpOptionConverter" ref="gpOptionConverter"/>
+	</bean>
+
+	<bean id="gpOptionConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.gp.commerce.facades.survey.data.OptionData"/>
+		<property name="populators">
+			<list>
+				<ref bean="gpOptionPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="gpOptionPopulator"
+		  class="com.gp.commerce.facade.survey.converters.populator.GPOptionPopulator" >
+	</bean>
+	<!--  Survey Related beans : END -->
+	<bean id="gpMessageResourceAccessor"
+		  class="com.gp.commerce.config.bundlesources.GPMessageResourcesAccessor">
+		<property name="cacheSeconds"
+				  value="#{configurationService.configuration.getProperty('storefront.resourceBundle.cacheSeconds')}" />
+		<property name="resourceLoader">
+			<bean class="org.springframework.core.io.FileSystemResourceLoader" />
+		</property>
+		<property name="fallbackToSystemLocale" value="false" />
+		<property name="baseSiteService" ref="baseSiteService"/>
+	</bean>
+
+	<alias alias="searchCompareProductsFacade" name="defaultSearchCompareProductsFacade"/>
+	<bean id="defaultSearchCompareProductsFacade" class="com.gp.commerce.facades.search.compare.impl.GPDefaultSearchCompareProductsFacade">
+		<property name="productFacade" ref="productFacade"/>
+		<property name="configurationService" ref="configurationService"/>
+		<property name="gpProductService" ref="gpProductService"/>
+	</bean>
+
+	<!-- populator for solr search results data   -->
+	<alias name="gpCommerceSearchResultProductPopulator" alias="commerceSearchResultProductPopulator"/>
+	<bean id="gpCommerceSearchResultProductPopulator"
+		  class="com.gp.commerce.facades.search.converters.populator.GPCommerceSearchResultProductPopulator"
+		  parent="variantOptionsCommerceSearchResultProductPopulator">
+		<property name="gpPriceFactory" ref="gpPriceFactory"/>
+		<property name="modelService" ref="modelService"/>
+		<property name="imageConverter" ref="imageConverter"/>
+	</bean>
+
+	<bean id="gpSolrSearchStatePopulator" class="com.gp.commerce.facades.search.solrfacetsearch.converters.populator.GPSolrSearchStatePopulator" parent="solrSearchStatePopulator" />
+	<alias name="gpSolrSearchStateConverter" alias="solrSearchStateConverter"/>
+	<bean id="gpSolrSearchStateConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="de.hybris.platform.commercefacades.search.data.SearchStateData"/>
+		<property name="populators">
+			<list>
+				<ref bean="gpSolrSearchStatePopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="wishlistConverter" parent="abstractPopulatingConverter">
+		<lookup-method name="createTarget" bean="wishlistData"/>
+		<property name="populators">
+			<list merge="true">
+				<ref bean="wishlistPopulator"/>
+			</list>
+		</property>
+	</bean>
+	<bean id="wishlistData" class="com.gp.commerce.facades.data.WishlistData"
+		  scope="prototype" />
+
+	<bean id="wishlistEntryData" class="com.gp.commerce.facades.data.WishlistEntryData"
+		  scope="prototype" />
+
+	<bean id="wishlistPopulator" class="com.gp.commerce.facades.populators.GPWishlistPopulator">
+		<property name="wishlistEntryConverter" ref="wishlistEntryConverter" />
+		<property name="commonI18NService" ref="commonI18NService" />
+		<property name="i18NService" ref="i18NService" />
+	</bean>
+
+	<bean id="wishlistEntryConverter" parent="abstractPopulatingConverter">
+		<lookup-method name="createTarget" bean="wishlistEntryData"/>
+		<property name="populators">
+			<list merge="true">
+				<ref bean="wishlistEntryPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="wishlistEntryPopulator"
+		  class="com.gp.commerce.facades.populators.GPWishlistEntryPopulator">
+		<property name="productConverter" ref="productConverter" />
+		<property name="commonI18NService" ref="commonI18NService" />
+		<property name="commerceCommonI18NService" ref="commerceCommonI18NService" />
+		<property name="i18NService" ref="i18NService" />
+		<property name="productConfiguredPopulator" ref="wlProductConfiguredPopulator"/>
+	</bean>
+
+	<bean id="wishlistFacade"
+		  class="com.gp.commerce.facades.wishlist.impl.GPDefaultWishlistFacade">
+		<property name="commerceCartService" ref="commerceCartService"/>
+		<property name="wishlistService" ref="wishlistService" />
+		<property name="wishlistConverter" ref="wishlistConverter" />
+		<property name="productService" ref="productService" />
+		<property name="guidKeyGenerator" ref="guidKeyGenerator"/>
+		<property name="modelService" ref="modelService"/>
+		<property name="baseSiteService" ref="baseSiteService"/>
+		<property name="gpWishlistService" ref="gpWishlistService" />
+		<property name="productConverter" ref="productConverter"/>
+		<property name="productConfiguredPopulator" ref="wlProductConfiguredPopulator"/>
+	</bean>
+	
+	<bean id="wlProductConfiguredPopulator" parent="defaultProductConfiguredPopulator">
+		<property name="populators">
+			<map key-type="de.hybris.platform.commercefacades.product.ProductOption" merge="true">
+				<entry key="SPECIFICATIONS" value-ref="defaultProductSpecificationPopulator"/>
+				<entry key="BUNDLE" value-ref="productBundlePopulator"/>
+			</map>
+		</property>
+	</bean>
+
+	<alias name="gpDefaultCartFacade" alias="gpCarFacade"/>
+	<bean id="gpDefaultCartFacade" class="com.gp.commerce.facades.cart.impl.GPDefaultCartFacade">
+		<property name="gpCartService" ref="gpCartService"/>
+		<property name="cartService" ref="cartService"/>
+		<property name="gpShippingRestrictionConverter" ref="gpShippingRestrictionConverter"/>
+		<property name="deliveryModeReverseConverter" ref="deliveryModeReverseConverter"/>
+		<property name="avsService" ref="gpCommerceAddressVerificationService"/>
+		<property name="gpCommerceLeaseAgreementService" ref="gpCommerceLeaseAgreementService" />
+		<property name="userService" ref="userService" />
+		<property name="zoneDeliveryModeConverter" ref="zoneDeliveryModeConverter"/>
+		<property name="priceDataFactory" ref="priceDataFactory"/>
+		<property name="deliveryModeConverter" ref="deliveryModeConverter"/>
+		<property name="sessionService" ref="sessionService"/>
+		<property name="modelService" ref="modelService"/>
+		<property name="gpLeaseDataConverter" ref="gpLeaseDataConverter"/>
+	</bean>
+	<!-- populator for GP Product   -->
+<bean id="productInfoTabConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.gp.commerce.facades.product.data.ProductInfoTabData"/>
+		<property name="populators">
+			<list>
+				<ref bean="productInfoTabPopulator"/>
+			</list>
+		</property>
+	</bean>
+		
+	<bean id="productInfoTabPopulator" class="com.gp.commerce.facades.populators.GPProductInfoTabPopulator">
+</bean>
+
+	<bean id="gpProductPopulator"
+		  class="com.gp.commerce.facades.populators.GPCommerceProductPopulator"
+		  parent="defaultProductPopulator">
+		  <property name="configurationService" ref="configurationService" />
+		   <property name="categoryConverter" ref="categoryConverter"/>
+		   <property name="productInfoTabConverter" ref="productInfoTabConverter"/>
+	</bean>
+	
+	<alias name="gpDefaultProductBasicPopulator" alias="productBasicPopulator"/>
+	<bean id="gpDefaultProductBasicPopulator" parent="defaultProductBasicPopulator"
+			class="com.gp.commerce.facades.populators.GPDefaultProductBasicPopulator">
+	</bean>
+
+	<bean id="gpStockPopulator"
+		  class="com.gp.commerce.facades.stock.converters.populator.GPStockPopulator">
+		<property name="baseStoreService" ref="baseStoreService"/>
+		<property name="stockService" ref="defaultStockService"/>
+	</bean>
+	
+	<bean id="gpCategoryPopulator"
+		  class="com.gp.commerce.facades.populators.GPCategoryPopulator">
+	</bean>
+	
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="categoryConverter"/>
+		<property name="add" ref="gpCategoryPopulator"/>
+	</bean>
+
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="productConverter"/>
+		<property name="add" ref="gpProductPopulator"/>
+	</bean>
+
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="stockConverter"/>
+		<property name="add" ref="gpStockPopulator"/>
+	</bean>
+	
+	<bean id="gpOrderEntryPopulator"
+		class="com.gp.commerce.facades.order.converters.populator.GPOrderEntryPopulator" >
+			<property name="gpSplitEntryConverter" ref="gpSplitEntryConverter"/>
+	</bean>
+
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="orderEntryConverter" />
+		<property name="add" ref="gpOrderEntryPopulator" />
+	</bean>
+	
+	<bean id="gpCategoryHierarchyPopulator"	class="com.gp.commerce.facades.populators.GpCategoryHierarchyPopulator">
+		<property name="productConverter" ref="productConverter"/>
+		<property name="productService" ref="productService"/>
+		<property name="categoryUrlResolver" ref="categoryModelUrlResolver"></property>
+	</bean>
+
+	<alias alias="shareProductFacade" name="shareProductFacade"/>
+	<bean id="shareProductFacade"
+		  class="com.gp.commerce.facades.shareproduct.impl.GPDefaultShareProductFacade">
+		<property name="gpShareProductService" ref="gpShareProductService" />
+		<property name="gpShareProductResourceService" ref="gpShareProductResourceService" />
+	</bean>
+
+	<alias name="gpDefaultCatalogFacade" alias="catalogFacade"/>
+	<bean id="gpDefaultCatalogFacade" class="com.gp.commerce.facade.catalog.impl.GpCatalogFacadeImpl">
+		<property name="gpCategoryHierarchyPopulator" ref="gpCategoryHierarchyPopulator"/>
+		<property name="catalogService" ref="catalogService"/>
+		<property name="categoryService" ref="categoryService"/>
+		<property name="catalogVersionService" ref="catalogVersionService"/>
+		<property name="catalogVersionPopulator" ref="catalogVersionPopulator"/>
+		<property name="catalogHierarchyPopulator" ref="catalogHierarchyPopulator"/>
+		<property name="categoryHierarchyPopulator" ref="categoryHierarchyPopulator"/>
+		<property name="baseSiteService" ref="baseSiteService"/>
+	</bean>
+
+	<bean id="gpPricePopulator" class="com.gp.commerce.facades.price.converters.populator.GPProductPricePopulator" parent="baseProductPopulator"></bean>
+
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="productPricePopulatorList" />
+		<property name="add" ref="gpPricePopulator" />
+	</bean> 
+	
+	<alias name="gpCheckoutFacade" alias="checkoutFacade"/>
+	<bean id="gpCheckoutFacade" class="com.gp.commerce.facades.order.impl.GPCheckoutFacade" parent="defaultCheckoutFacade">
+		<property name="gpCustomerAccountService" ref="gpCustomerAccountService"/>
+		<property name="paymentAuthService" ref="paymentAuthService"/>
+		<property name="gpApplePaySessionSerivce" ref="gpApplePaySessionSerivce"/>
+		<property name="flexibleSearchService" ref = "flexibleSearchService"/>
+		<property name="defaultI18NFacade" ref="defaultI18NFacade"/>
+	</bean>
+	
+	<bean id="paymentAuthService"
+		class="com.gp.commerce.core.service.auth.impl.GPDefaultPaymentAuthService">
+		<property name="gpCyberSource" ref="gpCyberSource"/>
+		<property name="gpPayPalService" ref ="gpPayPalService"></property>
+		<property name="creditCardPaymentInfoConverter" ref="creditCardPaymentInfoConverter"/>
+		<property name="modelService" ref="modelService"/>
+		<property name="guidKeyGenerator" ref="guidKeyGenerator"></property>
+		<property name="configurationService" ref = "configurationService"></property>
+	</bean>
+
+	<bean id="gpSplitEntryConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.gp.commerce.facade.order.data.SplitEntryData"/>
+		<property name="populators">
+			<list>
+				<ref bean="gpSplitEntryPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="gpSplitEntryPopulator" class="com.gp.commerce.facades.populators.GPSplitEntryPopulator">
+		<property name="addressConverter" ref="addressConverter"/>
+		<property name="deliveryModeConverter" ref="deliveryModeConverter"/>
+		<property name="zoneDeliveryModeConverter" ref="zoneDeliveryModeConverter"/>
+		<property name="priceDataFactory" ref="priceDataFactory"/>
+	</bean>
+
+
+	<bean id="gpProductInterestReversePopulator" class="com.gp.commerce.facades.populators.GPProductInterestReversePopulator">
+	</bean>
+
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="productInterestReverseConverter"/>
+		<property name="add" ref="gpProductInterestReversePopulator"/>
+	</bean>
+
+	<bean id="gpBackInStockNotificationEmailContext"
+		  class="com.gp.commerce.facades.process.email.context.GPBackInStockNotificationEmailContext"
+		  parent="backInStockNotificationEmailContext" scope="prototype">
+	</bean>
+
+	<alias name="defaultGPPrecuratedListConverter" alias="gpPrecuratedListConverter"/>
+	<bean id="defaultGPPrecuratedListConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.gp.commerce.facades.component.data.GPPreCurateddata" />
+		<property name="populators">
+			<list>
+				<ref bean="gpPrecuratedListPopulator" />
+			</list>
+		</property>
+	</bean>
+
+
+	<alias name="defaultGPPrecuratedListPopulator" alias="gpPrecuratedListPopulator"/>
+	<bean id="defaultGPPrecuratedListPopulator" class="com.gp.commerce.facades.populators.GPPrecuratedListPopulator">
+		<property name="siteBaseUrlResolutionService" ref="siteBaseUrlResolutionService"/>
+		<property name="defaultGpCMSSiteService" ref="defaultGpCMSSiteService"/>
+	</bean>
+
+	<alias name="defaultGPB2BUnitNodePopulator" alias="b2bUnitNodePopulator" />
+	<bean id="defaultGPB2BUnitNodePopulator"
+		  class="com.gp.commerce.facades.populators.GPB2BUnitNodePopulator" parent="defaultB2BUnitNodePopulator">
+		<property name="addressConverter" ref="addressConverter"/>
+		<property name="b2BCustomerConverter" ref="b2BCustomerConverter"/>
+	</bean>
+
+
+	<alias name="defaultGpAddressPopulator" alias="addressPopulator"/>
+	<bean id="defaultGpAddressPopulator"
+		  class="com.gp.commerce.facades.populators.GPAddressPopulator" parent="defaultAddressPopulator">
+	</bean>
+	<bean id="gpShippingRestrictionConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.gp.commerce.facade.order.data.ShippingRestrictionsData"/>
+		<property name="populators">
+			<list>
+				<ref bean="gpShippingRestrictionPopulator"/>
+			</list>
+		</property>
+	</bean>
+		
+	<bean id="gpShippingRestrictionPopulator" class="com.gp.commerce.facades.populators.GPShippingRestrictionPopulator">
+</bean>
+
+	<bean id="gpSupportTicketReverseConverter"
+		parent="abstractPopulatingConverter">
+		<property name="targetClass"
+			value="com.gp.commerce.core.model.GPSupportTicketModel" />
+		<property name="populators">
+			<list>
+				<ref bean="gpTicketReversePopulator" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="gpTicketReversePopulator"
+		class="com.gp.commerce.facades.populators.GPTicketReversePopulator">
+	</bean>
+
+	<bean id="gpSupportTicketConverter"
+		parent="abstractPopulatingConverter">
+		<property name="targetClass"
+			value="de.hybris.platform.customerticketingfacades.data.TicketData" />
+		<property name="populators">
+			<list>
+				<ref bean="gpSupportTicketPopulator" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="gpSupportTicketPopulator"
+		class="com.gp.commerce.facades.populators.GPSupportTicketPopulator">
+		<property name="gpTopicOfInquiryConverter" ref="gpTopicOfInquiryConverter"/>
+	</bean>
+
+	<bean id="gpTopicOfInquiryConverter"
+		parent="abstractPopulatingConverter">
+		<property name="targetClass"
+			value="com.gp.commerce.facades.data.TopicOfInquiryData" />
+		<property name="populators">
+			<list>
+				<ref bean="gpTopicOfInquiryPopulator" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="gpTopicOfInquiryPopulator"
+		class="com.gp.commerce.facades.populators.GPTopicOfInquiryPopulator">
+	</bean>
+
+	<alias name="gpTicketFacadeImpl" alias="gpTicketFacade"/>
+	<bean id="gpTicketFacadeImpl" class="com.gp.commerce.facades.ticket.impl.GPTicketFacadeImpl"/>
+
+	<bean id="gpDispenserKeyTicketConverter"
+		  parent="abstractPopulatingConverter">
+		<property name="targetClass"
+				  value="com.gp.commerce.core.model.GPDispenserKeyTicketModel" />
+		<property name="populators">
+			<list>
+				<ref bean="gpTicketReversePopulator" />
+			</list>
+		</property>
+	</bean>
+	
+	
+	 <!--Removing the mandatory attribute widescreen for media container in smart-edit -->
+	 	
+	<bean id="gpB2BPermissionFacade" class="com.gp.commerce.facades.permissions.impl.GPDefaultB2BPermissionFacade">
+	<property name="gpb2bPermissionService" ref="gpb2bPermissionService"/>
+	<property name="b2BPermissionConverter" ref="b2bPermissionConverter"/>
+	</bean>
+	
+	<bean id="gpB2BUserGroupFacade" class="com.gp.commerce.facades.usergroups.impl.GPDefaultB2BUserGroupFacade">
+	<property name="gpb2buserGroupService" ref="gpb2buserGroupService"/>
+	<property name="b2BUserGroupConverter" ref="b2bUserGroupConverter"/>
+	<property name="b2BUserConverter" ref="b2bUserConverter" />
+	</bean>
+	
+
+	<!--Removing the mandatory attribute widescreen for media container in smart-edit -->
+	<util:list id="cmsRequiredMediaFormatQualifiers">
+		<description>deprecated since 6.6</description>
+		<!-- <value>widescreen</value> -->
+	</util:list>
+	 
+	<bean id="gpDefaultUserFacade" class="com.gp.commerce.facades.user.impl.GPDefaultUserFacade" parent="userFacade"/>
+	
+	<bean id="gpInstallationConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.gp.commerce.facades.data.GPScheduleInstallationData"/>
+		<property name="populators">
+			<list>
+				<ref bean="gpInstallationPopulator"/>
+			</list>
+		</property>
+	</bean>
+	
+	<alias name="defaultGPAddressReversePopulator" alias="addressReversePopulator"/>
+	<bean id="defaultGPAddressReversePopulator"
+			class="com.gp.commerce.facades.populators.GPAddressReversePopulator" parent="defaultAddressReversePopulator">
+			<property name="enumerationService" ref="enumerationService"/>
+		<property name="b2bUnitService" ref="b2bUnitService"/>
+		<property name="configurationService" ref="configurationService"/>
+		<property name="userService" ref="userService"/>
+	</bean>
+	
+	<alias name="defaultGPB2BCustomerReversePopulator" alias="b2BCustomerReversePopulator"/>
+	<bean id="defaultGPB2BCustomerReversePopulator"
+	class="com.gp.commerce.facades.populators.GPB2BCustomerReversePopulator" parent="defaultB2BCustomerReversePopulator">
+	<property name="baseSiteService" ref="baseSiteService"/>
+	<property name="userService" ref="userService"/>
+	<property name="modelService" ref="modelService"/>
+	</bean>
+	
+	<alias name="gpB2BUnitsFacade" alias="gpB2BUnitsFacade"/>
+	 <bean id="gpB2BUnitsFacade" class="com.gp.commerce.facades.company.impl.GPDefaultB2BUnitsFacade">
+	 </bean>
+	 
+	 <bean id="gpCustomerEmailContext" class="com.gp.commerce.facades.process.email.context.GPCustomerEmailContext" parent="customerEmailContext" scope="prototype" >
+		<property name="customerConverter" ref="customerConverter"/>
+		<property name="addressConverter" ref="addressConverter"/>
+		<property name="emailService" ref="emailService"/>
+	</bean>	
+	
+	<bean id="gpPersonalDetailsPopulator" class="com.gp.commerce.facades.populators.GPPersonalDetailsPopulator"></bean>
+	
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="customerConverter" />
+		<property name="add" ref="gpPersonalDetailsPopulator" />
+	</bean> 
+	
+	<bean id="updateProfileContext" 
+		  class="com.gp.commerce.facades.process.email.context.UpdateProfileEmailContext" parent="customerEmailContext" scope="prototype" >
+		<property name="customerConverter" ref="customerConverter"/>
+	</bean>
+	
+	<bean id="changeUIDContext" 
+		  class="com.gp.commerce.facades.process.email.context.ChangeUIDEmailContext" parent="customerEmailContext" scope="prototype" >
+		<property name="customerConverter" ref="customerConverter"/>
+	</bean>
+
+	 <alias name="gpMarketingPreferenceConverter" alias="marketingPreferenceConverter"/>
+	 <bean id="gpMarketingPreferenceConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.gp.commerce.facades.data.user.data.MarketingPreferenceData"/>
+		<property name="populators">
+			<list>
+				<ref bean="marketingPreferencePopulator"/>
+			</list>
+		</property>
+	</bean>
+	
+    <alias name="gpMaketingPreferencePopulator" alias="marketingPreferencePopulator"/>
+	<bean id ="gpMaketingPreferencePopulator" class="com.gp.commerce.facades.populators.GPMarketingPreferencePopulator"/>
+		 
+	<bean id="gpQuickOrderFacade" class="com.gp.commerce.facade.quickorder.impl.GPQuickOrderFacadeImpl">
+		<property name="gpQuickOrderService" ref="gpQuickOrderService"/>
+		<property name="gpProductService" ref="gpProductService"/>
+		<property name="eventService" ref="eventService"/>
+		<property name="userService" ref="userService"/>
+		<property name="baseStoreService" ref="baseStoreService"/>
+		<property name="baseSiteService" ref="baseSiteService"/>
+		<property name="commonI18NService" ref="commonI18NService"/>
+		<property name="gpWishlistService" ref="gpWishlistService"/>
+		<property name="simpleSuggestionFacade" ref="simpleSuggestionFacade"/>
+		<property name="productConverter" ref="carouselProductConverter" />
+		<property name="simpleSuggestionService" ref="simpleSuggestionService"/>
+	</bean>
+	
+	<bean id="gpInstallationPopulator"
+			class="com.gp.commerce.facade.installation.converters.populator.GPInstallationPopulator"/>
+			
+	<alias name="gpFindDeliveryCostStrategy" alias="findDeliveryCostStrategy"/>
+	<bean id="gpFindDeliveryCostStrategy"
+			class="com.gp.commerce.facades.strategies.GPFindDeliveryCostStrategy"
+		parent="defaultFindDeliveryCostStrategy"/>
+
+	<bean id="gpB2BCustomerPopulator" class="com.gp.commerce.facades.populators.GPB2BCustomerPopulator" parent="b2bCustomerPopulator"></bean>
+
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="customerConverter" />
+		<property name="add" ref="gpB2BCustomerPopulator" />
+	</bean>
+
+		 
+	<bean id="gpVariantOptionDataPopulator" class="com.gp.commerce.facades.product.converters.populator.GPVariantOptionDataPopulator">
+		<property name="productModelUrlResolver" ref="productModelUrlResolver"/>
+		<property name="configurationService" ref="configurationService" />
+	</bean>
+	
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="variantOptionDataConverter"/>
+		<property name="add" ref="gpVariantOptionDataPopulator"/>
+	</bean>
+	
+	<bean id="deliveryModeReverseConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="de.hybris.platform.core.model.order.delivery.DeliveryModeModel"/>
+		<property name="populators">
+			<list>
+				<ref bean="deliveryModeReversePopulator"/>
+			</list>
+		</property>
+	</bean>
+	
+		<bean id="deliveryModeReversePopulator" class="com.gp.commerce.facades.populators.DeliveryModeReversePopulator"/>
+
+     <bean id="gpTaxExemptionSubmitReviewEmailContext"
+		class="com.gp.commerce.facades.process.email.context.GPTaxExemptionSubmitReviewEmailContext"
+		 parent="abstractEmailContext" scope="prototype">
+		 <property name="customerConverter" ref="customerConverter"/>
+		 <property name="emailService" ref="emailService"/>
+		 <property name="mediaService" ref="mediaService"/>
+	</bean>
+	
+	 <alias name="gpDefaultCmsComponentTypeStructureModelConverter" alias="cmsComponentTypeStructureModelConverter"/>
+    <bean id="gpDefaultCmsComponentTypeStructureModelConverter" class="com.gp.commerce.facades.type.converter.GPDefaultCmsComponentTypeStructureModelConverter" parent="defaultCmsComponentTypeStructureModelConverter"/>
+	
+	 
+	<bean id="gpOrderApprovalEmailContext" class="com.gp.commerce.facades.process.email.context.GPOrderApprovalEmailContext"
+			parent="orderNotificationEmailContext" scope="prototype" >
+			<property name="orderConverter" ref="orderConverter"/>
+			<property name="emailService" ref="emailService"/>
+	</bean>
+	
+	<bean id="gpCSROrderApprovalEmailContext" class="com.gp.commerce.facades.process.email.context.GPCSROrderApprovalEmailContext"
+			parent="orderNotificationEmailContext" scope="prototype" >
+			<property name="emailService" ref="emailService"/>
+			<property name="siteChannelValidationStrategy" ref="siteChannelValidationStrategy"/>
+	</bean>
+	
+	<bean id="gpDefaultOrderFacade" class="com.gp.commerce.facade.order.impl.GPDefaultOrderFacade" >
+			<property name="gpConsignmentTrackingService" ref="consignmentTrackingService" />
+			<property name="configurationService" ref="configurationService"/>
+			<property name="gpOrderService" ref="gpOrderService"/>
+			<property name="customerAccountService" ref="customerAccountService"/>
+			<property name="eventService" ref="eventService"/>
+			<property name="cartService" ref="cartService"/>
+			<property name="sessionService" ref="sessionService"/>
+			<property name="gpLeaseDataConverter" ref="gpLeaseDataConverter"/>
+	</bean>
+	
+	
+	
+	
+	<alias name="gpPromotionResultPopulator" alias="promotionResultPopulator"/>
+	<bean id="gpPromotionResultPopulator" class="com.gp.commerce.facades.populators.GPPromotionResultPopulator"
+			parent="defaultPromotionResultPopulator">
+	</bean>	
+
+	<bean id="shareWishlistEmailContext" class="com.gp.commerce.facades.process.email.context.ShareWishlistEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="emailService" ref="emailService"/>
+		<property name="defaultGPEmailGenerationService" ref="defaultGPEmailGenerationService"/>
+		<property name="wishlistConverter" ref="wishlistConverter"/>
+		<property name="defaultGPEmailService" ref="defaultGPEmailService"/>
+	</bean>
+
+	<bean id="gpDefaultPaymentFacade" class="com.gp.commerce.facades.payment.impl.GPDefaultPaymentFacade"></bean>
+		 
+	<alias name="defaultGPB2BUnitPopulator" alias="b2bUnitPopulator" />
+	<bean id="defaultGPB2BUnitPopulator"
+	 class="com.gp.commerce.facades.populators.GPB2BUnitPopulator" parent="defaultB2BUnitPopulator"></bean>
+	 
+	<bean id="gpCreditCardPaymentInfoPopulator"
+			class="com.gp.commerce.facades.populators.GPCreditCardPaymentInfoPopulator">
+	</bean>
+
+	<bean id="googlePayPaymentInfoDataPopulator"
+		  class="com.gp.commerce.facades.populators.GooglePayPaymentInfoDataPopulator">
+	</bean>
+
+
+	<bean id="googlePayRequestPopulator"
+		  class="com.gp.commerce.facades.populators.GooglePayRequestPopulator">
+	</bean>
+
+	<bean id="gpGooglePayPayRequestConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.gp.commerce.facades.data.GooglePayRequestData"/>
+		<property name="populators">
+			<list>
+				<ref bean="googlePayRequestPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="creditCardPaymentInfoConverter"/>
+		<property name="add" ref="gpCreditCardPaymentInfoPopulator"/>
+	</bean>
+
+	<bean id="gpGooglePayPaymentInfoConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.gp.commerce.order.data.GooglePayPaymentInfoData"/>
+		<property name="populators">
+			<list>
+				<ref bean="creditCardPaymentInfoPopulator"/>
+				<ref bean="gpCreditCardPaymentInfoPopulator"/>
+				<ref bean="googlePayPaymentInfoDataPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="gpCCPaymentInfoReversePopulator"
+			class="com.gp.commerce.facades.populators.GPCCPaymentInfoReversePopulator">
+	</bean>
+	
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="cardPaymentInfoReverseConverter"/>
+		<property name="add" ref="gpCCPaymentInfoReversePopulator"/>
+	</bean>
+	
+	<alias name="gpB2BUserPopulator" alias="b2bUserPopulator" />
+	<bean id="gpB2BUserPopulator" class="com.gp.commerce.facades.populators.GPB2BUserPopulator" parent = "defaultB2BUserPopulator">
+	<property name="gpDefaultCustomerNameStrategy" ref="gpDefaultCustomerNameStrategy"/>
+	</bean>
+	
+		<alias name="defaultGPB2BPermissionPopulator" alias="b2bPermissionPopulator" />
+	<bean id="defaultGPB2BPermissionPopulator"
+	 class="com.gp.commerce.facades.populators.GPB2BPermissionPopulator" parent="defaultB2BPermissionPopulator"></bean>
+	 
+	 
+	<bean id="gpB2BOrderFacade" class="com.gp.commerce.facade.order.impl.GPB2BOrderFacadeImpl"
+	parent="defaultOrderFacade" >
+		<property name="gpB2BCustomerAccountService" ref="gpB2BCustomerAccountService" />
+		<property name="baseStoreService" ref="baseStoreService"/>
+		<property name="userService" ref="userService"/>
+	</bean>
+
+	<bean id="failedOrderContext" class="com.gp.commerce.facades.process.email.context.FailedOrderContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="emailService" ref="emailService"/>
+		<property name="defaultGPEmailService" ref="defaultGPEmailService"/>
+	</bean>
+
+	<bean id="gpOmsOrderFacade" parent="defaultOmsOrderFacade"
+	      class="com.gp.commerce.facade.order.impl.GPOmsOrderFacadeImpl">
+	      <property name="gpOMSOrderService" ref="gpOMSOrderService"/>
+	      <property name="configurationService" ref="configurationService" />
+	      <property name="eventService" ref="eventService"/>
+	      <property name="gpCRMShellOrderReplicationService" ref="gpCRMShellOrderReplicationService" />
+	      <property name="stockService" ref="stockService"/>
+	 </bean>
+	 
+	 
+	<bean id="gpConsignmentTrackingConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.gp.commerce.facade.data.TrackingData"/>
+		<property name="populators">
+			<list>
+				<ref bean="gpConsigmentTrackingPopulator"/>
+			</list>
+		</property>
+	</bean>
+	
+		<alias name="gpConsignmentEntryPopulator" alias="consignmentEntryPopulator"/>
+	<bean id="gpConsignmentEntryPopulator"
+			class="com.gp.commerce.facades.order.converters.populator.GPConsignmentEntryPopulator"
+			parent ="defaultConsignmentEntryPopulator">
+		<property name="gpConsignmentTrackingConverter" ref="gpConsignmentTrackingConverter"/>
+	</bean>
+	
+	<bean id="gpConsigmentTrackingPopulator" class="com.gp.commerce.facades.populators.GPConsigmentTrackingPopulator"/>
+
+	<alias name="gpDefaultCmsStructureTypeBlacklistAttributeMap" alias="cmsStructureTypeBlacklistAttributeMap"/>
+	<bean id="gpDefaultCmsStructureTypeBlacklistAttributeMap" class="org.springframework.beans.factory.config.MapFactoryBean" scope="singleton">
+		<property name="sourceMap">
+			<map key-type="java.lang.String" value-type="java.lang.String">
+				<entry key="AbstractPage" value="approvalStatus, masterTemplate, defaultPage, onlyOneRestrictionMustApply, previewImage, contentSlots, type, typeCode, missingContentSlots, availableContentSlots, view, navigationNodeList, lockedBy, copyToCatalogsDisabled, localizedPages, originalPage, pageStatus, template"/>
+				<entry key="ContentPage" value="homepage, labelOrId, navigationNodes, linkComponents, bannerComponets, flashComponents"/>
+				<entry key="SimpleCMSComponent" value="containers"/>
+				<entry key="AbstractCMSComponent" value="uid, onlyOneRestrictionMustApply, type, typeCode, container, restricted, slots, actions"/>
+				<entry key="CMSItem" value="catalogVersion"/>
+				<entry key="AbstractRestriction" value="uid, type, typeCode, pages, components, inverseRestrictions"/>
+				<entry key="CMSCategoryRestriction" value="categoryCodes"/>
+				<entry key="ProductCarouselComponent" value="productCodes, categoryCodes, searchQuery, categoryCode, popup"/>
+				<entry key="NavigationComponent" value="styleClass"/>
+				<entry key="FooterNavigationComponent" value="showLanguageCurrency"/>
+				<entry key="CMSProductRestriction" value="productCodes"/>
+				<entry key="CMSTimeRestriction" value="useStoreTimeZone" />
+			</map>
+		</property>
+	</bean>
+	
+	<alias name="defaultGPProductUrlPopulator" alias="productUrlPopulator"/>
+	<bean id="defaultGPProductUrlPopulator"
+			class="com.gp.commerce.facades.populators.GPProductUrlPopulator" parent="defaultProductUrlPopulator" >
+			<property name="variantOptionDataConverter" ref="variantOptionDataConverter"/>
+	</bean>
+
+	<bean id="gpOrderRejectedEmailContext" class="com.gp.commerce.facades.process.email.context.GPOrderRejectedEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="orderConverter" ref="orderConverter"/>
+	</bean>
+
+	<alias name="gpConsignmentPopulator" alias="consignmentPopulator"/>
+	<bean id="gpConsignmentPopulator"
+		class="com.gp.commerce.facades.populators.GPConsignmentPopulator" parent="defaultConsignmentPopulator">
+	</bean>
+	
+	<!-- IRI Service -->
+	<bean id="defaultGpStoreLocatorCategoriesPopulator"
+			class="com.gp.commerce.facades.populators.GPStoreLocatorCategoriesPopulator" >
+	</bean>
+	
+	<bean id="gpStoreCategoriesFacade"
+		class="com.gp.commerce.facades.storeLocator.categories.impl.GPDefaultStoreCategoriesFacadeImpl">
+		<property name="baseSiteService" ref="baseSiteService" />
+		<property name="defaultGpStoreLocatorCategoriesPopulator" ref="defaultGpStoreLocatorCategoriesPopulator" />
+	</bean>
+	
+	<alias name="faqFacade" alias="faqFacade"/>
+	<bean id="faqFacade" class="com.gp.commerce.facades.faqs.impl.GPDefaultFAQFacade" />
+	
+	<alias name="faqPopulator" alias="faqPopulator"/>
+	<bean id="faqPopulator" class="com.gp.commerce.facades.populators.GPFAQPopulator" />
+	
+	<alias name="storeProductFacade" alias="storeProductFacade"/>
+	<bean id="storeProductFacade" class="com.gp.commerce.facades.storeLocator.categories.impl.GPDefaultStoreProductsFacade" />
+	
+	<alias name="storeProductPopulator" alias="storeProductPopulator"/>
+	<bean id="storeProductPopulator" class="com.gp.commerce.facades.populators.GPStoreProductsPopulator" />
+
+
+	<alias name="gpProductFacade" alias="productFacade"/>
+	<bean id="gpProductFacade" class="com.gp.commerce.facades.product.impl.GPDefaultProductFacade" 
+		  parent="defaultProductFacade">
+		  <property name="productConfiguredPopulator" ref="gpProductVariantConfiguredPopulator"/>
+	</bean>
+	
+	<bean id="gpProductVariantConfiguredPopulator" parent="defaultProductConfiguredPopulator">
+        <property name="populators">
+            <map key-type="de.hybris.platform.commercefacades.product.ProductOption" merge="true">
+                <entry key="VARIANT_MATRIX" value-ref="productVariantMatrixPopulator"/>
+                <entry key="VARIANT_MATRIX_BASE" value-ref="productVariantMatrixPopulator"/>
+                <entry key="VARIANT_MATRIX_ALL_OPTIONS" value-ref="configVariantMatrixDataPopulator"/>
+                <entry key="VARIANT_MATRIX_URL" value-ref="configVariantOptionDataUrlPopulator"/>
+                <entry key="VARIANT_MATRIX_MEDIA" value-ref="configVariantOptionDataMediaPopulator"/>
+                <entry key="VARIANT_MATRIX_PRICE" value-ref="configVariantOptionDataPricePopulator"/>
+                <entry key="VARIANT_MATRIX_STOCK" value-ref="configVariantOptionDataStockPopulator"/>
+				<entry key="BUNDLE" value-ref="productBundlePopulator" />	
+				<entry key="BUNDLE_DISABLERULES" value-ref="productBundleDisablePopulator" />
+				<entry key="STARTING_BUNDLES" value-ref="bundleStarterPopulator" />
+                <entry key="URL" value-ref="productUrlPopulator"/>
+            </map>
+        </property>
+    </bean>
+	
+	<bean id="gpLeaseDataConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.gp.commerce.facade.order.data.LeaseAgreementData"/>
+		<property name="populators">
+			<list>
+				<ref bean="gpLeaseDataPopulator"/>
+			</list>
+		</property>
+	</bean>
+	<bean id="gpLeaseDataPopulator" class="com.gp.commerce.facades.populators.GPLeaseDataPopulator">
+	</bean>	
+	
+	<bean id="gpSampleCartConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.gp.commerce.order.data.SampleCartRequestData"/>
+		<property name="populators">
+			<list>
+				<ref bean="gpSampleCartPopulator"/>
+			</list>
+		</property>
+	</bean>
+	
+		<bean id="gpSampleCartPopulator" class="com.gp.commerce.facades.order.converters.populator.GPSampleCartPopulator">
+</bean>
+	
+	
+	
+	
+	<alias name="gpDefaultCustomerPopulator" alias="customerPopulator"/>
+	<bean id="gpDefaultCustomerPopulator"
+			class="com.gp.commerce.facades.populators.GPCustomerPopulator" parent= "defaultCustomerPopulator"/>
+			
+	<alias name="gpDefaultPrincipalPopulator" alias="principalPopulator"/>
+	<bean id="gpDefaultPrincipalPopulator"
+			class="com.gp.commerce.facades.populators.GPPrincipalPopulator" parent= "defaultPrincipalPopulator"/>
+			
+	<alias name="gpDefaultPointOfServiceDistanceDataPopulator" alias="pointOfServiceDistanceDataPopulator"/>
+	<bean id="gpDefaultPointOfServiceDistanceDataPopulator"
+			class="com.gp.commerce.facades.populators.GPPointOfServiceDistanceDataPopulator" parent= "defaultPointOfServiceDistanceDataPopulator">
+	</bean>		
+	
+	<alias name="gpFacetPopulator" alias="facetPopulator"/>
+	<bean id="gpFacetPopulator"
+			class="com.gp.commerce.facades.populators.GPFacetPopulator" parent="defaultFacetPopulator">
+	</bean>
+	
+	<alias name="defaultpdfUserDetailsReverseConverter" alias="gpPdfUserDetailsReverseConverter"/>
+	<bean id="defaultpdfUserDetailsReverseConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.gp.commerce.core.model.GPPdfDownloadUserDetailsModel"/>
+		<property name="populators">
+			<list>
+				<ref bean="gpPdfUserDetailsReversePopulator"/>
+			</list>
+		</property>
+	</bean>
+	
+	<alias name="gpDefaultPdfUserDetailsReversePopulator" alias="gpPdfUserDetailsReversePopulator"/>
+	<bean id="gpDefaultPdfUserDetailsReversePopulator"
+			class="com.gp.commerce.facades.populators.GPPdfUserDetailsReversePopulator">
+	</bean>
+	
+	<bean id="gpDefaultPdfUserDetailsPopulator"
+			class="com.gp.commerce.facades.populators.GPPdfUserDetailsPopulator" >
+			<property name="addressConverter" ref="addressConverter"/>
+	</bean>
+	
+		<bean id="shareProductData" class="com.gp.commerce.facades.product.references.data.GPShareProductData" scope="prototype"/>
+		
+		
+	<alias name="gpSupportTicketFacade" alias="gpSupportTicketFacade"/>
+	<bean id="gpSupportTicketFacade" class="com.gp.commerce.facades.ticket.impl.GPSupportTicketFacadeImpl">
+		<property name="gpSupportTicketService" ref="gpSupportTicketService"/>
+ 		<property name="gpSupportTicketReverseConverter" ref="gpSupportTicketReverseConverter"/>
+ 		<property name="gpSupportTicketConverter" ref="gpSupportTicketConverter"/>
+ 		<property name="gpCRMTicketService" ref="gpCRMTicketService"/>
+	</bean>
+	
+	
+	<alias name="gpProductVariantMatrixPopulator" alias="productVariantMatrixPopulator"/>
+	<bean id="gpProductVariantMatrixPopulator" class="com.gp.commerce.facades.populators.GPProductVariantMatrixPopulator" parent="defaultProductVariantMatrixPopulator">
+		<property name="gpPriceService" ref="gpPriceFactory"/>
+		<property name="priceDataFactory" ref="priceDataFactory"/>
+		<property name="variantOptionDataConverter" ref="variantOptionDataConverter"/>
+		<property name="stockConverter" ref="stockConverter"/>
+		<property name="productModelUrlResolver" ref="productModelUrlResolver"/>
+		<property name="variantMatrixElementPopulator" ref="gpVariantMatrixElementPopulator"/>
+	</bean>
+	
+	<bean id="gpVariantMatrixElementPopulator" parent="variantMatrixElementPopulator" class="com.gp.commerce.facades.populators.GPVariantMatrixElementPopulator"/>
+	
+	<bean id="gpProductGalleryImagesPopulator"
+		class="com.gp.commerce.facades.product.converters.populator.GPProductGalleryImagesPopulator" parent="productGalleryImagesPopulator"/>
+		
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="productGalleryPopulatorList" />
+		<property name="add" ref="gpProductGalleryImagesPopulator" />
+	</bean>
+	
+	<alias name="subscriptionCartFacadeImpl" alias="subscriptionCartFacadeImpl"/>
+	<bean id="subscriptionCartFacadeImpl" class="com.gp.commerce.facades.subscription.impl.GPSubscriptionFacadeImpl" parent="defaultCheckoutFacade">   
+	<property name="subscriptionCartServiceImpl" ref="subscriptionCartServiceImpl"/>
+	<property name="gpSubscriptionFrequencyConverter" ref="gpSubscriptionFrequencyConverter"/>
+	<property name="cartConverter" ref="extendedCartConverter"/> 
+	<property name="deliveryModeConverter" ref="deliveryModeConverter"/>
+	<property name="gpCarFacade" ref="gpCarFacade"/>
+	<property name="calculationService" ref="calculationService"/>
+	</bean>
+	
+	
+	<alias name="subsCartFacade" alias="subsCartFacade"/>
+	<bean id="subsCartFacade" class="com.gp.commerce.facades.subscription.impl.GPSubscriptionDefaultCartFacade" parent="defaultVoucherFacade">   
+	</bean>
+	
+	       	<bean id="gpSubscriptionFrequencyConverter"
+		parent="abstractPopulatingConverter">
+		<property name="targetClass"
+			value="com.gp.commerce.facades.subscription.data.GPSubscriptionFrequencyData" />
+		<property name="populators">
+			<list>
+				<ref bean="gpSubscriptionFrequencyPopulator" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="gpSubscriptionFrequencyPopulator"
+		class="com.gp.commerce.facades.subscription.populators.GPSubscriptionFrequencyPopulator">
+	</bean>
+	 
+	
+	<alias name="gpDefaultProductCategoriesPopulator" alias="productCategoriesPopulator"/>
+       <bean id="gpDefaultProductCategoriesPopulator" parent="defaultProductCategoriesPopulator"
+              class="com.gp.commerce.facades.populators.GPProductCategoriesPopulator">
+       </bean>
+       
+    <alias name="gpDefaultAssistedServiceFacade" alias="assistedServiceFacade"/>
+    <bean id="gpDefaultAssistedServiceFacade" class="com.gp.commerce.facade.assistedservice.GPDefaultAssistedServiceFacade"
+    parent="defaultAssistedServiceFacade"/>
+    
+    <bean id="backInStockNotificationEmailContext" class="com.gp.commerce.facades.process.email.context.BackInStockNotificationEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="productInterestConverter" ref="productInterestConverter"/>
+		<property name="productConverter" ref="productConverter"/>
+		<property name="commerceProductReferenceService" ref="commerceProductReferenceService"/>
+	</bean>
+    
+	
+	<alias name="gpDefaultBundleTemplatePopulator" alias="gpBundleTemplatePopulator"/>
+	<bean id="gpDefaultBundleTemplatePopulator" class="com.gp.commerce.facades.bundles.populator.GPBundleTemplatePopulator">
+	</bean>
+	
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="bundleTemplateConverter"/>
+		<property name="add" ref="gpBundleTemplatePopulator"/>
+	</bean>
+	
+	<bean id="subscriptionOrderConfirmationContext" class="com.gp.commerce.facades.process.email.context.SubscriptionOrderConfirmationContext" parent="abstractEmailContext" scope="prototype" >
+	    <property name="orderConverter" ref="orderConverter"/>
+	</bean>	
+	
+	<bean id="subscriptionOrderStatusEmailContext" class="com.gp.commerce.facades.process.email.context.SubscriptionOrderStatusEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="emailCartConverter" ref="emailCartConverter"/>
+		<property name="mediaService" ref="mediaService"/>
+		<property name="catalogVersionService" ref="catalogVersionService"/>
+	</bean>
+
+	<alias name="defaultGpBundleFacade" alias="gpBundleFacade"/>
+	<bean id="defaultGpBundleFacade" class="com.gp.commerce.facade.configurablebundle.impl.DefaultGPBundleFacade" >
+		<property name="gpBundleService" ref="gpBundleService"/>
+		<property name="bundleTemplateService" ref="bundleTemplateService"/>
+	</bean>
+
+
+	<bean id="gpBundlePopulator" class="com.gp.commerce.facade.configurablebundle.populator.GPBundlePopulator">
+		<property name="productConverter" ref="productConverter"/>
+		<property name="stockConverter" ref="stockConverter"/>
+	</bean>
+
+	<alias name="defaultGPBundleConverter" alias="gpBundleConverter"/>
+	<bean id="defaultGPBundleConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="de.hybris.platform.configurablebundlefacades.data.BundleTemplateData"/>
+		<property name="populators">
+			<list>
+				<ref bean="gpBundlePopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="gpdiscontinuedReplacedProductContext" class="com.gp.commerce.facades.process.email.context.GPDiscontinuedReplacedProductContext" parent="abstractEmailContext" scope="prototype" >
+	    <property name="emailCartConverter" ref="emailCartConverter"/>
+	</bean>
+	
+	<bean id="installationProductEmailContext" class="com.gp.commerce.facades.process.email.context.InstallationProductEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="orderConverter" ref="orderConverter"/>
+		<property name="emailService" ref="emailService"/>
+	</bean>
+	
+	<bean id="gpApplePaySessionSerivce" class="com.gp.commerce.core.service.applepay.session.impl.GPApplePaySessionSerivceImpl"/>
+	
+	<bean id="applePayPaymentInfoDataPopulator" class="com.gp.commerce.facades.populators.ApplePayPaymentInfoDataPopulator"></bean>
+	
+	<bean id="gpApplePayPaymentInfoConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.gp.commerce.order.data.GPApplePayPaymentInfoData"/>
+		<property name="populators">
+			<list>
+				<ref bean="creditCardPaymentInfoPopulator"/>
+				<ref bean="gpCreditCardPaymentInfoPopulator"/>
+				<ref bean="applePayPaymentInfoDataPopulator"/>
+			</list>
+		</property>
+	</bean>
+	
+	<alias name="gpOrderCancelRequestPopulator" alias="gpOrderCancelRequestPopulator"/>
+	<bean id ="gpOrderCancelRequestPopulator" class="com.gp.commerce.facades.populators.GPOrderCancelRequestPopulator"/>
+		
+	<alias name="gpSurveyResponsePopulator" alias="gpSurveyResponsePopulator"/>
+	<bean id ="gpSurveyResponsePopulator" class="com.gp.commerce.facades.populators.GPSurveyResponsePopulator"/>
+	
+	<alias name="gpQuickOrderEventPopulator" alias="gpQuickOrderEventPopulator"/>
+	<bean id ="gpQuickOrderEventPopulator" class="com.gp.commerce.facades.populators.GPQuickOrderEventPopulator"/>
+</beans>

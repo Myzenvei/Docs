@@ -1,0 +1,43 @@
+<section class="vx-order-summary">
+  <vx-modal ref="termsConditionModal" size="medium" :heading="i18n.termsConditionHeading" @close="closetermsConditionModal()">
+    <vx-terms-condition slot="component"></vx-terms-condition>
+  </vx-modal>
+  <template v-if="dataLoaded">
+    <div class="order-summary">
+      <div class="pt-xs-4 px-sm-4 px-xs-3 order-summary-details-container">
+        <vx-order-summary-details :i18n="i18n" :page="page" :order-summary-data="orderSummaryData" :giftable="isGiftable"
+          :installable="isInstallable" :is-shipping-multiple="isShippingMultiple"></vx-order-summary-details>
+      </div>
+      <div class="section-divider" v-if="page === pageType.cart ? ((orderSummaryClicked && isTablet()) || (!isTablet())) : true"></div>
+      <div class="pt-xs-4 px-sm-4 px-xs-3">
+        <div v-if="(orderSummaryClicked && isTablet()) || (!isTablet())">
+          <div class="promotion-section" v-if="page !== pageType.orderConfirmation && page !== pageType.orderDetails && page !== pageType.orderApprovalDetails">
+            <vx-promotion :i18n="i18n" :promotion-data="orderSummaryData.appliedOrderPromotions" :voucher-data="orderSummaryData.appliedVouchers"></vx-promotion>
+            <template v-if="page === pageType.checkout">
+              <p class="checkout-terms-cond">
+                <span aria-hidden="true">{{termsConditionText}}</span>
+                <span class="sr-only">{{termsConditionText}} {{i18n.termsConditionLink}}</span>
+                <a href="javascript:void(0)" @click="openTermsModal($event)" @keyup.enter-space="openTermsModal($event)">{{i18n.termsConditionLink}}</a>
+              </p>
+            </template>
+          </div>
+          <div class="section-divider visible-xs visible-sm" v-if="page !== pageType.checkout"></div>
+        </div>
+        <template v-if="page === pageType.orderConfirmation || page === pageType.orderDetails">
+          <div v-if="isInstallable" class="order-helper-text pt-xs-2 pt-sm-3">
+            <span>{{i18n.installHelpContactText1}} </span>
+            <span>
+              <a :href="`tel:${i18n.installHelpContactNumber}`">{{i18n.installHelpContactNumber}}</a>
+            </span>
+            <span> {{i18n.installHelpContactText2}}</span>
+          </div>
+          <div class="sub-total-helper-text pb-xs-4 non-printable-section">{{i18n.orderHelpContactText}}
+            <a :href="`tel:${contactNumber}`" v-if="contactNumber"> {{contactNumber}}</a>
+          </div>
+        </template>
+      </div>
+    </div>
+    <slot name="bottomButton">
+    </slot>
+  </template>
+</section>

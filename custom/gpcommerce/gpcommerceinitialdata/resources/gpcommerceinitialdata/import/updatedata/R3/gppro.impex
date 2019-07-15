@@ -1,0 +1,201 @@
+$contentCatalog=gpproContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$productCatalog=gpUSProductCatalog
+$productCV=catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$lang=en
+
+
+# Product Grid Page Template
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='ProductGridPageTemplate'];validComponentTypes(code);compTypeGroup(code)
+;GPCategoryAuthoringContentSlot;;;wide	
+
+# GPCategoryAuthoringComponent
+INSERT_UPDATE GPCategoryAuthoringComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef
+;;GPCategoryAuthoringComponent;Category Authoring Component;GPCategoryAuthoringComponent
+
+# Create ContentSlots
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;GPCategoryAuthoringComponentSlot-ProductGridPage;Category Authoring for Product Grid Page;true;GPCategoryAuthoringComponent
+
+# Product Grid Page Template
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='ProductGridPageTemplate'];contentSlot(uid,$contentCV)[unique=true];
+;;GPCategoryAuthoringComponentSlot-ProductGridPage;GPCategoryAuthoringContentSlot;;GPCategoryAuthoringComponentSlot-ProductGridPage;
+
+## Changes for Retro Stories START ## 
+
+INSERT_UPDATE GPHeaderNavigationComponent;$contentCV[unique=true];uid[unique=true];name;styleClass;navigationNode(uid,$contentCV)[unique=true];wrapAfter;includeMiniCart;includeSearchBox;brandLogo;checkoutMenu(uid,$contentCV);findStoreMenu(uid,$contentCV);loginMenu(uid,$contentCV);logoutMenu(uid,$contentCV);categoryNavigationMenu(uid,$contentCV);accountNavigationMenu(uid,$contentCV);showFindAStore;showLoginRegister;showQuickOrder;showMyList
+;;GPHeaderNavigationComponent;GP Header Navigation Component;;GPHeaderNavigationNode;10;true;true;images/logo.svg;GPCheckoutNavNode;GPFindStoreNavNode;GPLoginMenuNavNode;GPLogoutMenuNavNode;GPCategoryNavigationNode;GPNavigationNavNode;true;true;false;true
+
+#Find A Distributor Page
+INSERT_UPDATE ContentPage ; $contentCV[unique=true] ; uid[unique=true] ; name     ; title; masterTemplate(uid,$contentCV) ; label   ; defaultPage[default='true'] ; approvalStatus(code)[default='approved'] ; homepage[default='false']
+								  ;								 ;find-a-distributor;GP Find A Distributor Page;Find a Distributor;StoreFinderPageTemplate;find-a-distributor			
+INSERT_UPDATE ContentSlot ; $contentCV[unique=true] ; uid[unique=true]             ; name                                       ; active ; cmsComponents(&componentRef) ;  ;  ;  
+;;TopContentSlot-FindaDistributorPage;Top Content Slot for Distributor Page;true;GPFindADistributorComponent
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='find-a-distributor'];contentSlot(uid,$contentCV)[unique=true]
+;;Top-FindaDistributorPage;TopContent;;TopContentSlot-FindaDistributorPage
+
+
+INSERT_UPDATE JspIncludeComponent ; $contentCV[unique=true] ; uid[unique=true]            ; name                           ; page                       ; actions(uid,$contentCV) ; &componentRef              
+;;GPFindADistributorComponent;GP Find A Distributor Component;gpFindDistributor.jsp;;GPFindADistributorComponent
+
+
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];linkName[lang=$lang];url;styleAttributes;target(code)[default='sameWindow'];external[default=false];socialLink[default=false];markAsViewAll[default=false]
+;;FindStoreLink;Find a Distributor;/find-a-distributor/home-page
+
+INSERT_UPDATE CMSNavigationEntry;$contentCV[unique=true];uid[unique=true];name;navigationNode(uid,$contentCV);item(CMSLinkComponent.uid,CMSLinkComponent.$contentCV);
+;;FindStoreNavNodeEntryHeader;Find Store Nav Node Entry;GPFindStoreNavNode;FindStoreLink;
+
+INSERT_UPDATE CMSNavigationNode;$contentCV[unique=true];uid[unique=true];title[lang=$lang];name;parent(uid, $contentCV);
+;;GPFindStoreNavNode;Find Store Nav Node;Find Store Nav Node;GPHeaderNavigationNode;
+
+## Changes for Retro Stories END ##
+
+#################### Start of Dispenser Key Replacement form IMPEX #############################
+
+$contentCatalog=gpproContentCatalog
+$contentCatalogName=GP Pro Content Catalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$productCatalog=gpUSProductCatalog 
+$productCatalogName=GP US Product Catalog
+$productCV=catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$picture=media(code, $contentCV);
+$image=image(code, $contentCV);
+$media=media(code, $contentCV);
+$page=page(uid, $contentCV);
+$contentPage=contentPage(uid, $contentCV);
+$product=product(code, $productCV)
+$category=category(code, $productCV)
+$siteResource=jar:com.gp.b2binitialdata.constants.Gpb2binitialdataConstants&/gpb2binitialdata/import/sampledata/contentCatalogs/$contentCatalog
+$productResource=jar:com.gp.b2binitialdata.constants.Gpb2binitialdataConstants&/gpb2binitialdata/import/sampledata/productCatalogs/$productCatalog
+$jarResourceCms=jar:com.gp.b2binitialdata.constants.Gpb2binitialdataConstants&/gpb2binitialdata/import/sampledata/cockpits/cmscockpit
+$addonExtensionName=b2bacceleratoraddon
+$medias=medias(code, $contentCV);
+$mediaContainer=media(qualifier, $contentCV);
+$siteUid=gppro
+
+# Language
+$lang=en
+
+INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name          ;masterTemplate(uid,$contentCV)      ;label;defaultPage[default='true'];approvalStatus(code)[default='approved'];homepage[default='false']
+						 ;						 ;dispenserReplacementTicket   ;dispenser page;DispenserReplacementTicketTemplate;dispenser;	
+
+
+INSERT_UPDATE PageTemplate;$contentCV[unique=true];uid[unique=true];name;frontendTemplateName;restrictedPageTypes(code);active[default=true]
+;;DispenserReplacementTicketTemplate;GPDispenser Replacement Ticket Page Template;;ContentPage
+
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='DispenserReplacementTicketTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-dispenserReplacementTicket;SiteLogo;;SiteLogoSlot;true
+;;HomepageLink-dispenserReplacementTicket;HomepageNavLink;;HomepageNavLinkSlot;true
+;;NavigationBar-dispenserReplacementTicket;NavigationBar;;NavigationBarSlot;true
+;;MiniCart-dispenserReplacementTicket;MiniCart;;MiniCartSlot;true
+;;HeaderLinks-dispenserReplacementTicket;HeaderLinks;;HeaderLinksSlot;true
+;;SearchBox-dispenserReplacementTicket;SearchBox;;SearchBoxSlot;true
+;;Footer-dispenserReplacementTicket;Footer;;FooterSlot;true
+;;TopHeaderSlot-dispenserReplacementTicket;TopHeaderSlot;;TopHeaderSlot;true
+;;BottomHeaderSlot-dispenserReplacementTicket;BottomHeaderSlot;;BottomHeaderSlot;true
+;;PlaceholderContentSlot-dispenserReplacementTicket;PlaceholderContentSlot;;PlaceholderContentSlot;true
+;;DispenserFormSlot-dispenserReplacementTicket;DispenserFormSlot;;DispenserFormSlot-DISPENSER;true
+;;Section1Slot-dispenserReplacementTicket;Section1Slot;;Section1Slot-DISPENSER;true
+;;Section2Slot-dispenserReplacementTicket;Section2Slot;;Section2Slot-DISPENSER;true
+;;Section3Slot-dispenserReplacementTicket;Section3Slot;;Section3Slot-DISPENSER;true
+;;Section4Slot-dispenserReplacementTicket;Section4Slot;;Section4Slot-DISPENSER;true
+
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='dispenserReplacementTicket'];contentSlot(uid,$contentCV)[unique=true]
+;;Section1-DISPENSER;Section1;;Section1Slot-DISPENSER
+;;Section2-DISPENSER;Section2;;Section2Slot-DISPENSER
+;;Section3-DISPENSER;Section3;;Section3Slot-DISPENSER
+;;Section4-DISPENSER;Section4;;Section4Slot-DISPENSER
+;;DispenserFormSlot-DISPENSER;DispenserFormSlot;;DispenserFormSlot-DISPENSER;;;
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;Section1Slot-DISPENSER;Section1 Slot for DISPENSER;true;
+;;Section2Slot-DISPENSER;Section2 Slot for DISPENSER;true;
+;;Section3Slot-DISPENSER;Section3 Slot for DISPENSER;true;
+;;Section4Slot-DISPENSER;Section4 Slot for DISPENSER;true;
+;;DispenserFormSlot-DISPENSER;Dispenser Form  Slot for DISPENSER Page;true;DispenserFormJSPIncludeComponent;;;
+
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='DispenserReplacementTicketTemplate'];validComponentTypes(code);compTypeGroup(code)
+;SiteLogo;;;logo
+;HeaderLinks;;;headerlinks
+;SearchBox;;;searchbox
+;MiniCart;;;minicart
+;NavigationBar;;;navigation
+;BottomHeaderSlot;;;wide
+;LeftContentSlot;;;wide
+;RightContentSlot;;;wide
+;CenterContentSlot;;;wide
+;PlaceholderContentSlot;;;
+;Footer;;;footer
+;TopHeaderSlot;;;wide
+;BottomHeaderSlot;;;wide
+;SearchBox;;;searchbox
+;Section1Slot;;;wide
+;Section2Slot;;;wide
+;Section3Slot;;;wide
+;Section4Slot;;;wide
+						 
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;DispenserFormJSPIncludeComponent;dispenser JSP page;GPDispenserReplacementForm.jsp;;DispenserFormJSPIncludeComponent
+
+INSERT_UPDATE CMSNavigationNode;$contentCV[unique=true];uid[unique=true];title[lang=$lang];name;parent(uid, $contentCV);parentPos
+;;GPProductsNavNode;Products;Products;GPCategoryNavigationNode;
+;;ProductsNavNode;Products;Products;GPCategoryNavigationNode;
+;;GPProductOverviewNavNode;Product Overview;Product Overview;GPProductsNavNode;
+;;GPPaperTowelsNavNode;Paper Towels Nav Node;Paper Towels Nav Node;GPProductOverviewNavNode;0
+;;GPToiletPaperNavNode;Toilet Paper Nav Node;Toilet Paper Nav Node;GPProductOverviewNavNode;1
+;;GPFacialTissueNavNode;Facial Tissue Nav Node;Facial Tissue Nav Node;GPProductOverviewNavNode;2
+;;GPSkinCareNavNode;Skin Care Nav Node;Skin Care Nav Node;GPProductOverviewNavNode;3
+;;GPAirCareNavNode;Air Care Nav Node;Air Care Nav Node;GPProductOverviewNavNode;4
+;;GPJobsiteNavNode;Jobsite Nav Node;Jobsite Nav Node;GPProductOverviewNavNode;6
+;;GPCleaningAndWipesNode;Cleaning And Wipes Node;Cleaning And Wipes Node;GPProductOverviewNavNode;5
+;;GPNapkinNavNode;Napkin Nav Node;Napkin Nav Node;GPProductOverviewNavNode;9
+;;GPPlatesAndBowlsNavNode;Plates And Bowls Nav Node;Plates And Bowls Nav Node;GPProductOverviewNavNode;10
+;;GPCupsLidsNavNode;Cups Lids Nav Node;Cups Lids Nav Node;GPProductOverviewNavNode;7
+;;GPCutleryNavNode;Cutlery Nav Node;Cutlery Nav Node;GPProductOverviewNavNode;8
+;;GPFoodPackNavNode;Food Pack Nav Node;Food Pack Nav Node;GPProductOverviewNavNode;12
+;;GPPartsNavNode;Parts Nav Node;Parts Nav Node;GPProductOverviewNavNode;14
+;;GPPortionCupsNavNode;Portion Cups Nav Node;Portion Cups Nav Node;GPProductOverviewNavNode;11
+;;GPFoodWrapsNavNode;Food Wraps & Papers Nav Node;Food Wraps & Papers Nav Node;GPProductOverviewNavNode;13
+;;GPBrochuresNavNode;Brochures, Kits & Sell Sheets Nav Node;Brochures, Kits & Sell Sheets Nav Node;GPProductOverviewNavNode;15
+
+INSERT_UPDATE CMSNavigationEntry;$contentCV[unique=true];uid[unique=true];name;navigationNode(uid,$contentCV);item(CMSLinkComponent.uid,CMSLinkComponent.$contentCV);
+;;GPProductNavEntry;Products Nav Entry;GPProductsNavNode;GPProductsNavLink;
+;;GPPaperTowelsNavEntry;Paper Towels Nav Entry;GPPaperTowelsNavNode;GPPaperTowelsLink;
+;;GPToiletPaperNavEntry;Toilet Paper Nav Entry;GPToiletPaperNavNode;GPToiletPaperLink;
+;;GPFacialTissueNavEntry;Facial Tissue Nav Entry;GPFacialTissueNavNode;GPFacialTissueLink;
+;;GPSkinCareNavEntry;Skin Care Nav Entry;GPSkinCareNavNode;GPSkinCareLink;
+;;GPAirCareNavEntry;Air Care Nav Entry;GPAirCareNavNode;GPAirCareLink;
+;;GPCleaningWipesNavEntry;Cleaning Wipes & Towels Nav Entry;GPCleaningAndWipesNode;GPCleaningWipesLink;
+;;GPNapkinNavEntry;Napkin Nav Entry;GPNapkinNavNode;GPNapkinLink;
+;;GPPlatesBowlsNavEntry;Plates And Bowls Nav Entry;GPPlatesAndBowlsNavNode;GPPlatesBowlsLink;
+;;GPCupsLidsNodeEntry;Cups, Lids & Straws Nav Entry;GPCupsLidsNavNode;GPCupsLidsLink;
+;;GPCutleryNodeEntry;Cutlery Node Entry;GPCutleryNavNode;GPCutleryLink;
+;;GPFoodPackNavEntry;Food Pack Nav Entry;GPFoodPackNavNode;GPFoodPackLink;
+;;GPJobsiteNavEntry;Jobsite Nav Entry;GPJobsiteNavNode;GPJobsiteLink;
+;;GPPartsNavEntry;Parts Nav Entry;GPPartsNavNode;GPPartsLink;
+;;GPPortionNavEntry;Portion Cups Nav Entry;GPPortionCupsNavNode;GPPortionLink;
+;;GPFoodWrapsNavEntry;Food Wraps Nav Entry;GPFoodWrapsNavNode;GPFoodWrapsLink;
+;;GPBrochuresNavEntry;Brochures Nav Entry;GPBrochuresNavNode;GPBrochuresLink;
+
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];linkName[lang=$lang];url;styleAttributes;target(code)[default='sameWindow'];external[default=false];socialLink[default=false];markAsViewAll[default=false]
+;;GPProductsNavLink;"Products";/category/gpxpresscategories;;;;  
+;;GPPaperTowelsLink;"Paper Towels & Dispensers";/category/401;;;;
+;;GPToiletPaperLink;"Toilet Paper & Dispensers";/category/402;;;;
+;;GPFacialTissueLink;"Facial Tissue";/category/403;;;;
+;;GPSkinCareLink;"Skin Care & Dispensers";/category/404;;;;
+;;GPAirCareLink;"Air Care & Dispensers";/category/405;;;;
+;;GPCleaningWipesLink;"Cleaning Wipers & Cloths";/category/406;;;;
+;;GPNapkinLink;"Napkins & Dispensers";/category/407;;;;
+;;GPPlatesBowlsLink;"Plates, Platters & Bowls";/category/408;;;;
+;;GPCupsLidsLink;"Cups, Lids & Straws";/category/409;;;;
+;;GPCutleryLink;"Cutlery & Dispensers";/category/410;;;;
+;;GPFoodPackLink;"Food Packaging";/category/411;;;;
+;;GPJobsiteLink;"Jobsite Protection";/category/412;;;;
+;;GPPartsLink;"Parts & Accessories";/category/413;;;;  
+;;GPPortionLink;"Portion Cups";/category/453;;;; 
+;;GPFoodWrapsLink;"Food Wraps & Papers";/category/451;;;; 
+;;GPBrochuresLink;"Brochures, Kits & Sell Sheets";/category/450;;;; 

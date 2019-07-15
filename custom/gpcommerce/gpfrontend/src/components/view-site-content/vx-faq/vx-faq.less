@@ -1,0 +1,21 @@
+
+.vx-faq {
+  .vx-accordion{
+    .panel{
+      &-default{
+        &:last-child{
+          border-bottom: 0;
+        }
+      }
+    }
+    &:last-child{
+      .panel{
+        &-default{
+          &:last-child{
+            border-bottom: 1px solid @border-color-6;
+          }
+        }
+      }
+    }
+  }
+}

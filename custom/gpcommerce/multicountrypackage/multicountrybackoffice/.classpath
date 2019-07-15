@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry exported="true" kind="src" path="/npmancillary"/>
+	<classpathentry exported="true" kind="src" path="/backofficesolrsearch"/>
+	<classpathentry exported="true" kind="src" path="/cockpit"/>
+	<classpathentry exported="true" kind="src" path="/platform"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry exported="true" kind="src" path="/backoffice"/>
+	<classpathentry exported="true" kind="src" path="/pcmbackoffice"/>
+	<classpathentry kind="src" path="gensrc"/>
+	<classpathentry exported="true" kind="src" path="/multicountry"/>
+	<classpathentry kind="output" path="eclipsebin"/>
+</classpath>

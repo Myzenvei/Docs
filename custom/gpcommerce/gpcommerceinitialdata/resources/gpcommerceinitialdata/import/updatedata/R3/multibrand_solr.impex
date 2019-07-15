@@ -1,0 +1,59 @@
+$productCatalog=gpUSProductCatalog
+$catalogVersions=catalogVersions(catalog(id),version);
+$facetSearchConfigName=multiBrandIndex
+$facetSearchConfigDescription=GP Multi Brand Index
+$searchIndexNamePrefix=multiBrand
+$solrIndexedType=multiBrandProductType
+$indexLanguages=en
+$indexCurrencies=USD
+$solrServerUrl=$config-solrServerUrl
+$lang=en
+
+                                                                    
+
+
+# Category facets                 
+INSERT_UPDATE SolrIndexedProperty ; solrIndexedType(identifier)[unique=true] ; name[unique=true] ; type(code) ; multiValue[default=true] ; facet[default=true] ; facetType(code) ; facetSort(code) ; priority ; visible ; categoryField[default=true] ; fieldValueProvider                        ; facetDisplayNameProvider         ; topValuesProvider       
+                                  ; $solrIndexedType                         ; brawnyshop     ; string     ;                          ;                     ; MultiSelectOr   ; Alpha           ; 6000     ; true    ;                             ; gpBrawnyShopCategoryCodeValueProvider  ; categoryFacetDisplayNameProvider ; defaultTopValuesProvider
+                                  ; $solrIndexedType                         ; innoviashop     ; string     ;                          ;                     ; MultiSelectOr   ; Alpha           ; 6000     ; true    ;                             ; gpInnoviaShopCategoryCodeValueProvider  ; categoryFacetDisplayNameProvider ; defaultTopValuesProvider
+ 
+								  
+# Category search query facets        
+INSERT_UPDATE SolrSearchQueryProperty ; indexedProperty(name, solrIndexedType(identifier))[unique=true] ; searchQueryTemplate(name, indexedType(identifier))[unique=true][default=DEFAULT:$solrIndexedType] ; facet[default=true] ; facetType(code) ; includeInResponse[default=true] ; facetDisplayNameProvider         ; facetSortProvider       ; facetTopValuesProvider
+                                     ; brawnyshop:$solrIndexedType                                  ;                                                                                                   ;                     ; MultiSelectOr   ;                                 ; categoryFacetDisplayNameProvider ; defaultTopValuesProvider
+                                     ; innoviashop:$solrIndexedType                                  ;                                                                                                   ;                     ; MultiSelectOr   ;                                 ; categoryFacetDisplayNameProvider ; defaultTopValuesProvider
+  									 
+# Solr Indexed Property           
+INSERT_UPDATE SolrIndexedProperty ; solrIndexedType(identifier)[unique=true] ; name[unique=true]     ; displayName[lang=$lang] 
+                           ; $solrIndexedType                         ; brawnyshop            ; "Shop"        
+                           ; $solrIndexedType                         ; innoviashop           ; "Shop"        
+
+
+						   
+$catalogVersion=catalogVersion(catalog(id[default='gpUSProductCatalog']),version[default='Staged'])[unique=true,default='gpUSProductCatalog:Staged']
+$categories=target(code, $catalogVersion)[unique=true]
+$supercategories=source(code, $catalogVersion)[unique=true]
+$lang=en        
+$solrIndexedType=multiBrandProductType
+
+INSERT_UPDATE AsSimpleSearchProfile ; code[unique=true]                   		; name[lang=$lang]                   			; indexType        ; $catalogVersion ; basestore(uid)
+                                    ; default-innovia-searchProfile 		   ; Def Innovia Simple search profile      			; $solrIndexedType ;                 ; innovia 
+                                    ; default-brawny-searchProfile 		   ; Def Brawny Simple search profile      			; $solrIndexedType ;                 ; brawny 
+                                    ; default-sparkle-searchProfile 		   ; Def Sparkle Simple search profile      			; $solrIndexedType ;                 ; sparkle 
+   
+ 
+INSERT_UPDATE AsSearchProfileActivationSet ; indexType        ; $catalogVersion ; searchProfiles(code,$catalogVersion)                                              
+                                           ; $solrIndexedType ;                 ; default-b2bwhitelabel-searchProfile,default-gpxpress-searchProfile,default-dixie-searchProfile,default-gppro-searchProfile,default-copperandcrane-searchProfile,default-mardigras-searchProfile,default-vanityfairnapkins-searchProfile,default-b2cwhitelabel-searchProfile,default-gpemployee-searchProfile,default-innovia-searchProfile,default-sparkle-searchProfile,default-brawny-searchProfile
+
+INSERT_UPDATE AsSimpleSearchConfiguration ; searchProfile(code,$catalogVersion)[unique=true] ; uid[unique=true]              			; uniqueIdx                           		; facetsMergeMode(code) ; boostItemsMergeMode(code) ; boostRulesMergeMode(code) ; sortsMergeMode(code) ; $catalogVersion[unique=true]
+                                          ; default-innovia-searchProfile              ; default-innovia-searchConfig      			; default-innovia-searchProfile 		; ADD_AFTER             ; ADD_AFTER                 ; ADD                       ; ADD_AFTER            ;                             
+                                          ; default-brawny-searchProfile              ; default-brawny-searchConfig      			; default-brawny-searchProfile 		; ADD_AFTER             ; ADD_AFTER                 ; ADD                       ; ADD_AFTER            ;                             
+                                          ; default-sparkle-searchProfile              ; default-sparkle-searchConfig      			; default-sparkle-searchProfile 		; ADD_AFTER             ; ADD_AFTER                 ; ADD                       ; ADD_AFTER            ;                             
+
+
+INSERT_UPDATE AsExcludedFacet ; searchConfiguration(uid,$catalogVersion)[unique=true] ; uid[unique=true] 						; uniqueIdx 								; indexProperty[unique=true]		; facetType(code) 		 ; $catalogVersion[unique=true]
+							  ; default-innovia-searchConfig						  	  ; hide-dispensers-innovia                 	      ; default-innovia-searchProfile		; dispensers				         ; MULTISELECT_OR	   	 ;
+							  ; default-innovia-searchConfig					        ; hide-availableLocation-innovia	               ; default-innovia-searchProfile		; availableForLocation				; MULTISELECT_OR	   	 ;
+							  ; default-brawny-searchConfig					        ; hide-availableLocation-brawny	               ; default-brawny-searchProfile		; availableForLocation				; MULTISELECT_OR	   	 ;
+							  ; default-sparkle-searchConfig					        ; hide-availableLocation-sparkle	               ; default-sparkle-searchProfile		; availableForLocation				; MULTISELECT_OR	   	 ;
+										  

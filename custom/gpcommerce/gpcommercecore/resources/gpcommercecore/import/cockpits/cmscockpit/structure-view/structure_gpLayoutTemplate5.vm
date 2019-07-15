@@ -1,0 +1,71 @@
+<div>
+	<table width="100%" cellspacing="0" style="margin:0;padding:0;table-layout:auto;border:1px solid #1E4EBF;">
+		<tbody>
+			<tr>
+				<td colspan="5" style="vertical-align:top;" class="structureViewSection">
+					<cockpit code="ContentSlot1" />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="5" style="vertical-align:top;" class="structureViewSection">
+					<cockpit code="ContentSlot2" />
+				</td>
+			</tr>
+			<tr>
+				<td height="235px" width="70%" colspan="3" style="vertical-align:top;" class="structureViewSection">
+					<cockpit code="ContentSlot3" />
+				</td>
+				<td  width="30%" colspan="2" style="vertical-align:top;" class="structureViewSection">
+					<tr>
+						<td  class="col-xs-12 structureViewSection">
+							<cockpit code="ContentSlot4" />
+						</td>
+					</tr>
+					<tr>
+						<td  class="col-xs-12 structureViewSection">
+							<cockpit code="ContentSlot5" />
+						</td>
+					</tr>
+					<tr>
+						<td  class="col-xs-12 structureViewSection">
+							<cockpit code="ContentSlot6" />
+						</td>
+					</tr>
+					<tr>
+						<td  class="col-xs-12 structureViewSection">
+							<cockpit code="ContentSlot7" />
+						</td>
+					</tr>
+					<tr>
+						<td  class="col-xs-12 structureViewSection">
+							<cockpit code="ContentSlot8" />
+						</td>
+					</tr>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="5" style="vertical-align:top;" class="structureViewSection">
+					<cockpit code="ContentSlot9" />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="5" style="vertical-align:top;" class="structureViewSection">
+					<cockpit code="ContentSlot10" />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="5" style="vertical-align:top;" class="structureViewSection">
+					<cockpit code="ContentSlot11" />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="5" style="vertical-align:top;" class="structureViewSection">
+					<cockpit code="ContentSlot12" />
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div style="width:100%; border-top: 2px solid #bbb" class="cmsContentEditor">
+		<cockpit code="editor" />
+	</div>
+</div>

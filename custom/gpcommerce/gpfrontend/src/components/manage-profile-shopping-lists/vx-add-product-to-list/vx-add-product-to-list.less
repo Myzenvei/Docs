@@ -1,0 +1,58 @@
+.vx-add-product-to-list {
+  .modal-container {
+    position: absolute;
+    left: 16px;
+    top: 34px;
+    z-index: 1;
+    padding: 16px;
+  }
+
+  .input-text {
+    color: @font-color-label-text;
+    font-size: @font-size-medium;
+    margin-bottom: 8px;
+  }
+
+  .input-container {
+    input {
+      width: 304px;
+    }
+    .icon-plus {
+      color: @brand-secondary-10;
+    }
+    display: flex;
+  }
+
+  .input-example {
+    color: @font-color-label-text;
+    font-size: @font-size-small;
+    margin-top: 8px;
+  }
+
+  .icon-cross {
+    position: absolute;
+    top: 12px;
+    right: 10px;
+    font-size: @font-size-small;
+    font-weight: @font-weight-bold;
+    color: @btn-disabled-text-color;
+    cursor: pointer;
+  }
+
+  .form-group {
+    margin-bottom: 0px;
+  }
+}
+
+@media screen and (max-width: @screen-xs-max) {
+  .vx-add-product-to-list {
+    .input-container {
+      width: 256px;
+    }
+    .modal-container {
+      left: 16px;
+      top: 28px;
+      height: auto;
+    }
+  }
+}

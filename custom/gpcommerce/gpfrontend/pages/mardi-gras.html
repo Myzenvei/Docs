@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title> GP FE Codebase </title>
+  <!-- Latest compiled and minified CSS -->
+  <!-- Gotham fonts-->
+  <link rel="stylesheet" type="text/css" href="https://cloud.typography.com/6228154/6448192/css/fonts.css" />
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+  <style type="text/css">
+    .fonts-section span {
+      padding: 30px;
+    }
+
+    .page-nav {
+      margin-top: 86px;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div id="mardi-gras">
+    <!-- built files will be auto injected -->
+    <!-- for logged in user uid is some email id and for logged out user it is anonymous -->
+    <vx-application-auth site-id="electronics" site-type="B2C" locale="en" context-path="" common-resource-path="" csrf-token="sometoken"
+      uid="some@some.com" google-maps-key="AIzaSyDk2KFvE5UgpLcYM4nVlOLSRDWqPMB1bNI" is-mock="true" is-local="true"></vx-application-auth>
+
+    <!-- This to be placed inside gpstorefront-->
+    <vx-koch-auth></vx-koch-auth>
+
+    <!-- Should be placed in page.tag, it handles the guid-->
+    <vx-cart-guid></vx-cart-guid>
+
+    <vx-header-section :header-data="messages.common.headerData" :i18n="messages.common.headerSection">
+      <vx-mini-cart slot="cart" :i18n="messages.manageShoppingCart.miniCart"></vx-mini-cart>
+      <vx-left-nav slot="left-nav" slot-scope="{ leftNavData }" :left-nav-data="leftNavData" :i18n="messages.manageProfileShoppingLists.leftNav"></vx-left-nav>
+    </vx-header-section>
+    <vx-flyout-banner ref="flyoutBanner"></vx-flyout-banner>
+
+    <nav class="page-nav navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">Home</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li>
+              <router-link to="/login">Login</router-link>
+            </li>
+            <li>
+              <router-link to="/registration">Registration</router-link>
+            </li>
+            <li>
+              <router-link to="/styleguide">Styleguide</router-link>
+            </li>
+            <li>
+              <router-link to="/permssions">Permissions</router-link>
+            </li>
+            <li>
+              <router-link to="/commonComponents">Common</router-link>
+            </li>
+            <li>
+              <router-link to="/pdp">PDP</router-link>
+            </li>
+            <li>
+              <router-link to="/viewSiteContent">View Site Content</router-link>
+            </li>
+            <li>
+              <router-link to="/cart">Cart</router-link>
+            </li>
+            <li>
+              <router-link to="/socialfeed">Social Feed</router-link>
+            </li>
+            <li>
+              <router-link to="/quickOrder">Quick Order</router-link>
+            </li>
+            <li>
+              <router-link to="/checkout">Checkout</router-link>
+            </li>
+            <li>
+              <router-link to="/b2bOrg">B2B Org</router-link>
+            </li>
+            <li>
+              <router-link to="/orderConfirmation">Order Confirmation</router-link>
+            </li>
+          </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+      </div>
+      <!-- /.container-fluid -->
+    </nav>
+    <router-view></router-view>
+
+    <vx-video-player></vx-video-player>
+    <vx-footer-section :is-checkout-footer=false :copyright-text="messages.common.footerSection.copyRight" :footer-data="messages.common.footerData"></vx-footer-section>
+
+  </div>
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,148 @@
+<div class="vx-pdf-download">
+    <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>
+    </vx-spinner>
+  <form id="pdf-download" ref="pdfDownloadForm" @submit.prevent="submitForm">
+    <div class="basic-information">
+      <p class="mt-xs-4 mb-xs-4 info-text">{{i18n.basicInformation}}</p>
+      <div class="section row">
+        <div class="name-on-pdf col-xs-12 form-group">
+          <label for="nameOnPdf" :aria-hidden="isDeviceAndroid()">{{i18n.nameOnPdf}}</label>
+          <input name="nameOnPdf" maxlength="90" class="form-control" type="text" v-model="pdfInfo.nameOnPdf" :aria-label="i18n.nameOnPdf">
+        </div>
+      </div>
+      <div class="section row">
+        <div class="phone-number col-xs-12 col-md-6 form-group">
+          <label for="phoneNumber" :aria-hidden="isDeviceAndroid()">{{i18n.phoneNumber}}</label>
+          <the-mask :masked="masked" class="phone-number form-control" v-bind:class="{'input-error': errors.has('phoneNumber')}" mask="+1 ###-###-####"
+            v-model="pdfInfo.phoneNumber" v-validate="'min:10'" type="tel" name="phoneNumber" :aria-label="i18n.phoneNumber">
+          </the-mask>
+          <div class="mt-xs-2" v-if="errors.has('phoneNumber')">
+            <span class="error-msg">{{ errors.first('phoneNumber') }}</span>
+          </div>
+        </div>
+        <div class="email-address col-xs-12 col-md-6 form-group">
+          <label for="emailAddress" :aria-hidden="isDeviceAndroid()">{{i18n.emailAddress}}</label>
+          <input type="email" class="form-control input-elements" v-bind:class="{'input-error': errors.has('emailAddress')}" maxlength="75"
+            name="emailAddress" v-validate="'email|max:75'" v-model="pdfInfo.emailAddress" :aria-label="i18n.emailAddress"
+          />
+          <div class="mt-xs-2" v-if="errors.has('emailAddress')">
+            <span class="error-msg" id='emailAddress'>{{ errors.first('emailAddress') }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="section row">
+        <div class="message col-xs-12 form-group">
+          <label for="message" :aria-hidden="isDeviceAndroid()">{{i18n.message}}</label>
+          <textarea type="text" maxlength="90" class="form-control message-input" name="message" v-model="pdfInfo.message" :aria-label="i18n.message"></textarea>
+        </div>
+      </div>
+      <div class="section row">
+        <div class="bar-color col-xs-12 form-group">
+          <label for="barColor" :aria-hidden="!isTablet()">{{i18n.barColor}}</label>
+          <vx-dropdown-primary :dropdownValues="colorList" :aria-label="i18n.barColor" @selected-option="handleBarColorValue($event)"
+            ref="barColorDropdown" name="barColor"></vx-dropdown-primary>
+        </div>
+      </div>
+    </div>
+    <div class="list-format" v-if="!isPdp">
+      <p class="mb-xs-4 info-text">{{i18n.formatList}}</p>
+      <div class="container-content col-xs-12 px-xs-0">
+        <div class="left-container col-xs-12 col-sm-6">
+          <div class="form-check">
+            <div class="form-group" v-for="(item, index) in displayFormat" @click="radioButtonOptionChange(item,$event)">
+              <input tabindex="0" name="formatColumns" type="radio" class="form-check-input" @selected-option="handleFormatColumnsValue($event)"
+                :label="item.label" :aria-label="item.label" v-model="pdfInfo.formatColumns || formatColumns" :value="item.value"
+              />
+              <label class="form-check-label" :aria-hidden="isDeviceAndroid()">{{item.label}}</label>
+              <!-- <p>{{item.description}}</p> -->
+            </div>
+          </div>
+        </div>
+        <div class="right-container col-xs-12 col-sm-6">
+          <div class="col-xs-12 form-group">
+            <input type="checkbox" class="form-check-input" name="category" id="category" v-model="pdfInfo.categoryDescription" tabindex="0"
+              checked="checked" :aria-label="i18n.category" />
+            <label for="category" class="form-check-label" :aria-hidden="isDeviceAndroid()">{{i18n.category}}</label>
+            <!-- <p class="categoryDescription">{{i18n.categoryDescription}}</p> -->
+          </div>
+          <div class="col-xs-12 form-group">
+            <input type="checkbox" class="form-check-input" name="productSellingStatement" id="productSellingStatement" v-model="pdfInfo.productSellingStatement"
+              tabindex="0" :aria-label="i18n.productSellingStatement" />
+            <label for="productSellingStatement" class="form-check-label" :aria-hidden="isDeviceAndroid()">{{i18n.productSellingStatement}}</label>
+            <!-- <p class="productSellingStatementDescription">{{i18n.productSellingStatementDescription}}</p> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group mb-lg-4 mb-sm-4 mb-xs-4" v-if="!isPdp">
+      <div class="mb-xs-3">
+        <p class="mb-xs-3 info-text col-xs-12">{{i18n.featureCheckedItem}}</p>
+      </div>
+      <div class="form-group" v-for="(item, index) in featureChecked" @click="radioButtonOptionFeature(item,$event)">
+        <input tabindex="0" name="featureCheckedItems" type="radio" class="form-check-input" @selected-option="handleFormatColumnsValue($event)"
+          :label="item.label":aria-label="item.label" v-model="pdfInfo.featureCheckedItems || featureCheckedItems" :value="item.value"
+        />
+        <label class="form-check-label" :aria-hidden="isDeviceAndroid()">{{item.label}}</label>
+        <p>{{item.description}}</p>
+      </div>
+      <p class="mt-xs-3">{{i18n.featureDropDown}}</p>
+      <vx-dropdown-primary :dropdownValues="selectFeatureItems" :aria-label="i18n.featureDropDown" :multiSelectDropdown="true"
+        ref="selectFeatureDropdown" name="selectFeature" @primaryDropdownMounted="handleSelectFeatureValue()"></vx-dropdown-primary>
+    </div>
+
+    <div class="optional-headlines">
+      <p class="mb-xs-4 info-text col-xs-12">{{i18n.optionalHeadlines}}</p>
+      <div class="section row">
+        <div class="col-xs-12 form-group">
+          <label for="headlineLine1" :aria-hidden="isDeviceAndroid()">{{i18n.headlineLine1}}</label>
+          <input name="headlineLine1" maxlength="60" class="form-control" :aria-label="i18n.headlineLine1" type="text" v-model="pdfInfo.headlineLine1">
+        </div>
+      </div>
+      <div class="section row">
+        <div class="col-xs-12 form-group">
+          <label for="headlineLine2" :aria-hidden="isDeviceAndroid()">{{i18n.headlineLine2}}</label>
+          <input name="headlineLine2" maxlength="60" class="form-control" :aria-label="i18n.headlineLine2" type="text" v-model="pdfInfo.headlineLine2">
+        </div>
+      </div>
+      <div class="section row">
+        <div class="col-xs-12 form-group">
+          <label for="headlineColor" :aria-hidden="!isTablet()">{{i18n.headlineColor}}</label>
+          <vx-dropdown-primary :dropdownValues="colorList" :aria-label="i18n.headlineColor" @selected-option="handleHeadlineColorValue($event)"
+            ref="headlineColorDropdown" name="headlineColor"></vx-dropdown-primary>
+        </div>
+      </div>
+      <div class="section row" v-if="!isPdp">
+        <div class="col-xs-12 form-group">
+          <input type="checkbox" class="form-check-input" :aria-label="i18n.onlyOnFirstPageDescription" name="onlyOnFirstPage" id="onlyOnFirstPage"
+            v-model="pdfInfo.onlyOnFirstPage" tabindex="0" />
+          <label for="onlyOnFirstPage" class="form-check-label" :aria-hidden="isDeviceAndroid()">{{i18n.onlyOnFirstPageDescription}}</label>
+          <!-- <p class="onlyOnFirstPageDescription">{{i18n.onlyOnFirstPageDescription}}</p> -->
+        </div>
+      </div>
+      <div class="section row" v-if="!isPdp">
+        <div class="col-xs-12 form-group">
+          <label for="coverPage" :aria-hidden="!isTablet()">{{i18n.coverPage}}</label>
+          <vx-dropdown-primary :dropdownValues="coverpage.options" :aria-label="i18n.coverPage" @selected-option="handleCoverPageValue($event)"
+            ref="coverPageDropdown" name="coverPage" @primaryDropdownMounted="handleCoverPageDefaultValue()"></vx-dropdown-primary>
+        </div>
+        <div class="col-xs-12" v-if="coverpage.options && imgSrc">
+          <img class="coverImage" :src="imgSrc" @error="imgSrcAlt">
+        </div>
+      </div>
+    </div>
+    <div class="reset-link-container d-flex flex-column align-items-center">
+      <a class="reset-link" @click="handleResetLink()" :aria-label="i18n.resetLink">{{i18n.resetLink}}</a>
+    </div>
+    <button type="submit" :disabled="errors.any()" class="mt-md-3 mt-sm-3 mt-xs-4 submit btn center-block btn-primary
+                modal-btn-primary-small modal-bottom-spacing">{{i18n.createAndDownloadPdf}}</button>
+    <div class="mt-xs-4 d-flex flex-column align-items-center disclaimer modal-btn-IEspacing modal-btn-EDGEspacing">
+      <p>{{i18n.disclaimerLine1}}</p>
+      <p>{{i18n.disclaimerLine2}}</p>
+      <div class="d-flex">
+        <div class="d-flex">
+            <p class="disclaimer-line">{{i18n.disclaimerLine3}} <a :href="i18n.privacyPolicyLink">{{i18n.disclaimerLine4}}</a> {{i18n.disclaimerLine5}}</p>
+          </div>
+      </div>
+    </div>
+  </form>
+</div>

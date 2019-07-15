@@ -1,0 +1,13 @@
+<section class="compare-page-container">
+  <h1 class="compare-page-heading m-xs-3 mx-md-5 px-md-2 py-md-2 ml-sm-5 mt-sm-0 mb-sm-4" v-if="showTitle">
+    {{i18n.contentSearch.heading}}</h1>
+  <div class="compare-result-page d-flex flex-column">
+    <div class="compare-tiles d-flex mx-xs-0 pt-xs-4 px-xs-3 pt-sm-3 pt-md-5 px-md-3">
+      <vx-product-tile-vertical v-for="(item,index) in productsCompareData.products" :key="index" :product="item"
+        :showRemoveOption="(productsCompareData.products.length > 2 ? true : false) && showRemoveOption"
+        :is-favorite-visible="isFavorites" :is-bazaar-voice="isBazaarVoice" :i18n="i18n.productTile">
+      </vx-product-tile-vertical>
+    </div>
+    <vx-compare-table :productData="productsCompareData"></vx-compare-table>
+  </div>
+</section>

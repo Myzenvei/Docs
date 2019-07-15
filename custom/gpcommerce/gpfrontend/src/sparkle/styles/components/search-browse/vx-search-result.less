@@ -1,0 +1,90 @@
+#sparkle {
+  .search-browse-filter-comp {
+    .search-browse {
+      .tile-container {
+        .header-bar {
+          .header-dropdown {
+            .heading {
+              letter-spacing: @letter-spacing-slashed;
+              padding-top: 0 !important;
+
+              .product-length-section {
+                font-family: @font-family-TradeGothicLT;
+                letter-spacing: @letter-spacing-slashed;
+                line-height: 28px;
+              }
+            }
+            .dropdown-btn {
+              width: 350px;
+            }
+          }
+        }
+        .applied-filter-section {
+          .filter-list {
+            font-family: @font-family-TradeGothicLT-Bold;
+          }
+        }
+      }
+      .facet-container {
+        .facet-category {
+          .form-group {
+            label {
+              p {
+                font-size: @font-size-medium;
+                letter-spacing: @letter-spacing-default;
+                line-height: 20px;
+              }
+            }
+          }
+          .category-name {
+            padding-top: 20px;
+            .filter-name {
+              font-family: @font-family-TradeGothicLT-Bold;
+            }
+          }
+        }
+        .clear-all-filter {
+          font-size: @font-size-medium;
+          padding-top: 26px;
+        }
+      }
+    }
+
+    .search-heading-desktop {
+      font-family: @font-family-TradeGothicLT-Bold;
+      font-size: @font-size-h2;
+    }
+
+    .searched-term {
+      color: @btn-tertiary-color;
+      line-height: 29px;
+    }
+
+    .no-results-content {
+      letter-spacing: @letter-spacing-default;
+    }
+
+    .tab-item {
+      .nav-link {
+        letter-spacing: @letter-spacing-default;
+      }
+    }
+
+    .nav-tabs {
+      & > li.active {
+        & > a {
+          font-family: @font-family-TradeGothicLT-Bold;
+        }
+      }
+    }
+  }
+}
+.form-group [type='checkbox']:checked + label:before,
+.form-group [type='checkbox']:not(:checked) + label:before,
+.form-group [type='checkbox']:checked + label:after {
+  width: 20px !important;
+  height: 20px !important;
+}
+.form-group [type='checkbox']:not(:checked) + label:before {
+  border: 2px solid @checkbox-not-checked-border;
+}

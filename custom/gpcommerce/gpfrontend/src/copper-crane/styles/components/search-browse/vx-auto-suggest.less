@@ -1,0 +1,47 @@
+#copper-crane {
+  .search-browse-auto-suggest {
+    .inner-addon {
+      .right-addon {
+        .left-addon {
+          .form-control {
+            border: 1px solid @border-color;
+            font-size: @font-size-small;
+            // IE specific style
+            @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+              padding: 5px 22px 10px 32px;
+            }
+          }
+          .icon-x {
+            padding: 8px;
+          }
+        }
+      }
+    }
+    .autosuggest-panel {
+      box-shadow: 0 1px 4px 0 rgba(0,0,0,0.19);
+      .view-all {
+        h5 {
+          font-family: @font-family-cocogoose-light;
+          font-size: @font-size-medium;
+        }
+        a {
+          h5 {
+            text-decoration: underline;
+            font-size: @font-size-small;
+            color: @link-color;
+          }
+        }
+      }
+      .search-browse-product-tile {
+        .tile-image {
+          height: 152px;
+          width: 152px;
+          max-width: 152px;
+        }
+        button {
+          font-size: @font-size-small;
+        }
+      }
+    }
+  }
+}

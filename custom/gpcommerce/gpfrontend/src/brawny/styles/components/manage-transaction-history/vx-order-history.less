@@ -1,0 +1,53 @@
+#brawny {
+  .vx-order-history {
+    margin: 0;
+    margin-bottom: 32px;
+    @media screen and (min-width: @screen-md-min) {
+      margin: 0 40px;
+      margin-bottom: 0;
+    }
+    .icon-filter {
+      color: @font-icon-color-5;
+      font-size: 20px;
+    }
+    .order-history-heading {
+      margin-top: 36px;
+      h1 {
+        font-family: @font-family-text;
+      }
+    }
+    .no-of-orders {
+      span {
+        font-family: @font-family-heading;
+      }
+    }
+    .empty-table {
+      p {
+        font-size: @font-size-small;
+      }
+    }
+    table {
+      tbody {
+        tr {
+          td {
+            a {
+              font-size: @font-size-medium;
+              text-decoration: underline;
+              font-family: @font-family-heading;
+            }
+            p {
+              font-size: @font-size-small;
+            }
+          }
+        }
+      }
+    }
+    .paginate_button {
+      font-family: @font-family-text;
+      color: @font-color-label-text;
+      &.current {
+        color: @text-color;
+      }
+    }
+  }
+}

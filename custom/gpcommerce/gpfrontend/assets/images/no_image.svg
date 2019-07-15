@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="448px" height="448px" viewBox="0 0 448 448" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch -->
+    <title>Assets/No Image Found PDP</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Assets/No-Image-Found-PDP" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <text id="No-Image-found" font-family="Gotham-Book, Gotham" font-size="32" font-weight="300" line-spacing="42" fill="#222222">
+            <tspan x="147.04" y="216">No Image</tspan>
+            <tspan x="177.616" y="258">found</tspan>
+        </text>
+        <circle id="Oval-3" stroke="#D4D4D4" fill-rule="nonzero" cx="224" cy="224" r="224"></circle>
+    </g>
+</svg>

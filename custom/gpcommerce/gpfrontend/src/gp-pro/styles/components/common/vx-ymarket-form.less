@@ -1,0 +1,37 @@
+.vx-ymarket-form {
+
+  .sapCpMissingMandatoryFieldLabel,
+  .sapCpErrorMessageText,
+  .sapCpSuccessMessageLabel {
+    font-family: @font-family-base;
+    font-size: @font-size-error;
+    font-weight: @font-weight-bold;
+    padding: 5px;
+    margin-top: 2px;
+    text-align: center;
+  }
+  .sapCpMissingMandatoryFieldLabel,
+  .sapCpErrorMessageText {
+    color: @font-color-error;
+    background-color: @flyout-error-bg-color;
+   }
+  .sapCpSuccessMessageLabel {
+    color: @success-text-color;
+    background-color: @success-text-background-color;
+  }
+  .authorable-text{
+    .form-header,.form-content{
+        color:@help-text-color;
+      }
+   }
+   .sapCpInput{
+    &.form-control{
+      color: @help-text-color;
+    }
+  }
+  .sapCRLWidgetContentNoIndent{
+    p{
+      color: @help-text-color;
+    }
+  }
+}

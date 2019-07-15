@@ -1,0 +1,61 @@
+#copper-crane {
+  .vx-order-summary {
+    .order-summary {
+      .vx-order-summary-details {
+        .cart-total-label,
+        .cart-total-value,
+        .cart-savings-label,
+        .cart-savings-value,
+        .sub-total-label,
+        .cart-item-number-label {
+          font-size: @font-size-medium;
+        }
+        .cart-total .cart-total-value,
+        .cart-total .cart-savings-value,
+        .sub-total .sub-total-value {
+          font-family: @font-family-queulat-bold;
+        }
+        .sub-total-helper-text,
+        .order-helper-text,
+        .order-helper-text p a {
+          color: @help-text-color;
+          font-size: @font-size-small;
+        }
+        .sub-total .sub-total-value {
+          font-size: @font-size-h3;
+        }
+      }
+    }
+    .promotion-section {
+      .vx-promotion {
+        .promotions-label {
+          font-size: @font-size-small;
+          font-family: @font-family-cocogoose-light;
+          color: @font-color-label-text;
+        }
+        .promotions-body {
+          .apply-promo {
+            input {
+              &::placeholder {
+                opacity: 0;
+              }
+            }
+          }
+        }
+        .voucher-coupon {
+          color: @link-color;
+          font-family: @font-family-queulat-bold;
+        }
+      }
+      .checkout-terms-cond {
+        span,
+        a {
+          font-size: @font-size-small,
+        }
+        a {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}

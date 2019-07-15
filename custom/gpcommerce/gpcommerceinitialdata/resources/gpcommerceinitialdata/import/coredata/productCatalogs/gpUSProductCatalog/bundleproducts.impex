@@ -1,0 +1,63 @@
+$productCatalog=gpUSProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$approved=approvalstatus(code)[default='approved']
+$syncJobCode=sync $productCatalog:Staged->Online
+$ruleType=ruleType(code)[default='ANY']
+
+INSERT_UPDATE BundleTemplateStatus;id[unique=true];status(code)[default='approved'];$catalogVersion
+;Status_TABLE
+
+# Add BundleTemplate and BundleTemplateStatus as rootTypes to the synchronization
+UPDATE CatalogVersionSyncJob;code[unique=true];roottypes(code)[mode=append];
+;$syncJobCode;BundleTemplate,BundleTemplateStatus;
+
+### UltraPerfectTableBundle package
+INSERT_UPDATE BundleTemplate;id[unique=true];parentTemplate(id, version[default=1.0], $catalogVersion);status(id, $catalogVersion)[default='Status_TABLE'];version[default=1.0][unique=true];$catalogVersion
+;UltraPerfectTableBundle
+;NapkinComponent;UltraPerfectTableBundle
+;CupsComponent;UltraPerfectTableBundle
+;PlatesComponent;UltraPerfectTableBundle
+;PaperTowelsComponent;UltraPerfectTableBundle
+;DisposableCutleryBundle
+;PaperPlatesComponent;DisposableCutleryBundle
+;CutleryComponent;DisposableCutleryBundle
+;BowlsComponent;DisposableCutleryBundle
+
+
+# Set the child templates again to make sure that the sequence of child templates is correct
+UPDATE BundleTemplate;id[unique=true];version[default=1.0][unique=true];childTemplates(id,version[default=1.0],$catalogVersion);$catalogVersion
+;UltraPerfectTableBundle;;NapkinComponent,CupsComponent,PlatesComponent,PaperTowelsComponent
+;DisposableCutleryBundle;;PaperPlatesComponent,CutleryComponent,BowlsComponent
+
+UPDATE BundleTemplate;id[unique=true];products(code, $catalogVersion);version[default=1.0][unique=true];$catalogVersion
+;NapkinComponent;92220,92120,96019,32019,32006,32001,38000
+;CupsComponent;16PPATH,9PPATH,2342PATH,87242,6342AR,6346AR,5342DX
+;PlatesComponent;ES9PCOMP,UX7WS,UX9PATH,SXP6PATH
+;PaperTowelsComponent;2112014,21000,13728
+;PaperPlatesComponent;ES9PCOMP,UX7WS,UX9PATH,SXP6PATH
+;CutleryComponent;FM23C7,KM23C7,KM53C7,TM23C7
+;BowlsComponent;SX12PATH,3TOC
+
+INSERT_UPDATE PickNToMBundleSelectionCriteria;id[unique=true];n;m;starter;$catalogVersion
+;PlatesComponent_Pick2to4;2;4;false
+;PaperTowelsComponent_Pick0to1;0;1;false
+;PaperPlatesComponent_Pick0to1;0;1;true
+;CutleryComponent_Pick0to2;0;2;false
+
+
+INSERT_UPDATE PickExactlyNBundleSelectionCriteria;id[unique=true];starter;n[default=1];$catalogVersion
+;NapkinComponent_Pick2;true;2
+;CupsComponent_Pick1;false
+;BowlsComponent_Pick1;false
+
+UPDATE BundleTemplate;id[unique=true];bundleSelectionCriteria(id, $catalogVersion);version[default=1.0];$catalogVersion
+;NapkinComponent;NapkinComponent_Pick2
+;CupsComponent;CupsComponent_Pick1
+;PlatesComponent;PlatesComponent_Pick2to4
+;PaperTowelsComponent;PaperTowelsComponent_Pick0to1
+;PaperPlatesComponent;PaperPlatesComponent_Pick0to1
+;CutleryComponent;CutleryComponent_Pick0to2
+;BowlsComponent;BowlsComponent_Pick1
+
+
+

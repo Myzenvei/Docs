@@ -1,0 +1,75 @@
+#innovia {
+  .register-page {
+    margin-bottom: 24px;
+
+    .create-account {
+
+      a:focus,
+      a:hover {
+        color: @link-color-hover-create-account;
+      }
+
+      a {
+        color: @link-color-create-account;
+      }
+
+      form {
+
+        .market-communication,
+        .affliated-communication {
+          label {
+            font-size: @font-size-label-text;
+            color: @text-color;
+          }
+        }
+
+        .terms-and-conditions {
+          color: @brand-secondary-5;
+
+          a {
+            color: @text-color-secondary-5;
+            font-size: 12px;
+            text-decoration: underline;
+
+            @media screen and (min-width: @screen-sm-min) {
+              font-size: @font-size-small;
+            }
+          }
+        }
+
+        button+p {
+          color: @brand-secondary-5;
+          font-size: 12px;
+
+          a {
+            color: @text-color-secondary-5;
+            font-size: 12px;
+            text-decoration: underline;
+
+            @media screen and (min-width: @screen-sm-min) {
+              font-size: @font-size-small;
+            }
+          }
+        }
+      }
+    }
+  }
+
+
+  .support {
+    color: @brand-secondary-5;
+    margin-top: 0 !important;
+    padding: 0 20px;
+
+    a {
+      color: @text-color-secondary-5;
+      text-decoration: underline;
+    }
+  }
+
+  .social-login-component {
+    .social-text {
+      text-transform: @btn-default-text-transform;
+    }
+  }
+}

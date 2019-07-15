@@ -1,0 +1,83 @@
+$productCatalog=gpUSProductCatalog
+$productCatalogName=GP US Product Catalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+
+
+############################# S4 ###################################
+# Create  products
+UPDATE Product;code[unique=true];sellingStatement[lang=en];$catalogVersion
+;CC-KIT-1000089; Radiance Mask 3.3 fl. oz. <br>Hydrating Dew Mist 1.0 fl. oz.<br>Radiating Facial Serum 0.5 fl. oz. <br>Rejuvenating Facial Elixir 0.5 fl. oz.<br>Stars Over Lecco scented candle<br>Spa Pouch
+;CC-KIT-1000078; Radiance Mask 3.3 fl. oz.<br>Radiating Facial Serum 0.5 fl. oz.<br>Hydrating Dew Mist 0.5 fl. oz.
+;CC-SRM-1000020; A lightweight oil with Bitter Orange Flower Extract moisturizes your skin. It absorbs quickly, leaving only a soft, smooth surface. Gently dab it on a clean face morning or night. The serum utilizes different types of hyaluronic acid to build layers of hydration so your skin feels softer and more supple.
+;CC-SRM-1000021; A lightweight oil with Bitter Orange Flower Extract moisturizes your skin. It absorbs quickly, leaving only a soft, smooth surface. Gently dab it on a clean face morning or night. The serum utilizes different types of hyaluronic acid to build layers of hydration so your skin feels softer and more supple.
+;CC-ELX-1000018; A unique moisturizer that has elements of the richest creams and oils, yet has a nearly weightless texture. Hyaluronic acid instantly quenches thirsty skin upon application, boosting bounce and delivering intense hydration where it's needed most. Squalane mimics the skin's own natural oils and provides nourishing moisture.
+;CC-ELX-1000019; A unique moisturizer that has elements of the richest creams and oils, yet has a nearly weightless texture. Hyaluronic acid instantly quenches thirsty skin upon application, boosting bounce and delivering intense hydration where it's needed most. Squalane mimics the skin's own natural oils and provides nourishing moisture.
+;CC-MSK-1000017; This dermatologist-tested mask is inspired by rituals of the ancient Greeks and fortified with vital minerals and anti-pollutants that detox your skin. You'll unveil a smooth, refreshed and rejuvenated complexion that will seem to glow with a radiance from within.
+;CC-CLN-1000010; Now, the simple act of cleaning your hands will make them feel silky soft. Our luxurious, nutrient-rich Hand Gelée combines invigorating apple amino acids and rejuvenating rose hip for a soft, smooth and radiant appearance. A subtly sweet scent delivers a sense of well being and freshness.
+;CC-MST-1000016; Indulge in the essence of bloomed cedar. Feel refreshed and moisturized day and night and on the go! This silky mist is a delightful pick-me-up that gives your skin a much-needed boost of hydration so you always have that soft, dewy, and radiant skin you love.
+;CC-MST-1000015; Indulge in the essence of bloomed cedar. Feel refreshed and moisturized day and night and on the go! This silky mist is a delightful pick-me-up that gives your skin a much-needed boost of hydration so you always have that soft, dewy, and radiant skin you love.
+;DR-1000653; Charcoal Body Polish<br>Exfoliating Body Gelée<br>Jojoba Body Buff
+;DR-1000652; Cleansing Hand Gelée<br>Spa Bar 3-pack<br>Warming & Cleansing Body Oil
+;CC-OIL-1000006; Begin your post-bath ritual with the aroma of floral amber. An ultra-luxurious body oil packed with essential vitamins and anti-oxidants will nourish and hydrate your skin, leaving it feeling silky soft and supple.
+;CC-OIL-1000007; Begin your post-bath ritual with the aroma of floral amber. An ultra-luxurious body oil packed with essential vitamins and anti-oxidants will nourish and hydrate your skin, leaving it feeling silky soft and supple.
+;CC-OIL-1000026; Enjoy this decadent spa cleanser formulated with extracts of buriti oil derived from deep in the Amazon rainforest. This is the perfect bath-time indulgence to cleanse, hydrate, and thoroughly pamper the body. Rinse with warm water and enjoy pure bliss.
+;CC-LTN-1000009; Our ultra-light super-hydrating formula for the Satin Body Nectar quenches and nourishes skin. An infusion of hyaluronic acid, green tea extract, vitamin D, silkening squalane, and a powerful cocktail of anti-oxidant super fruits leaves your skin silky smooth. It is the ultimate in body moisturizers.
+;CC-EXF-1000004; Our gentle, luxurious all-over body scrub combines a sophisticated blend of smooth, round jojoba beads, jojoba oil, an exotic detoxifying cocktail of Camu Camu and amino acids that nourishes and delicately renews your skin, leaving it feeling fresh, smooth and soft to the touch.
+;CC-EXF-1000003; This rejuvenating dual-action exfoliant utilizes renewable bamboo charcoal that naturally detoxifies and purifies. Dissolve and slough away dead skin cells and rinse away pore-clogging oils and impurities to uncover the fresher, smoother skin beneath.
+;CC-LTN-1000008; Elevate your luxury spa ritual with this specially whipped intense hydrating cream that delivers instant softness. Expertly formulated with a rich blend of Argan oil and Avocado oil that melts fully and quickly into your skin. Dull, dry, lifeless skin feels rejuvenated and noticeably smoother.
+;CC-OIL-1000005; Start your spa ritual by going beyond traditional cleansing. Massage this ultra-lavish cleanser onto your wet skin and it quickly turns into a soothing milky texture that envelops you with a warming and nurturing sensation.
+;CC-EXF-1000002; This sumptuous gelée exfoliates with a cocktail of exotic fruit extracts that softens rough dry patches. It leaves skin looking smooth and feeling exquisitely renewed, refined and radiant. Notes of oud and bergamot add a subtle sweetness to this luxurious treat for you skin.
+;CC-OIL-1000001; The intoxicating scent of orchids fill your luxury spa the moment you open the Shimmering Bath Oil Soak, which starts out as a shimmering oil, and transforms into a luxurious milky texture. A silky blend of restorative Argan oil and nourishing Shea butter leaves skin feeling soft, supple and moisturized to sublime perfection that makes your sensorial journey even more relaxing and invigorating.
+;DR-1000571; Wrap yourself in indulgence and enhance every ritual with the COPPER+CRANE Luxury Spa Robe. Made from 100% Turkish cotton with meticulous embroidery details. 2 sizes: S/M and L/XL
+;DR-1000572; Wrap yourself in indulgence and enhance every ritual with the COPPER+CRANE Luxury Spa Robe. Made from 100% Turkish cotton with meticulous embroidery details. 2 sizes: S/M and L/XL
+;DR-1000409; Each roll features a plush, 4-ply tissue meant to offer the ultimate in comfort and strength to customize your personal cleansing routine while adding a touch of elegance to any home spa experience.
+;DR-1000401; Our luxurious Spa Bar foams up into a rich, creamy lather and caresses you with a specially crafted, nutrient-rich blend of rose hip extract and precious botanic oils.
+;CC-KIT-1000079; Your hair yearns for nourishment and vitality. With this set, give the care your hair needs and the pampering you deserve. The makers of COPPER+CRANE have fashioned our exquisite shampoo and conditioner with a beautiful bouquet of vanilla and musk.
+;CC-BAR-1000048; Enriched with precious botanic oil and rose hip extract, the Spa Bar is crafted to deliver a rich and creamy cleansing experience as the nutrients softly lather, then unveil a supple, healthy tone.
+;CC-CND-1000025; This opulent spa conditioner nourishes your hair and elevates your daily bath into a ritual to cherish.Indulge your senses with the aroma of vanilla and musk.
+;CC-SMP-1000024; Your hair will feel clean and refreshed as you indulge with this nourishing shampoo. Bask in the aroma of vanilla and musk.
+;DR-1000552; 3 of our most popular scented candles:<br>Viennese Woodlands <br>Stars Over Lecco<br>Memories of Majorca
+;DR-1000474; Embrace the season with this holiday candle featuring a beautiful blend of fir, cedar, juniper, pine and balsam.
+;DR-1000408; This luxury candle's delectable bouquet evokes the best of Majorca's natural treasures topped off with notes of sugary musk and sweet sun-ripened figs.
+;DR-1000407; The indulgent aroma in this luxury candle is so smooth, subtle and creamy, you’ll feel as if you’ve created your own Casa de Tranquilo along the Mexican Riviera.
+;DR-1000406; This luxury candle takes you on a transcendent journey of space and time to centuries-old cobblestone streets winding their way down to a peaceful lake surrounded by breathtaking views of the Italian Alps.
+;DR-1000405; This luxury candle’s blend of aromas is as vibrant and sophisticated as Tunisia’s complex cultural influences—French, Far Eastern, Italian, Spanish, and, of course, African—for a sensorial indulgence perfectly spiced to feed the soul.
+;DR-1000404; Like small swells undulating toward the pristine Portuguese coast, this luscious lavender candle also shares soft notes of orange blossoms to form a beguiling bouquet that washes onto sensorial shores and buoys the spirit.
+;DR-1000403; As the flame from this scented candle slowly burns, an aromatic bouquet blooms revealing gardens filled with dew-kissed roses and wild lilies thriving in verdant rolling hills as if you were walking the grounds of a quiet manor nestled in the idyllic British countryside.
+;DR-1000402; Bask in the luxury candle that takes you on a voyage to the wondrous Atacama Desert spanning from the Andes Mountains to the Pacific Ocean.
+;DR-1000659; Luxury Spa Robe in S/M or L/XL<br>Tranquility Diffuser<br>Reflection Diffuser Oil Set
+;DR-1000660; Luxury Spa Robe in S/M or L/XL<br>Tranquility Diffuser<br>Reflection Diffuser Oil Set
+;DR-1000636; Tranquility Diffuser with the Reflection Oil Set: Lavender, Sweet Orange, and Eucalyptus
+;DR-1000634; High-frequency pulses deliver an ultra-fine mist to quickly fill any space with the fragrance of your favorite diffuser oil. Achieve the ultimate bliss when you add the COPPER+CRANE Reflection Diffuser Oil Set with 3 oils: Lavender, Sweet Orange, and Eucalyptus.
+;DR-1000626; Advanced ultra-sonic technology creates a cool, fine mist. This diffusing method contains no heating elements. For a perfect addition to the Element Diffuser, enjoy the Reflection Diffuser Oil Set. It includes three diffuser oils: Lavender, Sweet Orange, and Eucalyptus.
+;DR-1000555; Shimmering Bath Oil Soak<br>Sands of Atacama scented candle<br>Luxury Spa Robe in S/M or L/XL<br>Everyday Spa Bag
+;DR-1000575; Shimmering Bath Oil Soak<br>Sands of Atacama scented candle<br>Luxury Spa Robe in S/M or L/XL<br>Everyday Spa Bag
+;DR-1000554; Luxury Spa Cleansing Milk<br>Charcoal Body Polish<br>Melting Body Soufflé<br>Luxury Spa Robe in S/M or L/XL<br>Everyday Spa Bag
+;DR-1000574; Luxury Spa Cleansing Milk<br>Charcoal Body Polish<br>Melting Body Soufflé<br>Luxury Spa Robe in S/M or L/XL<br>Everyday Spa Bag
+;DR-1000553; Radiating Facial Serum .5 fl. oz.<br>Hydrating Dew Mist .5 fl. oz.<br>Silkening Body Oil .5 fl. oz.<br>Vanity Bag
+;DR-1000551; Relaxation Diffuser Oil Set includes three diffuser oils: Peppermint, Sweet Orange, and Lemongrass.
+;DR-1000550; This set includes three diffuser oils: Lavender, Sweet Orange, and Eucalyptus
+;DR-1000443; Charcoal Body Polish 4 fl. oz.<br>Spa Bar 9.8 oz.<br>Melting Body Soufflé 4.2 oz.
+;DR-1000442; The COPPER+CRANE Essentials Gift Set creates the perfect bathroom sanctuary so that guests may experience serenity + luxury. <br>Each set is individually wrapped in a stylish gift box that will delight the most discerning hostess.<br>The Essentials Gift Set is also perfect as a thoughtful housewarming gift.
+;CC-KIT-1000088; Warming & Cleansing Body Oil 6.7 fl. oz.<br>Charcoal Body Polish 4 fl. oz. <br>Radiance Mask 3.3 fl. oz.<br>Shimmering Bath Oil Soak 2 fl. oz.<br>Melting Body Soufflé 4.2 oz.<br>Gardens of Blenheim scented candle<br>Everyday Spa Bag
+;CC-KIT-1000076; Shimmering Bath Oil Soak 2 fl. oz. <br>Exfoliating Body Gelée 5 fl. oz. <br>Melting Body Soufflé 4.2<br>Spa Bar<br>Spa Pouch
+;CC-KIT-1000069; Melting Body Soufflé 4.2 fl. oz.<br>Radiance Mask 3.3 fl. oz. <br>Charcoal Body Polish 4 fl. oz.<br>and a complimentary Vanity Bag
+;CC-KIT-1000066; Cleansing Hand Gelée 8.7 fl. oz.<br>Radiance Mask 3.3 fl. oz. <br>Melting Body Soufflé 4.2 oz.<br>and a complimentary Spa Pouch<br>
+;CC-PCH-1000062; Style and utility merge in this fashionable pouch which we feature in our Spa Bath Ritual and Skin Care Surprise Gift Sets.<br>Size: 8.5" x 7" x 3"
+;CC-PVN-1000063; Now you can buy the stylish bag that is featured in several of our top-selling gift sets.<br>Size: 7.5" x 8" x 3"
+;CC-SBG-1000061; With our Everyday Spa Bag, every day is a good day to discover the life well-lived and the path well-traveled.<br>Size: 14" x 14" x 5"
+
+
+
+;DR-1000616;Take the perfect step toward another level of bath luxury with our Embroidered Matelassé Slippers. The waffle cotton style delivers elite comfort. One size fits most.<br>
+;DR-1000614;Enjoy transcendent comfort with our sophisticated quilted robe. Lighter than our Luxury Spa Robe and perfect for summer comfort. Made with 100% cotton.<br><br>SIZE : Large/X Large   Small/Medium
+;DR-1000615;Enjoy transcendent comfort with our sophisticated quilted robe. Lighter than our Luxury Spa Robe and perfect for summer comfort. Made with 100% cotton.<br><br>SIZE : Large/X Large   Small/Medium
+;DR-1000618;Step out of the bath and into our plush Luxury Spa Shower Wrap. The generous 100% cotton wrap is big enough to use as a towel but offers a velcro closure so that you can walk around in comfort. 2 sizes: S/M and L/XL<br><br>SIZE : Large/X Large   Small/Medium
+;DR-1000619;Step out of the bath and into our plush Luxury Spa Shower Wrap. The generous 100% cotton wrap is big enough to use as a towel but offers a velcro closure so that you can walk around in comfort. 2 sizes: S/M and L/XL<br><br>SIZE : Large/X Large   Small/Medium
+;DR-1000714;Radiating Facial Serum 0.5 fl. oz. <br>Hydrating Dew Mist 0.5 fl. oz.<br>Jojoba Body Buff <br>Silkening Body Oil 2 fl. oz. <br>Everyday Spa Bag
+;DR-1000718;Satin Body Nectar<br>Jojoba Body Buff<br>Rejuvenating Facial Elixir 0.5 fl. oz.<br>Hydrating Dew Mist 1 fl. oz.<br>Warming & Cleansing Body Oil<br>Vanity Bag
+;DR-1000722;Rejuvenating Facial Elixir 1 fl. oz.<br>Hydrating Dew Mist 1 fl. oz.<br>Radiance Mask<br>Luxury Spa Cleansing Milk<br>Charcoal Body Polish<br>Spa Tote<br>a complimentary Stars Over Lecco scented candle
+;DR-1000711;Hydrating Dew Mist, 0.5 fl. oz.<br>Radiating Facial Serum, 0.5 fl. oz.<br>Rejuvenating Facial Elixir 0.5 fl. oz.
+;DR-1000712;Warming & Cleansing Body Oil 6.7 fl. oz.<br>Jojoba Body Buff 4.2 oz. <br>Melting Body Soufflé 4.2 oz.
+;DR-1000652;Cleansing Hand Gelée<br>Spa Bar 3-pack<br>Warming & Cleansing Body Oil
+;DR-1000653;Charcoal Body Polish<br>Jojoba Body Buff <br>Spa Pouch

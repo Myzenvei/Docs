@@ -1,0 +1,143 @@
+<div class="vx-dispenser-replacement">
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>
+  </vx-spinner>
+  <div class="dispenser-form-container">
+    <div class="dispenser-form-heading col-xs-12 pb-xs-3">
+      {{dispenserTicketData.heading}}
+    </div>
+    <div class="dispenser-form-description col-xs-12 pb-xs-5">
+      {{dispenserTicketData.description}}
+    </div>
+    <form ref="ticketForm">
+      <div class="dispenser-ticket-section">
+        <div class="col-xs-12">
+          <div class="form-group col-xs-6">
+            <label for="keyQuantities" :aria-hidden="!isTablet()">{{i18n.keyQuantities}}</label>
+            <vx-dropdown-primary ref="keyQuantitiesDropdown" v-validate="'required'" @selected-option="form.keyQuantities = $event" :dropdownValues="dispenserKeyQuantityList"
+              :aria-label="i18n.keyQuantities" name="keyQuantities" v-model="form.keyQuantities" :dropdownError="errors.has('keyQuantities')">
+            </vx-dropdown-primary>
+            <div class="mt-xs-2" v-show="errors.has('keyQuantities')">
+              <span class="error-msg" aria-live="assertive">{{ errors.first('keyQuantities') }}</span>
+            </div>
+          </div>
+          <div class="form-group col-xs-6">
+            <label for="dispenserType" :aria-hidden="!isTablet()">{{i18n.dispenserType}}</label>
+            <vx-dropdown-primary ref="topicDropdown" v-validate="'required'" @selected-option="form.dispenserType = $event" :dropdownValues="dispenserTypeValuesList"
+              :aria-label="i18n.dispenserType" name="dispenserType" v-model="form.dispenserType" :dropdownError="errors.has('dispenserType')">
+            </vx-dropdown-primary>
+            <div class="mt-xs-2" v-show="errors.has('dispenserType')">
+              <span class="error-msg" aria-live="assertive">{{ errors.first('dispenserType') }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12">
+          <div class="form-group col-xs-6">
+            <label for="firstName" :aria-hidden="isDeviceAndroid()">{{i18n.firstName}}</label>
+            <input type="text" v-model="form.firstName" v-validate="{ required: true,
+                  regex: /^[A-Za-z\s\’'-]+$/ ,max: 40 }" maxlength="40" class="form-control" id="firstName" name="firstName"
+              v-bind:class="{'input-error': errors.has('firstName')}" :aria-label="i18n.firstName" aria-describedby="firstname_error_msg">
+            <div class="mt-xs-2" v-show="errors.has('firstName')" :aria-hidden="!errors.has('firstName')">
+              <span class="error-msg" id='firstname_error_msg'>{{ errors.first('firstName') }}</span>
+            </div>
+          </div>
+          <div class="form-group col-xs-6">
+            <label for="lastName" :aria-hidden="isDeviceAndroid()">{{i18n.lastName}}</label>
+            <input type="text" v-model="form.lastName" maxlength="80" v-validate="{ required: true,
+                  regex: /^[A-Za-z\s\’'-]+$/ ,max: 80 }" v-bind:class="{'input-error': errors.has('lastName')}" class="form-control"
+              id="lastName" name="lastName" :aria-label="i18n.lastName" aria-describedby="lastname_error_msg">
+            <div class="mt-xs-2" v-show="errors.has('lastName')" :aria-hidden="!errors.has('lastName')">
+              <span class="error-msg" id='lastname_error_msg'>{{ errors.first('lastName') }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12">
+          <div class="form-group col-xs-6">
+            <label for="companyName" :aria-hidden="isDeviceAndroid()">{{i18n.companyName}}</label>
+            <input type="text" class="form-control" maxlength="80" v-validate="{required: true, max:80}" name="companyName" v-model="form.companyName"
+              :aria-label="i18n.companyName" v-bind:class="{'input-error': errors.has('companyName')}">
+            <div class="mt-xs-2" v-if="errors.has('companyName')">
+              <span class="error-msg">{{ errors.first('companyName') }}</span>
+            </div>
+          </div>
+          <div class="form-group col-xs-6">
+            <div>
+              <label for="country" :aria-hidden="!isTablet() && isDeviceAndroid()">{{i18n.country}}
+              </label>
+            </div>
+            <vx-dropdown-primary v-validate="'required'" ref="countryDropdown" @selected-option="setCountry($event)" :dropdownValues="i18n.countryList"
+              :aria-label="i18n.country" name="country" v-model="form.country">
+            </vx-dropdown-primary>
+          </div>
+        </div>
+        <div class="col-xs-12">
+          <div class="form-group col-xs-6">
+            <label for="address" :aria-hidden="isDeviceAndroid()">{{i18n.address}}
+            </label>
+            <input type="text" v-model="form.streetAddress" class="form-control" id="address" maxlength="60" v-validate="'required|max:60'"
+              name="address" v-bind:class="{'input-error': errors.has('address')}" :aria-label="i18n.streetAddress" aria-describedby="address_error_msg">
+            <div v-show="errors.has('address')" :aria-hidden="!errors.has('address')">
+              <span class="error-msg" id='address_error_msg'>{{ errors.first('address') }}</span>
+            </div>
+          </div>
+          <div class="form-group col-xs-6">
+            <label for="city" :aria-hidden="isDeviceAndroid()">{{i18n.city}}
+            </label>
+            <input type="text" v-model="form.city" class="form-control" id="inputCity" v-validate="'required|max:80'" v-bind:class="{'input-error': errors.has('city')}"
+              name="city" :aria-label="i18n.city" maxlength="80" aria-describedby="address_city_error_msg">
+            <div class=" mt-xs-2" v-show="errors.has('city')" :aria-label="!errors.has('city')">
+              <span class="error-msg" id='address_city_error_msg'>{{ errors.first('city') }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12">
+          <div class="form-group col-xs-6">
+            <div>
+              <label for="state" :aria-hidden="!isTablet() && isDeviceAndroid()">{{i18n.state}}
+              </label>
+            </div>
+            <vx-dropdown-primary v-validate="'required'" ref="regionDropdown" @selected-option="form.region = $event.label" :dropdownValues="regionList"
+              name="state" :aria-label="i18n.state" :dropdownError="errors.has('state')" v-model="form.region">
+            </vx-dropdown-primary>
+            <div class="mt-xs-2" v-show="errors.has('state')">
+              <span class="error-msg" aria-live="assertive">{{ errors.first('state') }}</span>
+            </div>
+          </div>
+          <div class="form-group col-xs-6">
+            <label for="zipcode" :aria-hidden="isDeviceAndroid()">{{i18n.zipcode}}</label>
+            <input type="text" v-model="form.postalCode" class="form-control" id="inputZip" maxlength="20" v-bind:class="{'input-error': errors.has('zipcode')}"
+              v-validate="zipCodeValidation()" name="zipcode" :aria-label="i18n.zipcode" aria-describedby="address_zip_error_msg">
+            <div class="mt-xs-2" v-show="errors.has('zipcode')" :aria-label="!errors.has('zipcode')">
+              <span class="error-msg" id='address_zip_error_msg'>{{ errors.first('zipcode') }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12">
+          <div class="form-group col-xs-6">
+            <label for="email" :aria-hidden="isDeviceAndroid()">{{i18n.email}}</label>
+            <input type="text" maxlength="80" v-validate="'required|email|max:80'" v-model="form.email" class="form-control" name="email"
+              :aria-label="i18n.email" id="email" v-bind:class="{'input-error': errors.has('email')}">
+            <div class="mt-xs-2" v-show="errors.has('email')" :aria-label="!errors.has('email')">
+              <span class="error-msg">{{ errors.first('email') }}</span>
+            </div>
+          </div>
+          <div class="form-group col-xs-6">
+            <label for="telephone" :aria-hidden="isDeviceAndroid()">{{i18n.phone}}
+            </label>
+            <the-mask :masked="masked" class="phone-number form-control" mask="+1 ###-###-####" v-model="form.phone" v-validate="'min:15'"
+              type="tel" name="telephone" :aria-label="i18n.phone">
+            </the-mask>
+            <div class="mt-xs-2" v-if="errors.has('telephone')">
+              <span class="error-msg">{{ errors.first('telephone') }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12">
+          <button type="submit" :disabled="errors.any()" @click="handleSubmit" class="submit btn btn-primary mt-xs-4 mt-sm-5 mb-xs-5 mb-md-4">{{i18n.submit}}</button>
+        </div>
+        <div class="col-xs-12 pt-xs-3 disclaimer">
+          {{dispenserTicketData.disclaimer}}
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

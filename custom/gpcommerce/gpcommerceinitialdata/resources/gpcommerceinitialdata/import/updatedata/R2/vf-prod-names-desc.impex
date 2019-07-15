@@ -1,0 +1,215 @@
+
+
+$productCatalog=gpUSProductCatalog
+$productCatalogName=GP US Product Catalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+
+
+############################# S4 ###################################
+# Create  products
+UPDATE Product ; code[unique=true] ; name[lang=en]                                                  ; description[lang=en]                                                                                                                                                                                                                                                                                                                                                           ; sellingStatement[lang=en] ; productSubtitle[lang=en] ; $catalogVersion
+               ; 35132/18          ; VANITY FAIR® DESIGN COLLECTION EVERYDAY CASUAL NAPKINS 160 CT  ; Featuring stylish prints and a smooth cloth-like texture, our 2-ply printed napkins are made to look stylish and classic taking on anything from breakfast to dinner and every meal in between. Our Vanity Fair ® Design Collection napkins are just the right size and the perfect companion for any meal.                                                                    ;                           ;                          
+               ; 35130/18          ; VANITY FAIR® DESIGN COLLECTION EVERYDAY CASUAL NAPKINS 80 CT   ; Featuring stylish prints and a smooth cloth-like texture, our 2-ply printed napkins are made to look stylish and classic taking on anything from breakfast to dinner and every meal in between. Our Vanity Fair ® Design Collection napkins are just the right size and the perfect companion for any meal.                                                                    ;                           ;                          
+               ; 35134/18          ; VANITY FAIR® ENTERTAIN BEVERAGE NAPKINS 40 COUNT               ; Vanity Fair ® Beverage napkins are perfect for all your entertaining occasions. Our 2-ply napkins are velvety soft and absorbent, so they're perfect for serving beverages, hors d'oeuvres or desserts.                                                                                                                                                                        ;                           ;                          
+               ; 35515/18          ; VANITY FAIR® ENTERTAIN CLASSIC NAPKINS 40 COUNT                ; Turn your ordinary meal into an extraordinary meal with Vanity Fair® Napkins. Impress your guests and family with this simple, yet elegant accompaniment for those special entertaining occasions. Featuring beautifully detailed embossing and a smooth, cloth-like texture, our 3-ply napkins are exceptionally versatile and 50% larger than Vanity Fair® Everyday napkins. ;                           ;                          
+               ; 35546/17          ; VANITY FAIR® ENTERTAIN CLASSIC NAPKINS 40 COUNT DISPENSER      ; Accent your home with Vanity Fair® pre-folded napkins featured in a convenient decorative holder. Featuring beautifully detailed embossing and a smooth, cloth-like texture, our 3-ply napkins are exceptionally versatile and 50% larger than Vanity Fair® Everyday napkins. A simple, yet elegant accompaniment for those special entertaining occasions.                    ;                           ;                          
+               ; 35518/18          ; VANITY FAIR® ENTERTAIN CLASSIC NAPKINS 80 COUNT                ; Turn your ordinary meal into an extraordinary meal with Vanity Fair® Napkins. Impress your guests and family with this simple, yet elegant accompaniment for those special entertaining occasions. Featuring beautifully detailed embossing and a smooth, cloth-like texture, our 3-ply napkins are exceptionally versatile and 50% larger than Vanity Fair® Everyday napkins. ;                           ;                          
+               ; 35468/18          ; VANITY FAIR® ENTERTAIN HAND TOWELS 45 COUNT                    ; Offer your family and guests a beautiful, fresh, absorbent hand towel every time they wash their hands. With a cloth-like feel, Vanity Fair® disposable hand towels add a unique touch to your bathroom. Display this decorative box near the sink for easy use.                                                                                                               ;                           ;                          
+               ; 3558320           ; VANITY FAIR ENTERTAIN 240 COUNT                                ; Turn your ordinary meal into an extraordinary meal with Vanity Fair® Napkins. Impress your guests and family with this simple, yet elegant accompaniment for those special entertaining occasions. Featuring beautifully detailed embossing and a smooth, cloth-like texture, our 3-ply napkins are exceptionally versatile and 50% larger than Vanity Fair® Everyday napkins. ;                           ;                          
+               ; 35501/18          ; VANITY FAIR® EVERYDAY CASUAL NAPKINS 100 COUNT                 ; Vanity Fair® Napkins are the perfect companion for any meal. Featuring a smooth, cloth-like texture, our 2-ply napkins are made to look stylish and classic taking on anything from breakfast to dinner and every meal in between.                                                                                                                                             ;                           ;                          
+               ; 35502/18          ; VANITY FAIR® EVERYDAY CASUAL NAPKINS 200 COUNT                 ; Vanity Fair® Napkins are the perfect companion for any meal. Featuring a smooth, cloth-like texture, our 2-ply napkins are made to look stylish and classic taking on anything from breakfast to dinner and every meal in between.                                                                                                                                             ;                           ;                          
+               ; 35503/18          ; VANITY FAIR® EVERYDAY CASUAL NAPKINS 300 COUNT                 ; Vanity Fair® Napkins are the perfect companion for any meal. Featuring a smooth, cloth-like texture, our 2-ply napkins are made to look stylish and classic taking on anything from breakfast to dinner and every meal in between.                                                                                                                                             ;                           ;                          
+               ; 35575/18          ; VANITY FAIR® EVERYDAY CASUAL NAPKINS 75 COUNT DISPENSER        ; Featuring a smooth, cloth-like texture, our 2-ply napkins are made to look stylish and classic taking on anything from breakfast to dinner and everything in between. Accent your home with Vanity Fair® napkins featured in a convenient, decorative holder.                                                                                                                  ;                           ;                          
+               ; 35236/18          ; VANITY FAIR® EXTRA ABSORBENT EVERYDAY CASUAL NAPKINS 80 COUNT  ; Now you can enhance even the messiest meal with the great look of Vanity Fair® Everyday Extra Absorbent Napkins. Engineered with advanced technology for enhanced absorption, our 2-ply napkins are made to look stylish and classic taking on anything from syrupy pancake breakfasts to saucy spaghetti dinners.                                                             ;                           ;                          
+               ; 35270/19          ; VANITY FAIR® EXTRA ABSORBENT EVERYDAY CASUAL NAPKINS 160 COUNT ; Now you can enhance even the messiest meal with the great look of Vanity Fair® Everyday Extra Absorbent Napkins. Engineered with advanced technology for enhanced absorption, our 2-ply napkins are made to look stylish and classic taking on anything from syrupy pancake breakfasts to saucy spaghetti dinners.                                                             ;                           ;                          
+               ; 35272/18          ; VANITY FAIR® EVERYDAY CASUAL NAPKINS 450 COUNT                 ; Vanity Fair® Napkins are the perfect companion for any meal. Featuring a smooth, cloth-like texture, our 2-ply napkins are made to look stylish and classic taking on anything from breakfast to dinner and every meal in between.                                                                                                                                             ;                           ;                          
+               ; 3558119           ; VANITY FAIR® EVERYDAY CASUAL NAPKINS 660 COUNT                 ; Vanity Fair® Napkins are the perfect companion for any meal. Featuring a smooth, cloth-like texture, our 2-ply napkins are made to look stylish and classic taking on anything from breakfast to dinner and every meal in between.                                                                                                                                             ;                           ;                          
+
+
+####################################Vanity Fair Napkins added on 16th May 2019#############################
+# ProductAvailabilityAssignment for Vanity Fair Napkins
+$productCatalog=gpUSProductCatalog
+$availabilityGroup=vanityfairnapkins-availability
+$approvalStatus=approved 
+$catalogVersion=catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default='$productCatalog:Staged']
+INSERT_UPDATE ProductAvailabilityAssignment ; product(code,$catalogVersion)[unique=true] ; availabilityGroup(id)[default=$availabilityGroup,unique=true] ; status(code)[default=$approvalStatus] ; onlineDate[dateformat=dd.MM.yyyy, default=01.02.2014] ; offlineDate[dateformat=dd.MM.yyyy] ; $catalogVersion
+                                            ; 35132/18                                   
+                                            ; 35130/18                                   
+                                            ; 35134/18                                   
+                                            ; 35515/18                                   
+                                            ; 35546/17                                   
+                                            ; 35518/18                                   
+                                            ; 35468/18                                   
+                                            ; 3558320                                    
+                                            ; 35501/18                                   
+                                            ; 35502/18                                   
+                                            ; 35503/18                                   
+                                            ; 35575/18                                   
+                                            ; 35236/18                                   
+                                            ; 35270/19                                   
+                                            ; 35272/18                                   
+                                            ; 3558119                                    
+
+
+###################### ProductAvailabilityAssignment ##########################
+
+######################################################  product-prices.impex  ##########################################################################
+$productCatalog=gpUSProductCatalog          
+$productCatalogName=GP US Product Catalog   
+$prices=Europe1prices[translator=de.hybris.platform.europe1.jalo.impex.Europe1PricesTranslator]
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$baseProduct=baseProduct(code, catalogVersion(catalog(id[default='$productCatalog']),version[default='Staged']))
+$approved=approvalstatus(code)[default='approved']
+$taxGroup=Europe1PriceFactory_PTG(code)[default=us-sales-tax-full]
+
+INSERT_UPDATE PriceRow ; product(code,$catalogVersion)[unique=true] ; ug(code)[unique=true]        ; gpUserPriceGroup(code)[unique=true] ; currency(isocode)[unique=true] ; price[unique=true] ; unit(code)[default=pieces] ; net[default=true] ; salePrice[default=false] ;  ; minAdvertisedPrice[default=false] ; startTime[dateformat=dd-MM-yyyy] ; endTime[dateformat=dd-MM-yyyy]
+                       ; 35132/18                                   ;  ;                                     ; USD                            ; 80.99              ; CS                         ;                   ;                          
+                       ; 35130/18                                   ;  ;                                     ; USD                            ; 47.99              ; CS                         ;                   ;                          
+                       ; 35134/18                                   ;  ;                                     ; USD                            ; 98.99              ; CS                         ;                   ;                          
+                       ; 35515/18                                   ;  ;                                     ; USD                            ; 67.99              ; CS                         ;                   ;                          
+                       ; 35546/17                                   ;  ;                                     ; USD                            ; 34.99              ; CS                         ;                   ;                          
+                       ; 35518/18                                   ; ;                                     ; USD                            ; 90.99              ; CS                         ;                   ;                          
+                       ; 35468/18                                   ;  ;                                     ; USD                            ; 60.96              ; CS                         ;                   ;                          
+                       ; 3558320                                    ;  ;                                     ; USD                            ; 83.99              ; CS                         ;                   ;                          
+                       ; 35501/18                                   ;  ;                                     ; USD                            ; 23.99              ; CS                         ;                   ;                          
+                       ; 35502/18                                   ;  ;                                     ; USD                            ; 90.99              ; CS                         ;                   ;                          
+                       ; 35503/18                                   ;  ;                                     ; USD                            ; 83.99              ; CS                         ;                   ;                          
+                       ; 35575/18                                   ;  ;                                     ; USD                            ; 90.99              ; CS                         ;                   ;                          
+                       ; 35236/18                                   ;  ;                                     ; USD                            ; 83.99              ; CS                         ;                   ;                          
+                       ; 35270/19                                   ; ;                                     ; USD                            ; 90.99              ; CS                         ;                   ;                          
+                       ; 35272/18                                   ;  ;                                     ; USD                            ; 83.99              ; CS                         ;                   ;                          
+                       ; 3558119                                    ; ;                                     ; USD                            ; 90.99              ; CS                         ;                   ;                          
+######################################################  product-prices.impex  ##########################################################################
+
+######################################################  StockLevel  ##########################################################################
+INSERT_UPDATE StockLevel ; available ; warehouse(code)[default='gp_warehouse',unique=true] ; inStockStatus(code)[default='notSpecified'] ; overSelling ; preOrder ; productCode[unique=true] ; reserved
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ; 35132/18                 ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ; 35130/18                 ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ; 35134/18                 ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ; 35515/18                 ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ; 35546/17                 ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ; 35518/18                 ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ; 35468/18                 ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ; 35501/18                 ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ; 35502/18                 ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ; 35503/18                 ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ; 35575/18                 ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ; 35236/18                 ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ; 35270/19                 ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ; 35272/18                 ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ; 3558119                  ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ; 3558320                  ; 0       
+######################################################  StockLevel  ##########################################################################
+
+
+         
+
+#;3558320; ;;;CS;;;;;                 
+#;3558119; ;;;CS;;;;;                 
+########################### Vanityfair NAPKINS VARIANTS PRODUCTS ##################
+
+
+                       
+                                            
+$productCatalog=gpUSProductCatalog
+$productCatalogName=GP US Product Catalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+
+$productCatalog=gpUSProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$supercategories=supercategories(code, $catalogVersion)
+$baseProduct=baseProduct(code,$catalogVersion)
+$approved=approvalstatus(code)[default='approved']
+
+
+# Insert Variant Category                   
+INSERT_UPDATE GPDefaultVariantCategory ; code[unique=true] ; name  ; $supercategories ; hasImage ; $catalogVersion ; allowedPrincipals(uid)[default='customergroup']
+                                       ; color             ; Color ;                  ; true     
+                                       ; count             ; Count ;                  ; false    
+                                       ; size              ; Size  ;                  ; false    
+                                       ; scent             ; Scent ;                  ; false    
+
+								                               
+#Insert Variant Value Category         
+INSERT_UPDATE GPDefaultVariantValueCategory ; code[unique=true] ; name      ; $supercategories ; sequence ;hexCode; $catalogVersion ; allowedPrincipals(uid)[default='customergroup']
+                                            ; 80_Count             ; 80 Count         ; count            ; 191       
+                                            ; 160_Count             ; 160 Count         ; count            ; 192       
+                                            ; 40_Count             ; 40 Count        	 ; count            ; 193  
+                                            ; 100_Count             ; 100 Count         ; count            ; 194       
+                                            ; 200_Count             ; 200 Count         ; count            ; 195       
+                                            ; 300_Count             ; 300 Count         ; count            ; 196  
+                                           	; 450_Count             ; 450 Count         ; count            ; 197       
+                                            ; 660_Count             ; 660 Count         ; count            ; 198       
+                                       
+INSERT_UPDATE GPCommerceProduct ; code[unique=true] ; $catalogVersion ; supercategories(code,$catalogVersion) ; ean         ; unit(code) ; varianttype(code)[default='GenericVariantProduct'] ; $approved  
+                           ; BP-35130/18           ;                 ; count                       ;  ;          ;                   ; approved    
+ 						   ; BP-35515/18           ;           		 ; count                       ;  ;          ;                        ; approved   
+				     	   ; BP-35501/18           ;            	; count                       ;  ;          ;                        ; approved   
+						   ; BP-35236/18           ;            	; count                      ;  ;          ;                        ; approved    
+
+#Updating product information
+INSERT_UPDATE GPGenericVariantProduct ; code[unique=true] ; $baseProduct ; $catalogVersion ;$supercategories ; $approved                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+                                  ; 35130/18         ; BP-35130/18      ;                 ; 80_Count
+                                  ; 35132/18         ; BP-35130/18      ;                 ; 160_Count
+                                  ; 35515/18         ; BP-35515/18      ;                 ; 40_Count
+                                  ; 35518/18         ; BP-35515/18      ;                 ; 80_Count
+                                  ; 35501/18         ; BP-35501/18      ;                 ; 100_Count
+                                  ; 35502/18         ; BP-35501/18      ;                 ; 200_Count
+                                  ; 35503/18         ; BP-35501/18      ;                 ; 300_Count
+                                  ; 35272/18         ; BP-35501/18      ;                 ; 450_Count
+                                  ; 3558119         ; BP-35501/18      ;                 ; 660_Count
+                                  ; 35236/18        ; BP-35236/18      ;                 ; 80_Count
+                                  ; 35270/19        ; BP-35236/18      ;                 ; 160_Count
+                          
+         
+$productCatalog=gpUSProductCatalog
+$productCatalogName=GP US Product Catalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+
+$productCatalog=gpUSProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$supercategories=supercategories(code, $catalogVersion)
+$baseProduct=baseProduct(code,$catalogVersion)
+$approved=approvalstatus(code)[default='approved']
+         
+         
+         ###########################  NAPKINS PRODUCTS ##################
+INSERT_UPDATE GPCommerceProduct;code[unique=true];$catalogVersion;supercategories(code,$catalogVersion);ean;unit(code);varianttype(code);$approved;$taxGroup;site(uid);
+;35134/18; ;entertain-collection;;CS;;;;;
+;35546/17; ;entertain-collection;;CS;;;;;
+;35468/18; ;entertain-collection;;CS;;;;;
+;35575/18; ;everyday-collection;;CS;;;;;
+
+INSERT_UPDATE PriceRow ; product(code,$catalogVersion)[unique=true] ; ug(code)[unique=true]        ; gpUserPriceGroup(code)[unique=true] ; currency(isocode)[unique=true] ; price[unique=true] ; unit(code)[default=pieces] ; net[default=true] ; salePrice[default=false] ;  ; minAdvertisedPrice[default=false] ; startTime[dateformat=dd-MM-yyyy] ; endTime[dateformat=dd-MM-yyyy]
+                       ; BP-35130/18                                   ;  ;                                     ; USD                            ; 80.99              ; CS                         ;                   ;                          
+                       ; BP-35515/18                                   ;  ;                                     ; USD                            ; 47.99              ; CS                         ;                   ;                          
+                       ; BP-35501/18                                   ;  ;                                     ; USD                            ; 98.99              ; CS                         ;                   ;                          
+                       ; BP-35236/18                                  ;  ;                                     ; USD                            ; 67.99              ; CS                         ;                   ;                          
+
+
+$productCatalog=gpUSProductCatalog
+$availabilityGroup=vanityfairnapkins-availability
+$approvalStatus=approved 
+$catalogVersion=catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default='$productCatalog:Staged']
+INSERT_UPDATE ProductAvailabilityAssignment ; product(code,$catalogVersion)[unique=true] ; availabilityGroup(id)[default=$availabilityGroup,unique=true] ; status(code)[default=$approvalStatus] ; onlineDate[dateformat=dd.MM.yyyy, default=01.02.2014] ; offlineDate[dateformat=dd.MM.yyyy] ; $catalogVersion
+                                            ; BP-35130/18                                   
+                                            ; BP-35515/18                                   
+                                            ; BP-35501/18                                   
+                                            ; BP-35236/18                                   
+
+ 
+ 
+UPDATE Product ; code[unique=true] ; name[lang=en]                                                  ; description[lang=en]                                                                                                                                                                                                                                                                                                                                                           ; sellingStatement[lang=en] ; productSubtitle[lang=en] ; $catalogVersion
+               ; BP-35130/18         ; VANITY FAIR® DESIGN COLLECTION EVERYDAY CASUAL NAPKINS   ; Featuring stylish prints and a smooth cloth-like texture, our 2-ply printed napkins are made to look stylish and classic taking on anything from breakfast to dinner and every meal in between. Our Vanity Fair ® Design Collection napkins are just the right size and the perfect companion for any meal.                                                                    ;                           ;                          
+               ; BP-35515/18          ; VANITY FAIR® ENTERTAIN CLASSIC NAPKINS  ; Featuring stylish prints and a smooth cloth-like texture, our 2-ply printed napkins are made to look stylish and classic taking on anything from breakfast to dinner and every meal in between. Our Vanity Fair ® Design Collection napkins are just the right size and the perfect companion for any meal.                                                                    ;                           ;                          
+               ; BP-35501/18          ; VANITY FAIR® EVERYDAY CASUAL NAPKINS              ; Vanity Fair ® Beverage napkins are perfect for all your entertaining occasions. Our 2-ply napkins are velvety soft and absorbent, so they're perfect for serving beverages, hors d'oeuvres or desserts.                                                                                                                                                                        ;                           ;                          
+               ; BP-35236/18          ; VANITY FAIR® EXTRA ABSORBENT EVERYDAY CASUAL NAPKINS ; Turn your ordinary meal into an extraordinary meal with Vanity Fair® Napkins. Impress your guests and family with this simple, yet elegant accompaniment for those special entertaining occasions. Featuring beautifully detailed embossing and a smooth, cloth-like texture, our 3-ply napkins are exceptionally versatile and 50% larger than Vanity Fair® Everyday napkins. ;                           ;                          
+               
+  
+INSERT_UPDATE GPCommerceProduct ; code[unique=true] ; $catalogVersion ; supercategories(code,$catalogVersion) ; ean ; unit(code) ; varianttype(code) ; $approved ; $taxGroup ; site(uid) ;  
+                                      ; BP-35130/18          ;                 ; everyday-collection                   ;     ; CS         ;                   ;           ;           ;           ;  
+                                      ; BP-35515/18         ;                 ; entertain-collection                  ;     ; CS         ;                   ;           ;           ;           ;  
+                                      ; BP-35501/18          ;                 ; everyday-collection                   ;     ; CS         ;                   ;           ;           ;           ;  
+                                      ; BP-35236/18          ;                 ; extra-absorbent-napkins               ;     ; CS         ;                   ;           ;           ;           ;  
+#;3558320; ;;;CS;;;;;                 
+#;3558119; ;;;CS;;;;;                           

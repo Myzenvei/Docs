@@ -1,0 +1,48 @@
+<div class="vx-product-carousel row" v-if="productCarouselData.isCarousel" :id="productCarouselData.componentId" :class="productCarouselData.componentTheme">
+  <h2 v-html="productCarouselData.componentHeader"></h2>
+  <div class="title-underline mt-xs-0" v-if="productCarouselData.componentHeader"></div>
+  <mg-slick-slider :slick-options="sliderConfig">
+    <template slot="slickSlide">
+      <div v-for="item in productCarouselData.products" class="slide-wrapper">
+        <div class="banner-content">
+          <div class="px-sm-2 d-flex justify-content-center">
+            <div class="tile mb-xs-3">
+              <div class="image-title__wrapper">
+                <img :src="item.imageUrl" :alt="item.name">
+              </div>
+              <div class="bottom-block mt-xs-3">
+                <div class="tile-btn-container">
+                  <a :target="item.isExternal ? '_blank' : ''" :href="item.isExternal ? item.url : globals.getUrlWithContextPath(item.url)"
+                    class="mb-xs-4 mt-xs-3 mb-sm-3 my-md-4 tile-btn" v-html="item.name" v-if="item.name && item.url"></a>
+                  <div class="price" v-if="globals.siteConfig.isProductPriceEnabled && item.price" v-html="item.price"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <img :src="item.backgroundImage" /> -->
+      </div>
+    </template>
+  </mg-slick-slider>
+</div>
+<div class="vx-product-list d-flex flex-wrap" v-else :id="productCarouselData.componentId">
+  <div v-for="item in productCarouselData.products" class="slide-wrapper" :style="imageTileWidth()">
+    <div class="banner-content">
+      <div class="px-sm-2 d-flex justify-content-center">
+        <div class="tile mb-xs-3">
+          <div class="image-title__wrapper">
+            <img :src="item.imageUrl" :alt="item.name">
+          </div>
+          <div class="bottom-block mt-xs-3">
+            <div class="tile-btn-container">
+              <a :target="item.isExternal ? '_blank' : ''" :href="item.isExternal ? item.url : globals.getUrlWithContextPath(item.url)"
+                class="mb-xs-4 mt-xs-3 mb-sm-3 my-md-4 tile-btn" v-html="item.name" v-if="item.name && item.url"></a>
+              <div class="price" v-if="globals.siteConfig.isProductPriceEnabled && item.price" v-html="item.price"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <img :src="item.backgroundImage" /> -->
+  </div>
+</div>

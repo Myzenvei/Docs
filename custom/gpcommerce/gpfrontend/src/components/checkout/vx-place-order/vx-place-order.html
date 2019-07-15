@@ -1,0 +1,6 @@
+<div class="vx-place-order">
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>
+  </vx-spinner>
+  <button v-if="!(isPayPal || isApplePay || isGooglePay)" :disabled="isButtonDisabled" @click="placeOrderRequest($event)" class="col-xs-12 mt-sm-0 checkout-button btn btn-primary">{{orderButtonLabel}}</button>
+  <p class="fill-information-label my-xs-3" role="contentinfo">{{i18n.fillInformationLabel}}</p>
+</div>

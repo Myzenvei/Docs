@@ -1,0 +1,24 @@
+<div class="vx-details-section d-flex pt-xs-5 pb-xs-3 pb-sm-4 pb-md-5">
+  <div class="vx-details-section__info">
+    <!-- @slot Use this slot for displaying the details in desired format -->
+    <slot name="info-section">
+      <h3 class="vx-details-section__info-heading my-xs-0 pb-xs-4" v-if="isUnitDetails">{{detailsData.displayData['Company Name']}} {{i18n.heading}}</h3>
+      <h3 class="vx-details-section__info-heading my-xs-0 pb-xs-4" v-else>{{i18n.heading}}</h3>
+      <div class="vx-details-section__info-body d-flex flex-wrap">
+        <template v-for="(info, label) in detailsData.displayData">
+          <div class="vx-details-section__info-block d-flex pb-xs-3 pb-sm-0 word-wrap-all">
+            <h4 class=" my-xs-0 pb-sm-3 ">{{label}}</h4>
+            <p v-html="(label === statusText && !currentPage) ? showStatus() : info" class="mb-xs-0 pb-sm-3 pb-md-8 "></p>
+          </div>
+        </template>
+      </div>
+    </slot>
+  </div>
+
+  <div class="vx-details-section__buttons d-flex justify-content-start flex-column mt-xs-2 mt-sm-0 ">
+    <button class="btn btn-tertiary mb-xs-3 " v-if="editButton " @click="handleEdit($event) ">{{i18n.editText}}</button>
+    <button class="btn btn-default mb-xs-3 " v-if="disableButton && detailsData.status " @click="handleState($event) ">{{i18n.disableText}}</button>
+    <button class="btn btn-default mb-xs-3 " v-else-if="disableButton && !detailsData.status " @click="handleState($event) ">{{i18n.enableText}}</button>
+    <a v-if="linkButton " @click="handleLink ">{{i18n.hyperlinkText}}</a>
+  </div>
+</div>

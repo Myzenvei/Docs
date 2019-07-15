@@ -1,0 +1,44 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2018 SAP SE or an SAP affiliate company. All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+
+#
+# Copyright (c) 2019. Georgia-Pacific.  All rights reserved.
+# This software is the confidential and proprietary information of Georgia-Pacific.
+#
+#
+#
+#
+# Copyright (c) 2019. Georgia-Pacific.  All rights reserved.
+# This software is the confidential and proprietary information of Georgia-Pacific.
+#
+#
+#
+$usCurrency=USD
+
+# Zone Delivery Modes
+INSERT_UPDATE ZoneDeliveryMode      ; code[unique=true]; name; net ; active[default=true]
+                                    ; free-shipping-csr; Free Shipping;true
+
+
+# USA
+INSERT_UPDATE ZoneDeliveryModeValue ; deliveryMode(code)[unique=true] ; zone(code)[default='usa'][unique=true] ; currency(isocode)[unique=true] ; value  ; minimum[unique=true];deliveryModeType
+                                    ; free-shipping-csr				  ;             						   ; $usCurrency           		    ; 0,00   ; 0,00   			   ;standard
+
+# Canada
+INSERT_UPDATE ZoneDeliveryModeValue ; deliveryMode(code)[unique=true];zone(code)[default='ca'][unique=true]  ;currency(isocode)[unique=true] ; value  ; minimum[unique=true];deliveryModeType
+                                    ; free-shipping-csr              ;                                       ;$usCurrency                    ; 0,00 ; 0,00 					;standard
+
+INSERT_UPDATE SearchRestriction;code[unique=true];name[lang=en];query;principal(UID);restrictedType(code);active;generate
+                               ;Frontend_ZoneDeliveryMode;Restrict the Free Shipping DeliverMode visibility based on ASM;(exists ({{ select {p.uid},{pg.uid} from {PrincipalGroupRelation as pgr JOIN Principal as p on {pgr.source} = {p.pk} JOIN PrincipalGroup as pg on {pgr.target} = {pg.pk}} where {p.uid} = (?session.ACTING_USER_UID) and {pg.uid} = 'asagentsalesmanagergroup' }}) ) OR (exists ({{ select {p.uid},{pg.uid} from {PrincipalGroupRelation as pgr JOIN Principal as p on {pgr.source} = {p.pk} JOIN PrincipalGroup as pg on {pgr.target} = {pg.pk}} where {p.uid} = (?session.ACTING_USER_UID) and {pg.uid} != 'asagentsalesmanagergroup' }}) AND ({code} !='free-shipping-csr'));customergroup;ZoneDeliveryMode;true;true
+
+
+INSERT_UPDATE BaseStore2DeliveryModeRel ;source(uid)[unique=true];target(code)[unique=true]
+                                        ;sparkle;free-shipping-csr

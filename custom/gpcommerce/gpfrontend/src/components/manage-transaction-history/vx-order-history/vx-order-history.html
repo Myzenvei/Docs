@@ -1,0 +1,47 @@
+<div class="vx-order-history" :class="{'pb-md-5': !orderHistoryData.length}">
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>
+  </vx-spinner>
+  <vx-modal ref="sortFilterModel" size="medium" :heading="i18n.filterModalHeading">
+    <vx-order-history-filter slot="component" @filterData="filterApplicable" :i18n="i18n">
+      <div slot="sortDropdown">
+        <vx-dropdown-primary @selected-option="storeSort($event)" :dropdownValues="sortOptions" ref="sortDropdown"></vx-dropdown-primary>
+      </div>
+      <div slot="dateDropdown">
+        <vx-dropdown-primary ref="orderHistoryData" :aria-label="i18n.transactionYearAriaLabel" @primaryDropdownMounted="populateDefaultDate"
+          @selected-item="dateFilterSelected($event)" :dropdownValues="orderHistoryDropdownData.options"></vx-dropdown-primary>
+      </div>
+    </vx-order-history-filter>
+  </vx-modal>
+  <div class="order-history-heading">
+    <h1 class="my-xs-0 h3">{{i18n.orderHistoryHeading}}</h1>
+    <span v-if="isMobile()" class="order-transaction-filter icon-filter" role="button" tabindex="0" :aria-label="i18n.iconFilterTitle"
+      @click="openFilterModel($event)" @keyup.enter-space="openFilterModel($event)" :title="i18n.iconFilterTitle"></span>
+  </div>
+  <div class="row">
+    <div class="pt-xs-3 pb-xs-4 pr-xs-5 sub-heading word-wrap-all col-sm-8" v-if="i18n.orderHistorySubheading">{{i18n.orderHistorySubheading}}</div>
+    <div v-if="!isMobile()" class="transaction-data-dropdown col-sm-4">
+      <vx-dropdown-primary ref="orderHistoryData" :aria-label="i18n.transactionYearAriaLabel" @selected-item="dateFilterSelected($event)"
+        :dropdownValues="orderHistoryDropdownData.options"></vx-dropdown-primary>
+    </div>
+  </div>
+  <div class="pt-sm-0 pt-xs-3 pb-xs-4 no-of-orders">
+    <span>{{i18n.noOfOrders}}</span>
+    <span>{{totalOrders}}</span>
+  </div>
+  <template v-if="globals.isB2C()">
+    <div :class="{'hide-table': !orderHistoryData.length}">
+      <table class="display responsive no-wrap table" width="100%" id="order-History-data-table">
+      </table>
+    </div>
+    <div v-if="!orderHistoryData.length" class="empty-table">
+      <div>
+        <p class="mb-xs-0">{{i18n.emptyTableMessage}}</p>
+      </div>
+    </div>
+  </template>
+  <template v-else>
+    <table class="display responsive no-wrap table" width="100%" id="order-History-data-table">
+    </table>
+  </template>
+
+</div>

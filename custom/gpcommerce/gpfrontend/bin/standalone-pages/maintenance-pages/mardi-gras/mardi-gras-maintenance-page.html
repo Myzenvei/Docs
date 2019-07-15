@@ -1,0 +1,153 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <title>Mardi Gras®</title>
+  <link rel="icon" href="mardi-gras-fav.png" sizes="32x32" type="image/png">
+  <style type="text/css">
+    @font-face {
+      font-family: 'icomoon';
+      src: url('./images/webfonts/31F5BE_A_0.woff');
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'icomoon';
+      text-transform: uppercase;
+    }
+
+    .container {
+      align-items: center;
+      flex-direction: column;
+      position: absolute;
+      width: 100%;
+      height: 100vh;
+      min-height: 600px;
+    }
+
+    header {
+      height: 72px;
+      background-color: #522773;
+      width: 100%;
+    }
+
+    header .logo {
+      height: auto;
+      width: 100%;
+      padding: 10px 20px 0 80px;
+      background: url('./images/logo.svg');
+      background-size: cover;
+
+    }
+
+    .brand-container {
+      display: inline-block;
+      width: 90px;
+      height: 90px;
+    }
+
+    header .logo-text {
+      color: #fff;
+      padding-left: 10px;
+      font-weight: bold;
+    }
+
+    footer .page-footer {
+      height: 200px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      display: flex;
+      background: url('./images/footer-bg.jpeg');
+      background-repeat: repeat-x;
+    }
+
+    footer .page-footer .copywrite-text {
+      background-color: #522773;
+      color: #FFFFFF;
+      height: 60px;
+      font-size: 20px;
+      position: relative;
+      top: 45%;
+      width: 100%;
+      text-align: center;
+      padding-bottom: 10px;
+    }
+
+    .grey-container {
+      background-color: #FAFAFA;
+      padding: 30px 30px 30px 40px;
+      margin: 40px;
+    }
+
+    .site-heading {
+      color: #222222;
+      font-size: 48px;
+      font-weight: 500;
+      margin-bottom: 40px;
+    }
+
+    .error-msg {
+      margin-bottom: 20px;
+      color: #222222;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+    }
+
+    .immediate-assitance {
+      color: #222222;
+      font-size: 24px;
+      font-weight: 300;
+      letter-spacing: 0.4px;
+    }
+    @media only screen and (max-width: 1199px) {
+      .white-container {
+        width: 95%;
+      }
+    }
+
+    @media only screen and (max-width: 767px) {
+      .site-heading {
+        font-size: 32px;
+      }
+
+      .error-msg,
+      .immediate-assitance {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class='container'>
+    <header>
+      <a href="javascript:void(0)" class="brand-container"><img class='logo' src='images/logo.png'></a>
+    </header>
+    <div class='grey-container'>
+      <div class='site-heading'>
+        Mardi Gras® Napkins is currently going through routine maintenance.
+      </div>
+      <div class='error-msg'>
+
+      </div>
+      <div class='immediate-assitance'>
+        If you need immediate assistance with anything, please contact our customer service team at 800-283-5547.
+      </div>
+    </div>
+    <footer>
+      <div class='page-footer'>
+        <div class='copywrite-text'>
+          <p>&copy; 2018 | Mardi Gras</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,7 @@
+<div class="vx-upsell-carousel">
+  <div v-if="upsellProducts.length>0">
+    <vx-slider :product-data="upsellProducts" :title="messages.pdpTabContainer.upsellCarouselHeading"
+      v-if="upsellProducts" :is-favorites="isFavorites" :slider-slides="sliderSlides" :is-bazaar-voice="isBazaarVoice"
+      :search-browse-i18n="i18n"></vx-slider>
+  </div>
+</div>

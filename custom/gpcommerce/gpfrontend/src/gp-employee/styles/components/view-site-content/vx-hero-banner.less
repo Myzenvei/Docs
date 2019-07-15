@@ -1,0 +1,52 @@
+#gp-employee {
+  .banner {
+    min-height: 400px;
+    .banner__promotion {
+      padding: 20px 60px;
+      width: 356px;
+      border-radius: @card-layout-border-radius;
+    }
+    &.hero-center {
+      .banner__promotion {
+        transform: translate(-50%, -15%);
+        z-index: 5;
+        .banner__heading {
+          font-size: 36px;
+        }
+        .banner__subheading {
+          font-size: @font-size-large;
+        }
+        .btn-link {
+          font-size: @font-size-large;
+        }
+      }
+    }
+  }
+  .content__empty {
+    .vx-banner-carousel {
+      .banner {
+        min-height: 240px;
+        margin-bottom: 24px;
+        background-color: @card-layout-bg-color;
+        border-radius: @card-layout-border-radius;
+        .banner__promotion {
+          width: auto;
+          .banner__heading {
+            font-weight: @font-weight-bold!important;
+          }
+          .banner__subheading {
+            font-size: @font-size-large!important;
+          }
+          a {
+            font-weight: @font-weight-bold!important;
+          }
+        }
+      }
+    }
+  }
+  @media screen and (min-width: @screen-md-min) {
+    .vx-banner-carousel{
+      margin-top: -12px;
+    }
+  }
+}

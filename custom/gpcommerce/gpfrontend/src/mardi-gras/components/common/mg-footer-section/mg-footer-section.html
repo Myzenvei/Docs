@@ -1,0 +1,19 @@
+<div class="mg-footer-section" :class="isBackgroundColor ?'faq-footer-bg':''">
+  <div class="container-fluid p-xs-0">
+    <div class="container-fluid d-flex p-xs-0 flex-xs-column flex-sm-row align-xs-items-center justify-xs-content-around p-sm-4">
+      <div class="parent-brand">
+        <a :href="footerData.footerLogoUrl" target="_blank">
+          <img :src="footerData.footerLogo" :alt="footerData.footerLogoAltText">
+        </a>
+      </div>
+      <ul class="d-flex flex-xs-column flex-sm-row align-xs-items-center justify-xs-content-around p-xs-4 p-sm-0 m-xs-0">
+        <li v-for="item in footerData.columns[0].links">
+          <a :href="item.external? item.linkTo : globals.contextPath+item.linkTo" :target="item.external?'_blank':''">
+            {{item.linkText}}
+          </a>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+</div>

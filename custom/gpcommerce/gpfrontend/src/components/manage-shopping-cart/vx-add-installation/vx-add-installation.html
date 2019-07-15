@@ -1,0 +1,12 @@
+<div class="vx-add-installation">
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>
+  </vx-spinner>
+  <div tabindex="0">
+    <span v-html="installationDetails.description"></span>
+    <p v-if='installationDetails.price'>Price - {{installationDetails.price.formattedValue}}</p>
+  </div>
+  <div class="col-xs-12 pt-xs-5 d-flex justify-content-center">
+    <button type="button" @click="addToCart" class="add-to-cart btn btn-primary add-to-cart-btn modal-btn-primary-small modal-btn-xs-sticky">{{i18n.addInstallationButton}}</button>
+  </div>
+
+</div>

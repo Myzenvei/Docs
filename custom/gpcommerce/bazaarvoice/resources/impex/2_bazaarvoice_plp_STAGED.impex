@@ -1,0 +1,38 @@
+
+
+
+#Before executing this impexes, please pay attention on comments which describe all of them. You may need change some of them according to your needs
+#Do not forget to change catalog name according to your catalog
+#After executing this impexes for STAGED catalog version, do not forget to execute them for ONLINE
+
+
+
+#PLP PAGE
+$contentCatalog=electronicsContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+
+#Before creating JspIncludeComponent with actions you need to make actions aplicable to JspIncludeComponent
+INSERT_UPDATE ApplicableCmsActionsTypeForCmsComponent;target(code)[unique=true];source(code)[unique=true];
+;JspIncludeComponent;ListPickUpInStoreAction;
+;JspIncludeComponent;ListAddToCartAction;
+;JspIncludeComponent;ListOrderFormAction;
+
+#Override productListPage
+INSERT_UPDATE PageTemplate;$contentCV[unique=true];uid[unique=true];frontendTemplateName
+;;ProductListPageTemplate;addon:/bazaarvoice/pages/category/bazaarvoiceProductListPage
+
+#create new ProductListComponent for plp page and set to ProductListSlot. Please, pay attantion on actions, add actions according to your need!
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;BazaarProductListComponent;Bazaar Product List Component;/WEB-INF/views/addons/bazaarvoice/responsive/cms/bazaarvoiceProductListComponent.jsp;ListPickUpInStoreAction,ListAddToCartAction,ListOrderFormAction;BazaarProductListComponent
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(&componentRef)
+;;ProductListSlot;BazaarProductListComponent
+
+#Override productGridPage
+INSERT_UPDATE PageTemplate;$contentCV[unique=true];uid[unique=true];frontendTemplateName
+;;ProductGridPageTemplate;addon:/bazaarvoice/pages/category/bazaarvoiceProductGridPage
+
+#create new ProductGridComponent for plp page and set to ProductGridSlot. Please, pay attantion on actions, add actions according to your need!
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;BazaarProductGridComponent;Bazaar Product Grid Component;/WEB-INF/views/addons/bazaarvoice/responsive/cms/bazaarvoiceProductGridComponent.jsp;ListPickUpInStoreAction,ListAddToCartAction,ListOrderFormAction;BazaarProductGridComponent
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(&componentRef)
+;;ProductGridSlot;BazaarProductGridComponent

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.hybris.com/cockpit/config"
+        xmlns:y="http://www.hybris.com/cockpit/config/hybris"
+        xmlns:na="http://www.hybris.com/cockpitng/config/notifications"
+        xsi:schemaLocation="http://www.hybris.com/cockpit/config
+        http://www.hybris.com/schema/cockpitng/config/cockpit-configuration.xsd">
+
+
+    <context component="explorer-tree" merge-by="module">
+        <n:explorer-tree xmlns:n="http://www.hybris.com/cockpitng/config/explorertree">
+            <n:navigation-node id="treenode-avalara-settings">
+                <n:type-node id="node-avalara-settings" code="AvalaraSettings" />
+                <n:type-node id="node-avalara-product-tax-code" code="ProductTaxCode" />
+            </n:navigation-node>
+        </n:explorer-tree>
+    </context>
+    
+	<context component="simple-search" type="ProductTaxCode"> -->
+    	<yss:simple-search xmlns:yss="http://www.hybris.com/cockpitng/config/simplesearch"> -->
+        	<yss:field name="productCode"/>
+			<yss:field name="taxCode"/> 
+			<yss:field name="taxArea"/> 
+    	</yss:simple-search> 
+	</context> 
+
+
+    <context component="editorareaactions" type="AvalaraSettings" merge-by="type">
+        <y:actions xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+            <y:group qualifier="common">
+                <y:label>actiongroup.common</y:label>
+                <y:action action-id="com.arvatosystems.avalara.actions.AvalaraSettingsPingAction" property="currentObject"/>
+            </y:group>
+        </y:actions>
+    </context>
+
+
+
+    <context merge-by="type" type="AvalaraSettings" component="editor-area" >
+        <editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+            <editorArea:tab name="hmc.properties">
+                <editorArea:section name="hmc.essential">
+                    <editorArea:attribute xmlns="http://www.hybris.com/cockpitng/component/editorArea" qualifier="companyCode"/>
+                    <editorArea:attribute xmlns="http://www.hybris.com/cockpitng/component/editorArea" qualifier="accountNumber"/>
+                    <editorArea:attribute xmlns="http://www.hybris.com/cockpitng/component/editorArea" qualifier="licenseKey"/>
+                    <editorArea:attribute xmlns="http://www.hybris.com/cockpitng/component/editorArea" qualifier="restUrl"/>
+                    <editorArea:attribute xmlns="http://www.hybris.com/cockpitng/component/editorArea" qualifier="taxEnabled"/>
+                    <editorArea:attribute xmlns="http://www.hybris.com/cockpitng/component/editorArea" qualifier="committingEnabled"/>
+                    <editorArea:attribute xmlns="http://www.hybris.com/cockpitng/component/editorArea" qualifier="loggingEnabled"/>
+
+                    <editorArea:attribute editor="com.hybris.cockpitng.editor.extendedmultireferenceeditor" qualifier="baseStores">
+                        <editorArea:editor-parameter>
+                            <editorArea:name>listConfigContext</editorArea:name>
+                            <editorArea:value>referenceListBaseStores</editorArea:value>
+                        </editorArea:editor-parameter>
+                    </editorArea:attribute>
+                </editorArea:section>
+            </editorArea:tab>
+        </editorArea:editorArea>
+    </context>
+
+    <context merge-by="type" type="BaseStore" component="referenceListBaseStores">
+        <list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView">
+            <list-view:column qualifier="uid"/>
+        </list-view:list-view>
+    </context>
+
+
+    <context component="create-wizard"  type="AvalaraSettings">
+        <wz:flow xmlns:wz="http://www.hybris.com/cockpitng/config/wizard-config" id="AvalaraSettingsWizard" title="create.title(ctx.TYPE_CODE)">
+            <wz:prepare id="groupPrepare">
+                <wz:initialize property="newGrp" type="ctx.TYPE_CODE"/>
+            </wz:prepare>
+            <wz:step id="step1" label="create.product.essential.label">
+                <wz:content id="step1.content">
+                    <wz:property-list root="newGrp">
+                        <wz:property qualifier="companyCode" type="java.lang.String"/>
+                        <wz:property qualifier="accountNumber" type="java.lang.String"/>
+                        <wz:property qualifier="licenseKey" type="java.lang.String"/>
+                        <wz:property qualifier="restUrl" type="java.lang.String"/>
+
+                        <wz:property qualifier="baseStores"/>
+
+                        <wz:property qualifier="taxEnabled" type="java.lang.Boolean"/>
+                        <wz:property qualifier="committingEnabled" type="java.lang.Boolean"/>
+                        <wz:property qualifier="loggingEnabled" type="java.lang.Boolean"/>
+                    </wz:property-list>
+                </wz:content>
+                <wz:navigation id="step1.navigation">
+                    <wz:cancel/>
+                    <wz:done visible="!#empty(newGrp.companyCode) and !#empty(newGrp.accountNumber) and !#empty(newGrp.licenseKey) and !#empty(newGrp.restUrl) ">
+                        <wz:save property="newGrp"/>
+                    </wz:done>
+                </wz:navigation>
+            </wz:step>
+        </wz:flow>
+    </context>
+
+    <context component="notification-area" merge-by="type">
+        <na:notification-area>
+            <na:notifications eventType="AvalaraPing" level="SUCCESS">
+                <na:message>backoffice.avalaraPing.success</na:message>
+                <na:references linksEnabled="true">
+                    <na:reference placeholder="0" link="true">
+                        <na:context parameter="triggerContext"
+                                    value="#root.referencedObjects.length > 1 ? #root.referencedObjects[1] : null"
+                                    evaluate="true"/>
+                    </na:reference>
+                </na:references>
+            </na:notifications>
+            <na:notifications eventType="AvalaraPing" level="FAILURE">
+                <na:message>backoffice.avalaraPing.fail</na:message>
+                <na:references linksEnabled="false">
+                    <na:reference placeholder="0"
+                                  label="#root instanceof T(java.lang.Throwable) ? @exceptionTranslationService.toString(#root) : #root"/>
+                </na:references>
+            </na:notifications>
+        </na:notification-area>
+    </context>
+
+
+
+
+</config>

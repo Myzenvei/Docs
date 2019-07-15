@@ -1,0 +1,15 @@
+$solrIndexedContentType=b2cwhitelabelContentType
+$contentCatalog=b2cwhitelabelContentCatalog
+$facetContentSearchConfigName=b2cwhitelabelContentIndex
+# Language
+$lang=en
+			
+INSERT_UPDATE SolrSort ; &sortRefID      ; indexedType(identifier)[unique=true] ; code[unique=true] ; useBoost
+                       ; sortContentRef4 ; $solrIndexedContentType              ; aTOz              ; true    
+INSERT_UPDATE SolrSortField ; sort(indexedType(identifier),code)[unique=true] ; fieldName[unique=true] ; ascending[unique=true]
+                            ; $solrIndexedContentType:aTOz                    ; pageTitle                  ; true                  
+INSERT_UPDATE SolrIndexedProperty ; solrIndexedType(identifier)[unique=true] ; name[unique=true] ; type(code) ; sortableType(code) ; currency[default=false] ; localized[default=false] ; multiValue[default=false] ; useForSpellchecking[default=false] ; useForAutocomplete[default=false] ; fieldValueProvider             ; valueProviderParameter ; ftsPhraseQuery[default=false] ; ftsPhraseQueryBoost ; ftsQuery[default=false] ; ftsQueryBoost ; ftsFuzzyQuery[default=false] ; ftsFuzzyQueryBoost ; ftsWildcardQuery[default=false] ; ftsWildcardQueryType(code)[default=POSTFIX] ; ftsWildcardQueryBoost ; ftsWildcardQueryMinTermLength
+								  ; $solrIndexedContentType                  ; pageTitle         ; string     ;                    ;                         ; true                     ;                           ;                                    ;                                   ; gpPageTitleValueProvider       ;                        ;                               ;                     ;                         ;               ;                              ;                    ;                                 ;                                             ;                       ;
+
+UPDATE SolrSort;indexedType(identifier)[unique=true];code[unique=true];name[lang=$lang]
+;$solrIndexedContentType;aTOz;"A TO Z"

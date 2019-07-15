@@ -1,0 +1,166 @@
+###########  B2BWhitelabel
+
+$contentCatalog=b2bwhitelabelContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$jarEmailResource=jar:com.gp.b2binitialdata.constants.Gpb2binitialdataConstants&/gpb2binitialdata/import/coredata/contentCatalogs/b2bwhitelabelContentCatalog/emails
+
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+$emailResource=$config-emailResourceValue
+
+$lang=en
+
+UPDATE RendererTemplate ; code[unique=true]                                           ; description[lang=$lang]                            ; templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                        ; b2bwhitelabel-GPFooterComponent-template                    ; "Email Footer Component"                           ; $jarEmailResource/email-gpFooterComponentTemplate.vm                                                          
+
+UPDATE GPCheckoutFooterNavigationComponent;$contentCV[unique=true];uid[unique=true];notice[lang=en]
+;;GPCheckoutFooterNavigationComponent;"| Georgia-Pacific" 
+
+###########   B2CWhitelabel
+
+$contentCatalog=b2cwhitelabelContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$jarEmailResource=jar:com.gp.commerce.initialdata.constants.GpcommerceInitialDataConstants&/gpcommerceinitialdata/import/coredata/contentCatalogs/b2cwhitelabelContentCatalog/emails
+                                                               
+
+# Language                                                                                                 
+$lang=en                                                                                                   
+
+# CMS components and Email velocity templates                                                              
+UPDATE RendererTemplate ; code[unique=true]                                        ; description[lang=$lang]                            ; templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                        ; b2cwhitelabel-GPFooterComponent-template                    ;  "Email Footer Component"							; $jarEmailResource/email-gpFooterComponentTemplate.vm
+
+UPDATE GPCheckoutFooterNavigationComponent;$contentCV[unique=true];uid[unique=true];notice[lang=en]
+;;GPCheckoutFooterNavigationComponent;"| Georgia-Pacific" 
+
+############  Dixie
+						
+$contentCatalog=dixieContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$jarEmailResource=jar:com.gp.b2binitialdata.constants.Gpb2binitialdataConstants&/gpb2binitialdata/import/coredata/contentCatalogs/dixieContentCatalog/emails
+					
+# Language
+$lang=en
+
+# CMS components and Email velocity templates
+UPDATE RendererTemplate;code[unique=true];description[lang=$lang];templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+
+						 ;dixie-GPFooterComponent-template;"Email Footer Component";$emailResource/email-gpFooterComponentTemplate.vm
+						 
+UPDATE GPCheckoutFooterNavigationComponent;$contentCV[unique=true];uid[unique=true];notice[lang=en]
+;;GPCheckoutFooterNavigationComponent;"| Georgia-Pacific" 
+						 
+############   Gpxpress 
+
+$contentCatalog=gpxpressContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$jarEmailResource=jar:com.gp.b2binitialdata.constants.Gpb2binitialdataConstants&/gpb2binitialdata/import/coredata/contentCatalogs/gpxpressContentCatalog/emails
+
+# Language
+$lang=en
+
+# CMS components and Email velocity templates
+UPDATE RendererTemplate;code[unique=true];description[lang=$lang];templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+
+    ;gpxpress-GPFooterComponent-template;"Email Footer Component";$jarEmailResource/email-gpFooterComponentTemplate.vm
+
+UPDATE GPCheckoutFooterNavigationComponent;$contentCV[unique=true];uid[unique=true];notice[lang=en]
+;;GPCheckoutFooterNavigationComponent;"| Georgia-Pacific" 	
+	
+############  Copperandcrane
+
+$contentCatalog=copperandcraneContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$jarEmailResource=jar:com.gp.commerce.initialdata.constants.GpcommerceInitialDataConstants&/gpcommerceinitialdata/import/coredata/contentCatalogs/copperandcraneContentCatalog/emails
+
+# Language                                                                                                 
+$lang=en                                                                                                   
+
+# CMS components and Email velocity templates                                                              
+UPDATE RendererTemplate ; code[unique=true]                                        ; description[lang=$lang]                            ; templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+ 
+
+                        ; copperandcrane-GPFooterComponent-template                    ;  "Email Footer Component"							; $jarEmailResource/email-gpFooterComponentTemplate.vm
+ 
+UPDATE GPCheckoutFooterNavigationComponent;$contentCV[unique=true];uid[unique=true];notice[lang=en]
+;;GPCheckoutFooterNavigationComponent;"| Georgia-Pacific" 
+ 
+############   Gpemployee
+
+$contentCatalog=gpemployeeContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$jarEmailResource=jar:com.gp.commerce.initialdata.constants.GpcommerceInitialDataConstants&/gpcommerceinitialdata/import/coredata/contentCatalogs/gpemployeeContentCatalog/emails
+
+# Language                                                                                                 
+$lang=en                                                                                                   
+
+# CMS components and Email velocity templates                                                              
+UPDATE RendererTemplate ; code[unique=true]                                        ; description[lang=$lang]                            ; templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+ 
+
+                        ; gpemployee-GPFooterComponent-template                    ;  "Email Footer Component"							; $jarEmailResource/email-gpFooterComponentTemplate.vm
+
+UPDATE GPCheckoutFooterNavigationComponent;$contentCV[unique=true];uid[unique=true];notice[lang=en]
+;;GPCheckoutFooterNavigationComponent;"| Georgia-Pacific" 
+
+						
+############  vanityfairnapkins   
+
+$contentCatalog=vanityfairnapkinsContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$jarEmailResource=jar:com.gp.commerce.initialdata.constants.GpcommerceInitialDataConstants&/gpcommerceinitialdata/import/coredata/contentCatalogs/vanityfairnapkinsContentCatalog/emails
+
+# Language                                                                                                 
+$lang=en                                                                                                   
+
+# CMS components and Email velocity templates                                                              
+UPDATE RendererTemplate ; code[unique=true]                                        ; description[lang=$lang]                            ; templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+ 
+                        ; vanityfairnapkins-GPFooterComponent-template                    ;  "Email Footer Component"							; $emailResource/email-gpFooterComponentTemplate.vm
+
+UPDATE GPCheckoutFooterNavigationComponent;$contentCV[unique=true];uid[unique=true];notice[lang=en]
+;;GPCheckoutFooterNavigationComponent;"| Georgia-Pacific"
+
+
+#Changes for share cart and share product emails
+
+$contentCatalog=gpxpressContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$jarEmailResource=jar:com.gp.b2binitialdata.constants.Gpb2binitialdataConstants&/gpb2binitialdata/import/coredata/contentCatalogs/gpxpressContentCatalog/emails
+
+# Import config properties into impex macros for modulegen
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+$emailResource=$config-emailResourceValue
+
+# Language
+$lang=en
+
+# CMS components and Email velocity templates
+UPDATE RendererTemplate;code[unique=true];description[lang=$lang];templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+;gpxpress_Email_Share_Product_Body;"Share Product Email Body";$jarEmailResource/email-shareProductBody.vm
+;gpxpress_Email_Share_Cart_Body;"ShareCartEmailBody";$jarEmailResource/email-shareCartBody.vm
+
+
+$contentCatalog=b2bwhitelabelContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$jarEmailResource=jar:com.gp.b2binitialdata.constants.Gpb2binitialdataConstants&/gpb2binitialdata/import/coredata/contentCatalogs/b2bwhitelabelContentCatalog/emails
+
+# Import config properties into impex macros for modulegen
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+$emailResource=$config-emailResourceValue                                                                  
+
+# Language                                                                                                 
+$lang=en                                                                                                   
+
+# CMS components and Email velocity templates                                                              
+UPDATE RendererTemplate ; code[unique=true]                                           ; description[lang=$lang]                            ; templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                        ; b2bwhitelabel_Email_Share_Cart_Body                         ; "ShareCartEmailBody"                               ; $jarEmailResource/email-shareCartBody.vm
+                        ; b2bwhitelabel_Email_Share_Product_Body                      ; "Share Product Email Body"                         ; $jarEmailResource/email-shareProductBody.vm
+
+
+
+
+
+
+
+
+

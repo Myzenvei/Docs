@@ -1,0 +1,193 @@
+<div class="search-browse-product-tile d-flex">
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>
+  </vx-spinner>
+  <div class="tile-body d-flex flex-column">
+    <div class="form-group" v-if="showCompareOption && globals.siteConfig.isProductCompareEnabled">
+      <input type="checkbox" :id="'checkbox'+product.code" :checked="product.checked" :ref="product.code+'-checkbox'"
+        @click="checkBoxClicked($event)" class="color-secondary-light-grey" :disabled="isCheckboxDisabled">
+      <label :for="'checkbox'+product.code" :class="{'disable-compare':isCheckboxDisabled}">{{(!globals.isGpXpress())?
+        i18n.label.compare : ""}}</label>
+    </div>
+    <div class="form-group" v-if="showSelectOption && globals.siteConfig.isProductCompareEnabled">
+      <input type="checkbox" :id="'checkbox'+product.code" :checked="product.checked" :ref="product.code+'-checkbox'"
+        @click="selectCheckBoxClicked" class="color-secondary-light-grey"  :disabled="!((product.materialStatus===ProductAvailability.OBSOLETE && product.stock.stockLevelStatus===ProductAvailability.IN_STOCK) || (product.materialStatus===MaterialStatus.ACTIVE_PRODUCT && product.stock.stockLevelStatus===ProductAvailability.IN_STOCK))">
+      <label :for="'checkbox'+product.code" :class="{'disable-compare':!((product.materialStatus===ProductAvailability.OBSOLETE && product.stock.stockLevelStatus===ProductAvailability.IN_STOCK) || (product.materialStatus===MaterialStatus.ACTIVE_PRODUCT && product.stock.stockLevelStatus===ProductAvailability.IN_STOCK))}">{{i18n.label.select}}</label>
+    </div>
+    <div class="remove-product-option d-flex align-center" v-if="showRemoveOption">
+      <span class="icon-x-circle pr-xs-2" role="button" tabindex="0" :aria-label="i18n.iconXCircleTitle" @click="removeComparePageProduct($event)"
+        @keyup.enter-space="removeComparePageProduct($event)" :title="i18n.iconXCircleTitle"></span>
+      <span class="remove-text">{{i18n.label.remove}}</span>
+    </div>
+    <div class="tile-image">
+      <div class="form-group mt-xs-1 ml-xs-2" v-if="isBulkEnabled && !product.hasVariant">
+          <input type="checkbox" :id="'bulkCheckbox'+product.code" :checked="product.isBulk" :ref="product.code+'-checkbox'"
+            @click="selectCheckBoxClicked" class="color-secondary-light-grey">
+          <label :for="'bulkCheckbox'+product.code"></label>
+      </div>
+      <div class="form-group mt-xs-1 ml-xs-2" v-if="isBundlesTile">
+        <label class="checkbox-container" :class="{'disabled' : isBundlesCheckboxDisabled}">
+            <input type="checkbox" v-model="isProductSelected" @change="handleProductSelection" :disabled="isBundlesCheckboxDisabled" :aria-label="i18n.label.select">
+            <span class="checkmark"></span>
+        </label>
+      </div>
+      <a tabindex="0" :aria-label='(product.name) ? product.name : i18n.noProductName' :href="pdpContextPath+product.url" class="d-flex justify-content-center">
+        <img v-bind:src="globals.getThumbnailImageUrl(product.images)" v-if="product.images && product.images[0] && product.images[0].url"
+          :alt='(product.name) ? product.name : i18n.noProductName' />
+        <img v-bind:src="globals.assetsPath + 'images/no_image.svg'" v-if="!product.images" :alt='(product.name) ? product.name : i18n.noProductName' />
+        <div class="info-text promo-text" v-if="product.promoText">{{product.promoText}}</div>
+        <div class="info-text coming-soon" v-if="product.materialStatus === 'COMING_SOON'">{{i18n.comingSoonBanner}}</div>
+      </a>  
+      <div class="sr-only" v-if="product.promoText">{{product.promoText}}</div>
+      <div class="sr-only" v-if="product.materialStatus === 'COMING_SOON'">{{i18n.comingSoonBanner}}</div>
+      <span class="mb-xs-3 icon-add-to-list tile-icon" @click.prevent="handleSelectList($event)" @keyup.enter-space="handleSelectList($event)"
+        v-if="!isFavoriteVisible && !isBundlesTile" tabindex='0' role="button" :title="i18n.iconAddToListTitle" :aria-label="i18n.iconAddToListTitle"></span>
+      <div @click.prevent="toggleFav" class="tile-icon fav-container" v-if="isFavoriteVisible">
+        <button class="favorite" v-bind:class="{ 'active': isActive }" :title="isActive ? i18n.iconSavedToFavoriteTitle : i18n.iconSaveToFavoriteTitle" :aria-label="isActive ? i18n.iconSavedToFavoriteTitle : i18n.iconSaveToFavoriteTitle">
+          <svg preserveAspectRatio="xMidYMin slice" v-if="globals.isEmployeeStore()" width="25" height="25" viewBox="0 0 25 25"
+            version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="heart">
+            <!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch -->
+            <desc>Created with Sketch.</desc>
+            <defs></defs>
+            <g id="UI-Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+              <g id="PDP-Desktop-/-No-Subscription-/-R1" transform="translate(-1266.000000, -293.000000)" fill-rule="nonzero">
+                <g id="Save-for-later" transform="translate(1266.000000, 292.000000)">
+                  <g id="heart-(5)">
+                    <path d="M23.4518256,7.5 C23.4518256,9.22443585 22.7665872,10.8781987 21.5471068,12.0971068 L12.7071068,20.9371068 C12.3165825,21.3276311 11.6834175,21.3276311 11.2928932,20.9371068 L2.45289321,12.0971068 C-0.0860186957,9.55819479 -0.0860186651,5.44180522 2.45289328,2.90289328 C4.99180522,0.363981335 9.10819479,0.363981304 11.6471068,2.90289322 L12,3.25578645 L12.3527273,2.9030592 C13.5718013,1.68341276 15.2255641,0.998174379 16.95,0.998174379 C18.6743576,0.998174379 20.3280486,1.68335058 21.5471068,2.9028932 C22.7666494,4.12195139 23.4518256,5.77564239 23.4518256,7.5 Z M12,18.8157864 L19.0728932,11.7428932 L20.1330592,10.6827273 C20.9774298,9.83875293 21.4518256,8.6938402 21.4518256,7.5 C21.4518256,6.3061598 20.9774298,5.16124707 20.1330592,4.31727273 C19.2887529,3.47257018 18.1438402,2.99817438 16.95,2.99817438 C15.7561598,2.99817438 14.6112471,3.47257018 13.7671068,4.31710678 L12.7071068,5.37710678 C12.3165825,5.76763107 11.6834175,5.76763107 11.2928932,5.37710678 L10.2328932,4.31710679 C8.47502984,2.55924345 5.62497021,2.55924347 3.86710684,4.31710684 C2.10924347,6.07497021 2.10924345,8.92502984 3.86710678,10.6828932 L12,18.8157864 Z"
+                      id="heart-outline" fill="#000000"></path>
+                    <path d="M12,18.8157864 L19.0728932,11.7428932 L20.1330592,10.6827273 C20.9774298,9.83875293 21.4518256,8.6938402 21.4518256,7.5 C21.4518256,6.3061598 20.9774298,5.16124707 20.1330592,4.31727273 C19.2887529,3.47257018 18.1438402,2.99817438 16.95,2.99817438 C15.7561598,2.99817438 14.6112471,3.47257018 13.7671068,4.31710678 L12.7071068,5.37710678 C12.3165825,5.76763107 11.6834175,5.76763107 11.2928932,5.37710678 L10.2328932,4.31710679 C8.47502984,2.55924345 5.62497021,2.55924347 3.86710684,4.31710684 C2.10924347,6.07497021 2.10924345,8.92502984 3.86710678,10.6828932 L12,18.8157864 Z"
+                      id="fill" fill="#FFFFFF"></path>
+                  </g>
+                </g>
+              </g>
+            </g>
+          </svg>
+          <svg v-else version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="heart" viewBox="0 0 25 25" preserveAspectRatio="none" width="20" height="20">
+            <g id="Page-1" stroke="none" stroke-width="2" fill="none" fill-rule="evenodd">
+              <g id="heart-outline" transform="translate(1.000000, 0.000000),scale(0.75, 0.8)" stroke="#999">
+                <path id="fill" d="M22.3634,0.9763 C19.9054,0.9763 17.1654,1.9943 15.9764,5.2263 C15.8984,5.4373 15.5944,5.4293 15.5214,5.2163 C14.4144,1.9913 11.5714,0.9763 9.1154,0.9763 C4.4974,0.9763 0.7394,5.0363 0.7394,10.0263 C0.7394,12.3713 1.5684,14.5963 3.0754,16.2903 L15.0314,28.2673 C15.4224,28.6583 16.0564,28.6593 16.4484,28.2673 L28.1794,16.5343 C29.8234,14.8303 30.7394,12.5113 30.7394,10.0263 C30.7394,5.0363 26.9814,0.9763 22.3634,0.9763"
+                  fill="#ffffff"></path>
+              </g>
+            </g>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Deffered for R2. To enable icons pass showProductIndicators to true as a prop. (YCOM-9251) -->
+    <div class="product-indicators-container" v-if="showProductIndicators && globals.siteConfig.showProductIndicators && !product.hasVariant">
+      <ul class="px-xs-0 pt-xs-2 product-indicators">
+        <li class="pr-sm-2" v-if="product.isCertified">
+          <span :title="iconCertificationTitle" class="icon-certification" aria-label='certification' tabindex="0" role="button"></span>
+        </li>
+        <li class="pr-sm-2" v-if="product.isDropShipEligible">
+          <span :title="iconShippingTitle" class="icon-shipping" aria-label='shipping' tabindex="0" role="button"></span>
+        </li>
+        <li class="pr-sm-2" v-if="product.isOnlineOnly">
+          <span :title="iconOnlineTitle" class="icon-online" aria-label='online' tabindex="0" role="button"></span>
+        </li>
+        <li class="pr-sm-2" v-if="product.isSubscribable">
+          <span :title="iconSubscriptionTitle" class="icon-subscription" aria-label='subscription' tabindex="0" role="button"></span>
+        </li>
+        <li class="pr-sm-2" v-if="product.isSeasonal">
+          <span :title="iconSeasonalTitle" class="icon-seasonal" aria-label='seasonal' tabindex="0" role="button"></span>
+        </li>
+      </ul>
+    </div>
+    <vx-product-icons  v-if="product.productIcons" :i18n="i18n.productIconsTitle" :product-icons="product.productIcons"></vx-product-icons>
+    <template v-if="product.name">
+      <a v-if="isTruncatedName" class="product-name pt-md-2 my-sm-0" :href="pdpContextPath+product.url" data-toggle="tooltip"
+        :title="getProductName(product.name)">
+        <h6 v-html="formatProductName(product.name, characterLimit)"></h6>
+      </a>
+      <a v-if="!isTruncatedName" class="product-name pt-md-2 my-sm-0" :href="pdpContextPath+product.url">
+        <h6 v-html="formatProductName(product.name, characterLimit)"></h6>
+      </a>
+  </template>
+    <div class="bottom-section">
+      <template v-if="globals.isGpXpress() && !product.hasVariant">
+        <p class="pb-xs-2 my-sm-0 mfg-id" v-if="product.code">{{i18n.mfg}} {{product.code}}</p>
+        <p class="pb-xs-2 my-sm-0 customer-id" v-if="product.cmirCode">{{i18n.cust}} {{product.cmirCode}}</p>
+        <p class="pb-xs-2 my-sm-0 product-availability" v-if="product.isAvailableForLocation">{{i18n.productAvailability}}</p>
+      </template>
+      <template v-if="globals.siteConfig.showProductStatus && !product.hasVariant">
+        <span class="sr-only" v-if="globals.siteConfig.isProductIdEnabled">{{i18n.label.productCodeA11y}}
+          {{product.code}}</span>
+        <p class="product-id pt-xs-2 m-xs-0 pb-xs-2" v-if="globals.siteConfig.isProductIdEnabled" :aria-hidden="globals.siteConfig.isProductIdEnabled">{{i18n.label.productCode}}
+          {{product.code}}</p>
+        <!-- <div class="rating pb-xs-3" v-if="product.bvAverageRating">
+        <span v-for="(star,index) in 5" class="icon-star" :class="{'icon-star-filled': index < ratingCal,'icon-star-half-filled': index === ratingCal && isHalfFilled}"></span>
+        <span class="rating-number ml-xs-2">{{product.bvAverageRating}}</span>
+        <span class="total-ratings">({{product.bvNumberOfReviews}})</span>
+      </div>
+      <div class="write-a-review pb-xs-2" v-else>
+        <a :href="pdpContextPath+product.url">{{i18n.writeReview}}</a>
+      </div> -->
+      <div v-if="isBazaarVoice === 'true'">
+        <div class="star-rating" v-if="product.bvAverageRating">
+          <vx-star-rating :product-rating="product.bvAverageRating" :product-reviews="product.bvNumberOfReviews" :i18n="i18n" :show-rating="showRating" :show-reviews="showReviews" :number-of-stars="5"></vx-star-rating>
+        </div>
+      </div>
+        <p class="error-text m-xs-0 pb-xs-2" v-if="product.materialStatus=== ProductAvailability.OBSOLETE && product.replacementProductCode && product.replacementProductCode!==''">{{i18n.discontinued}}
+          {{i18n.replacedBy}} {{product.replacementProductCode}}
+        </p>
+        <p class="error-text m-xs-0 pb-xs-2" v-if="product.materialStatus === ProductAvailability.OBSOLETE && !product.replacementProductCode">
+          {{i18n.discontinued}}
+        </p>
+        <p class="product-stock-status m-xs-0 pb-xs-2" v-if="product.materialStatus === ProductAvailability.COMING_SOON">
+          {{i18n.availableSoon}}
+        </p>
+      </template>
+      <template v-if="product && product.materialStatus!== ProductAvailability.OBSOLETE && product.materialStatus!== ProductAvailability.COMING_SOON && product.stock && globals.siteConfig.showInventoryMessages && !product.hasVariant">
+        <div class="stock-status">
+          <p class="product-stock-status m-xs-0 pb-xs-2" :class="{ 'text-danger' : globals.siteConfig.showLowInventoryMessage }"
+          v-if="(product.stock.stockLevel && (product.stock.stockLevelStatus === ProductAvailability.LOW_STOCK || product.stock.stockLevelStatus.code === ProductAvailability.LOW_STOCK)) && (globals.siteConfig.showInStockMsg || globals.siteConfig.showLowInventoryMessage)">{{ globals.siteConfig.showLowInventoryMessage ? i18n.lowInventoryMessage : i18n.inStock}}</p>
+          <p class="product-stock-status m-xs-0 pb-xs-2 text-danger" v-else-if="product.stock.nextDeliveryDate">{{product.stock.nextDeliveryDate}}</p>
+          <p class="product-stock-status m-xs-0 pb-xs-2" v-else-if="(product.stock.stockLevelStatus === ProductAvailability.IN_STOCK || product.stock.stockLevelStatus.code === ProductAvailability.IN_STOCK) && globals.siteConfig.showInStockMsg">{{i18n.inStock}}</p>
+          <p class="product-stock-status m-xs-0 pb-xs-2 text-danger" v-else-if="product.stock.stockLevelStatus !== ProductAvailability.IN_STOCK || (product.stock.stockLevelStatus.code !== ProductAvailability.IN_STOCK && product.stock.stockLevelStatus.code !== undefined && product.stock.stockLevelStatus.code !== ProductAvailability.LOW_STOCK )">{{i18n.outOfStock}}</p>
+        </div>
+      </template>
+      <div v-if="globals.siteConfig.isProductPriceEnabled && !product.hasVariant" class="pb-xs-3 my-sm-0 prices d-flex align-items-end">
+        <p class="product-price" v-if="product.price">
+          <span class="sr-only">{{i18n.label.a11yCurrentPrice}}</span>{{product.price.formattedValue}}</p>
+        <p class="product-price product-slashed-price" v-if="product.weblistPrice">
+          <span class="sr-only">{{i18n.label.a11ySlashedPrice}}</span>{{product.weblistPrice.formattedValue}}</p>
+      </div>
+      <div v-if="globals.siteConfig.isProductPriceEnabled && product.hasVariant">
+        <p class="product-price" v-if="product.price || product.priceRange">
+          {{getVariantsPrice(product)}}</p>
+      </div>
+      <template v-if="isRefill">
+        <div class="quantity-label">{{i18n.label.quantity}}</div>
+        <vx-stepper-control :min-value="product.minOrderQuantity || 0" :maxValue="product.maxOrderableQuantity" :value="refillQuantity" @currentCount="getQuantity($event)"></vx-stepper-control>
+      </template>
+    </div>
+    <template v-if="globals.siteConfig.addToCartEnabled && !hideButtonBlock">
+      <template v-if="!isRefill">
+        <button type="button" class="btn btn-primary" @click="navigateToProduct(product.url)" v-if="product.hasVariant">{{i18n.label.chooseOption}}</button>
+        <button type="button" class="btn btn-tertiary" @click="handleNotifyMe($event)" tabindex="0" v-else-if="!showSelectOption && ((product.stock && ((product.stock.stockLevelStatus
+          && product.stock.stockLevelStatus.code && product.stock.stockLevelStatus.code === ProductAvailability.OUT_OF_STOCK && product.materialStatus !== ProductAvailability.OBSOLETE) ||
+          product.stock.stockLevelStatus === ProductAvailability.OUT_OF_STOCK && product.materialStatus !== ProductAvailability.OBSOLETE) && (!(product.stock.hasOwnProperty('nextAvailableDate')) ||
+          (product.stock.hasOwnProperty('nextAvailableDate') && product.stock.nextAvailableDate === null ))) || product.materialStatus === ProductAvailability.COMING_SOON)">{{i18n.label.notifyMe}}</button>
+        <button type="button" class="btn btn-primary add-to-cart-btn" :disabled="(product.materialStatus === ProductAvailability.OBSOLETE && product.stock && product.stock.stockLevelStatus &&
+        product.stock.stockLevelStatus === ProductAvailability.OUT_OF_STOCK) || !soldIndividually" :class="{'disabled': product.materialStatus === ProductAvailability.OBSOLETE && product.stock && product.stock.stockLevelStatus &&
+          product.stock.stockLevelStatus === ProductAvailability.OUT_OF_STOCK}" @click="addToCart" :aria-label="i18n.label.addToCart"
+          v-else>{{i18n.label.addToCart}}</button>
+      </template>
+    </template>
+    <template v-if="globals.isVanityfair()">
+      <button type="button" class="btn btn-primary find-a-store-btn" @click="findAStore" :aria-label="i18n.label.findAStore">{{i18n.label.findAStore}}</button>
+    </template>
+    <template v-if="guestListName">
+        <vx-save-cart prodQuantity="1" :cart-guid="checkVariant(product)" :i18n="i18n" @list-saved="onSelectListSuccess"
+        is-product="true" :guest-list-name="guestListName"></vx-save-cart>
+    </template>
+  </div>
+  <vx-modal ref="selectListModal" size="small" :heading="i18n.selectListHeading" @close="modalClose">
+    <vx-save-cart slot="component" prodQuantity="1" :cart-guid="checkVariant(product)" :i18n="i18n" @list-saved="onSelectListSuccess"
+      is-product="true"></vx-save-cart>
+  </vx-modal>
+  <vx-modal ref="notifyMeModal" size="extra-small" :heading="i18n.notifyMeHeading" @close="modalClose">
+    <vx-notify-me :title="i18n.notifyMeContent" :productCode="product.code" :i18n="i18n" slot="component"
+      @notify-me-success="onNotifyMeSuccess" @notify-me-error="onNotifyMeError"></vx-notify-me>
+  </vx-modal>
+</div>

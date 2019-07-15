@@ -1,0 +1,27 @@
+#brawny {
+  .vx-related-products-tab {
+    .tile-group {
+      padding: 0 !important;
+      flex-wrap: unset;
+      .search-browse-product-tile {
+        padding: 0;
+        &:nth-child(even) {
+          padding-left: 8px;
+        }
+
+        &:nth-child(odd) {
+          padding-right: 8px;
+        }
+        @media screen and (min-width: @screen-sm-min) {
+          padding: 16px 24px 0 0 !important;
+        }
+        @media screen and (min-width: @screen-md-min) {
+          padding: 32px 24px 0 16px !important;
+        }
+        .tile-body {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

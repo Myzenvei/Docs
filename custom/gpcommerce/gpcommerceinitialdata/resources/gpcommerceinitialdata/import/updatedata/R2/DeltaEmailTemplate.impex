@@ -1,0 +1,112 @@
+
+####################################################B2BWHITELABEL Share Product Email template###############################
+$contentCatalog=b2bwhitelabelContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$wideContent=CMSImageComponent,BannerComponent,CMSLinkComponent
+$jarEmailResource=jar:com.gp.b2binitialdata.constants.Gpb2binitialdataConstants&/gpb2binitialdata/import/coredata/contentCatalogs/b2bwhitelabelContentCatalog/emails
+
+# Import modulegen config properties into impex macros
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+$jarResourceCms=$config-jarResourceCmsValue                                                                
+$emailPackageName=$config-emailContextPackageName                                                          
+
+
+# Email page Template                                                                                      
+INSERT_UPDATE EmailPageTemplate ; $contentCV[unique=true] ; uid[unique=true]          ; name                         ; active ; frontendTemplateName ; subject(code)                             ; htmlTemplate(code)                     ; restrictedPageTypes(code)
+                                ;                         ; ShareProductEmailTemplate ; Share Product Email Template ; true   ; shareProductEmail    ; b2bwhitelabel_Email_Share_Product_Subject ; b2bwhitelabel_Email_Share_Product_Body ; EmailPage                
+
+UPDATE EmailPageTemplate ; $contentCV[unique=true] ; uid[unique=true]          ; velocityTemplate[translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]                                                                                                   
+                         ;                         ; ShareProductEmailTemplate ; jar:com.gp.b2binitialdata.constants.Gpb2binitialdataConstants&/gpb2binitialdata/import/coredata/contentCatalogs/b2bwhitelabelContentCatalog/emails/structure-view/structure_shareProductEmailTemplate.vm
+
+
+
+
+INSERT_UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]  ; name                ; masterTemplate(uid,$contentCV) ; defaultPage ; approvalStatus(code)[default='approved']
+                        ;                         ; ShareProductEmail ; Share Product Email ; ShareProductEmailTemplate      ; true        ;                                         ; customerservices@hybris.com ; Customer Services Team
+
+
+UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]  ; previewImage(code, $contentCV)
+                 ;                         ; ShareProductEmail ; EmailPageModel_preview        
+
+
+
+$contentCatalog=b2bwhitelabelContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$jarEmailResource=jar:com.gp.b2binitialdata.constants.Gpb2binitialdataConstants&/gpb2binitialdata/import/coredata/contentCatalogs/b2bwhitelabelContentCatalog/emails
+
+# Import config properties into impex macros for modulegen
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+$emailResource=$config-emailResourceValue                                                                  
+
+# Language                                                                                                 
+$lang=en                                                                                                   
+
+
+
+# CMS components and Email velocity templates                                                              
+UPDATE RendererTemplate ; code[unique=true]                         ; description[lang=$lang]       ; templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                        
+                        ; b2bwhitelabel_Email_Share_Product_Body    ; "Share Product Email Body"    ; $jarEmailResource/email-shareProductBody.vm                                                                   
+                        ; b2bwhitelabel_Email_Share_Product_Subject ; "Share Product Email Subject" ; $jarEmailResource/email-shareProductSubject.vm                                                                
+                        
+
+ # Email Pages          
+UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]  ; fromEmail[lang=$lang]                ; fromName[lang=$lang]    
+                 ;                         ; ShareProductEmail ; "customerservices@b2bwhitelabel.com" ; "Customer Services Team"
+
+
+
+####################################################END B2BWHITELABEL Share Product Email template###############################
+
+####################################################GPXPRESS Share Product Email template#####################################
+$contentCatalog=gpxpressContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$wideContent=CMSImageComponent,BannerComponent,CMSLinkComponent
+$jarEmailResource=jar:com.gp.b2binitialdata.constants.Gpb2binitialdataConstants&/gpb2binitialdata/import/coredata/contentCatalogs/gpxpressContentCatalog/emails
+
+# Import modulegen config properties into impex macros
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+$jarResourceCms=$config-jarResourceCmsValue                                                                
+$emailPackageName=$config-emailContextPackageName                                                          
+
+
+INSERT_UPDATE EmailPageTemplate ; $contentCV[unique=true] ; uid[unique=true]          ; name                         ; active ; frontendTemplateName ; subject(code)                        ; htmlTemplate(code)                ; restrictedPageTypes(code)
+                                ;                         ; ShareProductEmailTemplate ; Share Product Email Template ; true   ; shareProductEmail    ; gpxpress_Email_Share_Product_Subject ; gpxpress_Email_Share_Product_Body ; EmailPage                
+
+
+UPDATE EmailPageTemplate ; $contentCV[unique=true] ; uid[unique=true]          ; velocityTemplate[translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                         ;                         ; ShareProductEmailTemplate ; $jarResourceCms/structure-view/structure_shareProductEmailTemplate.vm                                
+
+
+
+# Email Pages                        
+INSERT_UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]  ; name                ; masterTemplate(uid,$contentCV) ; defaultPage ; approvalStatus(code)[default='approved']
+                        ;                         ; ShareProductEmail ; Share Product Email ; ShareProductEmailTemplate      ; true        ;                                         ; customerservices@hybris.com ; Customer Services Team
+
+
+UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]  ; previewImage(code, $contentCV)
+                 ;                         ; ShareProductEmail ; EmailPageModel_preview        
+
+
+$contentCatalog=gpxpressContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$jarEmailResource=jar:com.gp.b2binitialdata.constants.Gpb2binitialdataConstants&/gpb2binitialdata/import/coredata/contentCatalogs/gpxpressContentCatalog/emails
+
+# Import config properties into impex macros for modulegen
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+$emailResource=$config-emailResourceValue                                                                  
+
+# Language                                                                                                 
+$lang=en                                                                                                   
+
+
+UPDATE RendererTemplate ; code[unique=true]                    ; description[lang=$lang]       ; templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                        ; gpxpress_Email_Share_Product_Body    ; "Share Product Email Body"    ; $jarEmailResource/email-shareProductBody.vm                                                                   
+                        ; gpxpress_Email_Share_Product_Subject ; "Share Product Email Subject" ; $jarEmailResource/email-shareProductSubject.vm                                                                
+                        
+
+UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]  ; fromEmail[lang=$lang]           ; fromName[lang=$lang]    
+                 ;                         ; ShareProductEmail ; "customerservices@gpxpress.com" ; "Customer Services Team"
+                        
+####################################################END GPXPRESS Share Product Email template#####################################
+ # USE CTRL-SPACE for type-ahead support

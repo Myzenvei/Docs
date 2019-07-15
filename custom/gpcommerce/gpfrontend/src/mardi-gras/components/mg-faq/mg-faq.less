@@ -1,0 +1,114 @@
+// @import '../../styles/common/variables.less';
+@import '../../styles/common/mixins.less';
+.mg-faq {
+background-color: @brand-secondary;
+h3,h1,p{
+    text-align: right;
+}
+&-TitleContainer{
+    overflow: hidden;
+}
+h3{
+    border-bottom: 7px dotted @border-3;
+    padding-left: 50px;
+    float: right;
+    .font(
+        28px,
+        @font-weight-regular,
+        @font-family-lifhack-medium,
+        @text-color-6,
+        @line-height-base
+    )
+}
+h1{
+    .font(
+        51px,
+        @font-weight-medium,
+        @font-family-lifhack-medium,
+        @text-color-7,
+        @line-height-base
+    )
+}
+p{
+    .font(
+        21px,
+        @font-weight-regular,
+        @font-family-base,
+        @text-color-6,
+        @line-height-base
+    )
+}
+.vx-accordion{
+    .slot-based{
+        .accordion-header{
+            border-bottom: 7px dotted @border-3;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            .bold-heading{
+                .font(
+                    28px,
+                    @font-weight-regular,
+                    @font-family-lifhack-medium,
+                    @text-color-6,
+                    @line-height-base
+                );
+                display: inline-block;
+            }
+            .icon-plus,.icon-minus{
+                background: url('/static/assets/images/mardi-gras/arrow.png');
+                background-repeat: no-repeat;
+                background-position: center;
+                width: 30px;
+                height: 30px;
+                display: inline-block;
+                transform: rotate(0deg);
+                transition: all 0.1s 0.1s;
+                &:before{
+                    content: '';
+                }
+            }
+            .icon-minus{
+                transform: rotate(180deg);
+                transition: all 0.1s 0.1s;
+            }
+            @media only screen and (max-width: 767px) {
+                .bold-heading{
+                    .font(
+                        20px,
+                        @font-weight-regular,
+                        @font-family-lifhack-medium,
+                        @text-color-6,
+                        @line-height-base
+                    )
+                }
+            }
+        }
+        .accordion-body{
+            .accordion-content{
+                padding: 20px;
+                text-align: left;
+                div{
+                    .font(
+                    24px,
+                    @font-weight-regular,
+                    @font-family-base,
+                    @text-color-6,
+                    @line-height-base
+                );
+                max-width: 85%;
+                }
+            }
+        }
+    }
+    &:last-child{
+        padding-bottom: 50px;
+        .slot-based{
+            .accordion-header{
+                border-bottom: 0;
+            }
+        }
+    }
+}
+}

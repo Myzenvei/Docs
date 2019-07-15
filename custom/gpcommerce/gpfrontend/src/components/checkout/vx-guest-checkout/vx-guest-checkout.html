@@ -1,0 +1,23 @@
+<div class="vx-guest-checkout mt-xs-3 mt-sm-0">
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>
+  </vx-spinner>
+
+  <h2 class="my-xs-0 guest-heading">{{i18n.heading}}</h2>
+  <p class="mt-xs-4 mb-xs-0 description">{{i18n.description}}</p>
+  <div class="my-xs-4 form-group">
+    <label for="us" aria-hidden="true">{{i18n.emailBtnLabel}}</label>
+    <form ref="guestForm" :action="'login/checkout/guest'" method="post">
+      <input type="text" class="form-control" maxlength="80" :disabled="disableField" v-model="guestEmail" name="email" v-validate="'required|email|max:80'"
+        @focus="hideServerError" v-bind:class="{'input-error': errors.has('email')}" :aria-label="i18n.emailBtnLabel">
+      <div class="mt-xs-2" v-if="errors.has('email')">
+        <span class="error-msg">{{errors.first('email')}}</span>
+      </div>
+      <input type="hidden" name="CSRFToken" :value="globals.csrfToken" aria-hidden="true">
+    </form>
+  </div>
+  <button type="submit" :disabled="errors.any() || disableField" class="btn-block btn btn-tertiary" @click="handleGuestCheckoutSubmit($event)">{{i18n.buttonText.toUpperCase()}}</button>
+
+  <p class="my-xs-4 description support-help">{{i18n.supportHelp}}
+    <a href="#">{{i18n.supportPhone}}</a>
+  </p>
+</div>

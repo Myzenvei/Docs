@@ -1,0 +1,110 @@
+<section class="access-customer-service-live-chat mt-sm-5 mt-xs-4" :class="liveChatTheme">
+    <div class="d-flex livechat-section mx-sm-3" :class="{'livechat-left': globals.siteConfig.isContactUsFormEnabled}">
+      <div class="left-section mr-sm-5 mb-sm-5" v-if="isLiveChatEnabled">
+        <div class="livechat-heading pb-sm-4 pb-xs-3 d-flex align-items-center">
+          <span class="icon-message-square" :title="i18n.iconMessageTitle"></span>
+          <h6 class="pl-xs-2 my-xs-0" v-if="i18n.liveChat">{{i18n.liveChat}}</h6>
+        </div>
+        <div class="chat-section row px-xs-3 pt-xs-4 pb-sm-5 pb-xs-4 mx-sm-0">
+          <div class="col-xs-12 px-xs-0">
+            <h3 v-if="imageTextData.headingText" v-html="imageTextData.headingText"></h3>
+            <p class="my-xs-0 pb-xs-4" v-if="imageTextData.informationText" v-html="imageTextData.informationText">
+            </p>
+            <template v-if="i18n.liveChat">
+              <a class="btn btn-tertiary btn-small-text py-xs-0" target="_blank" v-show="showButtons" ref="chatOnline"
+              @click="triggerChat($event)">{{i18n.liveChat}}</a>
+              <a class="btn btn-tertiary btn-small-text py-xs-0" target="_blank" v-show="showButtons" disabled ref="chatOffline">{{i18n.liveChat}}</a>
+            </template>
+          </div>
+        </div>
+      </div>
+      <div class="right-section mb-sm-5" v-if="(showContactUs && !globals.isMardigras()) && globals.siteConfig.isCallUsEnabled">
+        <div class="call-text-heading pb-sm-4 pb-xs-3 d-flex align-items-center">
+          <span class="icon-phone" :title="i18n.iconPhoneTitle"></span>
+          <h6 class="pl-xs-2 my-xs-0" v-if="i18n.callOrTextUsHeading">{{i18n.callOrTextUsHeading}}</h6>
+        </div>
+        <div class="row call-text-section px-xs-3 py-sm-5 py-xs-4 mb-xs-4 mx-sm-0">
+          <div class="col-xs-12 px-xs-0">
+            <p class="call-text-body pb-xs-4 mb-xs-0" v-if="i18n.callOrTextUsBody">{{i18n.callOrTextUsBody}}</p>
+            <div class="call-text-number pb-xs-4 d-flex">
+              <p class="mb-xs-4 mb-md-0">
+                {{i18n.callText}}
+                <a :href="`tel:+${i18n.callNumber}`" v-if="i18n.callNumber">{{i18n.callNumber}}</a>
+                <a href="javascript:void(0)" v-if="i18n.callExt">{{i18n.callExt}}</a>
+              </p>
+              <p class="mb-xs-0 pl-xs-0 pl-md-3" v-if="i18n.textNumber && i18n.text">
+                {{i18n.text}}
+                <a :href="`sms://+${textNumber}`" v-if="i18n.textNumber">{{i18n.textNumber}}</a>
+              </p>
+            </div>
+            <div class="call-text-timings pb-xs-4">
+              <p class="mb-xs-0" v-if="i18n.callOrTextUsTimings1" aria-hidden="true">{{i18n.callOrTextUsTimings1}}</p>
+              <span class="sr-only" v-if="i18n.callOrTextUsTimings1Accessiblity">{{i18n.callOrTextUsTimings1Accessiblity}}</span>
+              <p class="mb-xs-0" v-if="i18n.callOrTextUsTimings2" aria-hidden="true">{{i18n.callOrTextUsTimings2}}</p>
+              <span class="sr-only" v-if="i18n.callOrTextUsTimings2Accessibility">{{i18n.callOrTextUsTimings2Accessibility}}</span>
+            </div>
+            <div class="email-us pb-xs-4">
+              <span v-if="i18n.emailText">{{i18n.emailText}}</span>
+              <a class="mb-xs-0" v-if="i18n.emailUs" :href="'mailto:'+i18n.emailUs">{{i18n.emailUs}}</a>
+            </div>
+            <div class="write-us">
+              <p class="mb-xs-2" v-if="i18n.writeText">{{i18n.writeText}}</p>
+              <p class="mb-xs-0" v-if="i18n.addressLine1">{{i18n.addressLine1}}</p>
+              <p class="mb-xs-0" v-if="i18n.addressLine2">{{i18n.addressLine2}}</p>
+              <p class="mb-xs-0" v-if="i18n.addressLine3">{{i18n.addressLine3}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="right-section mb-sm-5" v-if="showContactUs && globals.isMardigras()" :class="{'full-width' : !isLiveChatEnabled}">
+        <div v-if="!globals.isVanityfair()"class="email-us mb-xs-5">
+          <h4 class="pb-xs-4" v-if="i18n.emailUsHeading">{{i18n.emailUsHeading}}</h4>
+          <p class="mb-xs-0" v-if="i18n.emailUsText">{{i18n.emailUsText}}</p>
+          <span v-if="i18n.emailUsBtnText">{{i18n.emailUsBtnText}}</span>
+          <a class="mb-xs-0" v-if="contactUsEmail" :href="'mailto:'+contactUsEmail">{{contactUsEmail}}</a>
+        </div>
+        <div class="call-us mb-xs-5">
+          <h4 class="pb-xs-4" v-if="i18n.callUsHeading">{{i18n.callUsHeading}}</h4>
+          <p class="mb-xs-0" v-if="i18n.callUsText">{{i18n.callUsText}}</p>
+          <p class="mb-xs-0" v-if="i18n.callTimings">{{i18n.callTimings}}</p>
+          <a class="mb-xs-0" :href="`tel:+${i18n.callNumber}`" v-if="i18n.callNumber">{{i18n.callNumber}}</a>
+          <a class="mb-xs-0" href="javascript:void(0)" v-if="i18n.callExt">{{i18n.callExt}}</a>
+        </div>
+        <div class="write-us">
+          <h4 class="pb-xs-4" v-if="i18n.writeUsHeading">{{i18n.writeUsHeading}}</h4>
+          <p class="mb-xs-0" v-if="i18n.writeUsText">{{i18n.writeUsText}}</p>
+          <p class="mb-xs-0" v-if="i18n.writeUsAddLine1">{{i18n.writeUsAddLine1}}</p>
+          <p class="mb-xs-0" v-if="i18n.writeUsAddLine2">{{i18n.writeUsAddLine2}}</p>
+        </div>
+      </div>
+      <template v-if="showContactUs">
+        <div class="left-section mr-sm-5 mb-sm-5" v-if="globals.siteConfig.isEmailUsEnabled">
+          <div class="send-email-heading pb-sm-4 pb-xs-3 d-flex align-items-center">
+            <span class="icon-mail" :title="i18n.iconMailTitle"></span>
+            <h6 class="pl-xs-2 my-xs-0" v-if="i18n.sendEmail">{{i18n.sendEmail}}</h6>
+          </div>
+          <div class="send-email-section row px-xs-3 py-xs-5 mx-sm-0">
+            <div class="col-xs-12 px-xs-0">
+              <p class="mb-xs-2" v-if="i18n.sendEmailText">{{i18n.sendEmailText}}</p>
+              <p class="my-xs-0" v-if="i18n.emailUsText && i18n.emailAddress">{{i18n.emailUsText}}
+                <a class="mb-xs-0" v-if="i18n.emailAddress" :href="'mailto:'+i18n.emailAddress">{{i18n.emailAddress}}</a>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="right-section mb-sm-5" v-if="globals.siteConfig.isWriteUsEnabled">
+          <div class="mail-us-heading pb-sm-4 pb-xs-3 d-flex align-items-center">
+            <span class="icon-mail-us" :title="i18n.iconMailTitle1"></span>
+            <h6 class="pl-xs-2 my-xs-0" v-if="i18n.mailUs">{{i18n.mailUs}}</h6>
+          </div>
+          <div class="row mail-us-section px-xs-3 py-sm-5 py-xs-4 mx-sm-0">
+            <div class="col-xs-12 px-xs-0">
+              <p class="mb-xs-2" v-if="i18n.mailUsText1">{{i18n.mailUsText1}}</p>
+              <p class="mb-xs-2" v-if="i18n.mailUsText2">{{i18n.mailUsText2}}</p>
+              <p class="mb-xs-0" v-if="i18n.mailAddress">{{i18n.mailAddress}}</p>
+            </div>
+          </div>
+        </div>
+      </template>
+    </div>
+  </section>

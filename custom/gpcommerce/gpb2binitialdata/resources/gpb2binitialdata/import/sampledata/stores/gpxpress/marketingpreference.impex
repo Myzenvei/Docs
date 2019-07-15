@@ -1,0 +1,8 @@
+$siteUid=gpxpress
+
+INSERT_UPDATE MarketingPreferenceType;site(uid)[unique=true];marketingPreferenceId[unique=true];offerType(code);headerText;selectionType(code);&componentRef
+;$siteUid;subscription;PROMOTIONALOFFER;Opt-In for Global Marketing Communications?;RADIO;subscription
+
+INSERT_UPDATE MarketingPreference;site(uid)[unique=true];preferenceTypeId[unique=true];value;marketingPreferenceTypeId(&componentRef);name;description
+;$siteUid;optIn;true;subscription;optIn;Opt in
+;$siteUid;optOut;false;subscription;optOut;Opt out

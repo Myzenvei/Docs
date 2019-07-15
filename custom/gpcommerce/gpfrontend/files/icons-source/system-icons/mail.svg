@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>Icons/Mail</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M22.9999063,5.97614951 C23.0002259,5.99003106 23.0002566,6.00390814 23,6.0177713 L23,18 C23,19.6522847 21.6522847,21 20,21 L4,21 C2.34771525,21 1,19.6522847 1,18 L1,6 C1,5.99983341 1.00000001,5.99966682 1.00000004,5.99950024 C0.999999912,5.99905051 1.00000009,5.99860077 1.00000056,5.99815103 C1.00100554,4.34670994 2.34833162,3 4,3 L20,3 C21.6443275,3 22.987012,4.33476554 22.9999063,5.97614951 Z M20.8934771,5.55405641 C20.7281172,5.22697309 20.3880039,5 20,5 L4,5 C3.61203125,5 3.27194435,5.22693202 3.10656776,5.55396763 L12.0000859,11.7794303 L20.8934771,5.55405641 Z M21,7.92080153 L12.5735482,13.8193178 C12.2292281,14.0603419 11.7709437,14.0603419 11.4266235,13.8193178 L3,7.92068132 L3,18 C3,18.5477153 3.45228475,19 4,19 L20,19 C20.5477153,19 21,18.5477153 21,18 L21,7.92080153 Z" id="path-1"></path>
+    </defs>
+    <g id="Icons/Mail" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <mask id="mask-2" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+        <g id="Combined-Shape" fill-rule="nonzero"></g>
+        <g id="Color/Secondary/LightGrey/100%" mask="url(#mask-2)" fill="#CECECE">
+            <rect id="Color/Secondary/LightGrey" x="0" y="0" width="24" height="24"></rect>
+        </g>
+    </g>
+</svg>

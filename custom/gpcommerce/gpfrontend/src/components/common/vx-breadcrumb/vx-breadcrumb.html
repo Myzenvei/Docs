@@ -1,0 +1,10 @@
+<div class="vx-breadcrumb">
+  <ul class="breadcrumb">
+    <li v-for="(item,index) in breadcrumbs" :key="index">
+      <span v-if="item.url === '#'" tabindex="0" aria-current="page" v-html="item.name"></span>
+      <template v-else>
+        <a v-if="item.name" :href="globals.contextPath+item.url" v-html="item.name"></a>
+      </template>
+    </li>
+  </ul>
+</div>

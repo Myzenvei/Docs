@@ -1,0 +1,41 @@
+<div class="vx-product-category-solution" :class="componentTheme" :id="componentId">
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>
+  </vx-spinner>
+  <h3 class="category-title ml-sm-3 mb-sm-5 mx-xs-3 mx-sm-5" :style="{color: tabsData.componentHeaderColor}" v-html="tabsData.componentHeader"
+    v-if="tabsData.componentHeader"></h3>
+  <div class="title-underline mt-xs-0 mb-xs-3" :style="tabsData.componentHeaderColor ? {'border-bottom-color': tabsData.componentHeaderColor} : ''"
+    v-if="tabsData.componentHeader"></div>
+  <ul class="nav nav-tabs mb-xs-5 mb-md-2 px-sm-3 px-md-4">
+    <li class="px-xs-3" :class="index===0?'active':''" v-for="(item, index) in tabsData.tabs">
+      <a :href="'#tab'+ index" data-toggle="tab" @click="loadProducts(item,index)" class="px-xs-0 py-xs-2" :style="{color: item.componentHeaderColor}"
+        v-html="item.componentHeader"></a>
+    </li>
+  </ul>
+  <div class="tab-content mx-sm-3">
+    <template v-if="tabBody.length>0">
+      <div class="tab-pane" :class="ind===0?'active':''" :id="'tab'+ ind " v-for="(item, ind) in tabsData.tabs">
+        <div class="panel panel-default">
+          <div class="panel-heading p-xs-0">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" @click="loadProducts(item,ind)" data-parent=".tab-pane" :href="'#collapse' + ind"
+                class="px-xs-0 py-xs-3 mx-xs-3 mx-sm-5" :class="ind===0?'':'collapsed'">
+                <span :style="{color: tabsData.headerColor}" v-html="item.componentHeader"></span>
+              </a>
+            </h4>
+          </div>
+          <div :id="'collapse' + ind" class="panel-collapse collapse" :class="ind===0?'in':''">
+            <div class="panel-body p-xs-0">
+              <!--this condition is to load only that particular tab and clear the other tabs-->
+              <template v-if="ind===activeTab">
+                <vx-marketing-product :tab-body=tabBody :tab-body-title=tabBodyTitle :broucher-link=tabsData.ctaLink
+                  :brochure-text=tabsData.ctaText :is-brochure-link-external="isBrochureLinkExternal"
+                  :is-request-trial-link-external="isRequestTrialLinkExternal" :request-trial-text="tabsData.tabs[ind].ctaText"
+                  :request-trial-link="tabsData.tabs[ind].ctaLink" />
+              </template>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+  </div>
+</div>

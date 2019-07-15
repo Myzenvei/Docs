@@ -1,0 +1,61 @@
+.vx-ymarket-form {
+  h1, h2 {
+    font-weight: @font-weight-bold;
+  }
+  & > .col-xs-12:not(.authorable-text) {
+    background-color: @brand-primary;
+    border-radius: @card-layout-border-radius;
+  }
+  .form-group {
+    input {
+      height: 60px;
+    }
+  }
+  button {
+    &.sapCpButton {
+      height: 60px;
+      clear: none;
+    }
+  }
+  .sapCRLWidgetContentNoIndent.sapCpWidgetContentNoIndent {
+    p {
+      color: @text-color-secondary-2;
+      text-align: center;
+    }
+  }
+  .sapCpButtonWidget {
+    clear: none;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  #application-MarketingContent-manage-component---ObjectView--DesignView--ContentPage-0L-0W {
+    p {
+      font-size: @font-size-h1;
+    }
+  }
+  #application-MarketingContent-manage-component---ObjectView--DesignView--ContentPage-0L-6W {
+    p {
+      font-size: @font-size-large;
+    }
+  }
+  margin-bottom: 48px;
+}
+
+@media screen and (max-width: @screen-xs-max) {
+  .vx-ymarket-form {
+    button {
+      &.sapCpButton {
+        height: 50px;
+      }
+    }
+    .sapCpInputWidget.col-sm-offset-1 {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    #application-MarketingContent-manage-component---ObjectView--DesignView--ContentPage-0L-0W {
+      p {
+        font-size: @font-size-xs-h1;
+      }
+    }
+  }
+}

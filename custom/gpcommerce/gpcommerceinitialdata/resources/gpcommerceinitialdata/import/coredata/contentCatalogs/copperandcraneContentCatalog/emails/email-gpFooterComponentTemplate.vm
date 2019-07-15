@@ -1,0 +1,154 @@
+## messageSource=classpath:/gpcommercecore/messages/email-footerText_$lang.properties
+#set ( $siteUrl = $ctx.urlResolutionService.getWebsiteUrlForSite($ctx.site,true,$ctx.urlLink) )
+#set ( $mediaUrl = $ctx.urlResolutionService.getMediaUrlForSite($ctx.site,false,$ctx.media.url) )
+<style type="text/css">
+    .footer-section {
+        background-color: #dfdfdf;
+        border-top: 1px solid #cecece;
+        padding: 16px 0;
+        width: 100%;
+        overflow: auto;
+    }
+
+    .links-section {
+        display: inline-block;
+        float: left;
+        width: 50%;
+    }
+
+    .links-section td {
+        padding: 8px 0 8px 40px;
+    }
+
+    .copyright-section {
+        display: inline-block;
+        float: left;
+        width: 25%;
+        color: #747678;
+        font-size: 14px;
+        font-weight: 300;
+        line-height: 16px;
+        letter-spacing: 0.15;
+        padding-top: 8px;
+        vertical-align: top;
+    }
+
+    .social-section {
+        display: inline-block;
+        float: left;
+        width: 25%;
+        padding-top: 8px;
+    }
+
+    .social-section .title {
+        display: block;
+        width: 100%;
+        color: #222;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 16px;
+        padding-left: 8px;
+    }
+
+    .social-section .social-links {
+        display: block;
+        width: 100%;
+    }
+
+    .social-section .social-links td {
+        padding: 8px;
+    }
+
+    @media screen and (max-width: 767px) {
+        .links-section {
+            width: calc(100% - 0px);
+            margin-bottom: 8px;
+        }
+
+        .links-section td {
+            padding: 8px 16px;
+        }
+
+        .copyright-section,
+        .social-section {
+            width: calc(100% - 0px);
+            padding-left: 16px;
+            margin: 12px 0;
+            padding-top: 0;
+        }
+
+        .social-section .title {
+            display: table-cell;
+            vertical-align: middle;
+            padding-right: 8px;
+            width: auto;
+        }
+
+        .social-section .social-links {
+            display: table-cell;
+            width: auto;
+        }
+
+        .social-section .social-links td {
+            padding: 0 8px;
+        }
+    }
+</style>
+<tfoot>
+    <tr>
+        <td style="margin:0px;padding:0px;padding-top:24px;">
+            <table border="0" cellspacing="0" cellpadding="0" width="100%"
+                style="background-color: #ffffff;border-top: 1px solid #cecece;border-collapse: separate !important;">
+                <tr>
+                    <td align="left" valign="middle"
+                        style="border-collapse:collapse ;padding-top:24px;padding-left:24px; padding-bottom:24px; padding-right:10px;"
+                        class="footer-m-block">
+                        <table width="100%">
+                            <tr>
+                                <td
+                                    style=" color: #222222 !important;font-size:14px !important;text-decoration:none !important;">
+                                    #foreach( $entry in ${ctx.navigationNodes} ) #foreach( $link in ${entry.links} )
+                                    #set ( $linkUrl =
+                                    $ctx.urlResolutionService.getWebsiteUrlForSite($ctx.site,true,$link.url) )
+                                    <a href="${linkUrl}"
+                                        style=" color: #222222;font-size:14px;padding:10px,display:inline-block;text-decoration:none;outline:0;outline:none;border:0;border:none">${link.linkName}</a>
+                                    #end #end
+                                </td>
+                                <td style="letter-spacing: 0.15px;color: #747678;font-size: 14px;" align="right">&copy;
+                                    $ctx.urlResolutionService.getYear() DIGITAL ROADMAP LLC., ALL RIGHTS RESERVED
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td align="right" valign="middle"
+                        style="border-collapse:collapse;padding-top:24px;padding-left:24px; padding-bottom:24px; padding-right:24px;"
+                        class="footer-m-block">
+                        <table border="0" cellspacing="0" cellpadding="0" class="align-m-left">
+                            <tr>
+                                <td style="padding-right:10px; padding-left:0px; padding-top:0px; padding-bottom:0px;margin:7px 10px 0px 3px;font-size: 14px;"
+                                    class="followUs-m-left">Follow Us</td>
+                                <td>
+                                    <table border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                            #foreach( $entry in ${ctx.emailFooter} ) #set ( $mediaUrl =
+                                            $ctx.urlResolutionService.getMediaUrlForSite($ctx.site,false,$entry.media.url))
+                                            <td style="padding-right:10px; padding-left: 0;padding-top: 8px;">
+                                                <a style="font-size:0;border:0;outline:0;border:none;outline:none;text-decoration:none;"
+                                                    href="$entry.urlLink">
+                                                    <img width="32" height="32" title="${entry.name}"
+                                                        alt="#if(${entry.media.altText})${entry.media.altText}#end"
+                                                        src="${mediaUrl}">
+                                                </a>
+                                            </td>
+                                            #end
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</tfoot>

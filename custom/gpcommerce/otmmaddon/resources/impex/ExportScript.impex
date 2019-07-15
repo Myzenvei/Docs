@@ -1,0 +1,31 @@
+"#% com.opentext.hybris.otmmconnector.util.OtmmImpexUtil.writeImport(impex, ""de.hybris.platform.jalo.media.MediaFolder"");"
+# ---- Extension: core ---- Type: MediaFolder ----
+"#% impex.setTargetFile( ""MediaFolder.csv"" );"
+insert MediaFolder;&Item;path[forceWrite=true];qualifier[unique=true,allownull=true]
+"#% com.opentext.hybris.otmmconnector.util.OtmmImpexUtil.writeSkipExistingCommand(impex, ""MediaFolder"", ""qualifier"", 3, ""MediaFolder.class"");"
+"#% impex.exportItemsFlexibleSearch( ""SELECT DISTINCT {f.PK}, {qualifier} FROM {MediaFolder AS f JOIN OtmmAssetDelivery AS a ON {f.PK}={a.mediaFolder} } ORDER BY {f.qualifier} ASC"", -1 );"
+
+# ---- Extension: otmmaddon ---- Type: OtmmContentType ----
+"#% impex.setTargetFile( ""OtmmContentType.csv"" );"
+insert_update OtmmContentType;&Item;code[unique=true,allownull=true]
+"#% impex.exportItems( ""OtmmContentType"" , false );"
+
+# ---- Extension: otmmaddon ---- Type: ContentByExportDelivery ----
+"#% impex.setTargetFile( ""ContentByExportDelivery.csv"" );"
+insert_update ContentByExportDelivery;&Item;command;isDefault;mediaFolder(qualifier);name[unique=true,allownull=true];
+"#% impex.exportItems( ""ContentByExportDelivery"" , false );"
+
+# ---- Extension: otmmaddon ---- Type: MediaDeliveryService ----
+"#% impex.setTargetFile( ""MediaDeliveryService.csv"" );"
+insert_update MediaDeliveryService;&Item;command;isDefault;mediaFolder(qualifier);name[unique=true,allownull=true];renditionSet
+"#% impex.exportItems( ""MediaDeliveryService"" , false );"
+
+# ---- Extension: otmmaddon ---- Type: UrlDelivery ----
+"#% impex.setTargetFile( ""UrlDelivery.csv"" );"
+insert_update UrlDelivery;&Item;isDefault;mediaFolder(qualifier);mimeType;mimeTypeAttribute;name[unique=true,allownull=true];urlAttribute;urlTemplate
+"#% impex.exportItems( ""UrlDelivery"" , false );"
+
+# ---- Extension: otmmaddon ---- Type: AssetAssignmentSpec ----
+"#% impex.setTargetFile( ""AssetAssignmentSpec.csv"" );"
+insert_update AssetAssignmentSpec;&Item;otmmAssetDeliveryDefinitions(&Item);otmmContentType(code,itemtype(code))[unique=true,allownull=true];otmmExplicitAttribute(enclosingType(code),qualifier)[unique=true,allownull=true];otmmImplicitAttributes(otmmContentType(code,itemtype(code)),otmmExplicitAttribute(enclosingType(code),qualifier),otmmItemType(code));otmmItemType(code)[unique=true,allownull=true];
+"#% impex.exportItems( ""AssetAssignmentSpec"" , false );"

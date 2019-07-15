@@ -1,0 +1,159 @@
+<div class="vx-quick-order">
+  <div class="px-xs-3 px-md-5">
+    <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>
+    </vx-spinner>
+    <vx-modal ref="shareListModal" size="extra-small" :heading="i18n.quickOrder.shareListHeading">
+      <vx-share-cart slot="component" :wishlistEntries="searchHistory" type="modal" :i18n="i18n.shareList" :quickList="fromquickOrder"
+        @share-success="handleShareCartSuccess" @share-error="handleShareCartError"></vx-share-cart>
+    </vx-modal>
+    <vx-modal ref="saveListModal" size="extra-small" :heading="i18n.quickOrder.selectListLabel">
+      <vx-save-cart slot="component" :wishlistEntries="searchHistory" :i18n="i18n.saveList" @list-saved="handleListSaved"></vx-save-cart>
+    </vx-modal>
+    <vx-modal ref="notifyMeModal" size="extra-small" :heading="i18n.productTile.notifyMeHeading">
+      <vx-notify-me :title="i18n.productTile.notifyMeContent" :productCode="notifyCode" :i18n="i18n.productTile" slot="component"
+        @notify-me-success="onNotifyMeSuccess" @notify-me-error="onNotifyMeError"></vx-notify-me>
+    </vx-modal>
+    <vx-modal ref="uploadCsv" size="extra-small" :heading="i18n.quickOrder.uploadModalHeading">
+      <vx-csv-upload slot="component" :i18n="i18n" :templateError="templateError" @upload='fileUploaded($event)' />
+    </vx-modal>
+    <h1 class="mb-xs-3">{{i18n.quickOrder.quickOrderPageHeading}}</h1>
+    <h6 class="pb-xs-3">{{i18n.quickOrder.pageInfo}}</h6>
+    <h6 class="search-info-text pt-xs-1">{{i18n.quickOrder.searchInfo}}</h6>
+    <div class="col-lg-10 col-md-12 px-xs-0 quick-search-wrapper">
+      <div class="form-group quick-search pb-xs-1">
+        <input v-model="searchInput" aria-label="Search Product" type="text" name="quickSearch" class="form-control col-md-9 col-xs-12"
+          aria-required="true" @keyup="checkInputState" :aria-invalid="isError" :class="{ 'error-border': isError || isDuplicateError}">
+        <p v-if="isError" class="error visible-xs" :aria-hidden="!isError" tabindex="0" role="text">{{i18n.quickOrder.productsNotFound}}</p>
+        <p v-if="isDuplicateError" class="error visible-xs" :aria-hidden="!isDuplicateError" tabindex="0" role="text">{{i18n.quickOrder.duplicate}}</p>
+        <button class="btn btn-tertiary col-xs-12 col-md-3 add-items" type="button" :disabled="searchInput === ''"
+          @click="searchProducts">{{i18n.quickOrder.addItems}}</button>
+      </div>
+      <p v-if="isError" class="error hidden-xs" :aria-hidden="!isError" tabindex="0" role="text">{{i18n.quickOrder.productsNotFound}}</p>
+      <p v-if="isDuplicateError" class="error hidden-xs" :aria-hidden="!isDuplicateError" tabindex="0" role="text">{{i18n.quickOrder.duplicate}}</p>
+    </div>
+    <div class="col-lg-2 col-md-12 upload-section">
+      <div class="form-group d-flex align-items-center">
+        <h6>OR</h6>
+        <button class="btn btn-tertiary ml-xs-3" @click="openUploadFile">{{i18n.quickOrder.csvUpload}}</button>
+      </div>
+    </div>
+    <div class="pt-xs-4 pt-sm-5 pt-md-4 px-xs-0 mb-xs-0 mb-xs-4 mb-sm-3 mb-md-4 order-options">
+      <div v-if="purchasable.length || nonPurchasable.length" class="px-xs-0 pt-md-4 col-xs-12 col-sm-6">
+        <span class="save-cart pr-xs-4">
+          <span class="cart-icons icon-add-to-list cursor-icon" :title="i18n.quickOrder.iconAddToListTitle" @click="handleSaveACart($event)"
+            @keyup.enter-space='handleSaveACart($event)' tabindex="0" role='button' :aria-label='i18n.quickOrder.iconAddToListTitle'></span>
+        </span>
+        <span class="share-cart pr-xs-4">
+          <span class="cart-icons icon-share cursor-icon" :title="i18n.quickOrder.iconShareTitle" @click="openShareCartModal($event)"
+            @keyup.enter-space='openShareCartModal($event)' tabindex="0" role='button' :aria-label='i18n.quickOrder.iconShareTitle'></span>
+        </span>
+        <span class="seperator pr-xs-4"></span>
+        <span class="clear-all cursor-icon" @click="clearAll($event)" @keyup.enter-space="clearAll($event)" tabindex="0"
+          role="button">
+          {{i18n.quickOrder.clearAll}}
+        </span>
+      </div>
+      <div v-if="purchasable.length" class="px-xs-0 pt-xs-4 pt-sm-0 pt-md-4 col-xs-12 col-sm-6 sub-total top">
+        <span class="pull-right">
+          <span v-if="totalQuantity === 1">{{i18n.quickOrder.subTotal}}{{totalQuantity}} {{i18n.quickOrder.item}}</span>
+          <span v-else>{{i18n.quickOrder.subTotal}}{{totalQuantity}} {{i18n.quickOrder.items}}</span>
+          <span class="total-price">{{getFormattedPrice(subTotal)}}</span>
+        </span>
+      </div>
+    </div>
+    <div v-if="nonPurchasable.length" class="col-xs-12 px-xs-0 non-purchasable-items">
+
+      <vx-accordion is-slot-based>
+        <span slot="heading" class='bold-heading'>{{i18n.quickOrder.nonPurchasable}}</span>
+        <vx-product-tile slot='component' v-for="product in nonPurchasable" v-bind:key="product.id">
+          <template slot="image-slot">
+            <img v-if="product.images" :src="globals.getThumbnailImageUrl(product.images)" alt="No Image">
+            <img v-if="!product.images" :src="globals.assetsPath + 'images/no_image.svg'" alt="No Image">
+          </template>
+          <template slot="details">
+            <p class="product-title product-title-trim mb-xs-2">
+              <a :href="globals.contextPath+product.url" v-html="product.name"></a>
+            </p>
+            <p class="product-code mb-xs-2">
+              <span class="sr-only">{{i18n.productTile.itemId}} : {{product.code}}</span>
+              <span aria-hidden="true">{{i18n.productTile.itemId}} {{product.code}}</span>
+              <span v-if="product.cmirCode">
+                <span> | </span>
+                <span>{{i18n.productTile.cmir}} {{product.cmirCode}}</span>
+              </span>
+            </p>
+            <p class="product-stock mb-xs-3" v-if="!(product.stock.stockLevelStatus === ProductAvailability.LOW_STOCK || product.stock.stockLevelStatus.code === ProductAvailability.LOW_STOCK) || product.materialStatus === ProductAvailability.OBSOLETE || product.offlineDate < currentDate"
+              role="status" tabindex="0">{{product.stock.stockStatusMessage}}</p>
+            <p class="product-price mb-xs-3">
+              <span class="product-current-price">{{product.price.formattedValue}}</span>
+            </p>
+          </template>
+          <template slot="right-section-slot">
+            <button v-if="product.discontinued && product.stock.stockLevelStatus === ProductAvailability.OUT_OF_STOCK && product.hasOwnProperty('replacementProductCode')"
+              class="btn btn-tertiary notify mb-xs-3" type="button" @click="useReplacement(product)">{{i18n.productTile.useReplacement}}</button>
+            <button v-else class="btn btn-tertiary notify mb-xs-3" type="button" @click="notifyMe(product)">{{i18n.productTile.notifyMe}}</button>
+            <p class="product-total-price">{{getFormattedPrice(product.price.finalPrice)}}</p>
+          </template>
+        </vx-product-tile>
+      </vx-accordion>
+    </div>
+    <div class="col-xs-12 px-xs-0 purchasable-items">
+      <vx-product-tile v-for="product in purchasable" v-bind:key="product.code" class="mt-xs-5">
+        <template slot="top-right">
+          <span class="col-xs-2 px-xs-0">
+            <span tabindex='0' role='button' :aria-label='i18n.productTile.iconTrashTitle' class="cart-icons icon-trash cursor-icon"
+              :title="i18n.productTile.iconTrashTitle" @click="deleteProduct(product.code)"></span>
+          </span>
+        </template>
+        <template slot="image-slot">
+          <img v-if="product.images" :src="globals.getThumbnailImageUrl(product.images)" alt="No Image">
+          <img v-if="!product.images" :src="globals.assetsPath + 'images/no_image.svg'" alt="No Image">
+        </template>
+        <template slot="details">
+          <p class="product-title product-title-trim mb-xs-2">
+            <a :href="globals.contextPath+product.url" v-html="product.name"></a>
+          </p>
+          <p class="product-code mb-xs-2">
+            <span class="sr-only">{{i18n.productTile.itemId}} : {{product.code}}</span>
+            <span aria-hidden="true">{{i18n.productTile.itemId}} {{product.code}}</span>
+            <span v-if="product.cmirCode">
+              <span> | </span>
+              <span tabindex="0">{{i18n.productTile.cmir}} {{product.cmirCode}}</span>
+            </span>
+          </p>
+          <p class="product-stock mb-xs-3" v-if="!(product.stock.stockLevelStatus === ProductAvailability.LOW_STOCK || product.stock.stockLevelStatus.code === ProductAvailability.LOW_STOCK) || product.materialStatus === ProductAvailability.OBSOLETE || product.offlineDate < currentDate"
+            role="status">{{product.stock.stockStatusMessage}}</p>
+          <p class="product-price mb-xs-3">
+            <span class="product-current-price"><span class="sr-only">Current price</span>{{product.price.formattedValue}}</span>
+            <span v-if="product.weblistPrice" class="product-old-price">
+              <span class="sr-only">Slashed price</span>
+              <strike>{{product.weblistPrice.formattedValue}}</strike>
+            </span>
+            <span class="stepper-custom">
+              <p class="product-quantity">{{i18n.productTile.quantity}}</p>
+              <span>
+                <vx-stepper-control v-bind:min-value="0" :maxValue="product.maxOrderQuantity || 999" :value=product.quantity
+                  @currentCount="handleQuantity(product.code, $event)"></vx-stepper-control>
+              </span>
+            </span>
+          </p>
+        </template>
+        <template slot="right-section-slot">
+          <!-- <p v-if="product.discount && (product.discount != discount.discountZero)" class="product-discount" tabindex="0">-{{getFormattedPrice(product.discount)}}</p> -->
+          <p class="product-total-price">{{getFormattedPrice(product.price.finalPrice)}}</p>
+        </template>
+      </vx-product-tile>
+    </div>
+    <div v-if="purchasable.length" class="col-xs-12 sub-total px-xs-0 py-xs-4">
+      <span class="pull-right">
+        <span v-if="totalQuantity === 1">{{i18n.quickOrder.subTotal}}{{totalQuantity}} {{i18n.quickOrder.item}}</span>
+        <span v-else>{{i18n.quickOrder.subTotal}}{{totalQuantity}} {{i18n.quickOrder.items}}</span>
+        <span class="total-price" :aria-label="'i18n.quickOrder.subTotalLabel'+ subTotal" role="status">{{getFormattedPrice(subTotal)}}</span>
+      </span>
+    </div>
+  </div>
+  <div class="col-xs-12 add-cart-footer">
+    <button class="btn btn-primary col-lg-3 col-md-4 col-xs-12 col-sm-4 mr-sm-3 mr-md-4 pull-right add-list-to-cart-btn"
+      :disabled="!purchasable.length" @click="addItemsToCart()" :aria-label="i18n.quickOrder.addToCart">{{i18n.quickOrder.addToCart}}</button>
+  </div>
+</div>

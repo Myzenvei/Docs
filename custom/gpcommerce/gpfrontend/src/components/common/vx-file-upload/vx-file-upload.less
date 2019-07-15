@@ -1,0 +1,63 @@
+
+.vx-file-upload {
+  font-family: @font-family-base;
+  .dropbox {
+    outline: 1px dashed @border-color-7; /* the dash box */
+    height: 60px; /* minimum height */
+    position: relative;
+  }
+  .input-file {
+    opacity: 0; /* invisible but it's there! */
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    cursor: pointer;
+    text-indent: -9999px;
+  }
+  .drop-box-text {
+    font-size: @font-size-large;
+    text-align: center;
+    letter-spacing: 0.2px;
+  }
+  .upload-icons {
+    font-size: 20px;
+  }
+  .delete-link {
+    cursor: pointer;
+    color: @font-color-nav-link;
+  }
+  .file-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .file-size {
+    color: @btn-disabled-text-color;
+  }
+  .division-border {
+    background-color: @border-color;
+    height: 1px;
+  }
+  .error-msg {
+    color: @font-color-error;
+    font-size: @font-size-small;
+  }
+  label .file-upload {
+    color: @text-color-secondary-3;
+    font-size: @font-size-medium;
+    font-weight: @font-weight-medium;
+  }
+  .upload-caption label {
+    font-size: @font-size-medium;
+    font-weight: @font-weight-light;
+    color: @text-color;
+    letter-spacing: 0.15px;
+  }
+  .custom-file-upload {
+    font-size: @font-size-medium;
+    font-weight: @font-weight-medium;
+    color: @brand-secondary-2;
+    text-transform: none;
+    letter-spacing: 0.15px;
+  }
+}

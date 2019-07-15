@@ -1,0 +1,118 @@
+<section class="company-details">
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>
+  </vx-spinner>
+  <vx-modal ref="addressVerificationModal" size="medium" :heading="i18n.addressVerificationHeading">
+    <vx-address-verification slot="component" :i18n="i18n" :unverifiedAddress="unverifiedAddress" @selectedAddress="handleSelectedAddressResponse"
+      @error="handleSelectedAddressError"></vx-address-verification>
+  </vx-modal>
+  <form class="companyDetailsForm">
+    <h3 class="company-details-heading mt-xs-0 pb-sm-5 mb-xs-0">{{i18n.companyDetailsDataModalHeading}}</h3>
+    <div class="default-company-details">
+      <div class="section row">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12 ">
+          <label class="pt-sm-0 pt-xs-4">{{i18n.companyName}}</label>
+          <input class="form-control" name="companyName" type="text" v-model="companyDetails.companyName" maxlength="40"
+            v-validate="'required|max:40'" :aria-label="i18n.companyName" v-bind:class="{'input-error': errors.has('companyName')}" />
+          <div class="mt-xs-2" v-if="errors.has('companyName')">
+            <span class="error-msg">{{ errors.first('companyName') }}</span>
+          </div>
+        </div>
+        <div class="form-group col-md-6 col-sm-6 col-xs-12 country">
+          <label class="pt-sm-0 pt-xs-4">{{i18n.countryLabel}}</label>
+          <vx-dropdown-primary ref="countryDropdown" @selected-option="setDropdownOption($event)" :dropdownValues="companyDetails.country.options"></vx-dropdown-primary>
+        </div>
+      </div>
+      <div class="section row">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+          <label class="pt-sm-0 pt-xs-4" :aria-hidden="isDeviceAndroid()">{{i18n.addressPart1}}</label>
+          <input class="form-control" type="text" v-model="companyDetails.Address1" maxlength="60" name="addressLine1"
+            v-validate="'required|max:60'" :aria-label="i18n.addressPart1" v-bind:class="{'input-error': errors.has('addressLine1')}" />
+          <div class="mt-xs-2" v-if="errors.has('addressLine1')">
+            <span class="error-msg">{{ errors.first('addressLine1') }}</span>
+          </div>
+        </div>
+        <div class="form-group col-md-6 col-sm-6 col-xs-12 ">
+          <label class="pt-sm-0 pt-xs-4" :aria-hidden="isDeviceAndroid()">{{i18n.addressPart2}}</label>
+          <input class="form-control" type="text" v-model="companyDetails.Address2" maxlength="40" name="addressLine2"
+            v-validate="'max:40'" :aria-label="i18n.addressPart2" />
+        </div>
+      </div>
+      <div class="section row">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12 ">
+          <label class="pt-sm-0 pt-xs-4" :aria-hidden="!isDeviceAndroid()">{{i18n.city}}</label>
+          <input class="form-control" name="city" type="text" v-model="companyDetails.City" maxlength="40" v-validate="'required|max:40'"
+            :aria-label="i18n.city" v-bind:class="{'input-error': errors.has('city')}" />
+          <div class="mt-xs-2" v-if="errors.has('city')">
+            <span class="error-msg">{{ errors.first('city') }}</span>
+          </div>
+        </div>
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+          <label class="pt-sm-0 pt-xs-4">{{companyDetails.region.label}}</label>
+          <vx-dropdown-primary ref="stateDropdown" @selected-option="companyDetails.stateDropdownOption=$event"
+            :dropdownValues="companyDetails.region.options" name="state" v-validate="'required'" :dropdownError="errors.has('state')"
+            v-model="companyDetails.stateDropdownOption.value"></vx-dropdown-primary>
+          <div class="mt-xs-2" v-if="errors.has('state')">
+            <span class="error-msg" aria-live="assertive">{{ errors.first('state') }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="section row">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+          <label class="pt-sm-0 pt-xs-4" :aria-hidden="!isDeviceAndroid()">{{i18n.zipcode}}</label>
+          <input class="form-control" name="zipcode" type="text" v-model="companyDetails.Zipcode" v-validate="{ required: true,
+            regex: /^((\d{5}-\d{4})|(\d{5})|([A-Z]\d[A-Z]\s\d[A-Z]\d))$/ }"
+            :aria-label="i18n.zipcode" v-bind:class="{'input-error': errors.has('zipcode')}" />
+          <div class="mt-xs-2" v-if="errors.has('zipcode')">
+            <span class="error-msg">{{ errors.first('zipcode') }}</span>
+          </div>
+        </div>
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+          <label class="pt-sm-0 pt-xs-4" :aria-hidden="isDeviceAndroid()">{{i18n.cmpPhnNo}}</label>
+          <the-mask :masked="masked" class="phone-number form-control" mask="+1 ###-###-####" v-model="companyDetails.CompanyPhnNo"
+            v-validate="'required: true|min:15'" type="tel" name="companyPhnNo" :aria-label="i18n.mobileNo">
+          </the-mask>
+          <div class="mt-xs-2" v-if="errors.has('companyPhnNo')">
+            <span class="error-msg">{{errors.first('companyPhnNo')}}</span>
+          </div>
+        </div>
+      </div>
+      <!-- Deferred for R2-->
+      <!-- <div class="section row">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12 role">
+          <label class="pt-sm-0 pt-xs-4">{{companyDetailsText.role.label}}</label>
+          <vx-dropdown-primary ref="roleDropdown" @selected-option="companyDetails.roleDropdownOption=$event"
+            :dropdownValues="companyDetailsText.role.options"></vx-dropdown-primary>
+        </div>
+      </div> -->
+    </div>
+    <div class="section-divider mt-xs-5 col-xs-12 px-xs-0"></div>
+
+    <div class="business-description">
+      <div class="section pt-sm-5 pt-xs-4 row">
+        <div v-for="(item, index) in surveyQuestions" class="col-sm-12 col-md-12 col-xs-12 mb-xs-0 form-group buisiness-group-sub">
+          <div class="col-sm-5 col-xs-12 px-xs-0 pt-sm-5 pt-xs-4 " v-if="item.questionType === surveyQuestionType.select">
+            <label>{{item.label}}</label>
+            <vx-dropdown-primary ref="surveySelectQuestion" @selected-item="onSelectedBusinessGroup($event,item,index)"
+              :dropdownValues="item.options"></vx-dropdown-primary>
+          </div>
+          <div class="col-sm-5 pt-sm-5 pt-xs-4" v-if="item.questionType === surveyQuestionType.radio">
+            <label>{{item.label}}</label>
+            <vx-radio-button-group ref="surveyRadioQuestion" :name="index" @selected-option="onSelectedBusinessGroup($event,item,index)"
+              :radiobuttonValues="item.options"></vx-radio-button-group>
+          </div>
+          <div class="form-group col-sm-5 pt-sm-5 pt-xs-4 px-xs-0" v-if="item.questionType === surveyQuestionType.textField">
+            <label>{{item.label}}</label>
+            <input class="form-control" @change="onSelectedBusinessGroup($event,item,index)" :value="textField[item.code]"
+              type="text" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section-divider mt-xs-5 row px-xs-0"></div>
+
+    <div class="company-details-button pt-xs-5 py-sm-5 col-xs-12 px-xs-0">
+      <button type="button" v-on:click="skipCompanyDetails" class="skip-button btn btn-default btn-md mr-sm-5 mb-xs-0">{{i18n.skip}}</button>
+      <button type="button" @click="callAddressVerification" class="save-button btn btn-primary btn-md mr-sm-5 mb-xs-0">{{i18n.save}}</button>
+    </div>
+  </form>
+</section>

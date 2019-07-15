@@ -1,0 +1,132 @@
+<section class="cross-reference-search">
+  <!-- <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen /> -->
+  <h1>{{i18n.heading}}</h1>
+  <div class="d-flex filters">
+    <div class="d-flex categorySearh">
+      <div class="form-group">
+        <label>{{i18n.categoryLabel}}</label>
+        <vx-dropdown-primary
+          :dropdownValues="formattedCategories"
+          @selected-option="updateSelectedCategory($event)"
+          @primaryDropdownMounted="handleDefaultCategoryalue()"
+          ref="categories">
+        </vx-dropdown-primary>
+      </div>
+      <div class="form-group">
+        <label>{{i18n.subCategoryLabel}}</label>
+        <vx-dropdown-primary
+          :dropdownValues="formattedSubCategories"
+          @selected-option="updateSelectedSubCategory($event)"
+          @primaryDropdownMounted="handleDefaultSubCategoryalue()"
+          :is-disabled="!formattedSubCategories.length"
+          ref="subcategories">
+        </vx-dropdown-primary>
+      </div>
+    </div>
+    <div class="d-flex textSearch">
+      <div class="or">Or</div>
+      <div class="form-group search-input">
+        <label>{{i18n.searchLabel}}</label>
+        <div class="left-addon">
+          <span title="Search Button" aria-hidden="true" class="icon-search" @click="handleTextSearch"></span>
+          <input class="m-a-0 form-control" type="text" v-model="searchTerm" id="searchSku" aria-label="i18n.searchLabel" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="products" v-for="(product, index) in searchResponse.products">
+    <div class="product-tile-heading">
+      <div class="d-flex">
+        <p class="code">{{i18n.mfgText}} {{product.code}}</p>
+        <p class="name" v-html="product.name"></p>
+      </div>
+      <div class="d-flex line">
+        <p class="description" v-html="product.description"></p>
+        <p class="suggestText">{{i18n.suggestText}}</p>
+      </div>
+    </div>
+    <template v-if="product.competitorReplacementProducts">
+      <vx-product-tile v-for="(competitor, index) in product.competitorReplacementProducts">
+        <template v-if="competitor && competitor.images && competitor.images[0] && competitor.images[0].url" slot="image-slot">
+          <img :alt="competitor.name" :src="globals.getThumbnailImageUrl(competitor.images)">
+        </template>
+        <template v-if="!competitor.images" slot="image-slot">
+          <img alt="no image" :src="globals.assetsPath + 'images/no_image.svg'">
+        </template>
+        <template slot="details">
+          <p class="product-title mb-xs-2 pr-xs-5">
+            <a :href="globals.getNavigationUrl('empty')+competitor.url">{{competitor.name}}</a>
+          </p>
+          <p>
+            <span class="sr-only">{{i18n.itemId}} {{competitor.code}}</span>
+            <span class="item-id" aria-hidden="true">{{i18n.itemId}}
+              <span>{{competitor.code}}</span>
+            </span>
+            <span v-if="globals.siteConfig.hasCmirCode">
+              <span v-if="competitor.cmirCode" class="separator"> | </span>
+              <span class="cmir-code" v-if="competitor.cmirCode">{{i18n.cmir}}
+                <span>{{competitor.cmirCode}}
+                </span>
+              </span>
+            </span>
+          </p>
+          <p v-html="competitor.description"></p>
+          <div class="icon-section">
+            <span class="mb-xs-3 icon-download" :title="pdfi18n.iconDownloadTitle"
+              @click="handleDownloadInfo($event, competitor.code)" @keyup.enter-space="handleDownloadInfo($event, competitor.code)" tabindex="0" role="button" aria-label="pdfi18n.iconDownloadTitle">
+            </span>
+            <span class="mb-xs-3 icon-add-to-list wishlist-btn" :title="pdfi18n.iconAddToListTitle"
+              @click="handleSelectList($event, competitor.code)" @keyup.enter-space="handleSelectList($event, competitor.code)" tabindex="0" role="pdfi18n.iconAddToListTitle"
+              :aria-label="pdfi18n.iconAddToListTitle">
+            </span>
+            <span class="find-distributor" v-if="globals.siteConfig.isFindDistributorEnabled && competitor && competitor.code">
+              <a :href="`${globals.getNavBaseUrl()}${globals.serviceUrls.findDistributor}/pdp?productCode=${competitor.code}`">{{i18n.findDistributor}}</a>
+            </span>
+          </div>
+        </template>
+        <template slot="right-section-slot">
+          <div class="px-xs-0 py-xs-2 px-sm-0 pl-md-4 d-flex align-items-end">
+            <a class="btn btn-primary pull-right view-details" :href="globals.getNavigationUrl('empty')+competitor.url">{{i18n.viewDetails}}</a>
+          </div>
+        </template>
+      </vx-product-tile>
+    </template>
+    <template v-if="!product.competitorReplacementProducts || !product.competitorReplacementProducts.length">
+      <div class="no-replacement-prodcuts-message">
+        {{i18n.noReplacementProdcutsMessage}}
+      </div>
+    </template>
+  </div>
+  <template v-if="guestListName">
+    <vx-save-cart prodQuantity="1" :cart-guid="getprodId" :i18n="pdfi18n" @list-saved="onSelectListSuccess"
+    is-product="true" :guest-list-name="guestListName"></vx-save-cart>
+  </template>
+  <vx-pdf-generator v-if="loadPdfGenerator" name="pdfversion" :has-sustainability-page="false" ref="pdfModule" :pdf-data="pdpProductInfo" @pdpDownloadPDF="pdpPdfDownloaded">
+    <div slot="details">
+      <div id="left-section">
+        <h5 v-if="pdpProductInfo.name" v-html="replaceText(pdpProductInfo.name)"></h5>
+        <h5 v-if="pdpProductInfo.description">Description:</h5>
+        <p v-if="pdpProductInfo.description" v-html="limitCharacters(pdpProductInfo.description)"
+            style="font-size:12px"></p>
+      </div>
+      <h5 v-if="pdpProductInfo.featureList.length" id="feature-heading">Features and Benefits:</h5>
+      <div id="features" v-if="pdpProductInfo.featureList">
+        <ul class="features" style="font-size:12px;">
+          <li v-for="feature in pdpProductInfo.featureList" v-html="replaceText(feature)"
+            v-if="pdpProductInfo.featureList"></li>
+        </ul>
+      </div>
+      <img id='itf' />
+      <img id='itf1' :src="pdpProductInfo.images && pdpProductInfo.images[0] && pdpProductInfo.images[0].zoomUrl ? pdpProductInfo.images[0].zoomUrl : globals.assetsPath+'images/no_image.png'" />
+    </div>
+  </vx-pdf-generator>
+  <vx-modal ref="downloadInfoModal" size="large" :heading="pdfi18n.downloadInfoHeading">
+    <vx-download-info slot="component" :is-pdp="true" :i18n="pdfi18n" @onImageDownloadInit=onImageDownloadInit($event)
+      @onPdfDownloadInit=createPDF($event) :color-codes="colorCodes">
+    </vx-download-info>
+  </vx-modal>
+  <vx-modal ref="selectListModal" size="small" :heading="pdfi18n.selectListHeading">
+    <vx-save-cart slot="component" prodQuantity="1" :cart-guid="getprodId" :i18n="pdfi18n"
+      @list-saved="onSelectListSuccess" is-product="true"></vx-save-cart>
+    </vx-modal>
+</section>

@@ -1,0 +1,37 @@
+<footer class="footer-section">
+  <div class="footer px-sm-5 pt-sm-5 mx-xs-0 row" :class="{checkoutFooterBack: isCheckoutFooter}">
+    <div class="d-flex flex-wrap px-sm-0 px-xs-0">
+      <div class="non-printable-section footer__column" :class="{'checkout active': isCheckoutFooter}" v-for="(item, index) in filteredFooterData">
+        <h5 v-if="isMobile()" v-on:click.prevent="toggle($event)" class="my-xs-4 mx-xs-3 ml-sm-0 mt-sm-0 mb-sm-3">{{item.title}}
+          <button class="icon-chevron-down" :class="[!isCheckoutFooter ? 'visible-xs' : 'hidden']" aria-label="collapsed">
+          </button>
+        </h5>
+        <h5 v-if="!isMobile()" class="my-xs-4 mx-xs-3 ml-sm-0 mt-sm-0 mb-sm-3">{{item.title}}
+        </h5>
+        <div class="px-xs-3 pl-sm-0 pb-xs-3 py-sm-2 footer__column__item" v-for="(subItem, subIndex) in item.links">
+          <a :href="[subItem.external ? subItem.linkTo : globals.contextPath+subItem.linkTo]" :target="[subItem.newWindow ? '_blank' : '_self']">{{subItem.linkText}}</a>
+        </div>
+      </div>
+      <div class="mx-xs-3 mx-sm-0 mb-sm-0 copy-right mt-xs-5 mt-sm-0" v-html="copyrightText" v-if="isCheckoutFooter"></div>
+      <div class="social-block footer__column" v-if="!isCheckoutFooter">
+        <h5 class="mx-xs-3 mx-sm-0 my-xs-0 pt-xs-4 pb-xs-3 py-sm-0">{{footerData.columns[footerDataLength-1].title}}</h5>
+        <div class="mx-xs-3 mx-sm-0 mt-sm-4 icons">
+          <template v-for="socialIcons in footerData.columns[footerDataLength-1].links">
+            <template v-if="isHomePage">
+              <a itemscope :itemtype="globals.logoContentSchema.itemType" :href="socialIcons.linkTo" class="social-icons pr-xs-3" target="_blank" itemprop="sameAs" rel="me">
+                <img :src="globals.assetsPath+`images/${socialIcons.linkText.toLowerCase()}.png`" class="my-xs-2" :alt='socialIcons.linkText'>
+              </a>
+            </template>
+            <template v-else>
+              <a :href="socialIcons.linkTo" class="social-icons pr-xs-3" target="_blank">
+                <img :src="globals.assetsPath+`images/${socialIcons.linkText.toLowerCase()}.png`" class="my-xs-2" :alt='socialIcons.linkText'>
+              </a>
+            </template>
+
+          </template>
+        </div>
+        <div class="mx-xs-3 mx-sm-0 my-xs-4 mb-sm-0 mt-sm-5 copy-right">{{copyrightText}}</div>
+      </div>
+    </div>
+  </div>
+</footer>

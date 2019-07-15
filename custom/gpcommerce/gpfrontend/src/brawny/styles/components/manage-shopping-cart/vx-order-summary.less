@@ -1,0 +1,66 @@
+#brawny {
+  .vx-order-summary {
+    font-family: @font-family-text;
+    .order-summary {
+      .vx-order-summary-details {
+        .cart-savings-value,
+        .cart-total-value,
+        .sub-total-value {
+          font-weight: @font-weight-bold;
+        }
+        .cart-total-label {
+          font-weight: @font-weight-normal;
+        }
+        .sub-total-helper-text,
+        .order-helper-text,
+        .product-old-price,
+        .shipping-progress-helper-text,
+        .order-helper-text p a {
+          color: @text-color;
+        }
+        .sub-total-helper-text,
+        .product-old-price {
+          color: @text-color-sub-text;
+        }
+        .shipping-progress-helper-text {
+          font-size: @font-size-base;
+        }
+        .sub-total .sub-total-value {
+          font-size: @font-size-h2;
+          @media screen and (min-width: @screen-sm-min) {
+            font-size: @font-size-h3;
+          }
+        }
+        .order-summary-heading {
+          font-size: 20px;
+          margin-bottom: 20px !important;
+          font-weight: @font-weight-normal;
+          @media screen and (min-width: @screen-sm-min) {
+            font-size: @font-size-h2;
+            margin-bottom: 24px;
+            padding: 0;
+          }
+        }
+        .icon-chevron-up,
+        .icon-chevron-down {
+          color: @font-icon-color-5;
+        }
+      }
+    }
+    .promotion-section {
+      .vx-promotion {
+        .promotions-label {
+          font-weight: @font-weight-med;
+        }
+        .voucher-coupon {
+          color: @text-color;
+          font-weight: @font-weight-normal;
+        }
+        .promo-amount,
+        .icon-x {
+          color: @font-icon-color-5;
+        }
+      }
+    }
+  }
+}

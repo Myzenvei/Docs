@@ -1,0 +1,211 @@
+<div class="row vx-profile-card" v-bind:class="cardType === 'add' ? 'd-flex' : '' ">
+  <div class="col-xs-12 social-card" v-if="cardType === 'social'" v-bind:class="[{'card-default-height' : isDefaultHeight }, cardClasses ? cardClasses : '' ]">
+    <div class="d-flex align-items-center justify-content-between card-heading">
+      <slot name="heading">
+        <h4>Social Accounts</h4>
+        <a>
+          <span class="icon-default icon-big icon-edit" aria-label="edit icon" tabindex="0" role="button"></span>
+        </a>
+      </slot>
+    </div>
+    <slot name="details">
+      <div class="row d-flex align-items-center justify-content-between">
+        <div class="card-items align-items-center d-flex">
+          <span class="icon-default icon-big icon-facebook"></span>
+          <span class="pl-xs-2">Facebook</span>
+        </div>
+        <div class="card-item-link">
+          <a href="#" class="link-regular link-bold" tabindex="0">Connect</a>
+        </div>
+      </div>
+      <div class="row d-flex align-items-center justify-content-between">
+        <div class="card-items align-items-center d-flex">
+          <span class="icon-default icon-big icon-google"></span>
+          <span class="pl-xs-2">Google</span>
+        </div>
+        <div class="card-item-link">
+          <a href="#" class="link-regular link-bold" tabindex="0">Connect</a>
+        </div>
+      </div>
+    </slot>
+  </div>
+  <div class="col-xs-12 add-card" v-else-if="cardType === 'add'" v-bind:class="[{'card-default-height' : isDefaultHeight }, cardClasses ? cardClasses : '' ]">
+    <p class="add-card-container">
+      <slot name="details">
+        <a href="#">
+          <span class="icon-big icon-plus" aria-hidden="true"></span>
+          <span class="ml-xs-1 link-large link-bold">Add</span>
+        </a>
+      </slot>
+    </p>
+  </div>
+  <div class="col-xs-12 profile-card" v-else-if="cardType === 'column'" v-bind:class="[{'disabled' : isDisabled, 'card-default-height' : isDefaultHeight }, cardClasses ? cardClasses : '' ]">
+    <div class="row">
+      <div class="card-details-container" v-bind:class="hasIcons ? 'col-xs-10' : 'col-xs-12'">
+        <div class="row">
+          <ul class="col-xs-12">
+            <slot name="heading">
+              <li class="card-heading">
+                <h4>Personal Details</h4>
+              </li>
+              <li class="card-heading-link">
+                <a class="#">
+                  <h4>Personal Details</h4>
+                </a>
+              </li>
+            </slot>
+          </ul>
+        </div>
+        <div class="row">
+          <slot name="details">
+            <ul class="col-xs-6">
+              <li class="card-item">Peter Williams</li>
+              <li class="card-item">peter.williams@email.com</li>
+              <li class="card-item">123-456-7890</li>
+              <li class="card-item">You're currently enrolled in email marketing, SMS marketing & SMS order tracking</li>
+              <li class="card-item card-item-bold">Default Address</li>
+              <li class="card-item card-item-bold">Default Address</li>
+              <li class="card-item-password">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+              </li>
+              <li class="card-item-link link-small link-bold">
+                <a class="link-bold" href="#">Forgot Password</a>
+              </li>
+            </ul>
+            <ul class="col-xs-6">
+              <li class="card-item">Peter Williams</li>
+              <li class="card-item">peter.williams@email.com</li>
+              <li class="card-item">123-456-7890</li>
+              <li class="card-item">You're currently enrolled in email marketing, SMS marketing & SMS order tracking</li>
+              <li class="card-item card-item-bold">Default Address</li>
+              <li class="card-item card-item-bold">Default Address</li>
+              <li class="card-item-password">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+              </li>
+              <li class="card-item-link link-small link-bold">
+                <a class="link-bold" href="#">Forgot Password</a>
+              </li>
+            </ul>
+          </slot>
+        </div>
+      </div>
+      <div class="col-xs-2">
+        <div class="row">
+          <ul class="col-xs-12 vx-profile-card-icons" v-if="hasIcons" v-show="!isDisabled">
+            <slot name="icons">
+              <li class="card-icon">
+                <a href="">
+                  <span class="icon-default icon-small icon-trash"></span>
+                </a>
+              </li>
+              <li class="card-icon">
+                <a href="">
+                  <span class="icon-default icon-default icon-small icon-edit"></span>
+                </a>
+              </li>
+            </slot>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="row card-footer" v-if="hasFooter">
+      <slot name="footer">
+        <p class="card-item-link col-xs-12" v-show="isDisabled">
+          <a class="link-regular link-bold pull-right" href="#">Enable</a>
+        </p>
+        <p class="d-flex col-xs-12 align-items-center justify-content-between" v-show="isDisabled && isDefault">
+          <span class="card-item card-item-bold">Default Address</span>
+          <a class="link-regular link-bold" href="#">Enable</a>
+        </p>
+        <div class="d-flex col-xs-12 align-items-center justify-content-between" v-show="!isDisabled">
+          <button class="btn btn-secondary">Reject</button>
+          <button class="btn btn-primary">Approve</button>
+        </div>
+      </slot>
+    </div>
+  </div>
+  <div class="col-xs-12 profile-card" v-bind:class="[{'disabled' : isDisabled, 'card-default-height' : isDefaultHeight }, cardClasses ? cardClasses : '' ]"
+    v-else>
+    <div class="row d-flex">
+      <ul class="card-details-container" v-bind:class="hasIcons ? 'col-xs-10' : 'col-xs-12'">
+        <slot name="heading">
+          <li class="card-heading">
+            <h4>Personal Details</h4>
+          </li>
+          <li class="card-heading-link">
+            <a class="#">
+              <h4>Personal Details</h4>
+            </a>
+          </li>
+        </slot>
+        <slot name="details">
+          <li class="card-item">Peter Williams</li>
+          <li class="card-item">peter.williams@email.com</li>
+          <li class="card-item">123-456-7890</li>
+          <li class="card-item">You're currently enrolled in email marketing, SMS marketing & SMS order tracking</li>
+          <li class="card-item card-item-bold">Default Address</li>
+          <li class="card-item card-item-bold">Default Address</li>
+          <li class="card-item-password">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+          </li>
+          <li class="card-item-link link-small link-bold">
+            <a class="link-bold" href="#">Forgot Password</a>
+          </li>
+        </slot>
+      </ul>
+      <ul class="col-xs-2 vx-profile-card-icons" v-if="hasIcons" v-show="!isDisabled || showTrash">
+        <slot name="icons">
+          <li class="card-icon">
+            <a href="">
+              <span class="icon-default icon-small icon-trash"></span>
+            </a>
+          </li>
+          <li class="card-icon">
+            <a href="">
+              <span class="icon-default icon-default icon-small icon-edit"></span>
+            </a>
+          </li>
+        </slot>
+      </ul>
+    </div>
+    <div class="row card-footer" v-if="hasFooter">
+      <slot name="footer">
+        <p class="card-item-link col-xs-12" v-show="isDisabled">
+          <a class="link-regular link-bold pull-right" href="javascript:void(0)" v-on:click="enableAddress">Enable</a>
+        </p>
+        <p class="d-flex col-xs-12 align-items-center justify-content-between" v-show="isDisabled && isDefault">
+          <span class="card-item card-item-bold">Default Address</span>
+          <a class="link-regular link-bold" href="javascript:void(0)">Enable</a>
+        </p>
+        <div class="col-xs-12" v-show="isEnabled">
+          <a class="link-regular link-bold pull-right" href="javascript:void(0)" v-on:click="disableAddress">Disable</a>
+        </div>
+        <div class="d-flex col-xs-12 align-items-center justify-content-between" v-show="!isDisabled && !isEnabled">
+          <button class="btn btn-secondary col-xs-6 mr-sm-5 mr-md-5 mr-xs-5" v-on:click="rejectAddress">Reject</button>
+          <button class="btn btn-primary col-xs-6" v-on:click="approveAddress">Approve</button>
+        </div>
+      </slot>
+    </div>
+  </div>
+</div>

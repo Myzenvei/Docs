@@ -1,0 +1,38 @@
+.input-error {
+  border: 1px solid @btn-error-border  !important;
+  background-color: @btn-error-bg  !important;
+}
+
+.error-icon {
+  color: @text-color-error;
+}
+
+.multi-dropdown {
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.dropdown-menu li:hover {
+  cursor: pointer;
+}
+
+.dropdown-primary {
+  .multi-dropdown {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .dropdown-menu {
+    li {
+      &.display-inline-block {
+        display: inline-block;
+        min-width: 100%;
+      }
+
+      &.disabled {
+        cursor: not-allowed;
+      }
+    }
+  }
+}

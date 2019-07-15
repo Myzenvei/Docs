@@ -1,0 +1,29 @@
+<div class="vx-add-custom-attribute">
+  <form id="add-custom-attribute" ref="addCustomAttributeForm" @submit.prevent="submitForm">
+    <div class="attribute-fields">
+      <div class="section row">
+        <div class="attribute-1 col-xs-12 form-group">
+          <label for="attribute1" :aria-hidden="isDeviceAndroid()">{{ i18n.attribute1 }}</label>
+          <input name="attribute1" maxlength="20" :aria-label="i18n.attribute1" class="form-control" :placeholder="i18n.attributePlaceholder"
+            type="text" v-model="attributeInfo.attributeOne" />
+        </div>
+      </div>
+      <div class="section row">
+        <div class="attribute-2 col-xs-12 form-group">
+          <label for="attribute2" :aria-hidden="isDeviceAndroid()">{{ i18n.attribute2 }}</label>
+          <input name="attribute2" :aria-label="i18n.attribute2" maxlength="20" class="form-control" :placeholder="i18n.attributePlaceholder"
+            type="text" v-model="attributeInfo.attributeTwo" />
+        </div>
+      </div>
+      <div class="section row">
+        <div class="attribute-3 col-xs-12 form-group">
+          <label for="attribute3" :aria-hidden="isDeviceAndroid()">{{ i18n.attribute3 }}</label>
+          <input name="attribute3" :aria-label="i18n.attribute3" maxlength="20" class="form-control" :placeholder="i18n.attributePlaceholder"
+            type="text" v-model="attributeInfo.attributeThree" />
+        </div>
+      </div>
+    </div>
+    <button type="submit" :disabled="!isAccordionValuesChanged" class="mt-md-3 mt-sm-3 mt-xs-4 submit btn center-block btn-primary
+    modal-btn-primary-small modal-bottom-spacing" :aria-label="i18n.save">{{i18n.save}}</button>
+  </form>
+</div>

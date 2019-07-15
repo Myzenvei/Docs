@@ -1,0 +1,268 @@
+# USE CTRL-SPACE for type-ahead support
+$productCatalog=gpUSProductCatalog
+$productCatalogName=GP US Product Catalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Online'])[unique=true,default=$productCatalog:Online]
+$baseProduct=baseProduct(code, catalogVersion(catalog(id[default='$productCatalog']),version[default='Online']))
+$approved=approvalstatus(code)[default='approved']
+$taxGroup=Europe1PriceFactory_PTG(code)[default=us-sales-tax-full]
+$giftWrapProduct=giftWrapProduct(code, catalogVersion(catalog(id[default=$productCatalog]),version[default='Online']))
+$installationProduct=installationProduct(code, catalogVersion(catalog(id[default=$productCatalog]),version[default='Online']))
+ 
+ INSERT_UPDATE GPComponentProducts;code[unique=true];kitcomponent(code,$catalogVersion);quantity
+;Component1;19375;2
+;Component2;19378;8
+;Component3;19378;8
+;Component4;19378;8
+;Component5;19378;8
+;Component6;19375;8
+
+
+
+INSERT_UPDATE GPProductKit;code[unique=true];$catalogVersion;supercategories(code,$catalogVersion);ean;unit(code);varianttype(code);$approved;$taxGroup;site(uid);kitcomponent(code);name[lang=en]
+;KIT01; ;9687;78731601919;CS;;;;b2bwhitelabel,b2cwhitelabel;Component1,Component2;Kits Product KIT01
+;KIT02; ;9687;78731601919;CS;;;;b2bwhitelabel,b2cwhitelabel;Component3,Component6;Kits Product KIT02
+;KIT03; ;9687;78731601919;CS;;;;b2bwhitelabel,b2cwhitelabel;Component4,Component3;Kits Product KIT03
+;KIT04; ;9687;78731601919;CS;;;;b2bwhitelabel,b2cwhitelabel;Component5,Component4;Kits Product KIT04
+;KIT05; ;9687;78731601919;CS;;;;b2bwhitelabel,b2cwhitelabel;Component1,Component3;Kits Product KIT05
+
+
+;KIT111; ;9687;78731601919;CS;;;;b2bwhitelabel,b2cwhitelabel;Component1,Component2;Kits Product KIT01
+;KIT112; ;9687;78731601919;CS;;;;b2bwhitelabel,b2cwhitelabel;Component3,Component6;Kits Product KIT02
+;KIT113; ;9687;78731601919;CS;;;;b2bwhitelabel,b2cwhitelabel;Component4,Component3;Kits Product KIT03
+;KIT114; ;9687;78731601919;CS;;;;b2bwhitelabel,b2cwhitelabel;Component5,Component4;Kits Product KIT04
+;KIT115; ;9687;78731601919;CS;;;;b2bwhitelabel,b2cwhitelabel;Component1,Component3;Kits Product KIT05
+
+
+$solrIndexedType=solrIndexedType(identifier)[unique=true]
+$indexedType=multiBrandProductType
+$productCatalog=gpUSProductCatalog
+$catalogVersion=catalogVersion(catalog(id[default=$productCatalog]),version[default='Online'])[unique=true,default='$productCatalog:Online']
+INSERT_UPDATE ContextualAttributeValue;$catalogVersion;product(code,$catalogVersion)[unique=true];context(code);name;description;featureList
+
+;;KIT01;DixieContext;Test 44COT Context;44COT Description DixieContext
+;;KIT01;B2BWhitelabelContext;Test 44COT Context;44COT Description B2BWhitelabelContext
+;;KIT01;B2CWhitelabelContext;Test 44COT Context;44COT Description B2CWhitelabelContext
+;;KIT01;GPXpressContext;Test 44COT Context;44COT Description GPXpressContext
+
+;;KIT02;DixieContext;Test 44COT Context;44COT Description DixieContext
+;;KIT02;B2BWhitelabelContext;Test 44COT Context;44COT Description B2BWhitelabelContext
+;;KIT02;B2CWhitelabelContext;Test 44COT Context;44COT Description B2CWhitelabelContext
+;;KIT02;GPXpressContext;Test 44COT Context;44COT Description GPXpressContext
+
+;;KIT02;DixieContext;Test 44COT Context;44COT Description DixieContext
+;;KIT02;B2BWhitelabelContext;Test 44COT Context;44COT Description B2BWhitelabelContext
+;;KIT02;B2CWhitelabelContext;Test 44COT Context;44COT Description B2CWhitelabelContext
+;;KIT02;GPXpressContext;Test 44COT Context;44COT Description GPXpressContext
+
+;;KIT03;DixieContext;Test 44COT Context;44COT Description DixieContext
+;;KIT03;B2BWhitelabelContext;Test 44COT Context;44COT Description B2BWhitelabelContext
+;;KIT03;B2CWhitelabelContext;Test 44COT Context;44COT Description B2CWhitelabelContext
+;;KIT03;GPXpressContext;Test 44COT Context;44COT Description GPXpressContext
+
+;;KIT04;DixieContext;Test 44COT Context;44COT Description DixieContext
+;;KIT04;B2BWhitelabelContext;Test 44COT Context;44COT Description B2BWhitelabelContext
+;;KIT04;B2CWhitelabelContext;Test 44COT Context;44COT Description B2CWhitelabelContext
+;;KIT04;GPXpressContext;Test 44COT Context;44COT Description GPXpressContext
+
+;;KIT05;DixieContext;Test 44COT Context;44COT Description DixieContext
+;;KIT05;B2BWhitelabelContext;Test 44COT Context;44COT Description B2BWhitelabelContext
+;;KIT05;B2CWhitelabelContext;Test 44COT Context;44COT Description B2CWhitelabelContext
+;;KIT05;GPXpressContext;Test 44COT Context;44COT Description GPXpressContext
+
+
+
+;;KIT111;DixieContext;Test 44COT Context;44COT Description DixieContext
+;;KIT111;B2BWhitelabelContext;Test 44COT Context;44COT Description B2BWhitelabelContext
+;;KIT111;B2CWhitelabelContext;Test 44COT Context;44COT Description B2CWhitelabelContext
+;;KIT111;GPXpressContext;Test 44COT Context;44COT Description GPXpressContext
+
+;;KIT112;DixieContext;Test 44COT Context;44COT Description DixieContext
+;;KIT112;B2BWhitelabelContext;Test 44COT Context;44COT Description B2BWhitelabelContext
+;;KIT112;B2CWhitelabelContext;Test 44COT Context;44COT Description B2CWhitelabelContext
+;;KIT112;GPXpressContext;Test 44COT Context;44COT Description GPXpressContext
+
+;;KIT113;DixieContext;Test 44COT Context;44COT Description DixieContext
+;;KIT113;B2BWhitelabelContext;Test 44COT Context;44COT Description B2BWhitelabelContext
+;;KIT113;B2CWhitelabelContext;Test 44COT Context;44COT Description B2CWhitelabelContext
+;;KIT113;GPXpressContext;Test 44COT Context;44COT Description GPXpressContext
+
+;;KIT114;DixieContext;Test 44COT Context;44COT Description DixieContext
+;;KIT114;B2BWhitelabelContext;Test 44COT Context;44COT Description B2BWhitelabelContext
+;;KIT114;B2CWhitelabelContext;Test 44COT Context;44COT Description B2CWhitelabelContext
+;;KIT114;GPXpressContext;Test 44COT Context;44COT Description GPXpressContext
+
+;;KIT115;DixieContext;Test 44COT Context;44COT Description DixieContext
+;;KIT115;B2BWhitelabelContext;Test 44COT Context;44COT Description B2BWhitelabelContext
+;;KIT115;B2CWhitelabelContext;Test 44COT Context;44COT Description B2CWhitelabelContext
+;;KIT115;GPXpressContext;Test 44COT Context;44COT Description GPXpressContext
+
+
+
+
+# ProductAvailabilityGroup
+INSERT_UPDATE ProductAvailabilityGroup;id[unique=true];description[lang=en];stores(uid)
+;gpemployee-availability;Multibrand Product availability Group for GPEmployee;gpemployee
+;dixie-availability;Multibrand Product availability Group for Dixie;dixie
+;b2bwhitelabel-availability;Multibrand Product availability Group for B2BWhitelabel;b2bwhitelabel
+;b2cwhitelabel-availability;Multibrand Product availability Group for B2CWhitelabel;b2cwhitelabel
+;gpxpress-availability;Multibrand Product availability Group for GPXpress;gpxpress
+
+
+
+
+# ProductAvailabilityAssignment for B2CWhitelabel
+$productCatalog=gpUSProductCatalog
+$availabilityGroup=b2cwhitelabel-availability
+$approvalStatus=approved 
+$catalogVersion=catalogVersion(catalog(id[default=$productCatalog]),version[default='Online'])[unique=true,default='$productCatalog:Online']
+INSERT_UPDATE ProductAvailabilityAssignment;product(code,$catalogVersion)[unique=true];availabilityGroup(id)[default=$availabilityGroup,unique=true];status(code)[default=$approvalStatus];onlineDate[dateformat=dd.MM.yyyy, default=01.02.2014];offlineDate[dateformat=dd.MM.yyyy];$catalogVersion
+;KIT01
+;KIT02
+;KIT03
+;KIT04
+;KIT05
+;KITVAR01
+;KITVAR02
+;KITVAR03
+;KITVAR04
+;KITVAR05
+;KIT111
+;KIT112
+;KIT113
+;KIT114
+;KIT115
+
+
+
+
+
+
+$productCatalog=gpUSProductCatalog
+$availabilityGroup=b2bwhitelabel-availability
+$approvalStatus=approved 
+$catalogVersion=catalogVersion(catalog(id[default=$productCatalog]),version[default='Online'])[unique=true,default='$productCatalog:Online']
+INSERT_UPDATE ProductAvailabilityAssignment;product(code,$catalogVersion)[unique=true];availabilityGroup(id)[default=$availabilityGroup,unique=true];status(code)[default=$approvalStatus];onlineDate[dateformat=dd.MM.yyyy, default=01.02.2014];offlineDate[dateformat=dd.MM.yyyy];$catalogVersion
+;KIT01
+;KIT02
+;KIT03
+;KIT04
+;KIT05
+;KITVAR01
+;KITVAR02
+;KITVAR03
+;KITVAR04
+;KITVAR05
+;KIT111
+;KIT112
+;KIT113
+;KIT114
+;KIT115
+
+
+
+
+
+
+
+
+
+
+# Insert Brand Specific Product prices
+$productCatalog=gpUSProductCatalog
+$productCatalogName=GP US Product Catalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Online'])[unique=true,default=$productCatalog:Online]
+
+# Brand specific Prices for Dixie
+INSERT_UPDATE PriceRow; product(code,$catalogVersion)[unique=true];ug(code)[unique=true];channel(code)[unique=true];currency(isocode)[unique=true];price[unique=true];unit(code)[default=pieces];net[default=true];salePrice[default=false]
+; KIT01;;;USD;80.99;CS; ;true
+; KIT02;;;USD;80.99;CS; ;true
+; KIT03;;;USD;80.99;CS; ;true
+; KIT04;;;USD;80.99;CS; ;true
+; KIT05;;;USD;80.99;CS; ;true
+
+; KIT111;;;USD;80.99;CS; ;true
+; KIT112;;;USD;80.99;CS; ;true
+; KIT113;;;USD;80.99;CS; ;true
+; KIT114;;;USD;80.99;CS; ;true
+; KIT115;;;USD;80.99;CS; ;true
+
+
+
+
+
+###########KIT VARIANT PRODUCTSS ::::
+
+
+
+
+$productCatalog=gpUSProductCatalog
+$productCatalogName=GP US Product Catalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Online'])[unique=true,default=$productCatalog:Online]
+$baseProduct=baseProduct(code, catalogVersion(catalog(id[default='$productCatalog']),version[default='Online']))
+$approved=approvalstatus(code)[default='approved']
+$taxGroup=Europe1PriceFactory_PTG(code)[default=us-sales-tax-full]
+$giftWrapProduct=giftWrapProduct(code, catalogVersion(catalog(id[default=$productCatalog]),version[default='Online']))
+$installationProduct=installationProduct(code, catalogVersion(catalog(id[default=$productCatalog]),version[default='Online']))
+
+
+
+INSERT_UPDATE VariantCategory; code[unique=true] ; name ;supercategories(code,$catalogVersion); hasImage ; $catalogVersion ; allowedPrincipals(uid)[default='customergroup']
+; TEST_KITCATEGORY         ; Color      ;            ; true;;;
+
+
+
+INSERT_UPDATE VariantValueCategory ; code[unique=true] ; name ; supercategories(code,$catalogVersion) ; sequence ; $catalogVersion ; allowedPrincipals(uid)[default='customergroup']
+; KITCAT01           ; 5.5        ; TEST_KITCATEGORY         ; 1;;;
+; KITCAT02           ; 5.5        ; TEST_KITCATEGORY         ; 2;;;
+; KITCAT03           ; 5.5        ; TEST_KITCATEGORY         ; 3;;;
+; KITCAT04           ; 5.5        ; TEST_KITCATEGORY         ; 4;;;
+; KITCAT05           ; 5.5        ; TEST_KITCATEGORY         ; 5;;;
+; KITCAT06           ; 5.5        ; TEST_KITCATEGORY         ; 6;;;
+
+
+
+
+ 
+ INSERT_UPDATE GPComponentProducts;code[unique=true]; kitcomponent(code,$catalogVersion);quantity
+;Component1;19375;2
+;Component2;19378;8
+;Component3;19378;8
+;Component4;19378;8
+;Component5;19378;8
+;Component6;19378;8
+
+
+INSERT_UPDATE GPProductKit;code[unique=true];$catalogVersion;supercategories(code,$catalogVersion);ean;unit(code);varianttype(code);$approved;$taxGroup;site(uid);kitcomponent(code);name[lang=en]
+;KIT01; ; TEST_KITCATEGORY;;CS;GPVariantProductKit;;;b2bwhitelabel,b2cwhitelabel;Component1,Component2;Kits Product KIT01
+;KIT02; ; TEST_KITCATEGORY;;CS;GPVariantProductKit;;;b2bwhitelabel,b2cwhitelabel;Component1,Component2;Kits Product KIT01
+;KIT03; ; TEST_KITCATEGORY;78731601919;CS;GPVariantProductKit;;;b2bwhitelabel,b2cwhitelabel;Component1,Component2;Kits Product KIT01
+;KIT04; ; TEST_KITCATEGORY;78731601919;CS;GPVariantProductKit;;;b2bwhitelabel,b2cwhitelabel;Component1,Component2;Kits Product KIT01
+;KIT05; ; TEST_KITCATEGORY;78731601919;CS;GPVariantProductKit;;;b2bwhitelabel,b2cwhitelabel;Component1,Component2;Kits Product KIT01
+
+
+
+INSERT_UPDATE GPVariantProductKit;code[unique=true];baseProduct(code,$catalogVersion);supercategories(code,$catalogVersion);$catalogVersion;ean;unit(code);$approved;$taxGroup;site(uid);kitcomponent(code);name[lang=en]
+;KITVAR01;KIT01;KITCAT01; ;;CS;;;b2bwhitelabel;Component1,Component2;Kits Product KIT01
+;KITVAR02;KIT02;KITCAT02; ;;CS;;;b2bwhitelabel;Component1,Component2;Kits Product KIT01
+;KITVAR03;KIT03;KITCAT03; ;;CS;;;b2bwhitelabel;Component1,Component2;Kits Product KIT01
+;KITVAR04;KIT04;KITCAT04; ;;CS;;;b2bwhitelabel;Component1,Component2;Kits Product KIT01
+;KITVAR05;KIT05;KITCAT05; ;;CS;;;b2bwhitelabel;Component1,Component2;Kits Product KIT01
+
+
+
+
+INSERT_UPDATE PriceRow; product(code,$catalogVersion)[unique=true];ug(code)[unique=true];gpUserPriceGroup(code)[unique=true];currency(isocode)[unique=true];price[unique=true];unit(code)[default=pieces];net[default=true];salePrice[default=false];;minAdvertisedPrice[default=false];startTime[dateformat=dd-MM-yyyy];endTime[dateformat=dd-MM-yyyy]
+;KITVAR01; ;;USD;82;CS; ; 
+;KITVAR02; ;;USD;45.99;CS; ; 
+;KITVAR03; ;;USD;76.98;CS; ; 
+;KITVAR04; ;;USD;87.99;CS; ; 
+;KITVAR05; ;;USD;68.98;CS; ; 
+
+
+
+
+
+
+
+
+

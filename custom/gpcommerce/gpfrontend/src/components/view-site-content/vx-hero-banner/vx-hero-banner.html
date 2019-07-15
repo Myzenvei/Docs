@@ -1,0 +1,124 @@
+<div class="vx-hero-banner">
+  <slot v-if="heroBannerData.componetType==='imageWrapper'">
+    <a :href="(heroBannerData.imageLink ? (heroBannerData.isExternalImage ? heroBannerData.imageLink : globals.getUrlWithContextPath(heroBannerData.imageLink)) : 'javascript:void(0)')"
+      class="banner" :class="heroBannerData.componentTheme" v-if="heroBannerData.imageLink" :style="[backgroundImage]"
+      :aria-label="[backgroundAlt]" :target="heroBannerData.isExternalImage?'_blank':''">
+      <div class="banner__promotion" :class="heroBannerData.textPosition">
+        <div class="headerLogo" v-if="heroBannerData.headerLogo">
+            <img :src="heroBannerData.headerLogo" :alt="heroBannerData.headerLogoImageAltText"/>
+        </div>
+        <div class="banner__heading my-xs-2 my-sm-4" :style="{color:heroBannerData.headingColor}" v-if='heroBannerData.headingText'
+          v-html="heroBannerData.headingText">
+        </div>
+        <h3 class="banner__subheading my-xs-2 my-sm-4" :style="{color:heroBannerData.subHeadingColor}" v-if='heroBannerData.subHeadingText'
+          v-html="heroBannerData.subHeadingText">
+        </h3>
+        <a :href="heroBannerData.isExternalLink ? heroBannerData.linkTo : globals.getUrlWithContextPath(heroBannerData.linkTo)"
+          class="btn" :class="heroBannerData.ctaStyle" :style="{color:heroBannerData.ctaColor,backgroundColor:heroBannerData.ctaBgColor}"
+          v-if="heroBannerData.ctaText && heroBannerData.linkTo && !heroBannerData.jumpToHtml" :target="heroBannerData.isExternalLink?'_blank':''"
+          v-html="heroBannerData.ctaText">
+        </a>
+        <a :href="heroBannerData.isExternalLink ? heroBannerData.linkTo : globals.getUrlWithContextPath(heroBannerData.linkTo)"
+          class="btn" :class="heroBannerData.ctaStyle" :style="{color:heroBannerData.ctaColor,backgroundColor:heroBannerData.ctaBgColor}"
+          v-if="heroBannerData.ctaText && heroBannerData.linkTo && heroBannerData.jumpToHtml" :target="heroBannerData.isExternalLink?'_blank':''"
+          v-html="heroBannerData.ctaText" @click="emitScrollSignal(heroBannerData.linkTo)">
+        </a>
+      </div>
+    </a>
+    <div class="banner" :class="heroBannerData.componentTheme" :style="[backgroundImage]" :aria-label="[backgroundAlt]"
+      v-else>
+      <div class="banner__promotion" :class="[heroBannerData.textPosition, 'hero-banner-text-content']" :style="[backgroundStyle]">
+          <div class="headerLogo" v-if="heroBannerData.headerLogo">
+              <img :src="heroBannerData.headerLogo" :alt="heroBannerData.headerLogoImageAltText"/>
+          </div>
+         <div class="banner__heading my-xs-2 my-sm-4 " :style="{color:heroBannerData.headingColor}" v-if='heroBannerData.headingText'
+          v-html="heroBannerData.headingText">
+        </div>
+        <h3 class="banner__subheading my-xs-2 my-sm-4" :style="{color:heroBannerData.subHeadingColor}" v-if='heroBannerData.subHeadingText'
+          v-html="heroBannerData.subHeadingText">
+        </h3>
+        <a :href="heroBannerData.isExternalLink ? heroBannerData.linkTo : globals.getUrlWithContextPath(heroBannerData.linkTo)"
+          class="btn" :class="heroBannerData.ctaStyle" :style="{color:heroBannerData.ctaColor,backgroundColor:heroBannerData.ctaBgColor}"
+          v-if="heroBannerData.ctaText && heroBannerData.linkTo && !heroBannerData.jumpToHtml" :target="heroBannerData.isExternalLink?'_blank':''"
+          v-html="heroBannerData.ctaText">
+        </a>
+        <a :href="heroBannerData.isExternalLink ? heroBannerData.linkTo : globals.getUrlWithContextPath(heroBannerData.linkTo)"
+          class="btn" :class="heroBannerData.ctaStyle" :style="{color:heroBannerData.ctaColor,backgroundColor:heroBannerData.ctaBgColor}"
+          v-if="heroBannerData.ctaText && heroBannerData.linkTo && heroBannerData.jumpToHtml" :target="heroBannerData.isExternalLink?'_blank':''"
+          v-html="heroBannerData.ctaText" @click="emitScrollSignal(heroBannerData.linkTo)">
+        </a>
+      </div>
+    </div>
+  </slot>
+  <slot v-else-if="heroBannerData.componetType==='divWrapper'">
+    <template v-if="heroBannerData.showTextFullWidth">
+      <div class="banner banner__text-full-width" :style="{backgroundColor:heroBannerData.wrapperBg}">
+        <div class="banner__promotion p-xs-4">
+            <div class="headerLogo" v-if="heroBannerData.headerLogo">
+                <img :src="heroBannerData.headerLogo" :alt="heroBannerData.headerLogoImageAltText"/>
+            </div>
+          <div class="banner__heading mt-xs-0 my-xs-2 my-sm-4 " :style="{color:heroBannerData.headingColor }" v-if='heroBannerData.headingText'
+            v-html="heroBannerData.headingText">
+          </div>
+          <h3 class="banner__subheading" :style="{color:heroBannerData.subHeadingColor}" v-if='heroBannerData.subHeadingText'
+            v-html="heroBannerData.subHeadingText">
+          </h3>
+          <a :href="heroBannerData.isExternalLink ? heroBannerData.linkTo : globals.getUrlWithContextPath(heroBannerData.linkTo)"
+            class="btn" :class="heroBannerData.ctaStyle" :style="{color:heroBannerData.ctaColor,backgroundColor:heroBannerData.ctaBgColor}"
+            v-if="heroBannerData.ctaText && heroBannerData.linkTo && !heroBannerData.jumpToHtml" :target="heroBannerData.isExternalLink?'_blank':''"
+            v-html="heroBannerData.ctaText">
+          </a>
+          <a :href="heroBannerData.isExternalLink ? heroBannerData.linkTo : globals.getUrlWithContextPath(heroBannerData.linkTo)"
+            class="btn" :class="heroBannerData.ctaStyle" :style="{color:heroBannerData.ctaColor,backgroundColor:heroBannerData.ctaBgColor}"
+            v-if="heroBannerData.ctaText && heroBannerData.linkTo && heroBannerData.jumpToHtml" :target="heroBannerData.isExternalLink?'_blank':''"
+            v-html="heroBannerData.ctaText" @click="emitScrollSignal(heroBannerData.linkTo)">
+          </a>
+        </div>
+      </div>
+    </template>
+    <template v-else>
+      <div class="banner banner__div" :class="heroBannerData.componentTheme" :style="{backgroundColor:heroBannerData.wrapperBg}">
+        <div class="banner__promotion" :class="heroBannerData.textPosition">
+            <div class="headerLogo" v-if="heroBannerData.headerLogo">
+              <img :src="heroBannerData.headerLogo" :alt="heroBannerData.headerLogoImageAltText"/>
+            </div>
+          <div class="banner__heading" :style="{color:heroBannerData.headingColor }" v-if='heroBannerData.headingText'
+            v-html="heroBannerData.headingText">
+          </div>
+          <h3 class="banner__subheading" :style="{color:heroBannerData.subHeadingColor}" v-if='heroBannerData.subHeadingText'
+            v-html="heroBannerData.subHeadingText">
+          </h3>
+          <a :href="heroBannerData.isExternalLink ? heroBannerData.linkTo : globals.getUrlWithContextPath(heroBannerData.linkTo)"
+            class="btn" :class="heroBannerData.ctaStyle" :style="{color:heroBannerData.ctaColor,backgroundColor:heroBannerData.ctaBgColor}"
+            v-if="heroBannerData.ctaText && heroBannerData.linkTo && !heroBannerData.jumpToHtml" :target="heroBannerData.isExternalLink?'_blank':''"
+            v-html="heroBannerData.ctaText">
+          </a>
+          <a :href="heroBannerData.isExternalLink ? heroBannerData.linkTo : globals.getUrlWithContextPath(heroBannerData.linkTo)"
+            class="btn" :class="heroBannerData.ctaStyle" :style="{color:heroBannerData.ctaColor,backgroundColor:heroBannerData.ctaBgColor}"
+            v-if="heroBannerData.ctaText && heroBannerData.linkTo && heroBannerData.jumpToHtml" :target="heroBannerData.isExternalLink?'_blank':''"
+            v-html="heroBannerData.ctaText" @click="emitScrollSignal(heroBannerData.linkTo)">
+          </a>
+        </div>
+      </div>
+    </template>
+  </slot>
+  <slot v-else-if="heroBannerData.componetType==='videoWrapper'">
+    <div class="banner banner__video-layer" :style="[backgroundImage]" :aria-label="[backgroundAlt]" :class="heroBannerData.componentTheme">
+      <div class="banner__promotion" :class="heroBannerData.textPosition">
+        <div class="banner__heading" :style="{color:heroBannerData.headingColor}" v-if='heroBannerData.headingText'
+          v-html="heroBannerData.headingText">
+        </div>
+        <h3 class="banner__subheading" :style="{color:heroBannerData.subHeadingColor}" v-if='heroBannerData.subHeadingText'
+          v-html="heroBannerData.subHeadingText">
+        </h3>
+        <a href="javascript:void(0)" class="btn" :class="heroBannerData.ctaStyle" :style="{color:heroBannerData.ctaColor,backgroundColor:heroBannerData.ctaBgColor}"
+          v-if="heroBannerData.ctaText" @click="openModal" :target="heroBannerData.isExternalLink?'_blank':''" v-html="heroBannerData.ctaText">
+        </a>
+      </div>
+      <a class="banner__video-play-icon banner__position__center icon-play" :aria-label="i18n.iconPlayTitle" href="javascript:void(0)"
+        @click="openModal" :style="{color:heroBannerData.playIconColor}" :title="i18n.iconPlayTitle">
+        <span class='sr-only'>{{i18n.iconPlayTitle}}</span>
+      </a>
+    </div>
+  </slot>
+</div>

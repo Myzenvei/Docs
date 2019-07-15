@@ -1,0 +1,74 @@
+#######  Brawny Categories  ###########
+
+$catalogVersion=catalogVersion(catalog(id[default='gpUSProductCatalog']),version[default='Staged'])[unique=true,default='gpUSProductCatalog:Staged']
+$categories=target(code, $catalogVersion)[unique=true]
+$supercategories=source(code, $catalogVersion)[unique=true]
+$lang=en
+
+# Create Categories
+INSERT_UPDATE Category;code[unique=true];$catalogVersion;supercategories(code,$catalogVersion);allowedPrincipals(uid)[default='customergroup']
+;brawnyshop;;
+;gear;;
+;tear-A-Square;;
+;pick-A-Size;;
+;fullSheet;;
+;clearance;;
+;allbrands-brawny;;
+
+INSERT_UPDATE Category;code[unique=true];supercategories(code,$catalogVersion);$catalogVersion;allowedPrincipals(uid)[default='customergroup']
+;tear-A-Square;brawnyshop;;
+;pick-A-Size;brawnyshop;;
+;fullSheet;brawnyshop;;
+;gear;brawnyshop;;
+
+
+
+UPDATE Category ; code[unique=true]; $catalogVersion ;name[lang=$lang];
+;brawnyshop;;Shop
+;gear;;Gear
+;tear-A-Square;;Tear-A-Square®
+;pick-A-Size;;Pick-A-Size®
+;fullSheet;;Full Sheet
+;clearance;;Clearance
+;allbrands-brawny;;All Brands
+
+####### Innovia Categories  #########
+
+$catalogVersion=catalogVersion(catalog(id[default='gpUSProductCatalog']),version[default='Staged'])[unique=true,default='gpUSProductCatalog:Staged']
+$categories=target(code, $catalogVersion)[unique=true]
+$supercategories=source(code, $catalogVersion)[unique=true]
+$lang=en
+
+# Create Categories
+INSERT_UPDATE Category;code[unique=true];$catalogVersion;supercategories(code,$catalogVersion);allowedPrincipals(uid)[default='customergroup']
+;innoviashop;;
+;undercabinet;;
+;countertop;;
+
+
+INSERT_UPDATE Category;code[unique=true];supercategories(code,$catalogVersion);$catalogVersion;allowedPrincipals(uid)[default='customergroup']
+;undercabinet;innoviashop;;
+;countertop;innoviashop;;
+
+
+UPDATE Category ; code[unique=true]; $catalogVersion ;name[lang=$lang];
+;innoviashop;;Shop
+;undercabinet;;Undercabinet
+;countertop;;Countertop
+
+
+
+####### Sparkle Categories  #########
+
+$catalogVersion=catalogVersion(catalog(id[default='gpUSProductCatalog']),version[default='Staged'])[unique=true,default='gpUSProductCatalog:Staged']
+$categories=target(code, $catalogVersion)[unique=true]
+$supercategories=source(code, $catalogVersion)[unique=true]
+$lang=en
+
+# Create Categories
+INSERT_UPDATE Category;code[unique=true];$catalogVersion;supercategories(code,$catalogVersion);allowedPrincipals(uid)[default='customergroup']
+;sparkleshop; ;
+
+
+UPDATE Category ; code[unique=true]; $catalogVersion ;name[lang=$lang];
+;sparkleshop;;Shop

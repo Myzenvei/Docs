@@ -1,0 +1,34 @@
+<div class="vx-image-download">
+  <h4 class="pt-xs-4">{{i18n.imageDownloadDescription}}</h4>
+  <p>{{i18n.imageDownloadcontent}}</p>
+  <div class="form-group box-container">
+    <input id="downloadAllImage" type="checkbox" v-model="imageInfo.allImages" @change="downloadAllImageChange" :aria-label="i18n.allImageDownloadCheckbox" />
+    <label for="downloadAllImage" :aria-hidden="isDeviceAndroid()">{{i18n.allImageDownloadCheckbox}}</label>
+  </div>
+  <p>{{i18n.allImageDownloadOption}}</p>
+  <div class="pt-xs-4 px-xs-0 col-sm-6 col-xs-12">
+    <h4>{{i18n.imageDownloadFileFormat}}</h4>
+    <div>
+      <vx-radio-button-group :radiobutton-values='formatOptions' name="formatOptions" v-model='imageInfo.format'
+        ref="format">
+      </vx-radio-button-group>
+    </div>
+  </div>
+  <div class="pt-sm-4 px-xs-0 col-sm-6 col-xs-12">
+    <h4>{{i18n.imageDownloadFileSize}}</h4>
+    <div>
+      <vx-radio-button-group :radiobutton-values='sizeOptions' name="sizeOptions" v-model='imageInfo.size' ref="size">
+      </vx-radio-button-group>
+    </div>
+  </div>
+  <div class="col-xs-12 px-xs-0 d-flex justify-content-center">
+    <button type="submit" :disabled="errors.any()" class="submit btn btn-primary modal-btn-primary-small" @click="downloadImagesZip()">{{i18n.imageDownloadButton}}</button>
+  </div>
+  <div class="mt-xs-4 col-xs-12 d-flex flex-column align-items-center disclaimer modal-btn-IEspacing modal-btn-EDGEspacing">
+    <p>{{i18n.disclaimerLine1}}</p>
+    <p>{{i18n.disclaimerLine2}}</p>
+    <div class="d-flex">
+      <p class="disclaimer-line">{{i18n.disclaimerLine3}} <a :href="i18n.privacyPolicyLink" :aria-label="i18n.disclaimerLine4">{{i18n.disclaimerLine4}}</a> {{i18n.disclaimerLine5}}</p>
+    </div>
+  </div>
+</div>

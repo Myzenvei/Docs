@@ -1,0 +1,62 @@
+<div class="vx-user-groups-landing px-xs-0 pt-xs-4 pt-sm-0 mt-sm-5">
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen></vx-spinner>
+  <vx-modal ref="createUserGroupModal" size="large" :heading="i18n.addUserGroup" @close="resetValues">
+    <div class="row" slot="component">
+      <form @submit.prevent="addUserGroup" class="col-xs-12" novalidate="true">
+        <div class="row">
+          <div class="mb-xs-4 form-group col-xs-12 col-md-6">
+            <label for="id" :aria-hidden="isDeviceAndroid()">{{i18n.id}}</label>
+            <input type="text" class="form-control" maxlength="35" v-validate="'required'" v-bind:class="{'input-error': errors.has('id')}"
+              name="id" v-model="userGroupDetails.id" :aria-label="i18n.id">
+            <div class="mt-xs-2" v-if="errors.has('id')">
+              <span class="error-msg">{{ errors.first('id') }}</span>
+            </div>
+          </div>
+          <div class="mb-xs-4 form-group col-xs-12 col-md-6">
+            <label for="userGroupName" :aria-hidden="isDeviceAndroid()">{{i18n.userGroupName}}</label>
+            <input type="text" class="form-control" maxlength="35" v-validate="'required'" v-bind:class="{'input-error': errors.has('userGroupName')}"
+              name="userGroupName" v-model="userGroupDetails.userGroupName" aria-label="i18n.userGroupName">
+            <div class="mt-xs-2" v-if="errors.has('userGroupName')">
+              <span class="error-msg">{{ errors.first('userGroupName') }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="mb-xs-3 mb-sm-5 form-group col-xs-12 col-md-6">
+            <label for="businessUnitDropdown" class="dropdown-label" :aria-hidden="!isTablet()">{{i18n.businessUnit}}</label>
+            <vx-dropdown-primary @selected-option="userGroupDetails.businessUnit=$event" v-validate="'required'"
+              :dropdownValues="businessUnitsList" ref="businessUnitDropdown" name="businessUnit" v-model="userGroupDetails.businessUnit.value"
+              :dropdownError="errors.has('businessUnit')"></vx-dropdown-primary>
+            <div class="mt-xs-2" v-if="errors.has('businessUnit')">
+              <span class="error-msg" aria-live="assertive">{{ errors.first('businessUnit') }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="row" v-if="isUserGroupExists">
+          <div class="col-xs-12 alert-msg p-xs-3 mb-xs-5 mt-xs-3">
+            {{isUserGroupExistsError}}
+          </div>
+        </div>
+        <div class="col-xs-12 text-center">
+          <button class="btn btn-primary save-btn modal-btn-primary-medium modal-btn-xs-sticky" type="submit">{{i18n.save}}</button>
+        </div>
+      </form>
+    </div>
+  </vx-modal>
+
+  <div class="d-flex justify-content-between ">
+    <h3 class="mt-xs-0">{{i18n.userGroups}}</h3>
+    <a href="javascript:void(0)" class="btn-link add-create-btn" @click="openAddUserGroupModal($event)" role='button'
+      :aria-label='i18n.createUserGroup'>
+      {{i18n.createUserGroup}}
+    </a>
+  </div>
+  <p class="mb-xs-4">
+    {{i18n.description}}
+  </p>
+  <div class="mb-xs-3" v-if="isMobile()">
+    <vx-dropdown-primary @selected-option="triggerSort($event, '#usergroups-data-table')" :dropdownValues="sortOptions" ref="sortDropdown"></vx-dropdown-primary>
+  </div>
+  <table class="display responsive no-wrap table" id="usergroups-data-table" width="100%" ref="userGroupsTable"></table>
+
+</div>

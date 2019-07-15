@@ -1,0 +1,291 @@
+#vanity-fair {
+  .search-browse-filter-comp {
+    .search-browse {
+      .facet-container {
+        @media screen and (min-width: @screen-md-min) {
+          margin-top: 36px;
+        }
+        .clear-all-filter {
+          color: @link-color;
+          text-decoration: @link-hover-decoration;
+          margin-top: 5px;
+        }
+        .facet-category {
+          .category-name {
+            text-transform: capitalize;
+            .facet-count {
+              color: @font-icon-color-5;
+            }
+          }
+          .form-group {
+            .facet-count {
+              font-size: @font-size-small;
+              margin-top: 2px;
+            }
+          }
+        }
+      }
+      .tile-container {
+        .header-bar {
+          border-bottom: none;
+          .header-dropdown .heading {
+            @media screen and (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+              padding-top: 16px !important;
+            }
+            .product-length-section {
+              padding-right: 8px;
+              color: @font-icon-color-5;
+            }
+          }
+        }
+        .applied-filter-section {
+          .applied-filter {
+            .filter-list {
+              border: 1px solid @tag-border-color;
+            }
+          }
+        }
+        .search-browse-list-page {
+          @media screen and (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+            padding-top: 0 !important;
+          }
+        }
+      }
+      .search-browse-product-tile {
+        .tile-body {
+          width: 144px;
+          @media screen and (min-width: @screen-md-min) {
+            width: 184px;
+          }
+          .btn {
+            margin-top: 24px;
+            margin-bottom: 24px;
+          }
+          a {
+            padding-top: 16px !important;
+            @media screen and (min-width: @screen-sm-min) {
+              padding-top: 24px !important;
+            }
+            h6 {
+              font-size: @font-size-small;
+              @media screen and (min-width: @screen-md-min) {
+                font-size: @font-size-base;
+              }
+            }
+          }
+          .bottom-section {
+            .product-id {
+              padding-bottom: 0 !important;
+            }
+            .vx-star-rating {
+              .star-rating {
+                padding-top: 8px;
+              }
+              .review-section {
+                font-size: 11px;
+                @media screen and (min-width: @screen-md-min) {
+                  font-size: @font-size-small;
+                }
+              }
+            }
+            .error-text {
+              padding-bottom: 0 !important;
+              padding-top: 8px;
+            }
+          }
+        }
+        .tile-image {
+          width: 144px;
+          height: 144px;
+          @media screen and (min-width: @screen-md-min) {
+            width: 184px;
+            height: 197px;
+          }
+        }
+      }
+    }
+    .search-heading-desktop {
+      padding-top: 0 !important;
+      font-weight: @font-weight-regular;
+      color: @font-color-input-text;
+      margin-bottom: 0 !important;
+      .searched-term {
+        font-weight: @font-weight-medium;
+        color: @font-color-input-text;
+      }
+    }
+    #pane-content {
+      .tile-container {
+        .content-section {
+          a {
+            text-decoration: @link-hover-decoration;
+            font-size: @font-size-large;
+            font-weight: @font-weight-medium;
+            color: @text-color;
+          }
+          p {
+            font-size: @font-size-base;
+            font-weight: @font-weight-regular;
+            color: @text-color;
+            padding-top: 8px;
+            padding-bottom: 0;
+            line-height: 20px;
+          }
+        }
+        .header-bar .header-dropdown .heading .product-length-section {
+          color: @font-icon-color-5;
+        }
+        .header-bar
+          .header-dropdown
+          .content-dropdown
+          .dropdown-primary
+          .dropdown
+          .dropdown-btn {
+          border: 1px solid @border-color-9;
+        }
+      }
+      .back-to-top-icon {
+        width: auto;
+      }
+    }
+    .tab-container {
+      margin-top: 0;
+      @media screen and (min-width: @screen-sm-min) {
+        margin-top: 16px;
+      }
+      @media screen and (min-width: @screen-md-min) {
+        margin-top: 24px;
+      }
+      .nav-tabs {
+        & > li.active {
+          & > a {
+            border-bottom: 4px solid @tab-selected-border-color;
+            color: @text-color;
+          }
+        }
+        & > li {
+          a {
+            color: @text-color;
+            padding-top: 0;
+          }
+        }
+      }
+      &.no-result-found {
+        min-height: 60vh;
+        margin: 24px 0 0 0;
+        padding: 24px 24px 0 24px;
+        @media screen and (min-width: @screen-sm-min) {
+          margin: 24px 32px 0 32px;
+          padding: 24px 32px 0 32px;
+        }
+        @media screen and (min-width: @screen-md-min) {
+          min-height: 40vh;
+          max-width: max-content;
+          padding: 32px 40px 0 40px;
+          margin: 32px auto 0 auto;
+        }
+        .no-results-content {
+          color: @font-icon-color-5;
+        }
+      }
+      .form-group [type='checkbox']:checked + label:before,
+      .form-group [type='checkbox']:not(:checked) + label:before,
+      .form-group [type='checkbox']:checked + label:after {
+        width: 18px;
+        height: 18px;
+        border: 2px solid @btn-default-border;
+      }
+      .search-results-heading-section {
+        padding-bottom: 24px;
+        @media screen and (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+          padding-top: 16px;
+        }
+        h3 {
+          font-size: @font-size-large;
+          @media screen and (min-width: @screen-sm-min) {
+            font-size: @font-size-h3;
+          }
+          @media screen and (min-width: @screen-md-min) {
+            font-size: @font-size-h2;
+          }
+        }
+        &.empty-search-heading {
+          font-weight: @font-weight-regular;
+        }
+        .searched-term {
+          font-weight: @font-weight-medium;
+          color: @font-color-input-text;
+        }
+      }
+    }
+    .no-results-content {
+      color: @font-icon-color-5;
+    }
+    @media screen and (max-width: @screen-xs-max) {
+      .search-browse-filter-comp {
+        .no-results-content {
+          line-height: 21px;
+          padding-top: 8px !important;
+        }
+        .search-results-heading-section {
+          padding: 16px 0 16px 0 !important;
+          .searched-term {
+            font-weight: @font-weight-medium;
+            color: @font-color-input-text;
+          }
+          h3 {
+            font-size: @font-size-large;
+          }
+        }
+        .tab-content {
+          .pane-products {
+            .card-header {
+              h5 {
+                margin: 24px 0;
+
+                a {
+                  text-decoration: none !important;
+                  color: @text-color;
+                }
+              }
+            }
+          }
+          .pane-content {
+            .card-header {
+              h5 {
+                margin: 8px 0;
+                a {
+                  text-decoration: none !important;
+                  color: @text-color;
+                }
+              }
+            }
+          }
+          .pane-content,
+          .pane-products {
+            .card-body {
+              .tile-container {
+                .header-bar {
+                  .heading {
+                    padding: 0 !important;
+                  }
+                  .applied-filter-section {
+                    .applied-filter {
+                      padding-top: 24px;
+                      padding-bottom: 0;
+                    }
+                  }
+                }
+                .list-page-wrapper {
+                  .search-browse-list-page {
+                    padding-top: 24px;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

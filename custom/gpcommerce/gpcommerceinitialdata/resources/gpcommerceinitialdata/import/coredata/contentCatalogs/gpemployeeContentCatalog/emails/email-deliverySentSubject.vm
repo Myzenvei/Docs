@@ -1,0 +1,1 @@
+${ctx.messages.getMessage('emailSubject', ${ctx.baseSite.Name}, ${ctx.order.code})}

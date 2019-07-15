@@ -1,0 +1,64 @@
+#gp-employee {
+  .vx-product-tile {
+    margin-bottom: 16px;
+    .product-tile {
+      border: none;
+      border-radius: @card-layout-border-radius;
+      background-color: @horizontal-card-bg-color;
+      padding: 16px 24px;
+      .main-section {
+        .left-section {
+          .product-image {
+            border: none;
+            border-radius: @card-layout-border-radius;
+            background-color: @card-layout-bg-color;
+            padding: 10px 5px !important;
+            height: 90px;
+            width: 120px;
+            img {
+              width: auto;
+            }
+          }
+          .product-icons {
+            display: none;
+          }
+        }
+        .card-content-section {
+          .card-content {
+            .card-content-left-section {
+              .product-title {
+                a {
+                  font-size: @font-size-h3;
+                }
+              }
+              .product-code {
+                font-size: @font-size-medium;
+              }
+              p {
+                margin-bottom: 8px !important;
+                &:not(.product-stock) {
+                  color: @product-tile-text-color;
+                }
+                &.error-text {
+                  color: @text-color-error;
+                  font-weight: @font-weight-medium;
+                }
+                &.product-price {
+                  .product-old-price {
+                    font-size: @font-size-medium;
+                    padding-left: 16px;
+                  }
+                }
+              }
+            }
+            .card-content-right-section {
+              .product-total-price {
+                color: @product-tile-text-color;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

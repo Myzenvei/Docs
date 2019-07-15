@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>Pinterest</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M7.00218325,11.6046313 C6.06310237,11.5289755 5.66894582,11.0462965 4.93272257,10.5824659 C4.52776445,12.7851242 4.03306239,14.8969954 2.56773281,16 C2.11542947,12.6708289 3.23177731,10.1703641 3.75015198,7.51591748 C2.86623989,5.97217185 3.85660302,2.86572736 5.72118709,3.63144823 C8.01525996,4.57287913 3.73435341,9.36987823 6.60807718,9.96910389 C9.60874469,10.5945081 10.8335626,4.56879529 8.97326883,2.60928286 C6.28468609,-0.22024555 1.14772946,2.54483141 1.77926829,6.59574351 C1.93306455,7.5862329 2.91949065,7.88670963 2.17357626,9.25348866 C0.45289542,8.85793165 -0.0605327273,7.45026182 0.00553859047,5.57357814 C0.111989629,2.50189869 2.6663098,0.351178557 5.22850402,0.0537908962 C8.46852233,-0.322289309 11.50962,1.28747848 11.9295691,4.44910722 C12.4022138,8.01760208 10.4668137,11.8823851 7.00218325,11.6046313" id="path-1"></path>
+    </defs>
+    <g id="Pinterest" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Assets/Pinterest">
+            <g id="Outline/Circle/Light-Warm-Grey" stroke="#DCD8D5">
+                <rect id="Rectangle" x="0.5" y="0.5" width="31" height="31" rx="15.5"></rect>
+            </g>
+            <g id="🎨Color" fill-rule="evenodd" transform="translate(10.000000, 8.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <use id="Mask" fill="#37302C" xlink:href="#path-1"></use>
+                <g id="Color/Secondary/Medium-Warm-Grey" mask="url(#mask-2)" fill="#534843">
+                    <g transform="translate(-10.000000, -8.000000)">
+                        <rect x="0" y="0" width="24" height="24"></rect>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

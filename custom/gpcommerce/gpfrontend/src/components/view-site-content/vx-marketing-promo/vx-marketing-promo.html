@@ -1,0 +1,8 @@
+<div class="view-site-content-vx-marketing-promo d-flex justify-content-center py-xs-2 px-xs-3" :style="[backgroundStyle]"
+  :id="promotionData.componentId" :aria-label="[backgroundAlt]">
+  <h5 class="promo-header" :style="[fontStyle]" v-if="!promotionData.url" v-html="promotionData.header"></h5>
+  <a :href="promotionData.isExternalLink ? promotionData.url : globals.getUrlWithContextPath(promotionData.url)"
+    :target="promotionData.isExternalLink?'_blank':''" v-else>
+    <h5 class="promo-header" :style="[fontStyle]" v-html="promotionData.header"></h5>
+  </a>
+</div>

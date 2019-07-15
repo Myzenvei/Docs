@@ -1,0 +1,49 @@
+<div class="vx-product-tile">
+
+  <div class="product-tile">
+    <!-- This is for upper Section -->
+    <div class="upper-section">
+      <slot name="upper-full-slot"></slot>
+    </div>
+    <slot name="promo-section"></slot>
+    <div class="main-section">
+
+      <div class="left-section">
+        <div class="product-image p-md-4 p-sm-1 p-xs-1">
+          <slot name="image-slot"></slot>
+        </div>
+        <div class="product-icons">
+          <slot name="product-icons-slot"></slot>
+        </div>
+        <div class="">
+          <slot name="left-full-slot"></slot>
+        </div>
+      </div>
+      <div class="card-content-section">
+        <div class="card-content">
+          <div class="card-content-left-section">
+            <slot name="details"></slot>
+          </div>
+
+          <div class="card-content-right-section">
+            <slot name="right-section-slot"></slot>
+          </div>
+        </div>
+        <div class="card-content-bottom-section">
+          <slot name="card-content-bottom"></slot>
+        </div>
+      </div>
+      <div class="top-right">
+        <slot name="top-right"></slot>
+      </div>
+    </div>
+    <!-- This is full bottom Section -->
+    <div class="bottom-section">
+      <slot name="bottom-full-slot">
+      </slot>
+    </div>
+  </div>
+
+</div>
+
+</div>

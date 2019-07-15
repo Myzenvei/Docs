@@ -1,0 +1,41 @@
+<section class="search-browse-auto-suggest d-flex flex-column">
+  <p>
+    <div class="sr-only" v-if="!isDeviceAndroid()">{{i18n.allySearchLabel}}</div>
+    <div class="d-flex justify-content-center">
+      <div class="inner-addon">
+        <div class="right-addon mr-sm-0 mr-xs-2 d-flex">
+          <div v-if="isB2B" class="dropdown">
+            <vx-dropdown-primary @selected-option="getSelectedDropdown($event)" :dropdownValues="categoryValues"
+              ref="category"></vx-dropdown-primary>
+          </div>
+          <div class="left-addon">
+            <button @click="clearSearch($event)" @keyup.enter-space="clearSearch($event)" tabindex="0"
+              :aria-label="i18n.iconXTitle" class="icon-x" v-if="clearTextIcon" :title="i18n.iconXTitle">
+            </button>
+            <span class="icon-search" v-if="!searchIconDisabled" :title="i18n.iconSearchTitle" aria-hidden="true">
+            </span>
+            <input v-model="searchTerm" v-bind:class="{'searchbar':isB2B}" type="text" v-on:keyup="autosuggest"
+              placeholder="Search" class="form-control autosuggest-input" v-on:input="searchTerm = $event.target.value"
+              :aria-label="i18n.allySearchLabel">
+          </div>
+        </div>
+      </div>
+    </div>
+  </p>
+  <div v-if="productList.length>0" class="d-flex justify-content-center" @click.stop="">
+    <div v-if="showAutosuggestPanel" class="autosuggest-panel">
+      <div class="d-flex view-all justify-content-between">
+        <h5 role="heading">{{i18n.heading}}</h5>
+        <a href='#' @click='viewAllClicked($event)'>
+          <h5>{{i18n.viewAllLinkText}} "{{ searchTerm }}"</h5>
+        </a>
+      </div>
+      <div class="d-flex" :class="singleProductEnabled && isMobile()?'product-tile-single-product':'product-tile'">
+        <vx-product-tile-vertical v-bind:is-bazaar-voice="isBazaarVoice"
+          :key="(product && product.code)? product.code + $index : product" v-for="product in productList"
+          :product="product" :is-favorite-visible="isFavorites" :is-item-id-hide=false
+          :i18n="searchBrowseI18n.productTile"></vx-product-tile-vertical>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,850 @@
+##messageSource=classpath:/gpcommerceinitialdata/import/coredata/contentCatalogs/b2cwhitelabelContentCatalog/messages/email-orderCancelled_$lang.properties
+#macro( genHtmlBoldFont $text )
+<font color="#414a4f" size="2" face="Arial, Helvetica, sans-serif"><b>$text</b></font>
+#end
+#macro(genHtmlLinkStartTag $url)
+<a href="$url">
+  <font color="#666666">
+    #end
+    #macro(genHtmlLinkEndTag)
+  </font>
+</a>
+#end
+#macro(genHtmlLink $url $textColor $bodyContent)
+<a href="$url">
+  <font color="$textColor">$bodyContent</font>
+</a>
+#end
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=no;">
+<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
+<link href="https://fonts.googleapis.com/css?family=Poppins:400,500,700" rel="stylesheet" />
+
+<style>
+  #outlook a {
+    padding: 0;
+  }
+
+  body {
+    width: 100% !important;
+    -webkit-text;
+    size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    margin: 0;
+    font-family: lato, 'Poppins', lato, 'Poppins', Helvetica, Roboto, Arial;
+    padding: 0;
+  }
+
+  .ReadMsgBody {
+    width: 100%;
+  }
+
+  .ExternalClass {
+    width: 100%;
+  }
+
+  .backgroundTable {
+    margin: 0 auto;
+    padding: 0;
+    width: 100%;
+  }
+
+  table td {
+    border-collapse: collapse;
+  }
+
+  .ExternalClass * {
+    line-height: 115%;
+  }
+
+  /*Themeing styles*/
+
+  .mail-heading {
+    font-size: 21px;
+    color: #222222;
+    font-weight: 400;
+    line-height: 25px;
+  }
+
+  *[class="m-show"] {
+    display: none !important;
+  }
+
+  *[class="d-hide"] {
+    display: block !important;
+  }
+
+  *[class="td-5"] {
+    margin-bottom: 24px;
+    display: block;
+  }
+
+  *[class="td-link"] {
+    color: #167BB4;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.15px;
+    line-height: 16px;
+    text-decoration: none;
+  }
+
+  .container {
+    padding: 56px;
+  }
+
+  .social-icons {
+    padding-right: 19px;
+    padding-left: 0;
+    text-decoration: none;
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+  }
+
+  .social-icons img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .copyright-text {
+    color: #747678;
+    font-size: 14px;
+  }
+
+  *[class="border-top"] {
+    border-top: 1px solid #cecece;
+  }
+
+  *[class="email-footer"] {
+    background-color: #dfdfdf;
+    display: block;
+    margin-top: 32px;
+  }
+
+  .align-d-right {
+    float: right;
+  }
+
+  .mr-2 {
+    margin: 10px;
+    display: block;
+  }
+
+  .container {
+    padding: 56px;
+  }
+
+  .sm-pb-8 {
+    padding-bottom: 8px;
+  }
+
+  .sm-pb-16 {
+    padding-bottom: 16px;
+  }
+
+  .sm-pb-24 {
+    padding-bottom: 24px;
+  }
+
+  .sm-padding {
+    padding: 24px;
+  }
+
+  .product-data {
+    width: 80%;
+  }
+
+  .product-price {
+    width: 20%;
+    text-align: right;
+  }
+
+  .product {
+    width: 80%;
+  }
+
+  .product-img {
+    width: 15%;
+    padding-right: 24px;
+  }
+
+  .product-img img {
+    padding: 18px 6px;
+    border: .5px solid #CECECE;
+    height: 142px;
+    width: 142px;
+  }
+
+  .order-summary {
+    margin: 32px 40px 32px 0;
+    margin-left: 65%;
+  }
+
+  /* These are our mobile screen media queries */
+  @media screen and (max-width: 1199px) {
+    body>table {
+      width: 768px;
+    }
+
+    .content-slot {
+      padding-left: 32px;
+      padding-right: 32px;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    body>table {
+      width: 360px;
+    }
+
+    .content-slot {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+  }
+
+  @media screen and (max-width: 766px) {
+
+    .wrapper {
+      width: 100%;
+    }
+
+    /* Display block allows us to stack elements */
+    *[class="mobile-column"] {
+      display: block;
+    }
+
+    /* Some more stacking elements */
+    *[class="mob-column"] {
+      float: none !important;
+      width: 100% !important;
+    }
+
+    /* Hide stuff */
+    *[class="d-hide"] {
+      display: none !important;
+    }
+
+    *[class="m-show"] {
+      display: block !important;
+    }
+
+    /* This sets elements to 100% width and fixes the height issues too, a god send */
+    *[class="100p"] {
+      width: 100% !important;
+      height: auto !important;
+    }
+
+    /* For the 2x2 stack */
+    *[class="condensed"] {
+      padding-bottom: 40px !important;
+      display: block;
+    }
+
+    /* Centers content on mobile */
+    *[class="center"] {
+      text-align: center !important;
+      width: 100% !important;
+      height: auto !important;
+    }
+
+    /* 100percent width section with 20px padding */
+    *[class="100pad"] {
+      width: 100% !important;
+      padding: 20px;
+    }
+
+    /* 100percent width section with 20px padding left & right */
+    *[class="100padleftright"] {
+      width: 100% !important;
+      padding: 0 20px 0 20px;
+    }
+
+    /* 100percent width section with 20px padding top & bottom */
+    *[class="100padtopbottom"] {
+      width: 100% !important;
+      padding: 20px 0 20px 0;
+    }
+
+    *[class="td-m-block"] {
+      display: block;
+    }
+
+    .footer-m-block {
+      display: block;
+    }
+
+    .followUs-m-left {
+      margin: 10px 10px 10px 3px;
+    }
+
+    .align-m-left {
+      float: left;
+    }
+
+    .align-d-right {
+      float: left;
+    }
+  }
+</style>
+#if(${ctx.order.status} == "CANCELLED")
+
+<body style="padding:0; margin:0;color: #222222;">
+  <table cellspacing="0" cellpadding="0" align="center" border="0" width="800" bgcolor="#ffffff" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 800px;">
+    <tr>
+      <td valign="top" align="left" width="100%" style="border-collapse: collapse; font-family:'Gotham A', 'Gotham B', lato, Helvetica, Arial, Verdana, sans-serif;">
+        <table cellspacing="0" cellpadding="0" align="left" border="0" width="100%" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+          <tr>
+            <td valign="top" align="left" width="100%" height="73px" style="border-collapse: collapse; font-family:'Gotham A', 'Gotham B', lato, Helvetica, Arial, Verdana, sans-serif;">
+              <a href="${ctx.secureBaseUrl}">
+                ${ctx.cmsSlotContents.SiteLogo}
+              </a>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+  <table cellspacing="0" cellpadding="0" align="center" border="0" width="700" bgcolor="#ffffff" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 700px;">
+    <tr>
+      <td valign="top" align="left" width="100%" style="font-family: 'Gotham A', 'Gotham B', lato, Helvetica, Roboto, Arial;">
+        <table cellspacing="0" cellpadding="0" align="left" border="0" width="100%" bgcolor="#ffffff" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+          <tr>
+            <td valign="top" align="left" width="100%" colspan="4" class="txt-large txt-weight-regular txt-default-color py-4"
+              style="font-size: 21px; color: #222222; font-weight: 400; padding-top: 24px; padding-bottom: 24px; font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif;">
+              ${ctx.messages.emailTitle}
+            </td>
+          </tr>
+          <tr>
+            <td valign="top" align="left" width="100%" colspan="4" class="pb-4" style="padding-bottom: 24px; font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif;">
+              <p class="txt-regular txt-default-color txt-weight-regular" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #222222; font-weight: 400; font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif;">
+                ${ctx.messages.getMessage('emailSubTitle', ${ctx.baseSite.Name})}
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td valign="top" align="left" width="100%" colspan="4" class="pb-4" style="margin: 0; font-weight: 500; padding-bottom: 24px; font-family: lato, 'Poppins',lato, 'Poppins',Helvetica, Arial, Verdana, sans-serif;">
+              <p class="txt-regular txt-default-color txt-weight-regular" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #222222; font-weight: 500; font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif;">
+                ${ctx.messages.getMessage('orderNumber', ${ctx.order.code})}
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td style="color: #222222; font-size: 14px; font-weight: 500;padding-top: 0px; padding-left: 0px; padding: right 0px; padding-bottom: 8px; ">
+              <p style="margin: 0;color: #222222; font-size: 14px; font-weight: 500;">${ctx.messages.orderPlaced}</p>
+            </td>
+          </tr>
+          <tr>
+            <td style="color: #222222; font-size: 14px; font-weight: 400;padding-top: 0px; padding-left: 0px; padding: right 0px; padding-bottom: 0px; ">
+              <p style="margin: 0;color: #222222; font-size: 14px; font-weight: 400;">${ctx.createdDate}</p>
+            </td>
+          </tr>
+          <tr>
+            <td valign="top" align="left" width="100%" class=" pt-4" style="padding-top: 24px;padding-bottom: 8px; font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif;">
+              <p class="txt-regular txt-default-color txt-weight-semi-bold" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #222222; font-weight: 400; font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif;">
+                ${ctx.messages.emailDividerTitle}
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td valign="top" align="left" width="100%" class="pb-2" style="padding-bottom: 24px;font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif;padding-bottom: 16px;">
+              <p class="txt-regular txt-default-color txt-weight-semi-bold" style="margin: 0;color: #222222; font-size: 14px;	font-weight: 400;">
+                ${ctx.messages.contactUs}
+                <a href="${ctx.contactUsPageUrl}" title="" style="text-decoration: none; outline: none; border: none;"
+                  target="_blank">
+                  ${ctx.messages.customerCare}
+                </a>
+              </p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+  <table cellspacing="0" cellpadding="0" align="center" border="0" width="700" bgcolor="#ffffff" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 700px;">
+    <tr>
+      <td valign="top" align="left" width="100%" style="font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif;">
+        <table class="border-all" cellspacing="0" cellpadding="0" align="left" border="0" width="100%" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-top: 1px solid #cecece;border-bottom: 1px solid #cecece;border-left: 1px solid #cecece;border-right: 1px solid #cecece;">
+          #foreach( $entry in ${ctx.order.entries} )
+          <tr>
+            <td valign="top" align="left" colspan="4" style="font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif;">
+              <table cellspacing="0" cellpadding="0" align="center" width="100%" bgcolor="#ffffff" class="border-bottom border-top "
+                style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;border-bottom: 1px solid #cecece;">
+                <tr>
+                  <td align="center" class="py-4" style="width:22%;vertical-align: top;padding-left: 20px;padding-right: 0px;padding-top: 24px; padding-bottom: 24px; font-family: 'Gotham A', 'Gotham B', lato, Helvetica, Roboto, Arial;">
+                    #foreach($image in $entry.product.images) #if($image.imageType == "PRIMARY" && $image.format ==
+                    "thumbnail" )
+                    <div style="height: 130px; width: 130px; display: table-cell; vertical-align: middle;margin:0; border-top: 1px solid #cecece; border-left: 1px solid #cecece;border-right: 1px solid #cecece;border-bottom: 1px solid #cecece;">
+                      <img src="$image.url" alt="" style="max-width: 100%; max-height: 100%; width: auto;text-decoration: none; -ms-interpolation-mode: bicubic; margin: 0; padding: 0; line-height: 1.428571429; display: block; outline: none;">
+                    </div>
+                    #end
+                    #end
+                  </td>
+                  <td align="center" valign="top" style="padding-top: 24px; padding-bottom: 24px; padding-left: 10px; padding-right:  24px; font-family:'Gotham A', 'Gotham B', lato, Helvetica, Roboto, Arial;">
+                    <table cellspacing="0" cellpadding="0" align="center" width="100%" bgcolor="#ffffff" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+                      <tr>
+                        <td style="padding-top: 0px; padding-bottom: 8px; padding-left: 0px; padding-right: 0px; font-family: 'Gotham A', 'Gotham B', lato, Helvetica, Roboto, Arial;">
+                          <a class="txt-large txt-default-color txt-weight-semi-bold " href="${ctx.secureBaseUrl}$entry.product.url"
+                            title="" style="margin: 0; padding: 0; line-height: 1.428571429; color: #167bb4; letter-spacing: 0.15px; font-size: 21px; font-weight: 500; display: block; text-decoration: none; outline: none; border: none; font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif;"
+                            target="_blank">
+                            $entry.product.name
+                          </a>
+                        </td>
+                        <td style="display:none;font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif;">
+                          &nbsp;
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding-right: 0px; padding-top: 0px; padding-left: 0px; padding-bottom:8px;font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif;">
+                          <p class="txt-weight-regular txt-item-color txt-regular" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #747678; font-weight: 400; font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif;">
+                            ${ctx.messages.getMessage('itemID',$entry.product.code)}
+                          </p>
+                        </td>
+                        <td style="font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif;">
+                          &nbsp;
+                        </td>
+                      </tr>
+                      #if(${ctx.multipleShipping} == "true")
+                      #foreach ($entryNumber in $ctx.splitEntriesMap.keySet())
+                      #if($entry.entryNumber == $entryNumber)
+                      <tr>
+                        <td style="padding-right: 0px; padding-top: 0px; padding-left: 0px; padding-bottom: 8px; font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif;">
+                          <p class="txt-regular txt-default-color txt-weight-regular" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #222222; font-weight: 400; font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif;">
+                            ${ctx.messages.getMessage('quantity',$ctx.splitEntriesMap.get($entryNumber))}
+                          </p>
+                        </td>
+                        <td style="font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif;">
+                          &nbsp;
+                        </td>
+                      </tr>
+                      #end
+                      #end
+                      #else
+                      #foreach( $splitEntry in $entry.splitEntries )
+                      <tr>
+                        <td style="padding-right: 0px; padding-top: 0px; padding-left: 0px; padding-bottom: 8px; font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif;">
+                          <p class="txt-regular txt-default-color txt-weight-regular" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #222222; font-weight: 400; font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif;">
+                            ${ctx.messages.getMessage('quantity',$splitEntry.qty)}
+                          </p>
+                        </td>
+                        <td style="font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif;">
+                          &nbsp;
+                        </td>
+                      </tr>
+                      #end
+                      #end
+                      <tr>
+                        <td style="fpadding-right: 0px; padding-top: 0px; padding-left: 0px; padding-bottom: 8px; font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif;">
+                          #if($entry.giftWrapped == true)
+                          <p class="txt-regular txt-default-color txt-weight-regular" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #222222; font-weight: 400; font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif;">
+                            ${ctx.messages.gift}
+                          </p>
+                          <p class="txt-regular txt-default-color txt-weight-regular" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #222222; font-weight: 400; font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif;">
+                            $entry.giftMessage
+                          </p>
+                          #end
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          #end
+        </table>
+      </td>
+    </tr>
+  </table>
+  <table cellspacing="0" cellpadding="0" align="center" border="0" width="700" bgcolor="#ffffff" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 700px;">
+    <tr>
+      <td valign="top" align="left" width="100%" style="font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif; padding-top: 24px;">
+        <table cellspacing="0" cellpadding="0" align="left" border="0" width="50%" bgcolor="#ffffff" class="pl-6" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+          <tr>
+            <td valign="top" align="left" width="100%" style="font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif; bgcolor:#fafafa;padding-right: 24px; padding-left: 24px;background-color: #fafafa;">
+              <table cellspacing="0" cellpadding="0" align="left" border="0" width="100%" class="bg-summary px-4" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+                <tr>
+                  <td colspan="2" valign="top" align="left" width="100%" class="py-4" style="padding-top: 24px; padding-bottom: 24px;font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif;">
+                    <p class="txt-large txt-default-color txt-weight-regular" style="margin: 0; padding: 0; line-height: 1.428571429; font-size: 21px; color: #222222; font-weight: 400; font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif;">
+                      ${ctx.messages.orderSummary}
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td valign="top" align="left" width="60%" class="pb-3" style="padding-bottom: 16px; font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif;">
+                    <p class="txt-regular txt-default-color txt-weight-regular" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #222222; font-weight: 400; font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif;">
+                      ${ctx.messages.subtotal}
+                      (${ctx.messages.getMessage('orderSummaryItems',${ctx.cancelledQty})})
+                    </p>
+                  </td>
+                  <td valign="top" align="right" width="" class="pb-3" style="padding-bottom: 16px; font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif;">
+                    <p class="txt-regular txt-default-color txt-weight-semi-bold" style="margin: 0; padding: 0; line-height: 1.428571429; font-size: 14px; color: #222222; font-weight: 500; font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif;">
+                      ${ctx.order.subTotal.formattedValue}
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td valign="top" align="left" width="" class="pb-3" style="padding-bottom: 16px; font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif;">
+                    <p class="txt-regular txt-default-color txt-weight-regular" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #222222; font-weight: 400; font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif;">
+                      ${ctx.messages.shipping}
+                    </p>
+                  </td>
+                  <td valign="top" align="right" width="" class="pb-3" style="padding-bottom: 16px; font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif;">
+                    <p class="txt-regular txt-default-color txt-weight-semi-bold" style="margin: 0; padding: 0; line-height: 1.428571429; font-size: 14px; color: #222222; font-weight: 500; font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif;">
+                      ${ctx.totalDeliveryCost}
+                    </p>
+                  </td>
+                </tr>
+                #if(${ctx.order.totalDiscounts} && ${ctx.order.totalDiscounts.formattedValue} != "$0.00" )
+                <tr>
+                  <td valign="top" align="left" width="" class="pb-3" style="padding-bottom: 16px; font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif;">
+                    <p class="txt-regular txt-default-color txt-weight-regular" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #222222; font-weight: 400; font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif;">
+                      ${ctx.messages.mySavings}
+                    </p>
+                  </td>
+                  <td valign="top" align="right" width="" class="pb-3" style="padding-bottom: 16px; font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif;">
+                    <p class="txt-regular txt-price-color txt-weight-semi-bold" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #417505; font-weight: 500; font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif;">
+                      - ${ctx.order.totalDiscounts.formattedValue}
+                    </p>
+                  </td>
+                </tr>
+                #end
+                <tr>
+                  <td valign="top" align="left" width="" class="pb-3" style="padding-bottom: 16px; font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif;">
+                    <p class="txt-regular txt-default-color txt-weight-regular" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #222222; font-weight: 400; font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif;">
+                      ${ctx.messages.tax}
+                    </p>
+                  </td>
+                  <td valign="top" align="right" width="" class="pb-3" style="padding-bottom: 16px; font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif;">
+                    <p class="txt-regular txt-default-color txt-weight-semi-bold" style="margin: 0; padding: 0; line-height: 1.428571429; font-size: 14px; color: #222222; font-weight: 500; font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif;">
+                      ${ctx.order.totalTax.formattedValue}
+                    </p>
+                  </td>
+                </tr>
+                #if(${ctx.order.scheduleInstallation})
+                <tr>
+                  <td colspan="2" valign="top" align="left" width="100%" class="pb-3" style="padding-bottom: 16px; font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif;">
+                    <p class="txt-regular txt-item-color txt-weight-regular " style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #747678; font-weight: 400; font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif;">
+                      ${ctx.messages.installation}
+                    </p>
+                    <a class="txt-regular txt-weight-semi-bold" href="#" title="" style="margin: 0; padding: 0; line-height: 1.428571429; color: #167bb4; letter-spacing: 0.15px; font-size: 14px; font-weight: 500; display: block; text-decoration: none; outline: none; border: none; font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif;"
+                      target="_blank">
+                      ${ctx.messages.learnMore}
+                    </a>
+                  </td>
+                </tr>
+                #end
+                <tr>
+                  <td valign="top" align="left" width="" class="border-top border-bottom pt-3" style="font-weight: 500; vertical-align:middle; border-top: 1px solid #cecece;border-bottom: 1px solid #cecece; padding-top: 16px; padding-bottom: 16px;padding-left: 0px; padding-right: 0px; font-family: 'Poppins',lato, Helvetica, Roboto, Arial, sans-serif; ">
+                    <p class="txt-regular txt-default-color txt-weight-semi-bold" style="margin: 0; padding: 0; line-height: 1.428571429; font-size: 14px; color: #222222; font-weight: 500; font-family: lato, 'Poppins','Gotham A', 'Gotham B', Lato, Helvetica, Roboto, Arial, sans-serif; ">${ctx.messages.total}</p>
+                  </td>
+                  <td valign="top" align="right" width="" class="border-top border-bottom pt-3" style="font-weight: 500; vertical-align:middle; border-top: 1px solid #cecece;border-bottom: 1px solid #cecece; padding-top: 16px; font-family: lato, 'Poppins', Helvetica, Roboto, Arial, sans-serif; ">
+                    <p class="txt-xl txt-default-color txt-weight-semi-bold" style="margin: 0; padding: 0; line-height: 1.428571429; font-size: 21px; color: #222222; font-weight: 500; font-family: lato, 'Poppins',  Helvetica, Roboto, Arial, sans-serif; ">
+                      ${ctx.order.totalPriceWithTax.formattedValue}
+                    </p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td valign="top" align="left" width="100%" style="font-family: lato, 'Poppins', Helvetica, Arial, Verdana, sans-serif;">
+              <table cellspacing="0" cellpadding="0" align="left" border="0" width="100%" class="bg-summary" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;background-color: #fafafa;"
+                bgcolor="#fafafa">
+                <tr>
+                  <td class="px-4 py-3" style="padding-bottom: 16px;padding-top: 16px; padding-right: 24px; padding-left: 24px; font-family: lato, 'Poppins',Helvetica, Arial, Verdana, sans-serif;">
+                    <p class="txt-regular txt-item-color txt-weight-regular" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #747678; font-weight: 400; font-family: lato, 'Poppins',Helvetica, Arial, Verdana, sans-serif;">
+                      ${ctx.messages.getMessage('paragraphContactUs', ${ctx.contactNumber})}
+                    </p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+  <table cellspacing="0" cellpadding="0" align="center" border="0" width="800" bgcolor="#ffffff" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 800px;">
+    <tr>
+      <td style="display: block;width: 100%;padding-top: 24px;">
+        <a href="${ctx.baseUrl}" style="display:block; margin:0px;">
+          ${ctx.cmsSlotContents.BottomContent}
+        </a>
+      </td>
+    </tr>
+  </table>
+</body>
+
+
+#else
+
+<body style="padding:0; margin:0;color: #222222;">
+  <table cellspacing="0" cellpadding="0" align="center" border="0" width="800" bgcolor="#ffffff" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 800px;">
+    <tr>
+      <td valign="top" align="left" width="100%" style="border-collapse: collapse; font-family:'Gotham A', 'Gotham B', lato, Helvetica, Arial, Verdana, sans-serif;">
+        <table cellspacing="0" cellpadding="0" align="left" border="0" width="100%" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+          <tr>
+            <td valign="top" align="left" width="100%" height="73px" style="border-collapse: collapse;  font-family: lato, 'Poppins',Helvetica, Arial, Verdana, sans-serif;">
+              <a href="${ctx.secureBaseUrl}">
+                ${ctx.cmsSlotContents.SiteLogo}
+              </a>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+  <table cellspacing="0" cellpadding="0" align="center" border="0" width="700" bgcolor="#ffffff" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 700px;">
+    <tr>
+      <td valign="top" align="left" width="100%" style="font-family: lato, 'Poppins',Helvetica, Arial, Verdana, sans-serif;">
+        <table cellspacing="0" cellpadding="0" align="left" border="0" width="100%" bgcolor="#ffffff" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+          <tr>
+            <td valign="top" align="left" width="100%" colspan="4" class="txt-large txt-weight-regular txt-default-color py-4"
+              style="font-size: 21px; color: #222222; font-weight: 400; padding-top: 24px; padding-bottom: 24px; font-family: lato, 'Poppins',Helvetica, Arial, Verdana, sans-serif;">
+              ${ctx.messages.emailTitle}
+            </td>
+          </tr>
+          <tr>
+            <td valign="top" align="left" width="100%" colspan="4" class="pb-4" style="padding-bottom: 24px; font-family: lato, 'Poppins',Helvetica, Arial, Verdana, sans-serif;">
+              <p class="txt-regular txt-default-color txt-weight-regular" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #222222; font-weight: 400; font-family: lato, 'Poppins',Helvetica, Arial, Verdana, sans-serif;">
+                ${ctx.messages.getMessage('emailSubTitle', ${ctx.baseSite.Name})}
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td valign="top" align="left" width="100%" colspan="4" class="pb-4" style="padding-bottom: 24px; font-family: lato, 'Poppins',Helvetica, Arial, Verdana, sans-serif;">
+              <p class="txt-regular txt-default-color txt-weight-regular" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #222222; font-weight: 400; font-family: lato, 'Poppins',Helvetica, Arial, Verdana, sans-serif;">
+                ${ctx.messages.getMessage('orderNumber', ${ctx.order.code})}
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td style="color: #222222; font-size: 14px; font-weight: 500;padding-top: 0px; padding-left: 0px; padding: right 0px; padding-bottom: 8px; ">
+              <p style="margin: 0;color: #222222; font-size: 14px; font-weight: 500;">${ctx.messages.orderPlaced}</p>
+            </td>
+            <td style="color: #222222; font-size: 14px; font-weight: 400;padding-top: 0px; padding-left: 0px; padding: right 0px; padding-bottom: 8px; ">
+              <p style="margin: 0;color: #222222; font-size: 14px; font-weight: 400;">${ctx.createdDate}</p>
+            </td>
+          </tr>
+          <tr>
+            <td valign="top" align="left" width="100%" class="pt-4" style="padding-top: 24px; font-family:'Gotham A', 'Gotham B', lato, Helvetica, Roboto, Arial;">
+              <p class="txt-regular txt-default-color txt-weight-semi-bold" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #222222; font-weight: 400; font-family: 'Gotham A', 'Gotham B', lato, Helvetica, Roboto, Arial;">
+                ${ctx.messages.emailDividerTitle}
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td valign="top" align="left" width="100%" class=" pb-2" style="padding-bottom: 8px;font-family: lato, 'Poppins',Helvetica, Arial, Verdana, sans-serif;">
+              <p class="txt-regular txt-default-color txt-weight-semi-bold" style="color: #222222; font-size: 14px;	font-weight: 400;">
+                ${ctx.messages.contactUs}
+                <a href="${ctx.contactUsPageUrl}" title="" style="text-decoration: none; outline: none; border: none;"
+                  target="_blank">
+                  ${ctx.messages.customerCare}
+                </a>
+              </p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+  <table cellspacing="0" cellpadding="0" align="center" border="0" width="700" bgcolor="#ffffff" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 700px;">
+    <tr>
+      <td valign="top" align="left" width="100%" class="px-6" style="font-family: lato, 'Poppins',Helvetica, Arial, Verdana, sans-serif;">
+        <table class="border-all pb-4" cellspacing="0" cellpadding="0" align="left" border="0" width="100%" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-top: 1px solid #cecece;border-bottom: 1px solid #cecece;border-left: 1px solid #cecece;border-right: 1px solid #cecece;">
+          <tr>
+            <td valign="top" align="left" colspan="4" style="font-family: lato, 'Poppins',Helvetica, Arial, Verdana, sans-serif;">
+              <table cellspacing="0" cellpadding="0" align="center" width="100%" bgcolor="#ffffff" class="border-bottom border-top px-4 "
+                style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;border-bottom: 1px solid #cecece;">
+                <tr>
+                  <td align="center" class="py-4" style="width:22%; vertical-align: top; padding-top: 24px; padding-bottom: 24px; padding-left: 20px; padding-right:0px; font-family:'Gotham A', 'Gotham B', lato, Helvetica, Roboto, Arial;">
+                    #foreach($image in $ctx.consignmentEntry.orderEntry.product.images) #if($image.imageType ==
+                    "PRIMARY" && $image.format == "thumbnail" )
+                    <div style="height: 130px; width: 130px; display: table-cell; vertical-align: middle;margin:0px; border-top: 1px solid #cecece; border-left: 1px solid #cecece;border-right: 1px solid #cecece;border-bottom: 1px solid #cecece;">
+                      <img src="$image.url" alt="" style="max-width: 100%; max-height: 100%; width: auto;text-decoration: none; -ms-interpolation-mode: bicubic; margin: 0; padding: 0; line-height: 1.428571429; display: block; outline: none;">
+                    </div>
+                    #end
+                    #end
+                  </td>
+                  <td align="center" valign="top" style="padding-top: 24px; padding-bottom: 24px; padding-left: 10px; padding-right:  24px; font-family:'Gotham A', 'Gotham B', lato, Helvetica, Roboto, Arial;">
+                    <table cellspacing="0" cellpadding="0" align="center" width="100%" bgcolor="#ffffff" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+                      <tr>
+                        <td class="pt-4" style="padding-top: 0px; padding-right: 0px; padding-left: 0px; padding-bottom: 8px; font-family: lato, 'Poppins',Helvetica, Arial, Verdana, sans-serif;">
+                          <a class="txt-large txt-weight-semi-bold " href="${ctx.secureBaseUrl}$ctx.consignmentEntry.orderEntry.url"
+                            title="" style="margin: 0; padding: 0; line-height: 1.428571429; color: #167bb4; letter-spacing: 0.15px; font-size: 21px; font-weight: 500; display: block; text-decoration: none; outline: none; border: none; font-family: lato, 'Poppins',Helvetica, Arial, Verdana, sans-serif;"
+                            target="_blank">
+                            $ctx.consignmentEntry.orderEntry.product.name
+                          </a>
+                        </td>
+                        <td style="font-family: lato, 'Poppins',Helvetica, Arial, Verdana, sans-serif;">
+                          &nbsp;
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding-right: 0px; padding-top: 0px; padding-left: 0px; padding-bottom: 8px; font-family: lato, 'Poppins',Helvetica, Arial, Verdana, sans-serif;">
+                          <p class="txt-weight-regular txt-item-color txt-regular" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #747678; font-weight: 400; font-family: lato, 'Poppins',Helvetica, Arial, Verdana, sans-serif;">
+                            ${ctx.messages.getMessage('itemID',$ctx.consignmentEntry.orderEntry.product.code)}
+                          </p>
+                        </td>
+                        <td style="font-family: lato, 'Poppins',Helvetica, Arial, Verdana, sans-serif;">
+                          &nbsp;
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding-right: 0px; padding-top: 0px; padding-left: 0px; padding-bottom: 8px; font-family: lato, 'Poppins',Helvetica, Arial, Verdana, sans-serif;">
+                          <p class="txt-regular txt-default-color txt-weight-regular" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #222222; font-weight: 400; font-family: lato, 'Poppins',Helvetica, Arial, Verdana, sans-serif;">
+                            ${ctx.messages.getMessage('quantity',$ctx.declinedQty)}
+                          </p>
+                        </td>
+                        <td style="font-family: lato, 'Poppins',Helvetica, Arial, Verdana, sans-serif;">
+                          &nbsp;
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding-right: 0px; padding-top: 0px; padding-left: 0px; padding-bottom: 8px; font-family: lato, 'Poppins',Helvetica, Arial, Verdana, sans-serif;">
+                          #if($ctx.consignmentEntry.orderEntry.giftWrapped == true)
+                          <p class="txt-regular txt-default-color txt-weight-regular" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #222222; font-weight: 400; font-family: lato, 'Poppins',Helvetica, Arial, Verdana, sans-serif;">
+                            ${ctx.messages.gift}
+                          </p>
+                          <p class="txt-regular txt-default-color txt-weight-regular" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #222222; font-weight: 400; font-family: lato, 'Poppins',Helvetica, Arial, Verdana, sans-serif;">
+                            $ctx.consignmentEntry.orderEntry.giftMessage
+                          </p>
+                          #end
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+  <table cellspacing="0" cellpadding="0" align="center" border="0" width="700" bgcolor="#ffffff" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 700px;">
+    <tr>
+      <td valign="top" align="left" width="100%" style="font-family: lato, 'Poppins',Helvetica, Arial, Verdana, sans-serif; padding-top: 24px;">
+        <table cellspacing="0" cellpadding="0" align="left" border="0" width="50%" bgcolor="#ffffff" class="pl-6" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+          <tr>
+            <td valign="top" align="left" width="100%" style="font-family: lato, 'Poppins',Helvetica, Arial, Verdana, sans-serif;bgcolor=#fafafa;padding-right: 24px; padding-left: 24px;background-color: #fafafa;">
+              <table cellspacing="0" cellpadding="0" align="left" border="0" width="100%" class="bg-summary px-4" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+                <tr>
+                  <td colspan="2" valign="top" align="left" width="100%" class="py-4" style="padding-top: 24px; padding-bottom: 24px; font-family: lato, 'Poppins',Helvetica, Arial, Verdana, sans-serif;">
+                    <p class="txt-large txt-default-color txt-weight-regular" style="margin: 0; padding: 0; line-height: 1.428571429; font-size: 21px; color: #222222; font-weight: 400; font-family: lato, 'Poppins',Helvetica, Arial, Verdana, sans-serif;">
+                      ${ctx.messages.orderSummary}
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td valign="top" align="left" width="60%" class="pb-3" style="padding-bottom: 16px; font-family: lato, 'Poppins',Helvetica, Arial, Verdana, sans-serif;">
+                    <p class="txt-regular txt-default-color txt-weight-regular" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #222222; font-weight: 400; font-family: lato, 'Poppins',Helvetica, Arial, Verdana, sans-serif;">
+                      ${ctx.messages.subtotal}
+                      (${ctx.messages.getMessage('orderSummaryItems',${ctx.order.totalItems})})
+                    </p>
+                  </td>
+                  <td valign="top" align="right" width="" class="pb-3" style="padding-bottom: 16px; font-family: lato, 'Poppins',Helvetica, Arial, Verdana, sans-serif;">
+                    <p class="txt-regular txt-default-color txt-weight-semi-bold" style="margin: 0; padding: 0; line-height: 1.428571429; font-size: 14px; color: #222222; font-weight: 500; font-family: lato, 'Poppins',Helvetica, Arial, Verdana, sans-serif;">
+                      ${ctx.order.subTotal.formattedValue}
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td valign="top" align="left" width="" class="pb-3" style="padding-bottom: 16px; font-family: lato, 'Poppins',Helvetica, Arial, Verdana, sans-serif;">
+                    <p class="txt-regular txt-default-color txt-weight-regular" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #222222; font-weight: 400; font-family: lato, 'Poppins',Helvetica, Arial, Verdana, sans-serif;">
+                      ${ctx.messages.shipping}
+                    </p>
+                  </td>
+                  <td valign="top" align="right" width="" class="pb-3" style="padding-bottom: 16px; font-family: lato, 'Poppins',Helvetica, Arial, Verdana, sans-serif;">
+                    <p class="txt-regular txt-default-color txt-weight-semi-bold" style="margin: 0; padding: 0; line-height: 1.428571429; font-size: 14px; color: #222222; font-weight: 500; font-family: lato, 'Poppins',Helvetica, Arial, Verdana, sans-serif;">
+                      ${ctx.totalDeliveryCost}
+                    </p>
+                  </td>
+                </tr>
+                #if(${ctx.order.totalDiscounts} && ${ctx.order.totalDiscounts.formattedValue} != "$0.00" )
+                <tr>
+                  <td valign="top" align="left" width="" class="pb-3" style="padding-bottom: 16px; font-family: lato, 'Poppins',Helvetica, Arial, Verdana, sans-serif;">
+                    <p class="txt-regular txt-default-color txt-weight-regular" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #222222; font-weight: 400; font-family: lato, 'Poppins',Helvetica, Arial, Verdana, sans-serif;">
+                      ${ctx.messages.mySavings}
+                    </p>
+                  </td>
+                  <td valign="top" align="right" width="" class="pb-3" style="padding-bottom: 16px; font-family: lato, 'Poppins',Helvetica, Arial, Verdana, sans-serif;">
+                    <p class="txt-regular txt-price-color txt-weight-semi-bold" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #417505; font-weight: 500; font-family: lato, 'Poppins',Helvetica, Arial, Verdana, sans-serif;">
+                      - ${ctx.order.totalDiscounts.formattedValue}
+                    </p>
+                  </td>
+                </tr>
+                #end
+                <tr>
+                  <td valign="top" align="left" width="" class="pb-3" style="padding-bottom: 16px; font-family: lato, 'Poppins',Helvetica, Arial, Verdana, sans-serif;">
+                    <p class="txt-regular txt-default-color txt-weight-regular" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #222222; font-weight: 400; font-family: lato, 'Poppins',Helvetica, Arial, Verdana, sans-serif;">
+                      ${ctx.messages.tax}
+                    </p>
+                  </td>
+                  <td valign="top" align="right" width="" class="pb-3" style="padding-bottom: 16px; font-family: lato, 'Poppins',Helvetica, Arial, Verdana, sans-serif;">
+                    <p class="txt-regular txt-default-color txt-weight-semi-bold" style="margin: 0; padding: 0; line-height: 1.428571429; font-size: 14px; color: #222222; font-weight: 500; font-family: lato, 'Poppins',Helvetica, Arial, Verdana, sans-serif;">
+                      ${ctx.order.totalTax.formattedValue}
+                    </p>
+                  </td>
+                </tr>
+                #if(${ctx.order.scheduleInstallation})
+                <tr>
+                  <td colspan="2" valign="top" align="left" width="100%" class="pb-3" style="padding-bottom: 16px; font-family: lato, 'Poppins',Helvetica, Arial, Verdana, sans-serif;">
+                    <p class="txt-regular txt-item-color txt-weight-regular " style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #747678; font-weight: 400; font-family: lato, 'Poppins',Helvetica, Arial, Verdana, sans-serif;">
+                      ${ctx.messages.installation}
+                    </p>
+                    <a class="txt-regular txt-weight-semi-bold" href="#" title="" style="margin: 0; padding: 0; line-height: 1.428571429; color: #167bb4; letter-spacing: 0.15px; font-size: 14px; font-weight: 500; display: block; text-decoration: none; outline: none; border: none; font-family: lato, 'Poppins',Helvetica, Arial, Verdana, sans-serif;"
+                      target="_blank">
+                      ${ctx.messages.learnMore}
+                    </a>
+                  </td>
+                </tr>
+                #end
+                <tr>
+                  <td valign="top" align="left" width="" class="border-top border-bottom pt-3" style="vertical-align: middle; border-top: 1px solid #cecece;border-bottom: 1px solid #cecece; padding-top: 16px; padding-bottom: 16px; padding-left: 0px; padding-right: 0px; font-family: 'Poppins', Lato, Helvetica, Roboto, Arial, sans-serif; ">
+                    <p class="txt-regular txt-default-color txt-weight-semi-bold" style="margin: 0; padding: 0; line-height: 1.428571429; font-size: 14px; color: #222222; font-weight: 500; font-family: lato, 'Poppins', Helvetica, Roboto, Arial, sans-serif; ">${ctx.messages.total}</p>
+                  </td>
+                  <td valign="top" align="right" width="" class="border-top border-bottom pt-3" style="vertical-align:middle;border-top: 1px solid #cecece;border-bottom: 1px solid #cecece; padding-top: 16px; padding-bottom: 16px; padding-left: 0px; padding-right: 0px;font-family: lato, 'Poppins','Gotham A', 'Gotham B', Lato, Helvetica, Roboto, Arial, sans-serif; ">
+                    <p class="txt-xl txt-default-color txt-weight-semi-bold" style="margin: 0; padding: 0; line-height: 1.428571429; font-size: 21px; color: #222222; font-weight: 500; font-family: lato, 'Poppins', Helvetica, Roboto, Arial, sans-serif; ">
+                      ${ctx.order.totalPriceWithTax.formattedValue}
+                    </p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td valign="top" align="left" width="100%" style="font-family: lato, 'Poppins',Helvetica, Arial, Verdana, sans-serif;">
+              <table cellspacing="0" cellpadding="0" align="left" border="0" width="100%" class="bg-summary" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;background-color: #fafafa;"
+                bgcolor="#fafafa">
+                <tr>
+                  <td class="px-4 py-3" style="padding-bottom: 16px;padding-top: 16px; padding-right: 24px; padding-left: 24px; font-family: lato, 'Poppins',Helvetica, Arial, Verdana, sans-serif;">
+                    <p class="txt-regular txt-item-color txt-weight-regular" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #747678; font-weight: 400; font-family: lato, 'Poppins',Helvetica, Arial, Verdana, sans-serif;">
+                      ${ctx.messages.getMessage('paragraphContactUs', ${ctx.contactNumber})}
+                    </p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+  <table cellspacing="0" cellpadding="0" align="center" border="0" width="800" bgcolor="#ffffff" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 800px;">
+    <tr>
+      <td style="display: block; width: 100%; padding-top:24px; ">
+        <a href="${ctx.baseUrl}" style="display:block; margin:0px;">
+          ${ctx.cmsSlotContents.BottomContent}
+        </a>
+      </td>
+    </tr>
+  </table>
+</body>
+#end

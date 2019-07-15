@@ -1,0 +1,63 @@
+$catalogVersion=catalogVersion(catalog(id[default='gpUSProductCatalog']),version[default='Staged'])[unique=true,default='gpUSProductCatalog:Staged']
+$categories=target(code, $catalogVersion)[unique=true]
+$supercategories=source(code, $catalogVersion)[unique=true]
+$lang=en               
+$productCatalog=gpUSProductCatalog
+
+
+$catalogVersion=catalogVersion(catalog(id[default='gpUSProductCatalog']),version[default='Staged'])[unique=true,default='gpUSProductCatalog:Staged']
+$categories=target(code, $catalogVersion)[unique=true]
+$supercategories=source(code, $catalogVersion)[unique=true]
+$lang=en
+
+INSERT_UPDATE Category;code[unique=true];$catalogVersion;supercategories(code,$catalogVersion);allowedPrincipals(uid)[default='customergroup'];categorizationCategory[default=true]
+;b2b;;;;
+
+
+# Create VanityFairNapkins Categories
+INSERT_UPDATE Category;code[unique=true];$catalogVersion;supercategories(code,$catalogVersion);allowedPrincipals(uid)[default='customergroup'];name[lang=$lang]
+;everyday-collection; ;;;Everyday Collection
+;entertain-collection; ;;;Entertain Collection
+;extra-absorbent-napkins; ;;;Extra Absorbent Napkins
+
+# Update Categories with SKU's
+INSERT_UPDATE Category ; code[unique=true] ; name[lang=$lang] ; products(code,$catalogVersion)                                                                                                                                                                                                                                                                                                                                                                                                                                        ; $catalogVersion
+# list provided by Emily for which we do not have a category navigation header link
+                       ; bestmoisturizer   ; Best Moisturizer ; CC-LTN-1000008, CC-LTN-1000009, BP-CC-SRM-1000020, BP-CC-MST-1000016                                                                                                                                                                                                                                                                                                                                                                                                  
+                       ; bestmoisturizers  ; Best Moisturizer ; CC-LTN-1000008, CC-LTN-1000009, BP-CC-SRM-1000020, BP-CC-MST-1000016                                                                                                                                                                                                                                                                                                                                                                                                  
+                       ; cruelty_free      ; Cruelty Free     ; BP-CC-SRM-1000020, BP-CC-ELX-1000018, CC-SMP-1000024, CC-CND-1000025                                                                                                                                                                                                                                                                                                                                                                                                  
+                       ; crueltyfree       ; Cruelty Free     ; BP-CC-SRM-1000020, BP-CC-ELX-1000018, CC-SMP-1000024, CC-CND-1000025                                                                                                                                                                                                                                                                                                                                                                                                  
+                       ; luxury_spa        ; Luxury Spa       ; DR-1000443, CC-KIT-1000076, CC-OIL-1000001, CC-LTN-1000008                                                                                                                                                                                                                                                                                                                                                                                                            
+                       ; luxuryspa         ; Luxury Spa       ; DR-1000443, CC-KIT-1000076, CC-OIL-1000001, CC-LTN-1000008                                                                                                                                                                                                                                                                                                                                                                                                            
+                       ; pamper            ; Pamper           ; CC-KIT-1000076, DR-1000553, CC-MSK-1000017, CC-LTN-1000008                                                                                                                                                                                                                                                                                                                                                                                                            
+                       ; pampering         ; Pampering        ; CC-KIT-1000076, DR-1000553, CC-MSK-1000017, CC-LTN-1000008                                                                                                                                                                                                                                                                                                                                                                                                            
+                       ; skin_care         ; Skin Care        ; BP-CC-SRM-1000020, BP-CC-ELX-1000018, CC-EXF-1000003, CC-EXF-1000004                                                                                                                                                                                                                                                                                                                                                                                                  
+                       ; skincare          ; Skin Care        ; BP-CC-SRM-1000020, BP-CC-ELX-1000018, CC-EXF-1000003, CC-EXF-1000004                                                                                                                                                                                                                                                                                                                                                                                                  
+
+# existing list which have a category navigation header link
+                       ; body-care         ; Body Care        ; CC-EXF-1000002, CC-LTN-1000008, BP-CC-OIL-1000006, DR-1000652, DR-1000653, CC-EXF-1000003, CC-EXF-1000004, CC-LTN-1000009, CC-OIL-1000001, CC-OIL-1000005, CC-OIL-1000026,DR-1000584,DR-1000652,DR-1000653                                                                                                                                                                                                                                                            
+                       ; gifts             ; Gift Sets        ; CC-KIT-1000066, CC-KIT-1000069, CC-KIT-1000076, CC-KIT-1000088, CC-PCH-1000062, CC-PVN-1000063, CC-SBG-1000061, DR-1000442, DR-1000443, DR-1000550, DR-1000551, DR-1000553, BP-DR-1000574, BP-DR-1000575, DR-1000626, DR-1000634, DR-1000636, BP-DR-1000659, DR-1000652, DR-1000653, CC-BAR-1000048, CC-KIT-1000079, BP-DR-1000571, DR-1000552, CC-KIT-1000078, CC-KIT-1000089,DR-1000584,DR-1000714,DR-1000718,DR-1000711,DR-1000712,DR-1000652,DR-1000653,DR-1000722
+                       ; luxury-bath       ; Luxury Bath      ; CC-CND-1000025, CC-SMP-1000024, DR-1000409, CC-OIL-1000001, CC-OIL-1000005, CC-OIL-1000026, CC-BAR-1000048, CC-KIT-1000079, BP-DR-1000571, DR-1000401, CC-CLN-1000010,DR-1000616,DR-1000614,DR-1000615,DR-1000618,DR-1000619,                                                                                                                                                                                                                                         
+                       ; scented-candles   ; Scented Candles  ; DR-1000402, DR-1000403, DR-1000404, DR-1000405, DR-1000406, DR-1000407, DR-1000408, DR-1000474, DR-1000552,                                                                                                                                                                                                                                                                                                                                                           
+                       ; skin-care         ; Skin Care        ; BP-CC-ELX-1000018, CC-MSK-1000017, BP-CC-MST-1000016, BP-CC-SRM-1000020, CC-KIT-1000078, CC-KIT-1000089, CC-CLN-1000010                                                                                                                                                                                                                                                                                                                                               
+                       ; spa               ; Spa Favorites    ; CC-EXF-1000003, CC-EXF-1000004, CC-LTN-1000009, DR-1000401                                                                                                                                                                                                                                                                                                                                                                                                            
+                                            
+
+INSERT_UPDATE GPCommerceProduct;code[unique=true];$catalogVersion;supercategories(code,$catalogVersion);ean;unit(code);varianttype(code);$approved;$taxGroup;site(uid);
+;35134/18; ;entertain-collection;;CS;;;;;
+;35546/17; ;entertain-collection;;CS;;;;;
+;35468/18; ;entertain-collection;;CS;;;;;
+;35575/18; ;everyday-collection;;CS;;;;;
+
+$catalogVersion=catalogVersion(catalog(id[default='gpUSProductCatalog']),version[default='Staged'])[unique=true,default='']
+$categories=target(code, $catalogVersion)[unique=true]
+$supercategories=source(code, $catalogVersion)[unique=true]
+$lang=en
+$productCatalog=gpUSProductCatalog
+ 
+# Update Categories with SKU's
+INSERT_UPDATE Category ; code[unique=true] ;supercategories(code,$catalogVersion); name[lang=$lang] ; products(code,$catalogVersion); $catalogVersion
+;extra-absorbent-napkins;paperproducts;Extra Absorbent Napkins;BP-35236/18;
+;hand_towel;paperproducts;Hand Towel;35468/18;
+;printed_napkins;paperproducts;Printed Napkins;BP-35130/18;
+;white_napkins;paperproducts;White Napkins;35134/18;                       

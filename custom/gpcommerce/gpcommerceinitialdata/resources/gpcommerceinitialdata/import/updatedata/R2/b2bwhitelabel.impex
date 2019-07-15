@@ -1,0 +1,181 @@
+
+##########################################    cms-content.impex      ##################################################
+$contentCatalog=b2bwhitelabelContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$siteResource=jar:com.gp.b2binitialdata.constants.Gpb2binitialdataConstants&/gpb2binitialdata/import/sampledata/contentCatalogs/$contentCatalog
+
+
+INSERT_UPDATE ContentPage ; $contentCV[unique=true] ; uid[unique=true] ; name     ; title; masterTemplate(uid,$contentCV) ; label   ; defaultPage[default='true'] ; approvalStatus(code)[default='approved'] ; homepage[default='false']
+                          ;                         ; crossReferencePage          ; Cross Reference Page ; Cross Reference Page ; LandingPage2Template           ; crossReferencePage
+						  ;							; gpHomePage				  ;view site page-gp2	 ; B2BWhitelabel		; LandingPage2Template			 ;/
+
+						  #Setting searchable true for cms content pages
+INSERT_UPDATE ContentPage ; $contentCV[unique=true] ; uid[unique=true]   ; title ; isSearchable[default=true]           
+                          ;                         ; aboutUs            ; About Us;
+                          ;                         ; contactUsForm      ; Contact Us;           
+                          ;                         ; faq                ; Frequently Asked Questions Page;             
+                          ;                         ; gpHomePage         ; Welcome to the store;          
+                          ;                         ; termsAndConditions ; Site terms of Use;  	  	
+						  
+$contentCatalog=b2bwhitelabelContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$lang=en
+
+# Import modulegen config properties into impex macros
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+$jarResourceCms=$config-jarResourceCmsValue 
+
+INSERT_UPDATE ContentPage ; $contentCV[unique=true] ; uid[unique=true] ; name     ; title; masterTemplate(uid,$contentCV) ; label   ; defaultPage[default='true'] ; approvalStatus(code)[default='approved'] ; homepage[default='false']
+						  ;                         ; gpSupportTicketpage         ; GpSupportTicketpage ; GpSupportTicketpage; LandingPage2Template           ; gpSupportTicketpage
+
+INSERT_UPDATE CMSNavigationNode;$contentCV[unique=true];uid[unique=true];title[lang=$lang];name;parent(uid, $contentCV);
+;;GPHeaderNavigationNode;Main Header Nav Node;Main Header Nav Node;SiteRootNode;
+
+INSERT_UPDATE GPNavigationComponent;$contentCV[unique=true];uid[unique=true];&componentRef;navigationNode(&nodeRef)
+;;GPNavigationComponent;GPNavigationComponent;GPNavigationNavNode;
+
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);links(&linkRef);&nodeRef
+;GPNavigationNavNode;;Navigation Pages;GPHeaderNavigationNode;;GPNavigationNavNode
+
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);links(&linkRef);&nodeRef;parentPos
+;GPYourAccountNavNode;;Account Pages;GPNavigationNavNode;;GPYourAccountNavNode;0
+						  
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);links(&linkRef);&nodeRef;parentPos;visible
+;GPSupportTicketNavNode;;Support Ticket Pages;GPYourAccountNavNode;;GPSupportTicketNavNode;5;true						  
+ 
+ INSERT_UPDATE CMSNavigationEntry;uid[unique=true];$contentCV[unique=true];name;navigationNode(&nodeRef);item(CMSLinkComponent.uid,CMSLinkComponent.$contentCV);
+ ;GPSupportTicketNavNodeEntry;;Support Ticket Navigation Node Entry;GPSupportTicketNavNode;SupportTicketLink;
+ 
+ INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];linkName[lang=$lang];name;url;target(code)[default='sameWindow'];;socialLink[default=false];markAsViewAll[default=false]
+ ;;SupportTicketLink;"Support Tickets";Support Ticket Link;/my-account/supportTickets;;
+ 
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true]          ;name                     ; page;actions(uid,$contentCV);&componentRef
+;;gpSupportTicketJspIncludeComponent;GP Support Ticket Page;GPSupportTicket.jsp;;gpSupportTicketJspIncludeComponent
+ 
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;GPSupportTicketSlot-units;GP Support Ticket slot;true;gpSupportTicketJspIncludeComponent;;;
+;;Section1Slot-gpSupportTicketpage;Section1Slot GP Units slot;true;GPNavigationComponent
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='gpSupportTicketpage'];contentSlot(uid,$contentCV)[unique=true];;;
+;;PageContentSlot-gpSupportTicketpage;GPSupportTicketSlot;;GPSupportTicketSlot-units;;;
+;;Section1-gpSupportTicketpage;Section1;;Section1Slot-gpSupportTicketpage;;; 
+
+
+INSERT_UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;content[translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator][lang=$lang];
+;;gpYformParagraphComponent;GP Yform Paragraph Component;gpYformParagraphComponent;$siteResource/content/b2b-yform.htm
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(uid, $contentCV)
+;;Section6-gpHomePage;gpBannerComponent,gpMarketingSidebySideComponent,gpYformParagraphComponent
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='gpHomePage'];contentSlot(uid,$contentCV)[unique=true]
+;;gpMarketingSidebySideslots-Section5;Section5;;Section6-gpHomePage
+
+########################## /b2bwhitlableContentCatalog/email-content.impex ############
+$contentCatalog=b2bwhitelabelContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$wideContent=CMSImageComponent,BannerComponent,CMSLinkComponent
+$jarEmailResource=jar:com.gp.b2binitialdata.constants.Gpb2binitialdataConstants&/gpb2binitialdata/import/coredata/contentCatalogs/b2bwhitelabelContentCatalog/emails
+
+# Import modulegen config properties into impex macros
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+$jarResourceCms=$config-jarResourceCmsValue
+$emailPackageName=$config-emailContextPackageName
+
+INSERT_UPDATE EmailPageTemplate;$contentCV[unique=true];uid[unique=true];name;active;frontendTemplateName;subject(code);htmlTemplate(code);restrictedPageTypes(code)
+;;OrderIssuesNotifyEmailTemplate;Order Issues Notification EmailTemplate;true;orderIssuesNotifyEmail;b2bwhitelabel_Email_Order_Issues_Notify_Subject;b2bwhitelabel_Email_Order_Issues_Notify_Body;EmailPage                
+
+UPDATE EmailPageTemplate;$contentCV[unique=true];uid[unique=true];velocityTemplate[translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+;;OrderIssuesNotifyEmailTemplate;$jarEmailResource/structure-view/structure_shareOrderIssuesEmailTemplate.vm 
+            
+INSERT_UPDATE EmailPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);defaultPage;approvalStatus(code)[default='approved']
+;;OrderIssuesNotifyEmail;Order Issue Notification Email;OrderIssuesNotifyEmailTemplate;true;;customerservices@hybris.com;Customer Services Team						
+
+INSERT_UPDATE RendererTemplate;code[unique=true];contextClass;rendererType(code)[default='velocity']
+; b2bwhitelabel_Email_Order_Issues_Notify_Body;$emailPackageName.OrderIssuesNotificationContext                   
+; b2bwhitelabel_Email_Order_Issues_Notify_Subject;$emailPackageName.OrderIssuesNotificationContext  
+
+UPDATE EmailPage;$contentCV[unique=true];uid[unique=true];previewImage(code, $contentCV)
+;;OrderIssuesNotifyEmail;EmailPageModel_preview    
+
+
+####################### /b2bwhitlableContentCatalog/email-content_en.impex #####################
+$contentCatalog=b2bwhitelabelContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$jarEmailResource=jar:com.gp.b2binitialdata.constants.Gpb2binitialdataConstants&/gpb2binitialdata/import/coredata/contentCatalogs/b2bwhitelabelContentCatalog/emails
+
+# Import config properties into impex macros for modulegen
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+$emailResource=$config-emailResourceValue
+
+# Language
+$lang=en
+
+UPDATE RendererTemplate;code[unique=true];description[lang=$lang];templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+;b2bwhitelabel_Email_Order_Issues_Notify_Body; "Order Issues Notification BOdy"; $jarEmailResource/email-orderIssuesNotificationBody.vm	
+;b2bwhitelabel_Email_Order_Issues_Notify_Subject; "Order Issues Notification BOdy"; $jarEmailResource/email-orderIssuesNotificationSubject.vm	
+;b2bwhitelabel_Email_Share_Product_Body;"Share Product Email Body";$jarEmailResource/email-shareProductBody.vm
+;b2bwhitelabel_Email_Share_Product_Subject;"Share Product Email Subject";$jarEmailResource/email-shareProductSubject.vm
+;b2bwhitelabel_Email_Order_Confirmation_Body;"Order Confirmation Email Body";$jarEmailResource/email-orderConfirmationBody.vm
+;b2bwhitelabel_Email_Order_Confirmation_Subject;"Order Confirmation Email Subject";$jarEmailResource/email-orderConfirmationSubject.vm
+;b2bwhitelabel-GPFooterComponent-template;"Email Footer Component";$jarEmailResource/email-gpFooterComponentTemplate.vm
+ 
+
+UPDATE EmailPage;$contentCV[unique=true];uid[unique=true];fromEmail[lang=$lang];fromName[lang=$lang]
+;;OrderIssuesNotifyEmail;"customerservices@b2bwhitelabel.com";"Customer Services Team"           
+
+UPDATE CMSSite;uid[unique=true];topicOfInquiry
+;b2bwhitelabel;"How to Purchase (US, Canada, Mexico)->How to Purchase (US, Canada, Mexico);How to Purchase (All Other Countries)->How to Purchase (All Other Countries);Product Information->Product Information;Product Concern->Product Concern;New Product Idea->New Product Idea;Web Site Support->Web Site Support;Become a Supplier->Become a Supplier;Other->Other"
+
+################################################# Adding content search new fields #################################################
+
+$solrIndexedContentType=b2bwhitelabelContentType
+$contentCatalog=b2bwhitelabelContentCatalog
+$facetContentSearchConfigName=b2bwhitelabelContentIndex
+
+INSERT_UPDATE SolrIndexedProperty ; solrIndexedType(identifier)[unique=true] ; name[unique=true] ; type(code) ; sortableType(code) ; currency[default=false] ; localized[default=false] ; multiValue[default=false] ; useForSpellchecking[default=false] ; useForAutocomplete[default=false] ; fieldValueProvider             ; valueProviderParameter ; ftsPhraseQuery[default=false] ; ftsPhraseQueryBoost ; ftsQuery[default=false] ; ftsQueryBoost ; ftsFuzzyQuery[default=false] ; ftsFuzzyQueryBoost ; ftsWildcardQuery[default=false] ; ftsWildcardQueryType(code)[default=POSTFIX] ; ftsWildcardQueryBoost ; ftsWildcardQueryMinTermLength
+								  ; $solrIndexedContentType                  ; pageTitle         ; string     ;                    ;                         ; true                     ;                           ;                                    ;                                   ; gpPageTitleValueProvider       ;                        ;                               ;                     ;                         ;               ;                              ;                    ;                                 ;                                             ;                       ;
+
+
+REMOVE SolrSortField ; sort(indexedType(identifier),code)[unique=true] ; fieldName[unique=true] ; ascending[unique=true]
+                            ; $solrIndexedContentType:aTOz                    ; title                  ; true                  
+							; $solrIndexedContentType:relevant                ; score                  ; true	
+							
+INSERT_UPDATE SolrSortField ; sort(indexedType(identifier),code)[unique=true] ; fieldName[unique=true] ; ascending[unique=true]
+                            ; $solrIndexedContentType:relevant                ; score                  ; false                  
+							; $solrIndexedContentType:aTOz                    ; pageTitle              ; true                  
+
+################################################# Adding content search new fields #################################################
+# CMS Footer Component Start
+UPDATE FooterNavigationComponent;$contentCV[unique=true];uid[unique=true];notice[lang=en]
+;;FooterNavigationComponent;"| Georgia-Pacific"
+# CMS Footer Component END
+       
+UPDATE CMSSite;uid[unique=true];pdfCoverImages
+;b2bwhitelabel;"foodServices->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=a26f9ea66eb6721f01e66d157025798d2e0975a5&prid=2000Wx2000H&clid=SAPDAM;perfecTouchCups->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=4af53349404643eccb47045b6beef27f5fd4e486&prid=2000Wx2000H&clid=SAPDAM;washRoomWiper->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=400e8781d778a24559e390d8df821ee622ea0cfc&prid=2000Wx2000H&clid=SAPDAM;sustainability->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=d19c0c4534c64255ea234ab8eba59e20b35a5b37"
+
+UPDATE CMSSite;uid[unique=true];gpCertificationsImages
+;b2bwhitelabel;"BIO_PREFERRED->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=ac630b27d38c7f2613481620c5a5c3e0f284ca8d;BPI->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=205f8d0e8198d8c23fbbd5d7dfb6f75ad11a3cd6;PROCESS_CHLORINE_FREE->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=a03d6e263528b4a0a754729241ba84b62609e04d;CUSTOMIZABLE->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=7fb664c9ec1ca6c7938c006e6bdef37552946f59;DFE->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=5e9c9ac5d3167e09142e3ab6f6aeb95fe5abf14b;ECC->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=22aa8120f31aa31f8ffa4a54e9531a1e3d1b329c;ECO_LOGO->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=e5704d8139de7df1126fbeeafe5c78e8c3176f66;EPA->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=c77a9221ffa4883f4af20417785523fa1d22427a;FSC->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=0c3b1f151f64d8d158d4fcec831f5aff74d7c693;GREEN_SEAL->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=7ee67f989cc2f817bff7db22f71fd70ff604c5c8;HOW_2_RECYCLE->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=8ed5629c1239efd3e53caf1afcf50916b1f4083e;SFI->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=2796d15c7a2a2a7415fb6efe443d75e40a05a268;USGBC_LEED->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=9c495494e8a1abbdda61aad1cd7bab0c15be35f2;WASTE_REDUCING->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=82d42115127b5c2999d859409b4d98ab3b974f82;WHC->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=4833a8d19367477fec60ddf47716b7a2d85dd9a0;PEFC->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=7182745006b73b0ccfb8b93e75c80b31db7bbbc8"
+
+UPDATE CMSSite;uid[unique=true];siteConfig
+;b2bwhitelabel;"addToMarket.us.b2b->true;addToMarket.ca.b2b->false;addToMarket.other.b2b->false;default.max.product.quantity->100;gp_bvId->gpxpress_test;root.category->categories;taxexemptionreviewuseremail->gpuser@yopmail.com;gp_mpQues->How frequently would you like to hear from us?;socialaggrstartdate.b2b-> ;socialaggrenddate.b2b-> ;socialaggrfeedId.b2b->travel-08efe5d2-63c3-4b99-bc32-c97c29024269;socialaggrdataPer.b2b-> ;socialaggrpages.b2b-> 2;socialaggrtruncate.b2b-> ;socialaggrgutter.b2b->20 ;socialaggrcolumns.b2b->4;socialaggrinterval.b2b-> ;socialaggrfilter.b2b-> ;socialaggrstyle.b2b->widget ;socialaggroverlay.b2b-> ;GTMID->GTM-TRVPTX7;google.maps.api.key->AIzaSyDk2KFvE5UgpLcYM4nVlOLSRDWqPMB1bNI;showCompanyLinks->false;showTaxExemption->false;contactNumber->800-750-4226;termAndCondPageLabel->/termsAndConditions;gpYMarketingSiteId->ZGPXPRESSFOODSERVICE;ymarketing.permissions.id.origin.create->ZGPXPRESSFOODSERVICE;ymarketing.permissions.id.origin.update->EMAIL;ymarketing.source.system.id->ZGPXPRESSFOODSERVICE;ymarketing.marketing.area.id->ZGPPRO;enable.samplecart->true;brands.enabled->true;gp.site.references->SIMILAR,CROSSELLING;showDownload->true;bv_feed_file_name->bv_angelsoft_ratings;isBazaarVoiceEnabled->false;isRelatedEnabled->false;isShowQuickOrder->false;isDownloadable->true;isExcelDownloadable->true;isSharedList->true;isAddProduct->true;isShowQuickOrder->false;isSharable->true;isBulkEnabled->true;isFavoritesEnabled->false;isDOBEnabled->false;isGenderEnabled->false;enable.autosuggest.obselete->true;enable.obselete->true;showVariantProducts->false;isCallUsEnabled->true;isEmailUsEnabled->true;isPayPalEnabled->true;isSocailShareEnabled->true;isContactUsFormEnabled->true;isSupportTicketsEnabled->true;isProductCompareEnabled->true;isWriteUsEnabled->true;isProductIdEnabled->true;showInStockMsg->false;showProductFeatures->true;showProductSpecs->true;showProductResources->true;isSaveCartEnabled->true;isMultipleShippingEnabled->true;showDeliveryInstructions->true;isDinersCardAvailable->true;showProductIndicators->false;isGiftingEnabled->false;isGooglePayEnabled->true;isApplePayEnabled->true;isVariantsEnabled->true;isProductPriceEnabled->false;addToCartEnabled->false;promoTextEnabled->true;isMobileMyProfileEnabled->true;pdpLocateAStoreEnabled->false;showPoBoxShippingMsg->true;showInventoryMessages->true;isFindADistributorEnabled->true;showProductStatus->false;isQuantitySelectorEnabled->false;viewTicketsForDays->365;isAvailable.enabled->true;isFindADistributorEnabled->false;showForgotPassword->true;createAcountMoreDetailsEnabled->true;editPasswordEnabled->true;editCommPrefEnabled->true;hasTaxExemption->true;addAddressEnabled->true;deleteAddressEnabled->false;addPaymentEnabled->true;deletePaymentEnabled->true;is3DImageEnabled->true;reorderEnabled->false;addCustomAttrs->true;addToListBySku->true;downloadPrdListInfo->true;downloadListPdf->true;downloadListImage->true;downloadPdpPdf->true;downloadPdpImage->true;hasCmirCode->true;"
+  
+ INSERT_UPDATE CMSNavigationEntry;uid[unique=true];$contentCV[unique=true];name;navigationNode(&nodeRef);item(CMSLinkComponent.uid,CMSLinkComponent.$contentCV);
+;FindStoreNavNodeEntryFooter;;Contact Us Navigation Node Entry;FindStoreFooterNavNode;FindStoreLink;
+
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);links(&linkRef);&nodeRef;parentPos
+;FindStoreFooterNavNode;;Find A Distributor Page;GPContactUsNavNode;;FindStoreFooterNavNode;2
+ 
+########## Shipping email update impex start ##################
+
+$contentCatalog=b2bwhitelabelContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$jarEmailResource=jar:com.gp.b2binitialdata.constants.Gpb2binitialdataConstants&/gpb2binitialdata/import/coredata/contentCatalogs/b2bwhitelabelContentCatalog/emails
+$lang=en 
+
+UPDATE RendererTemplate ; code[unique=true]                                        ; description[lang=$lang]                            ; templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+						;b2bwhitelabel_Email_Delivery_Sent_Body                    ;"Delivery Sent Email Body"                          ; $jarEmailResource/email-deliverySentBody.vm
+ 
+########## Shipping email update impex end ##################
+
+UPDATE CMSSite;uid[unique=true];topicOfInquiry
+;b2bwhitelabel;"How to Purchase (US, Canada, Mexico)->How to Purchase (US, Canada, Mexico);How to Purchase (All Other Countries)->How to Purchase (All Other Countries);Product Information->Product Information;Product Concern->Product Concern;New Product Idea->New Product Idea;Web Site Support->Web Site Support;Become a Supplier->Become a Supplier;Other->Other"

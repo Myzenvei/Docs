@@ -1,0 +1,79 @@
+<section class="vx-sample-shopping-cart row">
+  <vx-modal ref="shareCartModal" size="extra-small" :heading="i18n.shareListHeading">
+    <vx-share-cart slot="component" type="modal" :cart-id="shoppingCartData.guid" :i18n="i18n" @share-success="handleShareCartSuccess"
+      @share-error="handleShareCartError"></vx-share-cart>
+  </vx-modal>
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>
+  </vx-spinner>
+  <vx-modal ref="saveCartModal" size="extra-small" :heading="i18n.saveListHeading">
+    <vx-save-cart slot="component" :cart-guid="shoppingCartData.guid" :i18n="i18n" @list-saved="handleListSaved"></vx-save-cart>
+  </vx-modal>
+  <div class="mt-xs-4 px-xs-0 mt-sm-5 mt-md-3 cart-heading-container">
+    <h5 v-if="giveAwayCouponDescription" class="pt-md-2 pt-sm-0 pb-xs-3 my-xs-0">{{giveAwayCouponDescription}}</h5>
+    <h1 class="cart-heading">{{i18n.shoppingCartHeading}}</h1>
+    <span class="item pl-xs-3 no-of-cart-items">({{shoppingCartData.totalItems}}
+      <span v-if="shoppingCartData.totalItems === 1">{{i18n.item}}</span>
+      <span v-else>{{i18n.items}}</span>)</span>
+  </div>
+  <div class="col-xs-12 pt-xs-4 pb-xs-3 pb-md-2 px-xs-0 mb-xs-0 cart-id-container">
+    <span class="cart-id">{{i18n.cartId}}: {{shoppingCartData.code}}</span>
+    <span class="shift-right">
+      <span class="save-cart pr-xs-4">
+        <span class="cart-icons icon-add-to-list" :title="i18n.iconAddToListTitle" :aria-label='i18n.iconAddToListTitle'
+          tabindex="0" @click="handleSaveACart($event)" role="link" @keyup.enter-space='handleSaveACart($event)' v-if="!globals.isEmployeeStore()"></span>
+      </span>
+      <span class="share-cart">
+        <span class="cart-icons icon-share" :title="i18n.iconShareTitle" :aria-label='i18n.iconShareTitle' tabindex="0"
+          v-on:click="openShareCartModal($event)" role="link" @keyup.enter-space='openShareCartModal($event)'></span>
+      </span>
+    </span>
+  </div>
+  <div class="col-xs-12 pr-sm-0 px-xs-0 product-tile">
+    <vx-product-tile slot="component" class="pb-xs-4" v-for="productEntry in shoppingCartData.entries">
+      <template slot="top-right">
+        <span class="col-sm-2 px-xs-0">
+          <span class="cart-icons icon-trash shift-right" :title="i18n.iconDeleteTitle" @click="deleteCartItem(productEntry, productEntry.entryNumber,$event)"
+            tabindex='0' @keyup.enter-space="deleteCartItem(productData.entryNumber,$event)" role="button" :aria-label="i18n.iconDeleteTitle"></span>
+        </span>
+      </template>
+      <template v-if="productEntry && productEntry.product && productEntry.product.images && productEntry.product.images.length!==0 && productEntry.product.images[2] && productEntry.product.images[2].url"
+        class="product-img px-md-2 py-md-4 px-sm-1 py-sm-3 px-xs-1 py-xs-2" slot="image-slot">
+        <img :src="globals.getThumbnailImageUrl(productEntry.product.images)" :alt="productEntry.product.images[2].altText">
+      </template>
+      <template v-if="productEntry && productEntry.product && !productEntry.product.images" slot="image-slot">
+        <img :src="globals.assetsPath + 'images/no_image.svg'" alt="No Image">
+      </template>
+      <template slot="details">
+        <p class="product-title mb-xs-2 pr-sm-5">
+          <a :href="globals.getNavigationUrl('empty')+productEntry.product.url" v-html="productEntry.product.name"></a>
+        </p>
+        <div class="product-codes" aria-hidden="true">
+          <span v-if="productEntry.product && productEntry.product.code" class="manufacturer-id">{{i18n.manufactureID}}{{productEntry.product.code}}</span>
+          <span v-if="!isMobile() && productEntry.product && productEntry.product.cmirCode">|</span>
+          <span v-if="productEntry.product && productEntry.product.cmirCode" class="customer-id pt-xs-2 pt-sm-0">{{i18n.customerID}}{{productEntry.product.cmirCode}}</span></div>
+        <div class="display-attributes" v-if="globals.siteConfig.enableDisplayAttributes && productEntry.product.displayAttributes" v-html="displayAttributes(productEntry.product.displayAttributes)">
+        </div>
+        <p class="location-availability mt-xs-3 mt-sm-4" v-if="productEntry.product.isAvailableForLocation">
+          {{i18n.locationAvailability}}
+        </p>
+        <p class="product-quantity mt-xs-3 mb-xs-2">{{i18n.quantity}}</p>
+        <vx-stepper-control :max-value="maxOrderQuantity(productEntry.product.maxOrderQuantity)" :value="productEntry.quantity"
+        @currentCount="handleQuantity(productEntry,productEntry.entryNumber,$event)" @maxValueUpdated="maxValueUpdated" :min-value="minOrderQuantity(productEntry.product.minOrderQuantity)"
+        @minValueUpdated="minValueUpdated"></vx-stepper-control>
+      </template>
+      <!-- Color and Size variant -->
+      <!-- <template slot="card-content-bottom">
+        <div v-if="productEntry.product" class="color-size">
+          <span v-if="productEntry.product.color" class="product-color">
+            <p class="color-label">{{i18n.color}}</p>
+            <div class="color-box" :style="setColor(productEntry.product.color)"></div>
+          </span>
+          <span v-if="productEntry.product.size">
+            <p class="size-label">{{i18n.size}}</p>
+            <div class="size-content">{{productEntry.product.size}}</div>
+          </span>
+        </div>
+      </template> -->
+    </vx-product-tile>
+  </div>
+</section>

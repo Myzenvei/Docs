@@ -1,0 +1,37 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+# ImpEx for Importing Product Classifications into GP USStore
+
+# Common (across all languages) data starts here
+
+#% impex.setLocale(Locale.ENGLISH);
+
+# Macros / Replacement Parameter definitions
+$productCatalog=gpUSProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$clAttrModifiers=system='gpUSClassification',version='1.0',translator=de.hybris.platform.catalog.jalo.classification.impex.ClassificationAttributeTranslator,lang=EN
+
+
+# Classification: Energy management (4671)
+#$feature1=@Battery voltage, 4858[$clAttrModifiers];  # Battery voltagein Volt (V)
+#$feature2=@Battery technology, 434[$clAttrModifiers];  # Battery technology
+#$feature3=@Input voltage, 1466[$clAttrModifiers];  # Input voltagein Volt (V)
+#$feature4=@Input power, 6738[$clAttrModifiers];  # Input powerin Watt (W)
+#$feature5=@Number of batteries suppo, 1211[$clAttrModifiers];  # Number of batteries supported
+#$feature6=@Input frequency, 2935[$clAttrModifiers];  # Input frequencyin Hertz (Hz)
+#$feature7=@Charge indicator, 5439[$clAttrModifiers];  # Charge indicator
+#$feature8=@Output power, 5932[$clAttrModifiers];  # Output powerin Watt (W)
+#$feature9=@Charging time, 4087[$clAttrModifiers];  # Charging timein hour (h)
+#$feature10=@Power supply type, 514[$clAttrModifiers];  # Power supply type
+#$feature11=@Quick charge, 4981[$clAttrModifiers];  # Quick charge
+#INSERT_UPDATE Product;code[unique=true];$feature1;$feature2;$feature3;$feature4;$feature5;$feature6;$feature7;$feature8;$feature9;$feature10;$feature11;$catalogVersion;
+# ;2114093;<ignore>;<ignore>;230;<ignore>;<ignore>;<ignore>;<ignore>;1000;<ignore>;AC;<ignore>
+# ;2114099;<ignore>;<ignore>;12;<ignore>;<ignore>;<ignore>;<ignore>;<ignore>;<ignore>;Battery;<ignore>

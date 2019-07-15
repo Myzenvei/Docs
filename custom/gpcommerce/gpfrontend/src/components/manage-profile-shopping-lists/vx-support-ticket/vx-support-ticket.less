@@ -1,0 +1,132 @@
+.vx-support-ticket {
+  .supportTicketHeading {
+    margin-top: 34px;
+    margin-bottom: 24px;
+    font-size: @font-size-h3;
+  }
+
+  .createTicketHeading {
+    margin-top: 34px;
+    margin-bottom: 24px;
+    font-size: @font-size-large;
+  }
+
+  .heading {
+    font-size: @font-size-small;
+    font-weight: @font-weight-medium;
+    margin-top: 24px;
+  }
+
+  .heading-value {
+    font-size: @font-size-small;
+    color: @text-color;
+    font-weight: @font-weight-regular;
+  }
+
+  .open-accordion {
+    border-top: none;
+
+    .heading.order-container {
+      margin-top: 8px;
+    }
+  }
+
+  tbody {
+    tr {
+      td {
+        font-size: @font-size-small;
+        font-weight: @font-weight-medium;
+
+        .icon-chevron-down,
+        .icon-chevron-up {
+          font-size: @font-icon-size;
+          color: @font-icon-color-3;
+        }
+
+        .colData {
+          font-size: @font-size-small;
+          font-weight: @font-weight-regular;
+        }
+      }
+    }
+  }
+
+  .contact-info-section {
+    border: 1px solid @border-color;
+
+    .live-chat {
+      a {
+        width: 208px;
+      }
+    }
+
+    p {
+      font-size: @font-size-small;
+      font-weight: @font-weight-medium;
+    }
+  }
+
+}
+
+@media screen and (min-width: @screen-xs-max) {
+  .vx-support-ticket {
+    .contact-info-section {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}
+
+@media screen and (max-width: @screen-xs-max) {
+  .vx-support-ticket {
+    #support-ticket-data-table tbody {
+
+      .shown {
+        padding-bottom: 0px;
+      }
+
+      .shown+tr {
+        border-top: none;
+        margin-top: -38px;
+        padding: 0 16px 16px 21px;
+
+        td.open-accordion {
+          padding-left: 0;
+          padding-top: 0;
+        }
+      }
+
+      td.details-control {
+        position: relative;
+
+        span {
+          position: absolute;
+          top: calc(100% - 1000%);
+          left: calc(100% - 6%);
+        }
+      }
+
+
+      td {
+        display: inline-block;
+        vertical-align: top;
+
+        .colData {
+          display: inline-block;
+          vertical-align: middle;
+          margin-top: -20px;
+        }
+      }
+
+      .odd,
+      .even {
+        display: flex;
+        flex-direction: column;
+
+        td:before {
+          font-weight: @font-weight-medium;
+        }
+      }
+    }
+  }
+}

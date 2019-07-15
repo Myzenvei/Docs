@@ -1,0 +1,27 @@
+######################
+# Configuration part #
+######################
+
+## Importing settings (bazaarvoiceConfig)
+#########################################
+INSERT_UPDATE BazaarvoiceConfig; code[unique=true]; clientName; ftpUserName; ftpPassword; zone; seoKey; ftpServer; showReviewsScript;showQuestionsScript; isFamiliesEnabled
+;sampleBVConfig; contactBVforClientname; contactBVforUser; contactBVforPass; Main Site; contactBVforSEOkey;ftp-stg.bazaarvoice.com;"$(""#prod_tabs"").tabs({selected:2});"; "$(""#prod_tabs"").tabs({selected:3});"; false
+
+## Setting bazaarvoiceConfig to websites
+########################################
+INSERT_UPDATE CMSSite; uid[unique=true]; bvConfig(code);
+; electronics ; sampleBVConfig;
+
+###############
+# Export part #
+###############
+
+## Creating a cronjob for exporting data to BV
+##############################################
+INSERT_UPDATE BazaarvoiceProductFeedExportCronJob; code[unique=true];job(code);bazaarvoiceStorefront(uid);singleExecutable;sessionLanguage(isocode)
+;bvProductFeedUniqueNameForStore ; bazaarvoiceProductFeedExporter; electronics ; false; en
+
+## Creating a trigger for cronjob
+#################################
+INSERT_UPDATE Trigger;cronJob(code)[unique=true];cronExpression
+; bvProductFeedUniqueNameForStore ; 0 2 16 * * ?

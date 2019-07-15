@@ -1,0 +1,364 @@
+
+$productCatalog=gpUSProductCatalog
+$productCatalogName=GP US Product Catalog
+$prices=Europe1prices[translator=de.hybris.platform.europe1.jalo.impex.Europe1PricesTranslator]
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$baseProduct=baseProduct(code, catalogVersion(catalog(id[default='$productCatalog']),version[default='Staged']))
+$approved=approvalstatus(code)[default='approved']
+$taxGroup=Europe1PriceFactory_PTG(code)[default=us-sales-tax-full]
+
+
+INSERT_UPDATE UserPriceGroup;code[unique=true];name[lang=en];
+;B2b_REGISTERED_PRICE_GROUP;B2b_REGISTERED_PRICE_GROUP;
+
+
+
+# UserPriceGroup
+INSERT_UPDATE UserPriceGroup;code[unique=true];name[lang=en];
+;pricegroup-gpemployee;GPEmployee Price Group;
+;pricegroup-dixie;Dixie Price Group;
+;pricegroup-b2cwhitelabel;B2CWhitelabel Price Group;
+;pricegroup-b2bwhitelabel;B2BWhitelabel Price Group;
+;pricegroup-gpxpress;GPXpress Price Group;
+;pricegroup-copperandcrane;Copper and Crane Price Group;
+;pricegroup-vanityfairnapkins;Vanity Fair Napkins Price Group;
+
+
+
+
+#######################################
+###### EMPLOYEE STORE PRICES 
+#######################################
+
+UPDATE Product;code[unique=true];$prices;$approved;$catalogVersion;$taxGroup
+;33110/50;1 CS = 30 USD N
+;15289/07;1 CS = 26 USD N
+;79019/55;1 CS = 27 USD N
+;79051/01;1 CS = 31 USD N
+;23710/37;1 CS = 29.5 USD N
+;15416/31;1 CS = 22 USD N
+;87361/01;1 CS = 28 USD N
+;94313/50;1 CS = 28 USD N
+;79137/55;1 CS = 31.5 USD N
+;87396/50;1 CS = 31 USD N
+;35130/18;1 CS = 30 USD N
+;33110/50DR;1 EA = 9 USD N
+;35515/18DR;1 EA = 2.25 USD N
+;45200/17DR;1 EA = 2 USD N
+;15289/07DR;1 EA = 3 USD N
+;15115/07DR;1 EA = 4 USD N
+;79019/55DR;1 EA = 6.75 USD N
+;79051/01DR;1 EA = 6.25 USD N
+;23710/37DR;1 EA = 5 USD N
+;43900/17DR;1 EA = 3.5 USD N
+;15416/31DR;1 EA = 3 USD N
+;15734/30DR;1 EA = 6.5 USD N
+;43211/57DR;1 EA = 2.5 USD N
+;15675/92DR;1 EA = 2.75 USD N
+;87361/01DR;1 EA = 7 USD N
+;94313/50DR;1 EA = 7 USD N
+;79137/55DR;1 EA = 8 USD N
+;44160/01DR;1 EA = 2 USD N
+;87396/50DR;1 EA = 7.75 USD N
+;15715/05DR;1 EA = 3 USD N
+;91304/37DR;1 EA = 3.25 USD N
+;15396/30DR;1 EA = 4 USD N
+;21926/01DR;1 EA = 3 USD N
+;35130/18DR;1 EA = 2.5 USD N
+;35163/02DR;1 EA = 3 USD N
+;15097/14DR;1 EA = 3 USD N
+;41705/52DR;1 EA = 4.25 USD N
+;35236/18DR;1 EA = 2.75 USD N
+;79169/55;1 CS = 32.5 USD N
+;44089/51;1 CS = 29 USD N
+;DR-1000586;1 CS = 28 USD N
+;DR-1000587;1 CS = 27.5 USD N
+;DR-1000588;1 CS = 25 USD N
+;DR-1000589;1 CS = 26.5 USD N
+;DR-1000590;1 CS = 25.5 USD N
+;DR-1000591;1 CS = 20 USD N
+;DR-1000592;1 CS = 23 USD N
+;DR-1000593;1 CS = 95 USD N
+;DR-1000594;1 CS = 65 USD N
+;35731/18DR;1 EA = 1.75 USD N
+;15259/30DR;1 EA = 3.25 USD N
+;15420/30DR;1 EA = 4.5 USD N
+;79169/55DR;1 EA = 6.5 USD N
+;77355/04DR;1 EA = 6 USD N
+;44089/51DR;1 EA = 3.75 USD N
+;94253/01DR;1 EA = 7.25 USD N
+;21774/01DR;1 EA = 2.75 USD N
+;15327/07DR;1 EA = 3 USD N
+;22578/05DR;1 EA = 6 USD N
+;22639/75DR;1 EA = 7 USD N
+;22576/02DR;1 EA = 6 USD N
+;22643/75DR;1 EA = 7 USD N
+;22700/75DR;1 EA = 7.5 USD N
+;22702/75DR;1 EA = 7.5 USD N
+;22707/75DR;1 EA = 7.5 USD N
+;2159S;1 EA = 88 USD N
+;2159B;1 EA = 88 USD N
+;2159RG;1 EA = 88 USD N
+;2159WG;1 EA = 88 USD N
+;185SV1;1 EA = 88 USD N
+;185BV1;1 EA = 88 USD N
+;185RV1G;1 EA = 88 USD N
+;185WV1G;1 EA = 88 USD N
+
+
+
+ 
+INSERT_UPDATE PriceRow; product(code,$catalogVersion)[unique=true];ug(code)[unique=true];gpUserPriceGroup(code)[unique=true];currency(isocode)[unique=true];price[unique=true];unit(code)[default=pieces];net[default=true];salePrice[default=false];;minAdvertisedPrice[default=false];startTime[dateformat=dd-MM-yyyy];endTime[dateformat=dd-MM-yyyy]
+;1000/44COT; ;;USD;82;CS; ; 
+;13728; ;;USD;45.99;CS; ; 
+;16PPATH; ;;USD;76.98;CS; ; 
+;19375; ;;USD;87.99;CS; ; 
+;19378; ;;USD;68.98;CS; ; 
+;19448/01; ;;USD;108.99;CS; ; 
+;1TOC; ;;USD;59.99;CS; ; 
+;21000; ;;USD;30.99;CS; ; 
+;2342PATH; ;;USD;83.99;CS; ; 
+;26491; ;;USD;41.98;CS; ; 
+;26496; ;;USD;40.99;CS; ; 
+;27300; ;;USD;42.99;CS; ; 
+;27S12; ;;USD;85;CS; ; 
+;29408; ;;USD;62.99;CS; ; 
+;29430; ;;USD;74.99;CS; ; 
+;29651; ;;USD;57.99;CS; ; 
+;29662; ;;USD;60.99;CS; ; 
+;2TOC; ;;USD;58.99;CS; ; 
+;32006; ;;USD;68.98;CS; ; 
+;32019; ;;USD;64.99;CS; ; 
+;38000; ;;USD;54.99;CS; ; 
+;38015; ;;USD;53.99;CS; ; 
+;3TOC; ;;USD;59.99;CS; ; 
+;4021PATH; ;;USD;115.99;CS; ; 
+;43335; ;;USD;93.99;CS; ; 
+;43337; ;;USD;96.99;CS; ; 
+;43714; ;;USD;65.99;CS; ; 
+;43715; ;;USD;65.99;CS; ; 
+;43716; ;;USD;75.98;CS; ; 
+;43818; ;;USD;109.98;CS; ; 
+;43822; ;;USD;125.98;CS; ; 
+;48250; ;;USD;80.99;CS; ; 
+;48255; ;;USD;80.99;CS; ; 
+;48260; ;;USD;40.99;CS; ; 
+;48265; ;;USD;40.99;CS; ; 
+;48280; ;;USD;50.99;CS; ; 
+;48285; ;;USD;50.99;CS; ; 
+;48290; ;;USD;50.99;CS; ; 
+;48295; ;;USD;50.99;CS; ; 
+;4TOC; ;;USD;60.99;CS; ; 
+;50011; ;;USD;11.99;CS; ; 
+;50012; ;;USD;11.99;CS; ; 
+;50013; ;;USD;11.99;CS; ; 
+;50030; ;;USD;11.99;CS; ; 
+;53057; ;;USD;24.99;CS; ; 
+;53058; ;;USD;24.99;CS; ; 
+;53060; ;;USD;39.99;CS; ; 
+;53257A; ;;USD;15;CS; ; 
+;5342DX; ;;USD;68.99;CS; ; 
+;5356DX; ;;USD;77.99;CS; ; 
+;53590; ;;USD;27.99;CS; ; 
+;54527A; ;;USD;7.99;CS; ; 
+;54550A; ;;USD;11.99;CS; ; 
+;56744A; ;;USD;29.99;CS; ; 
+;56757; ;;USD;34.99;CS; ; 
+;56761; ;;USD;34.99;CS; ; 
+;56768; ;;USD;34.99;CS; ; 
+;56781; ;;USD;29.99;CS; ; 
+;56783A; ;;USD;16.99;CS; ; 
+;56784A; ;;USD;16.99;CS; ; 
+;56788; ;;USD;29.99;CS; ; 
+;56790A; ;;USD;25.99;CS; ; 
+;56803; ;;USD;12;CS; ; 
+;58000A; ;;USD;1250;CS; ; 
+;58000B; ;;USD;1250;CS; ; 
+;59009; ;;USD;29.99;CS; ; 
+;59589; ;;USD;37.99;CS; ; 
+;59590; ;;USD;37.99;CS; ; 
+;87242; ;;USD;83.98;CS; ; 
+;8TOC; ;;USD;59.99;CS; ; 
+;914LSRD; ;;USD;40.98;CS; ; 
+;92120; ;;USD;101.99;CS; ; 
+;92220; ;;USD;82.99;CS; ; 
+;96019; ;;USD;36.99;CS; ; 
+;964PATH; ;;USD;100.99;CS; ; 
+;9PPATH; ;;USD;119.98;CS; ; 
+;CH26C7; ;;USD;54.99;CS; ; 
+;CH56NC7; ;;USD;75.99;CS; ; 
+;CS7; ;;USD;80.99;CS; ; 
+;D9542; ;;USD;52.99;CS; ; 
+;D9542B; ;;USD;85;CS; ; 
+;ES300U; ;;USD;45.99;CS; ; 
+;ES9CSCOMP; ;;USD;164.99;CS; ; 
+;ES9PCOMP; ;;USD;102.99;CS; ; 
+;FF2PLN; ;;USD;75;CS; ; 
+;FM23C7; ;;USD;54.99;CS; ; 
+;FM53C7; ;;USD;52.99;CS; ; 
+;JW7; ;;USD;79.98;CS; ; 
+;KL200W8; ;;USD;33.99;CS; ; 
+;KL300W8; ;;USD;26.99;CS; ; 
+;KM23C7; ;;USD;54.99;CS; ; 
+;KM53C7; ;;USD;52.99;CS; ; 
+;L9SXP; ;;USD;110.99;CS; ; 
+;LO10; ;;USD;46.99;CS; ; 
+;LQ1212PL; ;;USD;78.99;CS; ; 
+;LQ1416PL; ;;USD;59.99;CS; ; 
+;PL10X10X5; ;;USD;120;CS; ; 
+;RP2008; ;;USD;50.99;CS; ; 
+;RP3008; ;;USD;32.99;CS; ; 
+;RW86W; ;;USD;54.99;CS; ; 
+;SC003; ;;USD;150;CS; ; 
+;SSF51; ;;USD;49.99;CS; ; 
+;SSFAUTODSP; ;;USD;39.99;CS; ; 
+;SSFD120; ;;USD;15.99;CS; ; 
+;SSK51; ;;USD;49.99;CS; ; 
+;SSKAUTODSP; ;;USD;39.99;CS; ; 
+;SSKD120; ;;USD;15.99;CS; ; 
+;SSS51; ;;USD;49.99;CS; ; 
+;SSSAUTODSP; ;;USD;39.99;CS; ; 
+;SSSD120; ;;USD;15.99;CS; ; 
+;SSW1D85; ;;USD;24.99;CS; ; 
+;SSW3D85; ;;USD;69.99;CS; ; 
+;SSWPF5; ;;USD;55.99;CS; ; 
+;SSWPK5; ;;USD;55.99;CS; ; 
+;SSWPS5; ;;USD;55.99;CS; ; 
+;SSWPT5; ;;USD;55.99;CS; ; 
+;SX12PATH; ;;USD;82.99;CS; ; 
+;SXP6PATH; ;;USD;67.99;CS; ; 
+;SXP9PATH; ;;USD;71.99;CS; ; 
+;TM23C7; ;;USD;54.99;CS; ; 
+;TM53C7; ;;USD;52.99;CS; ; 
+;TP9542; ;;USD;84.99;CS; ; 
+;TP9542B; ;;USD;99.99;CS; ; 
+;UX7WS; ;;USD;32.99;CS; ; 
+;UX9PATH; ;;USD;83.99;CS; ;
+
+
+; 2112014; ;;USD;28.99;CS; ;                                   
+; 2717201; ;;USD;44.99;CS; ;                                    
+; 32001; ;;USD;23.99;CS; ;                                       
+; 3TOCSC; ;;USD;25.99;CS; ;                                      
+; 59530; ;;USD;41.99;CS; ;                                    
+; 59535; ;;USD;41.99;CS; ;                           
+; 6342AR; ;;USD;150.99;CS; ;                         
+; 6346AR; ;;USD;165.99;CS; ;                                    
+; SSFD80; ;;USD;15.99;CS; ;                                      
+; SSKD80; ;;USD;15.99;CS; ;                                     
+; SSSD80; ;;USD;15.99;CS; ;                                     
+; 16620; ;;USD;29.99;CS; ;                                      
+
+
+
+
+
+INSERT_UPDATE PriceRow ; product(code,$catalogVersion)[unique=true] ; ug(code)[unique=true] ; gpUserPriceGroup(code)[unique=true] ; currency(isocode)[unique=true] ; price[unique=true] ; unit(code)[default=pieces] ; net[default=true] ; salePrice[default=false] ;  ; minAdvertisedPrice[default=false] ; startTime[dateformat=dd-MM-yyyy] ; endTime[dateformat=dd-MM-yyyy]
+                       ; CC-BAR-1000048                             ;                       ;                                     ; USD                            ; 35                 ; CS                         ;                   ;                          
+                       ; CC-CLN-1000010                             ;                       ;                                     ; USD                            ; 20                 ; EA                         ;                   ;                          
+                       ; CC-CND-1000025                             ;                       ;                                     ; USD                            ; 30                 ; EA                         ;                   ;                          
+                       ; CC-ELX-1000018                             ;                       ;                                     ; USD                            ; 35                 ; EA                         ;                   ;                          
+                       ; CC-ELX-1000019                             ;                       ;                                     ; USD                            ; 50                 ; EA                         ;                   ;                          
+                       ; CC-EXF-1000002                             ;                       ;                                     ; USD                            ; 20                 ; EA                         ;                   ;                          
+                       ; CC-EXF-1000003                             ;                       ;                                     ; USD                            ; 25                 ; EA                         ;                   ;                          
+                       ; CC-EXF-1000004                             ;                       ;                                     ; USD                            ; 25                 ; EA                         ;                   ;                          
+                       ; CC-KIT-1000066                             ;                       ;                                     ; USD                            ; 80                 ; CS                         ;                   ;                          
+                       ; CC-KIT-1000069                             ;                       ;                                     ; USD                            ; 90                 ; CS                         ;                   ;                          
+                       ; CC-KIT-1000076                             ;                       ;                                     ; USD                            ; 70                 ; CS                         ;                   ;                          
+                       ; CC-KIT-1000078                             ;                       ;                                     ; USD                            ; 99                 ; CS                         ;                   ;                          
+                       ; CC-KIT-1000079                             ;                       ;                                     ; USD                            ; 55                 ; CS                         ;                   ;                          
+                       ; CC-KIT-1000088                             ;                       ;                                     ; USD                            ; 130                ; CS                         ;                   ;                          
+                       ; CC-KIT-1000089                             ;                       ;                                     ; USD                            ; 110                ; CS                         ;                   ;                          
+                       ; CC-LTN-1000008                             ;                       ;                                     ; USD                            ; 30                 ; EA                         ;                   ;                          
+                       ; CC-LTN-1000009                             ;                       ;                                     ; USD                            ; 25                 ; EA                         ;                   ;                          
+                       ; CC-MSK-1000017                             ;                       ;                                     ; USD                            ; 45                 ; EA                         ;                   ;                          
+                       ; CC-MST-1000015                             ;                       ;                                     ; USD                            ; 20                 ; EA                         ;                   ;                          
+                       ; CC-MST-1000016                             ;                       ;                                     ; USD                            ; 15                 ; EA                         ;                   ;                          
+                       ; CC-OIL-1000001                             ;                       ;                                     ; USD                            ; 20                 ; EA                         ;                   ;                          
+                       ; CC-OIL-1000005                             ;                       ;                                     ; USD                            ; 25                 ; EA                         ;                   ;                          
+                       ; CC-OIL-1000006                             ;                       ;                                     ; USD                            ; 15                 ; EA                         ;                   ;                          
+                       ; CC-OIL-1000007                             ;                       ;                                     ; USD                            ; 45                 ; EA                         ;                   ;                          
+                       ; CC-OIL-1000026                             ;                       ;                                     ; USD                            ; 20                 ; EA                         ;                   ;                          
+                       ; CC-PCH-1000062                             ;                       ;                                     ; USD                            ; 15                 ; EA                         ;                   ;                          
+                       ; CC-PVN-1000063                             ;                       ;                                     ; USD                            ; 15                 ; EA                         ;                   ;                          
+                       ; CC-SBG-1000061                             ;                       ;                                     ; USD                            ; 25                 ; EA                         ;                   ;                          
+                       ; CC-SMP-1000024                             ;                       ;                                     ; USD                            ; 30                 ; EA                         ;                   ;                          
+                       ; CC-SRM-1000020                             ;                       ;                                     ; USD                            ; 25                 ; EA                         ;                   ;                          
+                       ; CC-SRM-1000021                             ;                       ;                                     ; USD                            ; 35                 ; EA                         ;                   ;                          
+                       ; DR-1000401                                 ;                       ;                                     ; USD                            ; 15                 ; CS                         ;                   ;                          
+                       ; DR-1000402                                 ;                       ;                                     ; USD                            ; 45                 ; CS                         ;                   ;                          
+                       ; DR-1000403                                 ;                       ;                                     ; USD                            ; 45                 ; CS                         ;                   ;                          
+                       ; DR-1000404                                 ;                       ;                                     ; USD                            ; 45                 ; CS                         ;                   ;                          
+                       ; DR-1000405                                 ;                       ;                                     ; USD                            ; 45                 ; CS                         ;                   ;                          
+                       ; DR-1000406                                 ;                       ;                                     ; USD                            ; 45                 ; CS                         ;                   ;                          
+                       ; DR-1000407                                 ;                       ;                                     ; USD                            ; 45                 ; CS                         ;                   ;                          
+                       ; DR-1000408                                 ;                       ;                                     ; USD                            ; 45                 ; CS                         ;                   ;                          
+                       ; DR-1000409                                 ;                       ;                                     ; USD                            ; 30                 ; CS                         ;                   ;                          
+                       ; DR-1000442                                 ;                       ;                                     ; USD                            ; 50                 ; CS                         ;                   ;                          
+                       ; DR-1000443                                 ;                       ;                                     ; USD                            ; 60                 ; CS                         ;                   ;                          
+                       ; DR-1000474                                 ;                       ;                                     ; USD                            ; 45                 ; CS                         ;                   ;                          
+                       ; DR-1000550                                 ;                       ;                                     ; USD                            ; 25                 ; CS                         ;                   ;                          
+                       ; DR-1000551                                 ;                       ;                                     ; USD                            ; 25                 ; CS                         ;                   ;                          
+                       ; DR-1000552                                 ;                       ;                                     ; USD                            ; 90                 ; CS                         ;                   ;                          
+                       ; DR-1000553                                 ;                       ;                                     ; USD                            ; 45                 ; CS                         ;                   ;                          
+                       ; DR-1000554                                 ;                       ;                                     ; USD                            ; 200                ; CS                         ;                   ;                          
+                       ; DR-1000555                                 ;                       ;                                     ; USD                            ; 200                ; CS                         ;                   ;                          
+                       ; DR-1000571                                 ;                       ;                                     ; USD                            ; 150                ; CS                         ;                   ;                          
+                       ; DR-1000572                                 ;                       ;                                     ; USD                            ; 150                ; CS                         ;                   ;                          
+                       ; DR-1000574                                 ;                       ;                                     ; USD                            ; 200                ; CS                         ;                   ;                          
+                       ; DR-1000575                                 ;                       ;                                     ; USD                            ; 200                ; CS                         ;                   ;                          
+                       ; DR-1000626                                 ;                       ;                                     ; USD                            ; 100                ; CS                         ;                   ;                          
+                       ; DR-1000634                                 ;                       ;                                     ; USD                            ; 80                 ; CS                         ;                   ;                          
+                       ; DR-1000636                                 ;                       ;                                     ; USD                            ; 80                 ; CS                         ;                   ;                          
+                       ; DR-1000652                                 ;                       ;                                     ; USD                            ; 75                 ; CS                         ;                   ;                          
+                       ; DR-1000653                                 ;                       ;                                     ; USD                            ; 75                 ; CS                         ;                   ;                          
+                       ; DR-1000659                                 ;                       ;                                     ; USD                            ; 195                ; CS                         ;                   ;                          
+                       ; DR-1000660                                 ;                       ;                                     ; USD                            ; 195                ; CS                         ;                   ;                          
+                       ; BP-CC-SRM-1000020                          ;                       ;                                     ; USD                            ; 25                 ; EA                         ;                   ;                          
+                       ; BP-CC-OIL-1000006                          ;                       ;                                     ; USD                            ; 15                 ; EA                         ;                   ;                          
+                       ; BP-DR-1000659                              ;                       ;                                     ; USD                            ; 195                ; CS                         ;                   ;                          
+#;BP-DR-1000574;;;USD;200;CS; ;
+#;BP-DR-1000575;;;USD;200;CS; ;
+#;BP-DR-1000571;;;USD;150;CS; ;
+                      #Products from S/4
+                       ; DR-1000584                                 ;                       ;                                     ; USD                            ; 90                 ; CS                         ;                   ;                          
+                       ; DR-1000616                                 ;                       ;                                     ; USD                            ; 20                 ; CS                         ;                   ;                          
+                       ; DR-1000614                                 ;                       ;                                     ; USD                            ; 100                ; CS                         ;                   ;                          
+                       ; DR-1000615                                 ;                       ;                                     ; USD                            ; 100                ; CS                         ;                   ;                          
+                       ; DR-1000618                                 ;                       ;                                     ; USD                            ; 60                 ; CS                         ;                   ;                          
+                       ; DR-1000619                                 ;                       ;                                     ; USD                            ; 60                 ; CS                         ;                   ;                          
+                       ; DR-1000714                                 ;                       ;                                     ; USD                            ; 95                 ; CS                         ;                   ;                          
+                       ; DR-1000718                                 ;                       ;                                     ; USD                            ; 115                ; CS                         ;                   ;                          
+                       ; DR-1000722                                 ;                       ;                                     ; USD                            ; 155                ; CS                         ;                   ;                          
+                       ; DR-1000711                                 ;                       ;                                     ; USD                            ; 70                 ; CS                         ;                   ;                          
+                       ; DR-1000712                                 ;                       ;                                     ; USD                            ; 70                 ; CS                         ;                   ;                          
+
+                       
+                       
+INSERT_UPDATE PriceRow ; product(code,$catalogVersion)[unique=true] ; ug(code)[unique=true]        ; gpUserPriceGroup(code)[unique=true] ; currency(isocode)[unique=true] ; price[unique=true] ; unit(code)[default=pieces] ; net[default=true] ; salePrice[default=false] ;  ; minAdvertisedPrice[default=false] ; startTime[dateformat=dd-MM-yyyy] ; endTime[dateformat=dd-MM-yyyy]
+                       ; 35132/18                                   ;  ;                                     ; USD                            ; 80.99              ; CS                         ;                   ;                          
+                       ; 35130/18                                   ;  ;                                     ; USD                            ; 47.99              ; CS                         ;                   ;                          
+                       ; 35134/18                                   ;  ;                                     ; USD                            ; 98.99              ; CS                         ;                   ;                          
+                       ; 35515/18                                   ;  ;                                     ; USD                            ; 67.99              ; CS                         ;                   ;                          
+                       ; 35546/17                                   ;  ;                                     ; USD                            ; 34.99              ; CS                         ;                   ;                          
+                       ; 35518/18                                   ; ;                                     ; USD                            ; 90.99              ; CS                         ;                   ;                          
+                       ; 35468/18                                   ;  ;                                     ; USD                            ; 60.96              ; CS                         ;                   ;                          
+                      # ; 3558320                                    ;  ;                                     ; USD                            ; 83.99              ; CS                         ;                   ;                          
+                       ; 35501/18                                   ;  ;                                     ; USD                            ; 23.99              ; CS                         ;                   ;                          
+                       ; 35502/18                                   ;  ;                                     ; USD                            ; 90.99              ; CS                         ;                   ;                          
+                       ; 35503/18                                   ;  ;                                     ; USD                            ; 83.99              ; CS                         ;                   ;                          
+                       ; 35575/18                                   ;  ;                                     ; USD                            ; 90.99              ; CS                         ;                   ;                          
+                       ; 35236/18                                   ;  ;                                     ; USD                            ; 83.99              ; CS                         ;                   ;                          
+                       ; 35270/19                                   ; ;                                     ; USD                            ; 90.99              ; CS                         ;                   ;                          
+                       ; 35272/18                                   ;  ;                                     ; USD                            ; 83.99              ; CS                         ;                   ;                          
+                       ; 3558119                                    ; ;                                     ; USD                            ; 90.99              ; CS                         ;                   ;                          
+
+
+
+INSERT_UPDATE PriceRow ; product(code,$catalogVersion)[unique=true] ; ug(code)[unique=true]        ; gpUserPriceGroup(code)[unique=true] ; currency(isocode)[unique=true] ; price[unique=true] ; unit(code)[default=pieces] ; net[default=true] ; salePrice[default=false] ;  ; minAdvertisedPrice[default=false] ; startTime[dateformat=dd-MM-yyyy] ; endTime[dateformat=dd-MM-yyyy]
+                       ; BP-35130/18                                   ;  ;                                     ; USD                            ; 80.99              ; CS                         ;                   ;                          
+                       ; BP-35515/18                                   ;  ;                                     ; USD                            ; 47.99              ; CS                         ;                   ;                          
+                       ; BP-35501/18                                   ;  ;                                     ; USD                            ; 98.99              ; CS                         ;                   ;                          
+                       ; BP-35236/18                                  ;  ;                                     ; USD                            ; 67.99              ; CS                         ;                   ;                          
+
+                       

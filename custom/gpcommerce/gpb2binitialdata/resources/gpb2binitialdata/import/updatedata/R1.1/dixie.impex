@@ -1,0 +1,30 @@
+#####################################email-content_en.impex###############################
+# Language
+$lang=en
+
+$jarEmailResource=jar:com.gp.b2binitialdata.constants.Gpb2binitialdataConstants&/gpb2binitialdata/import/coredata/contentCatalogs/dixieContentCatalog/emails
+
+# CMS components and Email velocity templates
+UPDATE RendererTemplate;code[unique=true];description[lang=$lang];templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+;dixie_Email_Share_Cart_Subject;"ShareCartEmailSubject";$jarEmailResource/email-shareCartSubject.vm
+;dixie_Email_Share_Cart_Body;"ShareCartEmailBody";$jarEmailResource/email-shareCartBody.vm 
+;dixie_Email_Share_Wishlist_Subject;"Share Wishlist Email Subject";$jarEmailResource/email-shareWishlistSubject.vm
+;dixie_Email_Share_Wishlist_Body;"Share Wishlist Email Body";$jarEmailResource/email-shareWishlistBody.vm
+
+###########################################################################################
+
+
+##################################site-responsive.impex####################################
+
+$siteUid=dixie
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+$jarResource=$config-jarResource
+
+INSERT_UPDATE CatalogUnawareMedia;&siteMapMediaId;code[unique=true];realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime[default='text/plain']
+;$siteUid-siteMapMedia;$siteUid-siteMapMedia;siteMapTemplate.vm;$jarResource/site-siteMapTemplate.vm;
+
+INSERT_UPDATE RendererTemplate;&siteMapRenderer;code[unique=true];content(&siteMapMediaId);contextClass;rendererType(code)[default='velocity'];
+;$siteUid-siteMapTemplate;$siteUid-siteMapTemplate;$siteUid-siteMapMedia;com.gp.commerce.core.sitemap.renderer.GPSiteMapContext;
+
+############################################################################################
+

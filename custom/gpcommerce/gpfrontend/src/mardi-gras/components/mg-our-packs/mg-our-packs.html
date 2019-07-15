@@ -1,0 +1,12 @@
+<div class="mg-our-packs row py-xs-5">
+  <div class="mg-our-packs-container">
+    <div class="mx-xs-4 title">
+      {{packsData.wrapperTitle}}
+    </div>
+    <div class="d-flex flex-wrap">
+      <div class="col-xs-6 col-sm-3 col-md-6 p-xs-4" v-for="item in packsData.imagesList">
+        <img :src="item.backgroundImage" :alt="item.bannerDesc" :title="item.bannerDesc">
+      </div>
+    </div>
+  </div>
+</div>

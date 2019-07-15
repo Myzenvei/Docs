@@ -1,0 +1,27 @@
+#gp-employee {
+  .image-title {
+    .header {
+      font-size: @font-size-h1;
+      text-transform: capitalize;
+    }
+    .image-title-container {
+      & > .d-flex {
+        padding: 0 10px !important;
+        .image-title__wrapper {
+          .bottom-block:before {
+            background-color: transparent;
+          }
+          a.feature-product-tile {
+            cursor: pointer;
+          }
+        }
+      }
+      .first-element {
+        padding: 0 20px 0 0 !important;
+      }
+      .last-element {
+        padding: 0 0 0 20px !important;
+      }
+    }
+  }
+}

@@ -1,0 +1,221 @@
+.cross-reference-search {
+  min-height: 600px;
+  margin: 0 48px;
+  .filters {
+    margin-bottom: 32px;
+    .categorySearh {
+      width: 74%;
+      .form-group {
+        width: 50%;
+        margin-right: 32px;
+      }
+    }
+    .textSearch {
+      width: 30%;
+      .or {
+        margin: auto 0;
+        margin-right: 32px;
+      }
+      .search-input {
+        width: 100%;
+        .left-addon {
+          position: relative;
+          .icon-search {
+            right: 0;
+            top: 0;
+            position: absolute;
+            padding: 16px;
+            font-size: 16px;
+            color: @btn-disabled-text-color;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+  .products {
+    margin-bottom: 32px;
+    .product-tile-heading {
+      padding: 16px 24px;
+      background: @brand-secondary-11;
+      color: @text-color;
+      border: 1px solid @brand-secondary-10;
+      height: 70px;
+      padding: 16px 24px;
+
+      .d-flex {
+        height: 16px;
+        margin-bottom: 8px;
+        p {
+          font-weight: 500;
+          font-size: 14px;
+          margin-right: 16px;
+        }
+
+        .description {
+          width: 60%;
+          font-size: 12px;
+          font-weight: 300;
+          line-height: 15px;
+          height: 15px;
+        }
+        .suggestText {
+          position: absolute;
+          right: 0;
+        }
+      }
+      .d-flex.line {
+        position: relative;
+      }
+    }
+    .product-tile {
+      border-top: none;
+      .left-section {
+        .product-image {
+          width: 140px;
+          height: 140px;
+        }
+      }
+      .card-content-section {
+        .card-content-left-section {
+          .icon-section {
+            .icon-download, .icon-add-to-list {
+              margin-right: 16px;
+              font-size: 20px;
+            }
+          }
+        }
+        .card-content-right-section {
+          .align-items-end a {
+            width: 260px;
+            letter-spacing: 0.15px;
+            font-weight: 500;
+          }
+        }
+      }
+    }
+    .no-replacement-prodcuts-message {
+      color: @help-text-color;
+      border: 1px solid @brand-secondary-10;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 19px;
+      padding: 33px 0;
+      text-align: center;
+      border-top: none;
+    }
+  }
+}
+
+@media only screen and (max-width: @screen-sm-max) {
+  .cross-reference-search {
+    .filters {
+      flex-direction: column;
+      .categorySearh {
+        width: 100%;
+      }
+      .textSearch {
+        width: 45%;
+        flex-direction: column;
+        .or {
+          margin: 15px 0;
+        }
+        .search-input {
+          width: 100%;
+        }
+      }
+    }
+    .products {
+      .product-tile-heading {
+        height: auto;
+        padding: 16px 8px;
+        .d-flex {
+          height: auto;
+          flex-flow: column;
+          .description, .suggestText {
+            width: 100%;
+          }
+          .suggestText {
+            position: relative;
+          }
+        }
+      }
+      .product-tile {
+        .card-content-section {
+          .card-content-left-section {
+            flex: auto;
+          }
+          .card-content-right-section {
+            flex: auto;
+            a.view-details {
+              width: 162px;
+              height: 48px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: @screen-xs-max) {
+  .cross-reference-search {
+    margin: auto 10px;
+    .filters {
+      display: flex;
+      .categorySearh {
+        flex-flow: column;
+        .form-group {
+          width: 100%;
+        }
+      }
+      .textSearch {
+        width: 100%;
+      }
+    }
+    .products {
+      .product-tile-heading {
+        .line {
+          .suggestText {
+            margin-bottom: 0;
+          }
+        }
+      }
+      .product-tile {
+        .left-section {
+          .icon-section {
+            .find-distributor {
+              display: inline;
+            }
+          }
+          .product-image {
+            width: 70px;
+            height: 70px;
+          }
+        }
+        .card-content-section {
+          .card-content-left-section {
+            flex: auto;
+            .icon-section {
+              .find-distributor {
+                display: flex;
+                margin-top: 8px;
+              }
+            }
+          }
+          .card-content-right-section {
+            flex: auto;
+            .align-items-end {
+              width: 100%;
+              .view-details {
+                width: 208px;
+                width: 162px;
+                height: 48px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

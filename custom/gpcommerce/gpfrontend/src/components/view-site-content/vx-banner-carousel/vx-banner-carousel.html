@@ -1,0 +1,33 @@
+<div class="vx-banner-carousel row">
+  <div :id="carouselId" class="carousel slide" :data-wrap="carouselData.loopCarousel" data-ride="carousel">
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner" role="listbox">
+      <div class="item" v-for="(item,index) in carouselData.gpRotatingData" :key="index"
+        :class="{ 'active': index === 0 }">
+        <slot :row="item">
+          <vx-hero-banner :hero-banner-data=item />
+        </slot>
+      </div>
+    </div>
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      <template v-if="carouselData.gpRotatingData && carouselData.gpRotatingData.length>1">
+        <li v-for="(item,index) in carouselData.gpRotatingData" :key="index" :data-target="'#' + carouselId"
+          :data-slide-to="index" :class="{ 'active': index === 0 }"> </li>
+      </template>
+    </ol>
+    <!-- Controls -->
+    <a class="left carousel-control" :href="'#' + carouselId" role="button" data-slide="prev"
+      :aria-label="i18n.iconChevronLeftTitle"
+      v-if="carouselData.gpRotatingData && carouselData.gpRotatingData.length>1">
+      <span class="glyphicon glyphicon-chevron-left icon-chevron-left" aria-hidden="true"></span>
+      <span class="sr-only">{{i18n.carouselControlPrevious}}</span>
+    </a>
+    <a class="right carousel-control" :href="'#' + carouselId" role="button" data-slide="next"
+      :aria-label="i18n.iconChevronRightTitle"
+      v-if="carouselData.gpRotatingData && carouselData.gpRotatingData.length>1">
+      <span class="glyphicon glyphicon-chevron-right icon-chevron-right" aria-hidden="true"></span>
+      <span class="sr-only">{{i18n.carouselControlNext}}</span>
+    </a>
+  </div>
+</div>

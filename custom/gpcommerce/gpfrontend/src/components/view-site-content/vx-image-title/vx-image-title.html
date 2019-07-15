@@ -1,0 +1,55 @@
+<section class="image-title row" :class="imgTitleData.componentTheme" :style="backgroundStyle" :aria-label="[backgroundAlt]"
+  :id="imgTitleData.componentId">
+  <h2 class="header my-xs-0 pb-xs-4 pt-xs-3 pt-sm-5 pb-md-5" :style="{color: imgTitleData.componentHeaderColor}" v-if="imgTitleData.componentHeader"
+    v-html="imgTitleData.componentHeader"></h2>
+  <div class="title-underline mt-xs-0" :style="imgTitleData.componentHeaderColor ? {'border-bottom-color': imgTitleData.componentHeaderColor} : ''"
+    v-if="imgTitleData.componentHeader"></div>
+  <div class="d-flex flex-wrap justify-content-center mob image-title-container">
+    <div class="px-sm-2 d-flex image-tile" :style="imageTileWidth" v-for="(tile,index) in imgTitleData.tiles">
+      <div class="tile mb-xs-3" :style="{background: tile.backgroundColor}">
+        <template v-if="(tile.imgSrcD || tile.imgSrcT || tile.imgSrcM)">
+          <div class="image-title__wrapper">
+            <a v-if="!tile.jumpToImage" :href="tile.isExternalImage ? tile.imageLink : globals.getUrlWithContextPath(tile.imageLink)"
+              :target="tile.isExternalImage?'_blank':''" :style="[tile.imageLink ? {'cursor':'pointer'}:{'cursor':'default'}]">
+              <picture>
+                <source media="(min-width: 1200px)" :srcset="tile.imgSrcD">
+                <source media="(min-width: 768px)" :srcset="tile.imgSrcT">
+                <source media="(min-width: 360px)" :srcset="tile.imgSrcM">
+                <img :src="tile.imgSrcD" :alt="getResponsiveAlt(tile.imgSrcAltTextD, tile.imgSrcAltTextT, tile.imgSrcAltTextM)">
+              </picture>
+            </a>
+            <a v-else href="javascript:void(0)" @click="emitScrollSignal(tile.imageLink)">
+              <picture>
+                <source media="(min-width: 1200px)" :srcset="tile.imgSrcD">
+                <source media="(min-width: 768px)" :srcset="tile.imgSrcT">
+                <source media="(min-width: 360px)" :srcset="tile.imgSrcM">
+                <img :src="tile.imgSrcD" :alt="getResponsiveAlt(tile.imgSrcAltTextD, tile.imgSrcAltTextT, tile.imgSrcAltTextM)">
+              </picture>
+            </a>
+            <a class="image-title__video-play-icon image-title__position__center icon-play" :target="tile.isExternalImage?'_blank':''"
+              href="javascript:void(0)" tabindex="0" @click="openModal(tile.videoSrc)" :style="{color:tile.playIconColor}"
+              v-if="tile.isVideo==='true'" :aria-label="i18n.iconPlayTitle" @keyup.enter-space="openModal(tile.videoSrc)"
+              :title="i18n.iconPlayTitle">
+            </a>
+          </div>
+        </template>
+        <div class="bottom-block">
+          <h3 class="mt-xs-4 mb-xs-3 mt-sm-3 my-md-4 tile-header" :style="{color: tile.headerColor}" v-if="tile.header"
+            v-html="tile.header"></h3>
+          <div class="tile-text" :style="{color: tile.textColor}" v-if="tile.tileText" v-html="tile.tileText"></div>
+            <a class="tile-btn-container tile-btn" :target="tile.isExternalLink?'_blank':''" :style="{color: tile.ctaColor}"
+              :href="tile.isExternalLink? tile.ctaLink : globals.getUrlWithContextPath(tile.ctaLink)" v-html="tile.ctaText"
+              v-if="!tile.jumpToHtml && !tile.isVideoCta" :class="tile.ctaStyle"></a>
+            <a class="tile-btn-container tile-btn" :style="{color: tile.ctaColor}" href="javascript:void(0)"
+              v-html="tile.ctaText" @click="openModal(tile.ctaLink)" v-if="!tile.jumpToHtml && tile.isVideoCta" :class="tile.ctaStyle"></a>
+            <a class="tile-btn-container tile-btn" :style="{color: tile.ctaColor}" href="javascript:void(0)"
+              v-html="tile.ctaText" v-if="tile.jumpToHtml && !tile.isVideoCta" @click="emitScrollSignal(tile.ctaLink)" :class="tile.ctaStyle"></a>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <a class="component-button" v-if="imgTitleData.ctaText && imgTitleData.ctaLink" :class="imgTitleData.ctaStyle"
+    :target="imgTitleData.isExternal ? '_blank' : ''" :href="imgTitleData.isExternal? imgTitleData.ctaLink : globals.getUrlWithContextPath(imgTitleData.ctaLink)"
+    v-html="imgTitleData.ctaText"></a>
+</section>

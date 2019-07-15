@@ -1,0 +1,12 @@
+<div class="vx-content-search">
+  <div class="input-box">
+    <input v-model="searchTerm" :name="searchTerm" type="text" v-on:keyup="autosuggest" @keyup.enter="searchResult" placeholder="Search"
+      class="form-control autosuggest-input" aria-label="Search">
+  </div>
+  <div class="suggestion-box" v-if="showAutosuggestPanel" @click.stop="" @keyup.stop='nextItem($event)'>
+    <ul>
+      <li v-for="(result,index) in results" :key='index' tabindex="0" v-html="$options.filters.highlight(result, searchTerm)" @click="copyText(result)"
+        :class='{"active-item": currentItem === index}'>{{result}}</li>
+    </ul>
+  </div>
+</div>

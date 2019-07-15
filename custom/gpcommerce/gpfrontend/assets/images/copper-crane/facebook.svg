@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>Facebook</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M5.19264371,16 L5.19264371,8.70169121 L7.55134786,8.70169121 L7.904477,5.85735974 L5.19264371,5.85735974 L5.19264371,4.0413798 C5.19264371,3.21787946 5.41278852,2.65663948 6.54981813,2.65663948 L8,2.65600395 L8,0.1120644 C7.74912466,0.0774635455 6.88832988,0 5.88686814,0 C3.79610429,0 2.36468709,1.32549518 2.36468709,3.75977121 L2.36468709,5.85735974 L0,5.85735974 L0,8.70169121 L2.36468709,8.70169121 L2.36468709,16 L5.19264371,16 Z" id="path-1"></path>
+    </defs>
+    <g id="Facebook" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Assets/Facebook">
+            <g id="Outline/Circle/Light-Warm-Grey" stroke="#DCD8D5">
+                <rect id="Rectangle" x="0.5" y="0.5" width="31" height="31" rx="15.5"></rect>
+            </g>
+            <g id="🎨Color" fill-rule="evenodd" transform="translate(12.000000, 8.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <use id="Mask" fill="#37302C" xlink:href="#path-1"></use>
+                <g id="Color/Secondary/Medium-Warm-Grey" mask="url(#mask-2)" fill="#534843">
+                    <g transform="translate(-12.000000, -8.000000)">
+                        <rect x="0" y="0" width="24" height="24"></rect>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

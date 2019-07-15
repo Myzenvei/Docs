@@ -1,0 +1,83 @@
+.vx-single-shipping-address {
+  .address-view {
+    word-wrap: break-word;
+    font-size: 12px;
+    letter-spacing: 0.4px;
+  }
+  .address-view-header,
+  .add-new-address {
+    font-size: @font-size-medium;
+    font-weight: @font-weight-medium;
+  }
+  .address-view-header {
+    color: @font-color-label-text;
+  }
+  .add-new-address {
+    top: 10px;
+    color: @text-color-secondary-3;
+    cursor: pointer;
+  }
+  .error-icon {
+    color: @font-color-error;
+  }
+  .icon-trash {
+    cursor: pointer;
+  }
+  .restriction-error {
+    color: @font-color-error;
+    font-size: @font-size-error;
+  }
+  .restriction-header {
+    font-weight: @font-weight-medium;
+  }
+  .customer-service {
+    font-size: @font-size-small;
+    font-weight: @font-weight-medium;
+  }
+  .restriction-sub-heading {
+    font-size: @font-size-small;
+    color: @brand-secondary-5;
+  }
+  .vx-product-tile {
+    .product-tile {
+      .product-image {
+        height: 142px;
+        width: 142px;
+      }
+      .product-title {
+        font-weight: @font-weight-medium;
+      }
+      .product-code {
+        font-weight: @font-weight-regular;
+      }
+    }
+  }
+  .address-container {
+    padding-right: 100px;
+  }
+  .product-address-heading {
+    font-size: @font-size-medium;
+    font-weight: @font-weight-medium;
+  }
+  .shipping-restriction-section {
+    .product-tile:first-child {
+      border-top: 1px solid @border-color;
+    }
+  }
+}
+
+@media only screen and (max-width: @screen-xs-max) {
+  .vx-multi-shipping-address {
+    .vx-product-tile {
+      .product-tile {
+        .product-image {
+          height: 72px;
+          width: 72px;
+        }
+      }
+    }
+  }
+  .address-container {
+    padding-right: 0px;
+  }
+}

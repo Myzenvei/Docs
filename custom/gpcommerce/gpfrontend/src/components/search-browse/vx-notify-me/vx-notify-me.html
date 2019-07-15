@@ -1,0 +1,15 @@
+<div class="notify-me">
+  <form ref="notifyMe" @submit.prevent="handleSubmit($event)">
+    <h4 class="pb-lg-4 pb-md-4 pb-sm-4 pb-xs-4 px-xs-2 title-content">{{title}}</h4>
+    <div class="form-group px-xs-2">
+      <p class="pb-lg-1 pb-md-1 pb-sm-1 pb-xs-1">{{i18n.emailAddress}}</p>
+      <input type="text" class="form-control" v-model="form.notifyMeEmailId" name="notifyMe" v-validate="'required|email'"
+        aria-describedby="notify_error_msg" :aria-label="i18n.emailAddress" v-bind:class="{'input-error': errors.has('notifyMe')}">
+      <span class="error-style" id='notify_error_msg'>{{errors.first('notifyMe')}}</span>
+    </div>
+    <div class="d-flex justify-content-center">
+      <button :disabled="errors.any()" type="submit" class="btn btn-primary mt-md-5 mt-sm-5 modal-btn-primary-small modal-btn-xs-sticky"
+        data-dismiss="modal" :aria-label="i18n.add.toLowerCase()">{{i18n.add}}</button>
+    </div>
+  </form>
+</div>

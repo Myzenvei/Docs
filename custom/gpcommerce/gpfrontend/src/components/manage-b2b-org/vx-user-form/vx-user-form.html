@@ -1,0 +1,79 @@
+<div class="vx-user-form">
+  <form class="row" @submit.prevent="submitForm">
+    <div class="col-xs-12 px-xs-0">
+      <div class="mb-xs-4 form-group col-xs-12 col-md-6">
+        <label for="firstName" :aria-hidden="isDeviceAndroid()">{{i18n.firstName}}</label>
+        <input type="text" class="form-control" maxlength="35" v-validate="{ required: true,
+                regex: /^[A-Za-z\s\.'-]+$/ ,max: 35 }"
+          v-bind:class="{'input-error': errors.has('firstName')}" name="firstName" v-model="userDetails.firstName"
+          :disabled="isEmailExists" :aria-label="i18n.firstName">
+        <div class="mt-xs-2" v-if="errors.has('firstName')">
+          <span class="error-msg">{{ errors.first('firstName') }}</span>
+        </div>
+      </div>
+      <div class="mb-xs-4 form-group col-xs-12 col-md-6">
+        <label for="lastName" :aria-hidden="isDeviceAndroid()">{{i18n.lastName}}</label>
+        <input type="text" class="form-control" maxlength="35" v-validate="{ required: true,
+                regex: /^[A-Za-z\s\.'-]+$/ ,max: 35 }"
+          v-bind:class="{'input-error': errors.has('lastName')}" name="lastName" v-model="userDetails.lastName"
+          :disabled="isEmailExists" :aria-label="i18n.lastName">
+        <div class="mt-xs-2" v-if="errors.has('lastName')">
+          <span class="error-msg">{{ errors.first('lastName') }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 px-xs-0">
+      <div class="mb-xs-4 form-group col-xs-12 col-md-6">
+        <label for="email" :aria-hidden="isDeviceAndroid()">{{i18n.email}}</label>
+        <input type="text" name="email" :aria-label="i18n.email" class="form-control" maxlength="80" v-bind:class="{'input-error': errors.has('email')}"
+          v-validate="'required|email|max:80'" v-model="userDetails.email" :disabled="isEmailExists">
+        <input type="hidden" name="oldEmail" v-model="userDetails.oldEmail" />
+        <div class="mt-xs-2" v-if="errors.has('email')">
+          <span class="error-msg">{{ errors.first('email') }}</span>
+        </div>
+      </div>
+      <div class="mb-xs-3 mb-sm-5 form-group col-xs-12 col-md-6">
+        <label for="businessUnitDropdown" class="dropdown-label">{{i18n.parentUnit}}</label>
+        <vx-dropdown-primary @selected-option="userDetails.businessUnit=$event" @primaryDropdownMounted="parentUnitDropdownMounted"
+          v-validate="'required'" :dropdownValues="businessUnitsList" ref="businessUnitDropdown" name="businessUnit"
+          v-model="userDetails.businessUnit" :dropdownError="errors.has('businessUnit')" :isDisabled=isEmailExists></vx-dropdown-primary>
+        <div class="mt-xs-2" v-if="errors.has('businessUnit')">
+          <span class="error-msg" aria-live="assertive">{{ errors.first('businessUnit') }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xs-12 mt-md-2">
+      <h3 class="sub-heading">{{i18n.selectRole}}</h3>
+      <section class="form-group">
+        <input type="radio" id="admin" name="role" value="b2badmingroup" v-model="userDetails.role" :disabled="isEmailExists">
+        <label for="admin">{{i18n.admin}}</label>
+      </section>
+      <section class="form-group">
+        <input type="radio" id="buyer" name="role" value="b2bcustomergroup" v-model="userDetails.role" :disabled="isEmailExists">
+        <label for="buyer">{{i18n.buyer}}</label>
+      </section>
+    </div>
+    <div class="col-xs-12 mt-xs-2">
+      <h3 class="sub-heading">{{i18n.permissions}}</h3>
+      <div>
+        <label class="checkbox-container">{{i18n.leaseSigner}}
+          <input type="checkbox" v-model="userDetails.leaseSigner" :disabled="isEmailExists">
+          <span class="checkmark"></span>
+        </label>
+      </div>
+    </div>
+    <div v-if="isEmailExists || !isFormModified">
+      <div class="col-xs-12 alert-msg p-xs-3 mb-xs-5 mt-xs-3">
+        {{this.helpMessage}}
+      </div>
+    </div>
+    <div class="col-xs-12 mt-xs-4 mt-sm-0 px-xs-3 text-center">
+      <button class="btn btn-primary modal-btn-primary-small modal-btn-IEspacing" type="button" @click="sendInvite"
+        v-show="isEmailExists">{{i18n.invite}}</button>
+      <button class="btn btn-primary modal-btn-primary-small modal-btn-IEspacing mt-xs-4" type="submit" v-show="!isEmailExists && globals.userInfo.b2bUnitLevel === userStates.l1">{{i18n.save}}</button>
+      <button class="btn btn-primary modal-btn-primary-small modal-btn-IEspacing" type="submit" v-show="!isEmailExists && globals.userInfo.b2bUnitLevel !== userStates.l1">{{i18n.submit}}</button>
+    </div>
+  </form>
+
+</div>

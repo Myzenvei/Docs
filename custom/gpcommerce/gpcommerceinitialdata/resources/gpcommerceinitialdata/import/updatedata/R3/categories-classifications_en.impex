@@ -1,0 +1,99 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+# ImpEx for Importing Category Classifications into GP USStore (English)
+
+# Macros / Replacement Parameter definitions
+$productCatalog=gpUSProductCatalog
+$productCatalogName=GP US Product Catalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$classCatalogVersion=catalogversion(catalog(id[default='gpUSClassification']),version[default='1.0'])[unique=true,default='gpUSClassification:1.0']
+$classSystemVersion=systemVersion(catalog(id[default='gpUSClassification']),version[default='1.0'])[unique=true]
+$class=classificationClass(ClassificationClass.code,$classCatalogVersion)[unique=true]
+
+$lang=en
+
+
+# Insert Classifications
+UPDATE ClassificationClass;$classCatalogVersion;code[unique=true];name[lang=$lang]
+;;10001;Product Details;
+;;20001;Case Shipping Info;
+;;30001;Each Shipping Info;
+;;40001;Unit Shipping Info;
+;;50001;QSU Shipping Info;
+;;60001;Bundle Shipping Info;
+
+
+# Insert Classification Attributes
+UPDATE ClassificationAttribute;$classSystemVersion;code[unique=true];name[lang=$lang]
+;;Brand Owner, 11000; Brand Owner
+;;Brand, 11001; Brand
+;;MFG #, 11002; MFG #
+;;Color, 11003; Color
+;;UP-UPC, 11004; UP-UPC
+;;Each per Ship Unit, 11005; Each per Ship Unit
+;;Items Per Each, 11006; Items Per Each
+;;Case Total, 11007; Case Total
+;;Size LxWxH, 11008; Size LxWxH
+;;UNSPSC, 11009; UNSPSC
+;;Capacity, 11010; Capacity
+;;Kosher, 11011; Kosher
+;;Buy Multiple, 11012; Buy Multiple
+;;Replaces Item, 11013; Replaces Item
+;;Sheet Count, 11014;Sheet Count
+;;Sheet W x L, 11015;Sheet W x L
+;;LEED® O&M, 11016;LEED® O&M
+;;Stat Factor, 11017;Stat Factor
+;;Square Inches (Per Sheet), 11019;Square Inches (Per Sheet)
+;;Square CM (Per Sheet), 11020;Square CM (Per Sheet)
+;;Square Feet (Per Pack), 11021;Square Feet (Per Pack)
+
+
+
+;;Case GTIN, 21000; Case GTIN
+;;Case Gross Weight, 21001; Case Gross Weight
+;;Case Net Weight, 21002; Case Net Weight
+;;Case Dimensions LxWxH, 21003; Case Dimensions LxWxH
+;;Case Volume, 21004; Case Volume
+
+
+;;Each Gross Weight, 31000; Each Gross Weight
+;;Each Net Wgt, 31001; Each Net Wgt
+;;Each Dimensions LxWxH, 31002; Each Dimensions LxWxH
+;;Each Volume, 31003; Each Volume
+
+
+;;TI-QTY/Layer, 41000; TI-QTY/Layer
+;;HI-Layers/Unit, 41001; HI-Layers/Unit
+;;Unit Qty, 41002; Unit Qty
+;;Unit Dimensions LxWxH, 41003; Unit Dimensions LxWxH
+;;Total Pallet Height (Inches), 41004;Total Pallet Height
+;;Pallet Type, 41005;Pallet Type
+;;Shipping Container Type, 41006;Shipping Container Type
+;;Truck Load Qty (Floor), 41007;Truck Load Qty (Floor)
+;;Truck Load Qty (Pallet), 41008;Truck Load Qty (Pallet)
+
+
+;;QSU UPC, 51000; QSU UPC
+;;QSU Gross Weight, 51001; QSU Gross Weight
+;;QSU Net Weight, 51002; QSU Net Weight
+;;QSU Volume, 51003; QSU Volume
+;;QSU Hi, 51004;QSU Hi
+;;QSU Ti, 51005;QSU Ti
+;;QSU TiHi, 51006;QSU TiHi
+
+
+
+
+;;Bundle GTIN, 61000; Bundle GTIN
+;;Bundle Gross Weight, 61001; Bundle Gross Weight
+;;Bundle Net Weight, 61002; Bundle Net Weight
+;;Bundle Dimensions LxWxH, 61003; Bundle Dimensions LxWxH
+;;Bundle Volume, 61004; Bundle Volume

@@ -1,0 +1,70 @@
+#
+# Product Cockpit configurations has been moved to 'otmmaddonui'
+#
+
+
+######################### CRONJOBS Configurations Start ######################
+
+INSERT_UPDATE ServicelayerJob;code[unique=true];springId;sessionUser(uid);sessionLanguage(isoCode);logLevelFile(code)
+;otmmExportServiceJob;otmmExportServiceJob;admin;en;ERROR
+;otmmAssetSyncJob;otmmAssetSyncJob;admin;en;ERROR
+;otmmAssociationPurgeJob;otmmAssociationPurgeJob;admin;en;ERROR
+;otmmAutoAssignJob;otmmAutoAssignJob;admin;en;ERROR
+;otmmMetaDataSynchronizationJob;otmmMetaDataSynchronizationJob;admin;en;ERROR
+;otmmCorrespondentCreationJob;otmmCorrespondentCreationJob;admin;en;ERROR
+
+INSERT_UPDATE CronJob;code[unique=true];job(code);active;sessionUser(uid);sessionLanguage(isoCode);requestAbort;logLevelFile(code)
+;otmmExportServiceJob;otmmExportServiceJob;true;admin;en;true;ERROR
+;otmmAssetSyncJob;otmmAssetSyncJob;true;admin;en;true;ERROR
+;otmmAssociationPurgeJob;otmmAssociationPurgeJob;false;admin;en;true;ERROR
+;otmmCorrespondentCreationJob;otmmCorrespondentCreationJob;false;admin;en;true;ERROR
+
+INSERT_UPDATE MetadataSyncCronJob;code[unique=true];job(code);active;sessionUser(uid);sessionLanguage(isoCode);requestAbort;logLevelFile(code)
+;otmmMetaDataSynchronizationJob;otmmMetaDataSynchronizationJob;true;admin;en;true;ERROR
+
+### ExportService and AssetSync jobs are scheduled every 5 min per default e.g. for automatic version update
+INSERT_UPDATE Trigger;cronjob(code)[unique=true];relative;active;second;minute;hour[unique=true];day;month;year;maxAcceptableDelay
+;otmmExportServiceJob;true;false;0;5;-1;-1;-1;-1;-1;
+;otmmAssetSyncJob;true;false;0;5;-1;-1;-1;-1;-1;
+;otmmMetaDataSynchronizationJob;true;true;0;5;-1;-1;-1;-1;-1;
+;otmmCorrespondentCreationJob;true;true;0;5;-1;-1;-1;-1;-1;
+
+### purge job is scheduled once a day - but cronjob is disabled by default 
+INSERT_UPDATE Trigger;cronjob(code)[unique=true];relative;active;second;minute;hour[unique=true];day;month;year;weekInterval;daysOfWeek(Code)
+;otmmAssociationPurgeJob;false;true;0;0;00;0;0;0;1;SUNDAY,MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY,SATURDAY
+
+### Remove no longer existing OtmmMediaModelPurgeJob
+### For details about REMOVE please find https://wiki.hybris.com/display/release5/ImpEx+Syntax#ImpExSyntax-HeaderMode
+
+REMOVE Trigger;cronjob(code)[unique=true]
+;otmmMediaModelPurgeJob
+
+REMOVE CronJob;code[unique=true]
+;otmmMediaModelPurgeJob
+
+REMOVE ServicelayerJob;code[unique=true]
+;otmmMediaModelPurgeJob
+
+### otmmAutoAssign cronjob, that runs every minute!
+### At least the DefaultCatalog must be changed to a "real" Catalog
+
+INSERT_UPDATE AutoAssignCronJob;&Item;active[allownull=true];ageInDays;catalogVersion(catalog(id),version)[allownull=true];code[unique=true];customKeyword;job(code)[allownull=true,forceWrite=true];maxAssets;maxFailedSize;numThreads;otmmAssignedFieldName;otmmAttributeIdFieldName;otmmFolderId;otmmIsProductIdInherited;otmmIsSystemIdInherited;otmmModelId;otmmProductIdFieldName;otmmSystemIdFieldName;systemId;useAssetName;useEAN;useLatestVersion;sessionCurrency(isocode);sessionUser(uid);sessionLanguage(isocode);filesCount[allownull=true];filesDaysOld[allownull=true];filesOperator(code,itemtype(code))[allownull=true];logFiles(catalogVersion(catalog(id),version),code);logLevelFile(code,itemtype(code))[allownull=true];logToDatabase[allownull=true];logToFile[allownull=true]
+;Item1;FALSE;60;gpUSProductCatalog:Staged;gpdixieotmmAutoAssign;;otmmAutoAssignJob;7500;;1;GP.TABLE.PRODUCTS/GP.FIELD.ASSIGNED;GP.FIELD.SORT ORDER;baadd6d7eb756590510570471e248c01cb4e833f;FALSE;FALSE;;GP.TABLE.PRODUCTS/GP.FIELD.SKU;GP.TABLE.PRODUCTS/GP.FIELD.SYSTEM_ID;Y;FALSE;;TRUE;USD;admin;en;5;2;OR:BooleanOperator;;INFO:JobLogLevel;FALSE;FALSE
+;Item2;FALSE;60;gpUSProductCatalog:Staged;gpemployeeotmmAutoAssign;;otmmAutoAssignJob;7500;;1;GP.TABLE.PRODUCTS/GP.FIELD.ASSIGNED;GP.FIELD.SORT ORDER;baadd6d7eb756590510570471e248c01cb4e833f;FALSE;FALSE;;GP.TABLE.PRODUCTS/GP.FIELD.SKU;GP.TABLE.PRODUCTS/GP.FIELD.SYSTEM_ID;Y;FALSE;;TRUE;USD;admin;en;5;2;OR:BooleanOperator;;INFO:JobLogLevel;FALSE;FALSE
+
+
+INSERT_UPDATE Trigger;active[allownull=true];second;minute;hour;day;month;year;cronExpression;cronJob(code)[unique=true];relative
+;true;0;0;0;0;0;0;0 0 8 1/1 * ? *;gpdixieotmmAutoAssign;true
+;true;0;0;0;0;0;0;0 0 9 1/1 * ? *;gpemployeeotmmAutoAssign;true
+
+### otmmAutoAssignLookup cronjob, that completes the example for Hybris lookup, where the metadata
+### of tabular field group HYBRIS.PRODUCT.LOOKUP are filled.
+### At least the DefaultCatalog must be changed to a "real" Catalog
+insert_update AutoAssignCronJob;&Item;active[allownull=true];ageInDays;catalogVersion(catalog(id),version)[allownull=true];code[unique=true];customKeyword;job(code)[allownull=true,forceWrite=true];maxAssets;maxFailedSize;numThreads;otmmAssignedFieldName;otmmAttributeIdFieldName;otmmFolderId;otmmIsProductIdInherited;otmmIsSystemIdInherited;otmmModelId;otmmProductIdFieldName;otmmSystemIdFieldName;systemId;useAssetName;useEAN;useLatestVersion;sessionCurrency(isocode);sessionUser(uid);sessionLanguage(isocode);filesCount[allownull=true];filesDaysOld[allownull=true];filesOperator(code,itemtype(code))[allownull=true];logFiles(catalogVersion(catalog(id),version),code);logLevelFile(code,itemtype(code))[allownull=true];logToDatabase[allownull=true];logToFile[allownull=true]
+;Item0;false;10;Default:Staged;otmmAutoAssignLookup;;otmmAutoAssignJob;1000;;1;HYBRIS.PRODUCT.LOOKUP/HYBRIS.PRODUCT.LOOKUP.IS_ASSIGNED;HYBRIS.PRODUCT.LOOKUP/HYBRIS.PRODUCT.LOOKUP.ATTRIBUTE;;false;false;;HYBRIS.PRODUCT.LOOKUP/HYBRIS.PRODUCT.LOOKUP.CODE;HYBRIS.PRODUCT.LOOKUP/HYBRIS.PRODUCT.LOOKUP.SYSTEM_ID;;;;true;USD;admin;en;5;2;OR:BooleanOperator;;INFO:JobLogLevel;false;false													
+
+######################### CRONJOBS Configurations End ########################
+
+insert_update MediaMultiplicityMatchesConstraint;active[allownull=true];annotation;id[unique=true,allownull=true];owner(pk)[allownull=true];severity(code,itemtype(code));target;type(code);message[lang=en]
+;true;com.opentext.hybris.otmmconnector.constraints.MediaMultiplicityMatches;mediaMultiplicityMatches;;ERROR:Severity;com.opentext.hybris.otmmconnector.model.AssetAssignmentSpecModel;AssetAssignmentSpec;You have more than one AssetDelivery but the explicit attribute holds only one MediaItem
+

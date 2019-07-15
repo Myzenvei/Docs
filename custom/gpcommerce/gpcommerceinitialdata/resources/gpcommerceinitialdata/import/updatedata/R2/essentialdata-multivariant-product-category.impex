@@ -1,0 +1,22 @@
+#create the placeholder gpvariant categorgies
+$productCatalog=gpUSProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$supercategories=supercategories(code, $catalogVersion)
+
+
+# Insert placeholder Variant Category
+INSERT_UPDATE VariantCategory;code[unique=true];name;$supercategories;hasImage;$catalogVersion;allowedPrincipals(uid)[default='customergroup']
+                                      ;GPDefaultVariantCategory;GPDefaultVariantCategory;;false
+
+#Insert placeholder Variant Value Category
+INSERT_UPDATE VariantValueCategory;code[unique=true];name;$supercategories;sequence;$catalogVersion;allowedPrincipals(uid)[default='customergroup']
+                                    ;GPDefaultVariantValueCategory;GPDefaultVariantValueCategory;GPDefaultVariantCategory;0
+
+
+
+
+
+
+
+
+

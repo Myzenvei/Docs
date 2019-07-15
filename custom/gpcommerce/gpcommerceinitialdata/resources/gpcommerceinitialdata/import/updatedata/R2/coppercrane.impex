@@ -1,0 +1,517 @@
+$contentCatalog=copperandcraneContentCatalog
+$contentCatalogName=copper and crane Content Catalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+
+$productCatalog=gpUSProductCatalog 
+$productCatalogName=GP US Product Catalog
+$catalogVersion=catalogVersion(catalog(id[default='gpUSProductCatalog']),version[default='Staged'])[unique=true,default='gpUSProductCatalog:Staged']
+$productCV=catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+
+$siteUid=copperandcrane
+
+$picture=media(code, $contentCV) ;
+$siteResource=jar:com.gp.commerce.initialdata.constants.GpcommerceInitialDataConstants&/gpcommerceinitialdata/import/sampledata/contentCatalogs/$contentCatalog
+$jarResourceCms=jar:com.gp.commerce.initialdata.constants.GpcommerceInitialDataConstants&/gpcommerceinitialdata/import/sampledata/cockpits/cmscockpit
+$picture=media(code, $contentCV)
+$medias=medias(code, $contentCV);
+$mediaContainer=media(qualifier, $contentCV)
+
+$lang=en
+$solrIndexedContentType=copperandcraneContentType
+
+UPDATE CMSSite;uid[unique=true];faviconUrl
+;copperandcrane;/_ui/responsive/common/images/cc-favicon.png
+ 
+
+INSERT_UPDATE GPHeaderNavigationComponent;$contentCV[unique=true];uid[unique=true];name;styleClass;navigationNode(uid,$contentCV)[unique=true];wrapAfter;includeMiniCart;includeSearchBox;brandLogo;checkoutMenu(uid,$contentCV);findStoreMenu(uid,$contentCV);loginMenu(uid,$contentCV);logoutMenu(uid,$contentCV);categoryNavigationMenu(uid,$contentCV);accountNavigationMenu(uid,$contentCV);showFindAStore;showMyList
+;;GPHeaderNavigationComponent;GP Header Navigation Component;;GPHeaderNavigationNode;10;true;true;images/copper-crane/logo.svg;GPCheckoutNavNode;GPFindStoreNavNode;GPLoginMenuNavNode;GPLogoutMenuNavNode;GPCategoryNavigationNode;GPNavigationNavNode;false;false
+
+#INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);label;defaultPage[default='true'];approvalStatus(code)[default='approved'];homepage[default='false']
+#;;termsAndConditions;Terms and Conditions Page;ContentPage1Template;/termsAndConditions
+
+#INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);label;defaultPage[default='true'];approvalStatus(code)[default='approved'];homepage[default='false']
+#;;aboutUs;About Us Page;GPLandingPage2Template;/aboutUs
+
+#INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);label;defaultPage[default='true'];approvalStatus(code)[default='approved'];homepage[default='false']
+#;;faq;Frequently Asked Questions Page;GPLandingPage2Template;/faq
+
+
+# CMSParagraphComponent
+INSERT_UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;;;;content[lang=en]
+;;termsAndConditionsTextParagraph;Terms and Conditions Paragraph;termsAndConditionsTextParagraph-cc;;;;This is Sample terms and conditions page.
+
+# ContentSlot
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;Section1Slot-TermsAndConditions;Section1 Slot for Terms and Conditions Page;true;termsAndConditionsTextParagraph-cc;;;
+
+# ContentSlotForPage
+#INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='termsAndConditions'];contentSlot(uid,$contentCV)[unique=true];;;
+#;;Section1-TermsAndConditions;Section1;;Section1Slot-TermsAndConditions;;;
+
+# ----- About us Page
+# CMSParagraphComponent
+INSERT_UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;;;;content[lang=en]
+;;aboutUsTextParagraph;About Us Paragraph;AboutUsTextParagraph-cc;;;;About - us  Page.
+;;aboutUsContentParagraph;About Us Paragraph;AboutUsContentParagraph-cc;;;;This is a sample about us page.
+
+# ContentSlot
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;Section1Slot-AboutUs;Section1 Slot for About Us Page;true;AboutUsTextParagraph-cc;;;
+;;Section3Slot-AboutUs;Section3 Slot for About Us Page;true;AboutUsContentParagraph-cc;;;
+;;Section5Slot-AboutUs;Section5 Slot for About Us Page;true;;;;;
+
+# ContentSlotForPage
+#INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='aboutUs'];contentSlot(uid,$contentCV)[unique=true];;;
+#;;Section1-AboutUs;ContentSlot1;;Section1Slot-AboutUs;;;
+#;;Section3-AboutUs;ContentSlot2;;Section3Slot-AboutUs;;;
+#;;Section5-AboutUs;ContentSlot3;;Section5Slot-AboutUs;;;
+
+#-------FAQ_Page
+
+INSERT_UPDATE GPFAQCMSParagraphComponent;$contentCV[unique=true];uid[unique=true];name;content[lang=en];&componentRef
+;;faqTextComponent;faqTextComponent;<que>question1</que><ans>answer1</ans><que>question2</que><ans>answer2</ans><que>question3</que><ans>answer3</ans>;faqTextComponent-cc
+
+INSERT_UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;content[lang=en]
+;;faqHeadingComponent;FAQ Heading;faqHeadingComponent-cc;This is a sample FAQ component
+;;faqContentComponent;FAQ Content Paragraph;faqContentComponent-cc;
+
+# ContentSlot
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;Section1-FAQ;Section1 Slot for FAQ Page;true;faqHeadingComponent-cc
+;;Section3-FAQ;Section3 Slot for FAQ Page;true;faqTextComponent-cc
+;;Section5-FAQ;Section5 Slot for FAQ Page;true;faqContentComponent-cc
+
+# ContentSlotForPage
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='faq'];contentSlot(uid,$contentCV)[unique=true]
+#;;Section1-FAQPage;ContentSlot1;;Section1-FAQ
+#;;Section3-FAQPage;ContentSlot2;;Section3-FAQ
+#;;Section5-FAQPage;ContentSlot3;;Section5-FAQ
+
+	 
+INSERT_UPDATE GPImageLinkComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;url;$picture
+;;coppercraneFooterLogo;coppercraneFooterLogo;coppercraneFooterLogo;/;footerLogo
+
+INSERT_UPDATE Media;mediaFormat(qualifier);code[unique=true];@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];realfilename;altText;mime[default='image/jpeg'];$contentCV[unique=true];folder(qualifier)[default=images];
+;desktop;footerLogo;$siteResource/images/coppercrane/coppercrane-logo.png;coppercrane-logo.png;Copper Crane Site;
+
+INSERT_UPDATE FooterNavigationComponent;$contentCV[unique=true];uid[unique=true];footerLogo(&componentRef)
+;;FooterNavigationComponent;coppercraneFooterLogo
+
+REMOVE CMSNavigationNode;uid[unique=true];$contentCV[unique=true]
+;LinkedInNavNode;
+;TwitterNavNode;
+;YouTubeNavNode;
+;SnapchatNavNode;
+
+REMOVE CMSNavigationEntry;$contentCV[unique=true];uid[unique=true]
+;;FindStoreNavNodeEntry
+
+UPDATE FooterNavigationComponent;$contentCV[unique=true];uid[unique=true];notice[lang=en]
+;;FooterNavigationComponent;"Digital Roadmap LLC. All Right Reserved"
+
+						  #Setting searchable true for cms content pages
+INSERT_UPDATE ContentPage ; $contentCV[unique=true] ; uid[unique=true]   ; title ; isSearchable[default=true]           
+#                          ;                         ; aboutUs            ; About Us;
+                          ;                         ; contactUsForm      ; Contact Us;           
+#                          ;                         ; faq                ; Frequently Asked Questions Page;             
+                          ;                         ; gpHomePage         ; Welcome to the store;          
+#                          ;                         ; termsAndConditions ; Site terms of Use;     
+
+##########################REMOVE FOR HEADER NAVIGATION#######################################
+REMOVE CMSNavigationNode;$contentCV[unique=true];uid[unique=true];title[lang=$lang];name;parent(uid, $contentCV);
+;;ProductsNavNode;Products;Products;GPCategoryNavigationNode;
+;;ProductOverviewNavNode;Product Overview;Product Overview;ProductsNavNode;
+;;AirCareNode;Air Care;Air Care;ProductOverviewNavNode;
+;;CleaningAndWipesNode;Cleaning Wipes & Towels;Cleaning Wipes & Towels;ProductOverviewNavNode;
+;;CupsLidsNode;Cups, Lids & Straws;Cups, Lids & Straws;ProductOverviewNavNode;
+;;CutleryNode;Cutlery;Cutlery;ProductOverviewNavNode;
+;;FoodWrapNode;Food Wrap, Containers & Trays;Food Wrap, Containers & Trays;ProductOverviewNavNode;
+;;NapkinNode;Napkin;Napkin;ProductOverviewNavNode;
+;;PaperTowelsNode;Paper Towels;Paper Towels;ProductOverviewNavNode;
+;;PlatesAndBowlsNode;Plates & Bowls;Plates & Bowls;ProductOverviewNavNode;
+;;SanitizerNode;Hand Soap & Sanitizer;Hand Soap & Sanitizer;ProductOverviewNavNode;
+;;ToiletPaperNode;Toilet Paper;Toilet Paper;ProductOverviewNavNode;
+
+REMOVE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];linkName[lang=$lang];url;styleAttributes;target(code)[default='sameWindow'];external[default=false];socialLink[default=false];markAsViewAll[default=false]
+;;ProductsNavLink;Products Nav Link;/category/categories;;;;  
+;;AirCareLink;Air Care;/category/13627;;;;
+;;CleaningAndWipesLink;Cleaning Wipes & Towels;/category/12957;;;;
+;;CupsLidsLink;Cups, Lids & Straws;/category/10211;;;;
+;;CutleryLink;Cutlery;/category/9375;;;;
+;;FoodWrapLink;Food Wrap, Containers & Trays;/category/9687;;;; 
+;;NapkinLink;Napkin;/category/6250;;;; 
+;;PaperTowelsLink;Paper Towel;/category/10474;;;; 
+;;PlatesAndBowlsLink;Plates & Bowls;/category/9363;;;; 
+;;SanitizerLink;Hand Soap & Sanitizer;/category/6264;;;; 
+;;ToiletPaperLink;Toilet Paper;/category/6183;;;;
+
+
+REMOVE CMSNavigationEntry;$contentCV[unique=true];uid[unique=true];name;navigationNode(uid,$contentCV);item(CMSLinkComponent.uid,CMSLinkComponent.$contentCV);
+;;ProductNavNodeEntry;Product Nav Node Entry;ProductsNavNode;ProductsNavLink;
+;;AirCareNodeEntry;Air Care Node Entry;AirCareNode;AirCareLink;
+;;CleaningAndWipesNodeEntry;Cleaning Wipes & Towels Node Entry;CleaningAndWipesNode;CleaningAndWipesLink;
+;;CupsLidsNodeEntry;Cups, Lids & Straws Node Entry;CupsLidsNode;CupsLidsLink;
+;;CutleryNodeEntry;Cutlery Node Entry;CutleryNode;CutleryLink;
+;;FoodWrapNodeEntry;Food Wrap, Containers & Trays Node Entry;FoodWrapNode;FoodWrapLink;
+;;NapkinNodeEntry;Napkin Node Entry;NapkinNode;NapkinLink;
+;;PaperTowelsNodeEntry;Paper Towels Node Entry;PaperTowelsNode;PaperTowelsLink;
+;;PlatesAndBowlsNodeEntry;Plates & Bowls Node Entry;PlatesAndBowlsNode;PlatesAndBowlsLink;
+;;SanitizerNodeEntry;Hand Soap & Sanitizer Node Entry;SanitizerNode;SanitizerLink;
+;;ToiletPaperNodeEntry;Toilet Paper Node Entry;ToiletPaperNode;ToiletPaperLink;
+##########################REMOVE FOR HEADER NAVIGATION#######################################
+
+##########################INSERT UPDATE FOR HEADER NAVIGATION#######################################
+INSERT_UPDATE CMSNavigationNode;$contentCV[unique=true];uid[unique=true];title[lang=$lang];name;parent(uid, $contentCV);parentPos
+;;SpaFavoritesNodeCC;Spa Favorites;Spa Favorites;GPCategoryNavigationNode;0
+;;LuxuryBathNodeCC;Luxury Bath;Luxury Bath;GPCategoryNavigationNode;1
+;;SkinCareNodeCC;Skin Care;Skin Care;GPCategoryNavigationNode;2
+;;BodyCareNodeCC;Body Care;Body Care;GPCategoryNavigationNode;3
+;;GiftSetsNodeCC;Gift Sets;Gift Sets;GPCategoryNavigationNode;4
+;;ScentedCandlesNodeCC;Scented Candles;Scented Candles;GPCategoryNavigationNode;5
+
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];linkName[lang=$lang];url;styleAttributes;target(code)[default='sameWindow'];external[default=false];socialLink[default=false];markAsViewAll[default=false]
+;;SpaFavoritesLinkCC;Spa Favorites Link;/category/spa;;;;
+;;LuxuryBathLinkCC;Luxury Bath Link;/category/luxury-bath;;;;
+;;SkinCareLinkCC;Skin Care Link;/category/skin-care;;;;
+;;BodyCareLinkCC;Body Care Link;/category/body-care;;;;
+;;GiftSetsLinkCC;Gift Sets Link;/category/gifts;;;;
+;;ScentedCandlesLinkCC;Scented Candles Link;/category/scented-candles;;;;
+
+INSERT_UPDATE CMSNavigationEntry;$contentCV[unique=true];uid[unique=true];name;navigationNode(uid,$contentCV);item(CMSLinkComponent.uid,CMSLinkComponent.$contentCV);
+;;SpaFavoritesNodeEntry;Spa Favorites Node Entry;SpaFavoritesNodeCC;SpaFavoritesLinkCC;
+;;LuxuryBathNodeEntry;Luxury Bath Node Entry;LuxuryBathNodeCC;LuxuryBathLinkCC;
+;;SkinCareNodeEntry;Skin Care Node Entry;SkinCareNodeCC;SkinCareLinkCC;
+;;BodyCareNodeEntry;Body Care Node Entry;BodyCareNodeCC;BodyCareLinkCC;
+;;GiftSetsNodeEntry;Gift Sets Node Entry;GiftSetsNodeCC;GiftSetsLinkCC;
+;;ScentedCandlesNodeEntry;Scented Candles Node Entry;ScentedCandlesNodeCC;ScentedCandlesLinkCC;
+##########################INSERT UPDATE FOR HEADER NAVIGATION#######################################
+
+###########   SOLR CHANGES FOR CONTENT INDEXING   ############
+INSERT_UPDATE SolrIndexedProperty ; solrIndexedType(identifier)[unique=true] ; name[unique=true] ; type(code) ; sortableType(code) ; currency[default=false] ; localized[default=false] ; multiValue[default=false] ; useForSpellchecking[default=false] ; useForAutocomplete[default=false] ; fieldValueProvider             ; valueProviderParameter ; ftsPhraseQuery[default=false] ; ftsPhraseQueryBoost ; ftsQuery[default=false] ; ftsQueryBoost ; ftsFuzzyQuery[default=false] ; ftsFuzzyQueryBoost ; ftsWildcardQuery[default=false] ; ftsWildcardQueryType(code)[default=POSTFIX] ; ftsWildcardQueryBoost ; ftsWildcardQueryMinTermLength
+								  ; $solrIndexedContentType                  ; pageTitle         ; string     ;                    ;                         ; true                     ;                           ;                                    ;                                   ; gpPageTitleValueProvider       ;                        ;                               ;                     ;                         ;               ;                              ;                    ;                                 ;                                             ;                       ;
+
+REMOVE SolrSortField ; sort(indexedType(identifier),code)[unique=true] ; fieldName[unique=true] ; ascending[unique=true]
+                            ; $solrIndexedContentType:aTOz                    ; title                  ; true                  
+							
+INSERT_UPDATE SolrSortField ; sort(indexedType(identifier),code)[unique=true] ; fieldName[unique=true] ; ascending[unique=true]
+							; $solrIndexedContentType:aTOz                    ; pageTitle              ; true                  
+
+UPDATE SolrSort;indexedType(identifier)[unique=true];code[unique=true];name[lang=$lang]
+ ;$solrIndexedContentType;relevant;"Relevance"
+ ;$solrIndexedContentType;newToOld;"Newest to the Oldest"
+ ;$solrIndexedContentType;oldTonew;"Oldest to the Newest"
+ ;$solrIndexedContentType;aTOz;"A TO Z"
+###########   SOLR CHANGES FOR CONTENT INDEXING   ############
+
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];linkName[lang=$lang];url;styleAttributes;target(code)[default='sameWindow'];external[default=false];socialLink[default=false];markAsViewAll[default=false]
+;;SpaFavoritesLinkCC;Spa Favorites Link;/spa;;;;
+;;GiftSetsLinkCC;Gift Sets Link;/gifts;;;;
+
+UPDATE FooterNavigationComponent;$contentCV[unique=true];uid[unique=true];notice[lang=en]
+;;FooterNavigationComponent;" Digital Roadmap LLC. All Right Reserved"
+
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];name;url;;target(code)[default='newWindow'];external[default=false];socialLink[default=false];markAsViewAll[default=false]
+;;FacebookLink;Facebook Link;https://www.facebook.com/CopperCraneSpa/;;newWindow;true;
+;;InstagramLink;Instagram Link;https://www.instagram.com/CopperCraneSpa/;;newWindow;true;
+;;PinterestLink;Pinterest Link;https://www.pinterest.com/CopperCraneSpa/;;newWindow;true;
+
+REMOVE CMSNavigationNode;uid[unique=true];$contentCV[unique=true]
+;AboutGPCompanyNavNode;
+;FAQNavNode;
+
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);links(&linkRef);&nodeRef;parentPos
+;GPContactUsNavNode;;Contact Us Pages;FooterNavNode;;GPContactUsNavNode;0
+;GPTermsAndConditionNavNode;;Terms and Condition Pages;FooterNavNode;;GPTermsAndConditionNavNode;1
+;GPCompanyNavNode;;Company Pages;FooterNavNode;;GPCompanyNavNode;2
+;GPFollowUsNavNode;;Follow Us Pages;FooterNavNode;;GPFollowUsNavNode;3
+
+;CCMyAccoutNavNode;;My Acconut Pages;GPTermsAndConditionNavNode;;CCMyAccoutNavNode;0
+;CCFAQNavNode;;FAQ Page;GPTermsAndConditionNavNode;;CCFAQNavNode;1
+;CCPrivacyPolicyNavNode;;Privacy policy page;GPTermsAndConditionNavNode;;CCPrivacyPolicyNavNode;2
+;AboutGPTermsAndConditionNavNode;;About Terms and Condition Pages;GPTermsAndConditionNavNode;;AboutGPTermsAndConditionNavNode;3
+
+;CCOurStoryNavNode;;CC our story;GPCompanyNavNode;;CCOurStoryNavNode;0
+;CCOurJourneyNavNode;;CC our journey;GPCompanyNavNode;;CCOurJourneyNavNode;1
+;CCOurInspirationNavNode;;CC our inspiration nav node;GPCompanyNavNode;;CCOurInspirationNavNode;2
+;CCOurCatalogNavNode;;CC our catalog nav node;GPCompanyNavNode;;CCOurCatalogNavNode;3
+
+;ContactUsNavNode;;Contact Us Page;GPContactUsNavNode;;ContactUsNavNode;0
+;TeleNavNode;;Telephone Page;GPContactUsNavNode;;TeleNavNode;1
+;EmailNavNode;;Email Page;GPContactUsNavNode;;EmailNavNode;2
+;TimingNavNode;;Timing Page;GPContactUsNavNode;;TimingNavNode;3
+
+INSERT_UPDATE CMSNavigationEntry;uid[unique=true];$contentCV[unique=true];name;navigationNode(&nodeRef);item(CMSLinkComponent.uid,CMSLinkComponent.$contentCV);
+;CCMyAccoutNavNodeEntry;;CC my account nav node entry;CCMyAccoutNavNode;CCMyaccountLink
+;CCPrivacyPolicyNavNodeEntry;;CC Privacy Policy Nav Node entry;CCPrivacyPolicyNavNode;CCPrivacyPolicyLink
+;AboutGPTermsAndConditionNavNodeEntry;;About GP Terms and Condition Navigation Node Entry;AboutGPTermsAndConditionNavNode;TermsAndConditionsLink;
+
+;CCOurStoryNavNodeEntry;;CC Our Story Nav Node Entry;CCOurStoryNavNode;CCOurStoryLink
+;CCOurJourneyNavNodeEntry;;CCOurJourneyNavNode Entry;CCOurJourneyNavNode;CCOurJourneyLink
+;CCOurInspirationNavNodeEntry;;CCOurInspirationNavNode Entry;CCOurInspirationNavNode;CCOurInspirationLink
+;CCOurCatalogNavNodeEntry;;CCOurCatalogNavNode Entry;CCOurCatalogNavNode;CCOurCatalogLink
+
+;ContactUsNavNodeEntry;;Contact Us Navigation Node Entry;ContactUsNavNode;ContactUsLink;
+;TeleNavNodeEntry;;Telephone Navigation Node Entry;TeleNavNode;TeleLink;
+;EmailNavNodeEntry;;Email Navigation Node Entry;EmailNavNode;EmailLink;
+;TimingNavNodeEntry;;Timing Navigation Node Entry;TimingNavNode;TimingLink;
+
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];linkName[lang=$lang];url;styleAttributes;target(code)[default='sameWindow'];external[default=false];socialLink[default=false];markAsViewAll[default=false];linkType;
+;;CCMyaccountLink;My account;"/my-account";;;;
+;;CCPrivacyPolicyLink;Privacy Policy;"/privacy-policy";;;;
+;;CCOurStoryLink;Our story;"/our-story";;;;
+;;CCOurJourneyLink;Our Journey;"/blog";;;;
+;;CCOurInspirationLink;Our Inspiration;"/our-inspiration";;;;
+;;CCOurCatalogLink;Catalog;"/catalog";;;;
+;;TeleLink;ContactNumber;;;;;;;tel
+;;EmailLink;ContactNumber;;;;;;;mailto
+;;TimingLink;ContactNumber;;;;;;;text
+
+INSERT_UPDATE CMSNavigationNode;$contentCV[unique=true];uid[unique=true];title[lang=en]
+;;GPCompanyNavNode;"About us"
+;;GPTermsAndConditionNavNode;"Information"
+;;GPContactUsNavNode;"Keep In Touch"
+
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];linkName[lang=en]
+;;TermsAndConditionsLink;"Terms & Conditions"
+;;CCMyaccountLink;"My Account"
+;;CCPrivacyPolicyLink;"Privacy Policy"
+;;FAQLink;"FAQ"
+;;CCOurStoryLink;"Our Story"
+;;CCOurJourneyLink;"Our Journey"
+;;CCOurInspirationLink;"Our Inspiration"
+;;CCOurCatalogLink;"Our Catalog"
+;;TeleLink;"1.800.513.0233"
+;;EmailLink;"INFO@COPPERANDCRANE.COM"
+;;TimingLink;"MON - SAT, 8AM - 10PM ET"
+
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];linkName[lang=$lang];url;styleAttributes;target(code)[default='sameWindow'];external[default=false];socialLink[default=false];markAsViewAll[default=false]
+;;SpaFavoritesLinkCC;Spa Favorites Link;/category/spa;;;;
+;;GiftSetsLinkCC;Gift Sets Link;/category/gifts;;;;
+
+###############################CATEGORIES FOR COPPPER AND CRANE##############################
+
+# Macros / Replacement Parameter definitions
+$catalogVersion=catalogVersion(catalog(id[default='gpUSProductCatalog']),version[default='Staged'])[unique=true,default='gpUSProductCatalog:Staged']
+$categories=target(code, $catalogVersion)[unique=true]
+$supercategories=source(code, $catalogVersion)[unique=true]
+$lang=en
+
+########CREATE###################
+# Create CopperAndCrane Categories
+INSERT_UPDATE Category;code[unique=true];$catalogVersion;supercategories(code,$catalogVersion);allowedPrincipals(uid)[default='customergroup'];name[lang=$lang];categories
+;copperandCraneCategories; ;;;;
+
+REMOVE Category;code[unique=true];$catalogVersion;supercategories(code,$catalogVersion);allowedPrincipals(uid)[default='customergroup']
+;copperandCraneCategories;;
+
+########CREATE###################
+# Create CopperAndCrane Categories
+INSERT_UPDATE Category;code[unique=true];$catalogVersion;supercategories(code,$catalogVersion);allowedPrincipals(uid)[default='customergroup'];name[lang=$lang]
+;spa; ;;;Spa Favorites
+;luxury-bath; ;;;Luxury Bath
+;skin-care; ;;;Skin Care
+;body-care; ;;;Body Care
+;gifts; ; ;;Gift Sets
+;scented-candles; ;;;Scented Candles
+
+####### email contents impexes #######
+$contentCatalog=copperandcraneContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+
+$picture=media(code, $contentCV);
+$wideContent=CMSImageComponent,BannerComponent
+$jarResource=jar:com.gp.commerce.initialdata.constants.GpcommerceInitialDataConstants&/gpcommerceinitialdata/import/
+$siteResource=jar:com.gp.commerce.initialdata.constants.GpcommerceInitialDataConstants&/gpcommerceinitialdata/import/sampledata/contentCatalogs/$contentCatalog
+
+
+# Language
+$lang=en
+
+INSERT_UPDATE SimpleBannerComponent;$contentCV[unique=true];uid[unique=true];name;urlLink
+;;InstagramBannerComponent;Twitter Banner Component;https://www.instagram.com/copperandcrane/
+;;PinterestBannerComponent;Linkedin Banner Component;https://www.pinterest.com/copperandcrane/
+;;FacebookBannerComponent;YouTube Banner Component;https://www.facebook.com/CopperCraneSpa/
+
+INSERT_UPDATE GPFooterComponent;$contentCV[unique=true];uid[unique=true];name;navigationNodes(uid, $contentCV);emailFooter(uid, $contentCV)
+;;EmailFooterBanner;EmailFooterBanner;GPFooterNavigationNavNode;InstagramBannerComponent,PinterestBannerComponent,FacebookBannerComponent
+
+UPDATE CMSImageComponent;$contentCV[unique=true];uid[unique=true];$picture[lang=$lang];
+;;EmailBannerHeaderImage;/images/email/copperandcrane-logo.png
+
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime[default='image/jpeg'];folder(qualifier)[default='images']
+;;/images/email/copperandcrane-logo.png;copperandcrane-logo.png;$siteResource/images/email/copperandcrane-logo.png;
+;;/images/email/gp-footer.png;gp-footer.png;$siteResource/images/email/gp-footer.png;;
+;;/images/email/facebook.png;facebook.png;$siteResource/images/email/facebook.png
+;;/images/email/pinterest.png;pinterest.png;$siteResource/images/email/pinterest.png
+;;/images/email/instagram.png;instagram.png;$siteResource/images/email/instagram.png
+
+UPDATE SimpleBannerComponent;$contentCV[unique=true];uid[unique=true];$picture[lang=$lang]
+;;InstagramBannerComponent;/images/email/instagram.png
+;;PinterestBannerComponent;/images/email/pinterest.png
+;;FacebookBannerComponent;/images/email/facebook.png
+
+ ##########
+ $jarEmailResource=jar:com.gp.commerce.initialdata.constants.GpcommerceInitialDataConstants&/gpcommerceinitialdata/import/coredata/contentCatalogs/copperandcraneContentCatalog/emails
+
+# Import config properties into impex macros for modulegen
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+$emailResource=$config-emailResourceValue                                                                  
+
+# Language                                                                                                 
+$lang=en     
+
+UPDATE RendererTemplate ; code[unique=true]                                        ; description[lang=$lang]                            ; templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                        ; copperandcrane-BannerComponent-template                      ; "CMSBannerComponent Template"                      ; $emailResource/email-bannerComponentTemplate.vm                                                               
+                        ; copperandcrane-CMSImageComponent-template                    ; "CMSImageComponent Template"                       ; $emailResource/email-cmsImageComponentTemplate.vm                                                             
+                        ; copperandcrane-CMSLinkComponent-template                     ; "CMSLinkComponent Template"                        ; $emailResource/email-cmsLinkComponentTemplate.vm                                                              
+                        ; copperandcrane-CMSParagraphComponent-template                ; "CMSParagraphComponent Template"                   ; $emailResource/email-cmsParagraphComponentTemplate.vm                                                         
+                        ; copperandcrane-SimpleBannerComponent-template                ; "CMSSimpleBannerComponent Template"                ; $emailResource/email-bannerComponentTemplate.vm                                                               
+                        ; copperandcrane_Email_Customer_Registration_Body              ; "Customer Registration Email Body"                 ; $jarEmailResource/email-customerRegistrationBody.vm                                                              
+                        ; copperandcrane_Email_Customer_Registration_Subject           ; "Customer Registration Email Subject"              ; $jarEmailResource/email-customerRegistrationSubject.vm                                                           
+                        ; copperandcrane_Email_Delivery_Sent_Body                      ; "Delivery Sent Email Body"                         ; $jarEmailResource/email-deliverySentBody.vm                                                                      
+                        ; copperandcrane_Email_Delivery_Sent_Subject                   ; "Delivery Sent Email Subject"                      ; $jarEmailResource/email-deliverySentSubject.vm                                                                   
+                        ; copperandcrane_Email_Forgotten_Password_Body                 ; "Forgotten Password Email Body"                    ; $jarEmailResource/email-forgottenPasswordBody.vm                                                                 
+                        ; copperandcrane_Email_Forgotten_Password_Subject              ; "Forgotten Password Email Subject"                 ; $jarEmailResource/email-forgottenPasswordSubject.vm    
+                        ; copperandcrane_Email_Password_Reset_Body   				   ; "Password Reset Success Email Body" 				; $jarEmailResource/email-passwordResetBody.vm    
+                        ; copperandcrane_Email_Password_Reset_Subject				   ; "Password Reset Success Email Subject"     		; $jarEmailResource/email-passwordResetSubject.vm        
+						; copperandcrane_Email_Share_Cart_Subject					   ; "Share Cart Email Subject"						    ; $jarEmailResource/email-shareCartSubject.vm
+						; copperandcrane_Email_Share_Cart_Body						   ; "Share Cart Email Body" 							; $jarEmailResource/email-shareCartBody.vm						
+                        ; copperandcrane_Email_NotPickedUpConsignment_Canceled_Body    ; "Not Picked Up Consignment Canceled Email Body"    ; $emailResource/email-notPickedUpConsignmentCanceledBody.vm                                                    
+                        ; copperandcrane_Email_NotPickedUpConsignment_Canceled_Subject ; "Not Picked Up Consignment Canceled Email Subject" ; $emailResource/email-notPickedUpConsignmentCanceledSubject.vm                                                 
+                        ; copperandcrane_Email_Order_Cancelled_Body                    ; "Order Cancelled Email Body"                       ; $jarEmailResource/email-orderCancelledBody.vm                                                                    
+                        ; copperandcrane_Email_Order_Cancelled_Subject                 ; "Order Cancelled Email Subject"                    ; $jarEmailResource/email-orderCancelledSubject.vm                                                                 
+                        ; copperandcrane_Email_Order_Collection_Reminder_Body          ; "Order Collection Reminder Email Body"             ; $emailResource/email-orderCollectionReminderBody.vm                                                           
+                        ; copperandcrane_Email_Order_Collection_Reminder_Subject       ; "Order Collection Reminder"                        ; $emailResource/email-orderCollectionReminderSubject.vm                                                        
+                        ; copperandcrane_Email_Order_Confirmation_Body                 ; "Order Confirmation Email Body"                    ; $jarEmailResource/email-orderConfirmationBody.vm                                                                 
+                        ; copperandcrane_Email_Order_Confirmation_Subject              ; "Order Confirmation Email Subject"                 ; $jarEmailResource/email-orderConfirmationSubject.vm                                                              
+                        ; copperandcrane_Email_Order_Move_To_CS_Body                   ; "Order Move To CS Email Body"                      ; $emailResource/email-orderMoveToCsBody.vm                                                                     
+                        ; copperandcrane_Email_Order_Move_To_CS_Subject                ; "Order Move To CS Subject"                         ; $emailResource/email-orderMoveToCsSubject.vm                                                                  
+                        ; copperandcrane_Email_Order_Partially_Canceled_Body           ; "Order Partially Canceled Email Body"              ; $emailResource/email-orderPartiallyCanceledBody.vm                                                            
+                        ; copperandcrane_Email_Order_Partially_Canceled_Subject        ; "Order Partially Canceled Email Subject"           ; $emailResource/email-orderPartiallyCanceledSubject.vm                                                         
+                        ; copperandcrane_Email_Order_Partially_Refunded_Body           ; "Order Partially Refunded Email Body"              ; $emailResource/email-orderPartiallyRefundedBody.vm                                                            
+                        ; copperandcrane_Email_Order_Partially_Refunded_Subject        ; "Order Partially Refunded Email Subject"           ; $emailResource/email-orderPartiallyRefundedSubject.vm                                                         
+                        ; copperandcrane_Email_Order_Refund_Body                       ; "Order Refund Email Body"                          ; $jarEmailResource/email-orderRefundBody.vm                                                                       
+                        ; copperandcrane_Email_Order_Refund_Subject                    ; "Order Refund Email Subject"                       ; $jarEmailResource/email-orderRefundSubject.vm                                                                    
+                        ; copperandcrane_Email_Ready_For_Pickup_Body                   ; "Ready For Pickup Email Body"                      ; $emailResource/email-readyForPickupBody.vm                                                                    
+                        ; copperandcrane_Email_Ready_For_Pickup_Subject                ; "Ready For Pickup Email Subject"                   ; $emailResource/email-readyForPickupSubject.vm 
+                        ; email-ChangeUIDSubject-template						   ; "change UID email subject"							; $jarEmailResource/email-changeUIDSubject.vm
+						; email-ChangeUIDBody-template							   ; "change UID email subject"							; $jarEmailResource/email-changeUIDBody.vm  
+						; email-UpdateProfileSubject-template					   ; "change UID email subject"							; $jarEmailResource/email-updateProfileSubject.vm
+						; email-UpdateProfileBody-template						   ; "change UID email subject"							; $jarEmailResource/email-updateProfileBody.vm         
+                        ; copperandcrane_Email_Share_Wishlist_Subject				   ; "Share Wishlist Email Subject"						; $jarEmailResource/email-shareWishlistSubject.vm
+						; copperandcrane_Email_Share_Wishlist_Body					   ; "Share Wishlist Email Body" 					    ; $jarEmailResource/email-shareWishlistBody.vm						
+						; copperandcrane_Email_Share_Wishlist_Body					   ; "Share Wishlist Email Body" 					    ; $jarEmailResource/email-shareWishlistBody.vm						
+                        ; copperandcrane-GPFooterComponent-template                    ;  "Email Footer Component"							; $emailResource/email-gpFooterComponentTemplate.vm
+						; email-FailedOrder_Subject					               ; "Failed Order Consignment Subject"                 ; $jarEmailResource/email-failedOrderSubject.vm
+				        ; email-FailedOrder_Body						           ; "Failed Order Consignment Body"                    ; $jarEmailResource/email-failedOrderBody.vm	
+						; copperandcrane_Email_Order_Reject_Body					   ; "Order Reject Email Body"                 			; $jarEmailResource/email-orderRejectBody.vm
+				        ; copperandcrane_Email_Order_Reject_Subject					   ; "Order Reject Email Subject"                   	; $jarEmailResource/email-orderRejectSubject.vm	
+						;copperandcrane_Email_Order_Issues_Notify_Body				   ; "Order Issues Notification BOdy"					; $jarEmailResource/email-orderIssuesNotificationBody.vm	
+ 						;copperandcrane_Email_Order_Issues_Notify_Subject			   ; "Order Issues Notification BOdy"					; $jarEmailResource/email-orderIssuesNotificationSubject.vm	
+ 
+# Email Pages           
+UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]             ; fromEmail[lang=$lang]         ; fromName[lang=$lang]    
+                 ;                         ; CustomerRegistrationEmail    ; "customerservices@copperandcrane.com" ; "Copper and Crane Customer Services Team"
+                 ;						   ; PasswordResetEmail			  ; "customerservices@copperandcrane.com" ; "Copper and Crane Customer Services Team"
+                 ;                         ; DeliverySentEmail            ; "customerservices@copperandcrane.com" ; "Copper and Crane Customer Services Team"
+                 ;                         ; ForgottenPasswordEmail       ; "customerservices@copperandcrane.com" ; "Copper and Crane Customer Services Team"
+				 ;						   ; ShareCartEmail				  ; "customerservice@copperandcrane.com"  ; "Copper and Crane Customer Services Team"
+                 ;                         ; OrderCancelledEmail          ; "customerservices@copperandcrane.com" ; "Copper and Crane Customer Services Team"
+                 ;                         ; OrderCollectionReminderEmail ; "customerservices@copperandcrane.com" ; "Copper and Crane Customer Services Team"
+                 ;                         ; OrderConfirmationEmail       ; "customerservices@copperandcrane.com" ; "Copper and Crane Customer Services Team"
+                 ;                         ; OrderMoveToCsEmail           ; "customerservices@copperandcrane.com" ; "Copper and Crane Customer Services Team"
+                 ;                         ; OrderPartiallyCanceledEmail  ; "customerservices@copperandcrane.com" ; "Copper and Crane Customer Services Team"
+                 ;                         ; OrderPartiallyRefundedEmail  ; "customerservices@copperandcrane.com" ; "Copper and Crane Customer Services Team"
+                 ;                         ; OrderRefundEmail             ; "customerservices@copperandcrane.com" ; "Copper and Crane Customer Services Team"
+                 ;                         ; ReadyForPickupEmail          ; "customerservices@copperandcrane.com" ; "Copper and Crane Customer Services Team"
+                 ;                         ; UpdateProfileEmail    		  ; "customerservices@copperandcrane.com" ; "Copper and Crane Customer Services Team"
+                 ;						   ; ChangeUIDEmail				  ; "customerservices@copperandcrane.com";"Copper and Crane Customer Services Team"
+                 ;						   ; ShareWishlistEmail			  ; "customerservices@copperandcrane.com" ; "Copper and Crane Customer Services Team"
+                 ;						   ; FailedOrderEmail			  ; "customerservices@copperandcrane.com" ; "Copper and Crane Customer Services Team"
+                 ;						   ; OrderRejectEmail			  ; "customerservices@copperandcrane.com" ; "Copper and Crane Customer Services Team" 
+                 ;						   ;OrderIssuesNotifyEmail		  ;"customerservices@copperandcrane.com";"Copper and Crane Customer Services Team"             
+                 
+ # Shipping Countries Fix                  
+$productCatalog=gpUSProductCatalog
+$classificationCatalog=gpUSClassification
+$currencies=USD
+$net=true
+$storeUid=copperandcrane
+$defaultCurrency=USD
+$languages=en
+$defaultLanguage=en
+$unitedStates=US
+$canada=CA
+$deliveryCountries=$unitedStates
+$shippingCountries=$unitedStates
+$orderProcessCode=order-process
+$pickupInStoreMode=BUY_AND_COLLECT
+$paymentProvider=Mockup
+$expressCheckoutEnabled=true
+$returnProcessCode=return-process
+
+$checkoutFlowGroup=responsiveCheckoutGroup
+
+# Base Store
+INSERT_UPDATE BaseStore;uid[unique=true];catalogs(id);currencies(isocode);net;taxGroup(code);storelocatorDistanceUnit(code);defaultCurrency(isocode);languages(isocode);defaultLanguage(isocode);deliveryCountries(isocode);submitOrderProcessCode;pickupInStoreMode(code);paymentProvider;expressCheckoutEnabled;maxRadiusForPoSSearch;checkoutFlowGroup;createReturnProcessCode;externalTaxEnabled;shippingCountries(isocode);
+;$storeUid;$productCatalog,$classificationCatalog;$currencies;$net;us-taxes;miles;$defaultCurrency;$languages;$defaultLanguage;$deliveryCountries;$orderProcessCode;$pickupInStoreMode;$paymentProvider;$expressCheckoutEnabled;300;$checkoutFlowGroup;$returnProcessCode;true;$shippingCountries;
+                 
+                 
+############################# NOTIFICATION EMAIL  ##############################     
+$contentCatalog=copperandcraneContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+            
+$wideContent=CMSImageComponent,BannerComponent                 
+$emailPackageName=com.gp.commerce.facades.process.email.context
+$emailResource=jar:com.gp.stocknotifyoccaddon.constants.GpstocknotifyoccaddonConstants&/gpstocknotifyoccaddon/import/contentCatalogs/copperandcraneContentCatalog/emails
+$jarResourceCms=jar:com.gp.stocknotifyoccaddon.constants.GpstocknotifyoccaddonConstants&/gpstocknotifyoccaddon/import/cockpits/cmscockpit/structure-view
+
+# Language                                                                                                 
+$lang=en 
+
+# Email page Template
+INSERT_UPDATE EmailPageTemplate;$contentCV[unique=true];uid[unique=true];name;active;frontendTemplateName;subject(code);htmlTemplate(code);restrictedPageTypes(code)
+;;ProductBackInStockNotificationEmailTemplate;Product Back In Stock Email Template;true;productBackInStockNotificationEmailTemplate;copperandcrane_Email_Product_Back_In_Stock_Subject;copperandcrane_Email_Product_Back_In_Stock_Body;EmailPage
+
+# Templates for CMS Cockpit Page Edit
+UPDATE EmailPageTemplate;$contentCV[unique=true];uid[unique=true];velocityTemplate[translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+;;ProductBackInStockNotificationEmailTemplate;$jarResourceCms/structure_productBackInStockNotificationEmailTemplate.vm
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='ProductBackInStockNotificationEmailTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+# Bind Content Slots to Email Page Templates
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='ProductBackInStockNotificationEmailTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-ProductBackInStockNotificationEmail;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-ProductBackInStockNotificationEmail;TopContent;;EmailTopSlot;true
+;;BottomContent-ProductBackInStockNotificationEmail;BottomContent;;EmailBottomSlot;true
+
+# Email Pages
+INSERT_UPDATE EmailPage;$contentCV[unique=true];uid[unique=true];name;fromEmail[lang=$lang];fromName[lang=$lang];masterTemplate(uid,$contentCV);defaultPage;approvalStatus(code)[default='approved']
+;;ProductBackInStockNotificationEmail;Product Back In Stock Notification Email;customerservices@hybris.com;"Customer Services Team";ProductBackInStockNotificationEmailTemplate;true;
+
+# Email velocity templates
+INSERT_UPDATE RendererTemplate;code[unique=true];contextClass;rendererType(code)[default='velocity']
+;copperandcrane_Email_Product_Back_In_Stock_Body;$emailPackageName.GPBackInStockNotificationEmailContext
+;copperandcrane_Email_Product_Back_In_Stock_Subject;$emailPackageName.GPBackInStockNotificationEmailContext
+
+UPDATE RendererTemplate;code[unique=true];templateScript[translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+;copperandcrane_Email_Product_Back_In_Stock_Body;$emailResource/email-productBackInStockBody.vm
+;copperandcrane_Email_Product_Back_In_Stock_Subject;$emailResource/email-productBackInStockSubject.vm
+
+UPDATE EmailPage;$contentCV[unique=true];uid[unique=true];previewImage(code, $contentCV)
+;;ProductBackInStockNotificationEmail;EmailPageModel_preview
+     
+UPDATE RendererTemplate;code[unique=true];templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+;copperandcrane_Email_Product_Back_In_Stock_Body;$emailResource/email-productBackInStockBody.vm
+
+
+UPDATE EmailPage;$contentCV[unique=true];uid[unique=true];fromEmail[lang=$lang];fromName[lang=$lang]
+ ;;ProductBackInStockNotificationEmail;"customerservices@hybris.com";"Customer Services Team"
+############################# NOTIFICATION EMAIL  ##############################
+ 
+INSERT_UPDATE GPLiveChatComponent;$contentCV[unique=true];uid[unique=true];liveChat(&componentRef);&componentRef;informationText;name;componentTheme;showContactUs[default='true']
+;;gpLiveChatComponent;acsLiveChatJSPIncludeComponent;gpLiveChatComponent;Chat online with one of our online support specialists (Available 8:00 a.m. - 10:00 p.m. ET);GPLiveChatComponent;;
+ 

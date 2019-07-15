@@ -1,0 +1,13 @@
+# ImpEx for GP Product Catalog Content
+#
+$productCatalog=gpUSProductCatalog
+$productCatalogName=GP US Product Catalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$baseProduct=baseProduct(code, catalogVersion(catalog(id[default='$productCatalog']),version[default='Staged']))
+$approved=approvalstatus(code)[default='approved']
+$taxGroup=Europe1PriceFactory_PTG(code)[default=us-sales-tax-full]
+$giftWrapProduct=giftWrapProduct(code, catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged']))
+$installationProduct=installationProduct(code, catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged']))
+
+
+###### Add impex rows here ######

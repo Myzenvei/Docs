@@ -1,0 +1,16 @@
+<div class="vx-shipping-method row">
+  <div class="col-xs-8">
+    <p class="section-header mb-xs-0" role="heading">{{sectionIndex}}. {{i18n.heading}}</p>
+  </div>
+  <a v-show="!isEditable" class="d-flex justify-content-end col-xs-4" :aria-hidden="isEditable || isDeviceAndroid()">
+    <span class="shipping-method-change" @click="editMethod($event)" @keyup.enter-space="editMethod($event)" tabindex="0"
+      role="button" :aria-label="i18n.changeButton">{{i18n.changeButton}}</span>
+  </a>
+  <div class="col-xs-12" v-if="isShippingMultiple">
+    <vx-multiple-shipping-method :address-changed="addressChanged" :i18n="i18n" :is-editable="isEditable"
+      :split-applicable="splitApplicable" :checkout-data="checkoutData"></vx-multiple-shipping-method>
+  </div>
+  <div class="col-xs-12" v-if="!isShippingMultiple">
+    <vx-single-shipping-method :address-changed="addressChanged" :i18n="i18n" :is-editable="isEditable" :checkout-data="checkoutData"></vx-single-shipping-method>
+  </div>
+</div>

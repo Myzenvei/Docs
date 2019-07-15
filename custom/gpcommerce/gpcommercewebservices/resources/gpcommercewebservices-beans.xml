@@ -1,0 +1,1463 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- [y] hybris Platform Copyright (c) 2017 SAP SE or an SAP affiliate company. All rights reserved. This software is the confidential 
+	and proprietary information of SAP ("Confidential Information"). You shall not disclose such Confidential Information and shall use 
+	it only in accordance with the terms of the license agreement you entered into with SAP. -->
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="beans.xsd">
+
+	<enum class="com.gp.commerce.populator.options.PaymentInfoOption">
+		<value>BASIC</value>
+		<value>BILLING_ADDRESS</value>
+	</enum>
+
+	<enum class="de.hybris.platform.commercefacades.product.ProductOption">
+		<value>SPECIFICATIONS</value>
+	</enum>
+	<!--auth response -->
+	<bean class="com.gp.commerce.auth.data.LogoutResponse">
+		<property name="success" type="boolean" />
+	</bean>
+
+	<!-- storesession data -->
+
+	<bean class="com.gp.commerce.storesession.data.LanguageDataList">
+		<property name="languages" type="java.util.Collection&lt;de.hybris.platform.commercefacades.storesession.data.LanguageData>" />
+	</bean>
+
+	<bean class="com.gp.commerce.storesession.data.CurrencyDataList">
+		<property name="currencies" type="java.util.Collection&lt;de.hybris.platform.commercefacades.storesession.data.CurrencyData>" />
+	</bean>
+
+	<!-- order data -->
+
+	<bean class="com.gp.commerce.order.data.CartDataList">
+		<property name="carts" type="java.util.List&lt;de.hybris.platform.commercefacades.order.data.CartData>" />
+	</bean>
+
+	<bean class="com.gp.commerce.order.data.OrderEntryDataList">
+		<property name="orderEntries" type="java.util.List&lt;de.hybris.platform.commercefacades.order.data.OrderEntryData>" />
+	</bean>
+
+	<bean class="com.gp.commerce.order.data.CardTypeDataList">
+		<property name="cardTypes" type="java.util.List&lt;de.hybris.platform.commercefacades.order.data.CardTypeData>" />
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.order.data.CartModificationDataList">
+		<property name="cartModificationList" type="java.util.List&lt;de.hybris.platform.commercefacades.order.data.CartModificationData>" />
+	</bean>
+
+	<!-- product data -->
+
+	<bean class="com.gp.commerce.product.data.ProductDataList">
+		<property name="products" type="java.util.List&lt;de.hybris.platform.commercefacades.product.data.ProductData>" />
+		<property name="catalog" type="String" />
+		<property name="version" type="String" />
+		<property name="totalProductCount" type="int" />
+		<property name="totalPageCount" type="int" />
+		<property name="currentPage" type="int" />
+	</bean>
+
+	<bean class="com.gp.commerce.product.data.PromotionDataList">
+		<property name="promotions" type="java.util.List&lt;de.hybris.platform.commercefacades.product.data.PromotionData>" />
+	</bean>
+
+	<bean class="com.gp.commerce.product.data.PromotionResultDataList">
+		<property name="promotions" type="java.util.List&lt;de.hybris.platform.commercefacades.product.data.PromotionResultData>" />
+	</bean>
+
+	<bean class="com.gp.commerce.product.data.ReviewDataList">
+		<property name="reviews" type="java.util.List&lt;de.hybris.platform.commercefacades.product.data.ReviewData>" />
+	</bean>
+
+	<bean class="com.gp.commerce.product.data.SuggestionDataList">
+		<property name="suggestions" type="java.util.List&lt;de.hybris.platform.commercefacades.product.data.SuggestionData>" />
+	</bean>
+
+	<!-- user data -->
+
+	<bean class="com.gp.commerce.user.data.TitleDataList">
+		<property name="titles" type="java.util.List&lt;de.hybris.platform.commercefacades.user.data.TitleData>" />
+	</bean>
+
+	<bean class="com.gp.commerce.user.data.CountryDataList">
+		<property name="countries" type="java.util.List&lt;de.hybris.platform.commercefacades.user.data.CountryData>" />
+	</bean>
+
+	<bean class="com.gp.commerce.user.data.AddressDataList">
+		<property name="addresses" type="java.util.List&lt;de.hybris.platform.commercefacades.user.data.AddressData>" />
+		<property name="isAdmin" type="boolean" />
+	</bean>
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.user.AddressListWsDTO">
+		<property name="isAdmin" type="boolean" />
+	</bean>
+	<!-- voucher data -->
+	<bean class="com.gp.commerce.voucher.data.VoucherDataList">
+		<property name="vouchers" type="java.util.List&lt;de.hybris.platform.commercefacades.voucher.data.VoucherData>" />
+	</bean>
+
+	<!-- validation data -->
+	<bean class="com.gp.commerce.validation.data.AddressValidationData">
+		<property name="errors" type="de.hybris.platform.webservicescommons.dto.error.ErrorListWsDTO" />
+		<property name="decision" type="String" />
+		<property name="suggestedAddressesList" type="com.gp.commerce.user.data.AddressDataList" />
+	</bean>
+
+	<!-- Additional title property for CustomerData -->
+	<bean class="de.hybris.platform.commercefacades.user.data.CustomerData" extends="de.hybris.platform.commercefacades.user.data.PrincipalData">
+		<property name="title" type="String" />
+		<property name="cartTimeOut" type="Integer" />
+		<property name="cellPhone" type="String"/>
+		<property name="selectedRole" type="String" />
+		<property name="leaseSigner" type="boolean" />
+		<property name="site" type="String" />
+		<property name="loginType" type="String"/>
+		<property name="b2bUnitLevel" type="String"/>
+		<property name="isB2bCustomerLeaseable" type="boolean"/>
+		<property name="addToMarketComm" type="Boolean" />
+		<property name="addToAffilatedMarketComm" type="Boolean" />
+		<property name="inReview" type="boolean"/>
+	</bean>
+
+	<bean class="com.gp.commerce.user.data.LoginChangeResponse">
+		<property name="success" type="boolean" />
+	</bean>
+
+	<bean class="com.gp.commerce.user.data.PasswordRestoreResponse">
+		<property name="success" type="boolean" />
+	</bean>
+
+	<!-- update queues -->
+
+	<bean class="com.gp.commerce.queues.data.ProductExpressUpdateElementData">
+		<property name="code" type="String" />
+		<property name="catalogId" type="String" />
+		<property name="catalogVersion" type="String" />
+	</bean>
+
+	<bean class="com.gp.commerce.queues.data.ProductExpressUpdateElementDataList">
+		<property name="productExpressUpdateElements" type="java.util.List&lt;com.gp.commerce.queues.data.ProductExpressUpdateElementData>" />
+	</bean>
+
+	<bean class="com.gp.commerce.queues.data.OrderStatusUpdateElementData">
+		<property name="code" type="String" />
+		<property name="status" type="String" />
+		<property name="baseSiteId" type="String" />
+	</bean>
+
+	<bean class="com.gp.commerce.queues.data.OrderStatusUpdateElementDataList">
+		<property name="orderStatusUpdateElements" type="java.util.List&lt;com.gp.commerce.queues.data.OrderStatusUpdateElementData>" />
+	</bean>
+
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.user.UserSignUpWsDTO">
+		<property name="country" type="String" />
+		<property name="addToMarketComm" type="Boolean" />
+		<property name="addToAffilatedMarketComm" type="Boolean" />
+		<property name="token" type="String" />
+		<property name="loginType" type="String" />
+		<property name="kochAuthAccessToken" type="String" />
+		<property name="kochAuthIdToken" type="String" />
+		<property name="kochAutRefreshToken" type="String" />
+		<property name="kochAuthTS" type="String" />
+		<property name="kochEmailId" type="String"/>
+		<property name="gender" type="String"/>
+		<property name="dateOfBirth" type="String"/>
+		<property name="fbUniqueId" type="String"/>
+		<property name="errorCode" type="String"/>
+		<property name="fbMobileAccount" type="Boolean"/>
+	</bean>
+
+	<bean class="com.gp.commerce.survey.data.SurveyRegisterListWsDTO">
+		<property name="surveys" type="java.util.List&lt;com.gp.commerce.user.data.SurveyRegisterWsDTO>" />
+	</bean>
+
+	<bean class="com.gp.commerce.survey.data.QuestionWsDTO">
+		<property name="code" type="String" />
+		<property name="label" type="String" />
+		<property name="questionType" type="String" />
+		<property name="options" type="java.util.List&lt;com.gp.commerce.survey.data.OptionWsDTO>" />
+	</bean>
+
+	<bean class="com.gp.commerce.survey.data.OptionWsDTO">
+		<property name="code" type="String" />
+		<property name="label" type="String" />
+		<property name="reDirectQuestion" type="String" />
+	</bean>
+
+	<bean class="com.gp.commerce.user.data.SurveyRegisterWsDTO">
+		<property name="userId" type="String" />
+		<property name="surveyCode" type="String" />
+		<property name="role" type="String" />
+		<property name="companyDetails" type="String" />
+		<property name="typeOfBusiness" type="String" />
+		<property name="noOfEmployees" type="java.lang.Integer" />
+		<property name="questionSelected" type="java.util.List&lt;com.gp.commerce.survey.data.QuestionWsDTO>" />
+		<property name="address" type="de.hybris.platform.commercewebservicescommons.dto.user.AddressWsDTO" />
+		<property name="surveyEdit" type="boolean" />
+	</bean>
+
+	<bean class="com.gp.commerce.search.compare.data.ComparisonWsDTO">
+		<property name="products" type="java.util.List&lt;de.hybris.platform.commercewebservicescommons.dto.product.ProductWsDTO>" />
+		<property name="specifications" type="java.util.List&lt;com.gp.commerce.search.compare.data.CompareSpecificationsWsDTO>" />
+	</bean>
+
+	<bean class="com.gp.commerce.search.compare.data.CompareSpecificationsWsDTO">
+		<property name="categoryLabel" type="String" />
+		<property name="categoryCode" type="String" />
+		<property name="subCategories" type="java.util.List&lt;com.gp.commerce.search.compare.data.CompareAttributesWsDTO>" />
+	</bean>
+
+	<bean class="com.gp.commerce.search.compare.data.CompareAttributesWsDTO">
+		<property name="attributeLabel" type="String" />
+		<property name="attributePosition" type="String" />
+		<property name="columnValues" type="java.util.List&lt;String>" />
+	</bean>
+
+
+	<bean class="com.gp.commerce.search.data.AutocompleteSuggestionWsDTO">
+		<property name="term" type="String" />
+	</bean>
+
+	<bean class="com.gp.commerce.search.data.AutocompleteResultWsDTO">
+		<property name="suggestions" type="java.util.List&lt;com.gp.commerce.search.data.AutocompleteSuggestionWsDTO>" />
+		<property name="products" type="java.util.List&lt;de.hybris.platform.commercewebservicescommons.dto.product.ProductWsDTO>" />
+		<property name="pdpRedirectURL" type="String" />
+	</bean>
+
+	<!--YCOM-568-Start - A new element added for PDP redirect URL -->
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.search.facetdata.ProductSearchPageWsDTO">
+		<description>Added a new element for PDP Redirect URL</description>
+		<property name="pdpRedirectURL" type="String" />
+		<property name="topImage" type="String"/>
+		<property name="categoryName" type="String"/>
+	</bean>
+	<!--YCOM-568-End - A new element added for PDP redirect URL -->
+
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.product.ProductWsDTO">
+		<property name="isCustomizable" type="Boolean" />
+		<property name="isBundleAvailable" type="Boolean" />
+		<property name="isBulkBuy" type="Boolean" />
+		<property name="isSubscribable" type="Boolean" />
+		<property name="isSeasonal" type="Boolean" />
+		<property name="isLeaseable" type="Boolean" />
+		<property name="isOnlineOnly" type="Boolean" />
+		<property name="isPrivateLabel" type="Boolean" />
+		<property name="isSample" type="Boolean" />
+		<property name="approvedSampleStatus" type="Boolean" />
+		<property name="isSampleElevatedRights" type="Boolean" />
+		<property name="isSampleCaseAllowed" type="Boolean" />
+		<property name="isEachResaleable" type="Boolean" />
+		<property name="isSapDistributionChainSpecific" type="Boolean" />
+		<property name="isLockerEligible" type="Boolean" />
+		<property name="isDropShipEligible" type="Boolean" />
+		<property name="customerMaterialNumber" type="String" />
+		<property name="promoText" type="String" />
+		<property name="featureList" type="java.util.List&lt;String>" />
+		<property name="assetCode" type="String" />
+		<property name="specifications" type="java.util.List&lt;com.gp.commerce.search.compare.data.CompareSpecificationsWsDTO>" />
+		<property name="weblistPrice" type="PriceWsDTO" />
+		<property name="mapPrice" type="PriceWsDTO" />
+		<property name="dataSheets" type="com.gp.commerce.product.data.DatasheetsWsDTO" />
+		<property name="productResourceVideos" type="com.gp.commerce.product.data.ProductResourceVideosWsDTO" />
+		<property name="maxPurchaseableQuantity" type="Integer" />
+		<property name="certifications" type="java.util.List&lt;String>" />
+		<property name="isCertified" type="Boolean" />
+		<property name="gpCertifications" type="java.util.List&lt;com.gp.commerce.facades.product.data.GpCertificationsData>" />
+		<property name="isFreeShipping" type="Boolean" />
+		<property name="cmirCode" type="String"/>
+		<property name="count" type="Integer"/>
+		<property name="isValidSKU" type="boolean"/>
+		<property name="hasVariant" type="Boolean" />
+		<property name="unit" type="String" />
+		<property name="installationProduct" type="com.gp.commerce.product.data.InstallableWsDTO" />
+        <property name="giftWrapProduct" type="com.gp.commerce.product.data.GiftWrappableWsDTO" />
+		<property name="materialStatus" type="String" />
+		<property name="isAvailableForLocation" type="boolean"/>
+		<property name="bvNumberOfReviews" type="Integer" />
+		<property name="bvAverageRating" type="Double" />
+		
+		<property name="isFavorite" type="boolean"/>
+		<property name="maxOrderQuantity" type="Integer"/>
+		<property name="offlineDate" type="String"/>
+		<property name="onlineDate" type="String"/>
+		<property name="replacementProductCode" type="String"/>
+		<property name="ean" type="String"/>
+		<property name="isPallet" type="boolean"/>
+		<property name="maxOrderableQuantity" type="Integer" />
+		<property name="isAvailable" type="boolean"/>
+		<property name="galleryImages" type="java.util.List&lt;String>"/>
+		<property name="encodedImages" type="java.util.List&lt;String>"/>
+		<property name="upc" type="String"/>
+		<property name="wishlistQuantity" type="Long" />
+		<property name="sellingstmt" type="String"/>
+		<property name="subtitle" type="String"/>
+		<property name="minOrderQuantity" type="Integer" />
+		<property name="priceText" type="String"/>
+	   <property name="competitorNumber" type="String" />
+	   <property name="competitorName" type="String" />
+	   <property name="competitorId" type="String" />
+	   <property name="relationshipType" type="String" />
+  	   <property name="competitorReplacementProducts" type="java.util.List&lt;ProductWsDTO>"/>
+	   <property name="tabInfo" type="java.util.List&lt;com.gp.commerce.facades.product.data.ProductInfoTabWsDTO>"/>
+	   <property name="defaultTabName" type="String"/>
+	   <property name="subscriptionFrequency" type="com.gp.commerce.facades.product.data.GPSubscriptionFrequencyDTO"/>
+	   <property name="soldIndividually" type="boolean"/>
+	   <property name="lowestBundlePrice" type="PriceWsDTO"/>
+	   <property name="bundleTemplates" type="java.util.List&lt;com.gp.commerce.configurablebundlefacades.dto.BundleTemplateWsDTO>"/>		
+	   <property name="disabled" type="boolean" deprecated="Deprecated since 6.5, please use the ProductData.addToCartDisabled attribute instead."/>
+	   <property name="productWidth" type="String"/>
+      <property name="productWidthUOM" type="String"/>
+      <property name="productLength" type="String"/>
+      <property name="productLengthUOM" type="String"/>
+      <property name="productHeight" type="String"/>
+      <property name="productHeightUOM" type="String"/>
+      <property name="eachPerShipUnit" type="String" />
+      <property name="eachPerShipUnitUOM" type="String" /> 
+	 <property name="itemPerEachUOM" type="String" />
+	 <property name="subsPercentageDiscount" type="String" />
+	   <property name="subsAmountOff" type="String" />
+	    <property name="subscriptionPrice" type="PriceWsDTO" />
+	 	<property name="productCapacity" type="String" />
+      <property name="itemPerEach" type="String"/>
+      <property name="productIcons" type="java.util.List&lt;String>"/>
+	  <property name="displayAttributes" type="String"/> 
+	  <property name="disableSubscribeButton" type="boolean"/>	
+	</bean>
+	
+   <bean class="com.gp.commerce.facades.product.data.ProductInfoTabWsDTO">
+		<property name="sequence" type="String" />
+		<property name="name" type="String" />
+		<property name="content" type="String" />
+	</bean>
+	<bean class="com.gp.commerce.product.data.InstallableWsDTO">
+     <property name="installableProductCode" type="Integer"/>
+     <property name="installable" type="boolean"/>
+	 <property name="installableMessage" type="String" />
+    </bean>
+
+	<bean class="com.gp.commerce.product.data.GiftWrappableWsDTO">
+      <property name="giftWrapProductCode" type="Integer"/>
+      <property name="giftMessage" type="String" />
+      <property name="giftWrapped" type="boolean" />
+    </bean>
+
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.product.StockWsDTO">
+		<property name="nextAvailableDate" type="String" />
+		<property name="lowStockMessage" type="String" />
+	</bean>
+
+	<!--START : Wishlist -->
+	<bean class="com.gp.commerce.dto.wishlist.WishlistListWsDTO">
+		<property name="wishlists" type="java.util.List&lt;com.gp.commerce.dto.wishlist.WishlistWsDTO>" />
+	</bean>
+	
+	<bean class="com.gp.commerce.dto.wishlist.WishlistListPageWsDTO">
+		<property name="wishlists" type="java.util.List&lt;com.gp.commerce.dto.wishlist.WishlistPageWsDTO>" />
+	</bean>
+
+	<bean class="com.gp.commerce.dto.wishlist.WishlistEntryListRequestDTO">
+		<property name="wishlistEntryGroup"
+				type="java.util.List&lt;com.gp.commerce.dto.wishlist.WishlistEntryRequestDTO>" />
+	</bean>
+	
+	<bean class="com.gp.commerce.dto.wishlist.WishlistPageWsDTO">
+		<property name="name" type="String" />
+		<property name="description" type="String" />
+		<property name="wishlistUid" type="String" />
+		<property name="status" type="String"/>
+		<property name="subtotal" type="String"/>
+		<property name="modifiedTime" type="java.util.Date"/>
+		<property name="noOfProducts" type="java.lang.Integer"/>
+		<property name="customAttr1" type="String"/>
+		<property name="customAttr2" type="String"/>
+		<property name="customAttr3" type="String"/>
+		<property name="errorMessage" type="String"/>
+		<property name="soldToId" type="String"/>
+	</bean>
+	
+	<bean class="com.gp.commerce.dto.wishlist.WishlistWsDTO">
+		<property name="name" type="String" />
+		<property name="description" type="String" />
+		<property name="wishlistUid" type="String" />
+		<property name="status" type="String"/>
+		<property name="subtotal" type="String"/>
+		<property name="modifiedTime" type="java.util.Date"/>
+		<property name="noOfProducts" type="java.lang.Integer"/>
+		<property name="wishlistEntries"
+			type="java.util.List&lt;com.gp.commerce.dto.wishlist.WishlistEntryRequestDTO>" />
+		<property name="customAttr1" type="String"/>
+		<property name="customAttr2" type="String"/>
+		<property name="customAttr3" type="String"/>
+		<property name="errorMessage" type="String"/>
+		<property name="soldToId" type="String"/>
+		<property name="wishlistEntriesGroup"
+			type="java.util.Map&lt;String,com.gp.commerce.dto.wishlist.WishlistEntryListRequestDTO>" />
+	</bean>
+	
+	<bean class="com.gp.commerce.dto.wishlist.WishlistMultipleWsDTO">
+		<property name="name" type="String" />
+		<property name="description" type="String" />
+		<property name="wishlistUid" type="String" />
+		<property name="status" type="String"/>
+		<property name="subtotal" type="String"/>
+		<property name="modifiedTime" type="java.util.Date"/>
+		<property name="noOfProducts" type="java.lang.Integer"/>
+		<property name="wishlistEntries"
+			type="java.util.List&lt;com.gp.commerce.dto.wishlist.WishlistMultipleEntryRequestDTO>" />
+		<property name="customAttr1" type="String"/>
+		<property name="customAttr2" type="String"/>
+		<property name="customAttr3" type="String"/>
+	</bean>
+
+	<bean class="com.gp.commerce.dto.wishlist.WishlistEntryRequestDTO">
+		<property name="code" type="String" />
+		<property name="wishlistName" type="String" />
+		<property name="entryType" type="String" />
+		<property name="wishlistUid" type="String" />
+		<property name="product"
+			type="de.hybris.platform.commercewebservicescommons.dto.product.ProductWsDTO" />
+		<property name="quantity" type="Long" />
+		<property name="totalPrice" type="String" />
+		<property name="customAttr1Value" type="String"/>
+		<property name="customAttr2Value" type="String"/>
+		<property name="customAttr3Value" type="String"/>
+		<property name="category" type="String" />
+	</bean>
+	
+	
+	<bean class="com.gp.commerce.dto.wishlist.WishlistMultipleEntryRequestDTO">
+		<property name="code" type="String" />
+		<property name="wishlistName" type="String" />
+		<property name="entryType" type="String" />
+		<property name="wishlistUid" type="String" />
+		<property name="products"
+			type="java.util.List&lt;de.hybris.platform.commercewebservicescommons.dto.product.ProductWsDTO>" />
+		<property name="quantity" type="Long" />
+		<property name="totalPrice" type="String" />
+		<property name="customAttr1Value" type="String"/>
+		<property name="customAttr2Value" type="String"/>
+		<property name="customAttr3Value" type="String"/>
+	</bean>
+
+	<bean class="com.gp.commerce.dto.wishlist.StatusResponse">
+		<property name="status" type="String" />
+		<property name="message" type="String" />
+	</bean>
+
+	<bean class="com.gp.commerce.dto.wishlist.WishListEmailWsDTO">
+		<property name="fromUserEmail" type="String" />
+		<property name="toUserEmailIds" type="java.util.List&lt;String>" />
+		<property name="emailMessage" type="String" />
+	</bean>
+
+	<!--END : Wishlist -->
+	<bean class="de.hybris.platform.webservicescommons.dto.error.ErrorWsDTO">
+		<property name="code" type="String" />
+	</bean>
+
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.catalog.CategoryHierarchyWsDTO">
+		<property name="learnMore" type="String" />
+		<property name="brochure" type="String" />
+		<property name="requestTrialText" type="String" />
+		<property name="requestTrialLink" type="String" />
+		<property name="brochureText" type="String" />
+		<property name="learnMoreText" type="String" />
+		<property name="isLearnMoreLinkExternal" type="Boolean"/>
+		<property name="isBrochureLinkExternal" type="Boolean"/>
+		<property name="isRequestTrialLinkExternal" type="Boolean"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.product.ImageWsDTO">
+		<property name="zoomUrl" type="String"></property>
+		<property name="thumbnailUrl" type="String"></property>
+		<property name="cartIconUrl" type="String"></property>
+		<property name="kaonUrl" type="String"></property>
+		<property name="mimeType" type="String"></property>
+		<!-- New fields added for knowledge center -->
+		<property name="description" type="String"/>
+		<property name="startDate" type="java.util.Date"/>
+		<property name="resourceURL" type="String"></property>
+		<property name="resourceId" type="Integer"></property>
+		<property name="trainingId" type="Integer"></property>
+		<property name="trainingGroupId" type="java.util.List&lt;Integer>"></property>
+		<property name="tags" type="java.util.List&lt;String>"></property>
+		<property name="trainingBrands" type="java.util.List&lt;String>"></property>
+		<property name="name" type="String"></property>
+		<property name="defaultResourceURL" type="String"></property>
+	</bean>
+
+	<!--YCOM-2394-Start -->
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.order.OrderEntryWsDTO">
+		<property name="leasable" type="boolean" />
+		<property name="leasableMessage" type="String" />
+		<property name="slashSavedPrice" type="de.hybris.platform.commercefacades.product.data.PriceData"/>
+		<property name="slashPriceValue" type="String"/>
+		<property name="giftMessage" type="String" />
+		<property name="giftWrapped" type="boolean" />
+		<property name="promotionsRevoked" type="boolean" />
+		<property name="installed" type="boolean" />
+		<property name="productPromotion" type="de.hybris.platform.commercefacades.product.data.PriceData" />
+		<property name="subscriptionFrequency" type="java.util.Map&lt;java.lang.String,java.lang.String>" />
+		<property name="giveAway" type="boolean" />
+	</bean>
+	<!--YCOM-2394-END -->
+
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.product.VariantOptionWsDTO">
+		<property name="isSelected" type="boolean" />
+	</bean>
+
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.product.BaseOptionWsDTO">
+		<property name="isStyleVariant" type="boolean" />
+		<property name="isSizeVariant" type="boolean" />
+	</bean>
+	
+	<bean
+		class="de.hybris.platform.commercewebservicescommons.dto.order.OrderEntryWsDTO">
+		<property name="additionalAttributes"
+			type="java.util.Map&lt;java.lang.String,java.lang.String>" />
+			<property name="visible" type="boolean"/>
+    	<property name="splitEntries" type="java.util.List&lt;com.gp.commerce.facade.order.data.SplitEntryWsDTO>"/>
+		<!--Bundle attributes-->
+		<property name="bundleNo" type="int"/>
+		<property name="component" type="com.gp.commerce.configurablebundlefacades.dto.BundleTemplateWsDTO"/>
+		<property name="rootBundleTemplate" type="com.gp.commerce.configurablebundlefacades.dto.BundleTemplateWsDTO"/>
+		<property name="removeable" type="boolean"/>
+		<property name="editable" type="boolean"/>
+		<property name="valid" type="boolean"/>
+		<property name="addable" type="boolean"/>
+		<property name="entryGroupNumbers" type="java.util.Collection&lt;Integer&gt;"/>
+	</bean>
+	
+	<bean class="com.gp.commerce.facade.order.data.SplitEntryWsDTO">
+		<property name="code" type="String"/>
+		 <property name="qty" type="String"/>
+		 <property name="deliveryAddress" type="de.hybris.platform.commercewebservicescommons.dto.user.AddressWsDTO"/>
+		 <property name="entryNumber" type="String"/>
+		  <property name="deliveryInstruction" type="String"/>
+		 <property name="deliveryMode" type="de.hybris.platform.commercewebservicescommons.dto.order.ZoneDeliveryModeWsDTO"/>
+		  <property name="price" type="de.hybris.platform.commercefacades.product.data.PriceData"/>
+		 <property name="productCode" type="String"/>
+		  <property name="deliveryModes" type="de.hybris.platform.commercewebservicescommons.dto.order.DeliveryModeListWsDTO"/>
+		  <property name="visible" type="boolean"/>
+		 </bean>
+	
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.product.VariantOptionQualifierWsDTO">
+		<property name="hexCode" type="String" />
+		<property name="sequence" type="String" />
+		<property name="swatchImageUrl" type="String" />
+	</bean>
+	<!--YCOM-4183-Start -->
+	<bean class="com.gp.commerce.product.data.DatasheetsWsDTO">
+		<property name="dataSheet" type="java.util.List&lt;de.hybris.platform.commercewebservicescommons.dto.product.ImageWsDTO>" />
+	</bean>
+
+	<bean class="com.gp.commerce.product.data.ProductResourceVideosWsDTO">
+		<property name="video" type="java.util.List&lt;de.hybris.platform.commercewebservicescommons.dto.product.ImageWsDTO>" />
+	</bean>
+
+	<!--YCOM-4183-END -->
+	
+	<bean class="com.gp.commerce.order.entry.data.GPSplitWsDTO">
+		<property name="entryNumber" type="Integer"/>
+		<property name="splitEntry"
+			type="java.util.List&lt;com.gp.commerce.facade.order.data.SplitEntryWsDTO>" />
+	</bean>
+	
+	<bean class="com.gp.commerce.order.entry.data.GPSplitListWsDTO">
+		<property name="splitEntry"
+			type="java.util.List&lt;com.gp.commerce.order.entry.data.GPSplitWsDTO>" />
+	</bean>
+
+	<!-- B2B Data -->
+
+	<bean class="com.gp.commerce.dto.company.B2BUnitNodeWsDTO">
+		<property name="id" type="String" />
+		<property name="name" type="String" />
+		<property name="role" type="String" />
+		<property name="parent" type="String" />
+		<property name="active" type="boolean" />
+		<property name="children" type="java.util.List&lt;B2BUnitNodeWsDTO>" />
+		<property name="addresses" type="java.util.List&lt;de.hybris.platform.commercewebservicescommons.dto.user.AddressWsDTO>" />
+		<property name="noOfAdministrators" type="Integer" />
+		<property name="noOfCustomers" type="Integer" />
+		<property name="parentName" type="String" />
+	</bean>
+
+	<bean class="com.gp.commerce.dto.company.B2BUnitWsDTO" extends="com.gp.commerce.dto.company.CompanyWsDTO">
+		<property name="unit" type="com.gp.commerce.dto.company.B2BUnitWsDTO" />
+		<property name="active" type="boolean" />
+		<property name="selected" type="boolean" />
+		<property name="selectable" type="boolean" />
+		<property name="parent" type="String" />
+		<property name="b2bUnitLevel" type="String" />
+		<property name="role" type="String" />
+		<property name="reportingOrganization" type="com.gp.commerce.dto.company.B2BUnitWsDTO" />
+		<property name="budgets" type="java.util.List&lt;com.gp.commerce.dto.company.B2BBudgetWsDTO>" />
+		<property name="orders" type="java.util.Collection&lt;de.hybris.platform.commercewebservicescommons.dto.order.AbstractOrderWsDTO>" />
+		<property name="costCenters" type="java.util.List&lt;com.gp.commerce.dto.company.B2BCostCenterWsDTO>" />
+		<property name="userGroups" type="java.util.Collection&lt;com.gp.commerce.dto.company.B2BUserGroupWsDTO>" />
+		<property name="accountManagerGroups" type="java.util.Collection&lt;de.hybris.platform.commercewebservicescommons.dto.user.UserGroupWsDTO>" />
+		<property name="children" type="java.util.List&lt;com.gp.commerce.dto.company.B2BUnitWsDTO>" />
+		<property name="administrators" type="java.util.Collection&lt;de.hybris.platform.commercewebservicescommons.dto.user.UserWsDTO>" />
+		<property name="customers" type="java.util.Collection&lt;de.hybris.platform.commercewebservicescommons.dto.user.UserWsDTO>" />
+		<property name="managers" type="java.util.List&lt;de.hybris.platform.commercewebservicescommons.dto.user.UserWsDTO>" />
+		<property name="accountManagers" type="java.util.List&lt;de.hybris.platform.commercewebservicescommons.dto.user.PrincipalWsDTO>" />
+		<property name="addresses" type="java.util.List&lt;de.hybris.platform.commercewebservicescommons.dto.user.AddressWsDTO>" />
+	</bean>
+
+	<bean class="com.gp.commerce.dto.company.B2BBudgetWsDTO">
+		<property name="budget" type="java.math.BigDecimal" />
+		<property name="unit" type="com.gp.commerce.dto.company.B2BUnitWsDTO" />
+		<property name="code" type="String" />
+		<property name="name" type="String" />
+		<property name="currency" type="de.hybris.platform.commercewebservicescommons.dto.storesession.CurrencyWsDTO" />
+		<property name="active" type="boolean" />
+		<property name="costCenters" type="java.util.List&lt;com.gp.commerce.dto.company.B2BCostCenterWsDTO>" />
+		<property name="costCenterNames" type="java.util.List&lt;String>" />
+		<property name="startDate" type="java.util.Date" />
+		<property name="endDate" type="java.util.Date" />
+		<property name="selected" type="boolean" />
+		<property name="originalCode" type="String" />
+	</bean>
+
+	<bean class="com.gp.commerce.dto.company.CompanyWsDTO" extends="de.hybris.platform.commercewebservicescommons.dto.user.UserGroupWsDTO" />
+
+	<bean class="com.gp.commerce.dto.company.B2BCostCenterWsDTO">
+		<property name="unit" type="com.gp.commerce.dto.company.B2BUnitWsDTO" />
+		<property name="code" type="String" />
+		<property name="originalCode" type="String" />
+		<property name="name" type="String" />
+		<property name="currency" type="de.hybris.platform.commercewebservicescommons.dto.storesession.CurrencyWsDTO" />
+		<property name="active" type="boolean" />
+		<property name="b2bBudgetData" type="java.util.List&lt;com.gp.commerce.dto.company.B2BBudgetWsDTO>" />
+		<property name="selected" type="boolean" />
+	</bean>
+
+	<bean class="com.gp.commerce.dto.company.B2BUserGroupWsDTO" extends="de.hybris.platform.commercewebservicescommons.dto.user.UserGroupWsDTO">
+		<property name="roles" type="java.util.List&lt;String>" />
+		<property name="unit" type="com.gp.commerce.dto.company.B2BUnitWsDTO" />
+		<property name="selected" type="boolean" />
+		<property name="normalizedId" type="String" />
+		<property name="editable" type="boolean" />
+		<property name="permissions" type="java.util.List&lt;com.gp.commerce.dto.company.data.B2BPermissionWsDTO>" />
+	</bean>
+
+	<bean class="com.gp.commerce.dto.company.data.B2BUserGroupListWsDTO">
+		<property name="usergroups" type="java.util.List&lt;com.gp.commerce.dto.company.B2BUserGroupWsDTO>" />
+		<property name="totalNumber" type="Integer" />
+		<property name="pageSize" type="Integer" />
+		<property name="numberOfPages" type="Integer" />
+		<property name="currentPage" type="Integer" />
+	</bean>
+
+	<bean class="com.gp.commerce.dto.company.data.B2BUserGroupDataList">
+		<property name="usergroups" type="java.util.List&lt;de.hybris.platform.b2bcommercefacades.company.data.B2BUserGroupData>" />
+		<property name="totalNumber" type="Integer" />
+		<property name="pageSize" type="Integer" />
+		<property name="numberOfPages" type="Integer" />
+		<property name="currentPage" type="Integer" />
+	</bean>
+
+	<bean class="com.gp.commerce.dto.company.data.B2BPermissionWsDTO">
+		<property name="b2BPermissionTypeData" type="de.hybris.platform.b2bapprovalprocessfacades.company.data.B2BPermissionTypeData" />
+		<property name="code" type="String" />
+		<property name="normalizedId" type="String" />
+		<property name="originalCode" type="String" />
+		<property name="value" type="Double" />
+		<property name="timeSpan" type="String" />
+		<property name="selected" type="boolean" />
+		<property name="active" type="boolean" />
+		<property name="unit" type="com.gp.commerce.dto.company.B2BUnitWsDTO" />
+		<property name="currency" type="de.hybris.platform.commercewebservicescommons.dto.storesession.CurrencyWsDTO" />
+		<property name="periodRange" type="de.hybris.platform.b2b.enums.B2BPeriodRange" />
+		<property name="formattedValue" type="String" />
+	</bean>
+
+	<bean class="com.gp.commerce.dto.company.data.B2BPermissionListWsDTO">
+		<property name="permissions" type="java.util.List&lt;com.gp.commerce.dto.company.data.B2BPermissionWsDTO>" />
+		<property name="totalNumber" type="Integer" />
+		<property name="pageSize" type="Integer" />
+		<property name="numberOfPages" type="Integer" />
+		<property name="currentPage" type="Integer" />
+	</bean>
+
+	<bean class="com.gp.commerce.dto.company.data.B2BPermissionDataList">
+		<property name="permissions" type="java.util.List&lt;de.hybris.platform.b2bapprovalprocessfacades.company.data.B2BPermissionData>" />
+		<property name="totalNumber" type="Integer" />
+		<property name="pageSize" type="Integer" />
+		<property name="numberOfPages" type="Integer" />
+		<property name="currentPage" type="Integer" />
+	</bean>
+
+	<bean class="com.gp.commerce.dto.company.data.UserListWsDTO">
+		<property name="users" type="java.util.List&lt;de.hybris.platform.commercewebservicescommons.dto.user.UserWsDTO>" />
+		<property name="totalNumber" type="Integer" />
+		<property name="pageSize" type="Integer" />
+		<property name="numberOfPages" type="Integer" />
+		<property name="currentPage" type="Integer" />
+	</bean>
+
+	<bean class="com.gp.commerce.dto.company.data.UserDataList">
+		<property name="users" type="java.util.List&lt;de.hybris.platform.commercefacades.user.data.CustomerData>" />
+		<property name="totalNumber" type="Integer" />
+		<property name="pageSize" type="Integer" />
+		<property name="numberOfPages" type="Integer" />
+		<property name="currentPage" type="Integer" />
+	</bean>
+
+
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.user.UserWsDTO">
+		<property name="normalizedUid" type="String" />
+		<property name="unit" type="com.gp.commerce.dto.company.B2BUnitWsDTO" />
+		<property name="email" type="String" />
+		<property name="contactNumber" type="String" />
+		<!-- <property name="active" type="boolean" />-->
+		<property name="selected" type="boolean" />
+		<property name="roles" type="java.util.Collection&lt;String>" />
+		<property name="displayRoles" type="java.util.Collection&lt;String>" />
+	   <property name="permissions" type="java.util.List&lt;com.gp.commerce.dto.company.data.B2BPermissionWsDTO>" />     
+	   <property name="selectedRole" type="String"/>
+	   <property name="leaseSigner" type="boolean"/> 
+	   <property name="units" type="java.util.List&lt;com.gp.commerce.dto.company.B2BUnitNodeWsDTO>"/>
+	   <property name="permissionGroups" type="java.util.List&lt;com.gp.commerce.dto.company.B2BUserGroupWsDTO>" />
+	   <property name="site" type="String"/>   
+	   <property name="userApprovalStatus" type="String"></property> 
+	   <property name="edited" type="boolean" />
+	   <property name="gender" type="String"/>
+	   <property name="country" type="String" />
+       <property name="dateOfBirth" type="String"/>
+		<property name="newEmail" type="String"/>
+	</bean>
+
+   <bean class="de.hybris.platform.commercewebservicescommons.dto.user.PrincipalWsDTO">
+	<property name="active" type="boolean" />
+	</bean>
+
+
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.user.AddressWsDTO">
+		<property name="unit" type="com.gp.commerce.dto.company.B2BUnitWsDTO" />
+		<property name="billingAddress" type="Boolean"/>
+		<property name="defaultBillingAddress" type="Boolean"/>
+		<property name="approvalStatus" type="String"/>
+		<property name="palletShipment" type="Boolean"/>
+		<property name="fromPage" type="String"/>
+		<property name="userId" type="String"/>
+		<property name="code" type="String"/>
+		<property name="url" type="String"/>
+		<property name="creationTime" type="java.util.Date"/>
+	</bean>
+	
+	<bean class="com.gp.commerce.dto.group.dto.DeliveryAddressGroupWsDTO">
+		<property name="deliveryGroup" type="java.util.Map&lt;String,com.gp.commerce.facade.order.data.SplitEntryListWsDTO>"/>
+		<property name="shippingInstruction" type="String"/>
+		<property name="deliveryMode" type="de.hybris.platform.commercewebservicescommons.dto.order.DeliveryModeWsDTO"/>
+		<property name="deliveryModes" type="de.hybris.platform.commercewebservicescommons.dto.order.DeliveryModeListWsDTO"/> 
+	</bean>
+	
+	<bean class="com.gp.commerce.facade.order.data.SplitEntryListWsDTO">
+		<property name="splitEntries" type="java.util.List&lt;com.gp.commerce.facade.order.data.SplitEntryWsDTO>"/>
+		<property name="deliveryInstruction" type="String"/>
+		 <property name="deliveryMode" type="de.hybris.platform.commercewebservicescommons.dto.order.ZoneDeliveryModeWsDTO"/>
+		 <property name="deliveryModes" type="de.hybris.platform.commercewebservicescommons.dto.order.DeliveryModeListWsDTO"/>
+		  <property name="price" type="Double"/>
+		 <property name="productCode" type="String"/>
+	</bean>
+	
+	
+
+	<bean class="com.gp.commerce.dto.company.data.B2BPermissionRequestDTO">
+		<property name="b2BPermissionTypeData" type="de.hybris.platform.b2bapprovalprocessfacades.company.data.B2BPermissionTypeData"/>
+		<property name="code" type="String"/>
+		<property name="normalizedId" type="String"/>
+		<property name="originalCode" type="String"/>
+		<property name="value" type="Double"/>
+		<property name="timeSpan" type="String"/>
+		<property name="selected" type="boolean"/>
+		<property name="active" type="boolean"/>
+		<property name="unit" type="com.gp.commerce.dto.company.B2BUnitWsDTO"/>
+		<property name="currency" type="de.hybris.platform.commercewebservicescommons.dto.storesession.CurrencyWsDTO"/>
+		<property name="periodRange" type="de.hybris.platform.b2b.enums.B2BPeriodRange"/>
+	</bean>
+
+	<bean class="com.gp.commerce.dto.company.data.B2BUserGroupRequestDTO">
+		<property name="userGroupUid" type="String" />
+		<property name="unitUid" type="String" />
+		<property name="userGroupName" type="String" />
+		<property name="disable" type="boolean" />
+	</bean>
+	
+	<bean class="com.gp.commerce.dto.company.data.UserB2BUnitWsDTO">
+		<property name="B2BUnitList" type="java.util.List&lt;String>" />
+	   </bean>
+	   
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.user.UserWsDTO"
+	      extends="de.hybris.platform.commercewebservicescommons.dto.user.PrincipalWsDTO">
+		<property name="cellPhone" type="String" />
+		<property name="loginType" type="String" />
+		<property name="userIdUpdateFlag" type="Boolean" />
+		<property name="password" type="String" />
+		<property name="addToMarketComm" type="Boolean" />
+		<property name="addToAffilatedMarketComm" type="Boolean" />
+	</bean>
+
+	<bean class="com.gp.commerce.dto.company.B2BUnitNodeListWsDTO">
+		<property name="units" type="java.util.List&lt;com.gp.commerce.dto.company.B2BUnitNodeWsDTO>"/>
+	</bean>
+	<bean class="com.gp.commerce.order.entry.data.GiftWrapWsDTO">
+		<property name="entryNumber" type="Integer"/>
+		<property name="giftMessage" type="String" />
+		<property name="giftWrapped" type="boolean" />	
+	</bean>
+	
+	<bean class="com.gp.commerce.order.entry.data.GiftWrapListWsDTO">
+		<property name="giftWrap"
+			type="java.util.List&lt;com.gp.commerce.order.entry.data.GiftWrapWsDTO>" />
+	</bean>
+	
+	<!-- End B2B Data -->
+	<bean class="com.gp.commerce.dto.GPScheduleInstallationWsDTO">
+		<property name="address" type="java.util.Map&lt;String,de.hybris.platform.commercewebservicescommons.dto.user.AddressWsDTO>"/>
+		<property name="item" type="String"/>
+		<property name="preferredDate" type="String"/>
+		<property name="preferredTime" type="String"/>
+		<property name="name" type="String"/>
+		<property name="phoneNo" type="String"/>
+		<property name="extraInfo" type="String"/>
+		<property name="leadWeek" type="String"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.order.AbstractOrderWsDTO">
+		<property name="scheduleInstallation" type="com.gp.commerce.dto.GPScheduleInstallationWsDTO"/>
+		<property name="deliveryGroup" type="java.util.Map&lt;String,com.gp.commerce.facade.order.data.SplitEntryListWsDTO>"/>
+		 <property name="remorseWindow" type="String" />	
+		  <property name="userAdmin" type="boolean" />
+		  <property name="cancellable" type="boolean" />
+		 <property name="refundAmt" type="java.math.BigDecimal" />
+		 <property name="reasonCode" type="String" />
+		 <property name="shippingRestrictions" type="java.util.List&lt;com.gp.commerce.facade.order.data.GPRestrictionProductWsDTO>"/>
+		  <property name="totalDeliveryCost" type="String" />
+		<property name="freeShippingLimit" type="String" /> 
+		<property name="leaseName" type="String"/>
+				<property name="totalProductQty" type="Integer" />
+		<property name="cartType" type="String" />	 
+		  <property name="isSubscription" type="boolean" />
+		<property name="priceDiscounts" type="de.hybris.platform.commercewebservicescommons.dto.product.PriceWsDTO"/>
+		<property name="promotionalDiscounts" type="de.hybris.platform.commercewebservicescommons.dto.product.PriceWsDTO"/> 
+		<property name="totalSubscriptionPrice" type="de.hybris.platform.commercewebservicescommons.dto.product.PriceWsDTO"/> 
+	</bean>
+
+	<bean class="com.gp.commerce.marketing.data.MarketingPreferenceWsDTO">
+	    <property name="name" type="String" />	
+        <property name="description" type="String" />
+        <property name="preferenceTypeId" type="String" />
+        <property name="selected" type="boolean" />
+	</bean>
+	
+	<bean class="com.gp.commerce.marketing.data.MarketingPreferenceListWsDTO">
+		<property name="frequency" type="String" />
+		<property name="marketingPreferences" type="java.util.List&lt;com.gp.commerce.marketing.data.MarketingPreferenceWsDTO>"/>
+	</bean>
+	
+	<bean class="com.gp.commerce.marketing.data.MarketingPreferenceQuestionAnsWsDTO">
+		<property name="question" type="String" />
+      <property name="marketingPreferencesAnsList" type="java.util.List&lt;com.gp.commerce.marketing.data.MarketingPreferenceWsDTO>" />
+      <property name="selectionType" type="String"/>
+	</bean>
+	
+	<bean class="com.gp.commerce.marketing.data.FrequencyDataWsDTO">
+		<property name="question" type="String" />
+        <property name="freqEnumValues" type="java.util.List&lt;String>"/>
+	</bean>
+	
+	<bean class="com.gp.commerce.marketing.data.MarketingPreferenceQuestionAnsListWsDTO">
+		<property name="frequency" type="com.gp.commerce.marketing.data.FrequencyDataWsDTO" />
+		<property name="marketingPrefQuestionData" type="java.util.List&lt;com.gp.commerce.marketing.data.MarketingPreferenceQuestionAnsWsDTO>" />
+	</bean>
+	
+	<bean class="com.gp.commerce.dto.cart.GPCartModificationListWSDTO">
+		<property name="cartModifications" type="java.util.List&lt;de.hybris.platform.commercewebservicescommons.dto.order.CartModificationWsDTO>" />
+		<property name="quickOrderError" type="java.util.List&lt;com.gp.commerce.dto.product.ProductWrapperWSDTO>" />
+	</bean>
+	
+	
+	<bean class="com.gp.commerce.dto.product.ProductWrapperWSDTO">
+		<property name="product" type="de.hybris.platform.commercewebservicescommons.dto.product.ProductWsDTO"/>
+		<property name="errorMsg" type="String"/>
+	</bean>
+	
+	<bean class="com.gp.commerce.dto.cart.GPQuickOrderWSDTO">
+		<property name="items" type="java.util.List&lt;de.hybris.platform.commercewebservicescommons.dto.product.ProductWsDTO>" />
+		<property name="emailIds" type="String"/>
+	</bean>
+	
+	<bean class="com.gp.commerce.dto.cart.GPMultipleProductWsDTO">
+		<property name="products" type="java.util.List&lt;de.hybris.platform.commercewebservicescommons.dto.product.ProductWsDTO>" />
+	</bean>
+	
+	<bean class="com.gp.commerce.dto.company.data.GPRequestWsDTO">
+		<property name="codes" type="java.util.List&lt;String>" />
+	</bean>
+	
+	<bean  class="de.hybris.platform.commercewebservicescommons.dto.order.PaymentDetailsWsDTO">        
+	<property name="paymentToken" type="String" />  
+	<property name="pageId" type="String"/> 
+	</bean>
+	
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.order.ZoneDeliveryModeWsDTO">
+		<property name="deliveryPrice" type="String"/>
+		<property name="deliveryFormattedPrice" type="Double"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.order.DeliveryModeWsDTO">
+		<property name="deliveryPrice" type="String"/>
+		<property name="deliveryFormattedPrice" type="Double"/>
+	</bean>
+
+	<bean class="com.gp.commerce.dto.cybersource.GPSignatureDTO">
+		<property name="transaction_type" type="String"/>
+		<property name="reference_number" type="String"/>
+		<property name="payment_method" type="String"/>
+		<property name="payment_token" type="String"/>
+		<property name="bill_to_forename" type="String"/>
+		<property name="bill_to_surname" type="String"/>
+		<property name="bill_to_email" type="String"/>
+		<property name="bill_to_phone" type="String"/>
+		<property name="bill_to_address_line1" type="String"/>
+		<property name="bill_to_address_city" type="String"/>
+		<property name="bill_to_address_state" type="String"/>
+		<property name="bill_to_address_country" type="String"/>
+		<property name="bill_to_address_postal_code" type="String"/>
+		<property name="signed_date_time" type="String"/>
+		<property name="signed_field_names" type="String"/>
+		<property name="unsigned_field_names" type="String"/>
+	</bean>
+
+
+	<!-- Update Order DTO -->
+	<bean class="com.gp.commerce.dto.ItemWsDTO">
+		<property name="consignmentCode" type="String"/>
+		<property name="sku" type="String"/>
+		<property name="trackingNumber" type="String"/>
+		<property name="trackingUrl" type="String"/>
+		<property name="status" type="String"/>
+		<property name="consignmentEntryNumber" type="Integer"/>
+		<property name="quantityConfirmed" type="Integer"/>
+		<property name="quantityRejected" type="Integer"/>
+		<property name="quantityShipped" type="Integer"/>	
+		<property name="reasonForRejection" type="String"/>	
+	</bean>
+	
+	<bean class="com.gp.commerce.dto.UpdateOrderWsDTO">
+		<property name="hybrisConsignmentId" type="String"/>
+		<property name="customerId" type="String"/>
+		<property name="paymentId" type="String"/>
+		<property name="consignmentStatus" type="String"/>
+		<property name="items" type="java.util.List&lt;com.gp.commerce.dto.ItemWsDTO>" />
+	</bean>
+	
+	<bean class="com.gp.commerce.dto.UpdateOrderResponseDTO">
+		<property name="status" type="boolean"/>
+		<property name="errorMessage" type="String"/>
+		<property name="errorCode" type="String"/>
+	</bean>
+	
+	<bean class="com.gp.commerce.user.data.RegionDataList">
+		<property name="regions" type="java.util.List&lt;de.hybris.platform.commercefacades.user.data.RegionData>"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.user.RegionsListWSDTO">
+		<property name="regions" type="java.util.List&lt;de.hybris.platform.commercewebservicescommons.dto.user.RegionWsDTO>"/>
+	</bean>
+	
+	<bean class="com.gp.commerce.errors.ErrorLogWSDTO">
+		<property name="log" type="String" />
+		<property name="request" type="String"/>
+		<property name="url" type="String"/>
+	</bean>
+	
+	<bean class="com.gp.commerce.dto.coupon.GPCouponWsDTO">
+		<property name="couponCode" type="java.lang.String"/>
+		<property name="couponId" type="java.lang.String"/>
+		<property name="name" type="java.lang.String"/>
+		<property name="active" type="boolean"/>
+		<property name="startDate" type="java.util.Date"/>
+		<property name="endDate" type="java.util.Date"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.product.PromotionResultWsDTO">
+		<property name="appliedCouponCodes" type="java.util.List&lt;String>"/>
+		<property name="giveAwayCouponCodes" type="java.util.List&lt;com.gp.commerce.dto.coupon.GPCouponWsDTO>"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.order.OrderHistoryWsDTO">
+	<property name="totalNumberOfProducts" type="String"/>
+	<property name="creationTime" type="java.util.Date"/>
+	<property name="shippingAddress" type="de.hybris.platform.commercewebservicescommons.dto.user.AddressListWsDTO"/>
+	<property name="user" type="de.hybris.platform.commercewebservicescommons.dto.user.PrincipalWsDTO"/>
+	<property name="sourceNetSuite" type="boolean"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.commerceservices.search.pagedata.PageableData"
+			deprecated="Since version 6.5 use de.hybris.platform.core.servicelayer.data.PaginationData instead">
+		<property name="startDate" type="java.util.Date"/>
+		<property name="endDate" type="java.util.Date">
+			<description>Duration selected by user for Order History</description>
+		</property>
+	</bean>
+	
+	<bean class = "com.gp.commerce.dto.TrackingWsDTO">
+		<property name="trackingID" type="String"/>
+		<property name="carrier" type="String"/>
+		<property name="quantityShipped" type="Long"/>
+		<property name="trackingURL" type="String" />
+	</bean>
+
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.order.ConsignmentEntryWsDTO">
+		<property name="trackingList" type="java.util.List&lt;com.gp.commerce.dto.TrackingWsDTO>"/>
+		<property name="consignmentEntryStatus" type="String"/>
+		<property name="unshippedQuantity" type="Long"/>
+		<property name="consignmentEntryPrice" type="de.hybris.platform.commercefacades.product.data.PriceData"/>
+	</bean>
+	
+	<!-- IRI Service -->
+	<bean class="com.gp.commerce.dto.company.data.CategoriesWsDTO">
+		<property name="groupName" type="String" />
+		<property name="groupId" type="String" />
+	</bean>
+
+	<bean class="com.gp.commerce.dto.company.data.CategoriesListWsDTO">
+		<property name="gpCategoriesList" type="java.util.List&lt;com.gp.commerce.dto.company.data.CategoriesWsDTO>" />
+	</bean>
+
+	<!--Approver Comments -->
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.order.OrderWsDTO"
+	      extends="de.hybris.platform.commercewebservicescommons.dto.order.AbstractOrderWsDTO">
+		<property name="approverComments" type="String" />
+	</bean>
+	
+	<bean class="com.gp.commerce.dto.store.StoreProductWsDTO">
+		<property name="code" type="String" />
+		<property name="description" type="String" />
+	</bean>
+	
+	<bean class="com.gp.commerce.dto.store.StoreProductListWsDTO">
+		<property name="gpStoreProducts" type="java.util.List&lt;com.gp.commerce.dto.store.StoreProductWsDTO>" />
+	</bean>
+	
+	<bean class="com.gp.commerce.user.data.QuplesWsDTO">
+		<property name="contactKey" type="String" />
+		<property name="email" type="String" />
+		<property name="permission" type="String" />
+		<property name="optIn" type="boolean" />
+		<property name="knownUser" type="boolean" />
+		<property name="quplesEndPoint" type="String" />
+	</bean>
+	
+	<bean class="com.gp.commerce.marketing.data.UpdatePreferenceWsDTO">
+		<property name="email" type="String" />
+		<property name="opt" type="String"/>
+		<property name="firstName" type="String"/>
+		<property name="lastName" type="String"/>
+		<property name="mobilePhoneNumber" type="String"/>
+		<property name="postalCode" type="String"/>
+		<property name="age" type="String"/>
+		<property name="address1" type="String"/>
+		<property name="address2" type="String"/>
+	    <property name="fromPage" type="String"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.order.CartModificationWsDTO">
+		<property name="errorProductCode" type="String"/>
+		<property name="errorProductName" type="String"/>
+	</bean>
+	
+	<bean class="com.gp.commerce.dto.cart.IncompatibleProductsWsDTO">
+		<property name="incompatible" type="boolean" />
+		<property name="productNames" type="java.util.List&lt;String>" />
+	</bean>
+	
+	<bean class="com.gp.commerce.dto.cart.CartValidationWsDTO">
+		<property name="incompatibleData" type="com.gp.commerce.dto.cart.IncompatibleProductsWsDTO" />
+		<property name="cartModificationDataList" type="java.util.List&lt;de.hybris.platform.commercewebservicescommons.dto.order.CartModificationWsDTO>"/>
+	</bean>
+	
+	<bean class="com.gp.commerce.dto.cart.CartStatusDTO">
+		<property name="cartId" type="String" />
+		<property name="status" type="String" />
+	</bean> 
+	
+	<bean class="com.gp.commerce.dto.cart.PayPalSavePayerWsDTO">
+		<property name="orderID" type="String" />
+		<property name="payerID" type="String" />
+		<property name="paymentID" type="String" />
+		<property name="paymentToken" type="String" />
+	</bean> 
+	
+	<bean class="com.gp.commerce.dto.cart.GPApplePaySessionRequestDTO">
+		<property name="validationURL" type="String"/>
+	</bean>	
+	
+	<bean class="com.gp.commerce.product.data.GPProductAttributeData">
+	   <property name="productCode" type="String" />
+	   <property name="status" type="String" />
+	   <property name="title" type="String" />
+	   <property name="description" type="String" />
+		<property name="attributeName" type="String"/>
+		<property name="updatedAttributes" type="java.util.List&lt;com.gp.commerce.product.data.GPProductAttributeChangeData>"/>
+		<property name="newValue" type="String"/>
+		<property name="oldValue" type="String"/>
+		<property name="modifiedTime" type="String"/>
+		<property name="processed" type="boolean"/>
+		<property name="processedDate" type="String"/>
+		<property name="soldTos" type="java.util.List&lt;String>"/>
+		<property name="productHeroImage" type="String"/>
+	</bean>
+	
+	<bean class="com.gp.commerce.product.data.GPProductAttributeChangeData">
+	   <property name="attributeName" type="String" />
+	   <property name="value" type="String" />
+	   <property name="changeDate" type="String"/>
+	 </bean>
+	
+	<bean class="com.gp.commerce.product.data.GPProductDataList">
+		<property name="processed" type="long" />
+		<property name="total" type="long"/>
+		<property name="prodAttributes" type="java.util.List&lt;com.gp.commerce.product.data.GPProductAttributeData>" />
+	</bean>
+	
+	<bean class="com.gp.commerce.product.data.GPProductListWsDTO">
+		<property name="processed" type="long" />
+		<property name="total" type="long"/>
+		<property name="prodAttributes" type="java.util.List&lt;com.gp.commerce.product.dto.GPProductAttributeWsDTO>" />
+	</bean>
+	
+	<bean class="com.gp.commerce.product.dto.GPProductAttributeWsDTO">
+	   <property name="productCode" type="String" />
+	   <property name="status" type="String" />
+	   <property name="title" type="String" />
+	   <property name="description" type="String" />
+		<property name="attributeName" type="String"/>
+		<property name="updatedAttributes" type="java.util.List&lt;com.gp.commerce.product.data.GPProductAttributeChangeData>"/>
+		<property name="newValue" type="String"/>
+		<property name="oldValue" type="String"/>
+		<property name="modifiedTime" type="String"/>
+		<property name="processed" type="boolean"/>
+		<property name="processedDate" type="String"/>
+		<property name="soldTos" type="java.util.List&lt;String>"/>
+		<property name="productHeroImage" type="String"/>
+	</bean>
+	
+	<bean class="com.gp.commerce.product.data.GPProductAttributeChangeWsDTO">
+	   <property name="attributeName" type="String" />
+	   <property name="value" type="String" />
+	   <property name="changeDate" type="String"/>
+	 </bean>
+	
+	<bean class="com.gp.commerce.product.references.data.GPProductReferenceWsDTO">
+    		<property name="referenceType" type="String"/>
+    		<property name="references" type="java.util.List&lt;de.hybris.platform.commercewebservicescommons.dto.product.ProductReferenceWsDTO>"/>
+    </bean>
+	
+	<bean class="com.gp.commerce.content.dto.GPContentPageWsDTO">
+		<property name="title" type="String" />
+		<property name="body" type="String" />
+		<property name="header" type="String" />
+		<property name="description" type="String" />
+		<property name="keywords" type="String" />
+		<property name="url" type="String" />
+		<property name="contentType" type="String" />
+		<property name="isKnowledgeCenterDocument" type="Boolean" />
+		<property name="resourceImageUrl" type="String" />
+	</bean>
+	
+	<bean class="com.gp.commerce.content.search.result.dto.GPContentSearchPageWsDTO">
+		<property name="textSearch" type="String" />
+		<property name="spellingSuggestion"
+		          type="de.hybris.platform.commercewebservicescommons.dto.search.facetdata.SpellingSuggestionWsDTO"/>
+		<property name="content"
+		          type="java.util.List&lt;com.gp.commerce.content.dto.GPContentPageWsDTO>"/>
+		<property name="sorts"
+		          type="java.util.List&lt;de.hybris.platform.commercewebservicescommons.dto.search.pagedata.SortWsDTO>"/>
+		<property name="pagination"
+		          type="de.hybris.platform.commercewebservicescommons.dto.search.pagedata.PaginationWsDTO"/>
+		<property name="currentQuery" type="de.hybris.platform.commercewebservicescommons.dto.search.SearchStateWsDTO"/>
+		<property name="breadcrumbs"
+		          type="java.util.List&lt;de.hybris.platform.commercewebservicescommons.dto.search.facetdata.BreadcrumbWsDTO>"/>
+		<property name="facets"
+		          type="java.util.List&lt;de.hybris.platform.commercewebservicescommons.dto.search.facetdata.FacetWsDTO>"/>
+		
+	</bean>
+	
+	<bean class="com.gp.commerce.search.dto.GPSolrSearchResultWsDTO">
+		<property name="contentResult" type="com.gp.commerce.content.search.result.dto.GPContentSearchPageWsDTO" />
+		<property name="productResult" type="de.hybris.platform.commercewebservicescommons.dto.search.facetdata.ProductSearchPageWsDTO" />
+	</bean>
+	
+	<bean class="com.gp.commerce.dto.product.GPProductDataListWsDTO">
+		<property name="products" type="java.util.List&lt;de.hybris.platform.commercewebservicescommons.dto.product.ProductWsDTO>" />
+	</bean>
+	
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.product.CategoryWsDTO">
+		<property name="name" type="String"/>
+		<property name="description" type="String"/>
+		<property name="type" type="String"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.search.facetdata.FacetWsDTO">
+		<description>POJO representing a facet.</description>
+		<property name="count" type="Long"/>
+	</bean>
+	
+	<!--START : Pdf Download User Details -->
+	<bean class="com.gp.commerce.dto.PdfUserDetailsWsDTO">
+		<property name="pdfName" type="String" />
+		<property name="phoneNumber" type="String" />
+		<property name="emailId" type="String" />
+		<property name="senderMessage" type="String"/>
+		<property name="barColor" type="String"/>
+		<property name="largeHeading" type="String"/>
+		<property name="mediumHeading" type="String"/>
+		<property name="headLineColor" type="String" />
+		<property name="isCategoryDescription" type="Boolean"/>
+		<property name="isProductSellingStatement" type="Boolean"/>
+		<property name="displayHeadlineFirstPageOnly" type="Boolean"/>
+		<property name="coverPage" type="String"/>
+		<property name="listFormat" type="String"/>
+		<property name="featureCheckedItems" type="String"/>
+		<property name="featureCheckedItemsValue" type="java.util.List&lt;String>"/>
+		<property name="pdfCoverImages" type="java.util.Map&lt;String,String>" />
+		<property name="gpCertificationsImages" type="java.util.Map&lt;String,String>" />
+		<property name="contactAddress" type="de.hybris.platform.commercewebservicescommons.dto.user.AddressWsDTO"/>
+		<property name="distributorImage" type="String"/>
+		<property name="headerText" type="String"/>
+		<property name="headerLogo" type="String"/>
+	</bean>
+	<!--END : Pdf Download User Details -->
+
+	<bean class="com.gp.commerce.dto.samplecart.SampleCartDeleteSuccessDTO">
+		<property name="success" type="boolean" />
+		<property name="message" type="String" />
+	</bean>
+
+
+	<bean class="de.hybris.platform.customerticketingfacades.data.TicketWsDTO">
+		<property name="id" type=" String"/>
+		<property name="message" type=" String"/>
+		<property name="topicOfInquiry" type="com.gp.commerce.dto.TopicOfInquiryWsDTO"/>
+		<property name="firstName" type="String"/>
+		<property name="lastName" type="String"/>
+		<property name="email" type="String"/>
+		<property name="phone" type="String"/>
+		<property name="jobTitle" type="String"/>
+		<property name="companyName" type="String"/>
+		<property name="streetAddress" type="String"/>
+		<property name="country" type="String"/>
+		<property name="city" type="String"/>
+		<property name="region" type="String"/>
+		<property name="postalCode" type="String"/>
+		<property name="orderNumber" type="String"/>
+		<property name="ticketComments" type="String"/>
+		<property name="attachments" type="java.util.List&lt;org.springframework.web.multipart.MultipartFile&gt;" />
+		<property name="websiteURL" type="String"/>
+		<property name="sfdcStatus" type="String"/>
+		<property name="sfdcServiceAgent" type="String"/>
+		<property name="sfdcResolutionSummary" type="String"/>
+		<property name="sfdcCaseNumber" type="String"/>
+		<property name="creationDate" type="java.util.Date"/>
+		<property name="keyQuantities" type="java.lang.Integer"/>
+		<property name="dispenserType" type="java.lang.String"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.product.VariantValueCategoryWsDTO">
+		<property name="hexCode" type="String"/>
+		<property name="swatchImageUrl" type="String"></property>
+	</bean>
+	
+	
+	<bean class="com.gp.commerce.dto.TicketListWsDTO">
+		<property name="tickets" type="java.util.List&lt;de.hybris.platform.customerticketingfacades.data.TicketWsDTO>" />
+	</bean>
+	
+	<bean class="com.gp.commerce.facades.product.data.GPSubscriptionFrequencyDTO">
+              <property name="code" type="String"/>
+              <property name="frequency" type="java.util.Map&lt;String,String>"/>
+       </bean>
+	
+	<bean class="com.gp.commerce.dto.TopicOfInquiryWsDTO">
+		<property name="topicOfInquiry" type="java.util.Map&lt;String,String>" />
+		<property name="key" type="String"/>
+		<property name="value" type="String"/>
+	</bean>
+	
+	  <bean class="com.gp.commerce.facades.subscription.dto.GPSubscriptionFrequencyWsDTO">
+              <property name="code" type="String"/>
+              <property name="frequency" type="java.util.Map&lt;String,String>"/>
+       </bean>
+       
+        <bean class="com.gp.commerce.facades.subscription.dto.GPSubscriptionFrequencyListWsDTO">
+              <property name="subscriptionFrequencyList" type="java.util.List&lt;com.gp.commerce.facades.subscription.dto.GPSubscriptionFrequencyWsDTO>"/>
+       </bean>
+	
+	<bean class="com.gp.commerce.configurablebundlefacades.dto.BundleTemplateWsDTO">
+		<property name="id" type="String"/> 
+		<property name="name" type="String"/>
+		<property name="type" type="String"/>
+		<property name="description" type="String"/>
+        <property name="version" type="String"/>
+        <property name="bundleTemplates" type="java.util.List&lt;com.gp.commerce.configurablebundlefacades.dto.BundleTemplateWsDTO>"/>
+        <property name="products" type="java.util.List&lt;de.hybris.platform.commercewebservicescommons.dto.product.ProductWsDTO>"/>
+		<property name="minItemsAllowed" type="int"/>
+        <property name="maxItemsAllowed" type="int"/>
+		<property name="starter" type="boolean"/>
+		<property name="rootBundleTemplateName" type="String"/>
+		<property name="bundleImage" type="java.util.List&lt;de.hybris.platform.commercewebservicescommons.dto.product.ImageWsDTO>"/>
+	</bean>
+
+	<bean class="de.hybris.platform.configurablebundlefacades.data.BundleTemplateData">
+		<property name="description" type="String"/>
+		<property name="minItemsAllowed" type="int"/>
+		<property name="starter" type="boolean"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.order.CartWsDTO">
+		<property name="frequency" type="java.util.Map&lt;java.lang.String,java.lang.String>" />
+		<property name="nextActivationDate" type="java.lang.String"/>
+		<property name="isActive" type="Boolean"/>
+		<property name="subscriptionCartStatus" type="String"/>
+		<property name="isSubscription" type="boolean" />
+		<property name="disableCheckoutButton" type="boolean" />  
+		<property name="payment" type="de.hybris.platform.commercewebservicescommons.dto.order.PaymentDetailsWsDTO"/>
+		<property name="subscriptionCancellationReason" type="String"/>
+	</bean>
+	
+	<!-- Apple pay payment token configuration -->
+	
+	<bean class="com.gp.commerce.dto.cart.GPApplePayPaymentTokenDetailsWsDTO">
+    	<property name="billingContact" type="com.gp.commerce.dto.cart.GPApplePayBillingContactDetails"/>
+    	<property name="token" type="com.gp.commerce.dto.cart.GPApplePayTokenData"/>
+    </bean>
+       
+    <bean class="com.gp.commerce.dto.cart.GPApplePayBillingContactDetails">
+    	 <property name="addressLines" type="java.util.List&lt;String>"/>
+	     <property name="administrativeArea" type="String"/>
+	     <property name="country" type="String"/>
+	     <property name="countryCode" type="String"/>
+	     <property name="familyName" type="String"/>
+	     <property name="givenName" type="String"/>
+	     <property name="locality" type="String"/>
+	     <property name="postalCode" type="String"/>
+	     <property name="subAdministrativeArea" type="String"/>
+	     <property name="subLocality" type="String"/>
+    </bean>
+       
+    <bean class="com.gp.commerce.dto.cart.GPApplePayTokenData">
+	     <property name="paymentData" type="String"/>
+	     <property name="paymentMethod" type="com.gp.commerce.dto.cart.GPApplePayTokenPaymentMethodData"/>
+	     <property name="transactionIdentifier" type="String"/>
+    </bean>
+    
+    <bean class="com.gp.commerce.dto.cart.GPApplePayTokenPaymentMethodData">
+	     <property name="displayName" type="String"/>
+	     <property name="network" type="String"/>
+	     <property name="type" type="String"/>
+    </bean>
+    
+    <!-- Applepay PaymentToken Data Configuration -->
+    
+    <bean class="com.gp.commerce.data.cart.GPApplePayPaymentTokenData">
+    	<property name="billingContact" type="com.gp.commerce.data.cart.GPApplePayBillingContactData"/>
+    	<property name="token" type="com.gp.commerce.data.cart.GPApplePayTokenInfoData"/>
+    </bean>
+    
+     <bean class="com.gp.commerce.data.cart.GPApplePayBillingContactData">
+    	 <property name="addressLines" type="java.util.List&lt;String>"/>
+	     <property name="administrativeArea" type="String"/>
+	     <property name="country" type="String"/>
+	     <property name="countryCode" type="String"/>
+	     <property name="familyName" type="String"/>
+	     <property name="givenName" type="String"/>
+	     <property name="locality" type="String"/>
+	     <property name="postalCode" type="String"/>
+	     <property name="subAdministrativeArea" type="String"/>
+	     <property name="subLocality" type="String"/>
+    </bean>
+       
+    <bean class="com.gp.commerce.data.cart.GPApplePayTokenInfoData">
+	     <property name="paymentData" type="String"/>
+	     <property name="paymentMethod" type="com.gp.commerce.data.cart.GPApplePayPaymentMethodData"/>
+	     <property name="transactionIdentifier" type="String"/>
+    </bean>
+    
+    <bean class="com.gp.commerce.data.cart.GPApplePayPaymentMethodData">
+	     <property name="displayName" type="String"/>
+	     <property name="network" type="String"/>
+	     <property name="type" type="String"/>
+    </bean>
+    
+    <!-- Apple pay payment info data -->
+    
+    <bean class="com.gp.commerce.order.data.GPApplePayPaymentInfoData" extends="de.hybris.platform.commercefacades.order.data.CCPaymentInfoData">
+	   	<property name="paymentData" type="String"/>
+	   	<property name="transactionIdentifier" type="String"/>
+    </bean>
+	
+	<bean class="com.gp.commerce.facades.subscription.dto.GPSubscriptionUpdateWsDTO">
+		<property name="code" type="String"/>
+        <property name="address" type="de.hybris.platform.commercewebservicescommons.dto.user.AddressWsDTO" />
+        <property name="paymentDetails" type="de.hybris.platform.commercewebservicescommons.dto.order.PaymentDetailsWsDTO"/>
+    </bean>
+
+	<bean class="com.gp.commerce.facades.bundles.dto.BundleCartUpdateWsDTO">
+		<property name="rootTemplateId" type="String"/>
+		<property name="bundleNo" type="int"/>
+		<property name="starterBundleEntry" type="com.gp.commerce.facades.bundles.dto.BundleEntryWsDTO"/>
+		<property name="bundleEntries" type="java.util.List&lt;com.gp.commerce.facades.bundles.dto.BundleEntryWsDTO>"/>
+	</bean>
+
+	<bean class="com.gp.commerce.facades.bundles.dto.BundleEntryWsDTO">
+		<property name="productCode" type="String"/>
+		<property name="bundleTemplateId" type="String"/>
+		<property name="entryNumber" type="int"/>
+		<property name="entryGroupNumber" type="int"/>
+		<property name="delete" type="boolean"/>
+		<property name="quantity" type="long"/>
+	</bean>
+
+	<bean class="com.gp.commerce.bundle.data.BundleProductData">
+		<property name="rootTemplateId" type="String"/>
+		<property name="bundleNo" type="String"/>
+		<property name="entryGroupMap" type="java.util.Map&lt;String,String>"/>
+		<property name="bundleEntries" type="java.util.List&lt;com.gp.commerce.bundle.data.BundleEntryData>"/>
+	</bean>
+
+	<bean class="com.gp.commerce.bundle.data.BundleEntryData">
+		<property name="productCode" type="String"/>
+		<property name="bundleTemplateId" type="String"/>
+		<property name="entryNumber" type="int"/>
+		<property name="entryGroupNumber" type="int"/>
+		<property name="delete" type="boolean"/>
+		<property name="quantity" type="long"/>
+	</bean>
+
+	<bean class="com.gp.commerce.facades.bundles.dto.BundleProductWsDTO">
+		<property name="rootTemplateId" type="String"/>
+		<property name="bundleNo" type="String"/>
+		<property name="entryGroupMap" type="java.util.Map&lt;String,String>"/>
+		<property name="bundleEntries" type="java.util.List&lt;com.gp.commerce.facades.bundles.dto.BundleEntryWsDTO>"/>
+	</bean>
+
+	<bean class="com.gp.commerce.data.ticket.GPDispenserTicketData">
+		<property name="headerText" type="String"/>
+		<property name="description" type="String"/>
+		<property name="disclaimer" type="String"/>
+		<property name="dispenserTypeValues" type="java.util.List&lt;String>"/>
+		<property name="dispenserKeyQuantity" type="java.util.List&lt;String>"/>
+	</bean>
+
+	<bean class="com.gp.commerce.dto.ticket.GPDispenserTicketWSDTO">
+		<property name="headerText" type="String"/>
+		<property name="description" type="String"/>
+		<property name="disclaimer" type="String"/>
+		<property name="dispenserTypeValues" type="java.util.List&lt;String>"/>
+		<property name="dispenserKeyQuantity" type="java.util.List&lt;String>"/>
+	</bean>
+
+</beans>

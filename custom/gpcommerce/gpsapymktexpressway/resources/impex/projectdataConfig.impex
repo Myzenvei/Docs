@@ -1,0 +1,19 @@
+# Jobs
+INSERT_UPDATE SyncCronJob ; code[unique=true]                         ; job(code)                                 ; catalogVersion(catalog(id), version) ; sessionLanguage(isocode) ; batchSize ; siteId
+                          ; ymktAbandonedCartCronJob                  ; ymktAbandonedCartSyncJob                  ; gpUSProductCatalog:Staged            ; en                       ; 500       ;
+                          ; ymktAbandonedCartDixieCronJob             ; ymktAbandonedCartDixieSyncJob             ; gpUSProductCatalog:Staged            ; en                       ; 500       ; dixie
+                          ; ymktAbandonedCartGpEmployeeCronJob        ; ymktAbandonedCartGpEmployeeSyncJob        ; gpUSProductCatalog:Staged            ; en                       ; 500       ; gpemployee
+                          ; ymktAbandonedCartCopperAndCraneCronJob    ; ymktAbandonedCartCopperAndCraneSyncJob    ; gpUSProductCatalog:Staged            ; en                       ; 500       ; copperandcrane
+                          ; ymktCategoryCronJob                       ; ymktCategorySyncJob                       ; gpUSProductCatalog:Staged            ; en                       ; 500       ;
+                          ; ymktCategoryLinkCronJob                   ; ymktCategoryLinkSyncJob                   ; gpUSProductCatalog:Staged            ; en                       ; 500       ;
+#                          ; ymktCategory1708CronJob                   ; ymktCategory1708SyncJob                   ; Default:Staged                      ; en                       ; 500       ;
+#                          ; ymktCategoryLink1708CronJob               ; ymktCategoryLink1708SyncJob               ; Default:Staged                      ; en                       ; 500       ;
+                          ; ymktCustomerCronJob						  ; ymktCustomerSyncJob						  ; gpUSProductCatalog:Staged            ; en                       ; 500       ; 
+                          ; ymktOrderCronJob                          ; ymktOrderSyncJob                          ; gpUSProductCatalog:Staged            ; en                       ; 500       ; 
+                          ; ymktOrderGpEmployeeCronJob                ; ymktOrderGpEmployeeSyncJob                ; gpUSProductCatalog:Staged            ; en                       ; 500       ; gpemployee
+                          ; ymktOrderDixieCronJob                     ; ymktOrderDixieSyncJob                     ; gpUSProductCatalog:Staged            ; en                       ; 500       ; dixie
+                          ; ymktOrderCopperAndCraneCronJob            ; ymktOrderCopperAndCraneSyncJob            ; gpUSProductCatalog:Staged            ; en                       ; 500       ; copperandcrane
+                          ; ymktProductCronJob                        ; ymktProductSyncJob                        ; gpUSProductCatalog:Staged            ; en                       ; 500       ;
+#                          ; ymktProduct1708CronJob                    ; ymktProduct1708SyncJob                    ; Default:Staged                      ; en                       ; 500       ;
+                          ; ymktReviewCronJob                         ; ymktReviewSyncJob                         ; gpUSProductCatalog:Staged            ; en                       ; 500       ;
+                          ; ymktSavedCartCronJob                      ; ymktSavedCartSyncJob                      ; gpUSProductCatalog:Staged            ; en                       ; 500       ;

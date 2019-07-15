@@ -1,0 +1,274 @@
+#vanity-fair {
+  .navbar-bottom {
+    border-bottom: 1px solid #cecece;
+
+    .navbar-bottom-right {
+      .search-browse-auto-suggest {
+        .right-addon {
+          border: 1px solid @border-color-9;
+
+          .dropdown {
+            display: none;
+          }
+        }
+      }
+
+      .cart {
+        display: none;
+      }
+    }
+
+    .navbar-bottom-left {
+      margin-left: 0;
+
+      .navigation-menu {
+        .primary-menu {
+          .primary-menu-item:first-child {
+            @media (min-width: @screen-md-min) {
+              padding-left: 0 !important;
+            }
+          }
+
+          .primary-menu-item {
+            padding: 16px 12px !important;
+
+            a {
+              font-weight: @font-weight-regular;
+            }
+
+            .secondary-menu {
+              @media (min-width: @screen-md-min) {
+                padding: 40px 48px 32px 48px !important;
+
+                .js-secondary-title {
+                  padding-left: 16px !important;
+                }
+              }
+
+              .arrow-up {
+                display: none;
+
+                @media (min-width: @screen-md-min) {
+                  border-bottom: 12px solid @border-color-9;
+                  display: block;
+
+                  &::after {
+                    content: '';
+                    position: absolute;
+                    width: 0;
+                    height: 0;
+                    top: 1px;
+                    left: -12px;
+                    border-left: 12px solid transparent;
+                    border-right: 12px solid transparent;
+                    border-bottom: 12px solid @brand-secondary-4;
+                  }
+                }
+              }
+
+              h6,
+              .sec-title {
+                @media (min-width: @screen-md-min) {
+                  font-size: 11px;
+                  text-transform: none;
+                }
+              }
+
+              ul {
+
+                li:focus,
+                li:hover {
+                  background-color: @bg-color-menu-item;
+
+                  a:hover,
+                  a:focus {
+                    font-weight: @font-weight-medium;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .navbar-top {
+    .login-menu {
+      li {
+        a {
+          color: @font-color-nav-top;
+        }
+      }
+    }
+    promo-section {
+      a, span {
+        color: @promo-text-color;
+      }
+    }
+  }
+
+  .navbar-bottom {
+    .logo {
+      cursor: pointer;
+      margin-left: 40px;
+      background-color: @btn-tertiary-bg;
+      border: 0;
+
+      img {
+        height: 48px;
+      }
+    }
+  }
+
+  @media only screen and (max-width: @screen-sm-max) {
+    .header-section {
+      .vanity-fair-mobile-nav-color {
+        background-color: @brand-secondary-14;
+      }
+
+      .navbar-top {
+        .icon-menu {
+          color: @font-icon-color-6;
+          padding: 14px 0 !important;
+        }
+
+        .icon-user {
+          display: none;
+        }
+
+        .logo {
+          top: 7px;
+          background-color: @btn-tertiary-bg;
+          border: 0;
+
+          img {
+            height: 40px;
+          }
+        }
+      }
+
+      .navbar-bottom {
+        .navbar-bottom-right {
+          .search-browse-auto-suggest {
+
+            p:first-child,
+            p:last-child {
+              margin-bottom: 7px;
+            }
+
+            .right-addon {
+              width: 574px;
+            }
+          }
+        }
+
+        .navbar-bottom-left {
+          .navigation-menu {
+            h6 {
+              color: @font-color-input-text;
+              font-weight: @font-weight-medium;
+              font-size: @font-size-large;
+            }
+
+            ul {
+              li {
+                a {
+                  color: @font-color-input-text;
+                  font-weight: @font-weight-regular;
+                  font-size: @font-size-large;
+                  padding: 16px;
+                }
+              }
+
+              .primary-menu-item {
+                padding: 0px !important;
+              }
+            }
+          }
+        }
+
+        .mobile-view {
+
+          h6,
+          .sec-title {
+            padding-top: 18px;
+            padding-bottom: 8px;
+            color: @font-icon-color-4  !important;
+            font-size: @font-size-small  !important;
+            font-weight: @font-weight-regular  !important;
+          }
+        }
+      }
+    }
+  }
+
+  @media only screen and (max-width: @screen-xs-max) {
+    .header-section {
+      .vanity-fair-mobile-nav {
+        background-color: @brand-secondary-14;
+      }
+
+      .navbar-top {
+        .icon-menu {
+          color: @font-icon-color-6;
+          padding: 14px 0 !important;
+        }
+
+        .icon-user {
+          display: none;
+        }
+
+        .logo {
+          top: 7px;
+          background-color: @btn-tertiary-bg;
+          border: 0;
+        }
+      }
+
+      .navbar-bottom {
+        .logo {
+          top: 7px;
+        }
+
+        .navbar-bottom-right {
+          .search-browse-auto-suggest {
+
+            p:first-child,
+            p:last-child {
+              margin-bottom: 7px;
+            }
+
+            .right-addon {
+              width: 250px;
+            }
+          }
+        }
+
+        .mobile-view {
+          height: calc(100vh - 48px) !important;
+        }
+
+        .navbar-bottom-left {
+          .navigation-menu {
+            h6 {
+              color: @font-color-input-text;
+              font-weight: @font-weight-medium;
+              font-size: @font-size-large;
+            }
+
+            ul {
+              li {
+                a {
+                  color: @font-color-input-text;
+                  font-weight: @font-weight-regular;
+                  font-size: @font-size-large;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

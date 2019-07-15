@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list-view unassigned-group-name="Other">
+	<group name="General">
+		<custom class="de.hybris.platform.cockpit.services.config.impl.CheckboxColumn" name=" " visible="true"/>
+		<!-- 	<property qualifier="OpenTextMedia.rootFolder" visible="true">
+			</property> -->
+		<property qualifier="OpenTextMedia.subFolderPath" visible="true"/>
+		<property qualifier="Media.URL" visible="true">
+			<renderer class="com.opentext.hybris.otmmconnector.ui.assetassignment.cockpit.OtmmImageCellRenderer"/>
+		</property>
+		<!-- <property qualifier="Media.mime" visible="true"/>
+		<property qualifier="Media.catalogVersion" visible="true" editor="shortListEditor"/> -->
+	</group>
+</list-view>

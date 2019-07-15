@@ -1,0 +1,177 @@
+<div>
+  <header class="es-header-section navbar-fixed-top non-printable-section">
+    <nav role="navigation" class="navbar-top-wrapper non-printable-section" v-if="!headerOptions.isCheckout">
+      <div class="navbar-top d-flex align-items-center justify-content-between">
+        <div class="py-xs-2 px-xs-3 px-md-0 promo-section m-xs-0 text-center">
+            <a v-if="headerOptions.promoTxt && headerOptions.promoUrl" :href="headerOptions.isExternalLink ? headerOptions.promoUrl : globals.getUrlWithContextPath(headerOptions.promoUrl)"
+            :target="headerOptions.isExternalLink?'_blank':''">{{$options.filters.maxCharacters(headerOptions.promoTxt)}}</a>
+            <span v-else-if="headerOptions.promoTxt">{{$options.filters.maxCharacters(headerOptions.promoTxt)}}</span>
+        </div>
+        <ul class="py-xs-2 login-menu m-xs-0 d-flex align-items-center" v-if="globals.getIsLoggedIn()"
+          role="presentation">
+          <li>
+            <span class="icon-user" :title="i18n.iconUserTitle"></span>
+          </li>
+          <li v-for="(item, index) in loginMenu.menuOptions">
+            <a :href="item.external ? item.optionLink : globals.contextPath + item.optionLink"
+              v-if="index === 0">{{i18n.hiText}}{{item.option}}</a>
+            <a :href="item.external ? item.optionLink : globals.contextPath + item.optionLink"
+              v-else>{{item.option}}</a>
+          </li>
+        </ul>
+        <ul class="py-xs-2 login-menu m-xs-0 d-flex align-items-center" v-else role="presentation">
+          <li>
+            <span class="icon-user" :title="i18n.iconUserTitle"></span>
+          </li>
+          <li v-for="item in loginMenu.menuOptions">
+            <a :href="item.external ? item.optionLink : globals.contextPath + item.optionLink">{{item.option}}</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <nav class="navbar-bottom-wrapper" role="navigation">
+      <div class="navbar-bottom d-flex align-items-center justify-content-between"
+        :class="{'checkout-header' : headerOptions.isCheckout}">
+        <div class="header-left-section d-flex align-items-center">
+          <a class="icon-menu non-printable-section" :title="i18n.iconMenuTitle"
+            @click="showMobileNav = !showMobileNav;updateAria(showMobileNav)" tabindex="0" role="button"
+            :aria-label="i18n.iconMenuTitle" href="javascript:void(0)"
+            :aria-expanded="showMobileNav? 'true': 'false'"></a>
+          <template v-if="isHomePage">
+            <button itemscope :itemtype="globals.logoContentSchema.itemType" class="logo"
+              :class="{'logo-hidden' : showSearchBox}" @click="globals.navigateToUrl('home')" tabindex="0" role="link"
+              :aria-hidden="showMobileNav && isTablet()">
+              <img :itemprop="globals.logoContentSchema.itemProp" :src="globals.assetsPath + headerOptions.brandLogo"
+                :alt="globals.getSiteName()">
+            </button>
+          </template>
+          <template v-else>
+            <button class="logo" :class="{'logo-hidden' : showSearchBox}" @click="globals.navigateToUrl('home')"
+              tabindex="0" role="link" :aria-hidden="showMobileNav && isTablet()">
+              <img :src="globals.assetsPath + headerOptions.brandLogo" :alt="globals.getSiteName()">
+            </button>
+          </template>
+
+          <div class="navbar-bottom-left d-flex pl-xs-0 pl-md-4 non-printable-section"
+            :class="{ 'mobile-view' : showMobileNav, }" v-if="!headerOptions.isCheckout" @click="dismissMobileMenu">
+            <div ref="navigationMenu" class="navigation-menu d-flex align-items-center pt-xs-3 pt-md-0" @click.stop="">
+              <div class="navigation-inner-wrapper">
+                <div class="pb-xs-2 pb-md-0" v-if="globals.getIsLoggedIn()">
+                  <ul class="m-xs-0 primary-menu align-self-center d-flex pl-xs-0" role="presentation">
+                    <li class="primary-menu-item js-primary-menu-item py-md-5 px-md-3" v-for="item in navMenu">
+                      <a class="p-xs-3 p-md-0" href="#"
+                        v-if="showMobileNav && isSecondaryAvailable(item) && (selectedPrimary !== '' ? false : true)"
+                        @click="selectPrimary(item.primary)">{{item.primary}}</a>
+                      <a class="p-xs-3 p-md-0"
+                        :href="item.external ? item.primaryLink : globals.contextPath + item.primaryLink"
+                        v-else-if="item.primary" v-show="selectedPrimary !== '' ? false : true">{{item.primary}}</a>
+                      <div class="secondary-menu pt-xs-3 p-md-4" v-if="isSecondaryAvailable(item) && !isTablet()"
+                        :class="{ 'secondary-active': selectedPrimary === item.primary }">
+                        <div class="arrow-container">
+                          <div class="arrow-up"></div>
+                        </div>
+                        <!-- <h6 class="pl-xs-3">{{item.secondary.title}}</h6> -->
+                        <ul class="d-flex flex-wrap pl-xs-0 js-flyout-sec" role="presentation">
+                          <li class="py-md-3 pr-md-3 pl-md-0 js-secondary-child"
+                            v-for="item in item.secondary.menuOptions">
+                            <a class="p-xs-3 p-md-0 custom-word-wrap-all"
+                              :href="item.external ? item.optionLink : globals.contextPath + item.optionLink">{{item.option}}</a>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="secondary-menu pt-xs-3 p-md-4"
+                        v-if="isSecondaryAvailable(item) && ((selectedPrimary === item.primary)  && isTablet())"
+                        :class="{ 'secondary-active': selectedPrimary === item.primary }">
+                        <div class="arrow-container">
+                          <div class="arrow-up"></div>
+                        </div>
+                        <a class="icon-chevron-left ml-xs-3 js-secondary-action-el" v-if="showMobileNav"
+                          @click.stop="focusParent(selectedPrimary,navMenu)" role="button" aria-label="Back"
+                          href="javascript:void(0)"></a>
+                        <!-- <h6 class="pl-xs-3">{{item.secondary.title}}</h6> -->
+                        <ul class="d-flex flex-wrap pl-xs-0 js-flyout-sec" role="presentation">
+                          <li class="py-md-3 pr-md-3 pl-md-0 js-secondary-child"
+                            v-for="item in item.secondary.menuOptions">
+                            <a class="p-xs-3 p-md-0 custom-word-wrap-all"
+                              :href="item.external ? item.optionLink : globals.contextPath + item.optionLink">{{item.option}}</a>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <div v-show="selectedPrimary !== '' ? false : true">
+                  <slot name="left-nav" v-if="showMobileNav && globals.getIsLoggedIn()">
+                    Left Nav
+                  </slot>
+                </div>
+                <div class="pb-xs-2 pb-md-0" v-if="showMobileNav">
+                  <h6 class="pl-xs-3 pt-xs-2" v-if="!globals.getIsLoggedIn()"
+                    v-show="selectedPrimary !== '' ? false : true">{{i18n.loginSectionTitle}}</h6>
+                  <ul class="pl-xs-0" :class="{ 'login-mobile-view' : showMobileNav }" role="presentation"
+                    v-show="selectedPrimary !== '' ? false : true">
+                    <li class="p-md-3 js-primary-menu-item" v-for="item in loginMenu.menuOptions">
+                      <a class="p-xs-3 p-md-0 custom-word-wrap-all"
+                        :href="item.external ? item.optionLink : globals.contextPath + item.optionLink">{{item.option}}</a>
+                    </li>
+                  </ul>
+                  <!-- Find a store functionality not there in R1
+                <ul class="pl-xs-0" :class="{ 'login-mobile-view' : showMobileNav }">
+                  <li class="px-xs-3 py-xs-3">
+                    <a :href="findMenu.external ? findMenu.optionLink : globals.contextPath + findMenu.optionLink">{{findMenu.option}}</a>
+                  </li>
+                </ul> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div v-if="!headerOptions.isCheckout && globals.getIsLoggedIn()"
+          class="d-flex navbar-bottom-right justify-content-between align-items-center"
+          :aria-hidden="showMobileNav && isTablet()">
+          <span class="icon-search" :aria-label="i18n.iconSearchTitle" :title="i18n.iconSearchTitle"
+            v-if="!showSearchBox" @click.stop="showSearchBox = !showSearchBox" tabindex="0" role="button"></span>
+          <div v-if="headerOptions.includeSearchBox && showSearchBox"
+            :class="{'align-search': !headerOptions.includeMiniCart}" @click.stop="">
+            <!-- @auto-suggest auto suggest -->
+            <slot name="search" :toggle-search-icon="toggleSearchIcon">
+              Default body
+            </slot>
+            <!-- <auto-suggest :product-catalog="productCatalog" :root-category="rootCategory"></auto-suggest> -->
+          </div>
+          <div v-if="!showSearchBox" class="d-flex align-items-center justify-content-end pr-md-2">
+            <div class="cart ml-xs-3 ml-md-5 py-md-5" @mouseover="displayMiniCart" @mouseleave="hideMiniCart"
+              v-if="headerOptions.includeMiniCart">
+              <a :href="globals.getNavigationUrl('cart')" class="icon-cart"
+                :aria-label="i18n.cartWith+cartItems+i18n.items" :title="i18n.cartWith+cartItems+i18n.items">
+              </a>
+              <div v-if="showMiniCart" class="header-mini-cart hidden-xs hidden-sm visible-md visible-lg"
+                @mouseover="isMiniCartHovered = true" @mouseleave="isMiniCartHovered = false">
+                <div class="arrow-container">
+                  <div class="arrow-up"></div>
+                </div>
+                <slot name="cart">
+                  Default body
+                </slot>
+              </div>
+              <span class="badge" @click="globals.navigateToUrl('cart')" v-if="cartItems"
+                aria-hidden="true">{{cartItems}}</span>
+              <div class='assistive-text' aria-live="assertive" aria-atomic="true">
+                <span v-if="cartItems">{{i18n.cartItemsText}} {{cartItems}}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="checkout-options d-flex justify-content-end" v-if="headerOptions.isCheckout">
+          <a v-for="item in checkoutMenu.menuOptions"
+            :href="item.external ? item.optionLink : globals.contextPath + item.optionLink"
+            class="px-xs-3 py-xs-3">{{item.option}} </a>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <div class="printable-section printable-image">
+    <img :alt="globals.getSiteName()" :src="globals.assetsPath + headerOptions.brandLogo" />
+  </div>
+</div>

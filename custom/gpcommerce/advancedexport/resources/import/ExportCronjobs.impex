@@ -1,0 +1,29 @@
+INSERT_UPDATE AdvancedTypeExportConfiguration;code[unique=true];catalogVersionsToExport(catalog(id),version);languages(isocode);typesToExport(code);blacklistedTypes(code);
+
+;export-Dixie-Staged;dixieContentCatalog:Staged,gpUSProductCatalog:Staged;en;AbstractCMSComponent, PageTemplate, ContentSlot, ContentSlotForTemplate, ContentSlotForPage, AbstractPage, Media, MediaContainer, AbstractRestriction, CMSNavigationNode, CMSNavigationEntry, GPTipsAndKnowledgeInfoComponent, GPMarketingCategories, GPTipsAndKnowledgeInfo;CatalogVersionSyncScheduleMedia,HeaderLibrary,LogFile,ImpExMedia,GPProductSolutionComponent
+;export-Mardigras-Staged;mardigrasContentCatalog:Staged,gpUSProductCatalog:Staged;en;AbstractCMSComponent, PageTemplate, ContentSlot, ContentSlotForTemplate, ContentSlotForPage, AbstractPage, Media, MediaContainer, AbstractRestriction, CMSNavigationNode, CMSNavigationEntry, GPTipsAndKnowledgeInfoComponent, GPMarketingCategories, GPTipsAndKnowledgeInfo;CatalogVersionSyncScheduleMedia,HeaderLibrary,LogFile,ImpExMedia,GPProductSolutionComponent
+;export-GPPro-Staged;gpproContentCatalog:Staged,gpUSProductCatalog:Staged;en;AbstractCMSComponent, PageTemplate, ContentSlot, ContentSlotForTemplate, ContentSlotForPage, AbstractPage, Media, MediaContainer, AbstractRestriction, CMSNavigationNode, CMSNavigationEntry, GPTipsAndKnowledgeInfoComponent, GPMarketingCategories, GPTipsAndKnowledgeInfo;CatalogVersionSyncScheduleMedia,HeaderLibrary,LogFile,ImpExMedia,GPProductSolutionComponent
+;export-GPEmployee-Staged;gpemployeeContentCatalog:Staged,gpUSProductCatalog:Staged;en;AbstractCMSComponent, PageTemplate, ContentSlot, ContentSlotForTemplate, ContentSlotForPage, AbstractPage, Media, MediaContainer, AbstractRestriction, CMSNavigationNode, CMSNavigationEntry, GPTipsAndKnowledgeInfoComponent, GPMarketingCategories, GPTipsAndKnowledgeInfo;CatalogVersionSyncScheduleMedia,HeaderLibrary,LogFile,ImpExMedia,GPProductSolutionComponent
+# Blacklisted attributes
+
+INSERT_UPDATE AdvancedTypeExportConfiguration;code[unique=true];blacklistedAttributes(enclosingType(code),qualifier);
+#local
+#;export-Dixie-Staged;Item:creationtime,Item:modifiedtime,Item:assignedCockpitItemTemplates,Item:comments,Item:owner, Item:allDocuments, Item:savedValues,Media:URL,Media:URL2,Media:folder,PageTemplate:availableContentSlots,FooterComponent:navigationNodes,AbstractPage:navigationNodeList,GPMarketingCategories:productCarouselComponents,GPTipsAndKnowledgeInfo:knowledgeMedia
+;export-Dixie-Staged;Item:creationtime,Item:modifiedtime,Item:assignedCockpitItemTemplates,Item:comments,Item:owner, Item:allDocuments, Item:savedValues,Media:URL,Media:URL2,Media:folder,PageTemplate:availableContentSlots,FooterComponent:navigationNodes,AbstractPage:navigationNodeList,GPMarketingCategories:productCarouselComponents,GPTipsAndKnowledgeInfo:knowledgeMedia,GPMarketingCategories:canonicalUrls,ContentPage:canonicalUrls,GPImageComponent:altText,GPImageTextComponent:imageAltText,GPBrandBarComponent:imageAltText,GPBannerComponent:imageAltText
+;export-Mardigras-Staged;Item:creationtime,Item:modifiedtime,Item:assignedCockpitItemTemplates,Item:comments,Item:owner, Item:allDocuments, Item:savedValues,Media:URL,Media:URL2,Media:folder,PageTemplate:availableContentSlots,FooterComponent:navigationNodes,AbstractPage:navigationNodeList,GPMarketingCategories:productCarouselComponents,GPTipsAndKnowledgeInfo:knowledgeMedia,GPMarketingCategories:canonicalUrls,ContentPage:canonicalUrls,GPImageComponent:altText,GPImageTextComponent:imageAltText,GPBrandBarComponent:imageAltText,GPBannerComponent:imageAltText
+;export-GPPro-Staged;Item:creationtime,Item:modifiedtime,Item:assignedCockpitItemTemplates,Item:comments,Item:owner, Item:allDocuments, Item:savedValues,Media:URL,Media:URL2,Media:folder,PageTemplate:availableContentSlots,FooterComponent:navigationNodes,AbstractPage:navigationNodeList,GPMarketingCategories:productCarouselComponents,GPTipsAndKnowledgeInfo:knowledgeMedia,GPMarketingCategories:canonicalUrls,ContentPage:canonicalUrls,GPImageComponent:altText,GPImageTextComponent:imageAltText,GPBrandBarComponent:imageAltText,GPBannerComponent:imageAltText
+;export-GPEmployee-Staged;Item:creationtime,Item:modifiedtime,Item:assignedCockpitItemTemplates,Item:comments,Item:owner, Item:allDocuments, Item:savedValues,Media:URL,Media:URL2,Media:folder,PageTemplate:availableContentSlots,FooterComponent:navigationNodes,AbstractPage:navigationNodeList,GPMarketingCategories:productCarouselComponents,GPTipsAndKnowledgeInfo:knowledgeMedia,GPMarketingCategories:canonicalUrls,ContentPage:canonicalUrls,GPImageComponent:altText,GPImageTextComponent:imageAltText,GPBrandBarComponent:imageAltText,GPBannerComponent:imageAltText
+ 
+
+INSERT_UPDATE ServicelayerJob ; code[unique=true] ; springId[unique=true]  
+
+                              ; advancedTypeExportJob; advancedTypeExportJob
+
+                                                                                      
+
+INSERT_UPDATE AdvancedTypeExportCronJob;code[unique=true];job(code);exportConfiguration(code);sessionLanguage(isocode)
+
+;export-Dixie-Staged;advancedTypeExportJob;export-Dixie-Staged;en;
+;export-Mardigras-Staged;advancedTypeExportJob;export-Mardigras-Staged;en;
+;export-GPPro-Staged;advancedTypeExportJob;export-GPPro-Staged;en;
+;export-GPEmployee-Staged;advancedTypeExportJob;export-GPEmployee-Staged;en;

@@ -1,0 +1,106 @@
+<div class="vx-schedule-installation px-xs-3 row">
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>
+  </vx-spinner>
+  <div class="section-header col-xs-12 px-xs-0">
+    <div class="heading d-flex justify-content-between mt-xs-0">
+      <div class="section-header" tabindex="0" role="heading">{{sectionIndex}}. {{i18n.scheduleInstallation.heading}}</div>
+      <div v-show="isSaved" class=" d-flex justify-content-end">
+        <a>
+          <span class="lease-change" @click="editMethod($event)" @keyup.enter-space="editMethod($event)" tabindex="0"
+            role="button" :aria-label="i18n.scheduleInstallation.change">{{i18n.scheduleInstallation.change}}</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="sub-heading mt-xs-3">{{i18n.scheduleInstallation.subHeading}}</div>
+  </div>
+
+
+
+  <div class="section-address mt-xs-4 col-xs-12 px-xs-0">
+    <div class="row">
+      <div class="col-xs-6" v-if="!isMultipleAddress">
+        <p class="title">{{i18n.scheduleInstallation.addressHeading}}</p>
+        <p>{{formattedAddress.firstname}} {{formattedAddress.lastname}}</p>
+        <p v-if="formattedAddress && formattedAddress.companyName">{{formattedAddress.companyName}}</p>
+        <p>{{formattedAddress.line1}}</p>
+        <p v-if="formattedAddress.line2">{{formattedAddress.line2}}</p>
+        <p><span v-if="formattedAddress && formattedAddress.town">{{formattedAddress.town}}</span> <span v-if="formattedAddress && formattedAddress.region && formattedAddress.region.isocodeShort">{{formattedAddress.region.isocodeShort}}</span> <span v-if="formattedAddress && formattedAddress.postalCode">{{formattedAddress.postalCode}}</span></p>
+        <p v-if="formattedAddress && formattedAddress.country && formattedAddress.country.isocode">{{formattedAddress.country.isocode}}</p>
+        <p v-if="formattedAddress.isPallet" class="pallet-text">{{i18n.scheduleInstallation.pallet}}</p>
+      </div>
+      <div class="col-xs-6" v-if="isMultipleAddress">
+        <p class="title">{{i18n.scheduleInstallation.addressHeading}}</p>
+        <p>{{i18n.scheduleInstallation.multipleAddresses}}</p>
+      </div>
+      <div class="col-xs-6">
+        <div class="row">
+          <div class="col-xs-12">
+            <p class="title">{{i18n.scheduleInstallation.items}}</p>
+            <p class="mb-xs-0">{{scheduledDetails.item}}</p>
+          </div>
+          <div class="col-xs-12 mt-xs-4">
+            <p class="title">{{i18n.scheduleInstallation.installationDetails}}</p>
+            <p>
+              <span v-if="scheduledTime">
+                <span class="preferred-time">{{scheduledTime}}</span>
+                <span> {{i18n.scheduleInstallation.of}}</span>
+              </span>
+              {{selectedInstallDate}}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section-installation mt-xs-4 col-xs-12 px-xs-0" v-show="isEditable && showInstallationSection">
+    <div class="row">
+      <div class="col-sm-5 col-xs-12">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 pb-xs-5">
+            <p>{{i18n.scheduleInstallation.installDetails}}</p>
+            <date-picker class="input-calendar" name="installationDate" lang="en" format="dddd MMMM Do, YYYY" v-model="selectedDate"
+              :clearable="false" :not-before="disabledDates.to" :not-after="disabledDates.from">
+            </date-picker>
+          </div>
+          <div class="col-xs-12 col-sm-11">
+            <p>{{i18n.scheduleInstallation.extraInstallDetails}}</p>
+            <textarea class="input-instructions" rows="8" v-model="scheduledDetails.extraInfo"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-sm-offset-1 col-xs-12">
+        <div class="row">
+          <div class="col-xs-12">
+            <p>{{i18n.scheduleInstallation.preferredTime}}</p>
+            <vx-radio-button-group ref="scheduleTime" name="installTime" :radiobuttonValues="radioOptions" arrange-horizontal></vx-radio-button-group>
+          </div>
+          <div class="col-xs-12">
+            <p>{{i18n.scheduleInstallation.contactPerson}}</p>
+            <div class="my-xs-4 form-group">
+              <label for="us" :aria-hidden="isDeviceAndroid()">{{i18n.scheduleInstallation.nameLabel}}</label>
+              <input type="text" class="form-control" maxlength="80" v-model="scheduledDetails.name" name="customerName"
+                v-validate="'required|alpha_spaces|max:80'" :aria-label="i18n.scheduleInstallation.nameLabel"
+                aria-describedby="custName_err_msg">
+              <div class="mt-xs-2" v-if="errors.has('customerName')">
+                <span class="error-msg" id="custName_err_msg">{{errors.first('customerName')}}</span>
+              </div>
+            </div>
+            <div class="mt-xs-4 mb-xs-0 form-group">
+              <label for="us">{{i18n.scheduleInstallation.phoneLabel}}</label>
+              <the-mask :masked="masked" class="phone-number form-control" mask="+1 ###-###-####" v-model="scheduledDetails.phoneNo" v-validate="'required: true|min:15'"
+                type="tel" name="phoneNumber" :aria-label="i18n.mobileNo" aria-describedby="phoneNumber_err_msg">
+              </the-mask>
+              <div class="mt-xs-2" v-if="errors.has('phoneNumber')">
+                <span class="error-msg" id="phoneNumber_err_msg">{{ errors.first('phoneNumber') }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-5 col-xs-12 mt-xs-4 px-xs-0">
+    <button class="btn-block btn btn-primary" v-show="isEditable && showScheduleButton" @click="showInstallSection($event)">{{installBtnLabel}}</button>
+  </div>
+</div>

@@ -1,0 +1,5 @@
+  #if($ctx.cartData.subscriptionCartStatus == 'OutofStock')
+  	${ctx.messages.emailSubjectOutOfOrder}
+  #elseif($ctx.cartData.subscriptionCartStatus == 'PaymentFailure')
+    ${ctx.messages.getMessage('emailSubjectPayment',${ctx.cartData.code})}
+  #end

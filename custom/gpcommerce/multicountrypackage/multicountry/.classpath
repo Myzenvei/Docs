@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry exported="true" kind="src" path="/adaptivesearch"/>
+	<classpathentry exported="true" kind="src" path="/acceleratorservices"/>
+	<classpathentry exported="true" kind="src" path="/cscockpit"/>
+	<classpathentry exported="true" kind="src" path="/promotionengineservices"/>
+	<classpathentry exported="true" kind="src" path="/cockpit"/>
+	<classpathentry exported="true" kind="src" path="/admincockpit"/>
+	<classpathentry exported="true" kind="src" path="/cms2"/>
+	<classpathentry exported="true" kind="src" path="/productcockpit"/>
+	<classpathentry kind="src" path="testsrc"/>
+	<classpathentry exported="true" kind="src" path="/platform"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry exported="true" kind="src" path="/commercefacades"/>
+	<classpathentry exported="true" kind="src" path="/basecommerce"/>
+	<classpathentry exported="true" kind="src" path="/commercesearch"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="gensrc"/>
+	<classpathentry kind="output" path="eclipsebin"/>
+</classpath>

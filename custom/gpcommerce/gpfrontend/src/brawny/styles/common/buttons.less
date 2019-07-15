@@ -1,0 +1,97 @@
+#brawny {
+  .btn-default {
+    font-family: @font-family-text;
+    font-size: @font-size-large;
+    font-weight: @font-weight-med !important;
+    color: @btn-default-color;
+    background: @btn-default-bg;
+    border-radius: 0;
+    text-transform: uppercase;
+    &:hover {
+      color: @btn-default-hover-color;
+      background: @btn-default-hover-bg;
+    }
+    &[disabled] {
+      color: @btn-disabled-text-color;
+      background: @btn-disabled-bg;
+      border: none;
+    }
+  }
+
+  .btn-primary {
+    font-family: @font-family-text;
+    font-size: @font-size-large;
+    font-weight: @font-weight-med !important;
+    color: @btn-primary-color;
+    background: @btn-primary-bg;
+    border-radius: 0;
+    text-transform: uppercase;
+    &:hover {
+      color: @btn-primary-hover-color;
+      background: @btn-primary-hover-bg;
+    }
+    &[disabled] {
+      color: @btn-disabled-text-color;
+      background: @btn-disabled-bg;
+      border: none;
+    }
+  }
+
+  .btn-tertiary {
+    font-family: @font-family-text;
+    font-size: @font-size-large;
+    font-weight: @font-weight-med !important;
+    color: @btn-tertiary-color;
+    background: @btn-tertiary-bg;
+    border-radius: 0;
+    text-transform: uppercase;
+    &:hover,
+    &:focus {
+      color: @btn-tertiary-hover-color;
+      background: @btn-tertiary-hover-bg;
+    }
+    &[disabled] {
+      color: @btn-disabled-text-color;
+      background: @btn-disabled-bg;
+      border: none;
+    }
+  }
+
+  .btn-transparent {
+    font-family: @font-family-text;
+    font-size: @font-size-large;
+    font-weight: @font-weight-med !important;
+    color: @btn-tertiary-color;
+    background: transparent;
+    border-radius: 0;
+    text-transform: uppercase;
+    &:hover {
+      color: @btn-tertiary-color;
+      background: transparent;
+    }
+    &[disabled] {
+      color: @btn-disabled-text-color;
+      background: @btn-disabled-bg;
+      border: none;
+    }
+  }
+  input[type='button'],
+  input[type='submit'] {
+    border: none !important;
+    text-transform: uppercase !important;
+    font-weight: @font-weight-med;
+  }
+  input[type].input-error {
+    border-color: @error-border-color !important;
+  }
+  input[type],
+  .dropdown-primary button {
+    border: 1px solid @border-color;
+    font-family: @font-family-text;
+    font-weight: @font-weight-normal;
+    text-transform: none;
+  }
+  .underline {
+    text-decoration: underline !important;
+  }
+}

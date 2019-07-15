@@ -1,0 +1,16 @@
+<div class="mg-banner-slider row">
+  <mg-slick-slider :slick-options="sliderConfig">
+    <template slot="slickSlide">
+      <a href="javascript:void(0)" v-for="item in bannerData.banners" :style="{ backgroundImage: 'url(' + item.backgroundImage + ')' }"
+        class="slide-wrapper">
+        <div class="banner-content">
+          <div class="my-xs-4 heading" v-html="item.bannerHeading">
+          </div>
+          <p v-html="item.bannerDesc">
+          </p>
+        </div>
+        <!-- <img :src="item.backgroundImage" /> -->
+      </a>
+    </template>
+  </mg-slick-slider>
+</div>

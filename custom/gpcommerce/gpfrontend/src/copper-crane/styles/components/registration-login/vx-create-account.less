@@ -1,0 +1,28 @@
+#copper-crane {
+  .create-account {
+    a:focus,
+    a:hover {
+      color: @link-color;
+    }
+    form {
+      .market-communication,
+      .affliated-communication {
+        label {
+          font-size: @font-size-label-text;
+          color: @font-color-label-text;
+        }
+      }
+      .terms-and-conditions {
+        a {
+          text-decoration: underline;
+        }
+      }
+      & > p:last-child {
+        font-size: @font-size-small;
+        a {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}

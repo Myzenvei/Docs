@@ -1,0 +1,374 @@
+####################################Product Availability for Dixie ###########################
+# ProductAvailabilityGroup
+INSERT_UPDATE ProductAvailabilityGroup ; id[unique=true]                ; description[lang=en]                                          ; stores(uid)      
+                                       ; gpemployee-availability        ; Multibrand Product availability Group for GPEmployee          ; gpemployee       
+                                       ; dixie-availability             ; Multibrand Product availability Group for Dixie               ; dixie            
+                                       ; copperandcrane-availability    ; Multibrand Product availability Group for Copper and Crane    ; copperandcrane   
+                                       ; vanityfairnapkins-availability ; Multibrand Product availability Group for Vanity Fair Napkins ; vanityfairnapkins
+
+
+
+# ProductAvailabilityAssignment for Dixie   
+$productCatalog=gpUSProductCatalog          
+$availabilityGroup=dixie-availability       
+$approvalStatus=approved                    
+$catalogVersion=catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default='$productCatalog:Staged']
+INSERT_UPDATE ProductAvailabilityAssignment ; product(code,$catalogVersion)[unique=true] ; availabilityGroup(id)[default=$availabilityGroup,unique=true] ; status(code)[default=$approvalStatus] ; onlineDate[dateformat=dd.MM.yyyy, default=01.02.2014] ; offlineDate[dateformat=dd.MM.yyyy] ; $catalogVersion
+;LO10	
+;9PPATH	
+;CH26C7	
+;SSWPS5	
+;FM23C7	
+;43822	
+;13728	
+;FF2PLN	
+;2112014	
+;2342PATH	
+;29662	
+;SC003	
+;1TOC	
+;48280	
+;50013	
+;TM53C7	
+;32006	
+;SSSD120	
+;96019	
+;56788	
+;53590	
+;UX7WS	
+;56744A	
+;56790A	
+;6346AR	
+;19448/01	
+;26491	
+;19375	
+;TP9542B	
+;6342AR	
+;8TOC	
+;29651	
+;SSWPF5	
+;43715	
+;2717201	
+;SSK51	
+;92220	
+;KL300W8	
+;SSS51	
+;SSF51	
+;SSWPT5	
+;48255	
+;1000/44COT	
+;54527A	
+;16PPATH	
+;56761	
+;SSKD120	
+;26496	
+;27300	
+;27S12	
+;29408	
+;48265	
+;29430	
+;ES300U	
+;SSWPK5	
+;2TOC	
+;38000	
+;32019	
+;38015	
+;914LSRD	
+;3TOC	
+;4021PATH	
+;43335	
+;43337	
+;43714	
+;43716	
+;53058	
+;43818	
+;53060	
+;87242	
+;48260	
+;48285	
+;56768	
+;48290	
+;48295	
+;4TOC	
+;50011	
+;50012	
+;50030	
+;5342DX	
+;53257A	
+;5356DX	
+;16620	
+;56757	
+;59589	
+;56781	
+;56783A	
+;56784A	
+;56803	
+;58000A	
+;59009	
+;53057	
+;59590	
+;RP2008	
+;92120	
+;FM53C7	
+;964PATH	
+;PL10X10X5	
+;CH56NC7	
+;CS7	
+;D9542B	
+;D9542	
+;ES9CSCOMP	
+;ES9PCOMP	
+;JW7	
+;KL200W8	
+;KM53C7	
+;KM23C7	
+;L9SXP	
+;LQ1416PL	
+;LQ1212PL	
+;RP3008	
+;RW86W	
+;SSFAUTODSP	
+;SSFD120	
+;TM23C7	
+;SSKAUTODSP	
+;SSSAUTODSP	
+;SSW3D85	
+;SSW1D85	
+;SX12PATH	
+;SXP6PATH	
+;SXP9PATH	
+;TP9542	
+;21000	
+;UX9PATH	
+;32001	
+;3TOCSC	
+;59530	
+;59535	
+;58000B	
+;SSSD80	
+;SSKD80	
+;54550A	
+;5320CD	
+;19378	
+;48250	
+;SSFD80	
+;29323	
+;29324
+
+##################################PRODUCT AVAILABILITY FOR EMPLOYEE STORE######################
+
+$productCatalog=gpUSProductCatalog     
+$availabilityGroup=gpemployee-availability
+$approvalStatus=approved               
+$catalogVersion=catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default='$productCatalog:Staged']
+INSERT_UPDATE ProductAvailabilityAssignment ; product(code,$catalogVersion)[unique=true] ; availabilityGroup(id)[default=$availabilityGroup,unique=true] ; status(code)[default=$approvalStatus] ; onlineDate[dateformat=dd.MM.yyyy, default=01.02.2014] ; offlineDate[dateformat=dd.MM.yyyy] ; $catalogVersion
+;185WV1	
+;91867/03DR	
+;22702/75DR	
+;DR-1000592	
+;15416/31DR	
+;DR-1000591	
+;DR-1000590	
+;22707/75DR	
+;44089/51DR	
+;33110/50DR	
+;35130/18DR	
+;35515/18DR	
+;35731/18DR	
+;21926/01DR	
+;33110/50	
+;79019/55	
+;79051/01	
+;87361/01	
+;23710/37	
+;15416/31	
+;94313/50	
+;44089/51	
+;87396/50	
+;79137/55	
+;79169/55	
+;35130/18	
+;15289/07	
+;15115/07DR	
+;79051/01DR	
+;23710/37DR	
+;43211/57DR	
+;94313/50DR	
+;91304/37DR	
+;22578/05DR	
+;22576/02DR	
+;22639/75DR	
+;22643/75DR	
+;2159B	
+;185BV1	
+;185SV1	
+;2159WG	
+;77355/04DR	
+;15289/07DR	
+;87361/01DR	
+;DR-1000594	
+;21922/01DR	
+;94415/50DR	
+;2159RG	
+;94253/01DR	
+;45200/17DR	
+;79019/55DR	
+;43900/17DR	
+;15734/30DR	
+;15675/92DR	
+;79137/55DR	
+;DR-1000593	
+;44160/01DR	
+;87396/50DR	
+;15715/05DR	
+;15396/30DR	
+;35163/02DR	
+;35236/18DR	
+;2159S	
+;15097/14DR	
+;185RV1G	
+;15420/30DR	
+;DR-1000586	
+;DR-1000587	
+;DR-1000588	
+;DR-1000589	
+;15259/30DR	
+;79169/55DR	
+;22700/75DR	
+;15327/07DR	
+;41705/52DR	
+;21774/01DR	
+;79166/05DR
+
+
+
+################################PRODUCT AVAILABILITY FOR COPPER AND CRANE ###################3
+
+# ProductAvailabilityAssignment for Copper and Crane
+$productCatalog=gpUSProductCatalog     
+$catalogVersion=catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default='$productCatalog:Staged']
+$availabilityGroup=copperandcrane-availability
+$approvalStatus=approved 
+INSERT_UPDATE ProductAvailabilityAssignment ; product(code,$catalogVersion)[unique=true] ; availabilityGroup(id)[default=$availabilityGroup,unique=true] ; status(code)[default=$approvalStatus] ; onlineDate[dateformat=dd.MM.yyyy, default=01.02.2014] ; offlineDate[dateformat=dd.MM.yyyy] ; $catalogVersion
+                                            ; CC-KIT-1000089                             
+                                            ; CC-KIT-1000078                             
+                                            ; CC-SRM-1000020                             
+                                            ; CC-SRM-1000021                             
+                                            ; CC-ELX-1000018                             
+                                            ; CC-ELX-1000019                             
+                                            ; CC-MSK-1000017                             
+                                            ; CC-CLN-1000010                             
+                                            ; CC-MST-1000016                             
+                                            ; CC-MST-1000015                             
+                                            ; DR-1000653                                 
+                                            ; DR-1000652                                 
+                                            ; DR-1000584                                 
+                                            ; CC-OIL-1000006                             
+                                            ; CC-OIL-1000007                             
+                                            ; CC-OIL-1000026                             
+                                            ; CC-LTN-1000009                             
+                                            ; CC-EXF-1000004                             
+                                            ; CC-EXF-1000003                             
+                                            ; CC-LTN-1000008                             
+                                            ; CC-OIL-1000005                             
+                                            ; CC-EXF-1000002                             
+                                            ; CC-OIL-1000001                             
+                                            ; DR-1000571                                 
+                                            ; DR-1000572                                 
+                                            ; DR-1000409                                 
+                                            ; DR-1000401                                 
+                                            ; CC-KIT-1000079                             
+                                            ; CC-BAR-1000048                             
+                                            ; CC-CND-1000025                             
+                                            ; CC-SMP-1000024                             
+                                            ; DR-1000552                                 
+                                            ; DR-1000474                                 
+                                            ; DR-1000408                                 
+                                            ; DR-1000407                                 
+                                            ; DR-1000406                                 
+                                            ; DR-1000405                                 
+                                            ; DR-1000404                                 
+                                            ; DR-1000403                                 
+                                            ; DR-1000402                                 
+                                            ; DR-1000659                                 
+                                            ; DR-1000660                                 
+                                            ; DR-1000636                                 
+                                            ; DR-1000634                                 
+                                            ; DR-1000626                                 
+                                            ; DR-1000555                                 
+                                            ; DR-1000575                                 
+                                            ; DR-1000554                                 
+                                            ; DR-1000574                                 
+                                            ; DR-1000553                                 
+                                            ; DR-1000551                                 
+                                            ; DR-1000550                                 
+                                            ; DR-1000443                                 
+                                            ; DR-1000442                                 
+                                            ; CC-KIT-1000088                             
+                                            ; CC-KIT-1000076                             
+                                            ; CC-KIT-1000069                             
+                                            ; CC-KIT-1000066                             
+                                            ; CC-PCH-1000062                             
+                                            ; CC-PVN-1000063                             
+                                            ; CC-SBG-1000061                             
+                                            ; DR-1000616                                 
+                                            ; DR-1000614                                 
+                                            ; DR-1000615                                 
+                                            ; DR-1000618                                 
+                                            ; DR-1000619                                 
+                                            ; DR-1000714                                 
+                                            ; DR-1000718                                 
+                                            ; DR-1000722                                 
+                                            ; DR-1000711                                 
+                                            ; DR-1000712                                 
+                                            ; DR-1000652                                 
+                                            ; DR-1000653                                 
+
+                                            ; BP-CC-SRM-1000020                          
+                                            ; BP-CC-OIL-1000006                          
+                                            ; BP-DR-1000659                              
+#;BP-DR-1000574                             
+#;BP-DR-1000575                             
+#;BP-DR-1000571    
+
+
+
+$productCatalog=gpUSProductCatalog
+$availabilityGroup=vanityfairnapkins-availability
+$approvalStatus=approved 
+$catalogVersion=catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default='$productCatalog:Staged']
+INSERT_UPDATE ProductAvailabilityAssignment ; product(code,$catalogVersion)[unique=true] ; availabilityGroup(id)[default=$availabilityGroup,unique=true] ; status(code)[default=$approvalStatus] ; onlineDate[dateformat=dd.MM.yyyy, default=01.02.2014] ; offlineDate[dateformat=dd.MM.yyyy] ; $catalogVersion
+                                            ; BP-35130/18                                   
+                                            ; BP-35515/18                                   
+                                            ; BP-35501/18                                   
+                                            ; BP-35236/18                                   
+
+ 
+
+####################################Vanity Fair Napkins added on 16th May 2019#############################
+# ProductAvailabilityAssignment for Vanity Fair Napkins
+$productCatalog=gpUSProductCatalog
+$availabilityGroup=vanityfairnapkins-availability
+$approvalStatus=approved 
+$catalogVersion=catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default='$productCatalog:Staged']
+INSERT_UPDATE ProductAvailabilityAssignment ; product(code,$catalogVersion)[unique=true] ; availabilityGroup(id)[default=$availabilityGroup,unique=true] ; status(code)[default=$approvalStatus] ; onlineDate[dateformat=dd.MM.yyyy, default=01.02.2014] ; offlineDate[dateformat=dd.MM.yyyy] ; $catalogVersion
+                                            ; 35132/18                                   
+                                            ; 35130/18                                   
+                                            ; 35134/18                                   
+                                            ; 35515/18                                   
+                                            ; 35546/17                                   
+                                            ; 35518/18                                   
+                                            ; 35468/18                                   
+                                         #   ; 3558320                                    
+                                            ; 35501/18                                   
+                                            ; 35502/18                                   
+                                            ; 35503/18                                   
+                                            ; 35575/18                                   
+                                            ; 35236/18                                   
+                                            ; 35270/19                                   
+                                            ; 35272/18                                   
+                                            ; 3558119                                    
+
+
+###################### ProductAvailabilityAssignment ##########################
+                         

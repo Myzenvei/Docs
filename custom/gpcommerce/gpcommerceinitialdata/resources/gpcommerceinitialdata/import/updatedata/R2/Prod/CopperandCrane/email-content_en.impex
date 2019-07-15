@@ -1,0 +1,56 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+#
+#	ImpEx for Copper and Crane Site Email CMS Content, English localisations
+#
+
+$contentCatalog=copperandcraneContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$picture=media(code, $contentCV);
+$wideContent=CMSImageComponent,BannerComponent
+$jarResource=jar:com.gp.commerce.initialdata.constants.GpcommerceInitialDataConstants&/gpcommerceinitialdata/import/
+$siteResource=jar:com.gp.commerce.initialdata.constants.GpcommerceInitialDataConstants&/gpcommerceinitialdata/import/sampledata/contentCatalogs/$contentCatalog
+
+
+# Language
+$lang=en
+
+# Media
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime[default='image/jpeg'];folder(qualifier)[default='images']
+;;/images/email/banner-sale-now-on.jpg;banner-sale-now-on.jpg;$siteResource/images/email/banner-sale-now-on.jpg;
+;;/images/email/banner-free-delivery.jpg;banner-free-delivery.jpg;$siteResource/images/email/banner-free-delivery.jpg;
+;;/images/email/logo-hybris.png;logo-hybris.png;$siteResource/images/email/logo-hybris.png;
+;;/images/email/copperandcrane-logo.png;copperandcrane-logo.png;$siteResource/images/email/copperandcrane-logo.png;
+;;/images/email/gp-footer.png;gp-footer.png;$siteResource/images/email/gp-footer.png;;
+;;/images/email/facebook.png;facebook.png;$siteResource/images/email/facebook.png
+;;/images/email/pinterest.png;pinterest.png;$siteResource/images/email/pinterest.png
+;;/images/email/instagram.png;instagram.png;$siteResource/images/email/instagram.png
+
+# CMS Image Components
+UPDATE CMSImageComponent;$contentCV[unique=true];uid[unique=true];$picture[lang=$lang];
+;;EmailBannerFreeDeliveryImage;/images/email/banner-free-delivery.jpg
+;;EmailBannerSaleNowOnImage;/images/email/banner-sale-now-on.jpg
+;;EmailSiteLogoImage;/images/email/logo-hybris.png
+;;EmailBannerHeaderImage;/images/email/copperandcrane-logo.png
+;;EmailBannerFooterImage;/images/email/gp-footer.png
+
+INSERT_UPDATE GPFooterComponent;$contentCV[unique=true];uid[unique=true];notice[lang=$lang]
+;;EmailFooterBanner;"| Georgia-Pacific"
+
+UPDATE CMSLinkComponent ; $contentCV[unique=true] ; uid[unique=true]; linkname[$lang=en]   
+                        ;                         ; ContactUsLink   ; Contact Us
+                        
+UPDATE SimpleBannerComponent;$contentCV[unique=true];uid[unique=true];$picture[lang=$lang]
+;;InstagramBannerComponent;/images/email/instagram.png
+;;PinterestBannerComponent;/images/email/pinterest.png
+;;FacebookBannerComponent;/images/email/facebook.png
+
+ 

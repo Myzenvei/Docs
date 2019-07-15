@@ -1,0 +1,95 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+#
+# Import the Responsive CMS Site configuration for the Vanity Fair Napkins Store
+#
+$productCatalog=gpUSProductCatalog
+$contentCatalog=vanityfairnapkinsContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$defaultLanguage=en
+$storeUid=vanityfairnapkins
+$siteUid=vanityfairnapkins
+$domainId=www.srv.gapac.com
+$webServiceSiteUid=$siteUidWS
+$siteMapUrlLimitPerFile=50000
+$storefrontContextRoot=/gpcommercestorefront
+$siteMapLangCur=enUsd
+$siteMapPage=Homepage,Product,CategoryLanding,Category,Store,Content,Custom
+$customSiteMapUrls=/Categories/c/categories?q=:relevance:allPromotions:BOGOFApparel:allPromotions:10DiscountShoes:allPromotions:MultiBuyApparel:allPromotions:PerfectPartnerApparel:allPromotions:ProductBundleApparel,/Categories/Streetwear-youth/T-Shirts-youth/c/270100?q=%3Arelevance%3Abrand%3ABurton%3AswatchColors%3ABLACK&text=#,/Categories/Accessories/c/220000?q=%3Arelevance%3Abrand%3AQuiksilver%3AswatchColors%3AGREEN&text=#,/Brands/Fox/c/Fox?q=%3Arelevance%3AswatchColors%3ABLACK%3Agender%3AMALE,/Categories/Snowwear-women/Snow-Jackets-women/c/200100?q=%3Arelevance%3AswatchColors%3ABLACK%3Abrand%3AWLD
+
+# Remove black and blue themes for responsive
+REMOVE SiteTheme;code[unique=true]
+;black
+;blue
+
+# Import config properties into impex macros
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+# Import modulegen config properties into impex macros
+$jarResource=$config-jarResource
+
+# SiteMap Configuration
+INSERT_UPDATE SiteMapLanguageCurrency;&siteMapLanguageCurrency;language(isoCode)[unique=true];currency(isocode)[unique=true];
+;enUsd;en;USD;
+
+INSERT_UPDATE CatalogUnawareMedia;&siteMapMediaId;code[unique=true];realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];mime[default='text/plain']
+;$siteUid-siteMapMedia;$siteUid-siteMapMedia;siteMapTemplate.vm;$jarResource/site-siteMapTemplate.vm;
+
+INSERT_UPDATE RendererTemplate;&siteMapRenderer;code[unique=true];content(&siteMapMediaId);contextClass;rendererType(code)[default='velocity'];
+;$siteUid-siteMapTemplate;$siteUid-siteMapTemplate;$siteUid-siteMapMedia;de.hybris.platform.acceleratorservices.sitemap.renderer.SiteMapContext;
+
+INSERT_UPDATE SiteMapPage;&siteMapPage;code(code)[unique=true];frequency(code)[unique=true];priority[unique=true];active[default=true]
+;Homepage;Homepage;daily;1.0;;
+;Product;Product;weekly;0.6;;
+;CategoryLanding;CategoryLanding;daily;0.9;;
+;Category;Category;daily;0.8;;
+;Store;Store;weekly;0.6;;
+;Content;Content;monthly;0.4;;
+;Custom;Custom;daily;1.0;;
+
+INSERT_UPDATE SiteMapConfig;&siteMapConfigId;configId[unique=true];siteMapLanguageCurrencies(&siteMapLanguageCurrency);siteMapPages(&siteMapPage);siteMapTemplate(&siteMapRenderer)[unique=true];customUrls;
+;$siteUidSiteMapConfig;$siteUidSiteMapConfig;$siteMapLangCur;$siteMapPage;$siteUid-siteMapTemplate;$customSiteMapUrls;
+
+# CMS Site
+INSERT_UPDATE CMSSite;uid[unique=true];theme(code);channel(code);stores(uid);contentCatalogs(id);defaultCatalog(id);defaultLanguage(isoCode);siteMapConfig(&siteMapConfigId);urlPatterns;active;previewURL;startingPage(uid,$contentCV);urlEncodingAttributes;defaultPromotionGroup(Identifier)[default=vanityfairnapkinsPromoGrp]
+;$siteUid;alpha;B2C;$storeUid;$contentCatalog;$productCatalog;$defaultLanguage;$siteUidSiteMapConfig;(?i)^https?://[^/]+(/[^?]*)?\?(.*\&)?(site=$siteUid)(|\&.*)$,(?i)^https?://$siteUid\.[^/]+(|/.*|\?.*)$,(?i)^https?://apparel\.uk\.[^/]+(|/.*|\?.*)$;true;$storefrontContextRoot/?site=$siteUid;homepage;language
+
+INSERT_UPDATE CMSSite;uid[unique=true];urlPatterns[mode=append]
+;$siteUid;(?i)^https?://$siteUid-d-$domainId[^/]+(|/.*|\?.*)$,(?i)^https?://$siteUid-q1-$domainId[^/]+(|/.*|\?.*)$,(?i)^https?://$siteUid-q2-$domainId[^/]+(|/.*|\?.*)$,(?i)^https?://.*dev.vanityfairnapkins\.[^/]+(|/.*|\?.*)$,(?i)^https?://.*qa1.vanityfairnapkins\.[^/]+(|/.*|\?.*)$,(?i)^https?://.*stg.vanityfairnapkins\.[^/]+(|/.*|\?.*)$,(?i)^https?://.*prd.vanityfairnapkins\.[^/]+(|/.*|\?.*)$,(?i)^https?://.*qa2.vanityfairnapkins\.[^/]+(|/.*|\?.*)$
+
+# Cart Cleanup CronJobs
+#Disable cart removal jobs for logged in users - YCOM-825
+#INSERT_UPDATE CartRemovalCronJob;code[unique=true];job(code)[default=cartRemovalJob];sites(uid)[default=$siteUid];sessionLanguage(isoCode)[default=en]
+#;$siteUid-CartRemovalJob
+
+# Uncollected orders cronjob
+INSERT_UPDATE UncollectedOrdersCronJob;code[unique=true];job(code)[default=uncollectedOrdersJob];sites(uid)[default=$siteUid];sessionLanguage(isoCode)[default=en]
+;$siteUid-UncollectedOrdersJob
+
+# Sitemap Generation CronJobs
+INSERT_UPDATE SiteMapMediaCronJob;code[unique=true];job(code)[default=siteMapMediaJob];contentSite(uid)[default=$siteUid];sessionLanguage(isoCode)[default=en];siteMapUrlLimitPerFile;active;
+;$siteUid-SiteMapMediaJob;;;;$siteMapUrlLimitPerFile;true;
+
+INSERT_UPDATE Trigger;cronJob(code)[unique=true];second;minute;hour;day;month;year;relative;active;maxAcceptableDelay
+#;$siteUid-CartRemovalJob;0;5;4;-1;-1;-1;false;true;-1
+;$siteUid-UncollectedOrdersJob;0;0;6;-1;-1;-1;true;false;-1
+;$siteUid-SiteMapMediaJob;0;0;6;-1;-1;-1;true;false;-1
+
+# Old Cart Removal Job for anonymous users
+INSERT_UPDATE OldCartRemovalCronJob;code[unique=true];job(code);cartRemovalAge;anonymousCartRemovalAge;sites(uid)[default=$siteUid];sessionLanguage(isoCode)[default=en]
+;oldCartRemovalCronJob;oldCartRemovalJob;;7200;;;
+
+INSERT_UPDATE Trigger;cronJob(code)[unique=true];cronExpression;active;maxAcceptableDelay
+;oldCartRemovalCronJob;0 0 4 * * ?;true;-1
+
+
+
+UPDATE CMSSite;uid[unique=true];siteConfig
+;$siteUid;"addToAffilatedMarketComm.us.b2c->true;addToMarket.us.b2c->true;addToAffilatedMarketComm.ca.b2c->false;addToMarket.ca.b2c->false;addToAffilatedMarketComm.other.b2c->false;addToMarket.other.b2c->false;default.max.product.quantity->100;root.category->categories;gp_mpQues->How frequently would you like to hear from us?;socialaggrstartdate.b2c-> ;socialaggrenddate.b2c-> ;socialaggrfeedId.b2c->travel-08efe5d2-63c3-4b99-bc32-c97c29024269;socialaggrdataPer.b2c-> ;socialaggrpages.b2c-> 2;socialaggrtruncate.b2c-> ;socialaggrgutter.b2c->20 ;socialaggrcolumns.b2c->4;socialaggrinterval.b2c-> ;socialaggrfilter.b2c-> ;socialaggrstyle.b2c->widget;socialaggdataper.b2c->4 ;socialaggroverlay.b2c-> ;isSocialEnabled->true;isSocialShareforFBEnabled->true;isSocialShareForTwitterEnabled->true;isSocialShareForLinkedInEnabled->false;isSocialShareForPinterestEnabled->true;isFavoritesEnabled->false;GTMID->GTM-TRVPTX7;google.maps.api.key->AIzaSyDk2KFvE5UgpLcYM4nVlOLSRDWqPMB1bNI;termAndCondPageLabel->/termsAndConditions;showCompanyLinks->false;showTaxExemption->false;showLiveChat->false;contactNumber.b2c->800-975-9462;gp_bvId->gppro_test;showSocialLogin->true;isDOBEnabled->false;isGenderEnabled->false;isContentIndexingEnabled->true;isBazaarVoiceEnabled->true;solr.core->master_vanityfairnapkins_ContentPage_default;showVariantProducts->falseisCallUsEnabled->true;isEmailUsEnabled->true;isPayPalEnabled->false;isSocailShareEnabled->true;isContactUsFormEnabled->false;isSupportTicketsEnabled->false;isProductCompareEnabled->false;isWriteUsEnabled->true;isProductIdEnabled->true;showInStockMsg->false;showProductFeatures->true;showProductSpecs->true;showProductResources->false;isSaveCartEnabled->false;isMultipleShippingEnabled->false;showDeliveryInstructions->false;isDinersCardAvailable->false;showProductIndicators->false;isGiftingEnabled->false;isGooglePayEnabled->false;isApplePayEnabled->false;isVariantsEnabled->true;isProductPriceEnabled->false;addToCartEnabled->false;promoTextEnabled->true;isMobileMyProfileEnabled->false;pdpLocateAStoreEnabled->true;showPoBoxShippingMsg->true;showInventoryMessages->false;isFindADistributorEnabled->false;showProductStatus->true;isQuantitySelectorEnabled->false;viewTicketsForDays->365;isFindADistributorEnabled->false;showForgotPassword->true;createAcountMoreDetailsEnabled->false;editPasswordEnabled->true;editCommPrefEnabled->true;hasTaxExemption->false;addAddressEnabled->false;deleteAddressEnabled->true;addPaymentEnabled->false;deletePaymentEnabled->false;is3DImageEnabled->true;reorderEnabled->false;addCustomAttrs->false;addToListBySku->false;downloadPrdListInfo->false;downloadListPdf->false;downloadListImage->false;downloadPdpPdf->true;downloadPdpImage->true;hasCmirCode->false;showCustomTabs->true;isFindAStoreEnabled->true;showLowInventoryMessage->true;isBazaarVoiceEnabled->true;gp_bvId->vanityfairdev;bv_feed_file_name->bv_vanityfairnapkins_ratings;showFacetCount->false;customShareWishlistEnabled->false;isBrandLogoMobile->true"

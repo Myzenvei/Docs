@@ -1,0 +1,21 @@
+.vx-star-rating {
+  .star-rating {
+    display: flex;
+  }
+  .star-container {
+    display: flex;
+    width:24px;
+    height: 24px;
+  }
+  .review-section {
+    margin-left: 5px;
+  }
+  .star-container:not(:last-child) {
+    margin-right: -5px;
+  }
+  svg {
+    height: 100%;
+    width: 100%;
+    stroke: @star-stroke;
+  }
+}

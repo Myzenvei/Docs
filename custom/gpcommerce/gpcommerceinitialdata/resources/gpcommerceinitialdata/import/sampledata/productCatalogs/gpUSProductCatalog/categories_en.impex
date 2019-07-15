@@ -1,0 +1,197 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+#******************************This file is generated - please do not edit it. It will be regenerated after every build.********************************#
+# ImpEx for Importing Categories into GP Store 
+
+# Macros / Replacement Parameter definitions
+$catalogVersion=catalogVersion(catalog(id[default='gpUSProductCatalog']),version[default='Staged'])[unique=true,default='gpUSProductCatalog:Staged']
+$productCatalog=gpUSProductCatalog
+$targetProductCV=targetVersion(catalog(id[default=$productCatalog]),version[default='Online'])
+
+# Language
+$lang=en
+
+
+# Create Categories for Dixie Food Services and Employee Store
+UPDATE Category ; code[unique=true]    ; $catalogVersion ; name[lang=$lang]      ; description[lang=$lang]
+                ; categories           ;                 ; Products              ;                        
+                ; areaofservice        ;                 ; Area of Service       ;                        
+                ; paperproducts        ;                 ; Paper Products        ;                        
+                ; dispensers           ;                 ; Dispensers            ;                        
+ #gpxpress categories
+                ; brands               ;                 ; Brands                ;                        
+                ; retailproducttypes   ;                 ; Retail Product Types  ;                        
+                ; retailbrands         ;                 ; Retail Brands         ;                        
+                ; sustainablesolutions ;                 ; Sustainable Solutions ;                        
+                ; gpxpresscategories   ;                 ; Categories            ;                        
+                ; b2b                  ;                 ; B2B                   ;                        
+                ; retail               ;                 ; Retail                ;                        
+;bundles;;Bundles;
+;cleaningsupply;;Cleaning Supplies;
+
+# Create Categories for Dixie Food Services
+UPDATE Category ; code[unique=true] ; $catalogVersion ; name[lang=$lang]              ; description[lang=$lang]
+                ; 13627             ;                 ; Air Care                      ;                        
+                ; 12957             ;                 ; Cleaning Wipes & Towels       ;                        
+                ; 10211             ;                 ; Cups, Lids & Straws           ;                        
+                ; 9375              ;                 ; Cutlery                       ;                        
+                ; 9687              ;                 ; Food Wrap, Containers & Trays ;                        
+                ; 6250              ;                 ; Napkin                        ;                        
+                ; 10474             ;                 ; Paper Towel                   ;                        
+                ; 9363              ;                 ; Plates & Bowls                ;                        
+                ; 6264              ;                 ; Hand Soap & Sanitizer         ;                        
+                ; 6183              ;                 ; Toilet Paper                  ;                        
+                ; 211               ;                 ; Back of House                 ;                        
+                ; 212               ;                 ; Front of House                ;                        
+                ; 213               ;                 ; Restroom                      ;                        
+
+# Create Categories for Employee Store
+UPDATE Category ; code[unique=true] ; $catalogVersion ; name[lang=$lang] ; description[lang=$lang]
+                ; 311               ;                 ; Toilet Paper     ;                        
+                ; 312               ;                 ; Napkins          ;                        
+                ; 313               ;                 ; Bowls            ;                        
+                ; 314               ;                 ; Plates           ;                        
+                ; 315               ;                 ; Cups             ;                        
+                ; 316               ;                 ; Paper Towels     ;                        
+                ; 317               ;                 ; Undercabinet     ;                        
+                ; 318               ;                 ; Countertop       ;                        
+                ;319;;Carpet Care;
+                ;320;;Floor Care;
+                ;321;;Kitchen Care;
+
+# Create Categories for GPXpress
+INSERT_UPDATE Category;code[unique=true];$catalogVersion;name[lang=$lang];description[lang=$lang]
+;401;;Paper Towels & Dispensers;
+;402;;Toilet Paper & Dispensers;
+;403;;Facial Tissue;
+;404;;Skin Care & Dispensers;
+;405;;Air Care;
+;406;;Cleaning Wipers & Cloths;;
+;407;;Napkins & Dispensers;;
+;408;;Plates, Platters & Bowls;;
+;409;;Cups, Lids & Straws;;
+;410;;Cutlery & Dispensers;;
+;411;;Food Packaging;;
+;412;;Jobsite Protection;;
+;413;;Parts & Accessories;;
+;414;;Bath Tissue;;
+;415;;Paper Towels;;
+;416;;Livingware;;
+;417;;Paper Napkins;;
+;418;;Home Cleaning;;
+;419;;Mxed Pallets & Shippers;;
+;420;;Archive;;
+
+;501;;Dixie®;;
+;502;;enMotion®;;
+;503;;Sparkle® Professional;;
+;504;;ActiveAire™;;
+;505;;Compact®;;
+;506;;Brawny® Professional;;
+;507;;AngelSoft® Professional;;
+;508;;Pacific Blue™;;
+;509;;CoverMax®;;
+;510;;Angel Soft®;;
+;511;;Quilted Northern®;;
+;512;;MD®;;
+;513;;Aria™;;
+;514;;Sparkle®;;
+;515;;Brawny®;;
+;516;;Vanity Fair®;;
+;517;;Mardi Gras®;;
+;518;;Stainmaster® ;;
+
+;601;;EPA Compliant;;
+;602;;Green Seal™ ;;
+;603;;USDA BioPreferred®;;
+;604;;BPI® - Biodegradable Products Institute;;
+;605;;LEED® Eligible;;
+;606;;Waste Reducing Products;;
+;607;;EcoLogo®;;
+;608;;SFI® - Sustainable Forestry Initiative;;
+;609;;Safer Choice;;
+;610;;How2Recycle®;;
+;611;;FSC® – Forest Stewardship Council;;
+
+#Cross Reference Categories
+# category names
+UPDATE Category ; code[unique=true]; $catalogVersion ;name[lang=$lang];
+;papertowels; ;Paper Towels
+;bathroomtissue; ;Bathroom Tissue
+;papernapkins; ;Paper Napkins
+;cleaningwipes; ;Cleaning Wipes
+;skincare; ;Skin Care & Soap
+;dispensersCrossReference; ;Dispensers
+#;officepaper; ;Office Paper
+#;tablecovers; ;Table Covers
+;hotcups; ;Hot Cups & Lids
+;coldcups; ;Cold Cups & Lids
+;foamcups; ;Foam Cups and Containers
+;portioncups; ;Portion Cups Dishes & Lids
+;cutlery; ;Cutlery
+;paperplatesbowls; ;Paper Plates and Bowls
+;cartonstrays; ;Cartons and Trays
+;strawsandstirrers; ;Straws and Stirrers
+
+#sub-category names
+;foldedpapertowels; ; Folded Paper Towels
+;rolltowels; ; Roll Towels
+;kitchenrolltowels; ; Kitchen Roll Towels
+;standardrolltissue; ; Standard Roll Tissue
+;jumbotissue; ; Jumbo Tissue
+;facialtissue; ; Facial Tissue
+;interfoldedtissue; ; Interfolded Tissue
+;seatcovers; ; Seat Covers
+;doublerollverticalstack; ; Double Roll, Vertical Stacked
+;doublerollhorizontal; ; Double Roll, Horizontal Stack
+;singleordoubleroll; ; Single or Double Roll Multipurpose
+;singleroll; ; Single Roll
+;dinnernapkins; ; Dinner and Luncheon Napkins
+;dispensernapkins; ; Dispenser Napkins
+;beveragenapkins; ; Beverage Napkins
+;industrialwipers; ; Industrial Wipers
+;foodservicewrapers; ; Foodservice Wipers
+;disposableductcloths; ; Disposable Dust Cloths
+;skincaredispenser; ; Skin Care Dispeners
+;papertowldispenser; ; Paper Towel Dispensers
+;tissuedispenser; ; Tissue Dispensers
+;napkindispenser; ; Napkin Dispensers
+;paperfoamhotcups; ; Paper and Foam Hot Cups
+;hotcuplids; ; Hot Cup Lids
+;hotcuplids; ; Cold Cups & Lids
+;paperfoamcoldcups; ; Paper and Foam Cold Cups
+;plasticcoldcups; ; Plastic Cold Cups
+;coldcuplids; ; Cold Cup Lids
+;drinkcarriersdispensers; ; Drink Carriers & Dispensers
+;individualcutlerypieces; ; Individual Cutlery Pieces
+;wrappedcutlery; ; Wrapped Cutlery
+;cutlerykits; ; Cutlery Kits
+;delipaper; ; Deli Papers
+;freezerbutcherpaper; ; Freezer & Butcher Paper
+;bakerypapercups; ; Bakery Papers & Cups
+;panlinersandsheets; ; Pan Liners & Pizza Sheets
+
+
+
+# Create Categories for Copper and Crane
+UPDATE Category ; code[unique=true] ; $catalogVersion ; name[lang=$lang] ; description[lang=$lang]
+                ; spa               ;                 ; Spa    ;                        
+                ; luxury-bath               ;                 ; Luxury Bath          ;                        
+                ; skin-care               ;                 ; Skin Care            ;                        
+                ; body-care               ;                 ; Body Care           ;                        
+                ; gifts               ;                 ; Gifts             ;                        
+                ; scented-candles               ;                 ; Scented Candles     ;                        
+                                
+# Create Categories for VanityFairNapkins
+UPDATE Category ; code[unique=true] ; $catalogVersion ; name[lang=$lang] ; description[lang=$lang]
+                ; everyday-collection               ;                 ; Everyday Collection     ;                        
+                ; entertain-collection               ;                 ; Entertain Collection          ;                        
+                ; extra-absorbent-napkins               ;                 ; Extra Absorbent Napkins            ;                        

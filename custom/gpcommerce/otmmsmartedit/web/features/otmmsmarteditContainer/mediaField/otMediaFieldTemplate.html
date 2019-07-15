@@ -1,0 +1,10 @@
+<div class="media-field">
+    <ot-media-selector ng-if="!ctrl.image.file"
+        data-field="ctrl.field"
+        data-model="ctrl.model"
+        data-editor="ctrl.editor"
+        data-qualifier="ctrl.qualifier">
+    </ot-media-selector>
+    <se-errors-list ng-if="ctrl.fileErrors.length > 0"
+        data-errors="ctrl.fileErrors"></se-errors-list>
+</div>

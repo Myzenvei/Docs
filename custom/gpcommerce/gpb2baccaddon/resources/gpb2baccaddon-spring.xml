@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd">
+           
+    <context:annotation-config/> 
+
+	<bean id="gpb2baccaddonCoreDataImportedEventListener" parent="abstractCoreDataImportedEventListener">
+		<property name="supportedChannels">
+			<list value-type="de.hybris.platform.commerceservices.enums.SiteChannel">
+				<value>B2B</value>
+			</list>
+		</property>
+		<property name="addonExtensionMetadata">
+			<bean class="de.hybris.platform.addonsupport.data.AddonExtensionMetadata">
+				<property name="suffixChannel" value="false"/>
+				<property name="baseExtensionName" value="gpb2baccaddon"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="gpb2baccaddonSampleDataEventListener" parent="abstractGenericAddOnSampleDataEventListener"  >
+		<property name="extensionName" value="gpb2baccaddon" />
+	</bean>
+
+	<bean id="orderReplenishmentEmailContext"
+		  class="com.gp.b2baccaddon.commerce.proccess.email.context.OrderReplenishmentEmailContext"
+		  parent="abstractEmailContext" scope="prototype">
+		<property name="scheduledCartConverter" ref="scheduledCartConverter"/>
+	</bean>
+
+
+	<!-- Process resources definition -->
+	
+	<!-- APPROVAL PROCESS -->
+	<bean id="b2bAccApprovalProcessDefinitionResource" class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+		<property name="resource" value="classpath:/gpb2baccaddon/processes/b2bAccOrderApproval.xml"/>
+	</bean>
+	
+	<bean id="orderApprovalRejectionEmailProcessDefinitionResource"
+          class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+        <property name="resource" value="classpath:/gpb2baccaddon/processes/orderApprovalRejectionEmailProcess.xml"/>
+    </bean>
+	
+	<bean id="orderPendingApprovalEmailProcessDefinitionResource"
+          class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+        <property name="resource"
+                  value="classpath:/gpb2baccaddon/processes/orderPendingApprovalEmailProcess.xml"/>
+    </bean>
+	
+	<bean id="b2b-orderCPendingApprovalEventListener"
+          class="com.gp.b2baccaddon.commerce.event.OrderPendingApprovalEventListener" parent="abstractEventListener">
+        <property name="modelService" ref="modelService"/>
+        <property name="businessProcessService" ref="businessProcessService"/>
+    </bean>
+    
+	<bean id="b2b-orderApprovalRejectionEventListener" class="com.gp.b2baccaddon.commerce.event.OrderApprovalRejectionEventListener" parent="abstractEventListener">
+        <property name="modelService" ref="modelService"/>
+        <property name="businessProcessService" ref="businessProcessService"/>
+    </bean>
+    
+    <bean id="b2b-replenishmentOrderConfirmationEventListener"
+          class="com.gp.b2baccaddon.commerce.event.ReplenishmentOrderConfirmationEventListener" parent="abstractEventListener">
+        <property name="modelService" ref="modelService"/>
+        <property name="businessProcessService" ref="businessProcessService"/>
+    </bean>
+    
+    
+	<bean id="generateB2BOrderPendingApprovalEmail"
+          class="de.hybris.platform.acceleratorservices.process.email.actions.GenerateEmailAction"
+          parent="abstractAction">
+        <property name="modelService" ref="modelService"/>
+        <property name="cmsEmailPageService" ref="cmsEmailPageService"/>
+        <property name="frontendTemplateName" value="OrderPendingApprovalEmailTemplate"/>
+		<property name="contextResolutionStrategy" ref="processContextResolutionStrategy"/>
+		<property name="emailGenerationService" ref="emailGenerationService"/>
+    </bean>
+    
+    
+    
+	<bean id="b2b-merchantApprovedEventListener"
+		  class="com.gp.b2baccaddon.commerce.event.MerchantApprovedEventListener"
+		  parent="abstractMerchantEventListener">
+		<property name="createSnapshot" value="true"/>
+	</bean>
+
+	<bean id="b2b-merchantRejectedEventListener"
+		  class="com.gp.b2baccaddon.commerce.event.MerchantRejectedEventListener"
+		  parent="abstractMerchantEventListener">
+		<property name="createSnapshot" value="true"/>
+	</bean>
+
+	<bean id="b2b-orderApprovedEventListener"
+		  class="com.gp.b2baccaddon.commerce.event.OrderApprovedEventListener"
+		  parent="abstractOrderEventListener">
+		<property name="createSnapshot" value="true"/>
+	</bean>
+
+	<bean id="b2b-orderRejectedEventListener"
+		  class="com.gp.b2baccaddon.commerce.event.OrderRejectedEventListener"
+		  parent="abstractOrderEventListener">
+		<property name="createSnapshot" value="true"/>
+	</bean>
+    
+    <!-- REPLENISHMENT PROCESSES -->
+    
+	<bean id="replenishmentOrderPlacedProcessDefinitionResource" class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+        <property name="resource" value="classpath:/gpb2baccaddon/processes/replenishmentOrderPlacedEmailProcess.xml"/>
+    </bean>
+    
+	<bean id="b2b-replenishmentOrderPlacedEventListener"
+		class="com.gp.b2baccaddon.commerce.event.ReplenishmentOrderPlacedEventListener"
+		parent="abstractEventListener">
+		<property name="modelService" ref="modelService" />
+		<property name="businessProcessService" ref="businessProcessService" />
+	</bean>
+	
+	<bean id="sendReplenishmentOrderPlacedNotification"
+		class="com.gp.b2baccaddon.commerce.actions.SendReplenishmentOrderPlacedNotification">
+		<property name="eventService" ref="eventService" />
+	</bean>
+    
+    <bean id="replenishmentOrderProcessDefinitionResource" class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+        <property name="resource" value="classpath:/gpb2baccaddon/processes/replenishmentOrderProcess.xml"/>
+	</bean>
+	
+	<bean id="replenishmentOrderConfirmationEmailProcessDefinitionResource" class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+        <property name="resource" value="classpath:/gpb2baccaddon/processes/replenishmentOrderConfirmationEmailProcess.xml"/>
+    </bean>
+
+	<!-- Process actions-->
+	<bean id="checkCreditCardOrderAction"
+		  class="com.gp.b2baccaddon.commerce.actions.CheckCreditCardOrderAction"
+		  parent="abstractSimpleB2BApproveOrderDecisionAction">
+	</bean>
+
+	<bean id="checkOrderEntryCostCentersActive"
+		  class="com.gp.b2baccaddon.commerce.actions.CheckOrderEntryCostCentersActive"
+		  parent="abstractSimpleB2BApproveOrderDecisionAction"/>
+
+	<bean id="startFulfilmentProcessAction"
+		  class="com.gp.b2baccaddon.commerce.actions.StartFulfilmentProcessAction"
+		  parent="abstractProceduralB2BOrderApproveAction">
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+
+	<bean id="auditAutoApproval"
+		  class="de.hybris.platform.b2b.process.approval.actions.SystemAuditAction"
+		  parent="abstractProceduralB2BOrderApproveAuditAction">
+		<property name="permissionResultHelper" ref="permissionResultHelper"/>
+		<property name="messageKey" value="approval.process.orderapprovedautomatically"/>
+	</bean>
+
+	<bean id="auditStartOfApproval"
+		  class="de.hybris.platform.b2b.process.approval.actions.SystemAuditAction"
+		  parent="abstractProceduralB2BOrderApproveAuditAction">
+		<property name="permissionResultHelper" ref="permissionResultHelper"/>
+		<property name="messageKey" value="approval.process.ordersubmitted"/>
+	</bean>
+
+	<bean id="startWorkflowForAdmin"
+		  class="com.gp.b2baccaddon.commerce.actions.StartWorkFlowForAdmin"
+		  parent="abstractProceduralB2BOrderApproveAction">
+		<property name="b2bWorkflowIntegrationService" ref="b2bWorkflowIntegrationService"/>
+		<property name="permissionResultHelper" ref="permissionResultHelper"/>
+		<property name="workflowProcessingService" ref="workflowProcessingService"/>
+		<property name="workflowService" ref="newestWorkflowService"/>
+		<property name="b2bUnitService" ref="b2bUnitService"/>
+		<property name="userService" ref="userService"/>
+	</bean>
+
+	<bean id="sendOrderPendingApprovalNotification"
+		  class="com.gp.b2baccaddon.commerce.actions.SendOrderPendingApprovalNotification"
+		  parent="abstractAction">
+		<property name="eventService" ref="eventService"/>
+	</bean>
+
+	<bean id="auditSubmittedToMerchantForApproval"
+		  class="de.hybris.platform.b2b.process.approval.actions.SystemAuditAction"
+		  parent="abstractProceduralB2BOrderApproveAuditAction">
+		<property name="permissionResultHelper" ref="permissionResultHelper"/>
+		<property name="messageKey" value="approval.process.submittedtomerchant"/>
+	</bean>
+    
+   <bean id="generateB2BReplenishmentOrderConfirmationEmail" class="de.hybris.platform.acceleratorservices.process.email.actions.GenerateEmailAction"  parent="abstractAction">
+        <property name="modelService" ref="modelService"/>
+        <property name="cmsEmailPageService" ref="cmsEmailPageService"/>
+        <property name="frontendTemplateName" value="ReplenishmentOrderConfirmationEmailTemplate"/>
+	   <property name="contextResolutionStrategy" ref="processContextResolutionStrategy"/>
+	   <property name="emailGenerationService" ref="emailGenerationService"/>
+    </bean>
+
+	<!-- Send rejection notification -->
+	<bean id="sendOrderApprovalRejectionNotification"
+		  class="com.gp.b2baccaddon.commerce.actions.SendOrderApprovalRejectionNotification"
+		  parent="abstractAction">
+		<property name="eventService" ref="eventService"/>
+	</bean>
+	
+	<bean id="generateB2BOrderApprovalRejectionEmail"
+          class="de.hybris.platform.acceleratorservices.process.email.actions.GenerateEmailAction"
+          parent="abstractAction">
+        <property name="modelService" ref="modelService"/>
+        <property name="cmsEmailPageService" ref="cmsEmailPageService"/>
+        <property name="frontendTemplateName" value="OrderApprovalRejectionEmailTemplate"/>
+		<property name="contextResolutionStrategy" ref="processContextResolutionStrategy"/>
+        <property name="emailGenerationService" ref="emailGenerationService"/>
+    </bean>
+    
+	<bean id="generateB2BReplenishmentOrderPlacedEmail" class="de.hybris.platform.acceleratorservices.process.email.actions.GenerateEmailAction"  parent="abstractAction">
+        <property name="modelService" ref="modelService"/>
+        <property name="cmsEmailPageService" ref="cmsEmailPageService"/>
+        <property name="frontendTemplateName" value="ReplenishmentOrderPlacedEmailTemplate"/>
+		<property name="contextResolutionStrategy" ref="processContextResolutionStrategy"/>
+        <property name="emailGenerationService" ref="emailGenerationService"/>
+    </bean>
+
+	<bean id="informOfOrderApproval"
+		  class="com.gp.b2baccaddon.commerce.actions.B2BAcceleratorInformOfOrderApproval">
+		<property name="fromAddress" value="b2b@hybris.com"/>
+		<property name="b2bEmailService" ref="b2bEmailService"/>
+	</bean>
+
+	<bean id="b2bSendOrderPlacedNotificationAction"
+		  class="com.gp.b2baccaddon.commerce.actions.SendOrderPlacedNotificationAction"
+		  parent="abstractAction">
+		<property name="eventService" ref="eventService"/>
+	</bean>
+
+	<bean id="setBookingLineEntries"
+		  class="com.gp.b2baccaddon.commerce.actions.AcceleratorBookingLineEntries"
+		  parent="abstractSimpleB2BApproveOrderDecisionAction" />
+	
+	
+
+	<bean name="cloneCartAction"
+          class="com.gp.b2baccaddon.commerce.actions.replenishment.CloneCartAction"
+          parent="abstractAction" >
+        <property name="typeService" ref="typeService"/>
+        <property name="cartService" ref="cartService"/>
+        <property name="userService" ref="userService"/>
+        <property name="guidKeyGenerator" ref="guidKeyGenerator"/>
+    </bean>
+
+    <bean name="calculateCartAction"
+          class="com.gp.b2baccaddon.commerce.actions.replenishment.CalculateCartAction"
+          parent="abstractAction" >
+        <property name="commerceCartService" ref="commerceCartService"/>
+        <property name="impersonationService" ref="impersonationService"/>
+    </bean>
+
+    <bean name="authorizePaymentAction"
+          class="com.gp.b2baccaddon.commerce.actions.replenishment.AuthorizePaymentAction"
+          parent="abstractAction" >
+        <property name="commerceCheckoutService" ref="b2bCommerceCheckoutService"/>
+        <property name="impersonationService" ref="impersonationService"/>
+    </bean>
+
+    <bean name="placeOrderAction"
+          class="com.gp.b2baccaddon.commerce.actions.replenishment.PlaceOrderAction"
+          parent="abstractAction" >
+        <property name="commerceCheckoutService" ref="b2bCommerceCheckoutService"/>
+        <property name="impersonationService" ref="impersonationService"/>
+    </bean>
+    
+    <bean name="confirmationAction"
+          class="com.gp.b2baccaddon.commerce.actions.replenishment.ConfirmationAction"
+          parent="abstractAction" >
+        <property name="eventService" ref="eventService"/>
+    </bean>
+    
+    <bean name="cleanUpClonedCartAction"
+          class="com.gp.b2baccaddon.commerce.actions.replenishment.CleanUpClonedCartAction"
+          parent="abstractAction" >
+    </bean>
+    
+	<!-- Email -->
+    <alias alias="emailContextFactory" name="acceleratorEmailContextFactory"/>
+	<bean id="acceleratorEmailContextFactory" parent="defaultEmailContextFactory">
+		<property name="contextResolutionStrategy" ref="processContextResolutionStrategy"/>
+		<property name="emailContextVariables">
+			<map merge="true">
+				<entry key="themeResourceUrl-powertools" value="{baseUrl}/_ui/{theme}"/>
+			</map>
+		</property>
+	</bean>
+    
+</beans>

@@ -1,0 +1,123 @@
+<div class="vx-order-summary-details">
+  <!-- Modal content should be replaced by copy deck. -->
+  <vx-modal ref="installableMoreInfo" size="large" :heading="i18n.installableModalHeading">
+    <div slot="component">
+      <div class="pb-xs-4">
+        {{i18n.installationServicesInfo}}
+      </div>
+      <div class="d-flex justify-content-center">
+        <button class="btn btn-primary close-button"
+          @click="$refs.installableMoreInfo.close()">{{i18n.promotionsClose}}</button>
+      </div>
+    </div>
+  </vx-modal>
+  <!-- /**  * For checkout page in mobile view toggling of order summary is not there*/-->
+  <span v-if="page === pageType.cart" tabindex="0" role="button"
+    :aria-label="orderSummaryClicked ? 'close order summary' : 'open order summary'" class="mobile-pull-up-arrow"
+    v-bind:class="{'icon-chevron-up': !orderSummaryClicked, 'icon-chevron-down': orderSummaryClicked}"
+    @keyup.enter-space="openOrderSummary($event)" @click="openOrderSummary($event)"></span>
+  <template
+    v-if="page === pageType.orderConfirmation && (globals.getIsSubscription() || orderSummaryData.isSubscription)">
+    <h2 class="mt-xs-0 mb-xs-0 mb-sm-4 order-summary-heading">{{i18n.subscriptionSummaryHeading}}</h2>
+  </template>
+  <template v-else>
+    <h2 class="mt-xs-0 mb-xs-0 mb-sm-4 order-summary-heading">{{i18n.orderSummaryHeading}}</h2>
+  </template>
+  <div v-if="page === pageType.cart && !orderSummaryClicked && isTablet()">
+    <div class="sub-total">
+      <span class="cart-calculation sub-total-label">{{i18n.totalPrice}}</span>
+      <span class="cart-calculation sub-total-value">{{orderSummaryData.totalPrice.formattedValue}}</span>
+      <div class="pb-xs-2 sub-total-helper-text">{{i18n.orderHelpingText}}</div>
+    </div>
+    <div class="section-divider"></div>
+  </div>
+  <!-- /**  * For desktop/ tablet full order details should be shown or if it is checkout page full details should be shown*/-->
+  <div
+    v-if="(orderSummaryClicked && isTablet() && page === pageType.cart) || (!isTablet()) || (page === pageType.checkout) || (page === pageType.orderConfirmation) || (page === pageType.orderDetails) || (page === pageType.orderApprovalDetails)">
+    <div class="my-xs-4 cart-total">
+      <span class="cart-calculation cart-total-label"> {{i18n.cartProductTotal}} </span>
+      <span class="cart-item-number-label ml-xs-2"
+      v-if="page !== pageType.cart && page !== pageType.orderDetails  && page !== pageType.orderConfirmation">({{orderSummaryData.totalItems}}
+      {{orderSummaryData.totalItems>1?i18n.itemLabel:i18n.itemLabelSingle}})
+    </span>
+    <span class="cart-item-number-label ml-xs-2"
+      v-if="page === pageType.orderDetails || page === pageType.orderConfirmation">({{orderSummaryData.totalProductQty}}
+      {{orderSummaryData.totalProductQty>1?i18n.itemLabel:i18n.itemLabelSingle}})
+    </span>
+      <span class="cart-calculation cart-total-value">{{orderSummaryData.subTotal.formattedValue}}</span>
+    </div>
+    <div v-if="page !== pageType.cart" class="my-xs-4 cart-total">
+      <template v-if="page === pageType.checkout && !orderSummaryData.deliveryCost && !isShippingMultiple">
+        <span class="cart-calculation cart-total-label">{{i18n.shipping}}</span>
+        <span class="cart-calculation cart-total-value">{{i18n.defaultShippingCost}}</span>
+      </template>
+      <template v-if="orderSummaryData.deliveryCost && !isShippingMultiple">
+        <span class="cart-calculation cart-total-label">{{i18n.shipping}}</span>
+        <span class="cart-calculation cart-total-value">{{orderSummaryData.deliveryCost.formattedValue}}</span>
+      </template>
+      <template v-else-if="orderSummaryData.totalDeliveryCost && isShippingMultiple">
+        <span class="cart-calculation cart-total-label">{{i18n.shipping}}</span>
+        <span class="cart-calculation cart-total-value">{{orderSummaryData.totalDeliveryCost}}</span>
+      </template>
+    </div>
+    <div class="cart-savings" v-if="orderSummaryData.totalDiscounts.value"
+      :class="orderSummaryData.priceDiscounts || orderSummaryData.promotionalDiscounts?'mb-xs-2':'mb-xs-3'">
+      <span class="cart-calculation cart-savings-label">{{i18n.totalDiscounts}}</span>
+      <span
+        class="cart-calculation cart-savings-value savings">-{{orderSummaryData.totalDiscounts.formattedValue}}</span>
+    </div>
+    <div class="mb-xs-2" v-if="orderSummaryData.priceDiscounts && orderSummaryData.priceDiscounts.value">
+      <span class="discounts-label cart-savings-label">{{i18n.priceDiscounts}}</span>
+      <span class="discounts-value"
+        v-if="orderSummaryData.priceDiscounts && orderSummaryData.priceDiscounts.formattedValue">-{{orderSummaryData.priceDiscounts.formattedValue}}</span>
+    </div>
+    <div class="mb-xs-3" v-if="orderSummaryData.promotionalDiscounts && orderSummaryData.promotionalDiscounts.value">
+      <span class="discounts-label cart-savings-label">{{i18n.promotionalDiscounts}}</span>
+      <span class="discounts-value"
+        v-if="orderSummaryData.promotionalDiscounts && orderSummaryData.promotionalDiscounts.formattedValue">-{{orderSummaryData.promotionalDiscounts.formattedValue}}</span>
+    </div>
+    <div v-if="page !== pageType.cart" class="mb-xs-3 cart-total">
+      <span class="cart-calculation cart-savings-label">{{i18n.tax}}</span>
+      <span class="cart-calculation cart-savings-value">{{orderSummaryData.totalTax.formattedValue}}</span>
+    </div>
+    <template v-if="page !== pageType.cart">
+      <div v-if="isGiftable && !globals.isEmployeeStore()" class="order-helper-text pb-xs-3">{{i18n.gift}}
+        <a :href="globals.getUrlWithContextPath(globals.navigations['learnMore'])">{{i18n.learnMore}}</a>
+      </div>
+      <div v-if="isInstallable" class="order-helper-text pb-xs-3">{{i18n.install}}
+        <p>
+          <a @click="openInstallationModal">{{i18n.learnMore}}</a>
+        </p>
+      </div>
+    </template>
+    <template
+      v-if="page === pageType.checkout || page === pageType.orderConfirmation || page === pageType.orderDetails">
+      <div v-if="globals.getIsSubscription() || orderSummaryData.isSubscription" class="order-helper-text pb-xs-3">
+        {{i18n.subscribeHelpText}}
+        <br><a :href="globals.getUrlWithContextPath(globals.navigations['learnMore'])">{{i18n.learnMore}}</a>
+      </div>
+    </template>
+    <div class="section-divider"></div>
+    <div class="mb-xs-3 sub-total">
+      <span class="cart-calculation pt-xs-4 sub-total-label">{{i18n.totalPrice}}</span>
+      <span v-if="page !==pageType.cart"  class="cart-calculation pt-xs-3 sub-total-value">
+        {{orderSummaryData.totalPriceWithTax.formattedValue}}</span>
+      <span v-else
+        class="cart-calculation pt-xs-3 sub-total-value">{{orderSummaryData.totalPrice.formattedValue}}</span>
+      <div v-if="page === pageType.cart " class="sub-total-helper-text">{{i18n.orderHelpingText}}</div>
+    </div>
+    <template v-if="page === pageType.cart">
+      <div class="my-xs-4 shipping-progress-wrapper"
+        v-if="orderSummaryData.potentialOrderPromotions && orderSummaryData.potentialOrderPromotions.length !== 0">
+        <div class="pb-xs-2 shipping-progress-helper-text">
+          {{orderSummaryData.potentialOrderPromotions[0].description}}
+        </div>
+        <div class="progress shipping-progress">
+          <div class="progress-bar progress-bar-success" role="progressbar"
+            v-bind:style="getProgressbarStyle(orderSummaryData)"></div>
+        </div>
+        <div class="section-divider"></div>
+      </div>
+    </template>
+  </div>
+</div>

@@ -1,0 +1,68 @@
+
+.create-account {
+  h1 {
+    font-size: 24px;
+  }
+  .password-instruction,
+  .market-communication,
+  .affliated-communication,
+  .terms-and-conditions,
+  a {
+    font-size: 12px;
+  }
+  #mailerText + label,
+  .terms-and-conditions,
+  .password-instruction {
+    color: @font-icon-color-2;
+  }
+  .market-communication {
+    margin-bottom: 20px;
+  }
+  .display-password {
+    float: right;
+    cursor: pointer;
+  }
+  .b2b-sub-heading {
+    font-size: @font-size-medium;
+    font-weight: @font-weight-medium;
+  }
+  .error-msg,
+  .error-icon {
+    color: @font-color-error;
+  }
+
+  .icon-eye {
+    color: @font-icon-color-3;
+    font-size: @font-size-large+8;
+  }
+  .toggle-password {
+    cursor: pointer;
+    float: right;
+    position: relative;
+    bottom: 35px;
+    right: 12px;
+  }
+  .gp-express {
+    font-size: @font-size-small;
+  }
+  .month-checkbox{
+    width: 48%;
+    display: inline-block;
+    float: none;
+  }
+  .date-checkbox{
+    width: 48%;
+    display: inline-block;
+    float: right;
+  }
+  @media only screen and (max-width: 767px) {
+    .form-control,
+    .submit {
+      width: 100%;
+      height: 40px;
+    }
+    .register-heading {
+      font-size: @font-size-h4;
+    }
+  }
+}

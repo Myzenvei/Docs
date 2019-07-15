@@ -1,0 +1,56 @@
+#gp-employee {
+  .login-right-content-slot {
+    display: none;
+  }
+  .registration-and-login-sign-in {
+    padding: 32px 0 48px 0;
+    background-color: @card-layout-bg-color;
+    border-radius: @card-layout-border-radius;
+    & > form {
+      max-width: 300px;
+      margin: 0 auto;
+    }
+    .b2c-heading {
+      text-align: center;
+      text-transform: uppercase;
+      font-weight: @font-weight-bold;
+    }
+    .has-feedback {
+      margin-bottom: 8px !important;
+    }
+    .mt-xs-4.mb-xs-3:not(.form-group) {
+      text-align: center;
+      display: block;
+      margin-top: 0px !important;
+    }
+    .btn-block {
+      width: 230px;
+      margin: 0 auto;
+      & + p {
+        padding-top: 16px !important;
+        text-align: center;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: @screen-xs-max) {
+  #gp-employee {
+    .registration-and-login-sign-in {
+      padding: 32px 0 0 0;
+      & > form {
+        padding: 0 20px;
+        max-width: 100%;
+        .form-group:first-child {
+          margin-top: 4px !important;
+        }
+      }
+      .form-control {
+        height: 48px;
+      }
+      .b2c-heading {
+        font-size: 24px;
+      }
+    }
+  }
+}

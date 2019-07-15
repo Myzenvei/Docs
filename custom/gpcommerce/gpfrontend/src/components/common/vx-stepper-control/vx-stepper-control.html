@@ -1,0 +1,18 @@
+<div class="form-group stepper-control">
+  <div class="input-group">
+    <button aria-label='decrement' :disabled="(counter == '' || counter == 1 || counter === minValue) || isDisabled" class="btn input-group-btn decrement-count px-xs-0 py-xs-0"
+      @click="decrementCount">
+      <span class="icon-minus"></span>
+    </button>
+    <!-- <input type="number" v-if="!isIEBrowser()" :min="minValue" v-model.number="counter" aria-label="Stepper Value"
+      class="px-xs-0" /> -->
+    <input type="text" :min="minValue" :disabled="isDisabled" v-model="counter" aria-label="Stepper Value" class="px-xs-0" />
+    <button aria-label='increment' :disabled="(counter >= maxValue) || isDisabled" class="btn input-group-btn increment-count px-xs-0 py-xs-0"
+      @click="incrementCount">
+      <span class="icon-plus"></span>
+    </button>
+  </div>
+  <div aria-live="assertive" class="assistive-text" aria-atomic="true">
+    Stepper Value {{counter}}
+  </div>
+</div>

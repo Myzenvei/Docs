@@ -1,0 +1,92 @@
+.vx-brand-bar {
+  padding: 32px 64px;
+  background-size: cover;
+  &__header {
+    text-align: center;
+    font-weight: @font-weight-medium;
+    // border-bottom: 1px solid @border-color;
+    align-self: center; //to override the alpha responsive css
+    display: inline-block;
+  }
+  &__brands {
+    width: 100%;
+    .vx-brand-bar__brand-link {
+      width: 20%;
+      padding: 40px;
+    }
+  }
+  &__cta {
+    width: 16.66%;
+    min-width: 200px;
+    font-weight: @font-weight-regular;
+    align-self: center;
+  }
+
+  .title-underline {
+    display: none;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /**Theming**/
+  &.brand-bar-white {
+    background-color: @brand-secondary-4;
+    h3 {
+      color: @brand-secondary-5;
+      font-size: 40px;
+      padding: 0 !important;
+      margin-bottom: 15px !important;
+      border-bottom: 0;
+    }
+    .vx-brand-bar__brands {
+      .vx-brand-bar__brand-link {
+        padding: 10px;
+        margin-right: 10px;
+      }
+    }
+  }
+  &.brand-bar-grey {
+    background-color: @brand-bar-background-color;
+    h3 {
+      color: @brand-secondary-5;
+      font-size: 40px;
+      padding: 0 !important;
+      margin-bottom: 15px !important;
+      border-bottom: 0;
+    }
+    .vx-brand-bar__brands {
+      .vx-brand-bar__brand-link {
+        padding: 10px;
+        margin-right: 10px;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: @screen-sm-max) {
+  .vx-brand-bar {
+    padding: 32px 0px;
+    &__header {
+      font-size: @font-size-h4;
+      font-weight: @font-weight-regular;
+    }
+    &__brands {
+      .vx-brand-bar__brand-link {
+        width: 20%;
+        padding: 24px;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: @screen-xs-max) {
+  .vx-brand-bar {
+    padding: 16px;
+    .vx-brand-bar__brands {
+      .vx-brand-bar__brand-link {
+        padding: 32px 16px;
+        width: 33.33%;
+      }
+    }
+  }
+}

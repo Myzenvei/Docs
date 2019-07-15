@@ -1,0 +1,32 @@
+
+
+
+#Before executing this impexes, please pay attention on comments which describe all of them. You may need change some of them according to your needs
+#Do not forget to change catalog name according to your catalog
+#After executing this impexes for STAGED catalog version, do not forget to execute them for ONLINE
+
+
+
+#SEARCH RESULT PAGE
+$contentCatalog=electronicsContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+
+#override searchResultListPage
+INSERT_UPDATE PageTemplate;$contentCV[unique=true];uid[unique=true];frontendTemplateName
+;;SearchResultsListPageTemplate;addon:/bazaarvoice/pages/search/bazaarvoiceSearchListPage
+
+#create new BazaarSearchResultsList component for searchResultPage. Set it to SearchResultsListSlot. Please, pay attantion on actions, add actions according to your need!
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;BazaarSearchResultsList;Bazaar Search Result List Component;/WEB-INF/views/addons/bazaarvoice/responsive/cms/bazaarvoiceSearchResultsListComponent.jsp;ListPickUpInStoreAction,ListAddToCartAction;BazaarSearchResultsList
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(&componentRef)
+;;SearchResultsListSlot;BazaarSearchResultsList
+
+#override searchResultGridPage
+INSERT_UPDATE PageTemplate;$contentCV[unique=true];uid[unique=true];frontendTemplateName
+;;SearchResultsGridPageTemplate;addon:/bazaarvoice/pages/search/bazaarvoiceSearchGridPage
+
+#create new BazaarSearchResultsGrid component for searchResultPage. Set it to SearchResultsGridSlot. Please, pay attantion on actions, add actions according to your need!
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;BazaarSearchResultsGrid;Bazaar Search Result Grid Component;/WEB-INF/views/addons/bazaarvoice/responsive/cms/bazaarvoiceSearchResultsGridComponent.jsp;ListPickUpInStoreAction,ListAddToCartAction;BazaarSearchResultsGrid
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(&componentRef)
+;;SearchResultsGridSlot;BazaarSearchResultsGrid

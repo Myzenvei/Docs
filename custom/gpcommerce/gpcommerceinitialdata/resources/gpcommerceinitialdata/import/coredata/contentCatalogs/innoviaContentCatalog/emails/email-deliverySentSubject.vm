@@ -1,0 +1,5 @@
+#if(!${ctx.order.isSubscription})
+${ctx.messages.getMessage('emailSubject', ${ctx.baseSite.name}, ${ctx.order.code})}
+#else
+${ctx.messages.getMessage('subscriptionEmailSubject', ${ctx.order.code})}
+#end

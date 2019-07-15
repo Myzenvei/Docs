@@ -1,0 +1,104 @@
+<div class="vx-multiple-shipping-method">
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen></vx-spinner>
+  <template v-if="dataLoaded">
+    <div v-if="isEditable">
+      <div v-for='(deliveryGroup,index) in shippingMethodDetails.deliveryGroup' :key="deliveryGroup.key">
+        <!-- Commented since this is not part of R1. YCOM-9285 -->
+        <!-- <p class="section-info-text mb-xs-4 mt-xs-3" tabindex="0" role="text">{{i18n.deliveryMessage}}
+          {{selectedShippingMethod[index].deliveryDetails}}
+        </p> -->
+        <div>
+          <p class="section-sub-heading mb-xs-2">{{i18n.heading1}} {{index + 1}}</p>
+          <p class="address-details mb-xs-2">{{deliveryGroup.value.splitEntries[0].deliveryAddress.firstName}}
+            {{deliveryGroup.value.splitEntries[0].deliveryAddress.lastName}}
+          </p>
+          <p class="address-details mb-xs-2" v-if="deliveryGroup.value && deliveryGroup.value.splitEntries && deliveryGroup.value.splitEntries.length!==0 && deliveryGroup.value.splitEntries[0] && deliveryGroup.value.splitEntries[0].deliveryAddress && deliveryGroup.value.splitEntries[0].deliveryAddress.companyName">{{deliveryGroup.value.splitEntries[0].deliveryAddress.companyName}}</p>
+          <p class="address-details mb-xs-2">{{deliveryGroup.value.splitEntries[0].deliveryAddress.line1}}</p>
+          <p class="address-details mb-xs-2">{{deliveryGroup.value.splitEntries[0].deliveryAddress.line2}}</p>
+          <p class="address-details mb-xs-2">
+            {{deliveryGroup.value.splitEntries[0].deliveryAddress.town}} {{deliveryGroup.value.splitEntries[0].deliveryAddress.region.isocodeShort}}
+            {{deliveryGroup.value.splitEntries[0].deliveryAddress.postalCode}}
+          </p>
+          <p class="address-details mb-xs-2">{{deliveryGroup.value.splitEntries[0].deliveryAddress.country.isocode}}</p>
+          <p class="address-details mb-xs-2" v-if="deliveryGroup.value && deliveryGroup.value.splitEntries && deliveryGroup.value.splitEntries.length!==0 && deliveryGroup.value.splitEntries[0] && deliveryGroup.value.splitEntries[0].deliveryAddress && deliveryGroup.value.splitEntries[0].deliveryAddress.userId && globals.getIsLoggedIn()">{{deliveryGroup.value.splitEntries[0].deliveryAddress.userId.split('|')[0]}}</p>
+          <p class="address-details mb-xs-2" v-if="deliveryGroup.value && deliveryGroup.value.splitEntries && deliveryGroup.value.splitEntries.length!==0 && deliveryGroup.value.splitEntries[0] && deliveryGroup.value.splitEntries[0].deliveryAddress && deliveryGroup.value.splitEntries[0].deliveryAddress.userId && !globals.getIsLoggedIn()">{{deliveryGroup.value.splitEntries[0].deliveryAddress.userId.split('|')[1]}}</p>
+          <p class="address-details">{{deliveryGroup.value.splitEntries[0].deliveryAddress.phone}}</p>
+        </div>
+        <hr class="divider mt-sm-5 mb-xs-3 mt-xs-4">
+        <vx-accordion is-slot-based opened>
+          <span slot="heading" class='bold-heading'>Products
+            ({{getProductCount(deliveryGroup)}})</span>
+          <vx-product-tile slot="component" v-for='productEntry in deliveryGroup.value.splitEntries'>
+            <template v-if="formattedEntries && formattedEntries[productEntry.entryNumber] && formattedEntries[productEntry.entryNumber].product && formattedEntries[productEntry.entryNumber].product.images && formattedEntries[productEntry.entryNumber].product.images.length!==0 && formattedEntries[productEntry.entryNumber].product.images[2] && formattedEntries[productEntry.entryNumber].product.images[2].url"
+              slot="image-slot">
+              <img :src="globals.getThumbnailImageUrl(formattedEntries[productEntry.entryNumber].product.images)" :alt="formattedEntries[productEntry.entryNumber].product.images[2].altText"
+                tabindex="0">
+            </template>
+            <template v-if="!formattedEntries[productEntry.entryNumber].product.images" slot="image-slot">
+              <img :src="globals.assetsPath + 'images/no_image.svg'" alt="No Image">
+            </template>
+            <template slot="product-icons-slot">
+              <vx-product-icons v-if="formattedEntries[productEntry.entryNumber].product.productIcons" :product-icons="formattedEntries[productEntry.entryNumber].product.productIcons" :i18n="i18n.productIconsTitle"></vx-product-icons>
+            </template>
+            <template slot="details">
+              <p class="product-title mb-xs-2">
+                <a :href="globals.getNavigationUrl('empty')+formattedEntries[productEntry.entryNumber].product.url" v-html="formattedEntries[productEntry.entryNumber].product.name"></a>
+              </p>
+              <p class="product-code mb-xs-3 item-id">{{i18n.itemId}}
+                {{formattedEntries[productEntry.entryNumber].product.code}}
+              </p>
+              <p class="product-price mb-xs-3">
+                <span class="product-current-price"><span class="sr-only">Current price</span>{{formattedEntries[productEntry.entryNumber].basePrice.formattedValue}}</span>
+                <span class="product-old-price" v-if="formattedEntries[productEntry.entryNumber].product.weblistPrice">
+                  <span class="sr-only">Slashed price</span>
+                  <strike>{{formattedEntries[productEntry.entryNumber].product.weblistPrice.formattedValue}}</strike>
+                </span>
+              </p>
+              <p class="product-quantity mb-xs-2 mb-sm-3">{{i18n.quantity}}: {{productEntry.qty}}
+              </p>
+              <p class="product-stock mb-xs-2 mb-sm-3" v-if="formattedEntries[productEntry.entryNumber].product.stock.stockLevelStatus != ProductAvailability.IN_STOCK && formattedEntries[productEntry.entryNumber].product.stock.stockLevelStatus != ProductAvailability.LOW_STOCK">{{formattedEntries[productEntry.entryNumber].product.stock.stockLevelStatus}}</p>
+              <p v-if="formattedEntries[productEntry.entryNumber].promotion" class="product-promo mb-xs-2 mb-sm-0" role="text">{{i18n.promo}}:
+                {{formattedEntries[productEntry.entryNumber].promotion}}
+              </p>
+            </template>
+            <template slot="right-section-slot">
+              <!-- <p class="product-discount mb-xs-2">-{{formattedEntries[productEntry.entryNumber].totalPrice.formattedValue}}</p> -->
+              <p class="product-discount" v-if="formattedEntries[productEntry.entryNumber] && formattedEntries[productEntry.entryNumber].splitEntries && formattedEntries[productEntry.entryNumber].splitEntries.length === 1 && formattedEntries[productEntry.entryNumber].productPromotion && formattedEntries[productEntry.entryNumber].productPromotion.value && (formattedEntries[productEntry.entryNumber].productPromotion.value != discount.discountZero)"
+                :aria-label="'discount '+formattedEntries[productEntry.entryNumber].productPromotion.formattedValue" tabindex="0"
+                role="text">-{{formattedEntries[productEntry.entryNumber].productPromotion.formattedValue}}</p>
+              <p class="product-total-price mb-xs-0" v-if="productEntry && productEntry.price && productEntry.price.formattedValue" :aria-label="'total price '+productEntry.price.formattedValue"
+                >{{productEntry.price.formattedValue}}</p>
+            </template>
+          </vx-product-tile>
+        </vx-accordion>
+        <p class="method-section-heading mt-xs-4 mb-xs-2">{{i18n.heading}}</p>
+        <vx-dropdown-primary ref="deliveryMethodDropdown" :dropdownValues="createDeliveryMethodArray(deliveryGroup.value.deliveryModes.deliveryModes)"
+          @selected-item="handleSelected($event,index)" @primaryDropdownMounted="handleDefault(index)"></vx-dropdown-primary>
+        <template v-if="!globals.isDixie() && !globals.isEmployeeStore()">
+          <p class="method-section-heading mt-xs-4 mb-xs-2" :aria-hidden='!isTablet()'>{{i18n.delivery}}</p>
+          <textarea maxlength="1024" v-model="selectedShippingMethod[index].instructions" :aria-label='i18n.delivery'></textarea>
+          <div class="section-info-text mb-sm-3 d-flex justify-content-end">
+            <span class="pr-xs-2" v-text="(1024 - selectedShippingMethod[index].instructions.length)"></span>
+            <span>{{i18n.deliveryCharacterCount}}</span>
+          </div>
+      </template>
+      </div>
+      <div class="mt-xs-4 mt-sm-3">
+        <button @click="saveMultipleMethod($event)" class="save-method btn btn-primary">{{i18n.multipleSaveButton}}</button>
+      </div>
+    </div>
+    <div v-else class="row mt-xs-4">
+      <div v-for='(deliveryGroup,index) in shippingMethodDetails.deliveryGroup' :key="deliveryGroup.key" class="saved-shipping-method col-xs-12 col-sm-6"
+        tabindex="0" role="text">
+        <p class="section-sub-heading mb-xs-2">{{i18n.heading}} {{index + 1}}</p>
+        <p class="section-text mb-xs-3 mb-sm-4">{{selectedShippingMethod[index].label}}</p>
+        <p class="section-sub-heading mb-xs-2">{{i18n.quantity}}</p>
+        <p class="section-text mb-xs-3 mb-sm-4">{{getProductCount(deliveryGroup)}}</p>
+        <p v-if="selectedShippingMethod[index].instructions" class="section-sub-heading mb-xs-2">{{i18n.deliveryInstruction}}</p>
+        <p v-if="selectedShippingMethod[index].instructions" class="section-text mb-xs-3 delivery-message">{{selectedShippingMethod[index].instructions}}</p>
+        <!-- <p class="section-info-text">{{i18n.deliveryMessage}} {{selectedShippingMethod[index].deliveryDetails}} -->
+        </p>
+      </div>
+    </div>
+  </template>
+</div>

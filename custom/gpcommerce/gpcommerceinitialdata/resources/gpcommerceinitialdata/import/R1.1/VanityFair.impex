@@ -1,0 +1,298 @@
+
+
+##########################################  email-content.impex VanityFair          ############################################
+INSERT_UPDATE EmailPageTemplate ; $contentCV[unique=true] ; uid[unique=true]               ; name                                    ; active ; frontendTemplateName   ; subject(code)                                ; htmlTemplate(code)                        ; restrictedPageTypes(code)
+
+                                ;                         ; OrderIssuesNotifyEmailTemplate ; Order Issues Notification EmailTemplate ; true   ; orderIssuesNotifyEmail ; vanityfair_Email_Order_Issues_Notify_Subject ; vanityfair_Email_Order_Issues_Notify_Body ; EmailPage                
+
+
+UPDATE EmailPageTemplate ; $contentCV[unique=true] ; uid[unique=true]               ; velocityTemplate[translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                         ;                         ; OrderIssuesNotifyEmailTemplate ; $jarEmailResource/structure-view/structure_shareOrderIssuesEmailTemplate.vm                          
+
+
+INSERT_UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]       ; name                           ; masterTemplate(uid,$contentCV) ; defaultPage ; approvalStatus(code)[default='approved'] ; fromEmail[lang=en]          ; fromName[lang=en]     
+
+                        ;                         ; OrderIssuesNotifyEmail ; Order Issue Notification Email ; OrderIssuesNotifyEmailTemplate ; true        ;                                          ; customerservices@hybris.com ; Customer Services Team
+
+INSERT_UPDATE RendererTemplate ; code[unique=true]                            ; contextClass                                    ; rendererType(code)[default='velocity']
+                               ; vanityfair_Email_Order_Issues_Notify_Body    ; $emailPackageName.OrderIssuesNotificationContext
+                               ; vanityfair_Email_Order_Issues_Notify_Subject ; $emailPackageName.OrderIssuesNotificationContext
+
+UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]       ; previewImage(code, $contentCV)
+                 ;                         ; OrderIssuesNotifyEmail ; EmailPageModel_preview        
+
+                 
+##########################################  email-content_en.impex VanityFair          ############################################
+
+UPDATE RendererTemplate ; code[unique=true]                            ; description[lang=$lang]          ; templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+
+                        ; vanityfair_Email_Order_Issues_Notify_Body    ; "Order Issues Notification BOdy" ; $jarEmailResource/email-orderIssuesNotificationBody.vm                                                        
+                        ; vanityfair_Email_Order_Issues_Notify_Subject ; "Order Issues Notification BOdy" ; $jarEmailResource/email-orderIssuesNotificationSubject.vm                                                     
+                        
+UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]       ; fromEmail[lang=$lang]                ; fromName[lang=$lang]    
+                 ;                         ; OrderIssuesNotifyEmail ; "customerservices@b2bwhitelabel.com" ; "Customer Services Team"
+
+
+
+
+##########################################  site.impex  Vanity Fair        ############################################
+
+$productCatalog=gpUSProductCatalog
+$contentCatalog=vanityfairContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$defaultLanguage=en
+$storeUid=vanityfair
+$siteUid=vanityfair
+$webServiceSiteUid=$siteUidWS
+$siteMapUrlLimitPerFile=50000
+$storefrontContextRoot=/gpcommercestorefront
+$siteMapLangCur=enUsd
+$siteMapPage=Homepage,Product,CategoryLanding,Category,Store,Content,Custom
+$customSiteMapUrls=/Categories/c/categories?q=:relevance:allPromotions:BOGOFApparel:allPromotions:10DiscountShoes:allPromotions:MultiBuyApparel:allPromotions:PerfectPartnerApparel:allPromotions:ProductBundleApparel,/Categories/Streetwear-youth/T-Shirts-youth/c/270100?q=%3Arelevance%3Abrand%3ABurton%3AswatchColors%3ABLACK&text=#,/Categories/Accessories/c/220000?q=%3Arelevance%3Abrand%3AQuiksilver%3AswatchColors%3AGREEN&text=#,/Brands/Fox/c/Fox?q=%3Arelevance%3AswatchColors%3ABLACK%3Agender%3AMALE,/Categories/Snowwear-women/Snow-Jackets-women/c/200100?q=%3Arelevance%3AswatchColors%3ABLACK%3Abrand%3AWLD
+
+# Import config properties into impex macros
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+# Import modulegen config properties into impex macros
+$jarResource=$config-jarResource
+
+# SiteMap Configuration
+INSERT_UPDATE SiteMapLanguageCurrency;&siteMapLanguageCurrency;language(isoCode)[unique=true];currency(isocode)[unique=true];
+;enUsd;en;USD;
+
+INSERT_UPDATE CatalogUnawareMedia;&siteMapMediaId;code[unique=true];realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];mime[default='text/plain']
+;$siteUid-siteMapMedia;$siteUid-siteMapMedia;siteMapTemplate.vm;$jarResource/site-siteMapTemplate.vm;
+INSERT_UPDATE RendererTemplate ; &siteMapRenderer         ; code[unique=true]        ; content(&siteMapMediaId) ; contextClass                                                           ; rendererType(code)[default='velocity'] ;  
+                               ; $siteUid-siteMapTemplate ; $siteUid-siteMapTemplate ; $siteUid-siteMapMedia    ; de.hybris.platform.acceleratorservices.sitemap.renderer.SiteMapContext ;                                        
+
+
+##########################################  site-responsive.impex  Vanity Fair        ############################################
+$productCatalog=gpUSProductCatalog
+$contentCatalog=vanityfairContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$defaultLanguage=en
+$storeUid=vanityfair
+$siteUid=vanityfair
+$domainId=www.srv.gapac.com
+$webServiceSiteUid=$siteUidWS
+$siteMapUrlLimitPerFile=50000
+$storefrontContextRoot=/gpcommercestorefront
+$siteMapLangCur=enUsd
+$siteMapPage=Homepage,Product,CategoryLanding,Category,Store,Content,Custom
+$customSiteMapUrls=/Categories/c/categories?q=:relevance:allPromotions:BOGOFApparel:allPromotions:10DiscountShoes:allPromotions:MultiBuyApparel:allPromotions:PerfectPartnerApparel:allPromotions:ProductBundleApparel,/Categories/Streetwear-youth/T-Shirts-youth/c/270100?q=%3Arelevance%3Abrand%3ABurton%3AswatchColors%3ABLACK&text=#,/Categories/Accessories/c/220000?q=%3Arelevance%3Abrand%3AQuiksilver%3AswatchColors%3AGREEN&text=#,/Brands/Fox/c/Fox?q=%3Arelevance%3AswatchColors%3ABLACK%3Agender%3AMALE,/Categories/Snowwear-women/Snow-Jackets-women/c/200100?q=%3Arelevance%3AswatchColors%3ABLACK%3Abrand%3AWLD
+
+# Remove black and blue themes for responsive
+REMOVE SiteTheme;code[unique=true]
+;black
+;blue
+
+# Import config properties into impex macros
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+# Import modulegen config properties into impex macros
+$jarResource=$config-jarResource
+
+# SiteMap Configuration
+INSERT_UPDATE SiteMapLanguageCurrency;&siteMapLanguageCurrency;language(isoCode)[unique=true];currency(isocode)[unique=true];
+;enUsd;en;USD;
+
+INSERT_UPDATE CatalogUnawareMedia;&siteMapMediaId;code[unique=true];realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];mime[default='text/plain']
+;$siteUid-siteMapMedia;$siteUid-siteMapMedia;siteMapTemplate.vm;$jarResource/site-siteMapTemplate.vm;
+
+INSERT_UPDATE RendererTemplate ; &siteMapRenderer         ; code[unique=true]        ; content(&siteMapMediaId) ; contextClass                                                           ; rendererType(code)[default='velocity'] ;  
+                               ; $siteUid-siteMapTemplate ; $siteUid-siteMapTemplate ; $siteUid-siteMapMedia    ; de.hybris.platform.acceleratorservices.sitemap.renderer.SiteMapContext ;                                        
+INSERT_UPDATE SiteMapConfig;&siteMapConfigId;configId[unique=true];siteMapLanguageCurrencies(&siteMapLanguageCurrency);siteMapPages(&siteMapPage);siteMapTemplate(&siteMapRenderer)[unique=true];customUrls;
+;$siteUidSiteMapConfig;$siteUidSiteMapConfig;$siteMapLangCur;$siteMapPage;$siteUid-siteMapTemplate;$customSiteMapUrls;
+
+# CMS Site
+INSERT_UPDATE CMSSite;uid[unique=true];theme(code);channel(code);stores(uid);contentCatalogs(id);defaultCatalog(id);defaultLanguage(isoCode);siteMapConfig(&siteMapConfigId);urlPatterns;active;previewURL;startingPage(uid,$contentCV);urlEncodingAttributes;defaultPromotionGroup(Identifier)[default=vanityfairmoGrp]
+;$siteUid;alpha;B2C;$storeUid;$contentCatalog;$productCatalog;$defaultLanguage;$siteUidSiteMapConfig;(?i)^https?://[^/]+(/[^?]*)?\?(.*\&)?(site=$siteUid)(|\&.*)$,(?i)^https?://$siteUid\.[^/]+(|/.*|\?.*)$,(?i)^https?://apparel\.uk\.[^/]+(|/.*|\?.*)$;true;$storefrontContextRoot/?site=$siteUid;homepage;language
+
+INSERT_UPDATE CMSSite;uid[unique=true];urlPatterns[mode=append]
+;$siteUid;(?i)^https?://$siteUid-d-$domainId[^/]+(|/.*|\?.*)$,(?i)^https?://$siteUid-q1-$domainId[^/]+(|/.*|\?.*)$,(?i)^https?://$siteUid-q2-$domainId[^/]+(|/.*|\?.*)$
+
+UPDATE CMSSite ; uid[unique=true] ; siteConfig                             
+               ; $siteUid         ; "addToAffilatedMarketComm.us.b2c->true ; addToMarket.us.b2c->true ; addToAffilatedMarketComm.ca.b2c->false ; addToMarket.ca.b2c->false ; addToAffilatedMarketComm.other.b2c->false ; addToMarket.other.b2c->false ; default.max.product.quantity->100 ; root.category->categories ; gp_mpQues->How frequently would you like to hear from us? ; socialaggrstartdate.b2c-> ; socialaggrenddate.b2c-> ; socialaggrfeedId.b2c->travel-08efe5d2-63c3-4b99-bc32-c97c29024269 ; socialaggrdataPer.b2c-> ; socialaggrpages.b2c-> 2 ; socialaggrtruncate.b2c-> ; socialaggrgutter.b2c->20 ; socialaggrcolumns.b2c->4 ; socialaggrinterval.b2c-> ; socialaggrfilter.b2c-> ; socialaggrstyle.b2c->widget ; socialaggroverlay.b2c-> ; isSocialEnabled->true ; isSocialShareforFBEnabled->true ; isSocialShareForTwitterEnabled->true ; isSocialShareForLinkedInEnabled->false ; isSocialShareForPinterestEnabled->true ; isFavoritesEnabled->false ; GTMID->GTM-TRVPTX7 ; google.maps.api.key->AIzaSyDk2KFvE5UgpLcYM4nVlOLSRDWqPMB1bNI ; termAndCondPageLabel->/termsAndConditions ; bv_feed_file_name->bv_angelsoft_ratings ; isDOBEnabled->false ; isGenderEnabled->false"
+
+
+##########################################  solr.impex  Vanity Fair        ############################################
+$productCatalog=gpUSProductCatalog
+$catalogVersions=catalogVersions(catalog(id),version);
+$facetSearchConfigName=vanityfairIndex
+$facetSearchConfigDescription=VanityFair Solr Index
+$searchIndexNamePrefix=vanityfair
+$solrIndexedType=vanityfairProductType
+$indexBaseSite=vanityfair
+$indexLanguages=en
+$indexCurrencies=USD
+
+$solrServerUrl=$config-solrServerUrl
+
+
+
+
+# Import config properties into impex macros
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+$solrServerUrl=$config-solrServerUrl                                                                       
+
+#                                                                                                          
+# Setup the indexed types, their properties, and the update queries                                        
+#                                                                                                          
+
+# Removes old http endpoints                                                                               
+REMOVE SolrEndpointUrl ; solrServerConfig(name)[unique=true] ; url[unique=true]           
+                       ; Default                             ; https://localhost:8983/solr
+
+
+# Updates the endpoints for the Solr server configurations
+INSERT_UPDATE SolrEndpointUrl ; solrServerConfig(name)[unique=true] ; url[unique=true] ; master
+                              ; Default                             ; $solrServerUrl   ; true  
+                              
+#                             
+# Setup the indexed types, their properties, and the update queries
+#                             
+
+# Declare the indexed type Product
+INSERT_UPDATE SolrIndexedType ; identifier[unique=true] ; type(code) ; variant ; sorts(&sortRefID)         
+                              ; $solrIndexedType        ; PriceRow    ; false   ; sortRef1,sortRef2,sortRef3,sortRef4
+
+INSERT_UPDATE SolrFacetSearchConfig ; name[unique=true]      ; description                   ; indexNamePrefix        ; languages(isocode) ; currencies(isocode) ; solrServerConfig(name) ; solrSearchConfig(description) ; solrIndexConfig(name) ; solrIndexedTypes(identifier) ; enabledLanguageFallbackMechanism ; $catalogVersions                             
+                                    ; $facetSearchConfigName ; $facetSearchConfigDescription ; $searchIndexNamePrefix ; $indexLanguages    ; $indexCurrencies    ; Default                ; Default                       ; Default               ; $solrIndexedType             ; true                             ; $productCatalog:Online,$productCatalog:Staged
+
+UPDATE BaseSite ; uid[unique=true] ; solrFacetSearchConfiguration(name)
+                ; $indexBaseSite   ; $facetSearchConfigName            
+
+# Define price range set
+INSERT_UPDATE SolrValueRangeSet ; name[unique=true] ; qualifier ; type   ; solrValueRanges(&rangeValueRefID)                                                                    
+                                ; gpRatingsRangeUSD ; USD       ; double ; rangeRefRatings1,rangeRefRatings2,rangeRefRatings3,rangeRefRatings4,rangeRefRatings5,rangeRefRatings6
+
+# Declare the indexed type Product
+INSERT_UPDATE SolrIndexedType ; identifier[unique=true] ; type(code) ; variant ; sorts(&sortRefID)                  
+                              ; $solrIndexedType        ; PriceRow   ; false   ; sortRef1,sortRef2,sortRef3,sortRef4
+# Define the available sorts   
+INSERT_UPDATE SolrSort ; &sortRefID ; indexedType(identifier)[unique=true] ; code[unique=true] ; useBoost
+                       ; sortRef1   ; $solrIndexedType                     ; relevance         ; true    
+                       ; sortRef2   ; $solrIndexedType                     ; price-asc         ; false   
+                       ; sortRef3   ; $solrIndexedType                     ; price-desc        ; false    
+                       ; sortRef4   ; $solrIndexedType                     ; numberOfReviews-desc   ; false                        
+
+# Define price ranges           
+INSERT_UPDATE SolrValueRange ; &rangeValueRefID ; solrValueRangeSet(name)[unique=true] ; name[unique=true] ; from   ; to    
+                             ; rangeRefUSD1     ; gpPriceRangeUSD                      ; $0-$19.99         ; 0      ; 19.99 
+                             ; rangeRefUSD2     ; gpPriceRangeUSD                      ; $20-$49.99        ; 19.99  ; 49.99 
+                             ; rangeRefUSD3     ; gpPriceRangeUSD                      ; $50-$99.99        ; 49.99  ; 99.99 
+                             ; rangeRefUSD4     ; gpPriceRangeUSD                      ; $100-$199.99      ; 99.99  ; 199.99
+                             ; rangeRefUSD5     ; gpPriceRangeUSD                      ; $200-$299.99      ; 199.99 ; 299.99
+                             ; rangeRefUSD6     ; gpPriceRangeUSD                      ; $300-$399.99      ; 299.99 ; 399.99
+                             ; rangeRefUSD7     ; gpPriceRangeUSD                      ; $400-$499.99      ; 399.99 ; 499.99
+                             ; rangeRefUSD8     ; gpPriceRangeUSD                      ; $500-$599.99      ; 499.99 ; 599.99
+                             ; rangeRefUSD9     ; gpPriceRangeUSD                      ; $600-$699.99      ; 599.99 ; 699.99
+                             ; rangeRefUSD10    ; gpPriceRangeUSD                      ; $700-$799.99      ; 699.99 ; 799.99
+                             ; rangeRefUSD11    ; gpPriceRangeUSD                      ; $800-$899.99      ; 799.99 ; 899.99
+                             ; rangeRefUSD12    ; gpPriceRangeUSD                      ; $900-$999.99      ; 899.99 ; 999.99
+                             ; rangeRefUSD13    ; gpPriceRangeUSD                      ; $1,000-$100,000   ; 999.99 ; 100000
+                             ; rangeRefUSD14    ; gpPriceRangeUSD                      ; $100,000-$400,000 ; 100000 ; 400000
+                             ; rangeRefRatings6 ; gpRatingsRangeUSD                    ; 0 Stars & Up      ; 0      ; 0.99  
+                             ; rangeRefRatings5 ; gpRatingsRangeUSD                    ; 1 Star & Up       ; 1      ; 1.99  
+                             ; rangeRefRatings4 ; gpRatingsRangeUSD                    ; 2 Stars & Up      ; 2      ; 2.99  
+                             ; rangeRefRatings3 ; gpRatingsRangeUSD                    ; 3 Stars & Up      ; 3      ; 3.99  
+                             ; rangeRefRatings2 ; gpRatingsRangeUSD                    ; 4 Stars & Up      ; 4      ; 4.99  
+                             ; rangeRefRatings1 ; gpRatingsRangeUSD                    ; 5 Stars           ; 5.00   ; 5.00  
+
+INSERT_UPDATE SolrIndexedProperty;solrIndexedType(identifier)[unique=true];name[unique=true];type(code);sortableType(code);currency[default=false];localized[default=false];multiValue[default=false];useForSpellchecking[default=false];useForAutocomplete[default=false];fieldValueProvider;valueProviderParameters[map-delimiter=|];ftsPhraseQuery[default=false];ftsPhraseQueryBoost;ftsQuery[default=false];ftsQueryBoost;ftsFuzzyQuery[default=false];ftsFuzzyQueryBoost;ftsWildcardQuery[default=false];ftsWildcardQueryType(code)[default=POSTFIX];ftsWildcardQueryBoost;ftsWildcardQueryMinTermLength
+
+; $solrIndexedType                         ; originalCode           ; text       ;                    ;                         ;                          ;                           ; TRUE                               ; TRUE                              ; gpProductOriginalSKUValueProvider                ;                                          ;                               ;                     ; TRUE                    ; 90            ;                              ;                    ; TRUE                            ; POSTFIX                                     ; 45                    ; 3                            
+; $solrIndexedType                         ; startDate          	  ; string     ;                    ;                         ;                          ;                           ; 	                                  ;                                   ; gpProductPriceRowDateValueProvider                ;                                          ;                               ;                     ; TRUE                    ; 90            ;                              ;                    ; TRUE                            ; POSTFIX                                     ; 45                    ; 3                            
+; $solrIndexedType                         ; endDate                ; string     ;                    ;                         ;                          ;                           ;                             	      ;                                   ; gpProductPriceRowEndDateValueProvider                ;                                          ;                               ;                     ; TRUE                    ; 90            ;                              ;                    ; TRUE                            ; POSTFIX                                     ; 45                    ; 3                            
+; $solrIndexedType                         ; usergroup              ; string     ;                    ;                         ;                          ;                           ;                                    ;                                   ; gpProductPriceUserGroupValueProvider                  ;                                          ;                               ;                     ;                         ;               ;                              ;                    ;                                 ;                                             ;                       ;                              
+; $solrIndexedType                         ; channel                ; string     ;                    ;                         ;                          ;                           ;                                    ;                                   ; gpProductPriceChannelValueProvider                  ;                                          ;                               ;                     ;                         ;               ;                              ;                    ;                                 ;                                             ;                       ;                              
+; $solrIndexedType                         ; salePrice              ; boolean    ;                    ;                         ;                          ;                           ;                                    ;                                   ; gpProductSalePriceValueProvider                     ;                                          ;                               ;                     ;                         ;               ;                              ;                    ;                                 ;                                             ;                       ;                              
+
+
+
+# Category facets                 
+INSERT_UPDATE SolrIndexedProperty ; solrIndexedType(identifier)[unique=true] ; name[unique=true] ; type(code) ; multiValue[default=true] ; facet[default=true] ; facetType(code) ; facetSort(code) ; priority ; visible ; categoryField[default=true] ; fieldValueProvider                       ; facetDisplayNameProvider         ; topValuesProvider       
+; $solrIndexedType                         ; categoryPath      ; string     ;                          ;                     ; MultiSelectOr   ; Alpha           ; -9999    ; false   ; false                       ; categoryPathValueProvider                ;                                  
+; $solrIndexedType                         ; category          ; string     ;                          ;                     ; MultiSelectOr   ; Alpha           ; 6000     ; true    ;                             ; gpCategoryCodeValueProvider              ; categoryFacetDisplayNameProvider ; defaultTopValuesProvider
+; $solrIndexedType                         ; areaofservice     ; string     ;                          ;                     ; MultiSelectOr   ; Alpha           ; 6000     ; true    ;                             ; gpAreaOfServiceCategoryCodeValueProvider ; categoryFacetDisplayNameProvider ; defaultTopValuesProvider
+
+
+# Other facet properties          
+INSERT_UPDATE SolrIndexedProperty ; solrIndexedType(identifier)[unique=true] ; name[unique=true] ; type(code) ; sortableType(code) ; currency[default=false] ; localized[default=false] ; multiValue[default=false] ; facet[default=true] ; facetType(code) ; facetSort(code) ; priority ; visible ; useForSpellchecking[default=false] ; useForAutocomplete[default=false] ; fieldValueProvider                      ; facetDisplayNameProvider          ; customFacetSortProvider   ; topValuesProvider        ; rangeSets(name)
+   ; $solrIndexedType                         ; price             ; double     ;                    ; true                    ;                          ;                           ;                     ; MultiSelectOr   ; Alpha           ; 4000     ; true    ;                                    ;                                   ; gpVolumeAwareProductPriceValueProvider               ;                                   ;                           ; defaultTopValuesProvider ; gpPriceRangeUSD
+                        ; rating            ; double     ;                    ; true                  ;                          ;                           ;                     ; MultiSelectOr   ; Alpha           ; 3000     ; true    ;                                    ;                                   ; gpBazaarvoiceRatingRangeValueProvider               ;                                   ;                           ; defaultTopValuesProvider ; gpRatingsRangeUSD
+  # ; $solrIndexedType                         ; style             ; string     ;                    ;                         ; true                     ;                           ;                     ; MultiSelectOr   ; Alpha           ; -1       ; false   ;                                    ;                                   ; optionalModelPropertyFieldValueProvider ;                                   ;                           ;                          
+  # ; $solrIndexedType                         ; swatchColors      ; string     ;                    ;                         ;                          ; true                      ;                     ; MultiSelectOr   ; Alpha           ; 2500     ; true    ;                                    ;                                   ; colorFacetValueProvider                 ; colorFacetDisplayNameProvider     ;                           ;                          
+ #  ; $solrIndexedType                         ; size              ; string     ;                    ;                         ; true                     ;                           ;                     ; MultiSelectOr   ; Custom          ; 2000     ; true    ;                                    ;                                   ; optionalModelPropertyFieldValueProvider ;                                   ; sizeAttributeSortProvider ;                          
+ #  ; $solrIndexedType                         ; allPromotions     ; string     ;                    ; false                   ;                          ; true                      ;                     ; MultiSelectOr   ; Alpha           ; 0        ; false   ;                                    ;                                   ; promotionCodeValueProvider              ; promotionFacetDisplayNameProvider ;                           ;                          
+
+
+
+
+INSERT_UPDATE SolrIndexerQuery ; solrIndexedType(identifier)[unique=true] ; identifier[unique=true]            ; type(code) ; injectCurrentDate[default=true] ; injectCurrentTime[default=true] ; injectLastIndexTime[default=true] ; query ; user(uid)
+                               ; $solrIndexedType                         ; $searchIndexNamePrefix-fullQuery   ; full       ;                                 ;                                 ; false                             ; "     
+SELECT {price:pk} FROM {GPCommerceProduct AS p join Site2Product as rel on {p.pk}={rel.target} join CMSSite as site on {site:pk} = {rel:source} JOIN PRICEROW as price on {price:product} = {p:pk}} WHERE  {site:uid} = 'vanityfair' AND ({p:materialStatus} in ({{select {ms:pk} from {MaterialStatusEnum as ms} where {ms:code} != 'OBSOLETE'}}) OR {p:code} IN (
+               {{
+                              SELECT DISTINCT {sl:productCode} FROM {StockLevel AS sl} WHERE {sl:available} > 0 AND ({sl:available} - {sl:reserved} > 0) AND {sl:inStockStatus} not in ({{ select {ins:pk} from {INSTOCKSTATUS as ins} where {ins:code} = 'forceOutOfStock'}})
+               }})) and ((to_char({price:starttime},'yyyy-MM-dd') <= to_char(NOW(),'yyyy-MM-dd')  or {price:starttime} is null) and (to_char({price:endtime},'yyyy-MM-dd') >= to_char(NOW(),'yyyy-MM-dd') or {price:endtime} is null))
+"                              ; admin                                
+                               ; $solrIndexedType                         ; $searchIndexNamePrefix-updateQuery ; update     ;                                 ;                                 ;                                   ; "     
+SELECT {price:pk}   AS pk, {p:code} AS code, {p:materialStatus} as materialStatus FROM {GPCommerceProduct! AS p  JOIN PRICEROW as price on {price:product} = {p:pk}} WHERE ({p:code} IN (
+       {{                           
+                    SELECT DISTINCT {sl:productCode} FROM {StockLevel AS sl} WHERE {sl:modifiedtime} >= ?lastIndexTime
+       }}) or {price:modifiedtime} >= ?lastIndexTime)
+and {p:pk} in ({{SELECT {p:PK} FROM {GPCommerceProduct AS p join Site2Product as rel on {p.pk}={rel.target} join CMSSite as site on {site:pk} = {rel:source}} WHERE {site:uid}='vanityfair'}}) AND
+({p:materialStatus} in ({{select {ms:pk} from {MaterialStatusEnum as ms} where {ms:code} != 'OBSOLETE'}}) OR {p:code} IN (
+       {{                           
+             SELECT DISTINCT {sl:productCode} FROM {StockLevel AS sl} WHERE {sl:available} > 0 AND ({sl:available} - {sl:reserved} > 0) AND {sl:inStockStatus} not in ({{ select {ins:pk} from {INSTOCKSTATUS as ins} where {ins:code} = 'forceOutOfStock'}})
+       }})) and ((to_char({price:starttime},'yyyy-MM-dd') <= to_char(NOW(),'yyyy-MM-dd')  or {price:starttime} is null) and (to_char({price:endtime},'yyyy-MM-dd') >= to_char(NOW(),'yyyy-MM-dd') or {price:endtime} is null))                        
+ORDER BY {p:code}              
+"                              ; admin               
+                               ; $solrIndexedType                         ; $searchIndexNamePrefix-deleteQuery   ; delete       ;                                 ;                                 ; false                             ; "     
+SELECT DISTINCT {price:pk} FROM {GPCommerceProduct AS p join Site2Product as rel on {p.pk}={rel.target} join CMSSite as site on {site:pk} = {rel:source} JOIN PRICEROW as price on {price:product} = {p:pk}} WHERE {site:uid} = 'vanityfair' and ({p:materialStatus} in ({{select {ms:pk} from {MaterialStatusEnum as ms} where {ms:code} = 'OBSOLETE'}})
+AND {p:code} IN 
+	({{
+			SELECT DISTINCT {sl:productCode} FROM {StockLevel AS sl} WHERE {sl:available} = 0 or ({sl:available} - {sl:reserved} = 0) or {sl:inStockStatus} in ({{ select {ins:pk} from {INSTOCKSTATUS as ins} where {ins:code} = 'forceOutOfStock'}})
+	}})) or (to_char({price:starttime},'yyyy-MM-dd') > to_char(NOW(),'yyyy-MM-dd')) or (to_char({price:endtime},'yyyy-MM-dd') < to_char(NOW(),'yyyy-MM-dd'))
+"                              ; admin                                
+
+
+# Define the available sorts   
+INSERT_UPDATE SolrSort ; &sortRefID ; indexedType(identifier)[unique=true] ; code[unique=true] ; useBoost 
+                       ; sortRef4   ; $solrIndexedType                     ; numberOfReviews-desc   ; false                        
+INSERT_UPDATE SolrSortField ; sort(indexedType(identifier),code)[unique=true] ; fieldName[unique=true] ; ascending[unique=true]
+                                    
+                            ; $solrIndexedType:numberOfReviews-desc           ; reviewAvgRating 	   ; false
+                     		; $solrIndexedType:numberOfReviews-desc           ; numberOfReviews		   ; false                  
+
+
+INSERT_UPDATE SolrSearchQueryProperty ; indexedProperty(name, solrIndexedType(identifier))[unique=true] ; searchQueryTemplate(name, indexedType(identifier))[unique=true][default=DEFAULT:$solrIndexedType] ; facet ; ftsPhraseQuery[default=false] ; ftsPhraseQueryBoost ; ftsQuery[default=false] ; ftsQueryBoost ; ftsFuzzyQuery[default=false] ; ftsFuzzyQueryBoost ; ftsWildcardQuery[default=false] ; ftsWildcardQueryType(code)[default=POSTFIX] ; ftsWildcardQueryBoost ; ftsWildcardQueryMinTermLength ; includeInResponse[default=true] ; useForHighlighting[default=false]
+
+; originalCode:$solrIndexedType                                   ;             
+                     ; startDate:$solrIndexedType                                      ;                                                                                                   ;       ;                               ;                     ;                         ;               ;                              ;                    ;                                 ;                                             ;                       ;                               ;                                 ;                                                                                                  
+                     ; endDate:$solrIndexedType                                        ;                                                                                                   ;       ;                               ;                     ;                         ;               ;                              ;                    ;                                 ;                                             ;                       ;                               ;                                 ;                                                                                                  
+                     ; channel:$solrIndexedType                                        ;                                                                                                   ;       ;                               ;                     ;                         ;               ;                              ;                    ;                                 ;                                             ;                       ;                               ;                                 ;                                                                                                  
+
+
+# Category search query facets        
+INSERT_UPDATE SolrSearchQueryProperty ; indexedProperty(name, solrIndexedType(identifier))[unique=true] ; searchQueryTemplate(name, indexedType(identifier))[unique=true][default=DEFAULT:$solrIndexedType] ; facet[default=true] ; facetType(code) ; includeInResponse[default=true] ; facetDisplayNameProvider         ; facetSortProvider       ; facetTopValuesProvider
+                                      ; areaofservice:$solrIndexedType                                  ;                                                                                                   ;                     ; MultiSelectOr   ;                                 ; categoryFacetDisplayNameProvider ; defaultTopValuesProvider
+# Other search query facets           
+INSERT_UPDATE SolrSearchQueryProperty ; indexedProperty(name, solrIndexedType(identifier))[unique=true] ; facet[default=true] ; facetType(code) ; priority ; facetDisplayNameProvider      ; facetSortProvider         ; facetTopValuesProvider   ; includeInResponse[default=true] ; searchQueryTemplate(name, indexedType(identifier))[unique=true][default=DEFAULT:$solrIndexedType]
+                                      ; rating:$solrIndexedType                                          ;                     ; MultiSelectOr   ; 3000     ;                               ;                           ; defaultTopValuesProvider ;                                 ;
+                                    #  ; style:$solrIndexedType                                          ;                     ; MultiSelectOr   ; -1       ;                               ;                           ;                          ;                                 ;                                                                                                  
+                                   #   ; swatchColors:$solrIndexedType                                   ;                     ; MultiSelectOr   ; 2500     ; colorFacetDisplayNameProvider ;                           ;                          ;                                 ;                                                                                                  
+                                     # ; size:$solrIndexedType                                           ;                     ; MultiSelectOr   ; 2000     ;                               ; sizeAttributeSortProvider ;                          ;                                 ;                                                                                                  
+
+
+
+##########################################  solr_en.impex  Vanity Fair        ############################################
+# Index Type
+$solrIndexedType=vanityfairProductType
+
+# Language
+$lang=en
+
+UPDATE SolrIndexedProperty;solrIndexedType(identifier)[unique=true];name[unique=true];displayName[lang=$lang]
+ ;$solrIndexedType;rating;"Ratings"
+
+UPDATE SolrSort;indexedType(identifier)[unique=true];code[unique=true];name[lang=$lang]
+ ;$solrIndexedType;numberOfReviews-desc;"Average Rating"

@@ -1,0 +1,460 @@
+##messageSource=classpath:/gpcommerceinitialdata/import/coredata/contentCatalogs/b2cwhitelabelContentCatalog/messages/email-shareCart_$lang.properties
+#macro(genHtmlLinkStartTag $url)
+<a href="$url">
+  <font color="#666666">
+    #end
+    #macro(genHtmlLinkEndTag)
+  </font>
+</a>
+#end
+#macro(genHtmlLink $url $textColor $bodyContent)
+<a href="$url">
+  <font color="$textColor">$bodyContent</font>
+</a>
+#end
+<html lang="en">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="format-detection" content="telephone=no">
+  <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=no;">
+  <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
+  <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,700" rel="stylesheet" />
+<head>
+  <title>Share cart Email</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      color: #222222;
+      font-family: 'Gotham A', 'Gotham B', Helvetica, Roboto, Arial;
+      font-size: 14px;
+      line-height: 24px;
+      margin: 0px;
+    }
+
+    .header-banner {
+      height: 72px;
+    }
+
+    .header-banner img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .brand-logo {
+      width: 84px;
+      height: 87px;
+      margin-left: 56px;
+      margin-top: -50px;
+    }
+
+    .brand-logo img {
+      height: 100%;
+      width: 100%;
+    }
+
+    .footer {
+      padding-left: 56px;
+      padding-right: 32px;
+      height: 64px;
+      background-color: #FAFAFA;
+      border-top: 1px solid #DFDFDF;
+    }
+
+    .follow {
+      padding-top: 23px;
+      font-weight: 500;
+      width: 10%;
+      float: left;
+      margin: 0px;
+    }
+
+    .icons {
+      padding-top: 16.5px;
+      width: 50%;
+      float: left;
+      margin: 0px;
+    }
+
+    .social-icons {
+      padding-left: 25px;
+    }
+
+    .social-icons img {
+      height: 30px;
+      width: 31px;
+    }
+
+    .copyright-text {
+      padding-top: 20px;
+      font-weight: 300;
+      text-align: right;
+      width: 35%;
+      float: left;
+      margin: 0px;
+    }
+
+    a {
+      color: #005293;
+      text-decoration: none;
+    }
+
+    .header-total {
+      font-size: 16px;
+      padding-top: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #CECECE;
+    }
+
+    .tile-container {
+      padding: 40px 56px 0 56px;
+    }
+
+    .subtotal-container {
+      padding: 19px 56px 32px 56px;
+    }
+
+    .product-tile {
+      border-bottom: 1px solid #CECECE;
+      padding: 24px 0;
+    }
+
+    .product-img {
+      width: 10%
+    }
+
+    .product-img img {
+      padding: 10px 4px;
+      border: 0.5px solid #CECECE;
+      height: 80px;
+      width: 80px;
+    }
+
+    .product-details {
+      width: 90%;
+      padding-left: 20px;
+    }
+
+    .price-quantity,
+    .product-final-price,
+    .cart-button,
+    .subtotal,
+    .subtotal-price,
+    .final-cart-button {
+      width: 33%;
+      display: inline-block;
+    }
+
+    .cart-button td,
+    .product-final-price td,
+    .subtotal-price td,
+    .final-cart-button td {
+      float: right;
+    }
+
+    .final-cart-button button {
+      width: 208px;
+    }
+
+    @media (max-width: 1119px) {
+      .product-img {
+        width: 15%
+      }
+
+      .product-details {
+        width: 80%
+      }
+
+      .product-final-price,
+      .subtotal-price {
+        width: 25%;
+      }
+
+      .cart-button,
+      .final-cart-button {
+        width: 40%
+      }
+    }
+
+    @media (max-width: 767px) {
+      .header-banner {
+        height: 56px;
+      }
+
+      .brand-logo {
+        display: none;
+      }
+
+      .email-content {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+
+      .footer {
+        height: 168px;
+        padding-left: 24px;
+      }
+
+      .follow {
+        padding-top: 22px;
+        width: 100%;
+      }
+
+      .icons {
+        padding-top: 13.5px;
+        width: 100%;
+      }
+
+      .social-icons {
+        padding-right: 19px;
+        padding-left: 0px;
+      }
+
+      .copyright-text {
+        padding-top: 23.5px;
+        text-align: left;
+        padding-right: 0px;
+        padding-left: 0px;
+        width: 100%;
+      }
+
+      .header-total {
+        font-size: 14px;
+        padding-top: 24px;
+        padding-bottom: 8px;
+        border: none;
+      }
+
+      .tile-container {
+        padding: 32px 16px 0 16px;
+      }
+
+      .subtotal-container {
+        padding: 20px 16px 24px 16px;
+      }
+
+      .product-tile {
+        padding: 16px 16px 24px 16px;
+        border: 1px solid #CECECE;
+        margin-top: 16px;
+
+      }
+
+      .product-img {
+        width: 8%;
+        position: relative;
+        top: -70px;
+      }
+
+      .product-img img {
+        padding: 9px 3px;
+        border: 0.5px solid #CECECE;
+        height: 72px;
+        width: 72px;
+      }
+
+      .product-details {
+        width: 90%
+      }
+
+      .price-quantity,
+      .product-final-price,
+      .cart-button {
+        width: 100%;
+        display: block;
+      }
+
+      .product-final-price td {
+        float: left;
+      }
+
+      .cart-button td {
+        padding-top: 24px;
+        float: left;
+        width: 100%;
+        display: block;
+      }
+
+      .subtotal,
+      .subtotal-price {
+        width: 50%;
+        display: inline-block;
+      }
+
+      .final-cart-button {
+        padding-top: 24px;
+        width: 100%;
+        display: block;
+      }
+
+      .final-cart-button td {
+        float: left;
+        width: 100%;
+        display: block;
+      }
+
+      .final-cart-button button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body
+  style="-webkit-text-size-adjust: none; -ms-text-size-adjust: none; text-size-adjust: none; margin: 0; padding: 0; width: 100%;">
+  <table cellspacing="0" cellpadding="0" align="center" border="0" width="800" bgcolor="#ffffff"
+    style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 800px;">
+    <tr>
+      <td valign="top" align="left" width="100%"
+        style="border-collapse: collapse; font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif;">
+        <table cellspacing="0" cellpadding="0" align="left" border="0" width="100%"
+          style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+          <tr>
+            <td valign="top" align="left" width="100%" height="73px"
+              style="border-collapse: collapse; font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif;">
+              <a href="${ctx.baseUrl}">${ctx.cmsSlotContents.SiteLogo}</a>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table> 
+  <table cellspacing="0" cellpadding="0" align="center" border="0" width="700" bgcolor="#ffffff" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 700px;">
+    <tr>
+      <td class="tile-container">
+        <table cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
+          <tr>
+            #if($ctx.displayName.contains("|"))
+            <td style="font-size: 21px; color: #222222; font-weight: 300;">
+              ${ctx.messages.getMessage('headsUp',
+              $ctx.displayName.substring(0,$ctx.displayName.lastIndexOf("|")).trim())}
+            </td>
+            #else
+            <td style="font-size: 21px; color: #222222; font-weight: 300;">
+              ${ctx.messages.getMessage('headsUp', $ctx.displayName)}
+            </td>
+            #end
+          </tr>
+          <tr>
+            <td style="color: #222222; font-weight: 500; text-align: left;">
+              &nbsp;
+            </td>
+            
+          </tr>
+        </table>
+        <!-- product tile. Repeat this to add multiple products-->
+
+        #foreach( $entry in ${ctx.cartData.entries} )
+        <table cellspacing="0" cellpadding="0" align="center" border="0" width="700" bgcolor="#ffffff"
+        style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 700px;">
+        <tr>
+          <td valign="top" align="left" width="100%" class="py-3"
+            style="padding-top: 16px; padding-bottom: 16px;font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif; ">
+            <table class="border-all" cellspacing="0" cellpadding="0" align="left" border="0" width="100%"
+              style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; border: 1px solid #cecece;">
+              <tr>
+                <td valign="top" align="left" colspan="4" class="border-top"
+                  style=" border-top: 1px solid #cecece; border-collapse: collapse; font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif;">
+                  <table cellspacing="0" cellpadding="0" align="center" width="100%" bgcolor="#ffffff"
+                    style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+                    <tr>
+                      <td align="center"
+                        style="width:22%; padding-right:10px; padding-left:20px; padding-top: 24px; padding-bottom: 24px; font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif; ">
+                        #foreach($image in $entry.product.images)
+                        #if($image.imageType == "PRIMARY" && $image.format == "thumbnail" )
+                        <div
+                          style="margin:0; border-top: 1px solid #cecece; border-left: 1px solid #cecece;border-right: 1px solid #cecece;border-bottom: 1px solid #cecece;">
+                          <img src="$image.url" alt="" title="$entry.product.name"
+                            style="text-decoration: none; -ms-interpolation-mode: bicubic; margin: 0; padding: 0; line-height: 1.428571429; display: block; outline: none;"
+                            width="130" height="130" />
+                        </div>
+                        #end
+                        #end
+                      </td>
+                      <td align="center" valign="top" class="py-4 pl-4"
+                        style="text-align:left;padding-right:24px; padding-left:0px; padding-top: 24px; padding-bottom: 24px; font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif; ">
+                        <table cellspacing="0" cellpadding="0" align="center" width="100%" bgcolor="#ffffff"
+                          style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+                          <tr>
+                            <td
+                              style="font-size: 14px;font-weight: 500;width:100%; padding:0px; font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif; ">
+                              <a class="txt-regular txt-weight-bold " href="${ctx.secureBaseUrl}$entry.product.url"
+                                style="color:#222222;font-size: 14px;font-weight: 500; display: block; text-decoration: none; outline: none; border: none;">
+                                $entry.product.name
+                              </a>
+                            </td>
+                            <td style="display:none;">
+                              &nbsp;
+                            </td>
+                          </tr>
+                          <tr>
+                            <td style="font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif; ">
+                              <p class="txt-weight-regular txt-item-color txt-regular"
+                                style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #747678; font-weight: 400; font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif; ">
+                                ${ctx.messages.productId} $entry.product.code | ${ctx.messages.productCMIR}</p>
+                            </td>
+                            <td>
+                              &nbsp;
+                            </td>
+                          </tr>
+                          <tr>
+                        #if($entry.product.materialStatus == "OBSOLETE" && $entry.product.replacementProductCode && $entry.product.replacementProductCode !="" )
+                        <td style="font-size: 14px;font-family: 'Poppins',Lato, Helvetica, Arial, Verdana, sans-serif;">
+							  <p class="txt-regular txt-weight-regular txt-item-color"
+								style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #e42610; font-weight: 400; font-family: 'Poppins',Lato, Helvetica, Arial, Verdana,sans-serif;">
+								${ctx.messages.getMessage('discontinuedAndReplaced',$entry.product.replacementProductCode)}
+							  </p>
+                        </td>
+                        #else
+							#if($entry.product.materialStatus == "OBSOLETE" && !$entry.product.replacementProductCode)
+							<td style="font-size: 14px;font-family: 'Poppins',Lato, Helvetica, Arial, Verdana, sans-serif;">
+							  <p class="txt-regular txt-weight-regular txt-item-color"
+								style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #e42610; font-weight: 400; font-family: 'Poppins',Lato, Helvetica, Arial, Verdana,sans-serif;">
+								${ctx.messages.discontinued}
+							  </p>
+							</td>
+							#elseif($entry.product.materialStatus == "COMING_SOON" &&  !$entry.product.replacementProductCode)
+							<td style="font-size: 14px;font-family: 'Poppins',Lato, Helvetica, Arial, Verdana, sans-serif;">
+							  <p class="txt-regular txt-weight-regular txt-item-color"
+								style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #222222; font-weight: 400; font-family: 'Poppins',Lato, Helvetica, Arial, Verdana,sans-serif;">
+								${ctx.messages.comingSoon}
+							  </p>
+							</td>
+							#end
+                        #end
+                        <td>
+                          &nbsp;
+                        </td>
+                      </tr>
+                          <tr>
+                            <td style="font-family: 'Poppins',lato, Helvetica, Arial, Verdana, sans-serif; ">
+                              <p class="txt-regular txt-default-color txt-weight-regular">${ctx.messages.productQuantity}:
+                                $entry.quantity</p>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+      #end
+      </td>
+    </tr>
+  </table>
+  <!-- product tile ends -->
+
+  <table cellspacing="0" cellpadding="0" align="center" border="0" width="800" bgcolor="#ffffff"
+    style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 800px;">
+    <tr>
+      <td style="display: block; width: 100%; padding-top:24px; ">
+        <a href="${ctx.baseUrl}" style="display:block; margin:0px;">${ctx.cmsSlotContents.BottomContent}</a>
+      </td>
+    </tr>
+  </table>
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+<section class="vx-shopping-cart row">
+  <vx-modal ref="shareCartModal" size="extra-small" :heading="i18n.shareListHeading">
+    <vx-share-cart slot="component" type="modal" :cart-id="shoppingCartData.guid" :i18n="i18n" @share-success="handleShareCartSuccess"
+      @share-error="handleShareCartError"></vx-share-cart>
+  </vx-modal>
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>
+  </vx-spinner>
+  <vx-modal ref="saveCartModal" size="extra-small" :heading="i18n.saveListHeading">
+    <vx-save-cart slot="component" :cart-guid="shoppingCartData.guid" :i18n="i18n" @list-saved="handleListSaved"></vx-save-cart>
+  </vx-modal>
+  <template v-if="guestListName">
+    <vx-save-cart :i18n="i18n" :cart-guid="shoppingCartData.guid" @list-saved="handleListSaved" :guest-list-name="guestListName">
+    </vx-save-cart>
+  </template>
+  <div class="mt-xs-4 mt-sm-5 mt-md-3 cart-heading-container">
+    <div>
+    <h5 v-if="giveAwayCouponDescription" class="pt-md-2 pt-sm-0 pb-xs-3 my-xs-0">{{giveAwayCouponDescription}}</h5>
+    </div>
+    <div class="shopping-cart-heading">
+      <h1 class="cart-heading">{{i18n.shoppingCartHeading}}</h1>
+      <span class="item no-of-cart-items">({{shoppingCartData.totalItems}}
+        <span v-if="shoppingCartData.totalItems === 1">{{i18n.item}}</span>
+        <span v-else>{{i18n.items}}</span>)</span>
+    </div>
+  </div>
+  <div class="col-xs-12 pt-xs-4 px-xs-0 mb-sm-0 mb-xs-4 cart-id-container">
+    <span class="cart-id">{{i18n.cartId}}: {{shoppingCartData.code}}</span>
+    <span class="shift-right">
+      <span class="save-cart pr-xs-4" v-if="globals.siteConfig.isSaveCartEnabled">
+        <span class="cart-icons icon-add-to-list" :title="i18n.iconAddToListTitle" :aria-label='i18n.iconAddToListTitle'
+          tabindex="0" @click="handleSaveACart($event)" role="link" @keyup.enter-space='handleSaveACart($event)' v-if="!globals.isEmployeeStore()"></span>
+      </span>
+      <span class="share-cart">
+        <span class="cart-icons icon-share" :title="i18n.iconShareTitle" :aria-label='i18n.iconShareTitle' tabindex="0"
+          v-on:click="openShareCartModal($event)" role="link" @keyup.enter-space='openShareCartModal($event)'></span>
+      </span>
+    </span>
+  </div>
+  <div class="col-xs-12 product-tile">
+    <vx-cart-product-tile v-for="product in individualProducts" v-if="product.visible" v-bind:key="product.product.code"
+      :promotion-data="promotionData" :product-data="product" :is-b2b-lease="customerLeaseable" :i18n="i18n"
+      :installation-price="installationPrice">
+    </vx-cart-product-tile>
+  </div>
+  <div class="col-xs-12 bundle-group" v-for="bundle in bundles" :key="bundle.id">
+    <vx-bundle-details :bundle-data="bundle" :i18n="i18n" :installation-price="installationPrice" :promotion-data="promotionData"></vx-bundle-details>
+  </div>
+</section>

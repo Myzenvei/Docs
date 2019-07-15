@@ -1,0 +1,636 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+# ImpEx for Importing Products into GP Store
+#% impex.setLocale( Locale.ENGLISH ); 
+
+# Macros / Replacement Parameter definitions
+$productCatalog=gpUSProductCatalog
+$productCatalogName=GP US Product Catalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$baseProduct=baseProduct(code, catalogVersion(catalog(id[default='$productCatalog']),version[default='Staged']))
+$approved=approvalstatus(code)[default='approved']
+$taxGroup=Europe1PriceFactory_PTG(code)[default=us-sales-tax-full]
+$giftWrapProduct=giftWrapProduct(code, catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged']))
+$installationProduct=installationProduct(code, catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged']))
+
+# GP products use Variants with a structure:
+# GPCommerceProduct > GPCommerceStyleVariantProduct > GPCommerceSizeVariantProduct
+# GP products may have no variations, only colour (style) variations or both colour and size variations.
+
+
+############################# DFS ###################################
+# Create  products
+INSERT_UPDATE GPCommerceProduct;code[unique=true];$catalogVersion;supercategories(code,$catalogVersion);ean;unit(code);varianttype(code);$approved;$taxGroup;site(uid);
+;1000/44COT; ;9687,211,212;78731931566;CS;;;;;
+;13728; ;6183, 213;73310137285;CS;;;;;
+;16PPATH; ;10211, 211, 212;78731940186;CS;;;;;
+;19375; ;6183, 213;73310193755;CS;;;;;
+;19378; ;6183, 213;73310193786;CS;;;;;
+;19448/01; ;6183, 213;73310194486;CS;;;;;
+;1TOC; ;9687, 211;78731967831;CS;;;;;
+;21000; ;10474, 213;73310210001;CS;;;;;
+;2342PATH; ;10211, 211, 212;78731940520;CS;;;;;
+;26491; ;10474, 211, 213;73310264912;CS;;;;;
+;26496; ;10474, 211, 213;73310264967;CS;;;;;
+;27300; ;10474, 212;73310273006;CS;;;;;
+;27S12; ;9687,211;78731601919;CS;;;;;
+;29408; ;12957, 211, 212;73310294087;CS;;;;;
+;29430; ;12957, 211, 212;73310294308;CS;;;;;
+;29651; ;12957, 211, 212;73310296517;CS;;;;;
+;29662; ;12957, 211, 212;73310296623;CS;;;;;
+;2TOC; ;9687, 211;78731968838;CS;;;;;
+;32006; ;6250, 212;73310320069;CS;;;;;
+;32019; ;6250, 212;73310320199;CS;;;;;
+;38000; ;6250, 211, 212;36500306984;CS;;;;;
+;38015; ;6250, 211, 212;36500306977;CS;;;;;
+;3TOC; ;9687, 211;78731967848;CS;;;;;
+;4021PATH; ;9687, 211;78731940674;CS;;;;;
+;43335; ;6264, 212, 213;73310433356;CS;;;;;
+;43337; ;6264, 213;36500308636;CS;;;;;
+;43714; ;6264, 213;73310437149;CS;;;;;
+;43715; ;6264, 213;73310437156;CS;;;;;
+;43716; ;6264, 211, 213;36500308612;CS;;;;;
+;43818; ;6264, 211, 213;73310438184;CS;;;;;
+;43822; ;6264, 213;36500308629;CS;;;;;
+;48250; ;13627, 213;73310482507;CS;;;;;
+;48255; ;13627, 213;73310482552;CS;;;;;
+;48260; ;13627, 213;73310482606;CS;;;;;
+;48265; ;13627, 213;73310482651;CS;;;;;
+;48280; ;13627, 213;73310482804;CS;;;;;
+;48285; ;13627, 213;73310482859;CS;;;;;
+;48290; ;13627, 213;73310482903;CS;;;;;
+;48295; ;13627, 213;73310482958;CS;;;;;
+;4TOC; ;9687, 211;78731967855;CS;;;;;
+;50011; ;6183, 213;73310500119;EA;;;;;
+;50012; ;6183, 213;73310500126;EA;;;;;
+;50013; ;6183, 213;73310500133;EA;;;;;
+;50030; ;6183, 213;73310500300;EA;;;;;
+;53057; ;6264, 212, 213;73310530574;CS;;;;;
+;53058; ;6264, 212, 213;73310530581;CS;;;;;
+;53060; ;6264, 212, 213;73310530604;CS;;;;;
+;53257A; ;13627, 213;36500308056;CS;;;;;
+;5342DX; ;10211, 211, 212;78731989208;CS;;;;;
+;5356DX; ;10211, 211, 212;78731880673;CS;;;;;
+;53590; ;6264, 212, 213;36500308605;CS;;;;;
+;54527A; ;6250, 212;36500307530;CS;;;;;
+;54550A; ;6250, 212;36500307561;CS;;;;;
+;56744A; ;6183, 213;36500306854;CS;;;;;
+;56757; ;13627, 213;73310567570;CS;;;;;
+;56761; ;13627, 213;36500308209;CS;;;;;
+;56768; ;13627, 213;36500309206;CS;;;;;
+;56781; ;6183, 213;73310567815;CS;;;;;
+;56783A; ;6183, 213;36500306892;CS;;;;;
+;56784A; ;6183, 213;36500306786;CS;;;;;
+;56788; ;6183, 213;73310567884;CS;;;;;
+;56790A; ;6183, 213;36500306830;CS;;;;;
+;56803; ;13627, 213;73310568034;CS;;;;;
+;58000A; ;6250, 211, 212;36500305949;CS;;;;;
+;58000B; ;6250, 211;36500305956;CS;;;;;
+;59009; ;6183, 213;73310590097;CS;;;;;
+;59589; ;10474, 211, 213;73310595894;CS;;;;;
+;59590; ;10474, 211, 213;73310595900;CS;;;;;
+;87242; ;9687, 211;78731872425;CS;;;;;
+;8TOC; ;9687, 211;78731967862;CS;;;;;
+;914LSRD; ;10211, 211, 212;78731987174;CS;;;;;
+;92120; ;6250, 212;73310921204;CS;;;;;
+;92220; ;6250, 212;73310922201;CS;;;;;
+;96019; ;6250, 212;73310960197;CS;;;;;
+;964PATH; ;9687, 211;78731941985;CS;;;;;
+;9PPATH; ;10211, 211, 212;78731940254;CS;;;;;
+;CH26C7; ;9375, 212;78731902900;CS;;;;;
+;CH56NC7; ;9375, 211, 212;78731938497;CS;;;;;
+;CS7; ;10211, 211, 212;78731498700;CS;;;;;
+;D9542; ;10211, 211, 212;78731986108;CS;;;;;
+;D9542B; ;10211,211, 212;78731989055;CS;;;;;
+;ES300U; ;9687, 211;78731938466;CS;;;;;
+;ES9CSCOMP; ;9687, 211,212;78731944320;CS;;;;;
+;ES9PCOMP; ;9363, 211;78731944344;CS;;;;;
+;FF2PLN; ;9687, 211;78731931139;CS;;;;;
+;FM23C7; ;9375, 212;78731903150;CS;;;;;
+;FM53C7; ;9375, 211, 212;78731903181;CS;;;;;
+;JW7; ;10211, 211, 212;78731880802;CS;;;;;
+;KL200W8; ;9687, 211;78731914934;CS;;;;;
+;KL300W8; ;9687, 211;78731914873;CS;;;;;
+;KM23C7; ;9375, 212;78731903310;CS;;;;;
+;KM53C7; ;9375, 211, 212;78731903334;CS;;;;;
+;L9SXP; ;9363, 211;78731781093;CS;;;;;
+;LO10; ;9687, 211;78731700087;CS;;;;;
+;LQ1212PL; ;9687, 211;78731701237;CS;;;;;
+;LQ1416PL; ;9687, 211;78731701138;CS;;;;;
+;PL10X10X5; ;9687, 211;78731932907;CS;;;;;
+;RP2008; ;9687, 211, 212;78731914958;CS;;;;;
+;RP3008; ;9687, 211, 212;78731914880;CS;;;;;
+;RW86W; ;9687, 211;78731943316;CS;;;;;
+;SC003; ;9687, 211;78731880598;CS;;;;;
+;SSF51; ;9375, 212;78731888082;CS;;;;;
+;SSFAUTODSP; ;9375, 212;78731916525;CS;;;;;
+;SSFD120; ;9375, 212;78731942647;CS;;;;;
+;SSK51; ;9375, 212;78731888099;CS;;;;;
+;SSKAUTODSP; ;9375, 212;78731916518;CS;;;;;
+;SSKD120; ;9375, 212;78731942661;CS;;;;;
+;SSS51; ;9375, 212;78731888105;CS;;;;;
+;SSSAUTODSP; ;9375, 212;78731916532;CS;;;;;
+;SSSD120; ;9375, 212;78731942654;CS;;;;;
+;SSW1D85; ;9375, 211, 212;78731965660;CS;;;;;
+;SSW3D85; ;9375, 211, 212;78731965653;CS;;;;;
+;SSWPF5; ;9375, 211, 212;78731965691;CS;;;;;
+;SSWPK5; ;9375, 211, 212;78731965684;CS;;;;;
+;SSWPS5; ;9375, 211, 212;78731965677;CS;;;;;
+;SSWPT5; ;9375, 211, 212;78731966513;CS;;;;;
+;SX12PATH; ;9363, 211, 212;78731940278;CS;;;;;
+;SXP6PATH; ;9363, 211, 212;78731949462;CS;;;;;
+;SXP9PATH; ;9363, 211, 212;78731940711;CS;;;;;
+;TM23C7; ;9375, 212;78731903594;CS;;;;;
+;TM53C7; ;9375, 211, 212;78731903617;CS;;;;;
+;TP9542; ;10211, 212, 211;78731789297;CS;;;;;
+;TP9542B; ;10211, 211, 212;78731912893;CS;;;;;
+;UX7WS; ;9363, 211, 212;78731940353;CS;;;;;
+;UX9PATH; ;9363,211,212;78731940360;CS;;;;;
+
+#new  products
+;16620		;  ;6183,213;36500303785;CS;;;;;
+;2112014    ;  ;6183,213;73310211206;CS;;;;;
+;2717201    ;  ;10474,211;73310271729;CS;;;;;
+;32001      ;  ;6250,211,212;73310320014;CS;;;;;
+;3TOCSC     ;  ;9687,211;73310595351;CS;;;;;
+;59530      ;  ;213,10474,212;73310595306;CS;;;;
+;59535      ;  ;213,10474,211;78731972309;CS;;;;;
+;6342AR     ;  ;10211,211,212;78731973641;CS;;;;;
+;6346AR     ;  ;10211,211,212;78731973658;CS;;;;;
+;SSFD80     ;  ;9375,212;78731941022;CS;;;;;
+;SSKD80     ;  ;9375,212;78731941008;CS;;;;;
+;SSSD80     ;  ;9375,212;78731941015;CS;;;;;
+
+
+
+############################# EMPLOYEE STORE ###################################
+# Create products
+INSERT_UPDATE GPCommerceProduct;code[unique=true];$catalogVersion;supercategories(code,$catalogVersion);ean;unit(code);varianttype(code);$approved;$taxGroup;site(uid);
+;33110/50;  ;311; ;CS;;;;
+;15289/07;  ;314; ;CS;;;;
+;79019/55;  ;311; ;CS;;;;
+;79051/01;  ;311; ;CS;;;;
+;23710/37;  ;315; ;CS;;;;
+;15416/31;  ;314; ;CS;;;;
+;87361/01;  ;311; ;CS;;;;
+;94313/50;  ;311; ;CS;;;;
+;79137/55;  ;311; ;CS;;;;
+;87396/50;  ;311; ;CS;;;;
+;35130/18;  ;312; ;CS;;;;
+;33110/50DR;  ;311; ;EA;;;;
+;35515/18DR;  ;312; ;EA;;;;
+;45200/17DR;  ;312; ;EA;;;;
+;15289/07DR;  ;314; ;EA;;;;
+;15115/07DR;  ;314; ;EA;;;;
+;79019/55DR;  ;311; ;EA;;;;
+;79051/01DR;  ;311; ;EA;;;;
+;23710/37DR;  ;315; ;EA;;;;
+;43900/17DR;  ;315; ;EA;;;;
+;15416/31DR;  ;314; ;EA;;;;
+;15734/30DR;  ;314; ;EA;;;;
+;43211/57DR;  ;315; ;EA;;;;
+;15675/92DR;  ;315; ;EA;;;;
+;87361/01DR;  ;311; ;EA;;;;
+;94313/50DR;  ;311; ;EA;;;;
+;79137/55DR;  ;311; ;EA;;;;
+;44160/01DR;  ;316; ;EA;;;;
+;87396/50DR;  ;311; ;EA;;;;
+;15715/05DR;  ;314; ;EA;;;;
+;91304/37DR;  ;315; ;EA;;;;
+;15396/30DR;  ;314; ;EA;;;;
+;21926/01DR;  ;316; ;EA;;;;
+;35130/18DR;  ;312; ;EA;;;;
+;35163/02DR;  ;314; ;EA;;;;
+;15097/14DR;  ;313; ;EA;;;;
+;41705/52DR;  ;316; ;EA;;;;
+;35236/18DR;  ;312; ;EA;;;;
+;79169/55;  ;311; ;CS;;;;
+;44089/51;  ;316; ;CS;;;;
+;DR-1000586;  ;bundles; ;CS;;;;
+;DR-1000587;  ;bundles; ;CS;;;;
+;DR-1000588;  ;bundles; ;CS;;;;
+;DR-1000589;  ;bundles; ;CS;;;;
+;DR-1000590;  ;bundles; ;CS;;;;
+;DR-1000591;  ;bundles; ;CS;;;;
+;DR-1000592;  ;bundles; ;CS;;;;
+;DR-1000593;  ;bundles; ;CS;;;;
+;DR-1000594;  ;bundles; ;CS;;;;
+;35731/18DR;  ;312; ;EA;;;;
+;15259/30DR;  ;313; ;EA;;;;
+;15420/30DR;  ;314; ;EA;;;;
+;79169/55DR;  ;311; ;EA;;;;
+;77355/04DR;  ;311; ;EA;;;;
+;44089/51DR;  ;316; ;EA;;;;
+;94253/01DR;  ;311; ;EA;;;;
+;21774/01DR;  ;316; ;EA;;;;
+;15327/07DR;  ;314; ;EA;;;;
+;22578/05DR;  ;319; ;EA;;;;
+;22639/75DR;  ;320; ;EA;;;;
+;22576/02DR;  ;319; ;EA;;;;
+;22643/75DR;  ;320; ;EA;;;;
+;22700/75DR;  ;321; ;EA;;;;
+;22702/75DR;  ;321; ;EA;;;;
+;22707/75DR;  ;321; ;EA;;;;
+;2159S;  ;317; ;EA;;;;
+;2159B;  ;317; ;EA;;;;
+;2159RG;  ;317; ;EA;;;;
+;2159WG;  ;317; ;EA;;;;
+;185SV1;  ;318; ;EA;;;;
+;185BV1;  ;318; ;EA;;;;
+;185RV1G;  ;318; ;EA;;;;
+;185WV1G;  ;318; ;EA;;;;
+
+##################################   GPXPRESS  ######################################################
+#Create Products
+INSERT_UPDATE GPCommerceProduct ; code[unique=true]; supercategories(code,$catalogVersion)  ; $catalogVersion
+; 1000/44COT       ; 401,b2b                 ;                 
+; 13728            ; 401,b2b                 ;                 
+; 16PPATH          ; 401,b2b                 ;                 
+; 19375            ; 402,b2b                 ;                 
+; 19378            ; 402,b2b                 ;                 
+; 19448/01         ; 402,b2b                 ;                 
+; 1TOC             ; 403,b2b                 ;                 
+; 21000            ; 403,b2b                 ;                 
+; 2342PATH         ; 403,b2b                 ;                 
+; 26491            ; 404,b2b                 ;                 
+; 26496            ; 404,b2b                 ;                 
+; 27300            ; 404,b2b                 ;                 
+; 27S12            ; 405,b2b                 ;                 
+; 29408            ; 405,b2b                 ;                 
+; 29430            ; 405,b2b                 ;                 
+; 29651            ; 406,b2b                 ;                 
+; 29662            ; 406,b2b                 ;                 
+; 2TOC             ; 406,b2b                 ;                 
+; 32006            ; 407,b2b                 ;                 
+; 32019            ; 407,b2b                 ;                 
+; 38000            ; 407,b2b                 ;                 
+; 38015            ; 408,b2b                 ;                 
+; 3TOC             ; 408,b2b                 ;                 
+; 4021PATH         ; 408,b2b                 ;                 
+; 43335            ; 409,b2b                 ;                 
+; 43337            ; 409,b2b                 ;                 
+; 43714            ; 409,b2b                 ;                 
+; 43715            ; 410,b2b                 ;                 
+; 43716            ; 410,b2b                 ;                 
+; 43818            ; 410,b2b                 ;                 
+; 43822            ; 411,b2b                 ;                 
+; 48250            ; 411,b2b                 ;                 
+; 48255            ; 411,b2b                 ;                 
+; 48260            ; 412,b2b                 ;                 
+; 48265            ; 412,b2b                 ;                 
+; 48280            ; 412,b2b                 ;                 
+; 48285            ; 413,b2b                 ;                 
+; 48290            ; 413,b2b                 ;                 
+; 48295            ; 413,b2b                 ;                 
+; 4TOC             ; 414                     ;                 
+; 50011            ; 414                     ;                 
+; 50012            ; 414                     ;                 
+; 50013            ; 415,retail              ;                 
+; 50030            ; 415,retail              ;                 
+; 53057            ; 415,retail              ;                 
+; 53058            ; 416,retail              ;                 
+; 53060            ; 416,retail              ;                 
+; 53257A           ; 416,retail              ;                 
+; 5342DX           ; 417,retail              ;                 
+; 5356DX           ; 417,retail              ;                 
+; 53590            ; 417,retail              ;                 
+; 54527A           ; 418,retail              ;                 
+; 54550A           ; 418,retail              ;                 
+; 56744A           ; 418,retail              ;                 
+; 56757            ; 419,retail              ;                 
+; 56761            ; 419,retail              ;                 
+; 56768            ; 419,retail              ;                 
+; 56781            ; 420,retail              ;                 
+; 56783A           ; 420,retail              ;                 
+; 56784A           ; 420,retail              ;                 
+; 56788            ; 501                     ;                 
+; 56790A           ; 501                     ;                 
+; 56803            ; 501                     ;                 
+; 58000A           ; 502,b2b                 ;                 
+; 58000B           ; 502,b2b                 ;                 
+; 59009            ; 502,b2b                 ;                 
+; 59589            ; 503,b2b                 ;                 
+; 59590            ; 503,b2b                 ;                 
+; 87242            ; 503,b2b                 ;                 
+; 8TOC             ; 504,b2b                 ;                 
+; 914LSRD          ; 504,b2b                 ;                 
+; 92120            ; 504,b2b                 ;                 
+; 92220            ; 505,b2b                 ;                 
+; 96019            ; 505,b2b                 ;                 
+; 964PATH          ; 505,b2b                 ;                 
+; 9PPATH           ; 506,b2b                 ;                 
+; CH26C7           ; 506,b2b                 ;                 
+; CH56NC7          ; 506,b2b                 ;                 
+; CS7              ; 507,b2b                 ;                 
+; D9542            ; 507,b2b                 ;                 
+; D9542B           ; 507,b2b                 ;                 
+; ES300U           ; 508,b2b                 ;                 
+; ES9CSCOMP        ; 508,b2b                 ;                 
+; ES9PCOMP         ; 508,b2b                 ;                 
+; FF2PLN           ; 509,b2b                 ;                 
+; FM23C7           ; 509,b2b                 ;                 
+; FM53C7           ; 509,b2b                 ;                 
+; JW7              ; 510                     ;                 
+; KL200W8          ; 510                     ;                 
+; KL300W8          ; 510                     ;                 
+; KM23C7           ; 511,retail              ;                 
+; KM53C7           ; 511,retail              ;                 
+; L9SXP            ; 511,retail              ;                 
+; LO10             ; 512,retail              ;                 
+; LQ1212PL         ; 512,retail              ;                 
+; LQ1416PL         ; 512,retail              ;                 
+; PL10X10X5        ; 513,retail              ;                 
+; RP2008           ; 513,retail              ;                 
+; RP3008           ; 513,retail              ;                 
+; RW86W            ; 514,retail              ;                 
+; SC003            ; 514,retail              ;                 
+; SSF51            ; 514,retail              ;                 
+; SSFAUTODSP       ; 515,retail              ;                 
+; SSFD120          ; 515,retail              ;                 
+; SSK51            ; 515,retail              ;                 
+; SSKAUTODSP       ; 516,retail              ;                 
+; SSKD120          ; 516,retail              ;                 
+; SSS51            ; 516,retail              ;                 
+; SSSAUTODSP       ; 517,retail              ;                 
+; SSSD120          ; 517,retail              ;                 
+; SSW1D85          ; 517,retail              ;                 
+; SSW3D85          ; 518,retail              ;                 
+; SSWPF5           ; 518,retail              ;                 
+; SSWPK5           ; 518,retail              ;                 
+; SSWPS5           ; 601                     ;                 
+; SSWPT5           ; 602                     ;                 
+; SX12PATH         ; 603,b2b                 ;                 
+; SXP6PATH         ; 604,b2b                 ;                 
+; SXP9PATH         ; 605,b2b                 ;                 
+; TM23C7           ; 606,b2b                 ;                 
+; TM53C7           ; 607,b2b                 ;                 
+; TP9542           ; 608,b2b                 ;                 
+; TP9542B          ; 609,b2b                 ;                 
+; UX7WS            ; 610,b2b                 ;                 
+; UX9PATH          ; 611,b2b                 ;                 
+                          
+###############################   UPC Code   ##############################################
+
+# Create  products     
+INSERT_UPDATE GPCommerceProduct ; code[unique=true] ; $catalogVersion  ; upc           
+                                ; 1000/44COT        ;                  ; 078731931566  
+                                ; 13728             ;                  ; 073310137285  
+                                ; 16PPATH           ;                  ; 078731940186  
+                                ; 19375             ;                  ; 073310193755  
+                                ; 19378             ;                  ; 073310193786  
+                                ; 19448/01          ;                  ; 073310194486  
+                                ; 1TOC              ;                  ; 078731967831  
+                                ; 21000             ;                  ; 073310210001  
+                                ; 2342PATH          ;                  ; 078731940520  
+                                ; 26491             ;                  ; 073310264912  
+                                ; 26496             ;                  ; 073310264967  
+                                ; 27300             ;                  ; 073310273006  
+                                ; 27S12             ;                  ; 078731601919  
+                                ; 29408             ;                  ; 073310294087  
+                                ; 29430             ;                  ; 073310294308  
+                                ; 29651             ;                  ; 073310296517  
+                                ; 29662             ;                  ; 073310296623  
+                                ; 2TOC              ;                  ; 078731968838  
+                                ; 32006             ;                  ; 073310320069  
+                                ; 32019             ;                  ; 073310320199  
+                                ; 38000             ;                  ; 036500306984  
+                                ; 38015             ;                  ; 036500306977  
+                                ; 3TOC              ;                  ; 078731967848  
+                                ; 4021PATH          ;                  ; 078731940674  
+                                ; 43335             ;                  ; 073310433356  
+                                ; 43337             ;                  ; 036500308636  
+                                ; 43714             ;                  ; 073310437149  
+                                ; 43715             ;                  ; 073310437156  
+                                ; 43716             ;                  ; 036500308612  
+                                ; 43818             ;                  ; 073310438184  
+                                ; 43822             ;                  ; 036500308629  
+                                ; 48250             ;                  ; 073310482507  
+                                ; 48255             ;                  ; 073310482552  
+                                ; 48260             ;                  ; 073310482606  
+                                ; 48265             ;                  ; 073310482651  
+                                ; 48280             ;                  ; 073310482804  
+                                ; 48285             ;                  ; 073310482859  
+                                ; 48290             ;                  ; 073310482903  
+                                ; 48295             ;                  ; 073310482958  
+                                ; 4TOC              ;                  ; 078731967855  
+                                ; 50011             ;                  ; 073310500119  
+                                ; 50012             ;                  ; 073310500126  
+                                ; 50013             ;                  ; 073310500133  
+                                ; 50030             ;                  ; 073310500300  
+                                ; 53057             ;                  ; 073310530574  
+                                ; 53058             ;                  ; 073310530581  
+                                ; 53060             ;                  ; 073310530604  
+                                ; 53257A            ;                  ; 036500308056  
+                                ; 5342DX            ;                  ; 078731989208  
+                                ; 5356DX            ;                  ; 078731880673  
+                                ; 53590             ;                  ; 036500308605  
+                                ; 54527A            ;                  ; 036500307530  
+                                ; 54550A            ;                  ; 036500307561  
+                                ; 56744A            ;                  ; 036500306854  
+                                ; 56757             ;                  ; 073310567570  
+                                ; 56761             ;                  ; 036500308209  
+                                ; 56768             ;                  ; 036500309206  
+                                ; 56781             ;                  ; 073310567815  
+                                ; 56783A            ;                  ; 036500306892  
+                                ; 56784A            ;                  ; 036500306786  
+                                ; 56788             ;                  ; 073310567884  
+                                ; 56790A            ;                  ; 036500306830  
+                                ; 56803             ;                  ; 073310568034  
+                                ; 58000A            ;                  ; 036500305949  
+                                ; 58000B            ;                  ; 036500305956  
+                                ; 59009             ;                  ; 073310590097  
+                                ; 59589             ;                  ; 073310595894  
+                                ; 59590             ;                  ; 073310595900  
+                                ; 87242             ;                  ; 078731872425  
+                                ; 8TOC              ;                  ; 078731967862  
+                                ; 914LSRD           ;                  ; 078731987174  
+                                ; 92120             ;                  ; 073310921204  
+                                ; 92220             ;                  ; 073310922201  
+                                ; 96019             ;                  ; 073310960197  
+                                ; 964PATH           ;                  ; 078731941985  
+                                ; 9PPATH            ;                  ; 078731940254  
+                                ; CH26C7            ;                  ; 078731902900  
+                                ; CH56NC7           ;                  ; 078731938497  
+                                ; CS7               ;                  ; 078731498700  
+                                ; D9542             ;                  ; 078731986108  
+                                ; D9542B            ;                  ; 078731989055  
+                                ; ES300U            ;                  ; 078731938466  
+                                ; ES9CSCOMP         ;                  ; 078731944320  
+                                ; ES9PCOMP          ;                  ; 078731944344  
+                                ; FF2PLN            ;                  ; 078731931139  
+                                ; FM23C7            ;                  ; 078731903150  
+                                ; FM53C7            ;                  ; 078731903181  
+                                ; JW7               ;                  ; 078731880802  
+                                ; KL200W8           ;                  ; 078731914934  
+                                ; KL300W8           ;                  ; 078731914873  
+                                ; KM23C7            ;                  ; 078731903310  
+                                ; KM53C7            ;                  ; 078731903334  
+                                ; L9SXP             ;                  ; 078731781093  
+                                ; LO10              ;                  ; 078731700087  
+                                ; LQ1212PL          ;                  ; 078731701237  
+                                ; LQ1416PL          ;                  ; 078731701138  
+                                ; PL10X10X5         ;                  ; 078731932907  
+                                ; RP2008            ;                  ; 078731914958  
+                                ; RP3008            ;                  ; 078731914880  
+                                ; RW86W             ;                  ; 078731943316  
+                                ; SC003             ;                  ; 078731880598  
+                                ; SSF51             ;                  ; 078731888082  
+                                ; SSFAUTODSP        ;                  ; 078731916525  
+                                ; SSFD120           ;                  ; 078731942647  
+                                ; SSK51             ;                  ; 078731888099  
+                                ; SSKAUTODSP        ;                  ; 078731916518  
+                                ; SSKD120           ;                  ; 078731942661  
+                                ; SSS51             ;                  ; 078731888105  
+                                ; SSSAUTODSP        ;                  ; 078731916532  
+                                ; SSSD120           ;                  ; 078731942654  
+                                ; SSW1D85           ;                  ; 078731965660  
+                                ; SSW3D85           ;                  ; 078731965653  
+                                ; SSWPF5            ;                  ; 078731965691  
+                                ; SSWPK5            ;                  ; 078731965684  
+                                ; SSWPS5            ;                  ; 078731965677  
+                                ; SSWPT5            ;                  ; 078731966513  
+                                ; SX12PATH          ;                  ; 078731940278  
+                                ; SXP6PATH          ;                  ; 078731949462  
+                                ; SXP9PATH          ;                  ; 078731940711  
+                                ; TM23C7            ;                  ; 078731903594  
+                                ; TM53C7            ;                  ; 078731903617  
+                                ; TP9542            ;                  ; 078731789297  
+                                ; TP9542B           ;                  ; 078731912893  
+                                ; UX7WS             ;                  ; 078731940353  
+                                ; UX9PATH           ;                  ; 078731940360  
+
+############ SAMPLE SIT DATA NEED TO REMOVE FOR GO-LIVE  ###########################
+INSERT_UPDATE GPServiceProduct;code[unique=true];$catalogVersion;name;description;$approved;site(uid);
+;107701;;Gift Wrap Product;This product can be gift wrapped at minimal fees;;;
+;107702;;Installable Product;This product can be installed at minimal fees;;;
+
+UPDATE GPCommerceProduct;code[unique=true];$giftWrapProduct;$installationProduct;$catalogVersion
+;19378;107701;107702
+
+
+# Installable
+UPDATE GPCommerceProduct;code[unique=true];$installationProduct;$catalogVersion
+;19375;107702
+
+#Creating Shipping Restrictions for below products
+INSERT shippingRestriction;productCode;countryIsoCode;region;deliveryMode
+;59009;US;AR;07
+;59589;US;FL;14
+
+UPDATE Product;code[unique=true];$catalogVersion;leaseable
+;26491;;true
+;26496;;true
+;27300;;true
+
+
+UPDATE Product;code[unique=true];$catalogVersion;kaonUrl
+;56761;;https://apps.kaonadn.net/5986727516700672/product.html#0/13;C4
+;48260;;https://apps.kaonadn.net/5986727516700672/product.html#0/12;C4
+;58000A;;https://apps.kaonadn.net/5986727516700672/product.html#0/19;C2
+;58000B;;https://apps.kaonadn.net/5986727516700672/product.html#0/20;C2
+
+########################### COMPETITOR PRODUCTS ##################
+INSERT_UPDATE GPCompetitorProduct;code[unique=true];$catalogVersion;supercategories(code,$catalogVersion);ean;unit(code);varianttype(code);$approved;$taxGroup;caseBUOM;caseQtyBUOM;material;color;competitorName;competitorNumber;externalID;productType;competitorId;
+;3356;;9687;78731931566;CS;;;;Count;2400;Plastic;White;Bay West;3356;5000;Wipers;71
+;0TI100090000;;9687;78731931566;CS;;;;Plates;500;Plastic;white;Pactiv;0TI100090000;5000;Plates/Bowls;239
+;0TI100120000;;9687;78731931566;CS;;;;Bowls;1000;Plastic;white;Pactiv;0TI100120000;6000;Plates/Bowls;239
+;M217729;;9687;78731931566;CS;;;;Plates;500;Plastic;white;Pactiv;M217729;7000;Plates/Bowls;239
+;5925;;9687;78731931566;CS;;;;Count;300;Plastic;White;Kimberly-Clark;5925;8000;Wipers;47
+;5927;;9687;78731931566;CS;;;;Count;300;Plastic;Blue;Kimberly-Clark;5927;8000;Wipers;47
+;6354;;9687;78731931566;CS;;;;Count;150;Plastic;Red;Kimberly-Clark;6354;8000;Wipers;47
+;7304;;9687;78731931566;CS;;;;Feet;9000;Plastic;White;Kimberly-Clark;7304;8000;Bathroom Tissue;47
+;25702;;9687;78731931566;CS;;;;Feet;6900;Plastic;White;Kimberly-Clark;25702;8000;Towels;47
+;1890;;9687;78731931566;CS;;;;Count;6900;Plastic;White;Kimberly-Clark;1890;8000;Towels;47
+
+
+########################### COPPER and CRANE PRODUCTS ##################
+INSERT_UPDATE GPCommerceProduct;code[unique=true];$catalogVersion;supercategories(code,$catalogVersion);ean;unit(code);varianttype(code);$approved;$taxGroup;site(uid);
+;CC-KIT-1000089; ;skin-care,gifts;;CS;;;;;
+;CC-KIT-1000078; ;skin-care,gifts;;CS;;;;;
+;CC-SRM-1000020; ;skin-care;;CS;;;;;
+;CC-SRM-1000021; ;skin-care;;CS;;;;;
+;CC-ELX-1000018; ;skin-care;;CS;;;;;
+;CC-ELX-1000019; ;skin-care;;CS;;;;;
+;CC-MSK-1000017; ;skin-care;;CS;;;;;
+;CC-CLN-1000010; ;skin-care,luxury-bath;;CS;;;;;
+;CC-MST-1000016; ;skin-care;;CS;;;;;
+;CC-MST-1000015; ;skin-care;;CS;;;;;
+;DR-1000653; ;body-care,gifts;;CS;;;;;
+;DR-1000652; ;body-care,gifts;;CS;;;;;
+;CC-OIL-1000006; ;body-care;;CS;;;;;
+;CC-OIL-1000007; ;body-care;;CS;;;;;
+;CC-OIL-1000026; ;body-care,luxury-bath;;CS;;;;;
+;CC-LTN-1000009; ;body-care,spa;;CS;;;;;
+;CC-EXF-1000004; ;body-care,spa;;CS;;;;;
+;CC-EXF-1000003; ;body-care,spa;;CS;;;;;
+;CC-LTN-1000008; ;body-care;;CS;;;;;
+;CC-OIL-1000005; ;body-care,luxury-bath;;CS;;;;;
+;CC-EXF-1000002; ;body-care;;CS;;;;;
+;CC-OIL-1000001; ;body-care,luxury-bath;;CS;;;;;
+;DR-1000571; ;luxury-bath,gifts;;CS;;;;;
+;DR-1000572; ;luxury-bath,gifts;;CS;;;;;
+;DR-1000409; ;luxury-bath;;CS;;;;;
+;DR-1000401; ;luxury-bath,spa;;CS;;;;;
+;CC-KIT-1000079; ;luxury-bath,gifts;;CS;;;;;
+;CC-BAR-1000048; ;luxury-bath,gifts;;CS;;;;;
+;CC-CND-1000025; ;luxury-bath;;CS;;;;;
+;CC-SMP-1000024; ;luxury-bath;;CS;;;;;
+;DR-1000552; ;scented-candles,gifts;;CS;;;;;
+;DR-1000474; ;scented-candles;;CS;;;;;
+;DR-1000408; ;scented-candles;;CS;;;;;
+;DR-1000407; ;scented-candles;;CS;;;;;
+;DR-1000406; ;scented-candles;;CS;;;;;
+;DR-1000405; ;scented-candles;;CS;;;;;
+;DR-1000404; ;scented-candles;;CS;;;;;
+;DR-1000403; ;scented-candles;;CS;;;;;
+;DR-1000402; ;scented-candles;;CS;;;;;
+;DR-1000659; ;gifts;;CS;;;;;
+;DR-1000660; ;gifts;;CS;;;;;
+;DR-1000636; ;gifts;;CS;;;;;
+;DR-1000634; ;gifts;;CS;;;;;
+;DR-1000626; ;gifts;;CS;;;;;
+;DR-1000555; ;gifts;;CS;;;;;
+;DR-1000575; ;gifts;;CS;;;;;
+;DR-1000554; ;gifts;;CS;;;;;
+;DR-1000574; ;gifts;;CS;;;;;
+;DR-1000553; ;gifts;;CS;;;;;
+;DR-1000551; ;gifts;;CS;;;;;
+;DR-1000550; ;gifts;;CS;;;;;
+;DR-1000443; ;gifts;;CS;;;;;
+;DR-1000442; ;gifts;;CS;;;;;
+;CC-KIT-1000088; ;gifts;;CS;;;;;
+;CC-KIT-1000076; ;gifts;;CS;;;;;
+;CC-KIT-1000069; ;gifts;;CS;;;;;
+;CC-KIT-1000066; ;gifts;;CS;;;;;
+;CC-PCH-1000062; ;gifts;;CS;;;;;
+;CC-PVN-1000063; ;gifts;;CS;;;;;
+;CC-SBG-1000061; ;gifts;;CS;;;;;
+
+###########################  NAPKINS PRODUCTS ##################
+INSERT_UPDATE GPCommerceProduct;code[unique=true];$catalogVersion;supercategories(code,$catalogVersion);ean;unit(code);varianttype(code);$approved;$taxGroup;site(uid);
+;35132/18; ;everyday-collection;;CS;;;;;
+;35130/18; ;everyday-collection;;CS;;;;;
+;35134/18; ;entertain-collection;;CS;;;;;
+;35515/18; ;entertain-collection;;CS;;;;;
+;35546/17; ;entertain-collection;;CS;;;;;
+;35518/18; ;entertain-collection;;CS;;;;;
+;35468/18; ;entertain-collection;;CS;;;;;
+;35501/18; ;everyday-collection;;CS;;;;;
+;35502/18; ;everyday-collection;;CS;;;;;
+;35503/18; ;everyday-collection;;CS;;;;;
+;35575/18; ;everyday-collection;;CS;;;;;
+;35236/18; ;extra-absorbent-napkins;;CS;;;;;
+;35270/19; ;extra-absorbent-napkins;;CS;;;;;
+;35272/18; ;everyday-collection;;CS;;;;;
+#;3558320; ;;;CS;;;;;
+#;3558119; ;;;CS;;;;;
+
+

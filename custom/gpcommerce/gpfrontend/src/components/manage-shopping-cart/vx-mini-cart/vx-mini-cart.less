@@ -1,0 +1,41 @@
+
+.vx-mini-cart {
+  border: 1px solid @border-color;
+  overflow: auto;
+  height: auto;
+  max-height: calc(100vh - 87px);
+  .total-items {
+    letter-spacing: 0.15px;
+    .total-items-count {
+      font-weight: @font-weight-regular;
+    }
+    font-size: @font-size-large;
+    font-weight: @font-weight-medium;
+  }
+  .sub-total-container {
+    border-top: 1px solid @mini-cart-border-color;
+    color: @text-color;
+    .sub-total-text {
+      // width: 50%;
+      .heading {
+        font-size: @font-size-large;
+        font-weight: @font-weight-medium;
+      }
+      .text {
+        color: @text-color-secondary;
+        font-size: @font-size-small;
+        font-weight: @font-weight-light;
+      }
+    }
+    .sub-total-price {
+      // position: absolute;
+      // right: 24px;
+      // width: 50%;
+      .total-price {
+        font-size: 21px;
+        font-weight: @font-weight-medium;
+        text-align: right;
+      }
+    }
+  }
+}

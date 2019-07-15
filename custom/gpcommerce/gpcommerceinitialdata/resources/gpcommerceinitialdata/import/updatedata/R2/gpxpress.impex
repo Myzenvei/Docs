@@ -1,0 +1,185 @@
+##########################################    cms-content.impex      ##################################################
+$contentCatalog=gpxpressContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$jarResourceCms=jar:com.gp.b2binitialdata.constants.Gpb2binitialdataConstants&/gpb2binitialdata/import/sampledata/cockpits/cmscockpit
+
+INSERT_UPDATE ContentPage ; $contentCV[unique=true] ; uid[unique=true] ; name     ; title; masterTemplate(uid,$contentCV) ; label   ; defaultPage[default='true'] ; approvalStatus(code)[default='approved'] ; homepage[default='false']
+                          ;                         ; crossReferencePage          ; Cross Reference Page ; Cross Reference Page ; LandingPage2Template           ; crossReferencePage
+
+###### GPXPress shareCart email Default sold-to image Media Start ######
+
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];folder(qualifier)[default='images']
+;;defaultSoldToLogoGpxpress;text/png;GPXpresslogo.png;$jarResourceCms/preview-images/gpxpress/GPXpresslogo.png
+
+###### GPXPress shareCart email Default sold-to image Media End ######
+
+###############GPXPress Update velocity template #########
+$jarEmailResource=jar:com.gp.commerce.core.setup.CoreSystemSetup&/gpb2binitialdata/import/coredata/contentCatalogs/gpxpressContentCatalog/emails
+
+# Language
+$lang=en      
+UPDATE RendererTemplate;code[unique=true];description[lang=$lang];templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+;gpxpress_Email_Share_Cart_Subject;"ShareCartEmailSubject";$jarEmailResource/email-shareCartSubject.vm
+;gpxpress_Email_Share_Cart_Body;"ShareCartEmailBody";$jarEmailResource/email-shareCartBody.vm  
+      
+###############GPXPress Update velocity template  end ######### 
+
+# CMS Footer Component Start #
+UPDATE FooterNavigationComponent;$contentCV[unique=true];uid[unique=true];notice[lang=en];
+;;FooterNavigationComponent;"Georgia-Pacific LLC. All Rights Reserved.";
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='CompareProductsPageTemplate'];validComponentTypes(code);compTypeGroup(code)
+;Footer;;;footer 
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='CompareProductsPageTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;Footer-CompareProducts;Footer;;FooterSlot;true        
+
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]                    ; position[unique=true]  ; pageTemplate(uid,$contentCV)[unique=true][default='LandingPage2Template'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+                                     ;                         ; Footer-LandingPage2                 ; Footer                 ;                                                                           ; FooterSlot                               ; true        
+									 
+INSERT_UPDATE ContentSlotName ; name[unique=true]      ; template(uid,$contentCV)[unique=true][default='LandingPage2Template'] ; validComponentTypes(code) ; compTypeGroup(code)
+                              ; Footer                 ;                                                                       ;                           ; footer             
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='ProductDetailsPageTemplate'];validComponentTypes(code);compTypeGroup(code)
+;Footer;;;footer 
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='ProductDetailsPageTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;Footer-CompareProducts;Footer;;FooterSlot;true  
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='ProductListPageTemplate'];validComponentTypes(code);compTypeGroup(code)
+;Footer;;;footer 
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='ProductListPageTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;Footer-CompareProducts;Footer;;FooterSlot;true  
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='ProductGridPageTemplate'];validComponentTypes(code);compTypeGroup(code)
+;Footer;;;footer 
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='ProductGridPageTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;Footer-CompareProducts;Footer;;FooterSlot;true  
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='CategoryPageTemplate'];validComponentTypes(code);compTypeGroup(code)
+;Footer;;;footer 
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='CategoryPageTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;Footer-CompareProducts;Footer;;FooterSlot;true  
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='LandingPage1Template'];validComponentTypes(code);compTypeGroup(code)
+;Footer;;;footer 
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='LandingPage1Template'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;Footer-CompareProducts;Footer;;FooterSlot;true 
+ 
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='LandingPage3Template'];validComponentTypes(code);compTypeGroup(code)
+;Footer;;;footer 
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='LandingPage3Template'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;Footer-CompareProducts;Footer;;FooterSlot;true  
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='LandingPage4Template'];validComponentTypes(code);compTypeGroup(code)
+;Footer;;;footer 
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='LandingPage4Template'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;Footer-CompareProducts;Footer;;FooterSlot;true 
+ 
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='LandingPage5Template'];validComponentTypes(code);compTypeGroup(code)
+;Footer;;;footer 
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='LandingPage5Template'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;Footer-CompareProducts;Footer;;FooterSlot;true  
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='LandingPage6Template'];validComponentTypes(code);compTypeGroup(code)
+;Footer;;;footer 
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='LandingPage6Template'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;Footer-CompareProducts;Footer;;FooterSlot;true  
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='ContentPage1Template'];validComponentTypes(code);compTypeGroup(code)
+;Footer;;;footer 
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='ContentPage1Template'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;Footer-CompareProducts;Footer;;FooterSlot;true  
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='SearchResultsListPageTemplate'];validComponentTypes(code);compTypeGroup(code)
+;Footer;;;footer 
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='SearchResultsListPageTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;Footer-CompareProducts;Footer;;FooterSlot;true 
+
+ INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='CartPageTemplate'];validComponentTypes(code);compTypeGroup(code)
+;Footer;;;footer 
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='CartPageTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;Footer-CompareProducts;Footer;;FooterSlot;true  	
+
+ INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='ErrorPageTemplate'];validComponentTypes(code);compTypeGroup(code)
+;Footer;;;footer 
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='ErrorPageTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;Footer-CompareProducts;Footer;;FooterSlot;true  
+
+ INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='SearchResultsEmptyPageTemplate'];validComponentTypes(code);compTypeGroup(code)
+;Footer;;;footer 
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='SearchResultsEmptyPageTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;Footer-CompareProducts;Footer;;FooterSlot;true  
+
+ INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='SearchAdvancedResultsEmptyPageTemplate'];validComponentTypes(code);compTypeGroup(code)
+;Footer;;;footer 
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='SearchAdvancedResultsEmptyPageTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;Footer-CompareProducts;Footer;;FooterSlot;true  
+
+					  
+## footer slot ##
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(&componentRef)
+;;FooterSlot;FooterNavigationComponent
+
+INSERT_UPDATE FooterNavigationComponent;$contentCV[unique=true];uid[unique=true];wrapAfter;&componentRef;showLanguageCurrency;navigationNode(&nodeRef)
+;;FooterNavigationComponent;4;FooterNavigationComponent;true;FooterNavNode;
+
+##--- level 3. children of GPXpress_NavNode ---##
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);links(&componentRef);&nodeRef
+;FooterNavNode;;Footer Pages;GPXpress_NavNode;;FooterNavNode
+
+## GP Footer Nav Start ##
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);links(&linkRef);&nodeRef;parentPos;title[lang=$lang];
+;GPInformationNavNode;;Information;FooterNavNode;;GPInformationNavNode;0;Information;
+;GPContactUsNavNode;;Contact;FooterNavNode;;GPContactUsNavNode;1;Contact GPXpress® Live at 877-GPXPRESS (479-7737);
+ 
+
+## Children of GP NavNode ##
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);links(&linkRef);&nodeRef;parentPos;title[lang=$lang];
+;GPTermsAndConditionNavNode;;Terms & Conditions;GPInformationNavNode;;GPTermsAndConditionNavNode;0;Terms & Conditions;
+;GPPrivacyNavNode;;Privacy Notice;GPInformationNavNode;;GPPrivacyNavNode;1;Privacy Notice;
+;GPTermsOfUsePrivacyNavNode;;Terms of Use;GPInformationNavNode;;GPTermsOfUsePrivacyNavNode;2;Terms of Use;
+
+
+# entries of the above navigation nodes
+INSERT_UPDATE CMSNavigationEntry;uid[unique=true];$contentCV[unique=true];name;navigationNode(&nodeRef);item(CMSLinkComponent.uid,CMSLinkComponent.$contentCV);
+;GPTermsAndConditionNavNodeEntry;;Terms & Conditions Navigation Node Entry;GPTermsAndConditionNavNode;TermsAndConditionsLink;
+;GPPrivacyNavNodeEntry;;Privacy Notice Navigation Node Entry;GPPrivacyNavNode;PrivacyNoticeLink;
+;GPTermsOfUsePrivacyNavNodeEntry;;Terms of Use Navigation Node Entry;GPTermsOfUsePrivacyNavNode;TermsLink;
+###### GP Footer Nav End ######
+
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];linkName[lang=$lang];url;&linkRef;&componentRef;target(code)[default='newWindow'];external[default=false];socialLink[default=false];markAsViewAll[default=false]
+;;TermsLink;Terms of Use;https://www.gp.com/legal/legal-notices/terms-of-use;;TermsLink;newWindow;true;
+;;PrivacyNoticeLink;Privacy Notice; https://www.gp.com/legal/legal-notices/privacy-notice;;PrivacyNoticeLink;newWindow;true;
+;;TermsAndConditionsLink;Terms & Conditions;https://www.gp.com/legal/consumer-products-sales-terms-and-conditions/gp-pro-terms-and-conditions;;TermsAndConditionsLink;newWindow;true;
+
+###### Remove Footer nav node ######
+REMOVE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);links(&linkRef);&nodeRef;parentPos
+;GPCompanyNavNode;;Your Company;FooterNavNode;;GPCompanyNavNode;0
+;GPFollowUsNavNode;;Follow Us Pages;FooterNavNode;;GPFollowUsNavNode;3
+
+
+# CMS Footer Component Stop #
+
+UPDATE CMSSite;uid[unique=true];pdfCoverImages
+;gpxpress;"foodServices->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=a26f9ea66eb6721f01e66d157025798d2e0975a5&prid=2000Wx2000H&clid=SAPDAM;perfecTouchCups->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=4af53349404643eccb47045b6beef27f5fd4e486&prid=2000Wx2000H&clid=SAPDAM;washRoomWiper->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=400e8781d778a24559e390d8df821ee622ea0cfc&prid=2000Wx2000H&clid=SAPDAM;sustainability->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=d19c0c4534c64255ea234ab8eba59e20b35a5b37"
+
+UPDATE CMSSite;uid[unique=true];gpCertificationsImages
+;gpxpress;"BIO_PREFERRED->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=ac630b27d38c7f2613481620c5a5c3e0f284ca8d;BPI->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=205f8d0e8198d8c23fbbd5d7dfb6f75ad11a3cd6;PROCESS_CHLORINE_FREE->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=a03d6e263528b4a0a754729241ba84b62609e04d;CUSTOMIZABLE->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=7fb664c9ec1ca6c7938c006e6bdef37552946f59;DFE->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=5e9c9ac5d3167e09142e3ab6f6aeb95fe5abf14b;ECC->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=22aa8120f31aa31f8ffa4a54e9531a1e3d1b329c;ECO_LOGO->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=e5704d8139de7df1126fbeeafe5c78e8c3176f66;EPA->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=c77a9221ffa4883f4af20417785523fa1d22427a;FSC->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=0c3b1f151f64d8d158d4fcec831f5aff74d7c693;GREEN_SEAL->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=7ee67f989cc2f817bff7db22f71fd70ff604c5c8;HOW_2_RECYCLE->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=8ed5629c1239efd3e53caf1afcf50916b1f4083e;SFI->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=2796d15c7a2a2a7415fb6efe443d75e40a05a268;USGBC_LEED->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=9c495494e8a1abbdda61aad1cd7bab0c15be35f2;WASTE_REDUCING->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=82d42115127b5c2999d859409b4d98ab3b974f82;WHC->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=4833a8d19367477fec60ddf47716b7a2d85dd9a0;PEFC->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=7182745006b73b0ccfb8b93e75c80b31db7bbbc8"
+
+UPDATE CMSSite;uid[unique=true];siteConfig
+;gpxpress;"addToMarket.us.b2b->true;addToMarket.ca.b2b->false;addToMarket.other.b2b->false;default.max.product.quantity->100;gp_bvId->gpxpress_test;root.category->categories;taxexemptionreviewuseremail->gpuser@yopmail.com;gp_mpQues->How frequently would you like to hear from us?;socialaggrstartdate.b2b-> ;socialaggrenddate.b2b-> ;socialaggrfeedId.b2b->travel-08efe5d2-63c3-4b99-bc32-c97c29024269;socialaggrdataPer.b2b-> ;socialaggrpages.b2b-> 2;socialaggrtruncate.b2b-> ;socialaggrgutter.b2b->20 ;socialaggrcolumns.b2b->4;socialaggrinterval.b2b-> ;socialaggrfilter.b2b-> ;socialaggrstyle.b2b->widget ;socialaggroverlay.b2b-> ;GTMID->GTM-TRVPTX7;google.maps.api.key->AIzaSyDk2KFvE5UgpLcYM4nVlOLSRDWqPMB1bNI;showCompanyLinks->false;showTaxExemption->false;contactNumber->800-750-4226;termAndCondPageLabel->/termsAndConditions;gpYMarketingSiteId->ZGPXPRESSFOODSERVICE;ymarketing.permissions.id.origin.create->ZGPXPRESSFOODSERVICE;ymarketing.permissions.id.origin.update->EMAIL;ymarketing.source.system.id->ZGPXPRESSFOODSERVICE;ymarketing.marketing.area.id->ZGPPRO;enable.samplecart->true;brands.enabled->true;gp.site.references->SIMILAR,CROSSELLING;showDownload->true;bv_feed_file_name->bv_angelsoft_ratings;isBazaarVoiceEnabled->false;isRelatedEnabled->false;isShowQuickOrder->false;isDownloadable->true;isExcelDownloadable->true;isSharedList->true;isAddProduct->true;isShowQuickOrder->false;isSharable->true;isBulkEnabled->true;isFavoritesEnabled->false;isDOBEnabled->false;isGenderEnabled->false;enable.autosuggest.obselete->true;enable.obselete->true;showVariantProducts->false;isCallUsEnabled->true;isEmailUsEnabled->true;isPayPalEnabled->true;isSocailShareEnabled->true;isContactUsFormEnabled->true;isSupportTicketsEnabled->true;isProductCompareEnabled->true;isWriteUsEnabled->true;isProductIdEnabled->true;showInStockMsg->false;showProductFeatures->true;showProductSpecs->true;showProductResources->true;isSaveCartEnabled->true;isMultipleShippingEnabled->true;showDeliveryInstructions->true;isDinersCardAvailable->true;showProductIndicators->false;isGiftingEnabled->false;isGooglePayEnabled->true;isApplePayEnabled->true;isVariantsEnabled->true;isProductPriceEnabled->false;addToCartEnabled->false;promoTextEnabled->true;isMobileMyProfileEnabled->true;pdpLocateAStoreEnabled->false;showPoBoxShippingMsg->true;showInventoryMessages->true;isFindADistributorEnabled->true;showProductStatus->false;isQuantitySelectorEnabled->false;viewTicketsForDays->365;isAvailable.enabled->true;isFindADistributorEnabled->false;showForgotPassword->true;createAcountMoreDetailsEnabled->true;editPasswordEnabled->true;editCommPrefEnabled->true;hasTaxExemption->true;addAddressEnabled->true;deleteAddressEnabled->false;addPaymentEnabled->true;deletePaymentEnabled->true;is3DImageEnabled->true;reorderEnabled->false;addCustomAttrs->true;addToListBySku->true;downloadPrdListInfo->true;downloadListPdf->true;downloadListImage->true;downloadPdpPdf->true;downloadPdpImage->true;hasCmirCode->true;"

@@ -1,0 +1,164 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+#
+# Import the CMS content for the site emails
+#
+$contentCatalog=b2bwhitelabelContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$jarEmailResource=jar:com.gp.b2binitialdata.constants.Gpb2binitialdataConstants&/gpb2binitialdata/import/coredata/contentCatalogs/b2bwhitelabelContentCatalog/emails
+
+# Import config properties into impex macros for modulegen
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+$emailResource=$config-emailResourceValue                                                                  
+
+# Language                                                                                                 
+$lang=en                                                                                                   
+
+# CMS components and Email velocity templates                                                              
+UPDATE RendererTemplate ; code[unique=true]                                           ; description[lang=$lang]                            ; templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                        ; b2bwhitelabel-BannerComponent-template                      ; "CMSBannerComponent Template"                      ; $emailResource/email-bannerComponentTemplate.vm                                                               
+                        ; b2bwhitelabel-CMSImageComponent-template                    ; "CMSImageComponent Template"                       ; $emailResource/email-cmsImageComponentTemplate.vm                                                             
+                        ; b2bwhitelabel-CMSLinkComponent-template                     ; "CMSLinkComponent Template"                        ; $emailResource/email-cmsLinkComponentTemplate.vm                                                              
+                        ; b2bwhitelabel-CMSParagraphComponent-template                ; "CMSParagraphComponent Template"                   ; $emailResource/email-cmsParagraphComponentTemplate.vm                                                         
+                        ; b2bwhitelabel-SimpleBannerComponent-template                ; "CMSSimpleBannerComponent Template"                ; $emailResource/email-bannerComponentTemplate.vm                                                               
+                        ; b2bwhitelabel_Email_Customer_Registration_Body              ; "Customer Registration Email Body"                 ; $jarEmailResource/email-customerRegistrationBody.vm                                                           
+                        ; b2bwhitelabel_Email_Customer_Registration_Subject           ; "Customer Registration Email Subject"              ; $jarEmailResource/email-customerRegistrationSubject.vm                                                        
+                        ; b2bwhitelabel_Email_Delivery_Sent_Body                      ; "Delivery Sent Email Body"                         ; $jarEmailResource/email-deliverySentBody.vm                                                                   
+                        ; b2bwhitelabel_Email_Delivery_Sent_Subject                   ; "Delivery Sent Email Subject"                      ; $jarEmailResource/email-deliverySentSubject.vm                                                                
+                        ; b2bwhitelabel_Email_Forgotten_Password_Body                 ; "Forgotten Password Email Body"                    ; $jarEmailResource/email-forgottenPasswordBody.vm                                                              
+                        ; b2bwhitelabel_Email_Forgotten_Password_Subject              ; "Forgotten Password Email Subject"                 ; $jarEmailResource/email-forgottenPasswordSubject.vm                                                           
+                        ; b2bwhitelabel_Email_Password_Reset_Body                     ; "PasswordResetSuccessEmailBody"                    ; $jarEmailResource/email-passwordResetBody.vm                                                                  
+                        ; b2bwhitelabel_Email_Password_Reset_Subject                  ; "PasswordResetSuccessEmailSubject"                 ; $jarEmailResource/email-passwordResetSubject.vm                                                               
+                        ; b2bwhitelabel_Email_Share_Cart_Subject                      ; "ShareCartEmailSubject"                            ; $jarEmailResource/email-shareCartSubject.vm                                                                   
+                        ; b2bwhitelabel_Email_Share_Cart_Body                         ; "ShareCartEmailBody"                               ; $jarEmailResource/email-shareCartBody.vm                                                                      
+                        ; b2bwhitelabel_Email_NotPickedUpConsignment_Canceled_Body    ; "Not Picked Up Consignment Canceled Email Body"    ; $emailResource/email-notPickedUpConsignmentCanceledBody.vm                                                    
+                        ; b2bwhitelabel_Email_NotPickedUpConsignment_Canceled_Subject ; "Not Picked Up Consignment Canceled Email Subject" ; $emailResource/email-notPickedUpConsignmentCanceledSubject.vm                                                 
+                        ; b2bwhitelabel_Email_Order_Cancelled_Body                    ; "Order Cancelled Email Body"                       ; $jarEmailResource/email-orderCancelledBody.vm                                                                 
+                        ; b2bwhitelabel_Email_Order_Cancelled_Subject                 ; "Order Cancelled Email Subject"                    ; $jarEmailResource/email-orderCancelledSubject.vm                                                              
+                        ; b2bwhitelabel_Email_Order_Collection_Reminder_Body          ; "Order Collection Reminder Body"                   ; $emailResource/email-orderCollectionReminderBody.vm                                                           
+                        ; b2bwhitelabel_Email_Order_Collection_Reminder_Subject       ; "Order Collection Reminder Subject"                ; $emailResource/email-orderCollectionReminderSubject.vm                                                        
+                        ; b2bwhitelabel_Email_Order_Confirmation_Body                 ; "Order Confirmation Email Body"                    ; $jarEmailResource/email-orderConfirmationBody.vm                                                              
+                        ; b2bwhitelabel_Email_Order_Confirmation_Subject              ; "Order Confirmation Email Subject"                 ; $jarEmailResource/email-orderConfirmationSubject.vm                                                           
+                        ; b2bwhitelabel_Email_Installation_Product_Body               ; "Installation Product Email Body"                  ; $jarEmailResource/email-installationProductBody.vm                                                            
+                        ; b2bwhitelabel_Email_Installation_Product_Subject            ; "Installation Product Email Subject"               ; $jarEmailResource/email-installationProductSubject.vm                                                         
+                        ; b2bwhitelabel_Email_Order_Move_To_CS_Body                   ; "Order Move To CS Body"                            ; $emailResource/email-orderMoveToCsBody.vm                                                                     
+                        ; b2bwhitelabel_Email_Order_Move_To_CS_Subject                ; "Order Move To CS Subject"                         ; $emailResource/email-orderMoveToCsSubject.vm                                                                  
+                        ; b2bwhitelabel_Email_Order_Partially_Canceled_Body           ; "Order Partially Canceled Email Body"              ; $emailResource/email-orderPartiallyCanceledBody.vm                                                            
+                        ; b2bwhitelabel_Email_Order_Partially_Canceled_Subject        ; "Order Partially Canceled Email Subject"           ; $emailResource/email-orderPartiallyCanceledSubject.vm                                                         
+                        ; b2bwhitelabel_Email_Order_Partially_Refunded_Body           ; "Order Partially Refunded Email Body"              ; $emailResource/email-orderPartiallyRefundedBody.vm                                                            
+                        ; b2bwhitelabel_Email_Order_Partially_Refunded_Subject        ; "Order Partially Refunded Email Subject"           ; $emailResource/email-orderPartiallyRefundedSubject.vm                                                         
+                        ; b2bwhitelabel_Email_Order_Refund_Body                       ; "Order Refund Email Body"                          ; $jarEmailResource/email-orderRefundBody.vm                                                                    
+                        ; b2bwhitelabel_Email_Order_Refund_Subject                    ; "Order Refund Email Subject"                       ; $jarEmailResource/email-orderRefundSubject.vm                                                                 
+                        ; b2bwhitelabel_Email_Quote_Buyer_Cancellation_Body           ; "Quote Buyer Cancellation Email Body"              ; $emailResource/email-quoteBuyerCancellationBody.vm                                                            
+                        ; b2bwhitelabel_Email_Quote_Buyer_Cancellation_Subject        ; "Quote Buyer Cancellation Email Subject"           ; $emailResource/email-quoteBuyerCancellationSubject.vm                                                         
+                        ; b2bwhitelabel_Email_Quote_Buyer_Submission_Body             ; "Quote Buyer Submission Email Body"                ; $emailResource/email-quoteBuyerSubmissionBody.vm                                                              
+                        ; b2bwhitelabel_Email_Quote_Buyer_Submission_Subject          ; "Quote Buyer Submission Email Subject"             ; $emailResource/email-quoteBuyerSubmissionSubject.vm                                                           
+                        ; b2bwhitelabel_Email_Quote_Expired_Body                      ; "Quote Expired Body"                               ; $emailResource/email-quoteExpiredBody.vm                                                                      
+                        ; b2bwhitelabel_Email_Quote_Expired_Subject                   ; "Quote Expired Subject"                            ; $emailResource/email-quoteExpiredSubject.vm                                                                   
+                        ; b2bwhitelabel_Email_Quote_To_Expire_Soon_Body               ; "Quote To Expire Soon Body"                        ; $emailResource/email-quoteToExpireSoonBody.vm                                                                 
+                        ; b2bwhitelabel_Email_Quote_To_Expire_Soon_Subject            ; "Quote To Expire Soon Subject"                     ; $emailResource/email-quoteToExpireSoonSubject.vm                                                              
+                        ; b2bwhitelabel_Email_Ready_For_Pickup_Body                   ; "Ready For Pickup Email Body"                      ; $emailResource/email-readyForPickupBody.vm                                                                    
+                        ; b2bwhitelabel_Email_Ready_For_Pickup_Subject                ; "Ready For Pickup Email Subject"                   ; $emailResource/email-readyForPickupSubject.vm                                                                 
+                        ; b2bwhitelabel_Email_Share_Product_Body                      ; "Share Product Email Body"                         ; $jarEmailResource/email-shareProductBody.vm                                                                   
+                        ; b2bwhitelabel_Email_Share_Product_Subject                   ; "Share Product Email Subject"                      ; $jarEmailResource/email-shareProductSubject.vm                                                                
+                        ; b2bwhitelabel_Email_Subscription_Confirmation_Body          ; "Subscription Confirmation Email Body"             ; $jarEmailResource/email-subscriptionConfirmationBody.vm                                                       
+                        ; b2bwhitelabel_Email_Subscription_Confirmation_Subject       ; "Subscription Confirmation Email Subject"          ; $jarEmailResource/email-subscriptionConfirmationSubject.vm                                                    
+                        ; b2bwhitelabel_Email_GP_Address_Notification_Body            ; "GP processes Email Body"                          ; $jarEmailResource/email-gpAddressNotificationBody.vm                                                          
+                        ; b2bwhitelabel_Email_GP_Address_Notification_Subject         ; "GP processes Email Subject"                       ; $jarEmailResource/email-gpAddressNotificationSubject.vm                                                       
+                        ; b2bwhitelabel_Email_GP_Order_Approval_Subject               ; "GP Email Order Approval Subject"                  ; $jarEmailResource/email-gpOrderApprovalSubject.vm                                                             
+                        ; b2bwhitelabel_Email_GP_Order_Approval_Body                  ; "GP Email Order Approval Body"                     ; $jarEmailResource/email-gpOrderApprovalBody.vm                                                                
+                        ; email-UpdateProfileSubject-template                         ; "change UID email subject"                         ; $jarEmailResource/email-updateProfileSubject.vm                                                               
+                        ; email-UpdateProfileBody-template                            ; "change UID email subject"                         ; $jarEmailResource/email-updateProfileBody.vm                                                                  
+                        ; email-ChangeUIDSubject-template                             ; "change UID email subject"                         ; $jarEmailResource/email-changeUIDSubject.vm                                                                   
+                        ; email-ChangeUIDBody-template                                ; "change UID email subject"                         ; $jarEmailResource/email-changeUIDBody.vm                                                                      
+                        ; b2bwhitelabel_Email_Quick_Order_Body                        ; "Quick Order Email Body"                           ; $jarEmailResource/email-quickorderBody.vm                                                                     
+                        ; b2bwhitelabel_Email_Quick_Order_Subject                     ; "Quick Order Email Subject"                        ; $jarEmailResource/email-quickorderSubject.vm                                                                  
+                        ; b2bwhitelabel_Email_Share_Wishlist_Subject                  ; "Share Wishlist Email Subject"                     ; $jarEmailResource/email-shareWishlistSubject.vm                                                               
+                        ; b2bwhitelabel_Email_Share_Wishlist_Body                     ; "Share Wishlist Email Body"                        ; $jarEmailResource/email-shareWishlistBody.vm                                                                  
+                        ; b2bwhitelabel-GPFooterComponent-template                    ; "Email Footer Component"                           ; $jarEmailResource/email-gpFooterComponentTemplate.vm                                                          
+                        ; b2bwhitelabel_Email_Share_Product_Resource_Subject          ; "Share Product Resource Email Subject"             ; $jarEmailResource/email-shareProductResourceSubject.vm                                                        
+                        ; b2bwhitelabel_Email_Share_Product_Resource_Body             ; "Share Product Resource Email Body"                ; $jarEmailResource/email-shareProductResourceBody.vm                                                           
+                        ; b2bwhitelabel_Email_Subcription_Order_Cancelled_Subject     ; "Subscription Order Cancel Email Subject"          ; $jarEmailResource/email-subscriptionOrderCancelledSubject.vm                                                  
+                        ; b2bwhitelabel_Email_Subcription_Order_Cancelled_Body        ; "Subscription Order Cancel Email Body"             ; $jarEmailResource/email-subscriptionOrderCancelledBody.vm                                                     
+                        ; b2bwhitelabel_Email_Subcription_Order_Status_Subject        ; "Subscription Order Status Email Subject"          ; $jarEmailResource/email-subscriptionOrderStatusSubject.vm                                                     
+                        ; b2bwhitelabel_Email_Subcription_Order_Status_Body           ; "Subscription Order Status Email Body"             ; $jarEmailResource/email-subscriptionOrderStatusBody.vm                                                        
+                        ; b2bwhitelabel_Email_Next_Order_Subscription_Subject         ; "Next Order Subscription Email Subject"            ; $jarEmailResource/email-nextOrderSubscriptionSubject.vm                                                       
+                        ; b2bwhitelabel_Email_Next_Order_Subscription_Body            ; "Next Order Subscription Email Body"               ; $jarEmailResource/email-nextOrderSubscriptionBody.vm                                                          
+                        ; b2bwhitelabel_Email_Discontinued_Replace_Product_Body       ; "Discontinued Replacement product Email Body"      ; $jarEmailResource/email-discontinuedReplaceProductBody.vm                                                     
+                        ; b2bwhitelabel_Email_Discontinued_Replace_Product_Subject    ; "Discontinued Replacement product Email Subject"   ; $jarEmailResource/email-discontinuedReplaceProductSubject.vm                                                  
+                        ; b2bwhitelabel-GPSubscriptionFooterComponent-template        ; "Email Footer Component for Subscription"          ; $jarEmailResource/email-gpSubscriptionFooterComponentTemplate.vm                                              
+                        
+# CMS components and Email velocity templates
+UPDATE RendererTemplate ; code[unique=true]                                            ; description[lang=$lang]                      ; templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                        ; b2bwhitelabel_Email_Order_ApprovalRejection_Body             ; "Buyer Approval Rejection Email Body"        ; $jarEmailResource/email-orderApprovalRejectionBody.vm                                                         
+                        ; b2bwhitelabel_Email_Order_ApprovalRejection_Subject          ; "Order Approval Rejection Email Subject"     ; $jarEmailResource/email-orderApprovalRejectionSubject.vm                                                      
+                        ; b2bwhitelabel_Email_Order_PendingApproval_Body               ; "Order Pending Approval Email Body"          ; $jarEmailResource/email-orderPendingApprovalBody.vm                                                           
+                        ; b2bwhitelabel_Email_Order_PendingApproval_Subject            ; "Order Pending Approval Email Subject"       ; $jarEmailResource/email-orderPendingApprovalSubject.vm                                                        
+                        ; b2bwhitelabel_Email_Replenishment_Order_Confirmation_Body    ; ""                                           ; $jarEmailResource/email-replenishmentOrderConfirmationBody.vm                                                 
+                        ; b2bwhitelabel_Email_Replenishment_Order_Confirmation_Subject ; "Order Confirmation Email Subject"           ; $jarEmailResource/email-replenishmentOrderConfirmationSubject.vm                                              
+                        ; b2bwhitelabel_Email_Replenishment_Order_Placed_Body          ; "Order Confirmation Email Subject"           ; $jarEmailResource/email-replenishmentOrderPlacedBody.vm                                                       
+                        ; b2bwhitelabel_Email_Replenishment_Order_Placed_Subject       ; "Order Confirmation Email Subject"           ; $jarEmailResource/email-replenishmentOrderPlacedSubject.vm                                                    
+                        ; b2bwhitelabel_Email_taxExemption_SubmitReview_Body           ; "                                            ; TaxExemption Docs Submit Review Email Body"                                                                   ; $jarEmailResource/email-taxExemptionSubmitReviewEmailBody.vm   
+                        ; b2bwhitelabel_Email_taxExemption_SubmitReview_Subject        ; "                                            ; TaxExemption Docs Submit Review Email Subject"                                                                ; $jarEmailResource/email-taxExemptionSubmitReviewEmailSubject.vm
+                        ; email-FailedOrder_Subject                                    ; "Failed Order Consignment Subject"           ; $jarEmailResource/email-failedOrderSubject.vm                                                                 
+                        ; email-FailedOrder_Body                                       ; "Failed Order Consignment Body"              ; $jarEmailResource/email-failedOrderBody.vm                                                                    
+                        ; b2bwhitelabel_Email_Order_Reject_Body                        ; "Order Reject Email Body"                    ; $jarEmailResource/email-orderRejectBody.vm                                                                    
+                        ; b2bwhitelabel_Email_Order_Reject_Subject                     ; "Order Reject Email Subject"                 ; $jarEmailResource/email-orderRejectSubject.vm                                                                 
+                        ; b2bwhitelabel_Email_Order_Issues_Notify_Body                 ; "Order Issues Notification BOdy"             ; $jarEmailResource/email-orderIssuesNotificationBody.vm                                                        
+                        ; b2bwhitelabel_Email_Order_Issues_Notify_Subject              ; "Order Issues Notification BOdy"             ; $jarEmailResource/email-orderIssuesNotificationSubject.vm                                                     
+                        ; b2bwhitelabel_Email_CSR_Order_ApprovalRejection_Body         ; "CSR Order Approval Rejection Email Body"    ; $jarEmailResource/email-csrFraudOrderNotificationBody.vm                                                      
+                        ; b2bwhitelabel_Email_CSR_Order_ApprovalRejection_Subject      ; "CSR Order Approval Rejection Email Subject" ; $jarEmailResource/email-csrFraudOrderNotificationSubject.vm                                                   
+                        ; b2bwhitelabel_Email_B2B_Order_ApprovalRejection_Body         ; "B2B Order Approval Rejection Email Body"    ; $jarEmailResource/email-b2bOrderApprovalNotificationBody.vm                                                   
+                        ; b2bwhitelabel_Email_B2B_Order_ApprovalRejection_Subject      ; "B2B Order Approval Rejection Email Subject" ; $jarEmailResource/email-b2bOrderApprovalNotificationSubject.vm                                                
+  	                      
+# Email Pages           
+UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]                    ; fromEmail[lang=$lang]                ; fromName[lang=$lang]    
+                 ;                         ; CustomerRegistrationEmail           ; "customerservices@b2bwhitelabel.com" ; "Customer Services Team"
+                 ;                         ; DeliverySentEmail                   ; "customerservices@b2bwhitelabel.com" ; "Customer Services Team"
+                 ;                         ; ForgottenPasswordEmail              ; "customerservices@b2bwhitelabel.com" ; "Customer Services Team"
+                 ;                         ; PasswordResetEmail                  ; "customerservices@b2bwhitelabel.com" ; "CustomerServicesTeam"  
+                 ;                         ; ShareCartEmail                      ; "customerservice@b2bwhitelabel.com"  ; "CustomerServicesTeam"  
+                 ;                         ; OrderApprovalRejectionEmail         ; "customerservices@b2bwhitelabel.com" ; "Customer Services Team"
+                 ;                         ; OrderCancelledEmail                 ; "customerservices@b2bwhitelabel.com" ; "Customer Services Team"
+                 ;                         ; OrderCollectionReminderEmail        ; "customerservices@b2bwhitelabel.com" ; "Customer Services Team"
+                 ;                         ; OrderConfirmationEmail              ; "customerservices@b2bwhitelabel.com" ; "Customer Services Team"
+                 ;                         ; InstallationProductEmail            ; "customerservices@b2bwhitelabel.com" ; "Customer Services Team"
+                 ;                         ; OrderMoveToCsEmail                  ; "customerservices@b2bwhitelabel.com" ; "Customer Services Team"
+                 ;                         ; OrderPartiallyCanceledEmail         ; "customerservices@b2bwhitelabel.com" ; "Customer Services Team"
+                 ;                         ; OrderPartiallyRefundedEmail         ; "customerservices@b2bwhitelabel.com" ; "Customer Services Team"
+                 ;                         ; OrderPendingApprovalEmail           ; "customerservices@b2bwhitelabel.com" ; "Customer Services Team"
+                 ;                         ; OrderRefundEmail                    ; "customerservices@b2bwhitelabel.com" ; "Customer Services Team"
+                 ;                         ; QuoteBuyerCancellationEmail         ; "customerservices@b2bwhitelabel.com" ; "Customer Services Team"
+                 ;                         ; QuoteBuyerSubmissionEmail           ; "customerservices@b2bwhitelabel.com" ; "Customer Services Team"
+                 ;                         ; QuoteExpiredEmail                   ; "customerservices@b2bwhitelabel.com" ; "Customer Services Team"
+                 ;                         ; QuoteToExpireSoonEmail              ; "customerservices@b2bwhitelabel.com" ; "Customer Services Team"
+                 ;                         ; ReadyForPickupEmail                 ; "customerservices@b2bwhitelabel.com" ; "Customer Services Team"
+                 ;                         ; ReplenishmentOrderConfirmationEmail ; "customerservices@b2bwhitelabel.com" ; "Customer Services Team"
+                 ;                         ; ReplenishmentOrderPlacedEmail       ; "customerservices@b2bwhitelabel.com" ; "Customer Services Team"
+                 ;                         ; taxExemptionSubmitReviewEmail       ; "customerservices@b2bwhitelabel.com" ; "Customer Services Team"
+                 ;                         ; ShareProductEmail                   ; "customerservices@b2bwhitelabel.com" ; "Customer Services Team"
+                 ;                         ; GPSubscrpOrderConfirmationEmail     ; "customerservices@b2bwhitelabel.com" ; "Customer Services Team"
+                 ;                         ; ShareWishlistEmail                  ; "customerservices@b2bwhitelabel.com" ; "Customer Services Team"
+                 ;                         ; GPAddressNotificationEmail          ; "customerservices@b2bwhitelabel.com" ; "Customer Services Team"
+                 ;                         ; GPOrderApprovalEmail                ; "customerservices@b2bwhitelabel.com" ; "Customer Services Team"
+                 ;                         ; UpdateProfileEmail                  ; "customerservices@b2bwhitelabel.com" ; "Customer Services Team"
+                 ;                         ; ChangeUIDEmail                      ; "customerservices@b2bwhitelabel.com" ; "Customer Services Team"
+                 ;                         ; QuickOrderEmail                     ; "customerservices@b2bwhitelabel.com" ; "Customer Services Team"
+                 ;                         ; FailedOrderEmail                    ; "customerservices@b2bwhitelabel.com" ; "Customer Services Team"
+                 ;                         ; OrderRejectEmail                    ; "customerservices@b2bwhitelabel.com" ; "Customer Services Team"
+                 ;                         ; ShareProductResourceEmail           ; "customerservices@b2bwhitelabel.com" ; "Customer Services Team"
+                 ;                         ; OrderIssuesNotifyEmail              ; "customerservices@b2bwhitelabel.com" ; "Customer Services Team"
+                 ;                         ; SubscriptionOrderCancelledEmail     ; "customerservices@b2bwhitelabel.com" ; "Customer Services Team"
+                 ;                         ; SubscriptionOrderStatusEmail        ; "customerservices@b2bwhitelabel.com" ; "Customer Services Team"
+                 ;                         ; GPNextOrderSubscriptionEmail        ; "customerservices@b2bwhitelabel.com" ; "Customer Services Team"
+                 ;                         ; CSROrderApprovalRejectionEmail      ; "customerservices@b2bwhitelabel.com" ; "Customer Services Team"
+                 ;                         ; B2BOrderApprovalNotifyEmail         ; "customerservices@b2bwhitelabel.com" ; "Customer Services Team"
+                 ;                         ; GPDiscontinuedReplacedProductEmail  ; "customerservices@b2bwhitelabel.com" ; "Customer Services Team"

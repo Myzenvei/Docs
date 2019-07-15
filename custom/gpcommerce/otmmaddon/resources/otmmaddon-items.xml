@@ -1,0 +1,674 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- [y] hybris Platform Copyright (c) 2000-2013 hybris AG All rights reserved. This software is the confidential and proprietary information 
+	of hybris ("Confidential Information"). You shall not disclose such Confidential Information and shall use it only in accordance with 
+	the terms of the license agreement you entered into with hybris. -->
+<!-- ATTENTION: This is just an example file. You have to edit it according to your needs. -->
+
+<items xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="items.xsd">
+
+	<collectiontypes>
+		<collectiontype code="OtmmAssetDeliveryList" elementtype="OtmmAssetDelivery"  type="list"/>
+		<collectiontype code="AssetAssignmentSpecList" elementtype="AssetAssignmentSpec"  type="list"/>
+	</collectiontypes>
+	
+
+	<enumtypes>
+		<enumtype code="OpentextExportJobStatus" autocreate="true" generate="true" dynamic="false">
+			<value code="waitingForExport" />
+			<value code="processingExport" />
+			<value code="waitingForSync" />
+			<value code="processingSync" />
+			<value code="processingDirectExport" />
+			<value code="processingDirectSync" />
+			<value code="synchronized" />
+			<value code="failed" />
+		</enumtype>
+		<enumtype code="OtmmTrackingEvent" autocreate="true" generate="true" dynamic="false">
+			<value code="deleteMedia"/>
+			<value code="removeMedia"/>
+			<value code="addMedia"/>
+			<value code="deleteItem"/>
+			<value code="addMediaToContainer"/>
+			<value code="removeMediaFromContainer"/>
+			<value code="addContainer"/>
+			<value code="removeContainer"/>
+			<value code="deleteContainer"/>
+			<value code="removeMediaFromContainerImplicit"/>
+			<value code="changeAttribute"/>
+		</enumtype>
+		<enumtype code="OtmmContentType" autocreate="true" generate="true" dynamic="true">
+			<value code="BITMAP"/>
+			<value code="default"/>
+			<value code="VIDEO"/>
+			<value code="MSOFFICE"/>
+			<value code="ACROBAT"/>
+        </enumtype>
+	</enumtypes>
+	
+	<relations>
+		<!-- 
+		<relation code="OpenTextMedia2ItemReference" localized="false" >
+			<deployment table="OpenTextMediaItemRel" typecode="30150"/>
+			<sourceElement type="OpenTextMedia" cardinality="many" navigable="false"/>
+			<targetElement type="OtmmItemReference" qualifier="assignedTo" cardinality="many" collectiontype="set"/>
+		</relation>
+		 -->
+		
+		<relation code="OpenTextMedia2ItemReference" localized="false" generate="true" autocreate="true">
+            <sourceElement type="OpenTextMedia" qualifier="assignedFrom" cardinality="one">
+                <modifiers read="true" write="true" search="true" optional="true"/>
+            </sourceElement>
+            <targetElement type="OtmmItemReference" qualifier="assignedTo" cardinality="many" collectiontype="list"
+                           ordered="false">
+                <modifiers read="true" write="true" search="true" optional="true" partof="true"/>
+            </targetElement>
+        </relation>
+	</relations>
+	
+	
+
+	<itemtypes>
+	
+		<itemtype code="OtmmItemReference" autocreate="true" generate="true">
+			<deployment table="OtmmItemReference" typecode="30010" />
+			<attributes>
+				<attribute qualifier="itemPk" type="de.hybris.platform.core.PK">
+					<description>Pk of an item</description>
+					<modifiers partof="true"/>
+					<persistence type="property" />
+				</attribute>
+			</attributes>
+		</itemtype>
+
+
+		<itemtype code="OpenTextMedia" autocreate="true" generate="true" extends="Media">
+			<attributes>
+				<attribute qualifier="otmmAssetId" type="java.lang.String">
+					<description>Holds the OTMM asset Id</description>
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="otmmOriginalAssetId" type="java.lang.String">
+					<description>Holds the OTMM original asset Id</description>
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="otmmAssetName" type="java.lang.String">
+					<description>Holds the OTMM asset name</description>
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="otmmUseLatestVersion" type="java.lang.Boolean">
+					<defaultvalue>false</defaultvalue>
+					<description>Flag Media item to be updated with the latest asset version</description>
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="otmmAssignmentType" type="java.lang.String">
+					<description>Assignment type resp. Rendering type used to create this Media item</description>
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="otmmUrl" type="java.lang.String">
+					<description>URL for the OTMM Media Servlet</description>
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="otmmRenditionSet" type="java.lang.String">
+					<description>Rendition set to be used for the OTMM Media Servlet</description>
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="URL" redeclare="true" type="java.lang.String">
+					<persistence type="dynamic" attributeHandler="otmmUrlAttributeHandler" />
+					<modifiers read="true" write="false" optional="true" />
+				</attribute>
+				<attribute qualifier="otmmParameters" type="java.lang.String">
+					<description>Additional parameters to get the content</description>
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="otmmAssetDeliveryName" type="java.lang.String">
+					<description>Name of the Asset Delivery</description>
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="otmmAssetDelivery" type="OtmmAssetDelivery">
+					<description>Reference to the Asset Delivery</description>
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="otmmThumbnailUrl" type="java.lang.String">
+					<persistence type="dynamic" attributeHandler="otmmThumbnailAttributeHandler" />
+					<modifiers read="true" write="false" optional="true" />
+				</attribute>
+				<attribute type="java.lang.String" qualifier="downloadURL" redeclare="true" >
+                    <persistence type="dynamic" attributeHandler="otmmUrlAttributeHandler"/>
+                    <modifiers read="true" write="false" removable="true" search="false" optional="true"/>
+                    <model>
+                        <getter name="downloadurl" deprecated="true"/>
+                        <setter name="downloadurl" deprecated="true"/>
+                    </model>
+                </attribute>		
+			</attributes>
+		</itemtype>
+
+		<!-- Other transactional data -->
+		<itemtype code="OtmmAssignmentStatus" autocreate="true" generate="true">
+			<deployment table="OtmmAssignmentStatus" typecode="30001" />
+			<attributes>
+				<!-- Hybris related data -->
+				<attribute qualifier="otmmItem" type="Item">
+					<description>Holds the reference to the product/item.</description>
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="otmmAttributeId" type="java.lang.String">
+					<description>Hybris explicit attribute</description>
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="otmmAttributeKey" type="java.lang.String">
+					<description>
+               		The argument of the MapTypeModel attribute defined by otmmAttributeId.
+               		In case of localized:Media it is ISO language code of the Locale.
+               		</description>
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="otmmCatalogId" type="java.lang.String">
+					<description>Hybris Catalog Mnemonic</description>
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="otmmCatId" type="java.lang.String">
+					<description>Hybris Catalog Id</description>
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="otmmCatVersion" type="java.lang.String">
+					<description>Hybris Catalog Version Name</description>
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="otmmProductCode" type="java.lang.String">
+					<description>Hybris product code</description>
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="otmmCustomKeyword" type="java.lang.String">
+					<description>Assignment Label attached to the Assignment</description>
+					<persistence type="property" />
+				</attribute>
+				<!-- OTMM related data -->
+				<attribute qualifier="otmmAssetId" type="java.lang.String">
+					<description>Asset Id From OTMM</description>
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="otmmOriginalAssetId" type="java.lang.String">
+					<description>Original Asset Id From OTMM</description>
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="otmmMimeType" type="java.lang.String">
+					<description>Mime type of asset</description>
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="otmmModelType" type="java.lang.String">
+					<description>Holds the OTMM model type of this asset.</description>
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="otmmAssetName" type="java.lang.String">
+					<description>Holds the OTMM asset name for particular asset.</description>
+					<persistence type="property" />
+				</attribute>
+				<!-- CronJobs related data -->
+				<attribute qualifier="otmmStatus" type="OpentextExportJobStatus">
+					<description>Holds the status of the export/synchronization process.</description>
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="otmmJobId" type="java.lang.String">
+					<description>OTMM export JobId</description>
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="otmmSyncDir" type="java.lang.String">
+					<description>OTMM synchronization directory for the export job.</description>
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="otmmContentType" type="java.lang.String">
+					<description>content type as defined by OTMM e.g. Video</description>
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="otmmSizeInBytes" type="java.lang.Long">
+					<description>size of the asset in bytes</description>
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="otmmUseLatestVersion" type="java.lang.Boolean">
+					<defaultvalue>false</defaultvalue>
+					<description>Flag for created Media items to be updated with the latest asset version</description>
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="otmmVersionUpdate" type="java.lang.Boolean">
+					<defaultvalue>false</defaultvalue>
+					<description>Flag for updating the Media items with new asset version</description>
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="otmmSelectedAssetDelivery" type="OtmmAssetDelivery">
+					<description>Contains the Asset Delivery selected by the user if any</description>
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="otmmParameters" type="java.lang.String">
+					<description>Additional parameters to get the content</description>
+					<persistence type="property" />
+				</attribute>
+			</attributes>
+		</itemtype>
+
+		<itemtype code="OtmmUserPassword" autocreate="true" generate="true">
+			<deployment table="OtmmUserPassword" typecode="30002" />
+			<attributes>
+				<!-- Hybris related data -->
+				<attribute qualifier="identifier" type="java.lang.String">
+					<description>Name of the user password combination</description>
+					<persistence type="property" />
+					<modifiers optional="false" />
+				</attribute>
+				<attribute qualifier="user" type="java.lang.String">
+					<description>User</description>
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="password" type="java.lang.String">
+					<description>The password of the user</description>
+					<persistence type="property" />
+					<modifiers encrypted="true" />
+				</attribute>
+			</attributes>
+		</itemtype>
+
+		<itemtype code="AutoAssignCronJob" autocreate="true" generate="true" extends="CronJob">
+			<attributes>
+				<attribute type="CatalogVersion" qualifier="catalogVersion">
+					<description>Assign assets where the corresponding product is found in this catalogVersion</description>
+					<modifiers read="true" write="true" initial="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute type="java.lang.Integer" qualifier="maxAssets">
+					<defaultvalue>1000</defaultvalue>
+					<description>Stop after this number of assets was assigned</description>
+					<modifiers read="true" write="true" initial="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute type="java.lang.String" qualifier="customKeyword">
+					<description>The custom keyword is saved in OTMM as Assignment label for the assigned assets</description>
+					<modifiers read="true" write="true" initial="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute type="java.lang.Boolean" qualifier="useLatestVersion"> 
+					<defaultvalue>false</defaultvalue>
+					<description>Flag for created Media items to be updated with the latest asset version</description>
+					<modifiers read="true" write="true" initial="false" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute type="java.lang.String" qualifier="otmmFolderId">
+					<description>Restrict search in OTMM for unassigned assets to OTMM folder with this id</description>
+					<modifiers read="true" write="true" initial="false" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute type="java.lang.Integer" qualifier="ageInDays">
+					<defaultvalue>10</defaultvalue>
+					<description>Restrict search in OTMM for unassigned assets created in the last ageInDays days</description>
+					<modifiers read="true" write="true" initial="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute type="java.lang.Integer" qualifier="numThreads">
+					<defaultvalue>1</defaultvalue>
+					<description>Start numThreads subthreads to parallelize asset assignments</description>
+					<modifiers read="true" write="true" initial="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute type="java.lang.String" qualifier="otmmModelId">
+					<description>Restrict search in OTMM for unassigned assets to assets stored with OTMM model with this id</description>
+					<modifiers read="true" write="true" initial="false" optional="true" />
+					<persistence type="property" />
+				</attribute>
+
+				<attribute type="java.lang.String" qualifier="otmmAssignedFieldName">
+					<description>Override config param otmm.auto.assigned.field</description>
+					<modifiers read="true" write="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute type="java.lang.String" qualifier="otmmProductIdFieldName">
+					<description>Override config param otmm.auto.productid.field</description>
+					<modifiers read="true" write="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute type="java.lang.String" qualifier="otmmIsProductIdInherited">
+					<description>Override config param otmm.auto.productid.field.isinherited</description>
+					<modifiers read="true" write="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute type="java.lang.String" qualifier="otmmAttributeIdFieldName">
+					<description>Override config param otmm.auto.attributeid.field</description>
+					<modifiers read="true" write="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute type="java.lang.String" qualifier="otmmLocaleFieldName">
+					<description>Override config param otmm.auto.locale.field</description>
+					<modifiers read="true" write="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute type="java.lang.String" qualifier="otmmSystemIdFieldName">
+					<description>Override config param otmm.auto.systemid.field</description>
+					<modifiers read="true" write="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute type="java.lang.String" qualifier="otmmIsSystemIdInherited">
+					<description>Override config param otmm.auto.systemid.field.isinherited</description>
+					<modifiers read="true" write="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute type="java.lang.String" qualifier="systemId">
+					<description>Override config param otmm.hybris.systemId</description>
+					<modifiers read="true" write="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute type="java.lang.String" qualifier="useEAN">
+					<description>Override config param otmm.auto.useEan</description>
+					<modifiers read="true" write="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute type="java.lang.String" qualifier="useAssetName">
+					<description>Override config param otmm.auto.useAssetName</description>
+					<modifiers read="true" write="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute type="java.lang.String" qualifier="maxFailedSize">
+					<description>Override config param otmm.autoAssignJob.maxFailedSize</description>
+					<modifiers read="true" write="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute type="java.lang.Boolean" qualifier="removeNonOpenTextMedia">
+					<defaultvalue>false</defaultvalue>
+					<description>Remove non-OTMM Media items from Product</description>
+					<modifiers read="true" write="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				
+			</attributes>
+		</itemtype>
+		
+		<itemtype code="OtmmContainerAssignment" generate="true" >
+			<deployment table="OtmmContainerAssignment" typecode="30003" />
+			<attributes>
+				<attribute qualifier="itemPk" type="de.hybris.platform.core.PK" >
+					<description>The item to which the container belongs</description>
+					<persistence type="property"/>
+					<modifiers unique="true"/>
+				</attribute>
+				<attribute qualifier="mediaHolderPk" type="de.hybris.platform.core.PK" >
+					<description>The container itself e.g. MediaContainer</description>
+					<persistence type="property"/>
+					<modifiers unique="true" />
+				</attribute>
+				<attribute qualifier="attributeId" type="java.lang.String" >
+					<description>The attribute that was changed</description>
+					<persistence type="property"/>
+					<modifiers unique="true"/>
+				</attribute>
+				<attribute qualifier="containerQualifier" type="java.lang.String">
+					<description>Qualifier of the MediaContainer</description>
+					<persistence type="property"/>
+					<modifiers unique="true"/>
+				</attribute>
+				<attribute qualifier="containerCatalogVersion" type="CatalogVersion">
+					<description>CatalogVersion of the MediaContainer</description>
+					<persistence type="property"/>
+					<modifiers unique="true"/>
+				</attribute>				
+			</attributes>
+			<indexes>
+				<index name="ContainerAssignmentPK" unique="true">
+					<key attribute="itemPk"/>
+					<key attribute="mediaHolderPk"/>
+					<key attribute="attributeId"/>
+					<key attribute="containerQualifier"/>
+					<key attribute="containerCatalogVersion"/>
+				</index>
+				<index name="ItemPK">
+					<key attribute="itemPk"/>
+				</index>
+				<index name="MediaHolderPK">
+					<key attribute="mediaHolderPk"/>
+				</index>
+			</indexes>
+		</itemtype>
+		
+		<itemtype code="OtmmAssignmentChange" generate="true">
+			<deployment table="OtmmAssignmentChange" typecode="30004" />
+			<attributes>
+				<attribute qualifier="item" type="Item" >
+					<description>Item referencing the asset</description>
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="itemPk" type="de.hybris.platform.core.PK" >
+					<description>Item referencing the asset (Pk)</description>
+					<persistence type="property"/>
+					<modifiers optional="false" />
+				</attribute>
+				<attribute qualifier="assetId" type="java.lang.String" >
+					<description>The Id of the associated Asset</description>
+					<persistence type="property"/>
+					<modifiers optional="true" />
+				</attribute>
+				<attribute qualifier="media" type="OpenTextMedia" >
+					<description>OpenTextMedia assigned to item</description>
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="mediaPk" type="de.hybris.platform.core.PK" >
+					<description>OpenTextMedia assigned to item (PK).</description>
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="attributeId" type="java.lang.String" >
+					<description>The attribute that was changed</description>
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="event" type="OtmmTrackingEvent">
+					<description>Tracking event.</description>
+					<persistence type="property"/>
+					<modifiers optional="false" />
+				</attribute>
+			</attributes>
+		</itemtype>
+		
+		<itemtype code="MetadataSyncCronJob" autocreate="true" generate="true" extends="CronJob">
+			<attributes>
+				<attribute type="java.lang.Integer" qualifier="batchSize">
+					<defaultvalue>1000</defaultvalue>
+					<description>Process this amount of OtmmAssignmentChanges</description>
+					<modifiers read="true" write="true" initial="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+			</attributes>
+		</itemtype>
+
+		<itemtype code="OtmmTask" autocreate="true" generate="true" extends="Task">
+		</itemtype>
+		
+        <itemtype code="OtmmAssetDelivery" autocreate="true" generate="true" abstract="true">
+         	<deployment table="OtmmAssetDelivery" typecode="30006" />
+         	<attributes>
+	         	<attribute qualifier="name" type="java.lang.String">
+	          		<description>Name</description>
+	          		<persistence type="property" />
+	          		<modifiers optional="false" unique="true"/>
+	          	</attribute>         	          	
+	          	<attribute qualifier="mediaFolder" type="MediaFolder">
+	          		<description>Media Folder</description>
+	          		<persistence type="property" />
+	          	</attribute>
+	          	<attribute qualifier="displayName" type="localized:java.lang.String">
+	          		<description>Localized Display Name</description>
+	          		<persistence type="property"/>
+	          	</attribute>
+	          	<attribute qualifier="isDefault" type="java.lang.Boolean">
+	          		<description>Marks this Asset Delivery as the default if no Asset Assignment Spec is found.</description>
+	          		<persistence type="property"/>
+	          		<defaultvalue>false</defaultvalue>
+	          	</attribute>
+	          	<attribute qualifier="mediaFormatQualifier" type="java.lang.String">
+	          		<description>The MediaFormat to be used. If empty "name" will be used.</description>
+	          		<persistence type="property"/>
+	          	</attribute>
+          	</attributes>
+          	<indexes>
+				<index name="OtmmAssetDeliveryPK" unique="true">
+					<key attribute="name"/>
+				</index>
+			</indexes>
+        </itemtype>
+        
+        <itemtype code="ContentByExportDelivery" autocreate="true" generate="true" extends="OtmmAssetDelivery">
+         	<attributes>
+	         	<attribute qualifier="command" type="java.lang.String">
+	          		<description>any options supported by Image Magick</description>
+	          		<persistence type="property" />
+	          	</attribute>
+          	</attributes>
+        </itemtype>
+        
+        <itemtype code="MediaDeliveryService" autocreate="true" generate="true" extends="OtmmAssetDelivery">
+         	<attributes>
+	         	<attribute qualifier="renditionSet" type="java.lang.String">
+	          		<description>for Media Delivery Service renditions can be grouped in a rendition set. This means that all renditions of the set are rendered in one go by the servlet, if one of the renditions is requested.</description>
+	          		<persistence type="property" />
+	          	</attribute>
+	          	<attribute qualifier="command" type="java.lang.String">
+	          		<description>any options supported by Image Magick</description>
+	          		<persistence type="property" />
+	          	</attribute>
+	          	<attribute qualifier="mimeType" type="java.lang.String">
+	          		<description>The MIME type used for the created Media item</description>
+	          		<persistence type="property" />
+	          	</attribute>
+	          	<attribute qualifier="mimeTypeAttribute" type="java.lang.String">
+	          		<description>an attribute path relative to METADATA in assetProperties.xml. Its value is used as MIME type for the created Media item.</description>
+	          		<persistence type="property" />
+	          	</attribute>
+	          	<attribute qualifier="renderedTo" type="java.lang.String">
+	          		<description>if set, then this rendition generates images of that format (e.g. .jpg, .tiff, ...</description>
+	          		<persistence type="property" />
+	          	</attribute>
+          	</attributes>
+        </itemtype>
+        
+        <itemtype code="UrlDelivery" autocreate="true" generate="true" extends="OtmmAssetDelivery">
+         	<attributes>        
+	         	<attribute qualifier="urlTemplate" type="java.lang.String">
+	          		<description>template used to create the URL.</description>
+	          		<persistence type="property" />
+	          	</attribute>
+	          	<attribute qualifier="urlAttribute" type="java.lang.String">
+	          		<description>an attribute path relative to METADATA in assetProperties.xml. Its value is used as URL or as value for the placeholder {1} in url_template.</description>
+	          		<persistence type="property" />
+	          	</attribute>        
+        		<attribute qualifier="mimeType" type="java.lang.String">
+	          		<description>The MIME type used for the created Media item</description>
+	          		<persistence type="property" />
+	          	</attribute>
+	          	<attribute qualifier="mimeTypeAttribute" type="java.lang.String">
+	          		<description>an attribute path relative to METADATA in assetProperties.xml. Its value is used as MIME type for the created Media item.</description>
+	          		<persistence type="property" />
+	          	</attribute>
+          	</attributes>	          	
+        </itemtype>     
+        
+         <itemtype code="AssetAssignmentSpec" autocreate="true" generate="true">
+         	<deployment table="AssetAssignmentSpec" typecode="30007" />
+         	<attributes>
+	          	<attribute qualifier="otmmContentType" type="OtmmContentType">
+	          		<description>OTMM Content Type</description>
+	          		<persistence type="property" />
+	          		<modifiers unique="true" optional="false"/>
+	          	</attribute>
+         		<attribute qualifier="otmmItemType" type="ComposedType">
+	          		<description>Item Type</description>
+	          		<persistence type="property" />
+	          		<modifiers unique="true" optional="false"/>
+	          	</attribute>
+	          	<attribute qualifier="otmmExplicitAttribute" type="AttributeDescriptor">
+	          		<description>Explicit Attribute</description>
+	          		<persistence type="property" />
+	          		<modifiers unique="true" optional="false"/>
+	          	</attribute>
+	          	<attribute qualifier="otmmAssetDeliveryDefinitions" type="OtmmAssetDeliveryList">
+	          		<description>Asset Delivery Definitions</description>
+	          		<persistence type="property" />
+	          	</attribute>
+
+	          	<attribute qualifier="otmmImplicitAttributes" type="AssetAssignmentSpecList">
+	          		<description>Implicit Attributes Specs</description>
+	          		<persistence type="property" />
+	          	</attribute>
+         	</attributes>
+			<indexes>
+				<index name="AssetAssignmentSpecPK" unique="true">
+					<key attribute="otmmContentType"/>
+					<key attribute="otmmItemType"/>
+					<key attribute="otmmExplicitAttribute"/>
+				</index>
+			</indexes>         	
+         </itemtype>
+
+		<itemtype code="MediaMultiplicityMatchesConstraint" autocreate="true"
+			generate="true" extends="TypeConstraint">
+			<description>Checks if the count of AssetDelivery definitions match the count of medias that can be assigned to the explicit attribute.</description>
+			<attributes>
+				<attribute qualifier="annotation" type="java.lang.Class"
+					redeclare="true">
+					<modifiers write="false" initial="true" optional="false" />
+					<defaultvalue>
+						com.opentext.hybris.otmmconnector.constraints.MediaMultiplicityMatches.class
+					</defaultvalue>
+				</attribute>
+			</attributes>
+		</itemtype>
+		 
+		<itemtype code="CorrespondentCreation" autocreate="true" generate="true">
+         	<deployment table="CorrespondentCreation" typecode="30008" />
+         	<attributes>
+         		<attribute qualifier="masterObjectId" type="java.lang.String">
+	          		<description>Item identifier e.g. Product code</description>
+	          		<persistence type="property" />
+	          		<modifiers optional="false"/>
+	          	</attribute>
+				<attribute qualifier="catalogVersion" type="CatalogVersion">
+					<description>Catalog version of the item</description>
+					<modifiers read="true" write="true" initial="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+	          	<attribute qualifier="errorCode" type="java.lang.String">
+	          		<description>Error code if failed</description>
+	          		<persistence type="property" />
+	          	</attribute>
+	          	<attribute qualifier="errorMessage" type="java.lang.String">
+	          		<description>Error message if failed</description>
+	          		<persistence type="property" />
+	          	</attribute>	          	
+	        </attributes>
+        </itemtype>
+        <!-- 
+		<itemtype code="FlowerProduct" autocreate="true" generate="true" extends="Product">
+			<attributes>
+				<attribute type="java.lang.String" qualifier="Colour">
+					<description>Colour</description>
+					<modifiers read="true" write="true" initial="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute type="java.lang.Integer" qualifier="Height">
+					<description>Average Height in cm</description>
+					<modifiers read="true" write="true" initial="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute type="localized:java.lang.String" qualifier="CommonName"> 
+					<description>Commonly used name</description>
+					<modifiers read="true" write="true" initial="false" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute type="java.lang.String" qualifier="BotanicalName">
+					<description>Botanical Name</description>
+					<modifiers read="true" write="true" initial="false" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute type="localized:Media" qualifier="localmedia">
+					<persistence type="property" />
+					<modifiers read="true" write="true" initial="false" optional="true" />
+					<description>Localized media that is displayed in the component.</description>
+				</attribute>
+			</attributes>
+		</itemtype>
+         -->
+
+	</itemtypes>
+</items>

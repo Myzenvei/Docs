@@ -1,0 +1,57 @@
+# Multi Country Admin Group 
+INSERT_UPDATE UserGroup;uid[unique=true];locName[lang=en];groups(uid)[mode=append];
+;multicountryadmingroup;Multi Country Admin Group;productmanagergroup;
+;multicountrysolrgroup;Multi Country Solr Group;
+
+#
+# Import Access Rights for CMS Cockpit
+# 
+
+$START_USERRIGHTS;;;;;;;;;
+Type;UID;MemberOfGroups;Password;Target;read;change;create;remove;change_perm
+UserGroup;productmanagergroup;;;;;;;;
+
+# general
+;;;;Item;+;;;;;
+
+# cms2 items
+;;;;BaseStore;+;;;
+;;;;ProductAvailabilityAssignment;+;+;+;
+;;;;ProductAvailabilityGroup;+;;;
+;;;;PriceRow;+;+;+;
+;;;;HybrisEnumValue;+;+;+;
+;;;;ContextualAttributeValue;+;+;+;
+;;;;ContextualAttributesContext;+;;;
+;;;;Unit;+;;;
+;;;;SolrFacetSearchConfig;+;;;
+
+
+#;;;;MultiCountryBatchApprovalWizard;+;+;+;
+
+$END_USERRIGHTS;;;;;	
+
+
+INSERT_UPDATE BackofficeRole;UID[unique=true];groups(uid)[mode=append];locName;name;backOfficeLoginDisabled;authorities
+;backofficeproductmanagergroup;productmanagergroup;Backoffice Product Manager;Backoffice Product Manager;FALSE;backofficeproductmanager
+;backofficeproductadministratorgroup;multicountryadmingroup,backofficeproductmanagergroup;Backoffice Product Administrator;Backoffice Product Administrator;FALSE;backofficeproductadministrator
+
+
+
+
+
+# UserPriceGroup
+INSERT_UPDATE UserPriceGroup;code[unique=true];name[lang=en];
+;pricegroup-gpemployee;GPEmployee Price Group;
+;pricegroup-dixie;Dixie Price Group;
+;pricegroup-copperandcrane;Copper and Crane Price Group;
+;pricegroup-vanityfairnapkins;Vanity Fair Napkins Price Group;
+
+
+
+
+INSERT_UPDATE ContextualAttributesContext;code[unique=true];name
+;GPEmployeeContext;Context for GPEmployee attributes
+;DixieContext;Context for Dixie attributes
+;CopperandCraneContext;Context for Copper and Crane attributes
+;VanityFairNapkinsContext;Context for Vanity Fair Napkins attributes
+

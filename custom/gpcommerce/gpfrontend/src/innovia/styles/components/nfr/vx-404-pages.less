@@ -1,0 +1,45 @@
+#innovia {
+  .vx-404-page {
+    @media screen and (max-width: @screen-sm-min) {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+
+    @media screen and (min-width: @screen-sm-min) and (max-width: @screen-md-min) {
+      padding-left: 16px !important;
+      padding-right: 16px !important;
+    }
+
+    .error-container {
+      @media screen and (min-width: @screen-sm-min) {
+        padding: 24px 32px 32px 32px;
+      }
+
+      @media screen and (max-width: @screen-sm-min) {
+        padding: 24px 0px;
+      }
+
+      .error-heading {
+        font-weight: @font-weight-regular;
+        font-family: @font-family-montserrat;
+      }
+
+      .return-home {
+        .btn-tertiary {
+          font-family: @font-family-montserrat;
+          font-size: @font-size-base;
+          background: @btn-default-bg;
+          border: 1px solid @btn-default-border;
+          text-transform: @btn-404-text-transform;
+          color: @btn-default-color;
+        }
+      }
+
+      .immediate-assitance {
+        a {
+          color: @btn-default-color;
+        }
+      }
+    }
+  }
+}

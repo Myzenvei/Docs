@@ -1,0 +1,13 @@
+<div class="vx-gifting-details">
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>
+  </vx-spinner>
+  <template v-if="giftDetails.images">
+    <div class="gift-image d-flex justify-content-center mb-xs-4">
+      <img :src="giftDetails.images[0].zoomUrl">
+    </div>
+  </template>
+  <p class="gift-details mb-xs-0">{{giftDetails.description}}</p>
+  <!-- <div class="d-flex justify-content-center">
+    <button type="button" class="close-button btn btn-primary modal-btn-primary-small modal-btn-xs-sticky" @click="$emit('giftDetailsClose')">{{i18n.giftClose}}</button>
+  </div> -->
+</div>

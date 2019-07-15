@@ -1,0 +1,18 @@
+<div class="vx-add-product-to-list">
+  <div class="modal-container" @click.stop="">
+    <div class="input-text">
+      {{i18n.addProductsToListDescription}}
+    </div>
+    <div class="input-container form-group">
+      <input :aria-label="i18n.firstName" ref="addProductsToList" type="text" class="form-control" name="addProductsToList" v-model="productNames"
+      />
+      <button class="btn btn-tertiary d-flex align-items-center" type="button" :aria-label='i18n.applyProductCodes' @click="handleAddProductsToList">
+        <span class="icon-plus"></span>
+      </button>
+    </div>
+    <div class="input-example">
+      {{i18n.productListExample}}
+    </div>
+    <span class="icon-cross mt-xs-2 mr-xs-1" @click="closeAddProductToList()"></span>
+  </div>
+</div>

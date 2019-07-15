@@ -1,0 +1,89 @@
+h1 {
+  .font(
+    @font-size-xs-h1,
+    @font-weight-regular,
+    @font-family-heading,
+    @text-color,
+    1.1
+  );
+  @media(min-width: @screen-md-min){
+    .font(
+      @font-size-h1,
+      @font-weight-regular,
+      @font-family-heading,
+      @text-color,
+      1.1
+    );
+  }
+}
+
+h2 {
+  .font(
+    @font-size-h2,
+    @font-weight-regular,
+    @font-family-heading,
+    @text-color,
+    1.1
+  );
+}
+
+h3 {
+  .font(
+    @font-size-h3,
+    @font-weight-regular,
+    @font-family-heading,
+    @text-color,
+    1.1
+  );
+}
+
+h4 {
+  .font(
+    @font-size-h4,
+    @font-weight-regular,
+    @font-family-heading,
+    @text-color,
+    1.1
+  );
+}
+
+h5 {
+  .font(
+    @font-size-h5,
+    @font-weight-medium,
+    @font-family-heading,
+    @text-color,
+    1.1
+  );
+}
+
+h6 {
+  .font(
+    @font-size-h6,
+    @font-weight-medium,
+    @font-family-heading,
+    @text-color,
+    1.1
+  );
+}
+
+p {
+  .font(
+    @font-size-base,
+    @font-weight-regular,
+    @font-family-base,
+    @text-color,
+    @line-height-base
+  );
+}
+
+a {
+  .font(
+    @font-size-base,
+    @font-weight-regular,
+    @font-family-base,
+    @link-color,
+    @line-height-base
+  );
+  text-decoration: none;
+}

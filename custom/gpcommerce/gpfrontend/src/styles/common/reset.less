@@ -1,0 +1,36 @@
+:root {
+  text-size-adjust: none;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: @font-size-base;
+  text-rendering: optimizeLegibility;
+  height: 100%;
+}
+
+*,
+*:after,
+*:before {
+  box-sizing: inherit;
+}
+
+img,
+video {
+  max-width: 100%;
+}
+
+body {
+  font-size: @font-size-base;
+  font-family: @font-family-base;
+  line-height: @line-height-base;
+  height: 100%;
+}
+
+a {
+  cursor: pointer;
+  text-decoration: none;
+  &:hover,&:focus,&:visited{
+    text-decoration: none;
+  }
+}

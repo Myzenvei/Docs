@@ -1,0 +1,8 @@
+{% if filesType.html === 'jade' || filesType.html === 'pug' %}
+div(class="{{name | kebabCase}}")
+  h1 {{name | kebabCase}} Component
+{% else %}
+<div class="{{name | kebabCase}}">
+  <h1>{{name | kebabCase}} Component</h1>
+</div>
+{% endif %}

@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Share cart Email</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      color: #222222;
+      font-family: 'Gotham A', 'Gotham B', Helvetica, Roboto, Arial;
+      font-size: 14px;
+      line-height: 24px;
+      margin: 0px;
+    }
+
+    .header-banner {
+      height: 72px;
+    }
+
+    .header-banner img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .brand-logo {
+      width: 84px;
+      height: 87px;
+      margin-left: 56px;
+      margin-top: -50px;
+    }
+
+    .brand-logo img {
+      height: 100%;
+      width: 100%;
+    }
+
+    .footer {
+      padding-left: 56px;
+      padding-right: 32px;
+      height: 64px;
+      background-color: #FAFAFA;
+      border-top: 1px solid #DFDFDF;
+    }
+
+    .follow {
+      padding-top: 23px;
+      font-weight: 500;
+      width: 10%;
+      float: left;
+      margin: 0px;
+    }
+
+    .icons {
+      padding-top: 16.5px;
+      width: 50%;
+      float: left;
+      margin: 0px;
+    }
+
+    .social-icons {
+      padding-left: 25px;
+    }
+
+    .social-icons img {
+      height: 30px;
+      width: 31px;
+    }
+
+    .copyright-text {
+      padding-top: 20px;
+      font-weight: 300;
+      text-align: right;
+      width: 35%;
+      float: left;
+      margin: 0px;
+    }
+
+    a {
+      color: #005293;
+      text-decoration: none;
+    }
+
+    .header-total {
+      font-size: 16px;
+      padding-top: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #CECECE;
+    }
+
+    .tile-container {
+      padding: 40px 56px 0 56px;
+    }
+
+    .subtotal-container {
+      padding: 19px 56px 32px 56px;
+    }
+
+    .product-tile {
+      border-bottom: 1px solid #CECECE;
+      padding: 24px 0;
+    }
+
+    .product-img {
+      width: 10%
+    }
+
+    .product-img img {
+      padding: 10px 4px;
+      border: 0.5px solid #CECECE;
+      height: 80px;
+      width: 80px;
+    }
+
+    .product-details {
+      width: 90%;
+      padding-left: 20px;
+    }
+
+    .price-quantity,
+    .product-final-price,
+    .cart-button,
+    .subtotal,
+    .subtotal-price,
+    .final-cart-button {
+      width: 33%;
+      display: inline-block;
+    }
+
+    .cart-button td,
+    .product-final-price td,
+    .subtotal-price td,
+    .final-cart-button td {
+      float: right;
+    }
+
+    .final-cart-button button {
+      width: 208px;
+    }
+
+    @media (max-width: 1119px) {
+      .product-img {
+        width: 15%
+      }
+      .product-details {
+        width: 80%
+      }
+      .product-final-price,
+      .subtotal-price {
+        width: 25%;
+      }
+      .cart-button,
+      .final-cart-button {
+        width: 40%
+      }
+    }
+
+    @media (max-width: 767px) {
+      .header-banner {
+        height: 56px;
+      }
+
+      .brand-logo {
+        display: none;
+      }
+      .email-content {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+
+      .footer {
+        height: 168px;
+        padding-left: 24px;
+      }
+
+      .follow {
+        padding-top: 22px;
+        width: 100%;
+      }
+
+      .icons {
+        padding-top: 13.5px;
+        width: 100%;
+      }
+
+      .social-icons {
+        padding-right: 19px;
+        padding-left: 0px;
+      }
+
+      .copyright-text {
+        padding-top: 23.5px;
+        text-align: left;
+        padding-right: 0px;
+        padding-left: 0px;
+        width: 100%;
+      }
+      .header-total {
+        font-size: 14px;
+        padding-top: 24px;
+        padding-bottom: 8px;
+        border: none;
+      }
+      .tile-container {
+        padding: 32px 16px 0 16px;
+      }
+
+      .subtotal-container {
+        padding: 20px 16px 24px 16px;
+      }
+
+      .product-tile {
+        padding: 16px 16px 24px 16px;
+        border: 1px solid #CECECE;
+        margin-top: 16px;
+
+      }
+      .product-img {
+        width: 8%;
+        position: relative;
+        top: -70px;
+      }
+      .product-img img {
+        padding: 9px 3px;
+        border: 0.5px solid #CECECE;
+        height: 72px;
+        width: 72px;
+      }
+      .product-details {
+        width: 90%
+      }
+      .price-quantity,
+      .product-final-price,
+      .cart-button {
+        width: 100%;
+        display: block;
+      }
+      .product-final-price td {
+        float: left;
+      }
+      .cart-button td {
+        padding-top: 24px;
+        float: left;
+        width: 100%;
+        display: block;
+      }
+      .subtotal,
+      .subtotal-price {
+        width: 50%;
+        display: inline-block;
+      }
+      .final-cart-button {
+        padding-top: 24px;
+        width: 100%;
+        display: block;
+      }
+      .final-cart-button td {
+        float: left;
+        width: 100%;
+        display: block;
+      }
+      .final-cart-button button {
+        width: 100%;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+  <table cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
+    <tr>
+      <td>
+        <div class="header">
+          <div class="header-banner">
+            <img src="./images/email-header.png">
+          </div>
+          <div class="brand-logo">
+            <img src="./images/gp-pro-logo.png">
+          </div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="tile-container">
+        <table cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
+          <tr>
+            <td style="font-size: 21px; color: #222222; font-weight: 300;">
+              {{First name}} Shared a Cart with You
+            </td>
+          </tr>
+          <tr>
+            <td class="header-total" style="color: #222222; font-weight: 500; text-align: right;">
+              Subtotal $4,264.00
+            </td>
+          </tr>
+        </table>
+        <!-- product tile. Repeat this to add multiple products-->
+        <table cellpadding="0" cellspacing="0" width="100%" class="product-tile">
+          <tr width="100%">
+            <td class="product-img">
+              <img src="" />
+            </td>
+            <td class="product-details">
+              <span style="font-size: 14px;	font-weight: 500;">
+                <a style="color: #167BB4" href="#">GP PRO Ultra® Back-of-House Napkin Machine, Stainless Finish</a>
+              </span>
+              <br>
+              <span style="color: #222222; font-size: 12px;	font-weight: 300;">ITEM ID 1234 | CMIR 1234</span>
+              <br>
+              <span style="color: #E42610; font-size: 12px;	font-weight: 300;">Only 3 left in stock</span>
+              <table width="100%">
+                <tr class="price-quantity">
+                  <td>
+                    <span style="color: #222222; font-size: 14px;	font-weight: 500;">$1,498.00</span>
+                    <span style="color: #E42610;	font-size: 12px;">
+                      <strike>$1,498.00</strike>
+                    </span>
+                    <br>
+                    <span style="font-size: 12px;	font-weight: 300;">Quantity: 1</span>
+                  </td>
+                </tr>
+                <tr class="product-final-price">
+                  <td>
+                    <span style="color: #E42610;	font-size: 12px;	font-weight: 300;">- $100.00</span>
+                    <br>
+                    <span style="color: #222222;	font-family: Gotham;	font-size: 24px;	font-weight: 500;">$1,498.00</span>
+                  </td>
+                </tr>
+                <tr class="cart-button">
+                  <td>
+                    <button style="color: #222222; font-size: 12px;	font-weight: 500;	text-align: center; background-color: #F7BD2B; height: 40px;	width: 152px;">ADD TO CART</button>
+                  </td>
+                </tr>
+          </tr>
+          </table>
+          </td>
+    </tr>
+    </table>
+    <!-- product tile ends -->
+    <!-- product tile. Repeat this to add multiple products-->
+    <table cellpadding="0" cellspacing="0" width="100%" class="product-tile">
+      <tr width="100%">
+        <td class="product-img">
+          <img src="" />
+        </td>
+        <td class="product-details">
+          <span style="font-size: 14px;	font-weight: 500;">
+            <a style="color: #167BB4" href="#">GP PRO Ultra® Back-of-House Napkin Machine, Stainless Finish</a>
+          </span>
+          <br>
+          <span style="color: #222222; font-size: 12px;	font-weight: 300;">ITEM ID 1234 | CMIR 1234</span>
+          <br>
+          <span style="color: #E42610; font-size: 12px;	font-weight: 300;">Only 3 left in stock</span>
+          <table width="100%">
+            <tr class="price-quantity">
+              <td>
+                <span style="color: #222222; font-size: 14px;	font-weight: 500;">$1,498.00</span>
+                <span style="color: #E42610;	font-size: 12px;">
+                  <strike>$1,498.00</strike>
+                </span>
+                <br>
+                <span style="font-size: 12px;	font-weight: 300;">Quantity: 1</span>
+              </td>
+            </tr>
+            <tr class="product-final-price">
+              <td>
+                <span style="color: #E42610;	font-size: 12px;	font-weight: 300;">- $100.00</span>
+                <br>
+                <span style="color: #222222;	font-family: Gotham;	font-size: 24px;	font-weight: 500;">$1,498.00</span>
+              </td>
+            </tr>
+            <tr class="cart-button">
+              <td>
+                <button style="color: #222222; font-size: 12px;	font-weight: 500;	text-align: center; background-color: #F7BD2B; height: 40px;	width: 152px;">ADD TO CART</button>
+              </td>
+            </tr>
+      </tr>
+      </table>
+      </td>
+      </tr>
+    </table>
+    <!-- product tile ends -->
+    </td>
+    </tr>
+    <tr>
+      <td class="subtotal-container">
+        <table width="100%">
+          <tr class="subtotal">
+            <td>
+              <span style="color: #222222; font-size: 16px;	font-weight: 500;">Subtotal</span>
+              <br>
+              <span style="color: #4D4E50; font-size: 12px;	font-weight: 300;">Shipping and tax will be calculated at checkout</span>
+            </td>
+          </tr>
+          <tr class="subtotal-price">
+            <td>
+              <span style="color: #222222; font-size: 24px;	font-weight: 500;">$4,264.00</span>
+            </td>
+          </tr>
+          <tr class="final-cart-button">
+            <td>
+              <button style="	height: 48px;	background-color: #F7BD2B; color: #222222; font-size: 12px;	font-weight: 500;">ADD ALL TO CART</button>
+            </td>
+          </tr>
+    </tr>
+    </table>
+    </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="footer">
+          <p class="follow">
+            Follow us
+          </p>
+          <p class="icons">
+            <span class="social-icons">
+              <img src="./images/icon-facebook.png">
+            </span>
+            <span class="social-icons">
+              <img src="./images/icon-twitter.png">
+            </span>
+            <span class="social-icons">
+              <img src="./images/icon-instagram.png">
+            </span>
+            <span class="social-icons">
+              <img src="./images/icon-pinterest.png">
+            </span>
+          </p>
+          <p class="copyright-text">© 2018 | Georgia Pacific</p>
+        </div>
+      </td>
+    </tr>
+  </table>
+</body>
+
+</html>
+​

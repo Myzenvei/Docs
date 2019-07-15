@@ -1,0 +1,31 @@
+# USE CTRL-SPACE for type-ahead support
+#set password here
+$passwordEncoding = md5
+$defaultPassword = changeme!
+$setPassword = @password[translator=de.hybris.platform.impex.jalo.translators.ConvertPlaintextToEncodedUserPasswordTranslator][default='$passwordEncoding:$defaultPassword']
+
+#add user accounts here
+INSERT_UPDATE Employee; UID[unique = true]                 ; name                     ; groups(uid); sessionLanguage(isocode); sessionCurrency(isocode); $setPassword;
+                      ; kiran.gudimalla@gapac.com          ; Scott Waltke             ; admingroup,employeegroup,backofficeadmingroup,cmsmanagergroup
+                      ; richit.parti@gapac.com             ; Rohit Parti              ; admingroup,employeegroup,backofficeadmingroup,cmsmanagergroup
+                      ; navodaybabu.saarang.gapac.com      ; Navoday Babu Saarang     ; admingroup,employeegroup,backofficeadmingroup,cmsmanagergroup
+                      ; divyasritha.chinthapalli@gapac.com ; Divyasritha Chinthapalli ; admingroup,employeegroup,backofficeadmingroup,cmsmanagergroup
+                      ; venkat.vengaldas@gapac.com         ; Venkat Vengaldas         ; admingroup,employeegroup,backofficeadmingroup,cmsmanagergroup
+                      ; sandeep.dubey@gapac.com            ; Sandeep Dubey            ; admingroup,employeegroup,backofficeadmingroup,cmsmanagergroup
+                      ; vijay.dannina@gapac.com            ; Vijay Dannina            ; admingroup,employeegroup,backofficeadmingroup,cmsmanagergroup
+                      ; vinicius.azevedo@gapac.com         ; Vinicius Azevedo         ; employeegroup,cmsmanagergroup,cxmanagergroup
+                      ; jennifer.oneal@gapac.com           ; Jennifer O'Neal          ; admingroup,employeegroup,backofficeadmingroup,cmsmanagergroup,cxmanagergroup
+                      ; gabriela.salazar@gapac.com         ; Gabriela Salazar         ; admingroup,employeegroup,backofficeadmingroup,cmsmanagergroup,cxmanagergroup
+                      ; lisa.needler@gapac.com             ; Lisa Needler             ; admingroup,employeegroup,backofficeadmingroup,cmsmanagergroup,cxmanagergroup,customersupportadministratorgroup,csagentmanagergroup,cmsmanagergroup
+                      ; brian.tidwell@gapac.com            ; Brian Tidwell            ; cmsmanagergroup,cxmanagergroup
+                      ; david.blohm@gapac.com              ; DAVID BLOHM              ; admingroup,employeegroup,backofficeadmingroup,cmsmanagergroup,cxmanagergroup
+                      ; james.harrison2@gapac.com          ; James Harrison           ; admingroup,employeegroup,backofficeadmingroup,cmsmanagergroup
+                      ; emily.faber@gapac.com              ; Emily Faber              ; admingroup,employeegroup,backofficeadmingroup,cmsmanagergroup,cxmanagergroup
+                      ; Pridhvi.Kadiyala2@gapac.com        ; Pridhvi Kadiyala         ; admingroup,employeegroup,backofficeadmingroup,cmsmanagergroup,cxmanagergroup
+                      ; lauren.steinheimer@gapac.com       ; Lauren Steinheimer       ; admingroup,employeegroup,backofficeadmingroup,cmsmanagergroup,cxmanagergroup
+                      ; sean.pruett@gapac.com              ; Sean Pruett              ;
+                      ; abhiram.myneni@gapac.com           ; Abhiram Myneni           ; admingroup
+                      ; w.bryanthrasher@gapac.com          ; W. Bryan Thrasher        ; admingroup,employeegroup,backofficeadmingroup,cmsmanagergroup,cxmanagergroup
+                      ; sasha.lowndes@gapac.com            ; Sasha Lowndes            ; admingroup,employeegroup,backofficeadmingroup,cmsmanagergroup,cxmanagergroup
+                      ; debbie.price@gapac.com             ; Debbie Price             ; admingroup,employeegroup,backofficeadmingroup,cmsmanagergroup,cxmanagergroup
+                      ; whitney.mickelson@gapac.com        ; Whitney Mickelson        ; employeegroup,productmanagergroup

@@ -1,0 +1,139 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+#
+# Import the CMS content for the site emails
+#
+$contentCatalog=gpxpressContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$jarEmailResource=jar:com.gp.b2binitialdata.constants.Gpb2binitialdataConstants&/gpb2binitialdata/import/coredata/contentCatalogs/gpxpressContentCatalog/emails
+
+# Import config properties into impex macros for modulegen
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+$emailResource=$config-emailResourceValue
+
+# Language
+$lang=en
+
+# CMS components and Email velocity templates
+UPDATE RendererTemplate;code[unique=true];description[lang=$lang];templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+ ;gpxpress-BannerComponent-template;"CMSBannerComponent Template";$emailResource/email-bannerComponentTemplate.vm
+ ;gpxpress-CMSImageComponent-template;"CMSImageComponent Template";$emailResource/email-cmsImageComponentTemplate.vm
+ ;gpxpress-CMSLinkComponent-template;"CMSLinkComponent Template";$emailResource/email-cmsLinkComponentTemplate.vm
+ ;gpxpress-CMSParagraphComponent-template;"CMSParagraphComponent Template";$emailResource/email-cmsParagraphComponentTemplate.vm
+ ;gpxpress-SimpleBannerComponent-template;"CMSSimpleBannerComponent Template";$emailResource/email-bannerComponentTemplate.vm
+ ;gpxpress_Email_Customer_Registration_Body;"Customer Registration Email Body";$jarEmailResource/email-customerRegistrationBody.vm
+ ;gpxpress_Email_Customer_Registration_Subject;"Customer Registration Email Subject";$jarEmailResource/email-customerRegistrationSubject.vm
+ ;gpxpress_Email_Delivery_Sent_Body;"Delivery Sent Email Body";$jarEmailResource/email-deliverySentBody.vm
+ ;gpxpress_Email_Delivery_Sent_Subject;"Delivery Sent Email Subject";$jarEmailResource/email-deliverySentSubject.vm
+ ;gpxpress_Email_Forgotten_Password_Body;"Forgotten Password Email Body";$jarEmailResource/email-forgottenPasswordBody.vm
+ ;gpxpress_Email_Forgotten_Password_Subject;"Forgotten Password Email Subject";$jarEmailResource/email-forgottenPasswordSubject.vm
+ ;gpxpress_Email_Password_Reset_Body;"PasswordResetSuccessEmailBody";$jarEmailResource/email-passwordResetBody.vm
+ ;gpxpress_Email_Password_Reset_Subject;"PasswordResetSuccessEmailSubject";$jarEmailResource/email-passwordResetSubject.vm
+ ;gpxpress_Email_Share_Cart_Subject;"ShareCartEmailSubject";$jarEmailResource/email-shareCartSubject.vm
+ ;gpxpress_Email_Share_Cart_Body;"ShareCartEmailBody";$jarEmailResource/email-shareCartBody.vm        
+ ;gpxpress_Email_NotPickedUpConsignment_Canceled_Body;"Not Picked Up Consignment Canceled Email Body";$emailResource/email-notPickedUpConsignmentCanceledBody.vm
+ ;gpxpress_Email_NotPickedUpConsignment_Canceled_Subject;"Not Picked Up Consignment Canceled Email Subject";$emailResource/email-notPickedUpConsignmentCanceledSubject.vm
+ ;gpxpress_Email_Order_Cancelled_Body;"Order Cancelled Email Body";$jarEmailResource/email-orderCancelledBody.vm
+ ;gpxpress_Email_Order_Cancelled_Subject;"Order Cancelled Email Subject";$jarEmailResource/email-orderCancelledSubject.vm
+ ;gpxpress_Email_Order_Collection_Reminder_Body;"Order Collection Reminder Body";$emailResource/email-orderCollectionReminderBody.vm
+ ;gpxpress_Email_Order_Collection_Reminder_Subject;"Order Collection Reminder Subject";$emailResource/email-orderCollectionReminderSubject.vm
+ ;gpxpress_Email_Order_Confirmation_Body;"Order Confirmation Email Body";$jarEmailResource/email-orderConfirmationBody.vm
+ ;gpxpress_Email_Order_Confirmation_Subject;"Order Confirmation Email Subject";$jarEmailResource/email-orderConfirmationSubject.vm
+ ;gpxpress_Email_Order_Move_To_CS_Body;"Order Move To CS Body";$emailResource/email-orderMoveToCsBody.vm
+ ;gpxpress_Email_Order_Move_To_CS_Subject;"Order Move To CS Subject";$emailResource/email-orderMoveToCsSubject.vm
+ ;gpxpress_Email_Order_Partially_Canceled_Body;"Order Partially Canceled Email Body";$emailResource/email-orderPartiallyCanceledBody.vm
+ ;gpxpress_Email_Order_Partially_Canceled_Subject;"Order Partially Canceled Email Subject";$emailResource/email-orderPartiallyCanceledSubject.vm
+ ;gpxpress_Email_Order_Partially_Refunded_Body;"Order Partially Refunded Email Body";$emailResource/email-orderPartiallyRefundedBody.vm
+ ;gpxpress_Email_Order_Partially_Refunded_Subject;"Order Partially Refunded Email Subject";$emailResource/email-orderPartiallyRefundedSubject.vm
+ ;gpxpress_Email_Order_Refund_Body;"Order Refund Email Body";$jarEmailResource/email-orderRefundBody.vm
+ ;gpxpress_Email_Order_Refund_Subject;"Order Refund Email Subject";$jarEmailResource/email-orderRefundSubject.vm
+ ;gpxpress_Email_Quote_Buyer_Cancellation_Body;"Quote Buyer Cancellation Email Body";$emailResource/email-quoteBuyerCancellationBody.vm
+ ;gpxpress_Email_Quote_Buyer_Cancellation_Subject;"Quote Buyer Cancellation Email Subject";$emailResource/email-quoteBuyerCancellationSubject.vm
+ ;gpxpress_Email_Quote_Buyer_Submission_Body;"Quote Buyer Submission Email Body";$emailResource/email-quoteBuyerSubmissionBody.vm
+ ;gpxpress_Email_Quote_Buyer_Submission_Subject;"Quote Buyer Submission Email Subject";$emailResource/email-quoteBuyerSubmissionSubject.vm
+ ;gpxpress_Email_Quote_Expired_Body;"Quote Expired Body";$emailResource/email-quoteExpiredBody.vm
+ ;gpxpress_Email_Quote_Expired_Subject;"Quote Expired Subject";$emailResource/email-quoteExpiredSubject.vm
+ ;gpxpress_Email_Quote_To_Expire_Soon_Body;"Quote To Expire Soon Body";$emailResource/email-quoteToExpireSoonBody.vm
+ ;gpxpress_Email_Quote_To_Expire_Soon_Subject;"Quote To Expire Soon Subject";$emailResource/email-quoteToExpireSoonSubject.vm
+ ;gpxpress_Email_Ready_For_Pickup_Body;"Ready For Pickup Email Body";$emailResource/email-readyForPickupBody.vm
+ ;gpxpress_Email_Ready_For_Pickup_Subject;"Ready For Pickup Email Subject";$emailResource/email-readyForPickupSubject.vm
+ ;gpxpress_Email_Share_Product_Body;"Share Product Email Body";$jarEmailResource/email-shareProductBody.vm
+ ;gpxpress_Email_Share_Product_Subject;"Share Product Email Subject";$jarEmailResource/email-shareProductSubject.vm
+ ;gpxpress_Email_GP_Address_Notification_Body;"GP processes Email Body";$jarEmailResource/email-gpAddressNotificationBody.vm
+ ;gpxpress_Email_GP_Address_Notification_Subject;"GP processes Email Subject";$jarEmailResource/email-gpAddressNotificationSubject.vm
+ ;gpxpress_Email_GP_Order_Approval_Subject;"GP Email Order Approval Subject";$jarEmailResource/email-gpOrderApprovalSubject.vm
+ ;gpxpress_Email_GP_Order_Approval_Body;"GP Email Order Approval Body";$jarEmailResource/email-gpOrderApprovalBody.vm
+ ;email-UpdateProfileSubject-template;"change UID email subject";$jarEmailResource/email-updateProfileSubject.vm
+ ;email-UpdateProfileBody-template;"change UID email subject";$jarEmailResource/email-updateProfileBody.vm
+ ;email-ChangeUIDSubject-template;"change UID email subject";$jarEmailResource/email-changeUIDSubject.vm
+ ;email-ChangeUIDBody-template;"change UID email subject";$jarEmailResource/email-changeUIDBody.vm
+ ;gpxpress_Email_Quick_Order_Body;"Quick Order Email Body"; $jarEmailResource/email-quickorderBody.vm
+ ;gpxpress_Email_Quick_Order_Subject; "Quick Order Email Subject";$jarEmailResource/email-quickorderSubject.vm
+ ;gpxpress_Email_Share_Wishlist_Subject;"Share Wishlist Email Subject";$jarEmailResource/email-shareWishlistSubject.vm
+ ;gpxpress_Email_Share_Wishlist_Body;"Share Wishlist Email Body";$jarEmailResource/email-shareWishlistBody.vm
+ ;gpxpress-GPFooterComponent-template;"Email Footer Component";$jarEmailResource/email-gpFooterComponentTemplate.vm
+ ;gpxpress_Email_Share_Product_Resource_Subject;"Share Product Resource Email Subject";$jarEmailResource/email-shareProductResourceSubject.vm
+ ;gpxpress_Email_Share_Product_Resource_Body;"Share Product Resource Email Body";$jarEmailResource/email-shareProductResourceBody.vm
+ 
+# CMS components and Email velocity templates
+UPDATE RendererTemplate;code[unique=true];description[lang=$lang];templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+ ;gpxpress_Email_Order_ApprovalRejection_Body;"Buyer Approval Rejection Email Body";$jarEmailResource/email-orderApprovalRejectionBody.vm
+ ;gpxpress_Email_Order_ApprovalRejection_Subject;"Order Approval Rejection Email Subject";$jarEmailResource/email-orderApprovalRejectionSubject.vm
+ ;gpxpress_Email_Order_PendingApproval_Body;"Order Pending Approval Email Body";$jarEmailResource/email-orderPendingApprovalBody.vm
+ ;gpxpress_Email_Order_PendingApproval_Subject;"Order Pending Approval Email Subject";$jarEmailResource/email-orderPendingApprovalSubject.vm
+ ;gpxpress_Email_Replenishment_Order_Confirmation_Body;"";$jarEmailResource/email-replenishmentOrderConfirmationBody.vm
+ ;gpxpress_Email_Replenishment_Order_Confirmation_Subject;"Order Confirmation Email Subject";$jarEmailResource/email-replenishmentOrderConfirmationSubject.vm
+ ;gpxpress_Email_Replenishment_Order_Placed_Body;"Order Confirmation Email Subject";$jarEmailResource/email-replenishmentOrderPlacedBody.vm
+ ;gpxpress_Email_Replenishment_Order_Placed_Subject;"Order Confirmation Email Subject";$jarEmailResource/email-replenishmentOrderPlacedSubject.vm
+ ;gpxpress_Email_taxExemption_SubmitReview_Body;";TaxExemption Docs Submit Review Email Body";$jarEmailResource/email-taxExemptionSubmitReviewEmailBody.vm
+ ;gpxpress_Email_taxExemption_SubmitReview_Subject;";TaxExemption Docs Submit Review Email Subject";$jarEmailResource/email-taxExemptionSubmitReviewEmailSubject.vm
+ ; email-FailedOrder_Subject; "Failed Order Consignment Subject"; $jarEmailResource/email-failedOrderSubject.vm
+ ; email-FailedOrder_Body; "Failed Order Consignment Body"; $jarEmailResource/email-failedOrderBody.vm
+ ; gpxpress_Email_Order_Reject_Body; "Order Reject Email Body"; $jarEmailResource/email-orderRejectBody.vm
+ ; gpxpress_Email_Order_Reject_Subject; "Order Reject Email Subject"; $jarEmailResource/email-orderRejectSubject.vm	
+ ;gpxpress_Email_Order_Issues_Notify_Body; "Order Issues Notification BOdy"; $jarEmailResource/email-orderIssuesNotificationBody.vm	
+ ;gpxpress_Email_Order_Issues_Notify_Subject; "Order Issues Notification BOdy"; $jarEmailResource/email-orderIssuesNotificationSubject.vm	
+ 	
+# Email Pages
+UPDATE EmailPage;$contentCV[unique=true];uid[unique=true];fromEmail[lang=$lang];fromName[lang=$lang]
+ ;;CustomerRegistrationEmail;"customerservices@gpxpress.com";"Customer Services Team"
+ ;;DeliverySentEmail;"customerservices@gpxpress.com";"Customer Services Team"
+ ;;ForgottenPasswordEmail;"customerservices@gpxpress.com";"Customer Services Team"
+ ;;PasswordResetEmail;"customerservices@gpxpress.com";"CustomerServicesTeam"
+ ;;ShareCartEmail;"customerservice@gpxpress.com";"CustomerServicesTeam"				                  
+ ;;OrderApprovalRejectionEmail;"customerservices@gpxpress.com";"Customer Services Team"
+ ;;OrderCancelledEmail;"customerservices@gpxpress.com";"Customer Services Team"
+ ;;OrderCollectionReminderEmail;"customerservices@gpxpress.com";"Customer Services Team"
+ ;;OrderConfirmationEmail;"customerservices@gpxpress.com";"Customer Services Team"
+ ;;OrderMoveToCsEmail;"customerservices@gpxpress.com";"Customer Services Team"
+ ;;OrderPartiallyCanceledEmail;"customerservices@gpxpress.com";"Customer Services Team"
+ ;;OrderPartiallyRefundedEmail;"customerservices@gpxpress.com";"Customer Services Team"
+ ;;OrderPendingApprovalEmail;"customerservices@gpxpress.com";"Customer Services Team"
+ ;;OrderRefundEmail;"customerservices@gpxpress.com";"Customer Services Team"
+ ;;QuoteBuyerCancellationEmail;"customerservices@gpxpress.com";"Customer Services Team"
+ ;;QuoteBuyerSubmissionEmail;"customerservices@gpxpress.com";"Customer Services Team"
+ ;;QuoteExpiredEmail;"customerservices@gpxpress.com";"Customer Services Team"
+ ;;QuoteToExpireSoonEmail;"customerservices@gpxpress.com";"Customer Services Team"
+ ;;ReadyForPickupEmail;"customerservices@gpxpress.com";"Customer Services Team"
+ ;;ReplenishmentOrderConfirmationEmail;"customerservices@gpxpress.com";"Customer Services Team"
+ ;;ReplenishmentOrderPlacedEmail;"customerservices@gpxpress.com";"Customer Services Team"
+ ;;taxExemptionSubmitReviewEmail;"customerservices@gpxpress.com";"Customer Services Team"
+ ;;ShareProductEmail;"customerservices@gpxpress.com";"Customer Services Team"
+ ;;ShareWishlistEmail;"customerservices@gpxpress.com" ; "Customer Services Team"
+ ;;GPAddressNotificationEmail;"customerservices@gpxpress.com";"Customer Services Team"
+ ;;GPOrderApprovalEmail;"customerservices@gpxpress.com";"Customer Services Team"
+ ;;UpdateProfileEmail;"customerservices@gpxpress.com";"Customer Services Team"
+ ;;ChangeUIDEmail;"customerservices@gpxpress.com";"Customer Services Team"
+ ;;QuickOrderEmail;	"customerservices@gpxpress.com" ; "Customer Services Team"
+ ;;FailedOrderEmail; "customerservices@gpxpress.com" ; "Customer Services Team"
+ ;;OrderRejectEmail; "customerservices@gpxpress.com" ; "Customer Services Team"
+ ;;ShareProductResourceEmail;"customerservices@gpxpress.com";"Customer Services Team"  
+ ;;OrderIssuesNotifyEmail;"customerservices@b2bwhitelabel.com";"Customer Services Team"                  

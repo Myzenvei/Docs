@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="otmmaddonbackofficeService" class="com.opentext.hybris.otmmconnector.backoffice.services.OtmmaddonbackofficeService"/>
+
+	<bean id="otmmaddonbackoffice.uploadWidgetService" class="com.opentext.hybris.otmmconnector.backoffice.services.impl.UploadWidgetService">
+		<property name="uiHelperService" ref="otmmaddon.uiHelperService"/>
+	</bean>
+
+	<bean id="otmmaddonbackoffice.textFileCacheService" class="com.opentext.hybris.otmmconnector.backoffice.services.impl.TextFileCacheService">
+		<!--<property name="baseDirectory" value="C:/dev/dam_hybris_main/SAP.DAM.Hybris/main/pkg/SAP_DAM_HYBRIS/otmmaddonbackoffice/backoffice/resources"/>-->
+		<!--<property name="textFileCacheEnabled" value="false"/>-->
+	</bean>
+
+	<bean id="otmmaddonbackoffice.zulComponentFactoryService" class="com.opentext.hybris.otmmconnector.backoffice.services.impl.ZulComponentFactoryService">
+		<property name="textFileCacheService" ref="otmmaddonbackoffice.textFileCacheService"/>
+	</bean>
+
+	<bean id="otmmaddonbackoffice.openAssetInspectorHelperService" class="com.opentext.hybris.otmmconnector.backoffice.services.impl.MediaReferenceEditorHelperService">
+		<property name="uiHelperService" ref="otmmaddon.uiHelperService"/>
+		<property name="settings" ref="otmmaddon.assetAssignmentUiSettings"/>
+		<property name="exceptionHandler" ref="otmmaddonbackoffice.exceptionHandler"/>
+		<property name="modelService" ref="modelService"/>
+		<property name="cockpitEventQueue" ref="cockpitEventQueue"/>
+		<property name="assetAssignmentUiFactory" ref="otmmaddonbackoffice.assetAssignmentUiFactory"/>
+
+		<lookup-method name="getOtmmSessionHolder" bean="otmmaddonbackoffice.cockpitNgOtmmSessionHolder"/>
+	</bean>
+
+	<bean id="otmmaddonbackoffice.cockpitNgOtmmSessionHolder" class="com.opentext.hybris.otmmconnector.ui.generic.impl.UiOtmmSessionHolder" scope="session">
+		<property name="settings" ref="otmmaddon.assetAssignmentUiSettings"/>
+		<property name="riaService" ref="otmmRiaService2"/>
+	</bean>
+
+	<bean id="otmmaddonbackoffice.messages" class="com.opentext.hybris.otmmconnector.backoffice.messages.Messages" scope="prototype">
+		<property name="zulComponentFactoryService" ref="otmmaddonbackoffice.zulComponentFactoryService"/>
+	</bean>
+
+	<bean id="otmmaddonbackoffice.exceptionHandler" class="com.opentext.hybris.otmmconnector.ui.generic.impl.ExceptionHandler" scope="prototype">
+		<property name="messages" ref="otmmaddonbackoffice.messages"/>
+	</bean>
+
+	<bean id="otmmaddonbackoffice.doneAction" class="com.opentext.hybris.otmmconnector.backoffice.assetassignment.DoneAction">
+		<property name="settings" ref="otmmaddon.assetAssignmentUiSettings"/>
+		<property name="zulComponentFactoryService" ref="otmmaddonbackoffice.zulComponentFactoryService"/>
+		<property name="assetAssignmentService" ref="otmmAssetAssignmentService"/>
+		<property name="multipleJobsService" ref="otmmMultipleJobsService"/>
+		<property name="userService" ref="userService"/>
+		<property name="exceptionHandler" ref="otmmaddonbackoffice.exceptionHandler"/>
+		<property name="uiHelperService" ref="otmmaddon.uiHelperService"/>
+	</bean>
+
+	<bean id="otmmaddonbackoffice.assetAssignmentUiFactory" class="com.opentext.hybris.otmmconnector.backoffice.assetassignment.AssetAssignmentUiFactory">
+		<property name="settings" ref="otmmaddon.assetAssignmentUiSettings"/>
+		<property name="assetAssignmentControllerFactory" ref="otmmaddon.assetAssignmentControllerFactory"/>
+		<property name="zulComponentFactoryService" ref="otmmaddonbackoffice.zulComponentFactoryService"/>
+		<property name="cockpitLocaleService" ref="cockpitLocaleService"/>
+		<property name="doneAction" ref="otmmaddonbackoffice.doneAction"/>
+		<property name="sessionService" ref="sessionService"/>
+		<property name="typeService" ref="typeService"/>
+		<property name="i18NService" ref="i18NService"/>
+		<property name="textFileCacheService" ref="otmmaddonbackoffice.textFileCacheService"/>
+		<property name="tokenServices" ref="oauthTokenServices"/>
+
+		<lookup-method name="createExceptionHandlerSpringBean" bean="otmmaddonbackoffice.exceptionHandler"/>
+		<lookup-method name="createCockpitNgOtmmSessionHolder" bean="otmmaddonbackoffice.cockpitNgOtmmSessionHolder"/>
+	</bean>
+
+	<bean id="otmmaddonbackoffice.resourcesLabelLocator" class="com.hybris.cockpitng.util.labels.ResourcesLabelLocator" init-method="init" lazy-init="false">
+		<property name="location" value="/otmmaddonbackoffice-backoffice-labels/"/>
+		<property name="name" value="i3-label"/>
+	</bean>
+
+	<bean id="renditionbackofficeLabelLocator" class="com.hybris.cockpitng.util.labels.ResourcesLabelLocator" scope="singleton" init-method="init" lazy-init="false">
+		<property name="location" value="/renditionbackoffice-backoffice-labels/"/>
+		<property name="name" value="labels"/>
+	</bean>
+
+	<bean id="otmmLabelService"
+		  class="com.opentext.hybris.otmmconnector.backoffice.services.impl.OtmmLabelService"
+		  parent="dataIntegrationLabelService"
+	/>
+
+	<bean id="otmmListCellRenderer"
+		  class="com.hybris.cockpitng.widgets.collectionbrowser.mold.impl.listview.renderer.DefaultListCellRenderer"
+		  scope="prototype">
+		<property name="widgetRenderingUtils" ref="otmmWidgetRenderingUtils"/>
+	</bean>
+
+
+	<bean id="otmmWidgetRenderingUtils" class="com.hybris.cockpitng.widgets.util.impl.DefaultWidgetRenderingUtils">
+		<property name="propertyValueService" ref="propertyValueService"/>
+		<property name="labelService" ref="otmmLabelService"/>
+		<property name="typeFacade" ref="typeFacade"/>
+		<property name="cockpitLocaleService" ref="cockpitLocaleService"/>
+	</bean>
+
+	<bean id="assetDeliveryTypeRenderer"
+		  class="com.opentext.hybris.otmmconnector.backoffice.renderer.AssetDeliveryTypeRenderer"
+		  scope="prototype">
+	</bean>
+
+	<bean id="otmmCollectionLabelProvider" class="com.opentext.hybris.otmmconnector.backoffice.services.impl.OtmmCollectionLabelProvider">
+		<property name="labelService" ref="otmmLabelService"/>
+	</bean>
+
+	<bean id="otmmPreviewResolutionStrategy" class="com.opentext.hybris.otmmconnector.backoffice.services.impl.OtmmPreviewResolutionStrategy">
+		<property name="otmmThumbnailService" ref="loggingThumbnailService"/>
+	</bean>
+
+	<alias name="otmmBackofficeObjectPreviewService" alias="objectPreviewService"/>
+	<bean id="otmmBackofficeObjectPreviewService" parent="defaultObjectPreviewService">
+		<property name="urlResolutionStrategies">
+			<list value-type="com.hybris.cockpitng.services.media.PreviewResolutionStrategy" merge="false">
+				<ref bean="otmmPreviewResolutionStrategy"/>
+				<bean class="com.hybris.cockpitng.services.media.impl.StringToPreviewResolutionStrategy">
+					<property name="extensionsToMime" ref="extensionsToMime"/>
+				</bean>
+				<bean class="com.hybris.backoffice.cockpitng.services.media.impl.MediaToPreviewResolutionStrategy">
+					<property name="mediaStorageConfigService" ref="mediaStorageConfigService"/>
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="otmmMediaItemUploadRenderer"
+		  class="com.opentext.hybris.otmmconnector.backoffice.renderer.OpenTextMediaThumbnailPanelRenderer"
+		  scope="prototype">
+		<property name="attributeDescriptionIconRenderer" ref="attributeDescriptionIconRenderer"/>
+		<property name="cockpitLocaleService" ref="cockpitLocaleService"/>
+		<property name="cockpitUserService" ref="cockpitUserService"/>
+		<property name="labelService" ref="labelService"/>
+		<property name="permissionFacade" ref="permissionFacade"/>
+		<property name="propertyValueService" ref="propertyValueService"/>
+		<property name="widgetRenderingUtils" ref="widgetRenderingUtils"/>
+		<property name="permissionFacadeStrategy" ref="defaultPermissionFacadeStrategy"/>
+		<property name="otmmThumbnailService" ref="loggingThumbnailService"/>
+	</bean>
+
+</beans>

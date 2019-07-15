@@ -1,0 +1,20 @@
+
+.vx-cancel-order {
+  margin: 0 8px;
+  p {
+    white-space: pre-line;
+  }
+  .cancel-order {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+  @media only screen and (max-width: @screen-xs-max) {
+    .cancel-order {
+      bottom: 0px;
+      left: 0px;
+      position: fixed;
+      display: block;
+    }
+  }
+}

@@ -1,0 +1,10 @@
+<div class="mg-video-wrapper">
+  <h2 class="text-center my-xs-5">{{videoWrapperData.wrapperTitle}}</h2>
+  <div class="d-xs-flex d-xs-flex flex-xs-wrap justify-content-start container w-xs-100">
+    <div v-for="item in videoWrapperData.imagesList" class="col-xs-12 col-sm-6 d-flex justify-content-center p-xs-2">
+      <a href="javascript:void(0)" v-on:click="openVideoModal(item.url)">
+        <img :src="item.backgroundImage" :alt="item.bannerDesc">
+      </a>
+    </div>
+  </div>
+</div>

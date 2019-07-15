@@ -1,0 +1,97 @@
+#gp-employee {
+  .vx-my-account-address {
+    margin: 0 0 16px;
+    min-height: calc(100vh - 282px);
+    background-color: @card-layout-bg-color;
+    border-radius: @card-layout-border-radius;
+    padding: 16px 20px 30px;
+    .row {
+      h1 {
+        margin: 0;
+        padding: 0;
+        font-size: @font-size-section-heading;
+        width: initial;
+        border-bottom: 4px solid @brand-primary;
+        font-weight: @font-weight-medium;
+        padding-bottom: 4px;
+      }
+    }
+    .address-cards-container {
+      padding: 0 !important;
+      .add-card-wrapper {
+        .vx-profile-card {
+          .add-card {
+            min-height: 285px;
+            border-radius: @card-layout-border-radius;
+            border: 2px solid @add-card-border-color;
+            background-color: transparent;
+            .add-card-container {
+              span {
+                font-size: @font-size-medium;
+                color: @card-hyperlink-color;
+              }
+            }
+          }
+        }
+        .card-item{
+          word-break: all;
+        }
+      }
+      div:not(:first-child) {
+        .vx-profile-card {
+          .profile-card {
+            border: none;
+            border-radius: @card-layout-border-radius;
+            background-color: @address-card-bg-color;
+            min-height: 285px;
+            .card-footer {
+              padding-left: 16px;
+            }
+          }
+        }
+      }
+      .vx-profile-card-icons {
+        .icon-default {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: @screen-sm-max) {
+  #gp-employee {
+    .vx-my-account-address {
+      margin-top: 28px;
+      padding: 8px 24px 24px;
+      .address-cards-container {
+        margin-top: 8px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: @screen-xs-max) {
+  #gp-employee {
+    .vx-my-account-address {
+      padding: 24px 12px;
+      .address-cards-container {
+        .add-card-wrapper {
+          .vx-profile-card {
+            .add-card {
+              min-height: 120px;
+            }
+          }
+        }
+      }
+      .add-card-wrapper.address-contains-mobile {
+        margin-bottom: 16px;
+      }
+      .row {
+        h1 {
+          padding: 0 0 8px!important;
+        }
+      }
+    }
+  }
+}

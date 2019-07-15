@@ -1,0 +1,34 @@
+
+.vx-add-edit-address {
+  .info-text {
+    color: @font-color-label-text;
+  }
+  .section-header {
+    font-size: @font-size-h6;
+    font-weight: @font-weight-medium;
+  }
+  .error-msg,
+  .error-icon {
+    color: @font-color-error;
+  }
+  .phone-number {
+    height: 48px;
+    border-radius: 0px;
+  }
+  .form-group [type='checkbox']:checked + label,
+  .form-group [type='checkbox']:not(:checked) + label {
+    color: @font-color-label-text;
+  }
+  .sub-heading-message{
+    font-size: @font-size-h6;
+    color: @font-color-label-text;
+    font-weight: @font-weight-medium;
+  }
+}
+@media screen and (max-width: @screen-xs-max) {
+  .vx-add-edit-address {
+    .submit {
+      width: 100%;
+    }
+  }
+}

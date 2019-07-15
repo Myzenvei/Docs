@@ -1,0 +1,41 @@
+
+.vx-address-verification {
+  .heading {
+    font-size: @font-size-h4;
+    font-weight: @font-weight-medium;
+  }
+  .address-body {
+    display: block;
+    word-break: break-all;
+  }
+  .hide-verified {
+    font-size: @font-size-h4;
+    font-weight: @font-weight-bold;
+  }
+  .address-content {
+    display: inline-block;
+  }
+  .verified-address-container,
+  .current-address-container {
+    flex-direction: column;
+    .current-address-heading,
+    .verified-address-heading {
+      font-weight: @font-weight-medium;
+      font-size: @font-size-h4;
+      @media (max-width: @screen-xs-max) { 
+        text-align: center;
+      }
+    }
+    .current-address-body,
+    .verified-address-body {
+      font-size: @font-size-h4;
+    }
+  }
+}
+@media (max-width: @screen-xs-max) {
+  .vx-address-verification {
+    .submit {
+      margin-bottom: 40px;
+    }
+  }
+}

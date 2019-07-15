@@ -1,0 +1,67 @@
+<div class="vx-split-address">
+  <div v-if="splitApplicable">
+    <!--  No split Functionality -->
+    <div v-if="!isSplit">
+      <div v-for="(item, index) in splitEntry" :key="item">
+        <div class="section-header pt-xs-1 pb-xs-1">
+          <span :class="isMobile()?'hidden-xs':'visibility-hidden'">{{i18n.quantity}}</span>
+          <span class="address-no-split" tabindex="0" role="text">{{i18n.address}}</span>
+        </div>
+        <div class="d-flex">
+          <vx-stepper-control ref="stepperController" :class="isMobile()?'hidden-xs':'visibility-hidden'" :min-value=0 @currentCount="handleQuantity(item,index,$event)"
+            :value="item.qty"></vx-stepper-control>
+          <vx-dropdown-primary class="pl-sm-4 address-dropdown pl-sm-4 pb-sm-0 pt-sm-0 pt-xs-2 pb-xs-2" @selected-item="selectedAddress=$event"
+            :dropdownValues="addresses" ref="shippingAddressDropdown"></vx-dropdown-primary>
+        </div>
+        <div v-if="item.qty > 1" class="px-xs-4 split-addresses">
+          <span class="split-quantity" @keyup.enter-space="splitAddresses($event)" role="button" tabindex="0" @click="splitAddresses($event)">{{i18n.splitQuantity}}</span>
+        </div>
+        <div class="mt-xs-2" v-if="totalAddressError">
+          <span class="error-msg">{{i18n.dropdownError}}</span>
+        </div>
+      </div>
+    </div>
+    <!-- If split quantity functionality is applicable -->
+    <div v-if="isSplit">
+      <div v-for="(item, index) in splitEntry" :key="item">
+        <div class="hidden-xs section-header pt-xs-4 pb-xs-1">
+          <span>{{i18n.quantity}}</span>
+          <span class="address">{{i18n.address}}</span>
+        </div>
+        <div :class="isMobile()?'address-input-container':'d-flex'">
+          <div>
+            <span v-show="isMobile()" class="quantity pt-xs-4 pb-xs-1">{{i18n.quantity}}</span>
+            <vx-stepper-control ref="stepperController" class="stepper-control" :min-value=0 @currentCount="handleQuantity(item,index,$event)" :value="item.qty"></vx-stepper-control>
+          </div>
+          <div class="address-dropdown-container mb-xs-4">
+            <span v-show="isMobile()" class="address pt-xs-4 pb-xs-1">{{i18n.address}}</span>
+            <div class="d-flex">
+              <vx-dropdown-primary class="pl-sm-4 address-dropdown" :index="index"  @selected-item="handleAddressChange($event,index)"
+                :dropdownValues="addresses" @selected-index="indexSelected=$event" ref="shippingAddressDropdown"></vx-dropdown-primary>
+              <span @click="deleteSplitRow(index,$event)" role="button" tabindex="0" :aria-label="i18n.iconTrashTitle"
+                @keyup.enter-space="deleteSplitRow(index,$event)" class="pl-xs-4 icon-trash" :title="i18n.iconTrashTitle"></span>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+      <div v-if="!totalQuantityError" class="ship-to-another-address">
+        <span @click="splitTheQuantity($event)" @keyup.enter-space="splitTheQuantity($event)" role="button" tabindex="0">{{i18n.shipToAnotherAddress}}</span>
+      </div>
+      <div class="mt-xs-2" v-if="totalAddressError">
+        <span class="error-msg">{{i18n.dropdownError}}</span>
+      </div>
+    </div>
+  </div>
+  <div v-if="!splitApplicable" class="align-dropdown">
+    <div class="mb-xs-2">
+      <span class="label-text">{{i18n.address}}</span>
+    </div>
+    <vx-dropdown-primary v-validate="'required'" @selected-item="selectedAddress=$event" :dropdownValues="addresses"
+      ref="shippingAddressDropdown"></vx-dropdown-primary>
+    <div class="mt-xs-2" v-if="totalAddressError">
+      <span class="error-msg">{{i18n.dropdownError}}</span>
+    </div>
+  </div>
+</div>

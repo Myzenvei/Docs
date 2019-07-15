@@ -1,0 +1,77 @@
+<div class="vx-edit-personal-details">
+  <vx-spinner ref="personalDetailsSpinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>
+  </vx-spinner>
+  <form @submit.prevent="callConfirmPasswordModal">
+    <div class="mb-xs-4 form-group">
+      <label for="firstName" :aria-hidden="isDeviceAndroid()" class="attribute-name">{{i18n.firstName}}</label>
+      <input :aria-label="i18n.firstName" ref="firstName" type="text" class="form-control attribute-name" v-bind:class="{'input-error': errors.has('firstName')}"
+        maxlength="35" v-validate="{ required: true,
+          regex: /^[A-Za-z\s\.'-]+$/ ,max: 35 }" name="firstName" v-model="user.firstName" @focus="createAccountServerError = ''">
+      <div class="mt-xs-2" v-if="errors.has('firstName')">
+        <span class="error-msg">{{i18n.firstNameInvalidError}}</span>
+      </div>
+    </div>
+    <div class="mb-xs-4 form-group">
+      <label for="lastName" :aria-hidden="isDeviceAndroid()" class="attribute-name">{{i18n.lastName}}</label>
+      <input ref="lastName" type="text" class="form-control attribute-name" :aria-label="i18n.lastName" v-bind:class="{'input-error': errors.has('lastName')}"
+        maxlength="35" v-validate="{ required: true,
+          regex: /^[A-Za-z\s\.'-]+$/ ,max: 35 }" name="lastName" v-model="user.lastName" @focus="createAccountServerError = ''">
+      <div class="mt-xs-2" v-if="errors.has('lastName')">
+        <span class="error-msg">{{i18n.lastNameInvalidError}}</span>
+      </div>
+    </div>
+    <div class="mb-xs-4 form-group">
+      <label for="email" :aria-hidden="isDeviceAndroid()" class="attribute-name">{{i18n.email}}</label>
+      <input ref="email" type="text" :aria-label="i18n.email" name="email" class="form-control attribute-name"
+        maxlength="80" v-bind:class="{'input-error': errors.has('email')}" :disabled="isB2bUnit" v-validate="'required|email|max:80'"
+        v-model="user.uid" @focus="displayEmailInfo" @keyup="hideEmailErrors">
+      <div class="mt-xs-2 email-info-msg" v-if="showEmailInfo">
+        {{i18n.emailInfo}}
+      </div>
+      <div class="mt-xs-2" v-if="errors.has('email')">
+        <span class="error-msg">{{i18n.emailInvalidError}}</span>
+      </div>
+      <div class="mt-xs-2" v-if="isEmailDuplicate">
+        <span class="error-msg">{{i18n.emailDuplicateError}}</span>
+      </div>
+    </div>
+
+    <div class="mb-xs-4  form-group">
+      <label for="phoneNumber" :aria-hidden="isDeviceAndroid()" class="attribute-name attribute-name">{{i18n.mobileNo}}</label>
+      <the-mask :masked="masked" class="phone-number form-control attribute-name" mask="+1 ###-###-####" v-model="user.cellPhone"
+        v-validate="'min:15'" type="tel" name="phoneNumber" :aria-label="i18n.mobileNo">
+      </the-mask>
+      <div class="mt-xs-2" v-if="errors.has('phoneNumber')">
+        <span class="error-msg">{{i18n.phoneNumberInvalidError}}</span>
+      </div>
+    </div>
+    <div v-if="isGenderEnabled" class="mb-xs-4 form-group dropdown">
+        <label class="attribute-name">{{i18n.gender}}</label>
+        <br>
+        <vx-dropdown-primary @selected-option="user.gender=$event" :dropdownValues="genderList" ref="genderDropdown"></vx-dropdown-primary>
+      </div>
+      <div v-if="isDobEnabled" class="mb-xs-4 form-group dropdown">
+      <label class="attribute-name">{{i18n.birthDay}}</label>
+      <br>
+      <div class="month-checkbox">
+          <vx-dropdown-primary @selected-option="handleChangeMonth($event)" :dropdownError="showMonthError" :dropdownValues="populateMonths" ref="monthDropdown"  name="createAccountMonth"></vx-dropdown-primary>
+          <div class="mt-xs-2" v-if="showMonthError">
+            <span class="error-msg" id='month_error_msg' aria-live="assertive">{{i18n.monthRequiredError}}</span>
+          </div>  
+        </div>
+      <div class="date-checkbox">
+      <vx-dropdown-primary @selected-option="handleChangeDate($event)" :dropdownError="showDateError" :dropdownValues="date" ref="dayDropdown"></vx-dropdown-primary>
+      <div class="mt-xs-2" v-if="showDateError">
+        <span class="error-msg" id='date_error_msg' aria-live="assertive">{{i18n.dateRequiredError}}</span>
+      </div>
+    </div>
+    </div>
+    <div class="clearDiv">
+    <button type="submit" :disabled="errors.any()|| showDateError|| showMonthError" class="mt-md-3 mt-sm-3 mt-xs-4 submit btn center-block btn-primary modal-btn-primary-small modal-bottom-spacing"
+      :aria-label="i18n.save">{{i18n.save}}</button>
+    </div>
+  </form>
+  <vx-modal ref="confirmPasswordModal" size="extra-small" heading="Confirm Password">
+    <vx-confirm-password @errorExists="checkError" @verifiedPassword="updatedPassword" slot="component" :userDetails="user" :i18n="i18n"></vx-confirm-password>
+  </vx-modal>
+</div>

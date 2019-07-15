@@ -1,0 +1,435 @@
+<div class="vx-list-details row">
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>
+  </vx-spinner>
+  <vx-modal ref="shareItemModal" size="medium" :heading="i18n.listDetails.shareListHeading">
+    <vx-share-list slot="component" :wishlistId="wishlistUid" :listId="listId" :i18n="i18n"
+      @share-list-success="onShareListSuccess" @share-list-error="onShareListError"></vx-share-list>
+  </vx-modal>
+  <vx-modal ref="shareListPdfModal" size="large" :heading="i18n.listDetails.shareListHeading">
+    <vx-share-item slot="component" :wishlistId="wishlistUid" :listId="listId" :i18n="i18n.shareList" is-list
+      @share-item-success="onShareListPdfSuccess" @share-item-error="onShareListPdfError"
+      :certifications-name="certificationsName"></vx-share-item>
+  </vx-modal>
+  <vx-modal ref="downloadProductExcelModal" size="medium" :heading="i18n.listDetails.downloadProductExcelHeading">
+    <vx-download-product-info slot="component" :i18n="i18n" :noProducts="noProducts"
+      @onExcelDownloadInit="downloadExcel($event)">
+    </vx-download-product-info>
+  </vx-modal>
+  <vx-modal ref="addCustomAttributeModal" size="medium" :heading="i18n.listDetails.addCustomAttributeHeading">
+    <vx-add-custom-attribute slot="component" :attributeList="attributeList"
+      @onCustomAttributeInit=onCustomAttributeInit($event) :i18n="i18n.addCustomAttribute">
+    </vx-add-custom-attribute>
+  </vx-modal>
+  <vx-modal ref="deleteListModal" size="extra-small" :heading="i18n.listDetails.deleteListHeading">
+    <vx-delete-list :selectedListsName="selectedListNames" :selectedLists="selectedLists" slot="component" :i18n="i18n"
+      @close-delete-success="deleteModalSuccess" @close-delete-error="deleteModalError"></vx-delete-list>
+  </vx-modal>
+  <vx-modal ref="downloadImagePdfModal" size="large" :heading="i18n.listDetails.downloadImagePdfHeading">
+    <vx-download-info slot="component" :i18n="i18n" :colorCodes="colorCodes" :productEntries="productEntries"
+      @onImageDownloadInit=onImageDownloadInit($event) @onPdfDownloadInit=onPdfDownloadInit($event)
+      :is-image-download-enabled="globals.siteConfig.downloadListImage"
+      :is-pdf-download-enabled="globals.siteConfig.downloadListPdf" :certificationsName="certificationsName">
+    </vx-download-info>
+  </vx-modal>
+  <vx-modal ref="editListModal" size="extra-small" :heading="i18n.listDetails.editListNameHeading">
+    <vx-edit-list-name slot="component" :listName="listName" :listId="listId" :i18n="i18n"
+      @close-edit-success="editListNameSuccess" @close-edit-error="editListNameError"></vx-edit-list-name>
+  </vx-modal>
+  <vx-modal ref="installationDetailsModal" size="small" :heading="i18n.listDetails.installationDetailsHeading">
+    <p slot="component" v-html="message"></p>
+  </vx-modal>
+  <vx-modal ref="addGiftModal" size="small" :heading="i18n.listDetails.giftHeading">
+    <p slot="component" v-html="message"></p>
+  </vx-modal>
+  <vx-modal ref="selectListModal" size="small" :heading="i18n.listDetails.selectListHeading">
+    <vx-save-cart slot="component" :prodQuantity="quantityValue" :cart-guid="prodId" :i18n="i18n.listDetails"
+      @list-saved="onSelectListSuccess" is-product="true" is-precurated="true" @precurated-list="savePrecuratedList">
+    </vx-save-cart>
+  </vx-modal>
+  <vx-modal ref="notifyMeModal" size="extra-small" :heading="i18n.listDetails.notifyMeHeading">
+    <vx-notify-me :title="i18n.listDetails.notifyMeContent" :productCode="notifyCode" :i18n="i18n.listDetails"
+      slot="component" @notify-me-success="onNotifyMeSuccess" @notify-me-error="onNotifyMeError"></vx-notify-me>
+  </vx-modal>
+  <div class="col-xs-12">
+    <div class="row d-flex align-items-center justify-content-between favorites">
+      <h1 class="col-xs-12 lisSharedListist-details-name word-wrap-all h3">
+        {{listId}}
+      </h1>
+      <span class="icon-share mr-lg-3 mr-md-3 mr-sm-3 mr-xs-3" @click="handleShareList($event)" :disabled="noProducts"
+        @keyup.enter-space="handleShareList($event)" v-if="isFavorites && !noProducts" role="button" tabindex="0"
+        aria-label="Share list"></span>
+      <input class="list-filter" v-if="isFilterRequired" :placeholder="i18n.listDetails.listFilterPlaceholder"
+        type="text" v-model="searchQuery">
+    </div>
+    <div>
+      <div class="row" v-if="!isFavorites">
+        <div
+          class="mt-lg-3 mb-lg-4 pb-xs-4 pb-md-0 col-xs-12 d-flex align-items-center justify-content-between list-subtotal-container">
+          <div v-if="!isPrecurated">
+            <span class="icon-edit mr-xs-4" v-if="!isSharedList && !isSharedCart"
+              :title="i18n.listDetails.iconEditTitle" @click="handleEditList($event)" tabindex="0" role="button"
+              @keyup.enter-space="handleEditList($event)" :aria-label="i18n.listDetails.iconEditTitle"></span>
+            <span class="icon-share mr-xs-4" v-if="isSharable" :title="i18n.listDetails.iconShareTitle"
+              :disabled="noProducts" @click="handleShareList($event,'list')" tabindex="0" role="button"
+              :aria-label="i18n.listDetails.iconShareTitle" @keyup.enter-space="handleShareList($event,'list')"></span>
+            <span v-if="(globals.siteConfig.addToListBySku && isAddProduct)"
+              v-bind:class="{'icon-plus-active': canAddProductsToList}" class="icon-plus mr-xs-4"
+              @click="canAddProductsToList = !canAddProductsToList"
+              :aria-label="i18n.listDetails.iconAddProductsToListTitle" tabindex="0" role="button"
+              :title="i18n.listDetails.iconAddProductsToListTitle"
+              @keyup.enter-space="canAddProductsToList = !canAddProductsToList" data-toggle="tooltip"></span>
+            <span class="icon-download mr-xs-4"
+              v-if="(globals.siteConfig.downloadListPdf || globals.siteConfig.downloadListImage) && isDownloadable"
+              :title="i18n.listDetails.iconDownloadTitle" @click="handleDownloadList($event)" tabindex="0"
+              data-toggle="tooltip" :disabled="noProducts" role="button"
+              :aria-label="i18n.listDetails.iconDownloadTitle" @keyup.enter-space="handleDownloadList($event)"></span>
+            <span class="icon-download-info-new mr-xs-4"
+              v-if="globals.siteConfig.downloadPrdListInfo && isExcelDownloadable"
+              :title="i18n.listDetails.iconDownloadExcelTitle" @click="handleDownloadProductInfo($event)" tabindex="0"
+              role="button" :aria-label="i18n.listDetails.iconDownloadExcelTitle"
+              @keyup.enter-space="handleDownloadProductInfo($event)"></span>
+            <span class="icon-add-custom-attributes mr-xs-4" v-if="globals.siteConfig.addCustomAttrs"
+              :title="i18n.listDetails.iconAddCustomAttributeTitle" @click="handleAddCustomAttribute($event)"
+              data-toggle="tooltip" :disabled="noProducts" tabindex="0" role="button"
+              :aria-label="i18n.listDetails.iconAddCustomAttributeTitle"
+              @keyup.enter-space="handleAddCustomAttribute($event)"></span>
+            <span class="icon-save mr-xs-4" v-if="!isSharedList && !isSharedCart && !globals.loggedIn && !noProducts"
+              :title="i18n.listDetails.iconSaveTitle" @click="handleSaveList($event)" tabindex="0" role="button"
+              :aria-label="i18n.listDetails.iconSaveTitle" @keyup.enter-space="handleSaveList($event)"></span>
+            <span class="icon-trash" v-if="!isSharedList && !isSharedCart" :title="i18n.listDetails.iconDeleteTitle"
+              @click="handleDeleteList($event)" tabindex="0" role="button"
+              :aria-label="i18n.listDetails.iconDeleteTitle" @keyup.enter-space="handleDeleteList($event)"></span>
+            <div v-if="canAddProductsToList">
+              <vx-add-product-to-list :i18n="i18n.listDetails" @addProductsToList="handleAddProductsToList($event)"
+                @closeAddProductToList="closeAddProductPopover()"></vx-add-product-to-list>
+            </div>
+          </div>
+          <div v-if="isPrecurated">
+            <span class="mr-xs-4 icon-add-to-list" @click="handleSaveList($event)"
+              :aria-label="i18n.listDetails.iconAddToListTitle" tabindex="0" role="button"
+              :title="i18n.listDetails.iconAddToListTitle" @keyup.enter-space="handleSaveList($event)"></span>
+            <span class="icon-share mr-xs-4" :disabled="noProducts" :title="i18n.listDetails.iconShareTitle"
+              @click="handleShareList($event)" tabindex="0" role="button" :aria-label="i18n.listDetails.iconShareTitle"
+              @keyup.enter-space="handleShareList($event)">C
+            </span>
+          </div>
+          <div class="subtotal-section" v-if="!globals.isGpXpress() && !noProducts">
+            <span class="list-subtotal-label">{{i18n.listDetails.listSubtotal}}</span>
+            <strong class="list-subtotal-label">{{subtotal}}</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+    <h5 v-if="noProducts">{{noListMessage}}</h5>
+    <div v-if="isFavorites">
+      <div class="row">
+        <div class="col-xs-12 list-items-container">
+          <vx-product-tile v-for='(productEntry,key) in filteredProductEntries' :key='productEntry'
+            v-bind:class="{'spacingGPXpressLeftSection' :  globals.isGpXpress() && customAttributes.length !==0}" >
+            <template slot="top-right" v-if="!isPrecurated && !isSharedList && !isSharedCart">
+              <span class=" col-xs-2 px-xs-0">
+                <span class="cart-icons icon-trash" :title="i18n.listDetails.iconDeleteTitle" @click="deleteCartItem(productEntry.product.code)"
+                  :aria-label="i18n.listDetails.iconDeleteTitle" tabindex="0" role="button" @keyup.enter-space="deleteCartItem(productEntry.product.code)"></span>
+              </span>
+            </template>
+            <template slot="promo-section">
+              <p class="coming-soon-status hidden-lg hidden-sm hidden-md" v-if="productEntry.product.materialStatus === ProductAvailability.COMING_SOON">{{i18n.listDetails.comingSoonLabel}}</p>
+            </template>
+            <template slot="image-slot" v-if="productEntry.product.images">
+              <img :src="globals.getThumbnailImageUrl(productEntry.product.images)" :alt="productEntry.product.images[2].altText">
+              <p class="coming-soon-status hidden-xs " v-if="productEntry.product.materialStatus === ProductAvailability.COMING_SOON">{{i18n.listDetails.comingSoonLabel}}</p>
+            </template>
+            <template slot="image-slot" v-if="!productEntry.product.images">
+              <img :src="globals.assetsPath + 'images/no_image.svg'" alt="no image">
+              <p class="coming-soon-status hidden-xs" v-if="productEntry.product.materialStatus === ProductAvailability.COMING_SOON">{{i18n.listDetails.comingSoonLabel}}</p>
+            </template>
+            <!-- <template slot="product-icons-slot" v-if="globals.siteConfig.showProductIndicators"> -->
+            <template slot="product-icons-slot">
+              <vx-product-icons v-if="productEntry.product.productIcons" :i18n="i18n.productIconsTitle" :product-icons="productEntry.product.productIcons"></vx-product-icons>
+                <!-- Installation -->
+                <div v-if="productEntry.product.installationProduct">
+                  <a href="javascript:void(0)" v-if="productEntry.product.installationProduct.installable" @click="openInstallationDetailsModal(productEntry.product.installationProduct.installableMessage)">{{i18n.listDetails.installationLink}}</a>
+                </div>
+                <!-- Giftable -->
+                <div v-if="productEntry.product.giftWrapProduct && !globals.isEmployeeStore()">
+                  <a href="javascript:void(0)" v-if="productEntry.product.giftWrapProduct.giftWrapped" @click="openGiftModal(productEntry.product.giftWrapProduct.giftMessage)">{{i18n.listDetails.giftLink}}</a>
+                </div>
+            </template>
+            <template slot="details">
+              <p class="product-title mb-xs-2 pr-xs-5">
+                <a :href="globals.getNavigationUrl('empty')+productEntry.product.url" v-html="productEntry.product.name"></a>
+              </p>
+              <p v-if="!globals.isGpXpress()">
+                <span class="sr-only">{{i18n.listDetails.itemId}} : {{productEntry.product.code}}</span>
+                <span class="item-id" aria-hidden="true">{{i18n.listDetails.itemId}}
+                  <span>{{productEntry.product.code}}</span>
+                </span>
+                <span v-if="productEntry.product.cmirCode" class="separator"> | </span>
+                <span class="cmir-code" v-if="productEntry.product.cmirCode">{{i18n.listDetails.cmir}}
+                  <span>{{productEntry.product.cmirCode}}
+                  </span>
+                </span>
+              </p>
+              <p v-else class="gpxpressItemDescription">
+                <span>{{i18n.listDetails.mfg}} # {{productEntry.product.code}}</span>
+                <span v-if="productEntry.product.cmirCode" class="separator"> | </span>
+                <span v-if="productEntry.product.cmirCode">{{i18n.listDetails.cust}} # {{productEntry.product.cmirCode}}</span>
+              </p>
+              <p class="gpxpressProductAvailability" v-if="globals.isGpXpress() && productEntry.product.isAvailableForLocation">
+                <span>{{i18n.listDetails.locationAvailable}}</span>
+              </p>
+              <p class="product-price mb-xs-3" v-if="productEntry.product.price &&  globals.siteConfig.isProductPriceEnabled">
+                <span v-if="productEntry.product.price.formattedValue" class="product-current-price">
+                  <span class="sr-only">Current price
+                  </span>{{productEntry.product.price.formattedValue}}</span>
+                <span class="product-old-price" v-if="productEntry.product.weblistPrice">
+                  <span class="sr-only">Slashed price</span>
+                  <strike>{{productEntry.product.weblistPrice.formattedValue}}</strike>
+                </span>
+              </p>
+              <p class="error-text" v-if="productEntry.product && productEntry.product.materialStatus==='OBSOLETE' && productEntry.product.replacementProductCode && productEntry.product.replacementProductCode!==''">
+                {{i18n.listDetails.discontinued}} {{i18n.listDetails.replacedBy}} {{productEntry.product.replacementProductCode}}
+              </p>
+              <p class="error-text" v-if="productEntry.product && productEntry.product.materialStatus==='OBSOLETE' && !productEntry.product.replacementProductCode">
+                {{i18n.listDetails.discontinued}}
+              </p>
+              <p class="product-stock-status" v-if="productEntry.product.materialStatus === ProductAvailability.COMING_SOON">
+                {{i18n.listDetails.availableSoon}}
+              </p>
+              <!-- <template v-if="productEntry && productEntry.product && productEntry.product.materialStatus!=='OBSOLETE'">
+              <p class="product-stock mb-xs-3" v-if="productEntry.product.stock.stockLevelStatus != ProductAvailability.IN_STOCK && productEntry.product.stock.stockLevelStatus != ProductAvailability.LOW_STOCK">{{productEntry.product.stock.stockLevelStatus}}</p>
+            </template> -->
+              <template v-if="productEntry && productEntry.product && productEntry.product.materialStatus!=='OBSOLETE' && productEntry.product.materialStatus!== ProductAvailability.COMING_SOON && productEntry.product.stock && globals.siteConfig.showProductStatus">
+                <div class="stock-status">
+                  <p class="product-stock-status mb-xs-3" :class="{'text-danger' : globals.siteConfig.showLowInventoryMessage}" v-if="(productEntry.product.stock.stockLevel && (productEntry.product.stock.stockLevelStatus === ProductAvailability.LOW_STOCK || productEntry.product.stock.stockLevelStatus.code === ProductAvailability.LOW_STOCK))  && (globals.siteConfig.showInStockMsg || globals.siteConfig.showLowInventoryMessage)">
+                    {{ globals.siteConfig.showLowInventoryMessage ? i18n.listDetails.lowInventoryMessage : i18n.listDetails.inStock}}</p>
+                  <p class="product-stock mb-xs-3 error-text" v-else-if="productEntry.product.stock.nextDeliveryDate">{{productEntry.product.stock.nextDeliveryDate}}</p>
+                  <p class="product-stock-status mb-xs-3 " v-else-if="(productEntry.product.stock.stockLevelStatus === ProductAvailability.IN_STOCK || productEntry.product.stock.stockLevelStatus.code === ProductAvailability.IN_STOCK)  && globals.siteConfig.showInStockMsg">{{i18n.listDetails.inStock}}</p>
+                  <p class="product-stock mb-xs-3 error-text" v-else-if="productEntry.product.stock.stockLevelStatus !== ProductAvailability.IN_STOCK || (productEntry.product.stock.stockLevelStatus.code !== ProductAvailability.IN_STOCK && productEntry.product.stock.stockLevelStatus.code !== undefined && productEntry.product.stock.stockLevelStatus.code !== ProductAvailability.LOW_STOCK )">{{i18n.listDetails.outOfStock}}</p>
+                </div>
+              </template>
+              <div class="pr-lg-5 mr-lg-3 d-flex quantity-section" v-if="globals.siteConfig.isQuantitySelectorEnabled">
+                <div v-if="!isPrecurated && !isSharedList && !isSharedCart" class="stepper-wrapper">
+                  <p class="quantity-label">{{i18n.listDetails.quantityLabel}}</p>
+                  <vx-stepper-control :max-value="maxOrderQuantity(productEntry.product.maxOrderQuantity)" :value="productEntry.quantity" @currentCount="getQuantity(productEntry.product.price.formattedValue, productEntry.product.code, $event)"
+                    @maxValueUpdated="maxValueUpdated" :min-value="minOrderQuantity(productEntry.product.minOrderQuantity)"  @minValueUpdated="minValueUpdated" :stock-level="setStockLevel(productEntry.product.stock.stockLevel)" @stockLevelUpdated="stockLevelUpdated" @disableAddToCart="disableAddToCart"></vx-stepper-control>
+                </div>
+                <div v-if="isPrecurated" class="stepper-wrapper">
+                  <p class="quantity-label">{{i18n.listDetails.quantityLabel}}</p>
+                  <vx-stepper-control :max-value="maxOrderQuantity(productEntry.product.maxOrderQuantity)" :value="productEntry.quantity" @currentCount="getQuantity(productEntry.product.price.formattedValue, productEntry.product.code, $event)"
+                    @maxValueUpdated="maxValueUpdated" :min-value="minOrderQuantity(productEntry.product.minOrderQuantity)"  @minValueUpdated="minValueUpdated" :stock-level="setStockLevel(productEntry.product.stock.stockLevel)" @stockLevelUpdated="stockLevelUpdated" @disableAddToCart="disableAddToCart"></vx-stepper-control>
+                  </div>
+                <div v-if="isSharedList || isSharedCart" class="stepper-wrapper">
+                  <p class="quantity-label">{{i18n.listDetails.quantityLabel}}</p>
+                  <vx-stepper-control :max-value="maxOrderQuantity(productEntry.product.maxOrderQuantity)" :value="productEntry.quantity" @currentCount="getQuantity(productEntry.product.price.formattedValue, productEntry.product.code, $event)"
+                  @maxValueUpdated="maxValueUpdated" :min-value="minOrderQuantity(productEntry.product.minOrderQuantity)"  @minValueUpdated="minValueUpdated" :stock-level="setStockLevel(productEntry.product.stock.stockLevel)" @stockLevelUpdated="stockLevelUpdated" @disableAddToCart="disableAddToCart"></vx-stepper-control>
+                </div>
+              </div>
+            </template>
+            <template slot="right-section-slot" v-if="globals.siteConfig.isProductPriceEnabled">
+              <span class="d-flex align-items-end" v-if="productEntry.totalPrice">
+                <p class="product-total-price" role="status" :aria-label="'Total price'+productEntry.totalPrice">{{productEntry.totalPrice}}</p>
+              </span>
+              <div class="px-xs-0 py-xs-2 px-sm-0 pl-md-4 d-flex align-items-end">
+                <button v-if="(productEntry.product && productEntry.product.stock && productEntry.product.stock.stockLevelStatus && productEntry.product.stock.stockLevelStatus === ProductAvailability.OUT_OF_STOCK) || productEntry.product.materialStatus === ProductAvailability.COMING_SOON"
+                  class="btn btn-tertiary notify" type="button" @click="notifyMe(productEntry.product)">{{i18n.listDetails.notifyMe}}</button>
+                <button class="btn btn-primary add-to-cart-btn pull-right" @click="addToCart(productEntry.quantity, productEntry.product.code)" :disabled="addToCartDisabled || !productEntry.product.soldIndividually"
+                  :aria-label="i18n.listDetails.addToCart" v-else>{{i18n.listDetails.addToCart}}</button>
+              </div>
+            </template>
+            <template slot="bottom-full-slot" v-if="customAttributes.length">
+              <vx-accordion @accordionStatus="isAccordionOpen = $event" :opened="activeContainerIndex===key?true:false" :isSlotBased="true"
+                :i18n="i18n.listDetails" :accordionData="accordionData">
+                <template slot="component">
+                  <div :class="`accordion-${index}`" class="col-xs-12 accordionContent">
+                    <div class="input-container form-group col-xs-12 col-sm-4" v-for="(attribute,index) in customAttributes">
+                      <label :for="attribute.value">{{attribute.value}}</label>
+                      <input :name="attribute.value" maxlength="20" class="form-control" type="text" :value="productEntry[attribute.label]" @blur="saveCustomAttributeValue($event, productEntry.product, attribute, key)"
+                      />
+                    </div>
+                  </div>
+                </template>
+              </vx-accordion>
+            </template>
+          </vx-product-tile>
+        </div>
+      </div>
+    </div>
+    <div v-else-if="!isFavorites">
+      <template v-for='(categoryGroup) in categoryGroups'>
+        <div class="d-flex justify-content-between align-items-center">
+          <h3 v-if="categoryGroup.value.wishlistEntryGroup.length">{{categoryGroup.key}}</h3>
+          <a href="javascript:void(0)" @click="handleRemoveCategoryClick($event, categoryGroup)">{{i18n.listDetails.removeCategory}}</a>
+        </div>
+          <div class="row">
+          <div class="col-xs-12 list-items-container">
+            <vx-product-tile v-for='(productEntry,key) in categoryGroup.value.wishlistEntryGroup'
+              v-bind:class="{'spacingGPXpressLeftSection' :  globals.isGpXpress() && customAttributes.length !==0}" :key="productEntry">
+              <template slot="top-right" v-if="!isPrecurated && !isSharedList && !isSharedCart">
+                <span class=" col-xs-2 px-xs-0">
+                  <span class="cart-icons icon-trash" :title="i18n.listDetails.iconDeleteTitle" @click="deleteCartItem(productEntry.product.code)"
+                    :aria-label="i18n.listDetails.iconDeleteTitle" tabindex="0" role="button" @keyup.enter-space="deleteCartItem(productEntry.product.code)"></span>
+                </span>
+              </template>
+              <template slot="promo-section">
+                <p class="coming-soon-status hidden-lg hidden-sm hidden-md" v-if="productEntry.product.materialStatus === ProductAvailability.COMING_SOON">{{i18n.listDetails.comingSoonLabel}}</p>
+              </template>
+              <template slot="image-slot" v-if="productEntry.product.images">
+                <img :src="globals.getThumbnailImageUrl(productEntry.product.images)" :alt="productEntry.product.images[2].altText">
+                <p class="coming-soon-status hidden-xs " v-if="productEntry.product.materialStatus === ProductAvailability.COMING_SOON">{{i18n.listDetails.comingSoonLabel}}</p>
+              </template>
+              <template slot="image-slot" v-if="!productEntry.product.images">
+                <img :src="globals.assetsPath + 'images/no_image.svg'" alt="no image">
+                <p class="coming-soon-status hidden-xs" v-if="productEntry.product.materialStatus === ProductAvailability.COMING_SOON">{{i18n.listDetails.comingSoonLabel}}</p>
+              </template>
+              <!-- <template slot="product-icons-slot" v-if="globals.siteConfig.showProductIndicators"> -->
+              <template slot="product-icons-slot">
+                <vx-product-icons v-if="productEntry.product.productIcons" :i18n="i18n.productIconsTitle" :product-icons="productEntry.product.productIcons"></vx-product-icons>
+                  <!-- Installation -->
+                  <div v-if="productEntry.product.installationProduct">
+                    <a href="javascript:void(0)" v-if="productEntry.product.installationProduct.installable" @click="openInstallationDetailsModal(productEntry.product.installationProduct.installableMessage)">{{i18n.listDetails.installationLink}}</a>
+                  </div>
+                  <!-- Giftable -->
+                  <div v-if="productEntry.product.giftWrapProduct && !globals.isEmployeeStore()">
+                    <a href="javascript:void(0)" v-if="productEntry.product.giftWrapProduct.giftWrapped" @click="openGiftModal(productEntry.product.giftWrapProduct.giftMessage)">{{i18n.listDetails.giftLink}}</a>
+                  </div>
+              </template>
+              <template slot="details">
+                <p class="product-title mb-xs-2 pr-xs-5">
+                  <a :href="globals.getNavigationUrl('empty')+productEntry.product.url" v-html="productEntry.product.name"></a>
+                </p>
+                <p v-if="!globals.isGpXpress()">
+                  <span class="sr-only">{{i18n.listDetails.itemId}} : {{productEntry.product.code}}</span>
+                  <span class="item-id" aria-hidden="true">{{i18n.listDetails.itemId}}
+                    <span>{{productEntry.product.code}}</span>
+                  </span>
+                  <span v-if="productEntry.product.cmirCode" class="separator"> | </span>
+                  <span class="cmir-code" v-if="productEntry.product.cmirCode">{{i18n.listDetails.cmir}}
+                    <span>{{productEntry.product.cmirCode}}
+                    </span>
+                  </span>
+                </p>
+                <p v-else class="gpxpressItemDescription">
+                  <span>{{i18n.listDetails.mfg}} # {{productEntry.product.code}}</span>
+                  <span v-if="productEntry.product.cmirCode" class="separator"> | </span>
+                  <span v-if="productEntry.product.cmirCode">{{i18n.listDetails.cust}} # {{productEntry.product.cmirCode}}</span>
+                </p>
+                <div class="display-attributes" v-if="globals.siteConfig.enableDisplayAttributes && productEntry.product.displayAttributes" v-html="displayAttributes(productEntry.product.displayAttributes)">
+                </div>
+                <p class="gpxpressProductAvailability" v-if="globals.isGpXpress() && productEntry.product.isAvailableForLocation">
+                  <span>{{i18n.listDetails.locationAvailable}}</span>
+                </p>
+                <p class="product-price mb-xs-3" v-if="productEntry.product.price &&  globals.siteConfig.isProductPriceEnabled">
+                  <span v-if="productEntry.product.price.formattedValue" class="product-current-price">
+                    <span class="sr-only">Current price
+                    </span>{{productEntry.product.price.formattedValue}}</span>
+                  <span class="product-old-price" v-if="productEntry.product.weblistPrice">
+                    <span class="sr-only">Slashed price</span>
+                    <strike>{{productEntry.product.weblistPrice.formattedValue}}</strike>
+                  </span>
+                </p>
+                <p class="error-text" v-if="productEntry.product && productEntry.product.materialStatus==='OBSOLETE' && productEntry.product.replacementProductCode && productEntry.product.replacementProductCode!==''">
+                  {{i18n.listDetails.discontinued}} {{i18n.listDetails.replacedBy}} {{productEntry.product.replacementProductCode}}
+                </p>
+                <p class="error-text" v-if="productEntry.product && productEntry.product.materialStatus==='OBSOLETE' && !productEntry.product.replacementProductCode">
+                  {{i18n.listDetails.discontinued}}
+                </p>
+                <p class="product-stock-status" v-if="productEntry.product.materialStatus === ProductAvailability.COMING_SOON">
+                  {{i18n.listDetails.availableSoon}}
+                </p>
+                <!-- <template v-if="productEntry && productEntry.product && productEntry.product.materialStatus!=='OBSOLETE'">
+                <p class="product-stock mb-xs-3" v-if="productEntry.product.stock.stockLevelStatus != ProductAvailability.IN_STOCK && productEntry.product.stock.stockLevelStatus != ProductAvailability.LOW_STOCK">{{productEntry.product.stock.stockLevelStatus}}</p>
+              </template> -->
+                <template v-if="productEntry && productEntry.product && productEntry.product.materialStatus!=='OBSOLETE' && productEntry.product.materialStatus!== ProductAvailability.COMING_SOON && productEntry.product.stock && globals.siteConfig.showProductStatus">
+                  <div class="stock-status">
+                    <p class="product-stock-status mb-xs-3" :class="{'text-danger' : globals.siteConfig.showLowInventoryMessage}" v-if="(productEntry.product.stock.stockLevel && (productEntry.product.stock.stockLevelStatus === ProductAvailability.LOW_STOCK || productEntry.product.stock.stockLevelStatus.code === ProductAvailability.LOW_STOCK))  && (globals.siteConfig.showInStockMsg || globals.siteConfig.showLowInventoryMessage)">
+                      {{ globals.siteConfig.showLowInventoryMessage ? i18n.listDetails.lowInventoryMessage : i18n.listDetails.inStock}}</p>
+                    <p class="product-stock mb-xs-3 error-text" v-else-if="productEntry.product.stock.nextDeliveryDate">{{productEntry.product.stock.nextDeliveryDate}}</p>
+                    <p class="product-stock-status mb-xs-3 " v-else-if="(productEntry.product.stock.stockLevelStatus === ProductAvailability.IN_STOCK || productEntry.product.stock.stockLevelStatus.code === ProductAvailability.IN_STOCK)  && globals.siteConfig.showInStockMsg">{{i18n.listDetails.inStock}}</p>
+                    <p class="product-stock mb-xs-3 error-text" v-else-if="productEntry.product.stock.stockLevelStatus !== ProductAvailability.IN_STOCK || (productEntry.product.stock.stockLevelStatus.code !== ProductAvailability.IN_STOCK && productEntry.product.stock.stockLevelStatus.code !== undefined && productEntry.product.stock.stockLevelStatus.code !== ProductAvailability.LOW_STOCK )">{{i18n.listDetails.outOfStock}}</p>
+                  </div>
+                </template>
+                <div class="pr-lg-5 mr-lg-3 d-flex quantity-section" v-if="globals.siteConfig.isQuantitySelectorEnabled">
+                  <div v-if="!isPrecurated && !isSharedList && !isSharedCart" class="stepper-wrapper">
+                    <p class="quantity-label">{{i18n.listDetails.quantityLabel}}</p>
+                    <vx-stepper-control :max-value="maxOrderQuantity(productEntry.product.maxOrderQuantity)" :value="productEntry.quantity" @currentCount="getQuantity(productEntry.product.price.formattedValue, productEntry.product.code, $event)"
+                      @maxValueUpdated="maxValueUpdated" :min-value="minOrderQuantity(productEntry.product.minOrderQuantity)"  @minValueUpdated="minValueUpdated" :stock-level="setStockLevel(productEntry.product.stock.stockLevel)" @stockLevelUpdated="stockLevelUpdated" @disableAddToCart="disableAddToCart"></vx-stepper-control>
+                  </div>
+                  <div v-if="isPrecurated" class="stepper-wrapper">
+                    <p class="quantity-label">{{i18n.listDetails.quantityLabel}}</p>
+                    <vx-stepper-control :max-value="maxOrderQuantity(productEntry.product.maxOrderQuantity)" :value="productEntry.quantity" @currentCount="getQuantity(productEntry.product.price.formattedValue, productEntry.product.code, $event)"
+                      @maxValueUpdated="maxValueUpdated" :min-value="minOrderQuantity(productEntry.product.minOrderQuantity)"  @minValueUpdated="minValueUpdated" :stock-level="setStockLevel(productEntry.product.stock.stockLevel)" @stockLevelUpdated="stockLevelUpdated" @disableAddToCart="disableAddToCart"></vx-stepper-control>
+                    </div>
+                  <div v-if="isSharedList || isSharedCart" class="stepper-wrapper">
+                    <p class="quantity-label">{{i18n.listDetails.quantityLabel}}</p>
+                    <vx-stepper-control :max-value="maxOrderQuantity(productEntry.product.maxOrderQuantity)" :value="productEntry.quantity" @currentCount="getQuantity(productEntry.product.price.formattedValue, productEntry.product.code, $event)"
+                    @maxValueUpdated="maxValueUpdated" :min-value="minOrderQuantity(productEntry.product.minOrderQuantity)"  @minValueUpdated="minValueUpdated" :stock-level="setStockLevel(productEntry.product.stock.stockLevel)" @stockLevelUpdated="stockLevelUpdated" @disableAddToCart="disableAddToCart"></vx-stepper-control>
+                  </div>
+                </div>
+              </template>
+              <template slot="right-section-slot" v-if="globals.siteConfig.isProductPriceEnabled">
+                <span class="d-flex align-items-end" v-if="productEntry.totalPrice">
+                  <p class="product-total-price" role="status" :aria-label="'Total price'+productEntry.totalPrice">{{productEntry.totalPrice}}</p>
+                </span>
+                <div class="px-xs-0 py-xs-2 px-sm-0 pl-md-4 d-flex align-items-end">
+                  <button v-if="(productEntry.product && productEntry.product.stock && productEntry.product.stock.stockLevelStatus && productEntry.product.stock.stockLevelStatus === ProductAvailability.OUT_OF_STOCK) || productEntry.product.materialStatus === ProductAvailability.COMING_SOON"
+                    class="btn btn-tertiary notify" type="button" @click="notifyMe(productEntry.product)">{{i18n.listDetails.notifyMe}}</button>
+                  <button class="btn btn-primary add-to-cart-btn pull-right" @click="addToCart(productEntry.quantity, productEntry.product.code)" :disabled="addToCartDisabled || !productEntry.product.soldIndividually"
+                    :aria-label="i18n.listDetails.addToCart" v-else>{{i18n.listDetails.addToCart}}</button>
+                </div>
+              </template>
+              <template slot="bottom-full-slot" v-if="customAttributes.length">
+                <vx-accordion @accordionStatus="isAccordionOpen = $event" :opened="activeContainerIndex===key?true:false" :isSlotBased="true"
+                  :i18n="i18n.listDetails" :accordionData="accordionData">
+                  <template slot="component">
+                    <div :class="`accordion-${index}`" class="col-xs-12 accordionContent">
+                      <div class="input-container form-group col-xs-12 col-sm-4" v-for="(attribute,index) in customAttributes">
+                        <label :for="attribute.value">{{attribute.value}}</label>
+                        <input :name="attribute.value" maxlength="20" class="form-control" type="text" :value="productEntry[attribute.label]" @blur="saveCustomAttributeValue($event, productEntry.product, attribute, key)"
+                        />
+                      </div>
+                    </div>
+                  </template>
+                </vx-accordion>
+              </template>
+            </vx-product-tile>
+          </div>
+        </div>
+      </template>
+    </div>
+    <div v-if="!noProducts">
+      <div class="row" v-if="!isFavorites && !globals.isGpXpress()">
+        <div class="col-xs-12 d-flex py-xs-4 align-items-center justify-content-end list-subtotal-container">
+          <div class="pull-right">
+            <span class="list-subtotal-label">{{i18n.listDetails.listSubtotal}}</span>
+            <strong class="list-subtotal-label">{{subtotal}}</strong>
+          </div>
+        </div>
+      </div>
+      <div class="row add-to-cart-container" v-if="!isFavorites">
+        <div class="col-sm-12 px-xs-0 py-xs-2 px-sm-3 px-sm-5 px-md-7">
+          <button class="btn btn-primary pull-right add-list-to-cart-btn" @click="addListToCart" :aria-label="i18n.listDetails.addListToCart">{{i18n.listDetails.addListToCart}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <vx-pdf-generator v-if="loadPdfGenerator" name="pdfversion" :has-sustainability-page="hasSustainabilityPage" ref="pdfModule" :pdfData="pdpListdata">
+    <div slot="details">
+      <template v-for="product in pdpListdata.wishlistEntries">
+        <div v-bind:id="product.product.code">
+          <h5 v-html="replaceText(product.product.name)"></h5>
+          <h5 v-if="product.product.description">Description:</h5>
+          <p v-if="product.product.description" v-html="limitCharacters(product.product.description)" style="font-size:12px"></p>
+        </div>
+        <h5 v-if="product.product.featureList.length" id="feature-heading">Features and Benefits:</h5>
+        <div v-if="product.product.featureList" id="features">
+          <ol class="features" style="font-size:12px;">
+            <li v-for="feature in product.product.featureList" v-html="replaceText(feature)"></li>
+          </ol>
+        </div>
+      </template>
+      <img id='itf' />
+      <img id='itf1' :src="abc" />
+    </div>
+  </vx-pdf-generator>
+</div>

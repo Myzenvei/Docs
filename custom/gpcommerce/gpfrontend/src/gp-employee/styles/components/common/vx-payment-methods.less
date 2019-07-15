@@ -1,0 +1,110 @@
+#gp-employee {
+  .vx-payment-methods {
+    min-height: calc(100vh - 282px);
+    margin: 0 0 16px;
+    background-color: @card-layout-bg-color;
+    border-radius: @card-layout-border-radius;
+    padding: 32px 20px 30px;
+    .row {
+      h1 {
+        margin: 0 0 0 16px;
+        padding: 0;
+        font-size: @font-size-section-heading;
+        width: initial;
+        border-bottom: 4px solid @brand-primary;
+      }
+    }
+    .payment-container {
+      .payments-cards-container {
+        .add-card-wrapper {
+          .vx-profile-card {
+            min-height: 285px;
+            height: 100%;
+            .add-card {
+              height: 100%;
+              border-radius: @card-layout-border-radius;
+              border: 2px solid @add-card-border-color;
+              background-color: transparent;
+              .add-card-container {
+                span {
+                  font-size: @font-size-medium;
+                  color: @card-hyperlink-color;
+                }
+              }
+            }
+          }
+        }
+        div:not(:first-child) {
+          .vx-profile-card {
+            .profile-card {
+              border: none;
+              border-radius: @card-layout-border-radius;
+              background-color: @payment-card-bg-color;
+              min-height: 285px;
+              .card-footer {
+                position: absolute;
+                bottom: 0;
+                padding: 16px 0;
+                p {
+                  word-break: break-word;
+                }
+              }
+            }
+          }
+        }
+        .vx-profile-card-icons {
+          .icon-default {
+            font-size: 14px;
+          }
+        }
+      }
+    }
+    .modal-wrapper {
+      button.delete-payment {
+        min-width: 170px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: @screen-sm-max) {
+  #gp-employee {
+    .vx-payment-methods {
+      margin-top: 28px;
+      padding: 24px;
+      .address-cards-container {
+        margin-top: 8px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: @screen-xs-max) {
+  #gp-employee {
+    .vx-payment-methods {
+      padding: 24px 12px;
+      .payment-container {
+        .payments-cards-container {
+          margin-top: 16px;
+          .add-card-wrapper {
+            .vx-profile-card {
+              min-height: 120px;
+              height: 100%;
+              .add-card {
+                height: 100%;
+              }
+            }
+          }
+        }
+      }
+      .modal-wrapper {
+        .delete-payment-modal {
+          padding-bottom: 32px;
+        }
+        button.delete-payment {
+          width: auto;
+        }
+      }
+    }
+  }
+}

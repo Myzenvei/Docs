@@ -1,0 +1,222 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+# ImpEx for Importing Category Classifications
+
+# MaGP US Replacement Parameter definitions
+$productCatalog=gpUSProductCatalog
+$productCatalogName=GP US Product Catalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$classCatalogVersion=catalogversion(catalog(id[default='gpUSClassification']),version[default='1.0'])[unique=true,default='gpUSClassification:1.0']
+$classSystemVersion=systemVersion(catalog(id[default='gpUSClassification']),version[default='1.0'])[unique=true]
+$class=classificationClass(ClassificationClass.code,$classCatalogVersion)[unique=true]
+$supercategories=source(code, $classCatalogVersion)[unique=true]
+$categories=target(code, $catalogVersion)[unique=true]
+$attribute=classificationAttribute(code,$classSystemVersion)[unique=true]
+$unit=unit(code,$classSystemVersion)
+
+# Insert Classifications
+INSERT_UPDATE ClassificationClass;$classCatalogVersion;code[unique=true];allowedPrincipals(uid)[default='customergroup']
+;;10001;
+;;20001;
+;;30001;
+;;40001;
+;;50001;
+;;60001;
+
+# Remove Existing Classification Attributes
+REMOVE ClassificationAttribute;$classSystemVersion;code[unique=true]
+;;Sheet Length, 11015
+;;Sheet Width, 11016
+;;Shipping Container Type, 11018
+;;Total Pallet Height (Inches), 11022
+;;Pallet Type, 11023
+;;Truck Load Qty (Floor), 11024
+;;Truck Load Qty (Pallet), 11025
+
+
+# Insert Classification Attributes
+INSERT_UPDATE ClassificationAttribute;$classSystemVersion;code[unique=true]
+;;Brand Owner, 11000
+;;Brand, 11001
+;;MFG #, 11002
+;;Color, 11003
+;;UP-UPC, 11004
+;;Each per Ship Unit, 11005
+;;Items Per Each, 11006
+;;Case Total, 11007
+;;Size LxWxH, 11008
+;;UNSPSC, 11009
+;;Capacity, 11010
+;;Kosher, 11011
+;;Buy Multiple, 11012
+;;Replaces Item, 11013
+;;Sheet Count, 11014
+;;Sheet W x L, 11015
+;;LEED® O&M, 11016
+;;Stat Factor, 11017
+;;Square Inches (Per Sheet), 11019
+;;Square CM (Per Sheet), 11020
+;;Square Feet (Per Pack), 11021
+
+
+
+
+;;Case GTIN, 21000
+;;Case Gross Weight, 21001
+;;Case Net Weight, 21002
+;;Case Dimensions LxWxH, 21003
+;;Case Volume, 21004
+
+
+;;Each Gross Weight, 31000
+;;Each Net Wgt, 31001
+;;Each Dimensions LxWxH, 31002
+;;Each Volume, 31003
+
+
+;;TI-QTY/Layer, 41000
+;;HI-Layers/Unit, 41001
+;;Unit Qty, 41002
+;;Unit Dimensions LxWxH, 41003
+;;Total Pallet Height (Inches), 41004
+;;Pallet Type, 41005
+;;Shipping Container Type, 41006
+;;Truck Load Qty (Floor), 41007
+;;Truck Load Qty (Pallet), 41008
+
+
+;;QSU UPC, 51000
+;;QSU Gross Weight, 51001
+;;QSU Net Weight, 51002
+;;QSU Volume, 51003
+;;QSU Hi, 51004
+;;QSU Ti, 51005
+;;QSU TiHi, 51006
+
+
+
+;;Bundle GTIN, 61000
+;;Bundle Gross Weight, 61001
+;;Bundle Net Weight, 61002
+;;Bundle Dimensions LxWxH, 61003
+;;Bundle Volume, 61004
+
+
+# Links ClassificationClasses to Categories
+INSERT_UPDATE CategoryCategoryRelation;$categories;$supercategories
+;categories;10001;
+;areaofservice;10001;
+;paperproducts;10001;
+;dispensers;10001;
+;bundles;10001;
+;cleaningsupply;10001;
+
+;categories;20001;
+;areaofservice;20001;
+;paperproducts;20001;
+;dispensers;20001;
+;bundles;20001;
+;cleaningsupply;20001;
+
+;categories;30001;
+;areaofservice;30001;
+;paperproducts;30001;
+;dispensers;30001;
+;bundles;30001;
+;cleaningsupply;30001;
+
+;categories;40001;
+;areaofservice;40001;
+;paperproducts;40001;
+;dispensers;40001;
+;bundles;40001;
+;cleaningsupply;40001;
+
+;categories;50001;
+;areaofservice;50001;
+;paperproducts;50001;
+;dispensers;50001;
+;bundles;50001;
+;cleaningsupply;50001;
+
+;categories;60001;
+;areaofservice;60001;
+;paperproducts;60001;
+;dispensers;60001;
+;bundles;60001;
+;cleaningsupply;60001;
+
+
+INSERT_UPDATE ClassAttributeAssignment;$class;$attribute;position;$unit;attributeType(code[default=string]);multiValued[default=false];range[default=false];localized[default=true]
+;10001;Brand Owner, 11000;1;;;;
+;10001;Brand, 11001;2;;;;
+;10001;MFG #, 11002;3;;;;
+;10001;Color, 11003;4;;;;
+;10001;UP-UPC, 11004;5;;;;
+;10001;Each per Ship Unit, 11005;6;;;;
+;10001;Items Per Each, 11006;7;;;;
+;10001;Case Total, 11007;13;;;;
+;10001;Size LxWxH, 11008;16;;;;
+;10001;UNSPSC, 11009;14;;;;
+;10001;Capacity, 11010;17;;;;
+;10001;Kosher, 11011;18;;;;
+;10001;Buy Multiple, 11012;21;;;;
+;10001;Replaces Item, 11013;20;;;;
+;10001;Sheet Count, 11014;9;;;;
+;10001;Sheet W x L, 11015;8;;;;
+;10001;LEED® O&M, 11016;15;;;;
+;10001;Stat Factor, 11017;19;;;;
+;10001;Square Inches (Per Sheet), 11019;11;;;;
+;10001;Square CM (Per Sheet), 11020;10;;;;
+;10001;Square Feet (Per Pack), 11021;12;;;;
+
+
+
+;20001;Case GTIN, 21000;1;;;;
+;20001;Case Gross Weight, 21001;2;;;;
+;20001;Case Net Weight, 21002;3;;;;
+;20001;Case Dimensions LxWxH, 21003;4;;;;
+;20001;Case Volume, 21004;5;;;;
+
+
+;30001;Each Gross Weight, 31000;1;;;;
+;30001;Each Net Wgt, 31001;2;;;;
+;30001;Each Dimensions LxWxH, 31002;3;;;;
+;30001;Each Volume, 31003;4;;;;
+
+
+;40001;TI-QTY/Layer, 41000;1;;;;
+;40001;HI-Layers/Unit, 41001;2;;;;
+;40001;Unit Qty, 41002;3;;;;
+;40001;Unit Dimensions LxWxH, 41003;4;;;;
+;40001;Total Pallet Height (Inches), 41004;5;;;;
+;40001;Pallet Type, 41005;6;;;;
+;40001;Shipping Container Type, 41006;7;;;;
+;40001;Truck Load Qty (Floor), 41007;9;;;;
+;40001;Truck Load Qty (Pallet), 41008;8;;;;
+
+
+
+;50001;QSU UPC, 51000;1;;;;
+;50001;QSU Gross Weight, 51001;2;;;;
+;50001;QSU Net Weight, 51002;3;;;;
+;50001;QSU Volume, 51003;4;;;;
+;50001;QSU Hi, 51004;5;;;;
+;50001;QSU Ti, 51005;6;;;;
+;50001;QSU TiHi, 51006;7;;;;
+
+
+;60001;Bundle GTIN, 61000;1;;;;
+;60001;Bundle Gross Weight, 61001;2;;;;
+;60001;Bundle Net Weight, 61002;3;;;;
+;60001;Bundle Dimensions LxWxH, 61003;4;;;;
+;60001;Bundle Volume, 61004;5;;;;
+

@@ -1,0 +1,135 @@
+#b2b-white-label {
+  .header-section {
+    .navbar-bottom {
+      .logo {
+        margin-left: 40px;
+        img {
+          max-height: 40px;
+        }
+      }
+      .navbar-bottom-left {
+        margin-left: 16px;
+      }
+      .navbar-bottom-right {
+        .cart .badge {
+          left: initial;
+          right: 0;
+          top: 6px;
+        }
+        .quick-order {
+          display: inline-flex;
+        }
+      }
+    }
+  }
+  .checkout-header {
+    img {
+      height: 100%;
+    }
+  }
+}
+
+@media only screen and (max-width: @screen-sm-max) {
+  #b2b-white-label {
+    .header-section {
+      .navbar-bottom,.navbar-top {
+        .navbar-bottom-left {
+          margin-left: 0;
+          .navigation-menu {
+            .navigation-inner-wrapper {
+              .secondary-menu {
+                .sec-title {
+                  height: 40px;
+                }
+                ul {
+                  li {
+                    max-width: 100%;
+                  }
+                }
+              }
+            }
+          }
+        }
+        .logo {
+          margin-left: 50px;
+          background: none;
+          border: 0;
+          top: 12px;
+          transform: translateY(0);
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: @screen-xs-max) {
+  #b2b-white-label {
+    .header-section {
+      .navbar-bottom {
+        .logo {
+          margin-left: 50px;
+          background: none;
+          border: 0;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: @screen-md-min) {
+  #b2b-white-label {
+    .header-section {
+      .navbar-bottom,.navbar-top {
+        .navbar-bottom-left {
+          .navigation-menu {
+            .navigation-inner-wrapper {
+              .secondary-menu {
+                .sec-title {
+                  height: 40px;
+                  line-height: 40px;
+                }
+
+                .flyout-sec {
+                  flex-flow: column wrap;
+                  max-height: 260px;
+
+                  .js-secondary-child {
+                    width: auto;
+                    padding: 14px 16px !important;
+                    &:hover {
+                      background: @btn-default-hover-bg;
+
+                      .custom-word-wrap-all {
+                        color: @nav-link-hover-color;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
+  #b2b-white-label {
+    .header-section {
+      .navbar-bottom,.navbar-top {
+        .navbar-bottom-left {
+          .navigation-menu {
+            .navigation-inner-wrapper {
+              .secondary-menu {
+                .flyout-sec {
+                  height: 260px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

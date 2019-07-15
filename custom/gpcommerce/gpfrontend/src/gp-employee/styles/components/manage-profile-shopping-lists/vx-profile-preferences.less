@@ -1,0 +1,107 @@
+#gp-employee {
+  .vx-profile-preferences {
+    margin-right: 0;
+    min-height: calc(100vh - 282px);
+    background-color: @card-layout-bg-color;
+    border-radius: @card-layout-border-radius;
+    .profile-cards-container {
+      .vx-profile-card {
+        background-color: @profile-card-bg-color;
+        padding: 0;
+        .profile-card {
+          border: none;
+        }
+        .vx-profile-card-icons {
+          .icon-default {
+            font-size: 14px;
+          }
+        }
+      }
+      .row:first-child {
+        h1 {
+          border-bottom: 4px solid @brand-primary;
+          margin-left: 16px;
+          font-size: @font-size-section-heading;
+          font-weight: @font-weight-medium;
+          padding-bottom: 8px;
+        }
+      }
+      .row:last-child {
+        div.col-xs-12.col-sm-6 {
+          width: calc(50% - 32px);
+          margin: 0 16px;
+        }
+        div.my-xs-2.my-sm-3 {
+          margin-top: 30px !important;
+        }
+      }
+    }
+    &::after {
+      display: block;
+      content: ' ';
+      clear: both;
+    }
+  }
+}
+
+@media screen and (max-width: @screen-sm-max) {
+  #gp-employee {
+    .vx-profile-preferences {
+      margin-top: 28px;
+      padding-top: 24px !important;
+      padding-left: 8px;
+      padding-right: 8px;
+      margin-bottom: 16px;
+      .vx-profile-card {
+        .profile-card {
+          &.card-default-height {
+            min-height: 120px;
+          }
+        }
+      }
+      .profile-cards-container {
+        .row:last-child {
+          div.my-xs-2.my-sm-3 {
+            margin-top: 16px !important;
+          }
+          &.py-xs-2.py-sm-3 {
+            padding-top: 30px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: @screen-xs-max) {
+  #gp-employee {
+    .vx-profile-preferences {
+      padding-left: 0;
+      padding-right: 0;
+      margin-bottom: 16px;
+      .profile-cards-container {
+        .row:last-child {
+          div.col-xs-12.col-sm-6 {
+            width: calc(100% - 24px);
+            margin: 0 12px;
+          }
+          div.my-xs-2.my-sm-3 {
+            margin-top: 8px !important;
+          }
+          &.py-xs-2.py-sm-3 {
+            padding-top: 16px !important;
+            padding-bottom: 16px !important;
+          }
+        }
+      }
+    }
+  }
+}
+@media screen and (min-width: @screen-md-min) {
+  #gp-employee {
+    .vx-profile-preferences {
+      height: calc(100% - 16px);
+      margin-bottom: 16px;
+    }
+  }
+}

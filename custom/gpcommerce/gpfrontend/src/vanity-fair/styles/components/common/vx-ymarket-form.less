@@ -1,0 +1,37 @@
+#vanity-fair {
+  .vx-ymarket-form {
+    h2 {
+      font-size: @font-size-h3;
+      @media screen and (min-width: @screen-sm-min) {
+        h2 {
+          font-size: @font-size-h2;
+        }
+      }
+    }
+    button.sapCpButton {
+      &:extend(.btn-block, .btn, .btn-primary);
+    }
+    .sapCpTextWidget {
+      .sapCRLWidgetContentNoIndent {
+        p {
+          font-size: @font-size-small;
+          color: @font-color-label-text;
+          line-height: 18px;
+        }
+      }
+    }
+    .sapCpButton {
+      @media screen and (min-width: @screen-sm-min) {
+        width: 222px !important;
+      }
+      @media screen and (min-width: @screen-md-min) {
+        width: 202px !important;
+      }
+    }
+    .sapCpInputWidget {
+      &.form-control {
+        height: 48px;
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>Assets/Facebook</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Assets/Facebook" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Outline/Circle/LightGrey/100%" stroke="#CECECE">
+            <rect id="Rectangle" x="0.5" y="0.5" width="31" height="31" rx="15.5"></rect>
+        </g>
+        <path d="M17.1926437,24 L17.1926437,16.7016912 L19.5513479,16.7016912 L19.904477,13.8573597 L17.1926437,13.8573597 L17.1926437,12.0413798 C17.1926437,11.2178795 17.4127885,10.6566395 18.5498181,10.6566395 L20,10.656004 L20,8.1120644 C19.7491247,8.07746355 18.8883299,8 17.8868681,8 C15.7961043,8 14.3646871,9.32549518 14.3646871,11.7597712 L14.3646871,13.8573597 L12,13.8573597 L12,16.7016912 L14.3646871,16.7016912 L14.3646871,24 L17.1926437,24 Z" id="Fill-1-Copy" fill="#3B5998"></path>
+    </g>
+</svg>

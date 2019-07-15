@@ -1,0 +1,20 @@
+<div class="c-sbs p-xs-3 row d-flex flex-xs-column flex-sm-row" :style="{backgroundColor:sbsData.sbsGlobalBG,backgroundImage:setBackGroundImage(sbsData.sbsGlobalBgImgD,sbsData.sbsGlobalBgImgT,sbsData.sbsGlobalBgImgM)}"
+  :id="sbsData.componentId" :aria-label="[backgroundAlt]">
+  <div class="col-xs-12 col-sm-6 p-xs-3" :class="(data.sbsBody && data.sbsTitle)?'d-flex flex-xs-column flex-sm-row':''"
+    v-for="(data,index) in sbsData.sbsMktgData">
+    <a class="c-sbs__img-wrapper" v-if="data.sbsImage" :href="data.isExternalImage ? data.imageLink : globals.getUrlWithContextPath(data.imageLink)"
+      :target="data.isExternalImage?'_blank':''" :style="backgroundImage(data,index)" :aria-label="getBackgroundAlt(data,index)">
+
+    </a>
+    <div class="d-flex flex-xs-column text-xs-center p-xs-4 w-xs-100" v-if="data.sbsBody || data.sbsTitle" :style="{backgroundColor:data.sbsBodyBg}">
+      <h3 class="mt-xs-0" :style="{color:data.sbsTitleColor}" v-html="data.sbsTitle"></h3>
+      <div class="c-sbs__text-wrapper mb-xs-3" :style="{color:data.sbsBodyTxtColor}" v-html="data.sbsBody"></div>
+      <a :href="data.isExternalLink ? data.ctaLink : globals.getUrlWithContextPath(data.ctaLink)" :target="data.isExternalLink?'_blank':''"
+        class="c-sbs__learnMore" :style="{color:data.ctaColor}" v-if="data.ctaLink && data.ctaText && !data.jumpToHtml"
+        v-html="data.ctaText"></a>
+      <a :href="data.isExternalLink ? data.ctaLink : globals.getUrlWithContextPath(data.ctaLink)" :target="data.isExternalLink?'_blank':''"
+        class="c-sbs__learnMore" :style="{color:data.ctaColor}" v-if="data.ctaLink && data.ctaText && data.jumpToHtml"
+        v-html="data.ctaText" @click="emitScrollSignal(data.ctaLink)"></a>
+    </div>
+  </div>
+</div>

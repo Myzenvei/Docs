@@ -1,0 +1,352 @@
+#brawny {
+  .main__inner-wrapper {
+    .login-page {
+      margin: 16px 16px 8px 16px !important;
+      @media screen and (min-width: @screen-sm-min) {
+        margin: auto 16px 24px 16px !important;
+      }
+      @media screen and (min-width: @screen-md-min) {
+        margin: 40px 40px 24px 40px !important;
+      }
+
+      .login-component {
+        .vx-minimized-header {
+          display: none;
+        }
+      }
+    }
+    .register-component {
+      margin-bottom: 24px !important;
+      @media screen and (min-width: @screen-sm-min) {
+        margin-bottom: 40px !important;
+      }
+    }
+    .support {
+      margin: 0 16px 40px 16px !important;
+      padding: 0 !important;
+      color: @text-color-sub-text;
+      @media screen and (min-width: @screen-sm-min) {
+        margin-bottom: auto !important;
+      }
+      @media screen and (min-width: @screen-md-min) {
+        margin-bottom: 40px !important;
+        margin-top: 0 !important;
+      }
+      a {
+        color: @link-color;
+        text-decoration: underline;
+        font-weight: @font-weight-bold;
+        font-family: @font-family-heading;
+        @media screen and (min-width: @screen-md-min) {
+          font-size: @font-size-small;
+        }
+      }
+      font-size: @font-size-base;
+      @media screen and (min-width: @screen-md-min) {
+        font-size: @font-size-small;
+      }
+    }
+    .social-login {
+      .social-heading {
+        padding-top: 0 !important;
+      }
+    }
+    .pdp-page {
+      .productDetailsPageSection2 {
+        padding-left: 16px;
+        @media screen and (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+          padding-left: 8px;
+        }
+      }
+    }
+    .cart-container {
+      .order-summary-section {
+        @media screen and (min-width: @screen-md-min) {
+          margin-top: 122px;
+        }
+        .checkout-component {
+          .vx-cart-checkout {
+            button {
+              font-size: @font-size-large;
+              font-weight: @font-weight-med;
+            }
+          }
+        }
+      }
+    }
+    .checkout-container {
+      .checkout-order-summary-details {
+        @media screen and (min-width: @screen-md-min) {
+          margin-top: 85px;
+        }
+        .vx-order-summary {
+          .order-summary {
+            .order-summary-details-container {
+              .vx-order-summary-details {
+                .sub-total-label,
+                .cart-savings-label {
+                  font-weight: @font-weight-normal;
+                }
+              }
+            }
+            a {
+              font-size: @font-size-base;
+              font-weight: @font-weight-bold;
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+    }
+    .order-confirmation-container {
+      .order-summary-container {
+        .vx-order-summary {
+          .order-summary {
+            .sub-total-helper-text {
+              a {
+                color: @link-color;
+                text-decoration: underline;
+                font-size: @font-size-small;
+                font-weight: @font-weight-bold;
+                font-family: @font-family-heading;
+                padding-left: 8px;
+              }
+            }
+          }
+        }
+      }
+    }
+    .vx-place-order {
+      .fill-information-label {
+        color: @text-color-sub-text;
+        font-size: @font-size-small;
+        font-family: @font-family-text;
+      }
+    }
+    .vx-guest-checkout {
+      .form-group {
+        label {
+          color: @text-color-sub-text;
+        }
+      }
+      .support-help {
+        color: @text-color-sub-text;
+        font-size: @font-size-small;
+        font-family: @font-family-text;
+        a {
+          color: @link-color;
+          text-decoration: underline;
+          font-weight: @font-weight-bold;
+          padding-left: 8px;
+        }
+      }
+    }
+    .vx-contact-us {
+      .access-customer-service-service-ticket {
+        .serviceticket-section {
+          .form-group {
+            label {
+              color: @text-color-sub-text;
+            }
+          }
+          .dropdown-primary button,
+          input[type] {
+            border: 1px solid @border-color-secondary;
+          }
+          a {
+            color: @link-color;
+            text-decoration: underline;
+            font-weight: @font-weight-bold;
+            &:hover,
+            &:focus {
+              color: @link-color;
+            }
+          }
+        }
+      }
+    }
+    .vx-support-ticket {
+      @media screen and (min-width: @screen-sm-min) {
+        padding: 0 16px;
+      }
+      @media screen and (min-width: @screen-md-min) {
+        padding: 0;
+        margin-right: 24px;
+      }
+      .createTicketHeading {
+        a {
+          color: @text-color;
+          font-weight: @font-weight-bold;
+          text-decoration: underline;
+          &:hover,
+          &:active {
+            color: @text-color;
+            font-weight: @font-weight-bold;
+            text-decoration: underline;
+          }
+        }
+      }
+      .contact-info-section {
+        .contact-information {
+          a {
+            color: @text-color;
+            font-weight: @font-weight-bold;
+            text-decoration: underline;
+            &:hover,
+            &:active {
+              color: @text-color;
+              font-weight: @font-weight-bold;
+              text-decoration: underline;
+            }
+          }
+        }
+        p {
+          font-weight: @font-weight-normal;
+          color: @text-color-sub-text;
+        }
+      }
+      .btn {
+        text-decoration: none !important;
+        font-weight: @font-weight-med;
+      }
+      h1 {
+        margin: 0;
+        padding: 24px 0px 16px !important;
+        font-size: @font-size-h3;
+        @media screen and (min-width: @screen-sm-min) {
+          padding: 32px 0 36px !important;
+        }
+        @media screen and (min-width: @screen-md-min) {
+          padding: 48px 0 32px 0 !important;
+        }
+        font-weight: @font-weight-normal;
+      }
+      .table {
+        tbody {
+          tr {
+            td {
+              text-decoration: none !important;
+            }
+          }
+        }
+      }
+    }
+    .faq-page {
+      font-family: @font-family-text;
+      padding: 0 16px;
+      @media screen and (min-width: @screen-sm-min) {
+        padding: 0 32px;
+      }
+      @media screen and (min-width: @screen-md-min) {
+        padding: 0 40px;
+      }
+      h1 {
+        margin: 24px 0;
+        font-weight: @font-weight-normal;
+        font-size: @font-size-large;
+        @media screen and (min-width: @screen-sm-min) {
+          margin: 32px 0 24px;
+          font-size: @font-size-h3;
+        }
+        @media screen and (min-width: @screen-md-min) {
+          margin: 48px 0 32px;
+          font-size: @font-size-h2;
+        }
+      }
+      .vx-faq {
+        .vx-accordion {
+          .panel-default {
+            border-color: @border-color;
+            .panel-body {
+              font-weight: @font-weight-normal;
+              color: @text-color;
+            }
+            .panel-title {
+              a {
+                font-weight: @font-weight-bold;
+                color: @text-color;
+                &:before {
+                  font-size: @font-mobile-icon-size;
+                  color: @font-icon-color-5;
+                  @media screen and (min-width: @screen-md-min) {
+                    font-size: @font-icon-size;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    .update-password-component {
+      font-family: @font-family-text;
+      border: 1px solid @border-color !important;
+      .update-password-title {
+        font-weight: @font-weight-normal;
+      }
+      .update-password-form {
+        label,
+        .icon-eye,
+        .passwordHelp {
+          color: @brand-secondary-5;
+        }
+        input[type='text'] {
+          border: @modal-input-border !important;
+        }
+      }
+    }
+    .vx-shopping-lists {
+      @media screen and (min-width: @screen-sm-min) {
+        padding: 0 16px;
+      }
+      @media screen and (min-width: @screen-md-min) {
+        padding: 0;
+        margin-right: 24px;
+      }
+      h1 {
+        padding: 24px 0 16px;
+        @media screen and (min-width: @screen-sm-min) {
+          padding: 32px 0 18px !important;
+        }
+        @media screen and (min-width: @screen-md-min) {
+          padding: 48px 0 18px !important;
+        }
+        margin: 0;
+      }
+      .icon-filter {
+        font-size: 20px;
+        color: @font-icon-color-5;
+        margin-top: 24px !important;
+      }
+    }
+    .vx-order-history {
+      @media screen and (min-width: @screen-sm-min) {
+        padding: 0 16px;
+      }
+      @media screen and (min-width: @screen-md-min) {
+        margin: 0;
+        padding: 0;
+      }
+      .order-history-heading {
+        padding-top: 24px;
+        margin: 0;
+        @media screen and (min-width: @screen-sm-min) {
+          padding: 32px 0 20px !important;
+        }
+        @media screen and (min-width: @screen-md-min) {
+          padding: 48px 0 0 !important;
+        }
+      }
+    }
+  }
+}
+body.page-checkoutPage {
+  #brawny {
+    .main__inner-wrapper {
+      padding-top: 50px !important;
+      .vx-breadcrumb {
+        display: none;
+      }
+    }
+  }
+}

@@ -1,0 +1,172 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+# 
+# ImpEx for GP Site CMS Content 
+# 
+$contentCatalog=mardigrasContentCatalog 
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged] 
+ 
+$productCatalog=gpUSProductCatalog 
+$productCatalogName=GP B2C Product Catalog 
+$productCV=catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged] 
+$picture=media(code, $contentCV) ;
+$siteResource=jar:com.gp.commerce.initialdata.constants.GpcommerceInitialDataConstants&/gpcommerceinitialdata/import/sampledata/contentCatalogs/$contentCatalog
+$jarResourceCms=jar:com.gp.commerce.initialdata.constants.GpcommerceInitialDataConstants&/gpcommerceinitialdata/import/sampledata/cockpits/cmscockpit
+
+# Language
+$lang=en
+$medias=medias(code, $contentCV);
+$mediaContainer=media(qualifier, $contentCV)[lang=$lang];
+
+
+# Load the storefront context root config param
+$storefrontContextRoot=$config-storefrontContextRoot
+
+# Site Logo Component
+INSERT_UPDATE SimpleBannerComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;urlLink
+;;SiteLogoComponent;Site Logo Component;SiteLogoComponent;"/"
+ 
+ 
+# CMS Site Settings 
+UPDATE CMSSite;uid[unique=true];defaultPreviewCategory(code, $productCV);defaultPreviewProduct(code, $productCV);faviconUrl;;;;
+;mardigras;caps;300441142;/_ui/responsive/theme-alpha/images/mardigras/favicon.ico;;;;
+ 
+ 
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];name;url;category(code, $productCV);target(code)[default='sameWindow'];external[default=false];socialLink[default=false];markAsViewAll[default=false]
+;;FAQLink;FAQ Link;/faq;;;
+;;TermsAndConditionsLink;Terms and Conditions Link;/termsAndConditions;;;
+;;AboutUsLink;About Us Link;/aboutUs;;;
+;;ContactUsLink;Contact Us Link;/contact-us;;;
+;;StoreFinderLink;Store Finder Link;/store-finder;;;
+;;HomepageNavLink;Home Page Nav Link;/;;;;
+;;FacebookLink;Facebook Link;https://www.gppro.com/;;newWindow;true;true;
+;;TwitterLink;Twitter Link;https://twitter.com/GPProfessional;;newWindow;true;true;
+;;InstagramLink;Instagram Link;https://www.gppro.com/;;newWindow;true;true;
+;;PinterestLink;Pinterest Link;https://www.gppro.com/;;newWindow;true;true;
+;;YouTubeLink;Youtube Link;https://www.youtube.com/user/GeorgiaPacificPro;;newWindow;true;true;
+;;LinkedInLink;LinkedIn Link;https://www.linkedin.com/company/gppro/;;newWindow;true;true;
+;;SnapchatLink;Snapchat Link;https://www.gppro.com/;;newWindow;true;true;
+
+
+
+# CMS Navigation Nodes  
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);children(uid,$contentCV)[mode=append];links(uid, $contentCV);&nodeRef
+;root;;root;;;;root;
+
+# CMS Paragraph Component (Contact information) 
+INSERT_UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;;;;
+;;ContactInfo;Contact information;ContactInfo;;;;
+ 
+# Generic Banners 
+INSERT_UPDATE SimpleBannerComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;urlLink;;;
+;;FacebookOffersBanner;Facebook Offers Banner;FacebookOffersBanner;http://www.facebook.com/hybrissoftware;;;
+;;MobileAppBanner;Mobile App Banner;MobileAppBanner;http://www.hybris.com/hybris/en/e-commerce-software/mobile-commerce-software.html;;;
+
+
+# ContentSlot 
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(uid,$contentCV)
+;;VariantSelectorSlot;VariantSelector
+;;AddToCartSlot;AddToCart
+;;UpSellingSlot;Similar,Others
+;;CrossSellingSlot;CrossSelling
+;;FooterSlot;FooterComponent
+;;HeaderLinksSlot;ContactInfo
+;;SearchBoxSlot;SearchBox,LangCurrencyComponent
+;;HomepageNavLinkSlot;HomepageNavLink
+;;MiniCartSlot;MiniCart
+;;SideContentSlot;MobileAppBanner
+;;SiteLogoSlot;SiteLogoComponent
+;;TabsSlot;TabPanelContainer
+;;TopContentSlot;FacebookOffersBanner
+;;ProductLeftRefinements;RefinementFacetComponent
+
+ 
+# Preview Image for use in the CMS Cockpit for special ContentPages 
+# Media 
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];folder(qualifier)[default='images'];;
+;;homepagePreview;text/png;Homepage.png;$jarResourceCms/preview-images/mardigras/Homepage.png;;;
+;;notFoundPagePreview;text/png;NotFoundPage.png;$jarResourceCms/preview-images/mardigras/NotFoundPage.png;;;
+;;storefinderPagePreview;text/png;StoreFinderPage.png;$jarResourceCms/preview-images/mardigras/StoreFinderPage.png;;;
+ 
+# Site-wide Homepage 
+UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];previewImage(code, $contentCV);linkComponents(uid, $contentCV);;;;;
+;;homepage;homepagePreview;HomepageNavLink;;;;
+ 
+ 
+# Content Pages 
+UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];previewImage(code, $contentCV);;;;;
+;;notFound;notFoundPagePreview;;;;;
+;;storefinderPage;storefinderPagePreview;;;;;
+
+ 
+
+UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];linkComponents(uid, $contentCV)
+;;storefinderPage;StoreFinderLink
+
+
+###### Mardigras Homepage
+
+# ImageMapComponent 
+INSERT_UPDATE ImageMapComponent;$contentCV[unique=true];uid[unique=true];name;imageMapHTML[lang=en];&componentRef;urlLink;;
+;;SummerClassicsBanner;Summer Classics Banner;<area shape='rect' coords='863,504,949,527' href='$storefrontContextRoot/Brands/c/brands' alt='all-brands' /><area shape='rect' coords='782,493,843,527' href='$storefrontContextRoot/Brands/F2-FTWO/c/F2-FTWO' alt='f2' /><area shape='rect' coords='673,493,777,527' href='$storefrontContextRoot/Brands/Quiksilver/c/Quiksilver' alt='quiksilver' /><area shape='rect' coords='617,493,671,527' href='$storefrontContextRoot/Brands/Roxy/c/Roxy' alt='roxy' /><area shape='rect' coords='511,493,614,527' href='$storefrontContextRoot/Brands/Dakine/c/Dakine' alt='dakine' /><area shape='rect' coords='433,493,507,527' href='$storefrontContextRoot/Brands/Fox/c/Fox' alt='fox' /><area shape='rect' coords='356,493,426,527' href='$storefrontContextRoot/Brands/Rip-Curl/c/Rip Curl' alt='ripcurl' /><area shape='rect' coords='287,493,354,527' href='$storefrontContextRoot/Brands/Toko/c/Toko' alt='toko' /><area shape='rect' coords='169,493,280,527' href='$storefrontContextRoot/Brands/Dainese/c/Dainese' alt='dainese' /><area shape='rect' coords='82,493,165,527' href='$storefrontContextRoot/Brands/Playboard/c/Playboard' alt='playboard' /><area shape='rect' coords='9,493,77,527' href='$storefrontContextRoot/Brands/Vans/c/Vans' alt='vans' /><area shape='poly' coords='66,166' href='#' /><area shape='poly' coords='5,212,66,169,156,162,249,215,285,332,260,351,274,473,5,474' href='$storefrontContextRoot/Brands/Playboard/T-Shirt-Men-Playboard-Raster-SS/p/M34704_B' alt='Playboard Raster' /><area shape='poly' coords='296,386,375,392,397,358,552,338,542,430,515,467,386,470,291,418' href='$storefrontContextRoot/Brands/Fox/Shades-Fox-The-Median-polished-black-warm-gray/p/300024964' alt='Fox The Median' /><area shape='poly' coords='624,427,788,474,923,466,928,411,757,324,644,321' href='$storefrontContextRoot/Brands/Vans/Slip-On-Vans-Classic-Slip-On/p/M35392' alt='Vans Classic Slip On' /><area shape='poly' coords='738,312,929,297,945,4,750,9,703,130,758,151' href='$storefrontContextRoot/Brands/Playboard/T-Shirt-Men-Playboard-Logo/p/M35364_R' alt='Playboard Logo Tee' />;SummerClassicsBanner;#;;
+ 
+# ContentSlot 
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(uid,$contentCV);;;
+;;Section1Slot-MardigrasHomepage;Section1 Slot for MardigrasHomepage;true;SummerClassicsBanner;;;
+ 
+# ContentSlotForPage 
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='homepage'];contentSlot(uid,$contentCV)[unique=true];;;
+;;Section1-MardigrasHomepage;Section1;;Section1Slot-MardigrasHomepage;;;
+
+
+# Brand banners 
+# Media 
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];folder(qualifier)[default='images'];;
+;;StoreFinderComponent;Store Finder Component;storeFinderContent.jsp;ViewStoreAction;StoreFinderComponent
+
+INSERT_UPDATE BreadcrumbComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef
+;;breadcrumbComponent;Breadcrumb CMS Component;breadcrumbComponent
+
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;MiddleContent-StoreFinderPage;Middle Slot for Store Finder Page;true;StoreFinderComponent
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='storefinderPage'];contentSlot(uid,$contentCV)[unique=true]
+;;Middle-StoreFinderPage;MiddleContent;;MiddleContent-StoreFinderPage
+
+
+#changes for header category navigation
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(uid, $contentCV)
+;;TopHeaderSlot;GPHeaderNavigationComponent
+
+INSERT_UPDATE CMSNavigationNode;$contentCV[unique=true];uid[unique=true];title[lang=$lang];name;parent(uid, $contentCV);
+;;GPHeaderNavigationNode;Main Header Nav Node;Main Header Nav Node;SiteRootNode;
+;;GPFindStoreNavNode;Find Store Nav Node;Find Store Nav Node;GPHeaderNavigationNode;
+
+
+INSERT_UPDATE GPHeaderNavigationComponent;$contentCV[unique=true];uid[unique=true];name;styleClass;navigationNode(uid,$contentCV)[unique=true];wrapAfter;includeMiniCart;includeSearchBox;brandLogo;checkoutMenu(uid,$contentCV);findStoreMenu(uid,$contentCV);loginMenu(uid,$contentCV);logoutMenu(uid,$contentCV);categoryNavigationMenu(uid,$contentCV);showFindAStore;showLoginRegister
+;;GPHeaderNavigationComponent;GP Header Navigation Component;;GPHeaderNavigationNode;10;true;true;images/logo.svg;GPCheckoutNavNode;GPFindStoreNavNode;GPLoginMenuNavNode;GPLogoutMenuNavNode;GPCategoryNavigationNode;false;false
+
+INSERT_UPDATE ComponentTypeGroups2ComponentType;source(code)[unique=true];target(code)[unique=true]
+;wide;GPHeaderNavigationComponent
+;narrow;GPHeaderNavigationComponent 
+
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];linkName[lang=$lang];url;styleAttributes;target(code)[default='sameWindow'];external[default=false];socialLink[default=false];markAsViewAll[default=false]
+;;HelpLink;Help;/faq;;;;
+;;FindStoreLink;Find a Store;/find/locatestore;;;;
+;;LoginLink;Login;/login;;;;
+
+
+
+INSERT_UPDATE CMSNavigationEntry;$contentCV[unique=true];uid[unique=true];name;navigationNode(uid,$contentCV);item(CMSLinkComponent.uid,CMSLinkComponent.$contentCV);
+;;FindStoreNavNodeEntry;Find Store Nav Node Entry;GPFindStoreNavNode;FindStoreLink;
+
+

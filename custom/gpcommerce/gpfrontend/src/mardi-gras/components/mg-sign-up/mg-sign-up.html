@@ -1,0 +1,78 @@
+<div class="mg-sign-up">
+  <h1>{{i18n.pageTitle}}</h1>
+  <div class="mg-sign-up-top-section d-flex justify-content-between align-items-center">
+    <h1>{{i18n.pageHeading}}</h1>
+    <span class="required-section hidden-xs">
+      <sup>*</sup>
+      {{i18n.required}}
+    </span>
+  </div>
+  <form class="d-flex flex-wrap" @submit.prevent="submitForm">
+    <div class="mb-xs-4 form-group col-xs-6">
+      <label for="emailID" aria-hidden="true"> {{i18n.email}}</label>
+      <br>
+      <input ref="emailID" name="emailID" v-model="signUpModel.email" class="form-control" v-validate="'required|email'"
+        :class="{'is-danger': errors.has('emailID') }" type="text" aria-label="email">
+      <span v-show="errors.has('emailID')" class="help is-danger">{{ errors.first('emailID') }}</span>
+    </div>
+    <div class="mb-xs-4 form-group col-xs-6">
+      <label for="confirmEmail" aria-hidden="true"> {{i18n.confirmEmail}}</label>
+      <br>
+      <input type="text" class="form-control" v-validate="'confirmed:emailID'" v-model="signUpModel.confirmEmail" name="confirmEmail"
+        aria-label="Confirm Email" :class="{'is-danger': errors.has('confirmEmail') }">
+      <span v-show="errors.has('confirmEmail')" class="help is-danger">{{ errors.first('confirmEmail') }}</span>
+    </div>
+    <div class="mb-xs-4 form-group col-xs-6">
+      <label for="firstName" aria-hidden="true">{{i18n.firstName}}</label>
+      <br>
+      <input v-model="signUpModel.firstName" type="text" class="form-control" v-validate="'required'" name="firstName"
+        aria-label="First name">
+      <span v-show="errors.has('firstName')" class="help is-danger">{{ errors.first('firstName') }}</span>
+    </div>
+    <div class="mb-xs-4 form-group col-xs-6">
+      <label for="lastName" aria-hidden="true">{{i18n.lastName}}</label>
+      <br>
+      <input v-model="signUpModel.lastName" type="text" class="form-control" v-validate="'required'" name="lastName"
+        aria-label="Last name">
+      <span v-show="errors.has('lastName')" class="help is-danger">{{ errors.first('lastName') }}</span>
+    </div>
+    <div class="mb-xs-4 form-group col-xs-6">
+      <label for="Address1" aria-hidden="true">{{i18n.address1}}</label>
+      <br>
+      <input v-model="signUpModel.address1" type="text" class="form-control" name="Address1" aria-label="Address1">
+    </div>
+    <div class="mb-xs-4 form-group col-xs-6">
+      <label for="Address2" aria-hidden="true">{{i18n.address2}}</label>
+      <br>
+      <input v-model="signUpModel.address2" type="text" class="form-control" name="Address2" aria-label="Address2">
+    </div>
+    <div class="mb-xs-4 form-group col-xs-6">
+      <label for="zipCode" aria-hidden="true"> {{i18n.zipCode}}</label>
+      <br>
+      <input v-model="signUpModel.postalCode" type="text" class="form-control" v-validate="'required|numeric|min:5'" name="zipCode"
+        aria-label="Zip" minlength="5" maxlength="5">
+      <span v-show="errors.has('zipCode')" class="help is-danger">{{ errors.first('zipCode') }}</span>
+    </div>
+    <div class="mb-xs-4 form-group col-xs-6" v-if="isHideAge">
+      <label for="Age" aria-hidden="true">{{i18n.age}}</label>
+      <br>
+      <vx-dropdown-primary v-validate="'required'" v-model="signUpModel.age.value" name="age" @selected-option="signUpModel.age=$event"
+        :dropdownValues="ageList" ref="ageDropdown"></vx-dropdown-primary>
+      <span v-show="errors.has('age')" class="help is-danger" aria-live="assertive">{{ errors.first('age') }}</span>
+    </div>
+    <div class="d-flex flex-xs-column flex-sm-row">
+      <label class="checkbox-container col-md-3 col-sm-4">{{i18n.optIn}}
+        <input type="checkbox" v-validate="'required'" v-model="signUpModel.opt" name="optIn"> <span class="checkmark"></span>
+        <div>
+          <span v-show="errors.has('optIn')" class="help is-danger">{{ errors.first('optIn') }}</span>
+        </div>
+      </label>
+      <p class="col-md-9 col-sm-8">
+        {{i18n.privacyText}}
+      </p>
+    </div>
+    <div class="form-group col-xs-12 d-flex justify-content-center mt-xs-4">
+      <button class="btn btn-primary px-xs-5 modal-btn-primary-large" type="submit">{{i18n.btnText}}</button>
+    </div>
+  </form>
+</div>

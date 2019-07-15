@@ -1,0 +1,93 @@
+
+
+
+################### TO Increase column size of p_emailAddress column of table EmailAddress#####################
+#################### Need to be executed in all environment ########################
+import de.hybris.platform.core.Registry;
+ 
+spring.beanDefinitionNames.each {
+ 
+ 
+conn = Registry.getCurrentTenant().getDataSource().getConnection();
+ 
+stmt = conn.createStatement();
+ 
+alterTableQuery = "alter table emailaddress alter column p_emailAddress varchar(1500)";
+ 
+abc = stmt.executeUpdate(alterTableQuery)
+ 
+ 
+ 
+}
+ 
+return "Success"
+
+
+
+################### TEND Increase column size of p_emailAddress column of table EmailAddress#####################
+
+################# To Increase tabContent column size for custom tabs on PDP ######################
+import de.hybris.platform.core.Registry;
+
+spring.beanDefinitionNames.each {
+
+
+
+conn = Registry.getCurrentTenant().getDataSource().getConnection();
+
+stmt = conn.createStatement();
+
+alterTableQuery = "alter table GPProductTabInfo alter (p_tabContent NCLOB)";
+
+abc = stmt.executeUpdate(alterTableQuery)
+
+  
+
+}
+
+return "Success"
+
+########################### End #########################################
+
+
+####################Change Consignment sequence########################
+
+//code
+import de.hybris.platform.servicelayer.keygenerator.impl.PersistentKeyGenerator;
+ 
+PersistentKeyGenerator consignmentCodeGenerator=spring.getBean("consignmentCodeGenerator"); consignmentCodeGenerator.setStart("300000000012");
+consignmentCodeGenerator.reset();
+consignmentCodeGenerator.generate();
+//code
+ 
+ ######################################################################
+
+ ####################Update Tracking URL column dataType########################
+ import de.hybris.platform.core.Registry;
+ 
+spring.beanDefinitionNames.each {
+conn = Registry.getCurrentTenant().getDataSource().getConnection();
+stmt = conn.createStatement();
+alterTableQuery = "alter table  shippingNotification alter(P_TRACKINGURL NCLOB)";
+abc = stmt.executeUpdate(alterTableQuery);
+}
+ 
+return "success";
+ 
+ import de.hybris.platform.core.Registry;
+ 
+spring.beanDefinitionNames.each {
+conn = Registry.getCurrentTenant().getDataSource().getConnection();
+stmt = conn.createStatement();
+alterTableQuery = "alter table  Tracking alter(P_TRACKINGURL NCLOB)";
+abc = stmt.executeUpdate(alterTableQuery);
+}
+ 
+return "success";
+##########################################################################
+
+
+###############################Update query for categorizationcategory field for breadcrumbs issue###########################
+update categories set p_categorizationcategory  = 0
+
+###############################Update query for categorizationcategory field for breadcrumbs issue###########################

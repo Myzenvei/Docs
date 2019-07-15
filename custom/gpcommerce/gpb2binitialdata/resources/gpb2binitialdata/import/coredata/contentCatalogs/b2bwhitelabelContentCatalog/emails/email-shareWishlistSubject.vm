@@ -1,0 +1,5 @@
+#if(${ctx.subject})
+${ctx.subject}
+#else
+${ctx.messages.emailSubject}
+#end

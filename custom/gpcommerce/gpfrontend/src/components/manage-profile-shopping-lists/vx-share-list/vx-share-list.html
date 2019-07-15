@@ -1,0 +1,16 @@
+<div class="vx-share-list">
+  <form @submit.prevent="onSubmit">
+    <p role="text">{{i18n.shareList.shareListDescription}} {{listId}} {{i18n.shareList.shareListContent}}</p>
+    <div class="mt-xs-4 mb-xs-5 form-group">
+      <label for="recipients" :aria-hidden="isDeviceAndroid()">{{i18n.shareList.shareListEmail}}</label>
+      <input type="text" maxlength="80" class="form-control" v-bind:class="{'input-error': errors.has('recipients')}"
+        name="recipients" v-model="recipientValue" v-validate:recipients="'required|email'" :aria-label="i18n.shareList.shareListEmail">
+      <div class="mt-xs-2" v-if="errors.has('recipients')">
+        <span class="error-msg">{{errors.first('recipients')}}</span>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center">
+      <button type="submit" :disabled="errors.any()" class="submit btn btn-primary modal-btn-primary-small modal-btn-xs-sticky">{{i18n.shareList.shareListButton}}</button>
+    </div>
+  </form>
+</div>

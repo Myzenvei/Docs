@@ -1,0 +1,23 @@
+<div class="vx-permissions-details">
+  <template v-if='isMounted'>
+    <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>
+    </vx-spinner>
+    <h3 class="mt-xs-5 mb-xs-0">{{i18n.permissionsDetailsHeading}}</h3>
+    <vx-details-section current-page="permissions" :i18n-user-status="i18n.userStatus" :edit-button="true" :i18n="i18n" :details-data="detailPageData.detailsData" v-on:edit="editPermissions($event)"
+      :disable-button="true" v-on:disable="openDisableModal($event)" v-on:enable="enablePermissions">
+    </vx-details-section>
+    <vx-modal ref="editPermissionModal" size="large" :heading="i18n.editHeading">
+      <vx-permissions-form slot="component" type="modal" :is-edit="true" :i18n="i18n" :form-data="detailPageData.detailsData" v-on:submitForm="submitForm"
+        v-on:fetchPDetails="fetchPermissionDetails" :time-period-values="i18n.timeSpanLabels" v-on:showSpinner="showLoadingSpinner"
+        v-on:hideSpinner="hideLoadingSpinner" v-on:closePermissionsForm="hidePermissionsForm" v-on:setPCode="updatePermissionCode($event)"></vx-permissions-form>
+    </vx-modal>
+    <vx-modal ref="disableUnitModal" :heading="i18n.disableUnitModalHeading" :size="'extra-small'">
+      <div class="d-flex flex-column" slot="component">
+        <p class="mb-xs-0 pb-xs-5">{{i18n.disableUnitModalMessage}}</p>
+        <div class="d-flex justify-content-center">
+          <button class="btn btn-primary modal-dual-btn" @click="sendDisableRequest">{{i18n.disableUnitModalDisableText}}</button>
+        </div>
+      </div>
+    </vx-modal>
+  </template>
+</div>

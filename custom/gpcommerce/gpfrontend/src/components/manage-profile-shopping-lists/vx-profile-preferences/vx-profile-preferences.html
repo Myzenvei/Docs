@@ -1,0 +1,229 @@
+<div class="vx-profile-preferences pt-xs-4 pt-sm-5">
+  <vx-facebook-login ref="facebookLogin" @response="facebookResponse" @error="facebookErrorResponse" :app-id="globals.thirdPartyApps.facebook.appId"></vx-facebook-login>
+  <vx-google-login ref="googleLogin" @response="googleResponse" @error="googleErrorResponse" :google-client-id="globals.thirdPartyApps.google.appId"></vx-google-login>
+  <vx-spinner ref="profileSpinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>
+  </vx-spinner>
+  <vx-modal ref="editPersonalDetailsModal" size="small" heading="Edit Personal Details">
+    <vx-edit-personal-details @updated-personal-details="updatedPersonalDetailSuccess($event)" slot="component" :i18n="i18n.editPersonalDetails"
+      :userDetails="userDetails" :is-gender-enabled="isGenderEnabled" :is-dob-enabled="isDobEnabled">
+    </vx-edit-personal-details>
+  </vx-modal>
+  <vx-modal ref="updatePasswordModal" size="small" heading="Update Password">
+    <vx-change-password @update-password-success="updatePasswordSuccess($event)" slot="component" :i18n="i18n.updatePassword"></vx-change-password>
+  </vx-modal>
+  <vx-modal ref="communicationPreferencesModal" size="medium" heading="Edit Communication Preferences">
+    <vx-communication-preferences slot="component" @update-preferences-success="updatePreferencesSuccess($event)" :i18n="i18n.communicationPreferences"></vx-communication-preferences>
+  </vx-modal>
+  <vx-modal ref="taxExemptionModal" size="extra-small" :heading="i18n.taxExemption.heading">
+    <vx-tax-exemption @update-tax-exemption-failure="updatedTaxExemptionFailure" @update-tax-exemption-success="updatedTaxExemptionSuccess($event)"
+      slot="component" :i18n="i18n.taxExemption" @show-spinner="showSpinner" />
+  </vx-modal>
+  <vx-modal ref="socialAccDisconnectModal" size="extra-small" heading="Disconnect Social Account">
+    <vx-social-disconnect @disconnect-social-error="updateDisconnectSocialAccError" @disconnect-social-success="updateDisconnectSocialAccSuccess($event)"
+      slot="component" :social-account="socialAccount" :i18n="i18n.socialAccounts"></vx-social-disconnect>
+  </vx-modal>
+  <div class="col-xs-12 profile-cards-container">
+    <div class="row d-flex">
+      <h1 class="my-xs-0 container-heading">{{i18n.pageTitle}}</h1>
+    </div>
+    <div class="row d-flex py-xs-2 py-sm-3">
+      <div class="col-xs-12 col-sm-6 my-xs-2 mb-sm-3 mt-sm-0">
+        <vx-profile-card v-bind:is-default-height='true' v-bind:cardClasses="'py-xs-3'">
+          <template slot="heading">
+            <li class="card-heading">
+              <h4>{{i18n.txtPersonalDetails}}</h4>
+            </li>
+          </template>
+          <template slot="details">
+            <li class="card-item">{{userDetails.name}}</li>
+            <li class="card-item">{{userDetails.uid}}</li>
+            <li class="card-item" v-if="userDetails.cellPhone">{{userDetails.cellPhone}}</li>
+            <li class="card-item" v-if="isGenderEnabled && userDetails.gender">{{genderDetails}}</li>
+            <li class="card-item" v-if="isDobEnabled && userDetails.dateOfBirth">{{i18n.birthDateLabel}}
+              {{userDetails.monthName}} {{this.dateDisplay}}{{monthSuffix}}</li>
+            <!-- <li class="card-item" v-if="userRole">{{userRole}}</li> Functionality is not there in R1 -->
+
+          </template>
+          <template slot="icons">
+            <li>
+              <span class="icon-default icon-big icon-edit" :title="i18n.iconEditTitle"
+                @click="callEditPersonalDetailsModal($event)" :aria-label="i18n.iconEditTitle"
+                @keyup.enter-space="callEditPersonalDetailsModal($event)" tabindex="0" role="button"></span>
+            </li>
+          </template>
+          <template slot="footer">
+            {{""}}
+
+          </template>
+
+        </vx-profile-card>
+
+      </div>
+      <div class="col-xs-12 col-sm-6 my-xs-2 mb-sm-3 mt-sm-0" v-if="globals.siteConfig.editPasswordEnabled">
+        <vx-profile-card v-bind:is-default-height='true' v-bind:cardClasses="'py-xs-3'">
+          <template slot="heading">
+            <li class="card-heading">
+              <h4>{{i18n.updatePassword.password}}</h4>
+            </li>
+          </template>
+          <template slot="details">
+            <li class="card-item" v-if="isSocialLogin">
+              {{i18n.socialHelpText1}} {{socialAccount}} {{i18n.socialHelpText2}}
+            </li>
+            <li class="card-item-password" v-else>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </li>
+          </template>
+          <template slot="icons">
+            <li v-if="!isSocialLogin">
+              <span class="icon-default icon-big icon-edit" :title="i18n.iconEditTitle" @click="callUpdatePasswordModal($event)"
+                @keyup.enter-space="callUpdatePasswordModal($event)" :aria-label="i18n.iconEditTitle" tabindex="0" role="button"></span>
+            </li>
+            <span v-else></span>
+          </template>
+          <template slot="footer">
+            {{""}}
+
+          </template>
+
+        </vx-profile-card>
+
+      </div>
+      <div class="col-xs-12 my-xs-2 mb-sm-3 mt-sm-0 col-sm-6" v-if="globals.siteConfig.editCommPrefEnabled">
+        <vx-profile-card v-bind:is-default-height='true' v-bind:cardClasses="'py-xs-3'">
+          <template slot="heading">
+            <li class="card-heading">
+              <h4>{{i18n.communicationPreferences.title}}</h4>
+            </li>
+          </template>
+          <template v-if="globals.isB2C()" slot="details">
+            <li class="card-item" v-if="userDetails.addToMarketComm">{{i18n.marketingChoices}}</li>
+            <li class="card-item" v-else>{{i18n.marketingChoicesFalse}}</li>
+          </template>
+          <template v-else slot="details">
+            <li class="card-item" v-if="userDetails.addToMarketComm">{{i18n.marketingChoices}}</li>
+            <li class="card-item" v-else>{{i18n.marketingChoicesFalse}}</li>
+          </template>
+          <template slot="icons">
+
+            <li>
+              <span class="icon-default icon-big icon-edit" :title="i18n.iconEditTitle" @click="callCommunicationPreferencesModal($event)"
+                :aria-label="i18n.iconEditTitle" @keyup.enter-space="callCommunicationPreferencesModal($event)"
+                tabindex="0" role="button"></span>
+            </li>
+          </template>
+          <template slot="footer">
+            {{""}}
+
+          </template>
+
+        </vx-profile-card>
+
+      </div>
+      <div class="col-xs-12 my-xs-2 mb-sm-3 mt-sm-0 col-sm-6"
+        v-if="globals.siteConfig.hasTaxExemption && showTaxExemption">
+        <vx-profile-card v-bind:is-default-height='true' v-bind:cardClasses="'py-xs-3'">
+          <template slot="heading">
+            <li class="card-heading">
+              <h4>{{i18n.taxExemption.titleStatus}}</h4>
+            </li>
+          </template>
+          <template slot="details">
+            <li class="card-item-link link-small link-bold">
+              Tax Exemption is {{taxExemptionStatus}}
+            </li>
+          </template>
+          <template slot="icons">
+
+            <li>
+              <span class="icon-default icon-big icon-edit" :title="i18n.iconEditTitle" @click="callTaxExemptionModal($event)"
+                :aria-label="i18n.iconEditTitle" @keyup.enter-space="callTaxExemptionModal($event)" tabindex="0" role="button"></span>
+            </li>
+          </template>
+          <template slot="footer">
+            {{""}}
+
+          </template>
+        </vx-profile-card>
+
+      </div>
+      <!-- Commenting Parent Business Unit -->
+      <div class="col-xs-12 my-xs-2 mb-sm-3 mt-sm-0 col-sm-6" v-if="userDetails.unit && showTaxExemption">
+        <vx-profile-card v-bind:card-type="'column'" v-bind:cardClasses="'py-xs-3'" v-bind:has-icons="false"
+          v-bind:is-default-height='true' v-bind:has-footer="false">
+          <template slot="heading">
+            <li class="card-heading">
+              <h4>{{i18n.parentBusinessUnit.title}}</h4>
+            </li>
+          </template>
+          <template slot="details" v-if="userDetails.unit">
+            <ul class="col-xs-6">
+              <li class="card-item" v-if="userDetails.unit.name">{{userDetails.unit.name}}</li>
+              <li class="card-item">{{userRole}}</li>
+              <li class="card-item" v-if="userDetails.unit.addresses">{{userDetails.unit.addresses[0].phone}}</li>
+            </ul>
+            <ul class="col-xs-6" v-if="userDetails.unit.addresses">
+              <li class="card-item" v-if="userDetails.unit.addresses[0].country">{{userDetails.unit.addresses[0].country.name}}</li>
+              <li class="card-item">{{userDetails.unit.addresses[0].line1}}</li>
+              <li class="card-item">{{userDetails.unit.addresses[0].line2}}</li>
+              <li class="card-item">{{userDetails.unit.addresses[0].town}}</li>
+              <li class="card-item" v-if="userDetails.unit.addresses[0].region">{{userDetails.unit.addresses[0].region.name}}</li>
+              <li class="card-item">{{userDetails.unit.addresses[0].postalCode}}</li>
+            </ul>
+          </template>
+          <template slot="footer">
+            {{""}}
+          </template>
+        </vx-profile-card>
+      </div>
+      <div class="col-xs-12 my-xs-2 mb-sm-3 mt-sm-0 col-sm-6"
+        v-if="(globals.isB2C() || globals.isEmployeeStore()) && showSocialLogin">
+        <vx-profile-card v-bind:card-type="'social'" v-bind:card-classes="'py-xs-3 px-xs-3'">
+          <template slot="heading">
+            <h4>{{i18n.socialAccounts.title}}</h4>
+          </template>
+          <template slot="details">
+            <div class="d-flex align-items-center justify-content-between">
+              <div class="card-items align-items-center d-flex">
+                <span class="icon-default icon-big icon-facebook"aria-hidden="true" :title="i18n.iconFacebookTitle"></span>
+                <span class="pl-xs-2">{{i18n.socialAccounts.facebook}}</span>
+              </div>
+              <div class="card-item-link" v-on:click="facebookLogin" v-if="!isFacebookLogin">
+                <a class="link-regular link-bold" tabindex="0">{{i18n.socialAccounts.connect}}</a>
+              </div>
+              <div class="card-item-link" v-on:click="disconnectFacebookLogin" v-if="isFacebookLogin">
+                <a class="link-regular link-bold" tabindex="0">{{i18n.socialAccounts.disconnect}}</a>
+              </div>
+            </div>
+            <div class="d-flex align-items-center justify-content-between">
+              <div class="card-items align-items-center d-flex">
+                <span class="icon-default icon-big icon-google" aria-hidden="true" :title="i18n.iconGoogleTitle"></span>
+                <span class="pl-xs-2">{{i18n.socialAccounts.google}}</span>
+              </div>
+              <div class="card-item-link" v-on:click="googleLogin" v-if="!isGoogleLogin">
+                <a class="link-regular link-bold" tabindex="0">
+                  {{i18n.socialAccounts.connect}}</a>
+              </div>
+              <div class="card-item-link" v-on:click="disconnectGoogleLogin" v-if="isGoogleLogin">
+                <a class="link-regular link-bold" tabindex="0">
+                  {{i18n.socialAccounts.disconnect}}</a>
+              </div>
+            </div>
+          </template>
+          <template slot="footer">
+            {{""}}
+
+          </template>
+        </vx-profile-card>
+
+      </div>
+    </div>
+  </div>
+</div>

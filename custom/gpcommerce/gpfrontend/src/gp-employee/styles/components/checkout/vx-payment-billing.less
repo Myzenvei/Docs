@@ -1,0 +1,73 @@
+#gp-employee {
+  .vx-payment-billing {
+    padding: 0 16px;
+    .heading-section-wrapper {
+      border-bottom: 1px solid @border-color;
+      margin: 0;
+      padding: 0 0 8px;
+      & > div.col-xs-8 {
+        padding-left: 0;
+        & > p.section-header {
+          width: 100%;
+          padding-bottom: 0!important;
+          margin-bottom: 0px!important;
+          padding-bottom: 0px!important;
+        }
+        & > p {
+          padding-right: 16px;
+        }
+      }
+      & > a.col-xs-4 {
+        padding-right: 0;
+      }
+      & > div.col-xs-12 {
+        .section-header {
+          padding-bottom: 0px !important;
+          margin-bottom: 0px!important;
+
+        }
+      }
+    }
+    & > div {
+      & div.col-xs-12 {
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+    & > div.col-xs-12 {
+      padding-left: 0;
+      padding-right: 0;
+    }
+    & > p.editable-sub-heading {
+      padding-left: 16px!important;
+      padding-right: 16px!important;
+    }
+    & > p.section-sub-heading {
+      padding: 24px 0 0!important;
+    }
+  }
+}
+
+@media screen and (max-width: @screen-xs-max) {
+  #gp-employee {
+    .vx-payment-billing {
+      & > div {
+        & div.col-xs-12:not(.card-details):not(.new-card) {
+          padding-left: 16px !important;
+          padding-right: 16px;
+          &.modal-wrapper {
+            padding-left: 0 !important;
+          }
+        }
+        & div.modal-body {
+          & > div.col-xs-12 {
+            padding-left: 0 !important;
+          }
+        }
+      }
+      .card-details {
+        padding: 0!important;
+      }
+    }
+  }
+}

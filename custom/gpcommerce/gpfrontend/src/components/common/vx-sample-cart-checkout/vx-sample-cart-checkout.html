@@ -1,0 +1,6 @@
+<div class="vx-sample-cart-checkout">
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>
+  </vx-spinner>
+  <button class="col-xs-12 checkout-button btn btn-primary checkout-btn" @click='checkoutButtonClicked'>{{i18n.btnSampleCheckout}}</button>
+  <div class="error-msg mt-xs-2 col-xs-12 pl-xs-0" v-if="userReview">{{i18n.underReview}}</div>
+</div>

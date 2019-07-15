@@ -1,0 +1,160 @@
+<div class="vx-single-shipping-address">
+
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>
+  </vx-spinner>
+  <vx-modal ref="addNewAddressModal" size="large" :heading="i18n.shippingAddress.addAddress" v-bind:is-modal-scrollable="modalScrollable">
+    <vx-add-edit-address :buttonText="i18n.shippingAddress.useShippingAddress" :submitButtonText="i18n.shippingAddress.useShippingAddress"
+      ref="addressForm" :pallet-shipment="palletShipment" slot="component" :i18n="i18n.address" :editAddress="{}"
+      @onAddressSaved="saveThisAddress" :is-bussiness-unit="globals.isB2B()">
+      <div slot="header">
+        <div class="section-header mb-xs-3">{{i18n.address.shippingAddressModal}}</div>
+      </div>
+    </vx-add-edit-address>
+  </vx-modal>
+  <!-- edit mode of shipping address component  -->
+  <div class="mx-xs-0 row" v-if="!isSaved">
+    <template v-if="!addressAvailable">
+      <template v-if="userLevel || !globals.getIsLoggedIn()">
+        <vx-add-edit-address :buttonText="i18n.shippingAddress.useShippingAddress" :submitButtonText="i18n.shippingAddress.useShippingAddress"
+          :pallet-shipment="palletShipment" isSingleShipping="true" ref="addressForm" :editAddress="{}" :i18n="i18n.address"
+          @onAddressSaved="saveThisAddress" :is-bussiness-unit="globals.isB2B()" is-first-address>
+          <div slot="header">
+            <div></div>
+          </div>
+          <div slot="companyNameLabel">
+            <label for="companyName" :aria-hidden="isDeviceAndroid()">{{i18n.address.newUsercompanyName}}</label>
+          </div>
+          <div slot="phoneNumberLabel">
+            <label for="phoneNumber" :aria-hidden="isDeviceAndroid()">{{i18n.address.newUserPhoneNumber}}</label>
+          </div>
+          <div slot="addressLine1Label">
+            <label for="addressLine1" :aria-hidden="isDeviceAndroid()">{{i18n.address.newUserAddressLine1}}</label>
+          </div>
+          <div slot="addressLine2Label">
+            <label for="addressLine2" :aria-hidden="isDeviceAndroid()">{{i18n.address.newUserAddressLine2}}</label>
+          </div>
+          <div slot="stateLabel">
+            <label :aria-hidden="isDeviceAndroid()">{{i18n.address.newUserstate}}</label>
+          </div>
+        </vx-add-edit-address>
+      </template>
+      <template v-else>
+        <div class="sub-heading mt-xs-3">{{i18n.shippingAddress.shippingAddressSubHeading}}</div>
+        <div class="px-xs-0 col-md-6 col-xs-12 dropdown mt-xs-4">
+          <vx-dropdown-primary></vx-dropdown-primary>
+        </div>
+        <div class="px-xs-0 col-xs-12 pt-xs-4">
+          <button disabled class="btn btn-primary">{{i18n.shippingAddress.useShippingAddress}}</button>
+        </div>
+        <p role="contentinfo" class="error-msg pt-xs-4 px-xs-0 col-xs-12">
+          {{i18n.shippingAddress.b2bNoAddress}}
+          <a @click="globals.navigateToUrl('addAddress')">{{i18n.shippingAddress.b2bNoAddressLink}}</a>
+        </p>
+      </template>
+    </template>
+    <div class="d-flex" v-if="addressAvailable">
+      <div class="px-xs-0 col-xs-12  pt-xs-4 dropdown">
+        <vx-dropdown-primary ref="addressDropdown" @selected-item="selectedAddress($event)" :dropdownValues="allUserSavedAddresses"
+          @primaryDropdownMounted="populateStoredAddress"></vx-dropdown-primary>
+        <div class="sub-heading mt-xs-3" v-if="!isSaved && globals.siteConfig.showPoBoxShippingMsg">{{i18n.shippingAddress.shippingAddressSubHeading}}</div>
+        <div class="mt-xs-2" v-if="dropdownError">
+          <span class="error-msg">{{i18n.shippingAddress.enterAddress}}</span>
+        </div>
+      </div>
+    </div>
+    <div v-if="restrictionError && !restrictedItems.length === 0" class="mt-xs-3 restriction-sub-heading">{{i18n.shippingAddress.restrictionSubHeading}}</div>
+    <div v-if="addressAvailable" class="col-xs-12 mt-xs-4 px-xs-0">
+      <button @click="toggleViewMode(savedAddress,$event)" class="btn btn-primary modal-btn-primary-medium">{{i18n.shippingAddress.useShippingAddress}}</button>
+    </div>
+  </div>
+  <!-- save mode of shipping address component -->
+  <div v-if="isSaved">
+    <!-- <span class="address-view-header">{{i18n.shippingAddress.shippingAddressHeading}}</span> -->
+    <div v-if="existingAddresses.length === 1" class="pt-xs-4">
+      <p class="address-view mb-xs-2">{{savedAddress.value.firstName}} {{savedAddress.value.lastName}}</p>
+      <p class="address-view mb-xs-2" v-if="savedAddress && savedAddress.value && savedAddress.value.companyName">{{savedAddress.value.companyName}}</p>
+      <p class="address-view mb-xs-2">{{savedAddress.value.line1}}</p>
+      <p class="address-view mb-xs-2" v-if="savedAddress.value.line2">{{savedAddress.value.line2}}</p>
+      <p class="address-view mb-xs-2">{{savedAddress.value.town}} {{savedAddress.value.region.isocodeShort}}
+        {{savedAddress.value.postalCode}}</p>
+      <p class="address-view mb-xs-2">{{savedAddress.value.country.isocode}}</p>
+      <p class="address-view mb-xs-2" v-if="savedAddress.value.userId && globals.getIsLoggedIn()">{{savedAddress.value.userId.split('|')[0]}}</p>
+      <p class="address-view mb-xs-2" v-if="savedAddress.value.userId && !globals.getIsLoggedIn()">{{savedAddress.value.userId.split('|')[1]}}</p>
+      <p class="address-view mb-xs-2" v-if="savedAddress.value.phone">{{savedAddress.value.phone}}</p>
+    </div>
+    <div v-if="existingAddresses.length > 1" class="col-xs-12 px-xs-0 d-flex flex-row flex-wrap">
+      <div class="sub-heading mt-xs-2 col-xs-12 px-xs-0">{{i18n.shippingAddress.shippedMultiple}}</div>
+      <div v-for="(data,index) in existingAddresses" class="mt-xs-4 col-sm-6 col-xs-12 px-xs-0">
+        <div class="product-address-heading" role="heading">
+          <span>{{index + 1}}.</span>
+          <span>{{i18n.shippingAddress.shippingAddressHeading}}</span>
+        </div>
+        <div class="pt-xs-2 address-container" role="text" tabindex="0">
+          <p class="address-view mb-xs-2" v-if="data && data.value">{{data.value.firstName}} {{data.value.lastName}}</p>
+          <p class="address-view mb-xs-2" v-if="data && data.value && data.value.companyName">{{data.value.companyName}}</p>
+          <p class="address-view mb-xs-2" v-if="data && data.value">{{data.value.line1}}
+            <p class="address-view mb-xs-2" v-if="data && data.value && data.value.line2">{{data.value.line2}}</p>
+            <p class="address-view mb-xs-2">{{data.value.town}} {{data.value.region.isocodeShort}}
+              {{data.value.postalCode}}</p>
+            <p class="address-view mb-xs-2" v-if="data && data.value && data.value.country">{{data.value.country.isocode}}</p>
+            <p class="address-view mb-xs-2" v-if="data.value.userId">{{data.value.userId.split('|')[0]}}</p>
+            <p class="address-view mb-xs-2" v-if="data && data.value">{{data.value.phone}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- restriction error product tile -->
+  <template v-if="restrictedItems.length!==0">
+    <div class="mt-xs-5 shipping-restriction-section" v-if="restrictionError">
+      <h4 class="pb-xs-3 restriction-header">{{i18n.shippingAddress.restrictionHeading}}</h4>
+      <p class="pb-xs-3 restriction-error">{{i18n.shippingAddress.shippingRestrictionText}}</p>
+      <vx-product-tile slot="component" v-for='item in restrictedItems'>
+        <template slot="top-right">
+          <span class="col-xs-2 px-xs-0">
+            <span class="cart-icons icon-trash" :title="i18n.shippingAddress.iconTrashTitle" role="button" tabindex="0"
+              :aria-label="i18n.shippingAddress.iconTrashTitle" @click="deleteCartItem(formattedEntries[item.productCode].entryNumber, formattedEntries[item.productCode].product.code, $event)"
+              @keyup.enter-space="deleteCartItem(formattedEntries[item.productCode].entryNumber, formattedEntries[item.productCode].product.code, $event)"></span>
+          </span>
+        </template>
+        <template v-if="formattedEntries && formattedEntries[item.productCode] && formattedEntries[item.productCode].product.images && formattedEntries[item.productCode].product.images.length!==0 && formattedEntries[item.productCode].product.images[2] && formattedEntries[item.productCode].product.images[2].url"
+          slot="image-slot">
+          <img :alt="formattedEntries[item.productCode].product.name" :src="globals.getThumbnailImageUrl(formattedEntries[item.productCode].product.images)">
+        </template>
+        <template v-if="!formattedEntries[item.productCode].product.images" slot="image-slot">
+          <img alt="no image" :src="globals.assetsPath + 'images/no_image.svg'">
+        </template>
+        <template slot="details">
+          <p class="product-title mb-xs-2">
+            <a :href="globals.getNavigationUrl('empty')+formattedEntries[item.productCode].product.url" v-html="formattedEntries[item.productCode].product.name"></a>
+          </p>
+          <span class="sr-only">
+            {{i18n.shippingAddress.itemID}} : {{formattedEntries[item.productCode].product.code}}
+          </span>
+          <p class="product-code mb-xs-2" aria-hidden="true"> {{i18n.shippingAddress.itemID}}
+            {{formattedEntries[item.productCode].product.code}}
+          </p>
+          <p class="restriction-error">
+            <span>{{i18n.shippingAddress.restrictionErrorPart1}}</span>
+            <span>{{item.country.isocode}}/{{item.region.isocode}}</span>
+            <span>{{i18n.shippingAddress.restrictionErrorPart3}}</span>
+            <span class="customer-service">
+              <template v-if="globals.isB2B()">
+                <a href="https://gpxpr.es/" target="_blank">
+                  <span>{{i18n.shippingAddress.restrictionErrorPart4}}</span>
+                </a>
+              </template>
+              <template v-else>
+                <a :href="contactUsUrl" target="_blank">
+                  <span>{{i18n.shippingAddress.restrictionErrorPart4}}</span>
+                </a>
+              </template>
+            </span>
+            <span>{{i18n.shippingAddress.restrictionErrorPart5}}</span>
+          </p>
+        </template>
+        <template slot="bottom-full-slot">
+        </template>
+      </vx-product-tile>
+    </div>
+  </template>
+</div>

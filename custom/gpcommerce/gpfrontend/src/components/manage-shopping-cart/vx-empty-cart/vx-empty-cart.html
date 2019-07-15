@@ -1,0 +1,10 @@
+<section class="vx-empty-cart">
+  <div v-if="!isMiniCart" class="empty-shopping-cart py-xs-4">
+    <p class="empty-shopping-cart-heading pb-xs-3">{{i18n.emptyShoppingCartHeading}}</p>
+    <p class="empty-shopping-cart-msg pb-xs-4">{{i18n.emptyShoppingCartMsg}}</p>
+    <button class="btn btn-tertiary btn-small-text">{{i18n.continueShoppingButton}}</button>
+  </div>
+  <p v-if="isMiniCart" class="empty-mini-cart-msg">
+    <span v-if='msgVisible'>{{i18n.emptyMiniCartMsg}}</span>
+  </p>
+</section>

@@ -1,0 +1,53 @@
+<div class="vx-lease-agreement px-xs-3 row">
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>
+  </vx-spinner>
+  <template v-if="country">
+    <vx-modal ref="viewTermsModal" size="large" :heading="i18n.leaseAgreement.heading">
+      <vx-review-lease-agreement ref="agreementForm" slot="component" :i18n="i18n.reviewLeaseAgreement" :country="currentCountry"
+        @onAcceptingTerms="toggleViewMode" @acceptedTerms="acceptedTerms" :lease-accepted="leaseAccepted">
+      </vx-review-lease-agreement>
+    </vx-modal>
+  </template>
+  <p class="section-header mb-xs-0 col-xs-12 px-xs-0">{{sectionIndex}}. {{i18n.leaseAgreement.heading}}</p>
+  <p v-if="!leaseAccepted" class="sub-heading mt-xs-3 col-xs-12 px-xs-0">{{i18n.leaseAgreement.subHeading}}</p>
+  <template v-if="country">
+    <div v-for="(item,index) in country">
+      <div class="section-address mt-xs-4 col-xs-12 px-xs-0">
+        <div class="row">
+          <div class="col-sm-4 col-xs-6">
+            <p class="title mb-xs-0">{{i18n.leaseAgreement.country}}</p>
+            <p>{{item.name}}</p>
+          </div>
+          <div class="col-sm-4 col-xs-6">
+            <div class="row">
+              <div class="col-xs-12">
+                <p class="title">{{i18n.leaseAgreement.quantityHeading}}({{getQuantity(item.isocode)}})</p>
+                <div class="row">
+                  <div class="col-xs-12" v-for="leasableItem in leasableItems">
+                    <div v-for="splitEntryItem in leasableItem.splitEntries" v-if="splitEntryItem.deliveryAddress.country.name===item.name">
+                      <div class="mb-xs-4">
+                        <p class="item-header mb-xs-0">{{leasableItem.product.name}}</p>
+                        <span class="item-sku">{{leasableItem.product.code}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4 col-xs-12">
+            <div class="col-xs-12 px-xs-0 lease-btn" v-if="isEditable">
+              <button :class="{ 'accepted-btn': item.leaseAccepted }" class="btn btn-tertiary" @click="reviewAgreement($event, item, index)"
+                @keyup.enter-space="reviewAgreement($event, item, index)" tabindex="0" role="button" :aria-label="i18n.leaseAgreement.leaseBtnLabel">{{i18n.leaseAgreement.leaseBtnLabel}}</button>
+            </div>
+            <div class="decline-error-message" v-if="item.leaseAccepted !== undefined && !item.leaseAccepted">{{i18n.leaseAgreement.declineMessage}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 px-xs-0 lease-btn mt-xs-5" v-if="isEditable">
+      <button :disabled="leaseAccepted" class="btn btn-primary save-and-continue mr-xs-0" @click="saveSection($event)"
+        @keyup.enter-space="saveSection($event)" tabindex="0" role="button" :aria-label="i18n.leaseAgreement.saveButton">{{i18n.leaseAgreement.saveButton}}</button>
+    </div>
+  </template>
+</div>

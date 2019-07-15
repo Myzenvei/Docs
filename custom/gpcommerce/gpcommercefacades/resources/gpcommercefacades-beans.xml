@@ -1,0 +1,1482 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- [y] hybris Platform Copyright (c) 2017 SAP SE or an SAP affiliate company. All rights reserved. This software is the confidential 
+	and proprietary information of SAP ("Confidential Information"). You shall not disclose such Confidential Information and shall use 
+	it only in accordance with the terms of the license agreement you entered into with SAP. -->
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="beans.xsd">
+
+	<bean class="de.hybris.platform.commercefacades.product.data.ProductData">
+		<property name="genders" type="java.util.List&lt;com.gp.commerce.facades.product.data.GenderData>" />
+		<property name="isCustomizable" type="Boolean" />
+		<property name="isBundleAvailable" type="Boolean" />
+		<property name="isBulkBuy" type="Boolean" />
+		<property name="isSubscribable" type="Boolean" />
+		<property name="isSeasonal" type="Boolean" />
+		<property name="isLeaseable" type="Boolean" />
+		<property name="isOnlineOnly" type="Boolean" />
+		<property name="isPrivateLabel" type="Boolean" />
+		<property name="isSample" type="Boolean" />
+		<property name="approvedSampleStatus" type="Boolean" />
+		<property name="isSampleElevatedRights" type="Boolean" />
+		<property name="isSampleCaseAllowed" type="Boolean" />
+		<property name="isEachResaleable" type="Boolean" />
+		<property name="isSapDistributionChainSpecific" type="Boolean" />
+		<property name="isLockerEligible" type="Boolean" />
+		<property name="isDropShipEligible" type="Boolean" />
+		<property name="promoText" type="String" />
+		<property name="featureList" type="java.util.List&lt;String>" />
+		<property name="assetCode" type="String" />
+		<property name="specifications" type="java.util.List&lt;com.gp.commerce.facades.search.compare.data.CompareSpecificationsData>" />
+		<property name="weblistPrice" type="PriceData" />
+		<property name="mapPrice" type="PriceData" />
+		<property name="dataSheets" type="com.gp.commerce.facades.product.data.DataSheetsData" />
+		<property name="productResourceVideos" type="com.gp.commerce.facades.product.data.ProductResourcesVideosData" />
+		<property name="maxPurchaseableQuantity" type="Integer" />
+		<property name="certifications" type="java.util.List&lt;String>" />
+		<property name="gpCertifications" type="java.util.List&lt;com.gp.commerce.facades.product.data.GpCertificationsData>" />
+		<property name="isCertified" type="Boolean" />
+		<property name="isFreeShipping" type="Boolean" />
+		<property name="hasVariant" type="Boolean" />
+		<property name="isFavorite" type="Boolean" />
+		<property name="unit" type="String" />
+		<property name="cmirCode" type="String"/>
+		<property name="count" type="Integer"/>
+		<property name="isValidSKU" type="boolean"/>
+		<property name="installationProduct" type="com.gp.commerce.facades.product.data.InstallableData" />
+		<property name="giftWrapProduct" type="com.gp.commerce.facades.product.data.GiftWrapData" />
+		<property name="materialStatus" type="String" />
+
+		<property name="bvNumberOfReviews" type="Integer" />
+		<property name="bvAverageRating" type="Double" />
+
+		<property name="maxOrderQuantity" type="Integer"/>
+		<property name="offlineDate" type="String"/>
+		<property name="onlineDate" type="String"/>
+		<property name="replacementProductCode" type="String"/>
+		<property name="ean" type="String"/>
+		<property name="canonicalUrl" type="String"/>
+		<property name="isPallet" type="boolean"/>
+		<property name="seoIndex" type="String"/>
+		<property name="maxOrderableQuantity" type="Integer" />
+		<property name="isAvailableForLocation" type="boolean"/>
+		<property name="kaonUrl" type="String"/>
+		<property name="galleryImages" type="java.util.List&lt;String>"/>
+
+		<property name="productURL" type="String"/>
+		<property name="pdtCode" type="String"/>
+		<property name="pdtName" type="String"/>
+		<property name="productDescription" type="String"/>
+		<property name="shareProdImage" type="ImageData"/>
+		<property name="videoEmpty" type="String"/>
+		<property name="wishlistQuantity" type="Long" />
+
+
+		<property name="gtin" type="String"/>
+		<property name="upc" type="String"/>
+		<property name="unspsc" type="String"/>
+		<property name="unspscdesc" type="String"/>
+		<property name="minOrderQuantity" type="Integer"/>
+		<property name="eachResaleable" type="Boolean"/>
+		<property name="eachheight" type="String"/>
+		<property name="width" type="String"/>
+		<property name="originCountry" type="de.hybris.platform.core.model.c2l.CountryModel"/>
+		<property name="tariff" type="String"/>
+		<property name="productType" type="String"/>
+		<property name="productClass" type="String"/>
+		<property name="encodedImages" type="java.util.List&lt;String>"/>
+		<property name="displayAttributes" type="String"/>
+		<property name="sellingstmt" type="String"/>
+		<property name="subtitle" type="String"/>
+		<property name="priceText" type="String"/>
+		<property name="competitorNumber" type="String" />
+		<property name="competitorName" type="String" />
+		<property name="competitorId" type="String" />
+		<property name="relationshipType" type="String" />
+		<property name="competitorReplacementProductCodes" type="java.util.List&lt;String>"/>
+		<property name="competitorReplacementProducts" type="java.util.List&lt;ProductData>"/>
+		<property name="tabInfo" type="java.util.List&lt;com.gp.commerce.facades.product.data.ProductInfoTabData>"/>
+		<property name="defaultTabName" type="String"/>
+		<property name="obseleteOutOfStock" type="boolean"/>
+		<property name="damGalleryImages" type="java.util.List&lt;de.hybris.platform.commercefacades.product.data.ImageData>"/>
+		<property name="subscriptionFrequency" type="com.gp.commerce.facades.subscription.data.GPSubscriptionFrequencyData"/>
+		<property name="productWidth" type="String"/>
+		<property name="productWidthUOM" type="String"/>
+		<property name="productLength" type="String"/>
+		<property name="productLengthUOM" type="String"/>
+		<property name="productHeight" type="String"/>
+		<property name="productHeightUOM" type="String"/>
+		<property name="eachPerShipUnit" type="String" />
+		<property name="eachPerShipUnitUOM" type="String" />
+		<property name="itemPerEachUOM" type="String" />
+		<property name="subsPercentageDiscount" type="String" />
+		<property name="subsAmountOff" type="String" />
+		<property name="subscriptionPrice" type="PriceData" />
+
+		<property name="productCapacity" type="String" />
+		<property name="itemPerEach" type="String"/>
+		<property name="productIcons" type="java.util.List&lt;String>"/>
+
+		<property name="brandOwner" type="String"/>
+		<property name="brandTrademark" type="String"/>
+		<property name="subbrand" type="String"/>
+		<property name="caseGtin" type="String"/>
+		<property name="caseTotal" type="String"/>
+		<property name="caseTotalUOM" type="String"/>
+		<property name="caseWidth" type="String"/>
+		<property name="caseLength" type="String"/>
+		<property name="caseHeight" type="String"/>
+		<property name="caseDimensionsUOM" type="String"/>
+		<property name="caseVolume" type="String"/>
+		<property name="caseNetWeight" type="String"/>
+		<property name="caseGrossWeight" type="String"/>
+		<property name="caseWeightUOM" type="String"/>
+		<property name="eachNetWeight" type="String"/>
+		<property name="eachGrossWeight" type="String"/>
+		<property name="eachWeightUOM" type="String"/>
+		<property name="eachProdWidth" type="String"/>
+		<property name="eachProdLength" type="String"/>
+		<property name="eachProdHeight" type="String"/>
+		<property name="eachDimensionsUOM" type="String"/>
+		<property name="eachvolume" type="String"/>
+		<property name="eachvolumeUOM" type="String"/>
+		<property name="replacedBy" type="String"/>
+		<property name="unitQty" type="String"/>
+		<property name="minPCW" type="String"/>
+		<property name="minRecycled" type="String"/>
+		<property name="EcologoCCD" type="String"/>
+		<property name="LeedOM" type="String"/>
+		<property name="LeedMRCriteria" type="String"/>
+		<property name="altMaterials" type="Boolean"/>
+		<property name="LeedIEQCriteria" type="String"/>
+		<property name="LeedINVCriteria" type="String"/>
+		<property name="disableSubscribeButton" type="boolean"/>
+
+	</bean>
+
+
+
+	<bean class="com.gp.commerce.facades.product.data.ProductInfoTabData">
+		<property name="sequence" type="String" />
+		<property name="name" type="String" />
+		<property name="content" type="String" />
+	</bean>
+	<bean class="com.gp.commerce.facades.product.data.GiftWrapData">
+		<property name="giftWrapProductCode" type="Integer"/>
+		<property name="giftMessage" type="String" />
+		<property name="giftWrapped" type="boolean" />
+	</bean>
+
+	<bean class="com.gp.commerce.facades.product.data.InstallableData">
+		<property name="installableProductCode" type="String"/>
+		<property name="installable" type="boolean"/>
+		<property name="installableMessage" type="String" />
+	</bean>
+
+	<bean class="com.gp.commerce.facades.product.data.DataSheetsData">
+		<property name="dataSheets" type="java.util.List&lt;de.hybris.platform.commercefacades.product.data.ImageData>" />
+	</bean>
+
+	<bean class="com.gp.commerce.facades.product.data.ProductResourcesVideosData">
+		<property name="video" type="java.util.List&lt;de.hybris.platform.commercefacades.product.data.ImageData>" />
+	</bean>
+	<bean class="com.gp.commerce.facades.product.data.GenderData">
+		<property name="code" type="String" />
+		<property name="name" type="String" />
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.user.data.RegisterData">
+		<property name="country" type="String" />
+		<property name="addToMarketComm" type="Boolean" />
+		<property name="addToAffilatedMarketComm" type="Boolean" />
+		<property name="baseSiteId" type="String" />
+		<property name="token" type="String" />
+		<property name="loginType" type="String" />
+		<property name="kochAuthAccessToken" type="String" />
+		<property name="kochAuthIdToken" type="String" />
+		<property name="kochAuthRefreshToken" type="String" />
+		<property name="kochAuthTS" type="String" />
+		<property name="kochEmailId" type="String"/>
+		<property name="gender" type="String"/>
+		<property name="dateOfBirth" type="String"/>
+		<property name="fbUniqueId" type="String"/>
+		<property name="errorCode" type="String"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.user.data.KochAuthData">
+		<property name="accessToken" type="String" />
+		<property name="idToken" type="String" />
+		<property name="refreshToken" type="String" />
+		<property name="modifiedTimeStamp" type="String" />
+		<property name="kochEmailId" type="String"/>
+	</bean>
+
+	<bean class="com.gp.commerce.facades.survey.data.SurveyRegisterListData">
+		<property name="questions" type="java.util.List&lt;com.gp.commerce.facades.user.data.SurveyRegisterData>" />
+	</bean>
+
+	<bean class="com.gp.commerce.facades.survey.data.QuestionData">
+		<property name="code" type="String" />
+		<property name="label" type="String" />
+		<property name="questionType" type="String" />
+		<property name="options" type="java.util.List&lt;com.gp.commerce.facades.survey.data.OptionData>" />
+	</bean>
+
+	<bean class="com.gp.commerce.facades.survey.data.OptionData">
+		<property name="code" type="String" />
+		<property name="label" type="String" />
+		<property name="reDirectQuestion" type="String" />
+	</bean>
+
+	<bean class="com.gp.commerce.facades.user.data.SurveyRegisterData">
+		<property name="userId" type="String" />
+		<property name="surveyCode" type="String" />
+		<property name="role" type="String" />
+		<property name="companyDetails" type="String" />
+		<property name="typeOfBusiness" type="String" />
+		<property name="noOfEmployees" type="java.lang.Integer" />
+		<property name="questionSelected" type="java.util.List&lt;com.gp.commerce.facades.survey.data.QuestionData>" />
+		<property name="address" type="de.hybris.platform.commercefacades.user.data.AddressData" />
+		<property name="surveyEdit" type="boolean" />
+	</bean>
+
+	<bean class="com.gp.commerce.facades.search.compare.data.ComparisonData">
+		<property name="products" type="java.util.List&lt;de.hybris.platform.commercefacades.product.data.ProductData>" />
+		<property name="specifications" type="java.util.List&lt;com.gp.commerce.facades.search.compare.data.CompareSpecificationsData>" />
+	</bean>
+
+	<bean class="com.gp.commerce.facades.search.compare.data.CompareSpecificationsData">
+		<property name="categoryLabel" type="String" />
+		<property name="categoryCode" type="String" />
+		<property name="subCategories" type="java.util.List&lt;com.gp.commerce.facades.search.compare.data.CompareAttributesData>" />
+	</bean>
+
+	<bean class="com.gp.commerce.facades.search.compare.data.CompareAttributesData">
+		<property name="attributeLabel" type="String" />
+		<property name="attributePosition" type="String" />
+		<property name="columnValues" type="java.util.List&lt;String>" />
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.search.data.AutocompleteResultData">
+		<property name="pdpRedirectURL" type="String" />
+	</bean>
+
+	<bean class="com.gp.commerce.dto.wishlist.WishlistListData">
+		<property name="wishlists" type="java.util.List&lt;com.gp.commerce.facades.data.WishlistData>" />
+	</bean>
+
+	<bean class="com.gp.commerce.facades.data.WishlistData">
+		<property name="name" type="String" />
+		<property name="description" type="String" />
+		<property name="wishlistUid" type="String" />
+		<property name="cmssite" type="String"/>
+		<property name="status" type="String"/>
+		<property name="ctaText" type="String"/>
+		<property name="bannerImageD" type="String"/>
+		<property name="bannerImageT" type="String"/>
+		<property name="bannerImageM" type="String"/>
+		<property name="wishlistType" type="String"/>
+		<property name="subtotal" type="String"/>
+		<property name="modifiedTime" type="java.util.Date"/>
+		<property name="noOfProducts" type="java.lang.Integer"/>
+		<property name="wishlistEntries"
+				  type="java.util.List&lt;com.gp.commerce.facades.data.WishlistEntryData>"/>
+		<property name="customAttr1" type="String"/>
+		<property name="customAttr2" type="String"/>
+		<property name="customAttr3" type="String"/>
+		<property name="errorMessage" type="String"/>
+		<property name="soldToId" type="String"/>
+	</bean>
+
+
+	<bean class="com.gp.commerce.facades.data.WishlistEntryData">
+		<property name="wishlistName" type="String" />
+		<property name="wishlistUid" type="String" />
+		<property name="product"
+				  type="de.hybris.platform.commercefacades.product.data.ProductData" />
+		<property name="quantity" type="Long" />
+		<property name="totalPrice" type="String" />
+		<property name="customAttr1Value" type="String" />
+		<property name="customAttr2Value" type="String" />
+		<property name="customAttr3Value" type="String" />
+	</bean>
+
+	<bean class="de.hybris.platform.customerticketingfacades.data.TicketData">
+		<property name="firstName" type="String"/>
+		<property name="lastName" type="String"/>
+		<property name="email" type="String"/>
+		<property name="phone" type="String"/>
+		<property name="jobTitle" type="String"/>
+		<property name="companyName" type="String"/>
+		<property name="streetAddress" type="String"/>
+		<property name="country" type="String"/>
+		<property name="city" type="String"/>
+		<property name="region" type="String"/>
+		<property name="postalCode" type="String"/>
+		<property name="orderNumber" type="String"/>
+		<property name="ticketComments" type="String"/>
+		<property name="websiteURL" type="String"/>
+		<property name="sfdcStatus" type="String"/>
+		<property name="sfdcServiceAgent" type="String"/>
+		<property name="sfdcResolutionSummary" type="String"/>
+		<property name="sfdcCaseNumber" type="String"/>
+		<property name="topicOfInquiry" type="com.gp.commerce.facades.data.TopicOfInquiryData"/>
+		<property name="keyQuantities" type="java.lang.Integer"/>
+		<property name="dispenserType" type="java.lang.String"/>
+	</bean>
+
+	<bean class="com.gp.commerce.facades.data.TopicOfInquiryData">
+		<property name="topicOfInquiry" type="java.util.Map&lt;String,String>" />
+		<property name="key" type="String"/>
+		<property name="value" type="String"/>
+	</bean>
+
+	<bean class="de.hybris.platform.customerticketingfacades.data.TicketListData">
+		<property name="tickets" type="java.util.List&lt;de.hybris.platform.customerticketingfacades.data.TicketData>" />
+	</bean>
+
+	<bean class="com.gp.commerce.facades.data.WishlistMultipleData">
+		<property name="name" type="String" />
+		<property name="description" type="String" />
+		<property name="wishlistUid" type="String" />
+		<property name="cmssite" type="String"/>
+		<property name="status" type="String"/>
+		<property name="ctaText" type="String"/>
+		<property name="bannerImageD" type="String"/>
+		<property name="bannerImageT" type="String"/>
+		<property name="bannerImageM" type="String"/>
+		<property name="wishlistType" type="String"/>
+		<property name="subtotal" type="String"/>
+		<property name="modifiedTime" type="java.util.Date"/>
+		<property name="noOfProducts" type="java.lang.Integer"/>
+		<property name="wishlistEntries"
+				  type="java.util.List&lt;com.gp.commerce.facades.data.WishlistMultipleEntryData>"/>
+		<property name="customAttr1" type="String"/>
+		<property name="customAttr2" type="String"/>
+		<property name="customAttr3" type="String"/>
+	</bean>
+
+	<bean class="com.gp.commerce.facades.data.WishlistMultipleEntryData">
+		<property name="wishlistName" type="String" />
+		<property name="wishlistUid" type="String" />
+		<property name="products"
+				  type="java.util.List&lt;de.hybris.platform.commercefacades.product.data.ProductData>" />
+		<property name="quantity" type="Long" />
+		<property name="totalPrice" type="String" />
+		<property name="customAttr1Value" type="String" />
+		<property name="customAttr2Value" type="String" />
+		<property name="customAttr3Value" type="String" />
+	</bean>
+
+
+
+	<bean class="com.gp.commerce.facades.component.data.GpPromotionData">
+		<property name="header" type="String" />
+		<property name="url" type="String" />
+		<property name="fontcolor" type="String" />
+		<property name="backgroundColor" type="String" />
+		<property name="backgroundImageD" type="String" />
+		<property name="backgroundImageAltTextD" type="String" />
+		<property name="backgroundImageT" type="String" />
+		<property name="backgroundImageAltTextM" type="String" />
+		<property name="backgroundImageM" type="String" />
+		<property name="backgroundImageAltTextT" type="String" />
+		<property name="isExternalLink" type="Boolean" />
+		<property name="componentId" type="String"/>
+	</bean>
+
+	<bean class="com.gp.commerce.facades.component.data.GpProductSolutionComponentData">
+		<property name="componentHeader" type="String" />
+		<property name="componentHeaderColor" type="String" />
+		<property name="subHeaderText" type="String" />
+		<property name="subHeaderTextColor" type="String" />
+		<property name="ctaText" type="String" />
+		<property name="ctaLink" type="String"/>
+		<property name="ctaColor" type="String"/>
+		<property name="isExternalLink" type="Boolean"/>
+		<property name="ctaStyle" type="String"/>
+		<property name="componentTheme" type="String"/>
+		<property name="tabs" type="java.util.List&lt;com.gp.commerce.facades.component.data.GPImagetileComponentdata>"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.product.data.StockData">
+		<property name="nextAvailableDate" type="String"></property>
+		<property name="lowStockMessage" type="String"></property>
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.product.data.ImageData">
+		<property name="zoomUrl" type="String"></property>
+		<property name="thumbnailUrl" type="String"></property>
+		<property name="cartIconUrl" type="String"></property>
+		<property name="kaonUrl" type="String"></property>
+		<property name="mimeType" type="String"></property>
+		<!-- New fields added for knowledge center -->
+		<property name="description" type="String"></property>
+		<property name="startDate" type="java.util.Date"></property>
+		<property name="resourceURL" type="String"></property>
+		<property name="resourceId" type="Integer"></property>
+		<property name="trainingId" type="Integer"></property>
+		<property name="trainingGroupId" type="java.util.List&lt;Integer&gt;"></property>
+		<property name="tags" type="java.util.List&lt;String&gt;"></property>
+		<property name="trainingBrands" type="java.util.List&lt;String&gt;"></property>
+		<property name="name" type="String"></property>
+		<property name="defaultResourceURL" type="String"></property>
+	</bean>
+
+	<bean class="com.gp.commerce.facades.component.data.GPImagetileComponentdata">
+		<property name="componentHeader" type="String" />
+		<property name="componentHeaderColor" type="String" />
+		<property name="backgroundColor" type="String" />
+		<property name="backgroundImageD" type="String" />
+		<property name="backgroundImageAltTextD" type="String" />
+		<property name="backgroundImageT" type="String" />
+		<property name="backgroundImageAltTextT" type="String" />
+		<property name="backgroundImageM" type="String" />
+		<property name="backgroundImageAltTextM" type="String" />
+		<property name="noOfColumns" type="String" />
+		<property name="componentTheme" type="String" />
+		<property name="subHeaderText" type="String" />
+		<property name="highlighterText" type="String"/>
+		<property name="isCarousel" type="Boolean" />
+		<property name="ctaText" type="String" />
+		<property name="ctaLink" type="String"/>
+		<property name="ctaColor" type="String"/>
+		<property name="ctaText2" type="String" />
+		<property name="ctaLink2" type="String"/>
+		<property name="ctaColor2" type="String"/>
+		<property name="ctaStyle" type="String"/>
+		<property name="isCtaRequired" type="Boolean"/>
+		<property name="componentId" type="String"/>
+		<property name="isExternal" type="Boolean"/>
+		<property name="isExternalCta2" type="Boolean"/>
+		<property name="jumpToHtml" type="Boolean"/>
+		<property name="products" type="java.util.List&lt;com.gp.commerce.facades.component.data.GPProductCarouseldata>"/>
+		<property name="tiles" type="java.util.List&lt;com.gp.commerce.facades.component.data.GPBannerComponentdata>" />
+	</bean>
+
+	<bean class="com.gp.commerce.facades.component.data.GPProductCarouseldata">
+		<property name="code" type="String" />
+		<property name="name" type="String" />
+		<property name="url" type="String" />
+		<property name="price" type="String"/>
+		<property name="imageUrl" type="String"/>
+		<property name="rating" type="String" />
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.catalog.data.CategoryHierarchyData">
+		<property name="learnMore" type="String" />
+		<property name="brochure" type="String" />
+		<property name="requestTrialLink" type="String" />
+		<property name="requestTrialText" type="String" />
+		<property name="brochureText" type="String" />
+		<property name="learnMoreText" type="String" />
+		<property name="isLearnMoreLinkExternal" type="Boolean"/>
+		<property name="isBrochureLinkExternal" type="Boolean"/>
+		<property name="isRequestTrialLinkExternal" type="Boolean"/>
+		<property name="order" type="Integer"/>
+	</bean>
+
+	<bean class="com.gp.commerce.facades.component.data.GPBannerComponentdata">
+		<property name="imgSrcD" type="String" />
+		<property name="imgSrcAltTextD" type="String"/>
+		<property name="imgSrcM" type="String" />
+		<property name="imgSrcAltTextM" type="String"/>
+		<property name="imgSrcT" type="String" />
+		<property name="imgSrcAltTextT" type="String"/>
+		<property name="header" type="String" />
+		<property name="headerColor" type="String" />
+		<property name="tileText" type="String" />
+		<property name="textColor" type="String" />
+		<property name="ctaLink" type="String" />
+		<property name="ctaText" type="String" />
+		<property name="ctaColor" type="String" />
+		<property name="backgroundColor" type="String" />
+		<property name="textAlignment" type="String" />
+		<property name="isVideo" type="String" />
+		<property name="videoSrc" type="String" />
+		<property name="playIconColor" type="String"/>
+		<property name="imageLink" type="String"/>
+		<property name="isExternalLink" type="Boolean"/>
+		<property name="isExternalImage" type="Boolean"/>
+		<property name="ctaStyle" type="String"/>
+		<property name="secondaryImgD" type="String" />
+		<property name="secondaryimgAltTextD" type="String"/>
+		<property name="secondaryImgM" type="String" />
+		<property name="secondaryimgAltTextM" type="String"/>
+		<property name="secondaryImgT" type="String" />
+		<property name="secondaryimgAltTextT" type="String"/>
+		<property name="jumpToHtml" type="Boolean"/>
+		<property name="componentId" type="String"/>
+		<property name="isVideoCta" type="Boolean"/>
+		<property name="imageAltText" type="String"/>
+		<property name="jumpToImage" type="Boolean"/>
+	</bean>
+
+	<bean class="com.gp.commerce.facades.component.data.GPImagetextComponentdata">
+		<property name="header" type="String" />
+		<property name="headerColor" type="String" />
+		<property name="text" type="String" />
+		<property name="textColor" type="String" />
+		<property name="ctaLink" type="String" />
+		<property name="ctaText" type="String" />
+		<property name="ctaColor" type="String" />
+		<property name="backgroundColor" type="String" />
+		<property name="textAlignment" type="String" />
+		<property name="backgroundImageD" type="String" />
+		<property name="backgroundImageAltTextD" type="String" />
+		<property name="backgroundImageT" type="String" />
+		<property name="backgroundImageAltTextT" type="String" />
+		<property name="backgroundImageM" type="String" />
+		<property name="backgroundImageAltTextM" type="String" />
+		<property name="isExternalLink" type="Boolean"/>
+		<property name="componentTheme" type="String"/>
+		<property name="ctaStyle" type="String"/>
+		<property name="imageWidth" type="String"/>
+		<property name="jumpToHtml" type="Boolean"/>
+		<property name="componentId" type="String"/>
+		<property name="isVideoCta" type="Boolean"/>
+		<property name="imageAltText" type="String"/>
+	</bean>
+
+	<bean class="com.gp.commerce.facades.component.data.GPImageComponentdata">
+		<property name="imageLink" type="String" />
+		<property name="imageAltText" type="String" />
+		<property name="imageSrcD" type="String" />
+		<property name="imageSrcAltTextD" type="String"/>
+		<property name="imageSrcT" type="String" />
+		<property name="imageSrcAltTextT" type="String"/>
+		<property name="imageSrcM" type="String" />
+		<property name="imageSrcAltTextM" type="String"/>
+		<property name="imageAlignment" type="String" />
+		<property name="isExternalImage" type="Boolean"/>
+		<property name="imageWidth" type="String"/>
+		<property name="isVideo" type="Boolean"/>
+		<property name="videoSrc" type="String"/>
+		<property name="playIconColor" type="String"/>
+		<property name="componentId" type="String"/>
+		<property name="isVideoCta" type="Boolean"/>
+	</bean>
+
+	<bean class="com.gp.commerce.facades.component.data.GPBundleImageData">
+		<property name="title" type="String" />
+		<property name="ImageList" type="java.util.List&lt;com.gp.commerce.facades.component.data.GPImageComponentdata>" />
+	</bean>
+
+	<bean class="com.gp.commerce.facades.component.data.GPBranddata">
+		<property name="brandName" type="String" />
+		<property name="brandNameColor" type="String" />
+		<property name="brandImage" type="String" />
+		<property name="brandLink" type="String" />
+		<property name="brandImageAltText" type="String" />
+		<property name="isExternalImage" type="Boolean"/>
+		<property name="jumpToHtml" type="Boolean"/>
+	</bean>
+
+	<bean class="com.gp.commerce.facades.component.data.GPBrandBarComponentdata">
+		<property name="header" type="String" />
+		<property name="headerColor" type="String" />
+		<property name="backgroundColor" type="String" />
+		<property name="backgroundImageD" type="String" />
+		<property name="backgroundImageAltTextD" type="String" />
+		<property name="backgroundImageT" type="String" />
+		<property name="backgroundImageAltTextT" type="String" />
+		<property name="backgroundImageM" type="String" />
+		<property name="backgroundImageAltTextM" type="String" />
+		<property name="subHeader" type="String" />
+		<property name="subHeaderColor" type="String" />
+		<property name="ctaLink" type="String" />
+		<property name="ctaText" type="String" />
+		<property name="ctaColor" type="String" />
+		<property name="isExternalLink" type="Boolean"/>
+		<property name="brands" type="java.util.List&lt;com.gp.commerce.facades.component.data.GPBranddata>" />
+		<property name="componentTheme" type="String"/>
+		<property name="ctaStyle" type="String"/>
+		<property name="componentId" type="String"/>
+	</bean>
+
+	<bean class="com.gp.commerce.facades.component.data.GPMarketingImagedata">
+		<property name="sbsImage" type="String" />
+		<property name="sbsImageAltText" type="String" />
+		<property name="sbsTitle" type="String" />
+		<property name="sbsTitleColor" type="String" />
+		<property name="sbsBody" type="String" />
+		<property name="sbsBodyTxtColor" type="String" />
+		<property name="ctaText" type="String" />
+		<property name="ctaColor" type="String" />
+		<property name="ctaLink" type="String" />
+		<property name="isExternalLink" type="Boolean" />
+		<property name="sbsBodyBg" type="String" />
+		<property name="imageLink" type="String"/>
+		<property name="isExternalImage" type="Boolean"/>
+		<property name="componentId" type="String"/>
+	</bean>
+
+	<bean class="com.gp.commerce.facades.component.data.GPMarketingSidebySideComponentdata">
+		<property name="sbsGlobalBG" type="String" />
+		<property name="sbsGlobalBgImgD" type="String" />
+		<property name="sbsGlobalBgImgAltTextD" type="String" />
+		<property name="sbsGlobalBgImgT" type="String" />
+		<property name="sbsGlobalBgImgAltTextT" type="String" />
+		<property name="sbsGlobalBgImgM" type="String" />
+		<property name="sbsGlobalBgImgAltTextM" type="String" />
+		<property name="componentId" type="String"/>
+		<property name="sbsMktgData" type="java.util.List&lt;com.gp.commerce.facades.component.data.GPMarketingImagedata>" />
+	</bean>
+
+
+	<bean class="de.hybris.platform.commerceservices.service.data.CommerceCartParameter">
+		<property name="additionalAttributes" type="java.util.Map&lt;java.lang.String,java.lang.String>" />
+		<property name="frequency" type="java.util.Map&lt;java.lang.String,java.lang.String>" />
+		<property name="SubscriptionCart" type="boolean" />
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.product.data.VariantOptionQualifierData">
+		<property name="hexCode" type="String" />
+		<property name="sequence" type="String" />
+		<property name="swatchImageUrl" type="String" />
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.order.data.AddToCartParams">
+		<property name="additionalAttributes" type="java.util.Map&lt;java.lang.String,java.lang.String>" />
+		<property name="cartId" type="java.lang.String" />
+		<property name="userId" type="java.lang.String" />
+		<property name="frequency" type="java.util.Map&lt;java.lang.String,java.lang.String>" />
+		<property name="isActive" type="java.lang.String" />
+		<property name="nextActivationDate" type="java.util.Date" />
+		<property name="SubscriptionCart" type="boolean" />
+	</bean>
+
+	<bean class="de.hybris.platform.commerceservices.order.CommerceCartModification">
+		<property name="additionalAttributes" type="java.util.Map&lt;java.lang.String,java.lang.String>" />
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.order.data.OrderEntryData">
+		<property name="additionalAttributes" type="java.util.Map&lt;java.lang.String,java.lang.String>" />
+		<property name="visible" type="boolean" />
+		<property name="leasable" type="boolean" />
+		<property name="leasableMessage" type="String" />
+		<property name="splitEntries" type="java.util.List&lt;com.gp.commerce.facade.order.data.SplitEntryData>"/>
+		<property name="slashSavedPrice" type="de.hybris.platform.commercefacades.product.data.PriceData"/>
+		<property name="slashPriceValue" type="String"/>
+		<property name="giftMessage" type="String" />
+		<property name="giftWrapped" type="boolean" />
+		<property name="unit" type="String" />
+		<property name="promotionsRevoked" type="boolean" />
+		<property name="installed" type="boolean" />
+		<property name="productPromotion" type="de.hybris.platform.commercefacades.product.data.PriceData" />
+		<property name="giveAway" type="boolean" />
+		<property name="subscriptionFrequency" type="java.util.Map&lt;java.lang.String,java.lang.String>" />
+	</bean>
+
+	<bean class="com.gp.commerce.facade.order.data.SplitEntryData">
+		<property name="code" type="String"/>
+		<property name="qty" type="String"/>
+		<property name="deliveryAddress" type="de.hybris.platform.commercefacades.user.data.AddressData"/>
+		<property name="deliveryInstruction" type="String"/>
+		<property name="deliveryMode" type="de.hybris.platform.commercefacades.order.data.DeliveryModeData"/>
+		<property name="price" type="de.hybris.platform.commercefacades.product.data.PriceData"/>
+		<property name="productCode" type="String"/>
+		<property name="deliveryModes" type="de.hybris.platform.commercefacades.order.data.DeliveryModesData"/>
+		<property name="visible" type="boolean" />
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.product.data.BaseOptionData">
+		<property name="isStyleVariant" type="boolean" />
+		<property name="isSizeVariant" type="boolean" />
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.product.data.VariantOptionData">
+		<property name="isSelected" type="boolean" />
+	</bean>
+
+	<bean class="com.gp.commerce.facades.component.data.GPPreCurateddata">
+		<property name="curatedImageUrl" type="String" />
+		<property name="curatedLinkText" type="String" />
+		<property name="curatedLinkUrl" type="String" />
+		<property name="curatedText" type="String" />
+	</bean>
+
+	<bean class="com.gp.commerece.facades.component.data.GPPrecuratedListData">
+		<property name="paginationNo" type="String" />
+		<property name="precuratedList" type="java.util.List&lt;com.gp.commerce.facades.component.data.GPPreCurateddata>" />
+	</bean>
+	<bean class="com.gp.commerce.facades.component.data.Rotatingbannerdata">
+		<property name="headingText" type="String" />
+		<property name="linkTo" type="String" />
+		<property name="altText" type="String" />
+		<property name="ctaText" type="String" />
+		<property name="ctaColor" type="String" />
+		<property name="ctaBgColor" type="String" />
+		<property name="headingColor" type="String" />
+		<property name="subHeadingColor" type="String" />
+		<property name="textPosition" type="String" />
+		<property name="backgroundImageD" type="String" />
+		<property name="backgroundImageAltTextD" type="String" />
+		<property name="backgroundImageT" type="String" />
+		<property name="backgroundImageAltTextT" type="String" />
+		<property name="backgroundImageM" type="String" />
+		<property name="backgroundImageAltTextM" type="String" />
+		<property name="wrapperBg" type="String" />
+		<property name="componetType" type="String" />
+		<property name="videoSrc" type="String" />
+		<property name="playIconColor" type="String" />
+		<property name="subHeadingText" type="String" />
+		<property name="altTextColor" type="String" />
+		<property name="bodyText" type="String" />
+		<property name="bodyTextColor" type="String" />
+		<property name="showTextFullWidth" type="Boolean" />
+		<property name="isExternalLink" type="Boolean"/>
+		<property name="subHeadBgColor" type="String"/>
+		<property name="ctaStyle" type="String"/>
+		<property name="componentTheme" type="String"/>
+		<property name="imageLink" type="String"/>
+		<property name="isExternalImage" type="Boolean"/>
+		<property name="jumpToHtml" type="Boolean"/>
+		<property name="headerLogo" type="String" />
+		<property name="headerLogoImageAltText" type="String" />
+	</bean>
+	<bean class="com.gp.commerce.facades.component.data.defaultCarousel">
+		<property name="loopCarousel" type="boolean" />
+		<property name="autoStart" type="Integer" />
+		<property name="componetType" type="String" />
+		<property name="componentTheme" type="String"/>
+		<property name="componentId" type="String"/>
+		<property name="gpRotatingData" type="java.util.List&lt;com.gp.commerce.facades.component.data.Rotatingbannerdata>" />
+	</bean>
+
+	<bean class="de.hybris.platform.b2bcommercefacades.company.data.B2BUnitNodeData">
+
+		<property name="addresses" type="java.util.List&lt;de.hybris.platform.commercefacades.user.data.AddressData>" />
+		<property name="noOfAdministrators" type="Integer" />
+		<property name="noOfCustomers" type="Integer" />
+		<property name="parentName" type="String" />
+
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.user.data.AddressData">
+		<property name="unit" type="de.hybris.platform.b2bcommercefacades.company.data.B2BUnitData" />
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.order.data.CCPaymentInfoData">
+		<property name="paymentToken" type="String" />
+		<property name="creationTime" type="java.util.Date" />
+	</bean>
+
+	<bean class="com.gp.commerce.order.data.GooglePayPaymentInfoData" extends="de.hybris.platform.commercefacades.order.data.CCPaymentInfoData">
+		<property name="merchantRefCodeDesc" type="String" />
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.order.data.PayPalPaymentInfoData">
+		<property name="paymentToken" type="String" />
+		<property name="creationTime" type="java.util.Date" />
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.user.data.AddressData">
+		<property name="defaultBillingAddress" type="boolean"/>
+		<property name="approvalStatus" type="String"/>
+		<property name="palletShipment" type="Boolean"/>
+		<property name="userId" type="String"/>
+		<property name="code" type="String"/>
+		<property name="url" type="String"/>
+		<property name="creationTime" type="java.util.Date"/>
+	</bean>
+	<bean class="de.hybris.platform.commercefacades.user.data.QuplesData">
+		<property name="contactKey" type="String" />
+		<property name="email" type="String" />
+		<property name="permission" type="String" />
+		<property name="optIn" type="boolean" />
+		<property name="knownUser" type="boolean" />
+		<property name="quplesEndPoint" type="String" />
+	</bean>
+
+	<bean class="com.gp.commerce.facades.data.GPQuickOrderData">
+		<property name="items" type="java.util.List&lt;de.hybris.platform.commercefacades.product.data.ProductData&gt;" />
+		<property name="emailIds" type="String"/>
+	</bean>
+	<bean class="de.hybris.platform.commercefacades.order.data.CartModificationListData">
+		<property name="quickOrderError" type="java.util.List&lt;de.hybris.platform.acceleratorfacades.product.data.ProductWrapperData>" />
+	</bean>
+
+	<bean class="com.gp.commerce.facades.data.user.data.MarketingPreferenceData">
+		<property name="name" type="String" />
+		<property name="description" type="String" />
+		<property name="preferenceTypeId" type="String" />
+		<property name="selected" type="boolean" />
+	</bean>
+
+	<bean class="com.gp.commerce.facades.data.user.data.MarketingPreferenceDataList">
+		<property name="frequency" type="String" />
+		<property name="marketingPreferences" type="java.util.List&lt;com.gp.commerce.facades.data.user.data.MarketingPreferenceData>" />
+	</bean>
+
+	<bean class="com.gp.commerce.facades.data.user.data.FrequencyData">
+		<property name="question" type="String" />
+		<property name="freqEnumValues" type="java.util.List&lt;String>"/>
+	</bean>
+
+	<bean class="com.gp.commerce.facades.data.user.data.MarketingPreferenceQuestionAnsData">
+		<property name="question" type="String" />
+		<property name="marketingPreferencesAnsList" type="java.util.List&lt;com.gp.commerce.facades.data.user.data.MarketingPreferenceData>" />
+		<property name="selectionType" type="String"/>
+	</bean>
+
+	<bean class="com.gp.commerce.facades.user.data.MarketingPreferenceQuestionAnsDataList">
+		<property name="frequency" type="com.gp.commerce.facades.data.user.data.FrequencyData" />
+		<property name="marketingPrefQuestionData" type="java.util.List&lt;com.gp.commerce.facades.data.user.data.MarketingPreferenceQuestionAnsData>" />
+	</bean>
+
+	<bean class="de.hybris.platform.b2bcommercefacades.company.data.B2BUnitNodeData">
+		<property name="role" type="String" />
+	</bean>
+
+	<bean class="com.gp.commerce.facades.data.GPScheduleInstallationData">
+		<property name="address" type="java.util.Map&lt;String,de.hybris.platform.commercefacades.user.data.AddressData>"/>
+		<property name="item" type="String"/>
+		<property name="preferredDate" type="String"/>
+		<property name="preferredTime" type="String"/>
+		<property name="name" type="String"/>
+		<property name="phoneNo" type="String"/>
+		<property name="extraInfo" type="String"/>
+		<property name="leadWeek" type="String"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.order.data.AbstractOrderData">
+		<property name="scheduleInstallation" type="com.gp.commerce.facades.data.GPScheduleInstallationData"/>
+		<property name="leaseId" type="String"/>
+		<property name="leaseName" type="String"/>
+		<property name="remorseWindow" type="Integer"/>
+		<property name="userAdmin" type="boolean"/>
+		<property name="leaseTermId" type="String"/>
+		<property name="cancellable" type="boolean" />
+		<property name="refundAmt" type="java.math.BigDecimal" />
+		<property name="reasonCode" type="String" />
+		<property name="processingStatus" type="de.hybris.platform.core.enums.OrderStatus" />
+		<property name="shippingRestrictions" type="java.util.List&lt;com.gp.commerce.facade.order.data.ShippingRestrictionsData>"/>
+		<property name="totalDeliveryCost" type="String" />
+		<property name="totalProductQty" type="Integer" />
+		<property name="cartType" type="String" />
+		<property name="isSubscription" type="boolean" />
+		<property name="priceDiscounts" type="de.hybris.platform.commercefacades.product.data.PriceData"/>
+		<property name="promotionalDiscounts" type="de.hybris.platform.commercefacades.product.data.PriceData"/>
+		<property name="totalSubscriptionPrice" type="de.hybris.platform.commercefacades.product.data.PriceData"/> 
+		<property name="approverComments" type="String"/>
+	</bean>
+
+	<bean class="com.gp.commerce.order.data.SampleCartRequestData">
+		<property name="userid" type="String" />
+		<property name="cart"
+				  type="com.gp.commerce.order.data.SampleCartData" />
+	</bean>
+
+	<bean
+			class="com.gp.commerce.order.data.GPOrderSampleErrorResponseData">
+		<property name="code" type="String" />
+		<property name="message" type="String" />
+	</bean>
+
+	<bean class="com.gp.commerce.order.data.GPSampleCartResponseData">
+		<import type="com.fasterxml.jackson.annotation.JsonProperty"/>
+		<property name="success" type="String" />
+		<property name="errors"
+				  type="java.util.List&lt;com.gp.commerce.order.data.GPOrderSampleErrorResponseData>">
+			<annotations>@JsonProperty(value ="errors",required = false)</annotations>
+		</property>
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.order.data.CartData">
+		<property name="frequency" type="java.util.Map&lt;java.lang.String,java.lang.String>" />
+		<property name="nextActivationDate" type="java.lang.String"/>
+		<property name="isActive" type="Boolean"/>
+		<property name="subscriptionCartStatus" type="String"/>
+		<property name="isSubscription" type="boolean" />
+		<property name="payment" type="de.hybris.platform.commercefacades.order.data.CCPaymentInfoData"/>
+		<property name="subscriptionCancellationReason" type="String"/>
+	</bean>
+
+	<bean
+			class="com.gp.commerce.order.data.GPOrderSampleErrorResponseWsDTO">
+		<property name="code" type="String" />
+		<property name="message" type="String" />
+	</bean>
+
+	<bean class="com.gp.commerce.order.data.GPSampleCartResponseWsDTO">
+		<property name="success" type="String" />
+		<property name="errors"
+				  type="java.util.List&lt;com.gp.commerce.order.data.GPOrderSampleErrorResponseWsDTO>" />
+		<property name="redirectURL" type="String" />
+	</bean>
+
+	<bean class="com.gp.commerce.order.data.SampleCartImageUrlsData">
+		<property name="thumbnail" type="String" />
+		<property name="normal" type="String" />
+	</bean>
+	<bean class="com.gp.commerce.order.data.SampleCartProductData">
+		<property name="sku" type="String" />
+		<property name="qty" type="String" />
+		<property name="imageURLs" type="com.gp.commerce.order.data.SampleCartImageUrlsData" />
+	</bean>
+
+	<bean class="com.gp.commerce.order.data.SampleCartData">
+		<property name="id" type="String" />
+		<property name="items"
+				  type="java.util.List&lt;com.gp.commerce.order.data.SampleCartProductData>" />
+	</bean>
+
+	<bean
+			class="com.gp.commerce.facade.order.data.GPRestrictionProductWsDTO">
+		<property name="productCode" type="String" />
+		<property name="country"
+				  type="de.hybris.platform.commercewebservicescommons.dto.user.CountryWsDTO" />
+		<property name="region"
+				  type="de.hybris.platform.commercewebservicescommons.dto.user.RegionWsDTO" />
+	</bean>
+
+	<bean
+			class="com.gp.commerce.facade.order.data.GPRestrictionProductListWsDTO">
+		<property name="shippingDetails"
+				  type="java.util.List&lt;com.gp.commerce.facade.order.data.GPRestrictionProductWsDTO>" />
+		<property name="shippingAddress"
+				  type="com.gp.commerce.order.entry.data.GPSplitListWsDTO" />
+	</bean>
+
+	<bean class="com.gp.commerce.facade.order.data.ShippingRestrictionsData">
+		<property name="productCode" type="String"/>
+		<property name="country" type="de.hybris.platform.commercewebservicescommons.dto.user.CountryWsDTO"/>
+		<property name="region" type="de.hybris.platform.commercewebservicescommons.dto.user.RegionWsDTO"/>
+	</bean>
+
+	<bean class="com.gp.commerce.facade.order.data.LeaseAgreementWsDTO">
+		<property name="legalTermsId" type="String"/>
+		<property name="country" type="String"/>
+		<property name="legalTermsText" type="String"/>
+		<property name="legalTermName" type="String"/>
+		<property name="legalLanguage" type="String"/>
+		<property name="version" type="Integer"/>
+	</bean>
+
+	<bean class="com.gp.commerce.facade.order.data.LeaseAgreementData">
+		<property name="legalTermsId" type="String"/>
+		<property name="country" type="String"/>
+		<property name="legalTermsText" type="String"/>
+		<property name="legalTermName" type="String"/>
+		<property name="legalLanguage" type="String"/>
+		<property name="version" type="Integer"/>
+	</bean>
+
+	<bean class="com.gp.commerce.facade.order.data.SaveAgreementWsDTO">
+		<property name="agreementId" type="String"/>
+		<property name="status" type="String"/>
+		<property name="errorMessage" type="String"/>
+		<property name="errorCode" type="String"/>
+	</bean>
+
+	<bean class="com.gp.commerce.facade.order.data.SaveAgreementData">
+		<property name="agreementId" type="String"/>
+		<property name="status" type="String"/>
+		<property name="errorMessage" type="String"/>
+		<property name="errorCode" type="String"/>
+	</bean>
+	<bean class="de.hybris.platform.b2bcommercefacades.company.data.B2BUnitData" extends="de.hybris.platform.commercefacades.user.data.CompanyData">
+		<property name="b2bUnitLevel" type="String"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.user.data.CustomerData">
+		<property name="units" type="java.util.List&lt;de.hybris.platform.b2bcommercefacades.company.data.B2BUnitNodeData>" />
+		<property name="userApprovalStatus" type="String"></property>
+		<property name="userIdUpdateFlag" type="Boolean" />
+		<property name="edited" type="Boolean" />
+		<property name="gender" type="String"/>
+		<property name="country" type="String" />
+		<property name="dateOfBirth" type="String"/>
+		<property name="newEmail" type="String"/>
+	</bean>
+
+
+	<bean class="de.hybris.platform.commercefacades.order.data.DeliveryModeData">
+		<property name="deliveryPrice" type="String"/>
+		<property name="deliveryFormattedPrice" type="Double"/>
+	</bean>
+
+
+	<bean class = "com.gp.commerce.facade.data.PaypalPayerData">
+
+		<property name="orderID" type="String" />
+		<property name="payerID" type="String" />
+		<property name="paymentID" type="String" />
+		<property name="paymentToken" type="String" />
+
+	</bean>
+
+	<bean class = "com.gp.commerce.facade.data.NsConsignmentData">
+
+		<property name="hybrisConsignmentId" type="String"/>
+		<property name="customerId" type="String"/>
+		<property name="nsPaymentId" type="String"/>
+		<property name="items" type="java.util.List&lt;com.gp.commerce.facade.data.NsItemData>" />
+		<property name="consignmentStatus" type="String"/>
+		<property name="status" type="boolean"/>
+		<property name="errorMessage" type="String"/>
+		<property name="errorCode" type="String"/>
+	</bean>
+
+	<bean class = "com.gp.commerce.facade.data.NsItemData">
+		<property name="sku" type="String"/>
+		<property name="trackingId" type="String"/>
+		<property name="trackingUrl" type="String"/>
+		<property name="status" type="String"/>
+		<property name="consignmentEntryNumber" type="Integer"/>
+		<property name="quantityConfirmed" type="Integer"/>
+		<property name="quantityRejected" type="Integer"/>
+		<property name="quantityShipped" type="Integer"/>
+		<property name="reasonForRejection" type="String"/>
+	</bean>
+
+	<bean class="de.hybris.platform.b2bcommercefacades.company.data.B2BUnitData">
+		<property name="parent" type="String" />
+		<property name="role" type="String" />
+		<property name="noOfEmployees" type="Integer" />
+		<property name="typeOfBusiness" type="String" />
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.product.data.PromotionResultData">
+		<property name="appliedCouponCodes" type="java.util.List&lt;String>"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.navigation.data.NavigationUrlData">
+		<property name="empty" type="String"/>
+		<property name="home" type="String"/>
+		<property name="login" type="String"/>
+		<property name="logout" type="String"/>
+		<property name="register" type="String"/>
+		<property name="searchResults" type="String"/>
+		<property name="compareProducts" type="String"/>
+		<property name="cart" type="String"/>
+		<property name="pdpPage" type="String"/>
+		<property name="checkout" type="String"/>
+		<property name="contactUs" type="String"/>
+		<property name="quickOrder" type="String"/>
+		<property name="orderConfirmation" type="String"/>
+		<property name="addAddress" type="String"/>
+		<property name="permissionLanding" type="String"/>
+		<property name="userGroupLanding" type="String"/>
+		<property name="userGroups" type="String"/>
+		<property name="userLanding" type="String"/>
+		<property name="businessUnitsLanding" type="String"/>
+		<property name="userDetails" type="String"/>
+		<property name="orderDetails" type="String"/>
+		<property name="orderApprovalDetails" type="String"/>
+		<property name="termsCondition" type="String"/>
+		<property name="cludo" type="String"/>
+		<property name="leasePage" type="String"/>
+		<property name="category" type="String"/>
+		<property name="myList" type="String"/>
+		<property name="myFav" type="String"/>
+		<property name="listDetails" type="String"/>
+		<property name="supportTickets" type="String"/>
+		<property name="learnMore" type="String"/>
+		<property name="subscriptionLanding" type="String"/>
+		<property name="bundlePage" type="String"/>
+	</bean>
+
+	<bean
+			class="de.hybris.platform.commercefacades.order.data.OrderHistoryData">
+		<property name="totalNumberOfProducts" type="String" />
+		<property name="creationTime" type="java.util.Date" />
+		<property name="shippingAddress"
+				  type="com.gp.commerce.user.data.AddressDataList" />
+		<property name="user" type="de.hybris.platform.commercefacades.user.data.PrincipalData"/>
+		<property name="sourceNetSuite" type="boolean"/>
+	</bean>
+
+
+	<bean class="com.gp.commerce.facade.data.TrackingData">
+		<property name="trackingID" type="String" />
+		<property name="trackingURL" type="String" />
+		<property name="carrier" type="String" />
+		<property name="quantityShipped" type="Long" />
+	</bean>
+
+	<bean
+			class="de.hybris.platform.commercefacades.order.data.ConsignmentEntryData">
+		<property name="trackingList"
+				  type="java.util.List&lt;com.gp.commerce.facade.data.TrackingData>" />
+		<property name="consignmentEntryStatus" type="String"/>
+		<property name="unshippedQuantity" type="Long"/>
+		<property name="consignmentEntryPrice" type="de.hybris.platform.commercefacades.product.data.PriceData"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.thirdpartyapps.data.AppData">
+		<property name="appId" type="String"/>
+		<property name="mapsKey" type="String"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.thirdpartyapps.data.LiveAgentData">
+		<property name="endPoint" type="String"/>
+		<property name="orgId" type="String"/>
+		<property name="deploymentId" type="String"/>
+		<property name="buttonId" type="String"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.thirdpartyapps.data.ThirdPartyAppsData">
+		<property name="google" type="de.hybris.platform.commercefacades.thirdpartyapps.data.AppData"/>
+		<property name="facebook" type="de.hybris.platform.commercefacades.thirdpartyapps.data.AppData"/>
+		<property name="liveAgent" type="de.hybris.platform.commercefacades.thirdpartyapps.data.LiveAgentData"/>
+		<property name="yforms" type="de.hybris.platform.commercefacades.thirdpartyapps.data.LiveAgentData"/>
+		<property name="qples" type="de.hybris.platform.commercefacades.thirdpartyapps.data.LiveAgentData"/>
+	</bean>
+
+	<bean class="com.gp.commerce.facade.data.IncompatibleProductsData">
+		<property name="incompatible" type="boolean" />
+		<property name="productNames" type="java.util.List&lt;String>" />
+	</bean>
+
+	<bean class="com.gp.commerce.facade.data.CartValidationData">
+		<property name="incompatibleData" type="com.gp.commerce.facade.data.IncompatibleProductsData" />
+		<property name="cartModificationDataList" type="java.util.List&lt;de.hybris.platform.commercefacades.order.data.CartModificationData>"/>
+	</bean>
+	<bean class="de.hybris.platform.ruleengineservices.rao.OrderEntryRAO" extends="de.hybris.platform.ruleengineservices.rao.AbstractActionedRAO">
+		<property name="mapPrice" type="java.math.BigDecimal" />
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.order.data.ConsignmentData">
+		<property name="processingStatus" type="de.hybris.platform.basecommerce.enums.ConsignmentStatus" />
+	</bean>
+
+	<!-- IRI Service -->
+	<bean class="com.gp.commerce.facades.store.data.GPStoreCategoriesData">
+		<property name="groupName" type="String" />
+		<property name="groupId" type="String" />
+	</bean>
+
+	<bean class="com.gp.commerce.facades.store.data.GPStoreCategoriesListData">
+		<property name="gpCategoriesList" type="java.util.List&lt;GPStoreCategoriesData>" />
+	</bean>
+
+	<bean class="com.gp.commerce.facades.store.data.GPStoreProductData">
+		<property name="code" type="String" />
+		<property name="description" type="String" />
+	</bean>
+
+	<bean class="com.gp.commerce.facades.store.data.GPStoreProductsData">
+		<property name="gpStoreProducts" type="java.util.List&lt;GPStoreProductData>" />
+	</bean>
+
+	<bean class="de.hybris.platform.b2bapprovalprocessfacades.company.data.B2BPermissionData">
+		<property name="formattedValue" type="String"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commerceservices.search.solrfacetsearch.data.SolrSearchQueryData">
+		<property name="searchTerm" type="String"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commerceservices.search.facetdata.ProductSearchPageData&lt;STATE, RESULT>" extends="de.hybris.platform.commerceservices.search.facetdata.FacetSearchPageData&lt;STATE, RESULT>">
+		<description>Added the Media and title in result</description>
+		<property name="topImage" type="String"/>
+		<property name="categoryName" type="String"/>
+	</bean>
+
+	<bean class="com.gp.commerce.facades.marketing.data.UpdatePreferenceData">
+		<property name="email" type="String" />
+		<property name="opt" type="String"/>
+		<property name="firstName" type="String"/>
+		<property name="lastName" type="String"/>
+		<property name="mobilePhoneNumber" type="String"/>
+		<property name="postalCode" type="String"/>
+		<property name="age" type="String"/>
+		<property name="address1" type="String"/>
+		<property name="address2" type="String"/>
+		<property name="fromPage" type="String"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.order.data.CartModificationData">
+		<property name="errorProductCode" type="String"/>
+		<property name="errorProductName" type="String"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.oauth.data.ApplicationAuthParams">
+		<property name="client_id" type="String"/>
+		<property name="client_secret" type="String"/>
+		<property name="grant_type" type="String"/>
+	</bean>
+
+	<bean class="com.gp.commerce.facades.product.references.data.GPProductReferenceData">
+		<property name="referenceType" type="String"/>
+		<property name="references" type="java.util.List&lt;de.hybris.platform.commercefacades.product.data.ProductReferenceData>" />
+	</bean>
+
+	<bean class="de.hybris.platform.commerceservices.search.facetdata.FacetData&lt;STATE>">
+		<description>POJO representing a facet.</description>
+		<property name="count" type="long"/>
+	</bean>
+
+
+	<bean class="com.gp.commerce.facades.product.references.data.GPShareProductData">
+		<property name="entries" type="java.util.Collection&lt;de.hybris.platform.commercefacades.product.data.ProductData>"/>
+	</bean>
+
+	<bean class="com.gp.commerce.facades.data.PdfDownloadUserData">
+		<property name="pdfName" type="String" />
+		<property name="phoneNumber" type="String" />
+		<property name="emailId" type="String" />
+		<property name="senderMessage" type="String"/>
+		<property name="barColor" type="String"/>
+		<property name="largeHeading" type="String"/>
+		<property name="mediumHeading" type="String"/>
+		<property name="headLineColor" type="String" />
+		<property name="isCategoryDescription" type="Boolean"/>
+		<property name="isProductSellingStatement" type="Boolean"/>
+		<property name="displayHeadlineFirstPageOnly" type="Boolean"/>
+		<property name="coverPage" type="String"/>
+		<property name="listFormat" type="String"/>
+		<property name="featureCheckedItems" type="String"/>
+		<property name="featureCheckedItemsValue" type="java.util.List&lt;String>"/>
+		<property name="pdfCoverImages" type="java.util.Map&lt;String,String>" />
+		<property name="gpCertificationsImages" type="java.util.Map&lt;String,String>" />
+		<property name="contactAddress" type="de.hybris.platform.commercefacades.user.data.AddressData"/>
+		<property name="distributorImage" type="String"/>
+		<property name="headerText" type="String"/>
+		<property name="headerLogo" type="String"/>
+	</bean>
+
+	<bean class="com.gp.commerce.facades.product.data.GpCertificationsData">
+		<property name="id" type="String" />
+		<property name="description" type="String" />
+		<property name="url" type="String" />
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.product.data.CategoryData">
+		<property name="type" type="String"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.product.data.VariantValueCategoryData">
+		<property name="hexCode" type="String"/>
+		<property name="swatchImageUrl" type="String"></property>
+	</bean>
+
+	<bean class="com.gp.hybris.site.GPSiteConfigData">
+		<property name="isCallUsEnabled" type="Boolean"/>
+		<property name="isEmailUsEnabled" type="Boolean"/>
+		<property name="isPayPalEnabled" type="Boolean"/>
+		<property name="isSocailShareEnabled" type="Boolean"/>
+		<property name="isContactUsFormEnabled" type="Boolean"/>
+		<property name="isSupportTicketsEnabled" type="Boolean"/>
+		<property name="isProductCompareEnabled" type="Boolean"/>
+		<property name="isWriteUsEnabled" type="Boolean"/>
+		<property name="isProductIdEnabled" type="Boolean"/>
+		<property name="showInStockMsg" type="Boolean"/>
+		<property name="showProductFeatures" type="Boolean"/>
+		<property name="showProductSpecs" type="Boolean"/>
+		<property name="showProductResources" type="Boolean"/>
+		<property name="isSaveCartEnabled" type="Boolean"/>
+		<property name="isMultipleShippingEnabled" type="Boolean"/>
+		<property name="showDeliveryInstructions" type="Boolean"/>
+		<property name="isDinersCardAvailable" type="Boolean"/>
+		<property name="showProductIndicators" type="Boolean"/>
+		<property name="isGiftingEnabled" type="Boolean"/>
+		<property name="isGooglePayEnabled" type="Boolean"/>
+		<property name="isApplePayEnabled" type="Boolean"/>
+		<property name="isVariantsEnabled" type="Boolean"/>
+		<property name="isProductPriceEnabled" type="Boolean"/>
+		<property name="addToCartEnabled" type="Boolean"/>
+		<property name="promoTextEnabled" type="Boolean"/>
+		<property name="showProductStatus" type="Boolean"/>
+		<property name="isQuantitySelectorEnabled" type="Boolean"/>
+		<property name="isMobileMyProfileEnabled" type="Boolean"/>
+		<property name="pdpLocateAStoreEnabled" type="Boolean"/>
+		<property name="showPoBoxShippingMsg" type="Boolean"/>
+		<property name="showInventoryMessages" type="Boolean"/>
+		<property name="isFindADistributorEnabled" type="Boolean"/>
+		<property name="showForgotPassword" type="Boolean"/>
+		<property name="createAcountMoreDetailsEnabled" type="Boolean"/>
+		<property name="editPasswordEnabled" type="Boolean"/>
+		<property name="editCommPrefEnabled" type="Boolean"/>
+		<property name="hasTaxExemption" type="Boolean"/>
+		<property name="addAddressEnabled" type="Boolean"/>
+		<property name="deleteAddressEnabled" type="Boolean"/>
+		<property name="addPaymentEnabled" type="Boolean"/>
+		<property name="deletePaymentEnabled" type="Boolean"/>
+		<property name="is3DImageEnabled" type="Boolean"/>
+		<property name="reorderEnabled" type="Boolean"/>
+		<property name="addCustomAttrs" type="Boolean"/>
+		<property name="addToListBySku" type="Boolean"/>
+		<property name="downloadPrdListInfo" type="Boolean"/>
+		<property name="downloadListPdf" type="Boolean"/>
+		<property name="downloadListImage" type="Boolean"/>
+		<property name="downloadPdpPdf" type="Boolean"/>
+		<property name="downloadPdpImage" type="Boolean"/>
+		<property name="hasCmirCode" type="Boolean"/>
+		<property name="isFindAStoreEnabled" type="Boolean"/>
+		<property name="showLowInventoryMessage" type="Boolean"/>
+		<property name="pdpimageOrVideoConstraintEnabled" type="Boolean"/>
+		<property name="isReferAFriend" type="Boolean"/>
+		<property name="showProductIcons" type="Boolean"/>
+		<property name="isGuestList" type="Boolean" />
+		<property name="contentSearchEnabled" type="Boolean" />
+		<property name="ratingReviewEnabledForSRP" type="Boolean" />
+		<property name="ratingReviewEnabledForPDP" type="Boolean" />
+		<property name="shareProductEnabled" type="Boolean" />
+		<property name="shipToLockersEnabled" type="Boolean" />
+		<property name="installationSchedulingEnabled" type="Boolean" />
+		<property name="paypalCreditEnabled" type="Boolean" />
+		<property name="qplesEnabled" type="Boolean" />
+		<property name="isCategoryDescriptionEnabled" type="Boolean" />
+		<property name="showDeliveryCost" type="Boolean" />
+		<property name="isShareWishlistEnabled" type="Boolean" />
+		<property name="showFavIcon" type="Boolean" />
+		<property name="isBrandLogoMobile" type="Boolean" />
+		<property name="showCheckoutLogo" type="Boolean"/>
+		<property name="enableDisplayAttributes" type="Boolean"/>
+		<property name="isRelatedEnabled" type="Boolean"/>
+			</bean>
+
+	<bean class="com.gp.commerce.facades.subscription.data.GPSubscriptionFrequencyData">
+		<property name="code" type="String"/>
+		<property name="frequency" type="java.util.Map&lt;String,String>"/>
+	</bean>
+
+	<bean class="com.gp.commerce.facades.subscription.data.GPSubscriptionFrequencyListData">
+		<property name="subscriptionFrequencyList" type="java.util.List&lt;com.gp.commerce.facades.subscription.data.GPSubscriptionFrequencyData>" />
+	</bean>
+
+	<bean class="com.gp.commerce.facades.data.TransactionInfoData">
+		<property name="totalPriceStatus" type="String"/>
+		<property name="totalPrice" type="Double"/>
+		<property name="currencyCode" type="String"/>
+	</bean>
+
+	<bean class="com.gp.commerce.facades.data.AllowedPaymentMethodsData">
+		<property name="type" type="String"/>
+		<property name="parameters" type="com.gp.commerce.facades.data.AllowedPaymentMethodsParamsData"/>
+		<property name="tokenizationSpecification" type="com.gp.commerce.facades.data.TokenizationSpecificationData"/>
+	</bean>
+
+	<bean class="com.gp.commerce.facades.data.AllowedPaymentMethodsParamsData">
+		<property name="allowedAuthMethods" type="String"/>
+		<property name="allowedCardNetworks" type="String"/>
+		<property name="billingAddressRequired" type="boolean"/>
+		<property name="billingAddressParameters" type="com.gp.commerce.facades.data.BillingAddressParamsData"/>
+	</bean>
+
+	<bean class="com.gp.commerce.facades.data.BillingAddressParamsData">
+		<property name="format" type="String"/>
+		<property name="phoneNumberRequired" type="boolean"/>
+	</bean>
+
+	<bean class="com.gp.commerce.facades.data.TokenizationSpecificationParamsData">
+		<property name="gateway" type="String"/>
+		<property name="gatewayMerchantId" type="String"/>
+	</bean>
+
+	<bean class="com.gp.commerce.facades.data.TokenizationSpecificationData">
+		<property name="type" type="String"/>
+		<property name="parameters" type="com.gp.commerce.facades.data.TokenizationSpecificationParamsData"/>
+	</bean>
+
+	<bean class="com.gp.commerce.facades.data.MerchantInfoData">
+		<property name="merchantName" type="String"/>
+		<property name="merchantID" type="String"/>
+	</bean>
+
+	<bean class="com.gp.commerce.facades.data.GooglePayRequestData">
+		<property name="apiVersion" type="String"/>
+		<property name="apiVersionMinor" type="String"/>
+		<property name="environment" type="String"/>
+		<property name="merchantInfo" type="com.gp.commerce.facades.data.MerchantInfoData"/>
+		<property name="allowedPaymentMethods" type="com.gp.commerce.facades.data.AllowedPaymentMethodsData"/>
+		<property name="transactionInfo" type="com.gp.commerce.facades.data.TransactionInfoData"/>
+	</bean>
+
+	<bean class="com.gp.commerce.dto.TransactionInfoWsDTO">
+		<property name="totalPriceStatus" type="String"/>
+		<property name="totalPrice" type="Double"/>
+		<property name="currencyCode" type="String"/>
+	</bean>
+
+	<bean class="com.gp.commerce.dto.TokenizationSpecificationWsDTO">
+		<property name="type" type="String"/>
+		<property name="parameters" type="com.gp.commerce.dto.TokenizationSpecificationParamsWsDTO"/>
+	</bean>
+
+	<bean class="com.gp.commerce.dto.AllowedPaymentMethodsWsDTO">
+		<property name="type" type="String"/>
+		<property name="parameters" type="com.gp.commerce.dto.AllowedPaymentMethodsParamsWsDTO"/>
+		<property name="tokenizationSpecification" type="com.gp.commerce.dto.TokenizationSpecificationWsDTO"/>
+	</bean>
+
+
+	<bean class="com.gp.commerce.dto.MerchantInfoWsDTO">
+		<property name="merchantName" type="String"/>
+		<property name="merchantID" type="String"/>
+	</bean>
+
+	<bean class="com.gp.commerce.dto.AllowedPaymentMethodsParamsWsDTO">
+		<property name="allowedAuthMethods" type="String"/>
+		<property name="allowedCardNetworks" type="String"/>
+		<property name="billingAddressRequired" type="boolean"/>
+		<property name="billingAddressParameters" type="com.gp.commerce.dto.BillingAddressParamsWsDTO"/>
+	</bean>
+
+	<bean class="com.gp.commerce.dto.BillingAddressParamsWsDTO">
+		<property name="format" type="String"/>
+		<property name="phoneNumberRequired" type="boolean"/>
+	</bean>
+	<bean class="com.gp.commerce.dto.TokenizationSpecificationParamsWsDTO">
+		<property name="gateway" type="String"/>
+		<property name="gatewayMerchantId" type="String"/>
+	</bean>
+
+	<bean class="com.gp.commerce.dto.GooglePayRequestWsDTO">
+		<property name="apiVersion" type="String"/>
+		<property name="apiVersionMinor" type="String"/>
+		<property name="environment" type="String"/>
+		<property name="merchantInfo" type="com.gp.commerce.dto.MerchantInfoWsDTO"/>
+		<property name="allowedPaymentMethods" type="com.gp.commerce.dto.AllowedPaymentMethodsWsDTO"/>
+		<property name="transactionInfo" type="com.gp.commerce.dto.TransactionInfoWsDTO"/>
+	</bean>
+
+	<bean class="de.hybris.platform.configurablebundlefacades.data.BundleTemplateData">
+		<property name="bundleImage"
+				  type="java.util.Collection&lt;de.hybris.platform.commercefacades.product.data.ImageData>"/>
+	</bean>
+
+	<bean class="com.gp.commerce.facades.subscription.data.GPSubscriptionUpdateData">
+		<property name="code" type="String"/>
+		<property name="address" type="de.hybris.platform.commercefacades.user.data.AddressData" />
+		<property name="paymentDetails" type="de.hybris.platform.commercefacades.order.data.CCPaymentInfoData"/>
+	</bean>
+
+	<bean class="com.gp.commerce.dto.payment.PaymentDataWsDTO">
+		<property name="email" type="String"/>
+		<property name="paymentMethodData" type="com.gp.commerce.dto.payment.PaymentMethodDataWsDTO" />
+		<property name="shippingAddress" type="com.gp.commerce.dto.payment.AddressWsDTO"/>
+	</bean>
+
+	<bean class="com.gp.commerce.dto.payment.AddressWsDTO">
+		<property name="name" type="String"/>
+		<property name="postalCode" type="String"/>
+		<property name="countryCode" type="String"/>
+		<property name="phoneNumber" type="String"/>
+		<property name="address1" type="String"/>
+		<property name="address2" type="String"/>
+		<property name="address3" type="String"/>
+		<property name="locality" type="String"/>
+		<property name="administrativeArea" type="String"/>
+	</bean>
+
+	<bean class="com.gp.commerce.dto.payment.PaymentMethodDataWsDTO">
+		<property name="type" type="String"/>
+		<property name="description" type="String"/>
+		<property name="info" type="com.gp.commerce.dto.payment.CardInfoWsDTO"/>
+		<property name="tokenizationData" type="com.gp.commerce.dto.payment.PaymentMethodTokenizationDataWsDTO"/>
+	</bean>
+
+	<bean class="com.gp.commerce.dto.payment.CardInfoWsDTO">
+		<property name="cardDetails" type="String"/>
+		<property name="cardNetwork" type="String"/>
+		<property name="billingAddress" type="com.gp.commerce.dto.payment.AddressWsDTO"/>
+	</bean>
+
+	<bean class="com.gp.commerce.dto.payment.PaymentMethodTokenizationDataWsDTO">
+		<property name="type" type="String"/>
+		<property name="token" type="String"/>
+	</bean>
+
+</beans>

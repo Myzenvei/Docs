@@ -1,0 +1,122 @@
+.top-cheveron {
+  position: absolute;
+  right: 0px;
+  top: calc(100% - 35px);
+}
+.bottom-cheveron {
+  position: absolute;
+  right: 0px;
+  top: calc(100% - 25px);
+}
+.table {
+  thead {
+    background-color: @brand-secondary-8;
+    border: 1px solid @border-color;
+    tr {
+      th {
+        padding: 16px;
+        padding-left: 25px;
+        border-bottom: 0;
+        font-weight: @font-weight-medium;
+        &.sorting {
+          cursor: pointer;
+          background: url('../../../assets/images/sort_disabled.svg') no-repeat
+            left;
+          &_asc {
+            background: url('../../../assets/images/sort_ascending.svg')
+              no-repeat left;
+          }
+          &_desc {
+            background: url('../../../assets/images/sort_descending.svg')
+              no-repeat left;
+          }
+        }
+      }
+    }
+  }
+  tbody {
+    border-bottom: 1px solid @border-color;
+    tr {
+      border-left: 1px solid @border-color;
+      border-right: 1px solid @border-color;
+      td {
+        padding: 16px;
+        padding-left: 25px;
+        a {
+          color: @text-color-secondary-3;
+          font-weight: 500;
+        }
+        .dataTables_empty {
+          text-align: center;
+        }
+      }
+    }
+  }
+  @media (max-width: @screen-xs-max) {
+    &[id*='-data-table'] {
+      thead,
+      tbody,
+      th,
+      td,
+      tr {
+        display: block;
+      }
+      thead {
+        border: 0;
+      }
+      thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+        display: none;
+      }
+      tr {
+        border: 1px solid @border-color;
+        border-bottom: 0;
+        padding: 16px;
+      }
+      td {
+        /* Behave  like a "row" */
+        border: none;
+        position: relative;
+        padding-left: 50%;
+        word-break: break-word;
+        text-align: left;
+      }
+      td:before {
+        /* Now like a table header */
+        position: absolute;
+        /* Top/left values mimic padding */
+        top: 6px;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        word-break: break-word;
+        text-align: left;
+        font-weight: bold;
+      }
+      td:before {
+        content: attr(data-title);
+      }
+    }
+  }
+}
+.paging_simple_numbers {
+  display: flex;
+  justify-content: center;
+}
+.paginate_button {
+  color: @text-color-secondary-3;
+  font-weight: 500;
+  padding: 0 10px;
+  &.current {
+    color: @font-color-stepper;
+  }
+  &.previous,
+  &.next {
+    color: @tag-default-color;
+    &.disabled {
+      color: @btn-default-border;
+    }
+  }
+}

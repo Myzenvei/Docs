@@ -1,0 +1,131 @@
+<section class="create-account">
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>
+  </vx-spinner>
+  <vx-modal ref="companyDetailsModal" size="large" :heading="i18n.companyModalHeading" @close="loginRequest">
+    <vx-company-details :userData="user" slot="component" @companyDetailsubmitted="loginRequest" @skip="loginRequest"
+      :i18n="i18n"></vx-company-details>
+  </vx-modal>
+  <vx-modal ref="termsConditionModal" size="medium" :heading="i18n.termasConditionHeading">
+    <vx-terms-condition slot="component"></vx-terms-condition>
+  </vx-modal>
+  <h1 class="mb-sm-4 mb-md-4 mt-xs-0 mb-xs-3 register-heading">{{i18n.heading}}</h1>
+  <div class="mt-sm-3 mb-sm-4 mt-xs-4 mb-xs-3 b2b-sub-heading" v-if="globals.isB2B()">{{i18n.businessSubHeading}}</div>
+  <form>
+    <div class="mb-xs-4 form-group">
+      <label for="firstName" :aria-hidden='isDeviceAndroid()'>{{i18n.firstName}}</label>
+      <input type="text" class="form-control" v-bind:class="{'input-error': errors.has('firstName')}" maxlength="35"
+        v-validate="{ required: true,
+        regex: /^[A-Za-z\s\.'-]+$/ ,max: 35 }" name="firstName" v-model="user.firstName"
+        @focus="createAccountServerError = ''" :aria-label='i18n.firstName' aria-describedby="register_first_error">
+      <div class="mt-xs-2" v-show="errors.has('firstName')" :aria-hidden="!errors.has('firstName')">
+        <span class="error-msg" id='register_first_error'>{{ errors.first('firstName') }}</span>
+      </div>
+    </div>
+    <div class="mb-xs-4 form-group">
+      <label for="lastName" :aria-hidden='isDeviceAndroid()'>{{i18n.lastName}}</label>
+      <input type="text" class="form-control" v-bind:class="{'input-error': errors.has('lastName')}" maxlength="35"
+        v-validate="{ required: true,
+        regex: /^[A-Za-z\s\.'-]+$/ ,max: 35 }" name="lastName" v-model="user.lastName"
+        @focus="createAccountServerError = ''" :aria-label='i18n.lastName' aria-describedby="register_last_error">
+      <div class="mt-xs-2" v-show="errors.has('lastName')" :aria-hidden="!errors.has('lastName')">
+        <span class="error-msg" id='register_last_error'>{{ errors.first('lastName') }}</span>
+      </div>
+    </div>
+    <div class="mb-xs-4 form-group">
+      <label for="email" :aria-hidden='isDeviceAndroid()'>{{i18n.email}}</label>
+      <input type="text" name="email" class="form-control" maxlength="80" v-bind:class="{'input-error': errors.has('email')}"
+        v-validate="'required|email|max:80'" v-model="user.uid" @focus="createAccountServerError = ''" :aria-label='i18n.email'
+        aria-describedby="register_email_error">
+      <div class="mt-xs-2" v-show="errors.has('email')" :aria-hidden="!errors.has('email')">
+        <span class="error-msg" id='register_email_error'>{{errors.first('email')}}</span>
+      </div>
+    </div>
+    <div class="mb-xs-3 mb-sm-5 form-group has-feedback">
+      <label for="password" :aria-hidden='isDeviceAndroid()'>{{i18n.password}}</label>
+      <input class="password form-control" maxlength="255" v-bind:class="{'input-error': errors.has('password')}" ref="password"
+        type="password" name="password" v-model="user.password" v-validate="{ required: true,
+            regex: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@,%$*!])[A-Za-z\d@,%$*!]{0,255}$/, min:8 }"
+        @focus="createAccountServerError = ''" :aria-label='i18n.password' aria-describedby="register_password_error password_instruction" />
+      <span class=" icon-eye toggle-password" tabindex="0" role="button" :aria-label="showPassword? i18n.iconEyeHideTitle : i18n.iconEyeShowTitle"
+        v-bind:class="{'icn-eye-collapsed': showPassword}" v-on:click="togglePassword" @keyup.enter-space="togglePassword"
+        :title="showPassword? i18n.iconEyeHideTitle : i18n.iconEyeShowTitle"></span>
+      <div class="mt-xs-2" v-show="errors.has('password')" :aria-hidden="!errors.has('password')">
+        <span class="error-msg" id='register_password_error'>{{errors.first('password')}}</span>
+      </div>
+      <p class="mt-xs-4 mb-xs-0 password-instruction" id="password_instruction">{{i18n.passwordInstruction}}</p>
+    </div>
+    <div class="mb-xs-4 form-group dropdown">
+      <label>{{i18n.country}}</label>
+      <br>
+      <vx-dropdown-primary @selected-option="user.country=$event" :dropdownValues="countryList" ref="countryDropdown"></vx-dropdown-primary>
+    </div>
+    <div v-if="isGenderEnabled" class="mb-xs-4 form-group dropdown">
+      <label>{{i18n.gender}}</label>
+      <br>
+      <vx-dropdown-primary @selected-option="user.gender=$event" :dropdownValues="genderList" ref="genderDropdown"></vx-dropdown-primary>
+    </div>
+    <div v-if="isDobEnabled" class="mb-xs-4 form-group dropdown">
+      <label>{{i18n.birthDay}}</label>
+      <br>
+      <div class="month-checkbox">
+          <vx-dropdown-primary @selected-option="handleChangeMonth($event)" :dropdownError="showMonthError" :dropdownValues="populateMonths" ref="monthDropdown"  name="createAccountMonth"></vx-dropdown-primary>
+          <div class="mt-xs-2" v-if="showMonthError">
+            <span class="error-msg" id='month_error_msg' aria-live="assertive">{{i18n.monthRequiredError}}</span>
+          </div>
+        </div>
+      <div class="date-checkbox">
+      <vx-dropdown-primary @selected-option="handleChangeDate($event)" :dropdownError="showDateError" :dropdownValues="date" ref="dateDropdown"></vx-dropdown-primary>
+      <div class="mt-xs-2" v-if="showDateError">
+        <span class="error-msg" id='date_error_msg' aria-live="assertive">{{i18n.dateRequiredError}}</span>
+      </div>
+    </div>
+    </div>
+    <div class="my-xs-0 checkbox">
+      <div v-if="globals.isB2B()" class="form-group">
+        <input id="mailerText" type="checkbox" v-model="user.b2bMailerCheck" @focus="createAccountServerError = ''" />
+        <label for="mailerText">{{i18n.mailerText}}</label>
+      </div>
+      <div v-if="globals.isB2C()">
+        <div class="market-communication mb-xs-2 form-group">
+          <input id="addToMarketComm" type="checkbox" v-model="user.addToMarketComm" @focus="createAccountServerError = ''" />
+          <label for="addToMarketComm">{{i18n.addToMarketComm}}</label>
+        </div>
+      </div>
+      <p class="my-xs-0 terms-and-conditions" v-if="globals.isB2B() || globals.isEmployeeStore()">{{i18n.termsPrivacy}}
+        <a tabindex="0" @click="openTermsModal($event)" @keyup.enter-space="openTermsModal($event)">{{i18n.termsPrivacyLink}}</a>
+      </p>
+      <p class="my-xs-0 terms-and-conditions" v-if="globals.isB2C()">{{i18n.termsPrivacyB2C}}
+        <a tabindex="0" @click="openTermsModal($event)" @keyup.enter-space="openTermsModal($event)">{{i18n.termsPrivacyLink}}</a>
+        <a tabindex="0" @click="openTermsModal($event)" @keyup.enter-space="openTermsModal($event)">{{i18n.privacyPolicy}}</a>
+      </p>
+    </div>
+    <div class="mt-xs-4 mb-xs-2" v-if="createAccountServerError">
+      <span class="error-icon icon-alert-triangle" :title="i18n.iconAlertTriangleTitle"></span>
+      <span class="error-msg">{{createAccountServerError}}</span>
+    </div>
+    <button type="submit" :disabled="errors.any()|| showDateError|| showMonthError" class="mt-md-3 mt-sm-3 mt-xs-4 submit btn btn-block btn-primary d-flex flex-column justify-content-center align-items-center"
+      @click="submitForm">{{i18n.submit}}</button>
+    <p class="login-exists mt-xs-2 mb-sm-0 mb-xs-5" v-if="globals.isB2C() || globals.isEmployeeStore()">{{i18n.haveAccount}}
+      <a @click="login" @keyup.enter-space="login" tabindex="0">{{i18n.login}}
+      </a>
+    </p>
+    <!-- Deferred for R2-->
+    <!-- <div class="py-xs-3 gp-express" v-if="globals.isB2B()">
+      <span>{{i18n.gpExpressLinkText}}</span>
+      <a href="https://gpxpr.es/" target="_blank">
+        <span>{{i18n.gpExpressLink}}</span>
+      </a>
+    </div> -->
+  </form>
+  <!-- This part should be moved to a component or should be used like a shared code -->
+  <form ref="loginForm" :action="actionUrl" method="post" hidden>
+    <!--    <input type="hidden" name="token" :value="globals.siteId" v-if=> -->
+    <input type="hidden" name="token" value="token" v-if='globals.isEmployeeStore()'>
+    <input type="hidden" name="loginType" value="gpemployee" v-if='globals.isEmployeeStore()'>
+
+    <input type="hidden" name="j_username" :value="user.uid">
+    <input type="hidden" name="j_password" :value="user.password">
+    <input type="hidden" name="baseSiteId" :value="globals.siteId">
+    <input type="hidden" name="CSRFToken" :value="globals.csrfToken">
+  </form>
+</section>

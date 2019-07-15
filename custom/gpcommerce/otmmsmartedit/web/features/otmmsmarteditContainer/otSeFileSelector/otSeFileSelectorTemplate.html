@@ -1,0 +1,12 @@
+<div class="seFileSelector {{::ctrl.customClass}}">
+    <label class=" btn__fileSelector" data-ng-show="!ctrl.disabled">
+        <img class="img-upload" data-ng-src="{{::ctrl.uploadIcon}}" data-ng-show="!ctrl.iconRightSide"/>
+        <p class="label label__fileUpload label__fileUpload-link" data-ng-click="openAssetAssignmentDialog()">
+            {{::ctrl.labelI18nKey | translate}}</p>
+        <img class="img-upload media-selector--preview--icon" data-ng-src="{{::ctrl.uploadIcon}}" data-ng-show="ctrl.iconRightSide"/>
+    </label>
+    <label class=" btn__fileSelector" data-ng-show="ctrl.disabled">
+        <img class="img-upload" data-ng-src="{{::ctrl.uploadIcon}}"/>
+        <p class="label label__fileUpload">{{::ctrl.labelI18nKey | translate}}</p>
+    </label>
+</div>

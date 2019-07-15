@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>Icons/Filter</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M9.00192227,12.8261466 L1.23835232,3.64572512 C0.68869301,2.99575299 1.15069426,2 2.00192227,2 L22.0019223,2 C22.8531503,2 23.3151515,2.99575299 22.7654922,3.64572512 L15.0019223,12.8261466 L15.0019223,21 C15.0019223,21.743382 14.2196098,22.2268777 13.5547087,21.8944272 L9.55470867,19.8944272 C9.21592465,19.7250352 9.00192227,19.3787721 9.00192227,19 L9.00192227,12.8261466 Z M19.8249512,3.79797363 L4.13555851,3.79797363 L10.7438248,11.6122485 C10.896489,11.792774 10.9802548,12.0215507 10.9802548,12.2579736 L10.9802548,18.1799396 L12.9802548,19.1799396 L12.9802548,12.2579736 C12.9802548,12.0215507 13.0640206,11.792774 13.2166849,11.6122485 L19.8249512,3.79797363 Z" id="path-1"></path>
+    </defs>
+    <g id="Icons/Filter" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <mask id="mask-2" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+        <g id="Shape" fill-rule="nonzero"></g>
+        <g id="Color/Secondary/LightGrey/100%" mask="url(#mask-2)" fill="#CECECE">
+            <rect id="Color/Secondary/LightGrey" x="0" y="0" width="24" height="24"></rect>
+        </g>
+    </g>
+</svg>

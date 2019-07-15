@@ -1,0 +1,5 @@
+INSERT_UPDATE OAuthClientDetails;clientId[unique=true];resourceIds;scope;authorizedGrantTypes;authorities;clientSecret;registeredRedirectUri;
+;otmmbackoffice;otmmws;basic;password;;;;
+
+UPDATE OAuthClientDetails;clientId[unique=true];resourceIds;
+;smartedit;hybris,otmmws;

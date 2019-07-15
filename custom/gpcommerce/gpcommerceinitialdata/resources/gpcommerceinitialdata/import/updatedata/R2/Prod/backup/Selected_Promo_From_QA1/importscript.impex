@@ -1,0 +1,5 @@
+
+#-----------------------------------------------------------
+insert_update PromotionSourceRule;&Item;actions;code[forceWrite=true,unique=true,allownull=true];conditions;creationtime[forceWrite=true,dateformat=dd.MM.yyyy hh:mm:ss];endDate[dateformat=dd.MM.yyyy hh:mm:ss];excludeFromStorefrontDisplay;maxAllowedRuns;modifiedtime[dateformat=dd.MM.yyyy hh:mm:ss];owner(&Item)[forceWrite=true];priority[allownull=true];ruleGroup(code);sapConditionType;stackable[allownull=true];startDate[dateformat=dd.MM.yyyy hh:mm:ss];status(code,itemtype(code))[allownull=true];uuid[forceWrite=true,unique=true];version[unique=true,allownull=true];website(Identifier)
+"#% impex.includeExternalDataMedia( ""PromotionSourceRule.csv"" , ""UTF-8"", ';',  1 , -1 );"
+#-----------------------------------------------------------

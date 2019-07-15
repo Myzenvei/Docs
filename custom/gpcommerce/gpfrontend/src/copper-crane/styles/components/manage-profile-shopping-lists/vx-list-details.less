@@ -1,0 +1,45 @@
+#copper-crane {
+  .vx-list-details {
+    margin-top: 32px;
+    .favorites {
+      margin-bottom: 36px;
+      & > h1 {
+        font-family: @font-family-queulat-regular;
+        margin: 0;
+        text-transform: capitalize;
+      }
+    }
+    .list-items-container {
+      .vx-product-tile {
+        .product-title a {
+          color: @link-color;
+        }
+        .product-title a,
+        .product-price .product-current-price {
+          font-family: @font-family-queulat-bold;
+        }
+        .product-total-price {
+          font-family: @font-family-queulat-bold;
+          font-size: @font-size-h3;
+        }
+        .product-quantity {
+          color: @text-color;
+          font-size: @font-size-small;
+        }
+        .item-id {
+          font-size: @font-size-small;
+          color: @help-text-color;
+        }
+        .quantity-section {
+          justify-content: flex-start;
+          .quantity-label {
+            font-size: @font-size-small;
+          }
+        }
+        .card-content-right-section {
+          flex-direction: column;
+        }
+      }
+    }
+  }
+}

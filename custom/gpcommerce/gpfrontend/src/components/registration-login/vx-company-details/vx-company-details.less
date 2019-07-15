@@ -1,0 +1,54 @@
+
+// @import "@{base-path}/variables.less";
+.company-details {
+  label {
+    text-transform: capitalize;
+    font-weight: @font-weight-light;
+    display: block;
+  }
+  .form-control {
+    border-radius: 0px;
+  }
+  .section-divider {
+    border-bottom: 1px solid @border-color;
+  }
+  .error-text {
+    color: @font-color-error;
+  }
+  .phone-number {
+    height: 48px;
+    border-radius: 0px;
+  }
+
+  @media only screen and (max-width: @screen-xs-max) {
+    .company-details-button {
+      margin-bottom: -16px !important;
+      margin-left: -16px !important;
+      width: 100vw;
+
+      button {
+        min-width: 50%;
+        float: left;
+      }
+    }
+  }
+
+  @media only screen and (min-width: @screen-sm-min) {
+    .company-details-button {
+      justify-content: center;
+      display: flex;
+
+      button {
+        min-width: 223px;
+      }
+    }
+  }
+
+  @media only screen and (min-width: @screen-md-min) {
+    .company-details-button {
+      button {
+        min-width: 270px;
+      }
+    }
+  }
+}

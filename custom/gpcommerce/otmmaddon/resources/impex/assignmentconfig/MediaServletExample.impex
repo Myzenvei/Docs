@@ -1,0 +1,24 @@
+"#% import de.hybris.platform.jalo.media.MediaFolder;"
+insert MediaFolder;&Item;path[forceWrite=true];qualifier[unique=true,allownull=true]
+"#% beforeEach: if( FlexibleSearch.getInstance().search(""SELECT {pk} FROM {MediaFolder} WHERE {qualifier} = '""+line.get(3)+""'"", MediaFolder.class).getCount() > 0 ) line.clear();"
+;Item0;otmmRoot;otmmRoot
+insert_update OtmmContentType;&Item;code[unique=true,allownull=true]
+;Item1;BITMAP
+;Item2;default
+insert_update ContentByExportDelivery;&Item;command;isDefault;mediaFolder(qualifier);name[unique=true,allownull=true]
+insert_update MediaDeliveryService;&Item;command;isDefault;mediaFolder(qualifier);name[unique=true,allownull=true];renditionSet
+;Item3;;false;otmmRoot;1200Wx1200H;productpictures
+;Item4;;false;otmmRoot;300Wx300H;productpictures
+;Item5;;false;otmmRoot;30Wx30H;productpictures
+;Item6;;false;otmmRoot;515Wx515H;productpictures
+;Item7;;false;otmmRoot;65Wx65H;productpictures
+;Item8;;false;otmmRoot;96Wx96H;productpictures
+;Item9;;true;otmmRoot;original;
+insert_update UrlDelivery;&Item;isDefault;mediaFolder(qualifier);mimeType;mimeTypeAttribute;name[unique=true,allownull=true];urlAttribute;urlTemplate
+insert_update AssetAssignmentSpec;&Item;otmmAssetDeliveryDefinitions(&Item);otmmContentType(code,itemtype(code))[unique=true,allownull=true];otmmExplicitAttribute(enclosingType(code),qualifier)[unique=true,allownull=true];otmmImplicitAttributes(otmmContentType(code,itemtype(code)),otmmExplicitAttribute(enclosingType(code),qualifier),otmmItemType(code));otmmItemType(code)[unique=true,allownull=true]
+;Item10;Item8;BITMAP:OtmmContentType;Product:thumbnail;;Product
+;Item11;Item4;BITMAP:OtmmContentType;Product:picture;BITMAP:OtmmContentType:Product:thumbnail:Product,BITMAP:OtmmContentType:Product:others:Product,BITMAP:OtmmContentType:Product:normal:Product,BITMAP:OtmmContentType:Product:thumbnails:Product,BITMAP:OtmmContentType:Product:galleryImages:Product;Product
+;Item12;Item4;BITMAP:OtmmContentType;Product:normal;;Product
+;Item13;Item8;BITMAP:OtmmContentType;Product:thumbnails;;Product
+;Item14;Item3,Item6,Item4,Item8,Item7,Item5;BITMAP:OtmmContentType;Product:others;;Product
+;Item15;Item3,Item6,Item4,Item8,Item7,Item5;BITMAP:OtmmContentType;Product:galleryImages;;Product

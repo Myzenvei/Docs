@@ -1,0 +1,57 @@
+#copper-crane {
+  .vx-shipping-method {
+    .section-header {
+      font-family: @font-family-queulat-bold;
+    }
+    .vx-single-shipping-method {
+      p.delivery-instruction {
+        font-size: @font-size-small;
+      }
+      .editable-method {
+        .section-sub-heading {
+          font-family: @font-family-queulat-bold;
+        }
+        .radio-button-group {
+          .form-check {
+            .form-group {
+              margin-bottom: 8px;
+            }
+          }
+        }
+      }
+    }
+    .vx-multiple-shipping-method {
+      .section-sub-heading {
+        margin-top: 24px;
+        font-family: @font-family-queulat-bold;
+      }
+      .vx-accordion {
+        .vx-product-tile {
+          .product-title a,
+          .product-price .product-current-price {
+            font-family: @font-family-queulat-bold;
+          }
+          .product-total-price {
+            font-family: @font-family-queulat-bold;
+            font-size: @font-size-h3;
+          }
+          .product-quantity {
+            color: @text-color;
+            font-size: @font-size-small;
+          }
+        }
+      }
+      .method-section-heading {
+        font-size: @font-size-small;
+      }
+      & > div.row.mt-xs-4 {
+        margin-top: 0!important;
+      }
+    }
+    .shipping-method-change {
+      color: @link-color;
+      font-size: @font-size-small;
+      text-decoration: underline;
+    }
+  }
+}

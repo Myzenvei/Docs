@@ -1,0 +1,320 @@
+.vx-pdp-product-info {
+  .dropdown-primary {
+    .dropdown {
+      ul {
+        li {
+          a {
+            display: flex;
+            justify-content: space-between;
+
+            span {
+              font-size: @font-size-small;
+              color: @font-color-error;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .pdp-product-description {
+    #extole_zone_product_page {
+      display: inline-block;
+      padding-top: 10px;
+    }
+
+    h1 {
+      margin-top: 0px;
+      font-weight: @font-weight-medium;
+    }
+
+    .product-subtitle {
+      font-size: @font-size-large;
+      font-weight: @font-weight-medium;
+      color: @help-text-color;
+    }
+
+    .text-danger {
+      color: @font-color-error;
+    }
+
+    .pdp-item-details {
+      p,
+      span {
+        font-weight: @font-weight-regular;
+        font-size: @font-size-small;
+        color: @font-color-label-text;
+        word-break: break-all;
+        letter-spacing: 0.4px;
+      }
+    }
+
+    .star-rating {
+      color: @font-color-label-text;
+    }
+
+    .product-selling-smt {
+      color: @help-text-color;
+      font-weight: @font-weight-medium;
+    }
+
+    .price {
+      width: auto;
+      display: table;
+
+      .current-price {
+        font-weight: @font-weight-medium;
+        font-size: @font-size-h3;
+        color: @text-color;
+        display: table-cell;
+        width: auto;
+      }
+
+      .actual-price {
+        display: table-cell;
+        vertical-align: middle;
+        font-weight: @font-weight-light;
+        font-size: @font-size-small;
+        color: @font-color-error;
+        text-decoration: line-through;
+        width: auto;
+      }
+    }
+
+    .dropdown-primary {
+      .dropdown {
+        button {
+          height: 48px;
+          border: 1px solid @brand-secondary-5;
+          letter-spacing: @letter-spacing-default;
+        }
+      }
+    }
+
+    .pdp-quantity-container,
+    .pdp-facet-container {
+      label {
+        font-weight: @font-weight-regular;
+        letter-spacing: 0.15;
+      }
+    }
+
+    .pdp-quantity-container {
+      .dropdown-primary {
+        button span {
+          color: @brand-secondary-5;
+        }
+      }
+    }
+
+    .pdp-product-status {
+      font-weight: @font-weight-regular;
+      font-size: @font-size-small;
+
+      &.product-unavailable {
+        color: @font-color-error;
+      }
+
+      a {
+        font-weight: @font-weight-medium;
+        color: @link-color;
+        font-size: @font-size-small;
+        display: block;
+      }
+    }
+
+    .pdp-variant-container {
+      list-style-type: none;
+
+      li.variant {
+        display: inline-block;
+
+        a {
+          width: 40px;
+          height: 40px;
+          display: table;
+          text-align: center;
+
+          &:active,
+          &:hover,
+          &:active {
+            text-decoration: none;
+          }
+
+          span {
+            display: table-cell;
+            vertical-align: middle;
+            font-size: @font-icon-size-1;
+            color: @font-icon-color-1;
+          }
+        }
+
+        & .active {
+          border: 2px solid @border-color-5;
+        }
+      }
+    }
+
+    .pdp-lease-container {
+      display: table;
+      width: auto;
+
+      p,
+      span {
+        display: table-cell;
+        vertical-align: middle;
+        color: @font-color-label-text;
+      }
+
+      span {
+        font-size: @font-size-large;
+        color: @font-icon-color-3;
+      }
+    }
+
+    label {
+      letter-spacing: @letter-spacing-default;
+      font-weight: @font-weight-regular;
+    }
+  }
+
+  .pdp-product-cta {
+    text-align: center;
+
+    span {
+      display: block;
+      font-size: @font-icon-size;
+      color: @font-icon-color-3;
+    }
+
+    .icon-share {
+      cursor: pointer;
+    }
+
+    .tile-icon {
+      height: 20px;
+      width: 20px;
+
+      svg.heart {
+        width: 20px;
+        fill: @border-color;
+        transition: all 3s;
+        overflow: visible !important;
+        position: relative;
+      }
+
+      button.favorite {
+        display: block;
+        outline: 0;
+        padding: 0;
+        border: none;
+        background: none;
+        overflow: visible;
+        position: relative;
+
+        &:focus {
+          outline: 0;
+        }
+
+        #heart-outline {
+          transition: all 0.2s;
+          cursor: pointer;
+        }
+
+        &.active {
+          svg {
+            #heart-outline {
+              stroke: @fav-icon-fill-color;
+            }
+
+            #fill {
+              position: absolute;
+              z-index: 10;
+              transform-origin: 20% 20%;
+              animation: heartBeat 0.5s 1 cubic-bezier(0.16, 1.32, 0.91, 1.26);
+              animation-fill-mode: forwards;
+              fill: @fav-icon-fill-color;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .pdp-add-to-cart-container {
+    position: fixed;
+    bottom: 0;
+    left: 0%;
+    background-color: @brand-secondary-4;
+    width: 100%;
+    margin: 0 auto;
+    z-index: 2;
+    border-top: 1px solid @border-color;
+
+    button {
+      width: 271px;
+      letter-spacing: @letter-spacing-default;
+    }
+  }
+
+  .error-text {
+    color: @font-color-error;
+    font-size: @font-size-error;
+  }
+
+  .display-attributes {
+    display: table;
+    font-weight: @font-weight-regular;
+    font-size: @font-size-small;
+    color: @font-color-label-text;
+    word-break: break-word;
+    letter-spacing: 0.4px;
+    padding: 0 16px;
+  }
+}
+
+@media screen and (max-width: @screen-sm-max) {
+  .vx-pdp-product-info {
+    .pdp-product-description {
+      h1 {
+        font-size: @font-size-large;
+      }
+
+      .pdp-stepper-control {
+        margin-bottom: 0;
+      }
+
+      .price {
+        .current-price {
+          font-size: @font-size-large;
+        }
+      }
+
+      .dropdown-primary {
+        .dropdown {
+          button {
+            height: 40px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: @screen-xs-max) {
+  .vx-pdp-product-info {
+    .pdp-add-to-cart-container {
+      button {
+        width: 100%;
+      }
+    }
+
+    .pdp-quantity-container {
+      .form-group {
+        &.dropdown {
+          width: 100vw;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,220 @@
+<div class="vx-my-account-address row">
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>
+  </vx-spinner>
+  <vx-modal ref="addNewAddressModal" size="large" :heading="addressModalHeading" v-bind:is-modal-scrollable="modalScrollable">
+    <vx-add-edit-address ref="addressForm" slot="component" :i18n="i18n.addAddress" @onAddressSaved="saveAddress"
+      :editAddress="selectedAddress" v-bind:isProfile="true" :is-bussiness-unit='globals.isB2B()' :submit-button-text="i18n.addAddress.submitAddress">
+      <template slot="header">
+        {{""}}
+      </template>
+    </vx-add-edit-address>
+  </vx-modal>
+  <vx-modal ref="deleteAddressModal" size="small" :heading="'Delete Address'">
+    <vx-delete-address v-bind:address="selectedAddress" @onAddressDeleted="deletedAddress" slot="component" :i18n="i18n.deleteAddress"></vx-delete-address>
+  </vx-modal>
+  <div class="col-xs-12">
+    <div class="row">
+      <h1 class="col-xs-12 mb-xs-0 pt-xs-3 pb-xs-2">{{i18n.myAccountAddress.addressHeading}}</h1>
+    </div>
+    <div class="row d-flex px-xs-3 address-cards-container" v-if="globals.siteConfig.addAddressEnabled">
+      <div v-bind:class="{ 'address-contains-mobile':addresses.length>0}"
+        class="col-sm-6 col-xs-12 py-xs-2 py-sm-3 add-card-wrapper">
+        <vx-profile-card :card-type="'add'" v-bind:is-default-height="true">
+          <template slot="details">
+            <a @click="openAddressModal(true,'',$event)" href="javascript:void(0)" :aria-label="i18n.myAccountAddress.a11yAddAddress"
+              role="button">
+              <span class="icon-big icon-plus" :title="i18n.myAccountAddress.iconAddTitle" aria-hidden="true"></span>
+              <span class="ml-xs-1 link-large link-bold">Add Address</span>
+            </a>
+          </template>
+        </vx-profile-card>
+      </div>
+      <div class="col-sm-6 col-xs-12 py-xs-2 py-sm-3"
+        v-if="addresses.length > 0 && globals.isB2C()" v-for="address in addresses">
+        <vx-profile-card :card-classes="'px-xs-1 pl-xs-1 pt-xs-3 pb-xs-2'">
+          <template slot="heading">{{""}}</template>
+          <template slot="details">
+            <li class="card-item">{{address.firstName}} {{address.lastName}}</li>
+            <li class="card-item" v-if="address && address.companyName">{{address.companyName}}</li>
+            <!-- commenting business unit -->
+            <!-- <li class="card-item" v-if="address && address.unit && address.unit.uid">{{address.unit.uid}}</li> -->
+            <li class="card-item">{{address.line1}}</li>
+            <li class="card-item">{{address.line2}}</li>
+            <li class="card-item">{{address.town}} {{address.region.isocodeShort}} {{address.postalCode}}</li>
+            <li class="card-item">{{address.country.isocode}}</li>
+          </template>
+          <template slot="icons">
+            <li class="card-icon">
+              <a @click="openAddressModal(false,address,$event)" @keyup.enter-space="openAddressModal(false,address,$event)"
+                tabindex="0" role="button" :aria-label="i18n.myAccountAddress.iconEditTitle">
+                <span class="icon-default icon-default icon-edit" :title="i18n.myAccountAddress.iconEditTitle"></span>
+              </a>
+            </li>
+            <li class="card-icon mt-xs-2" v-if="globals.siteConfig.deleteAddressEnabled">
+              <a @click="openDeleteModal(address,$event)" @keyup.enter-space="openDeleteModal(address,$event)" tabindex="0"
+                role="button" :aria-label="i18n.myAccountAddress.iconDeleteTitle">
+                <span class="icon-default icon-trash" :title="i18n.myAccountAddress.iconDeleteTitle"></span>
+              </a>
+            </li>
+          </template>
+          <template slot="footer">
+            <!-- <p class="mb-xs-0 card-item card-item-bold" v-if="address.defaultBillingAddress">
+              {{i18n.myAccountAddress.txtDefaultBillingAddress}}
+            </p> -->
+            <p class="mb-xs-0 card-item card-item-bold" v-if="address.defaultAddress">
+              {{i18n.myAccountAddress.txtDefaultShippingAddress}}
+            </p>
+            <p class="mb-xs-0 card-item card-item-bold" v-if="address.palletShipment">
+              {{i18n.myAccountAddress.txtDefaultPalletShipments}}
+            </p>
+            <template v-if="!address.shippingAddress && !address.billingAddress">
+              {{""}}
+            </template>
+            <template v-else>
+              {{""}}
+            </template>
+
+          </template>
+        </vx-profile-card>
+      </div>
+    </div>
+
+    <!-- For B2B -->
+    <!-- Addresses Under Review -->
+    <template v-if="!hideUnderReviewSection">
+      <div class="row mt-xs-2 mt-sm3" v-if="globals.isB2B()">
+        <div class="col-xs-12 panel-heading pt-xs-5 px-xs-0 ml-xs-3">{{i18n.myAccountAddress.txtUnderReview}}</div>
+      </div>
+      <div class="row d-flex px-xs-3 address-cards-container" v-if="globals.isB2B()">
+        <template v-for="address in addresses">
+          <div class="col-sm-6 col-xs-12 py-xs-2 py-sm-3" v-if="address.approvalStatus==='PENDINGBYADMIN' || address.approvalStatus==='PENDINGBYGP'">
+            <vx-profile-card :card-classes="'px-xs-2 py-xs-4'" :has-icons=false :hasFooter="address.approvalStatus==='PENDINGBYADMIN' &&  isAdmin===true"
+              v-on:rejectUserAddress="rejectUserAddress(address.id,address.unit.uid,address.userId)"
+              v-on:approveUserAddress="approveUserAddress(address.id,address.unit.uid,address.userId)">
+              <template slot="heading">
+                <h4 class="pb-md-2 pb-xs-2">{{i18n.myAccountAddress.pendingReview}}</h4>
+              </template>
+              <template slot="details">
+                <li class="card-item">{{address.firstName}} {{address.lastName}}</li>
+                <li class="card-item" v-if="address && address.companyName">{{address.companyName}}</li>
+                <!-- commenting business unit -->
+                <!-- <li class="card-item" v-if="address && address.unit && address.unit.uid">{{address.unit.uid}}</li> -->
+                <li class="card-item">{{address.line1}}</li>
+                <li class="card-item">{{address.line2}}</li>
+                <li class="card-item">{{address.town}} {{address.region.isocodeShort}} {{address.postalCode}}</li>
+                <li class="card-item">{{address.country.isocode}}</li>
+                <li class="mb-xs-0 card-item card-item-bold" v-if="address.defaultBillingAddress">
+                  {{i18n.myAccountAddress.txtDefaultBillingAddress}}
+                </li>
+                <li class="mb-xs-0 card-item card-item-bold" v-if="address.defaultAddress">
+                  {{i18n.myAccountAddress.txtDefaultShippingAddress}}
+                </li>
+                <li class="mb-xs-0 card-item card-item-bold" v-if="address.palletShipment">
+                  {{i18n.myAccountAddress.txtDefaultPalletShipments}}
+                </li>
+              </template>
+
+            </vx-profile-card>
+          </div>
+        </template>
+      </div>
+    </template>
+
+    <!-- Active Addresses -->
+    <div class="row mt-xs-2 mt-sm3" v-if="globals.isB2B() && (!hideUnderReviewSection || isActive)">
+      <div class="col-xs-12 panel-heading pt-xs-5 px-xs-0 ml-xs-3">{{i18n.myAccountAddress.txtActive}}</div>
+    </div>
+    <div class="row d-flex px-xs-3 address-cards-container" v-if="globals.isB2B()">
+      <template v-for="address in addresses">
+        <div class="col-sm-6 col-xs-12 py-xs-2 py-sm-3" v-if="address.approvalStatus==='ACTIVE'">
+          <vx-profile-card :card-classes="'px-xs-2 pt-xs-4 pb-xs-3'" :is-enabled=true :is-pallet-shipment="address.palletShipment"
+            :is-default-billing="address.billingAddress" :is-default-shipping="address.shippingAddress" :isEnabled="true"
+            v-on:disableUserAddress="disableUserAddress(address.id,address.unit.uid,address.userId)">
+            <template slot="heading">{{""}}</template>
+            <template slot="details">
+              <li class="card-item">{{address.firstName}} {{address.lastName}}</li>
+                <li class="card-item" v-if="address && address.companyName">{{address.companyName}}</li>
+                <!-- commenting business unit -->
+                <!-- <li class="card-item" v-if="address && address.unit && address.unit.uid">{{address.unit.uid}}</li> -->
+                <li class="card-item">{{address.line1}}</li>
+                <li class="card-item">{{address.line2}}</li>
+                <li class="card-item">{{address.town}} {{address.region.isocodeShort}} {{address.postalCode}}</li>
+                <li class="card-item">{{address.country.isocode}}</li>
+              <li class="mb-xs-0 card-item card-item-bold" v-if="address.defaultBillingAddress">
+                {{i18n.myAccountAddress.txtDefaultBillingAddress}}
+              </li>
+              <li class="mb-xs-0 card-item card-item-bold" v-if="address.defaultAddress">
+                {{i18n.myAccountAddress.txtDefaultShippingAddress}}
+              </li>
+              <li class="mb-xs-0 card-item card-item-bold" v-if="address.palletShipment">
+                {{i18n.myAccountAddress.txtDefaultPalletShipments}}
+              </li>
+            </template>
+            <template slot="icons">
+              <li class="card-icon">
+                <a @click="openAddressModal(false,address,$event)" @keyup.enter-space="openAddressModal(false,address,$event)"
+                  tabindex="0" role="button" :aria-label="i18n.myAccountAddress.iconEditTitle">
+                  <span class="icon-default icon-default icon-big icon-edit" :title="i18n.myAccountAddress.iconEditTitle"></span>
+                </a>
+              </li>
+            </template>
+            <!-- <template slot="footer">
+              <template v-if="!address.shippingAddress && !address.billingAddress">
+                {{""}}
+              </template>
+              <template v-else>
+                {{""}}
+              </template>
+
+            </template> -->
+          </vx-profile-card>
+        </div>
+      </template>
+
+    </div>
+
+    <!-- Disabled Addresses -->
+    <div class="row mt-xs-2 mt-sm3" v-if="globals.isB2B() && (!hideUnderReviewSection || isDisabled)">
+      <div class="col-xs-12 panel-heading pt-xs-5 px-xs-0 ml-xs-3">{{i18n.myAccountAddress.txtDisabled}}</div>
+    </div>
+    <div class="row d-flex px-xs-3 address-cards-container" v-if="globals.isB2B()">
+      <template v-for="address in addresses">
+        <div class="col-sm-6 col-xs-12 py-xs-2 py-sm-3" v-if="address.approvalStatus==='DISABLED'">
+          <vx-profile-card :card-classes="'px-xs-2 py-xs-4'" :is-disabled=true :has-icons=false v-on:enableUserAddress="enableUserAddress(address.id,address.unit.uid,address.userId)"
+            :isDisabled="true">
+            <template slot="heading">{{""}}</template>
+            <template slot="details">
+              <li class="card-item">{{address.firstName}} {{address.lastName}}</li>
+                <li class="card-item" v-if="address && address.companyName">{{address.companyName}}</li>
+                <!-- commenting business unit -->
+                <!-- <li class="card-item" v-if="address && address.unit && address.unit.uid">{{address.unit.uid}}</li> -->
+                <li class="card-item">{{address.line1}}</li>
+                <li class="card-item">{{address.line2}}</li>
+                <li class="card-item">{{address.town}} {{address.region.isocodeShort}} {{address.postalCode}}</li>
+                <li class="card-item">{{address.country.isocode}}</li>
+               <li class="mb-xs-0 card-item card-item-bold" v-if="address.defaultBillingAddress">
+                {{i18n.myAccountAddress.txtDefaultBillingAddress}}
+              </li>
+              <li class="mb-xs-0 card-item card-item-bold" v-if="address.defaultAddress">
+                {{i18n.myAccountAddress.txtDefaultShippingAddress}}
+              </li>
+              <li class="mb-xs-0 card-item card-item-bold" v-if="address.palletShipment">
+                {{i18n.myAccountAddress.txtDefaultPalletShipments}}
+              </li>
+            </template>
+            <template slot="icons">{{""}}</template>
+            <!-- <template slot="footer">
+              <template v-if="!address.shippingAddress && !address.billingAddress">
+                {{""}}
+              </template>
+              <template v-else>
+                {{""}}
+              </template>
+
+            </template> -->
+          </vx-profile-card>
+        </div>
+      </template>
+    </div>
+  </div>
+</div>

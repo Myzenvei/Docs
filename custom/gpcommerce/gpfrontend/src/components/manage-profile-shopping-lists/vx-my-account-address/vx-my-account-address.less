@@ -1,0 +1,90 @@
+.vx-my-account-address {
+  h1 {
+    font-size: 21px;
+  }
+  .address-cards-container {
+    flex-wrap: wrap;
+    & > div {
+      &:nth-child(odd) {
+        > .vx-profile-card {
+          padding-right: 16px;
+        }
+      }
+      &:nth-child(even) {
+        > .vx-profile-card {
+          padding-left: 16px;
+        }
+      }
+    }
+    .profile-card {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+    }
+    .card-item {
+      word-break: break-all;
+    }
+  }
+  .add-card-wrapper {
+    .vx-profile-card {
+      height: 240px;
+    }
+  }
+
+  .panel-heading {
+    color: @text-color;
+    font-size: 16px;
+    font-weight: @font-weight-medium;
+    border-top: 1px solid @border-color-input;
+    width: 98%;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+  }
+  .icon-edit,
+  .icon-trash,
+  .icon-plus {
+    font-size: 24px;
+  }
+}
+@media screen and (min-width: @screen-sm-max) {
+  .vx-my-account-address {
+    margin-right: 24px;
+  }
+}
+@media screen and (max-width: @screen-sm-max) {
+  .vx-my-account-address {
+    .add-card-wrapper {
+      .vx-profile-card {
+        height: 200px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: @screen-xs-max) {
+  .vx-my-account-address {
+    .address-cards-container {
+      & > div:nth-child(odd),
+      & > div:nth-child(even) {
+        > .vx-profile-card {
+          padding-left: 0px;
+          padding-right: 0px;
+        }
+      }
+    }
+    .add-card-wrapper {
+      .vx-profile-card {
+        height: 172px;
+      }
+    }
+    .add-card-wrapper.address-contains-mobile {
+      margin-top: 16px;
+      .vx-profile-card {
+        height: 104px;
+        .card-default-height {
+          min-height: 104px;
+        }
+      }
+    }
+  }
+}

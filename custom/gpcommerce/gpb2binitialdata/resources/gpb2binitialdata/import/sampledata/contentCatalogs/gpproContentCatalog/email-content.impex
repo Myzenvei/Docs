@@ -1,0 +1,49 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+$contentCatalog=gpproContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+
+# CMS Image Components
+INSERT_UPDATE CMSImageComponent;$contentCV[unique=true];uid[unique=true];name
+;;EmailBannerSaleNowOnImage;EmailBannerSaleNowOnImage
+;;EmailBannerFreeDeliveryImage;EmailBannerFreeDeliveryImage
+;;EmailSiteLogoImage;Email Site Logo Image;
+;;EmailBannerHeaderImage;Email Header Image;
+;;EmailBannerFooterImage;Email Footer Image;
+
+INSERT_UPDATE SimpleBannerComponent;$contentCV[unique=true];uid[unique=true];name;urlLink
+;;TwitterBannerComponent;Twitter Banner Component;https://twitter.com/GPProfessional
+;;LinkedinBannerComponent;Linkedin Banner Component;https://www.linkedin.com/company/gppro/
+;;YouTubeBannerComponent;YouTube Banner Component;https://www.youtube.com/user/GeorgiaPacificPro
+
+INSERT_UPDATE GPFooterComponent;$contentCV[unique=true];uid[unique=true];name
+;;EmailFooterBanner;EmailFooterBanner
+
+# Content Slots
+UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(uid,$contentCV)
+;;EmailTopSlot;EmailBannerSaleNowOnImage
+;;EmailBottomSlot;EmailBannerFreeDeliveryImage
+;;EmailSiteLogoSlot;EmailSiteLogoImage
+;;EmailBottomSlot;EmailFooterBanner
+;;EmailSiteLogoSlot;EmailBannerHeaderImage
+
+INSERT_UPDATE CMSNavigationNode ; uid[unique=true]    ; $contentCV[unique=true] ; name             ; parent(uid, $contentCV) ; links(uid, $contentCV) ; &nodeRef           
+                                ; GPFooterNavigationNavNode ;                   ; Email Footer Navigation ; GPNavigationNavNode       ;   ContactUsLink              ; GPFooterNavigationNavNode
+
+INSERT_UPDATE CMSLinkComponent ; $contentCV[unique=true] ; uid[unique=true]       ; name                       ; url                       ; target(code)[default='sameWindow'] ; linkname[$lang=en]   
+                               ;                         ; ContactUsLink ; ContactUsLink ; /supportticket/contactusform        ;                                    ;  Contact Us 
+
+INSERT_UPDATE CMSParagraphComponent ; uid[unique=true]    ; $contentCV[unique=true]; content(lang=$lang)
+									; FollowUsText         ;                        ; Follow Us
+
+
+INSERT_UPDATE GPFooterComponent;$contentCV[unique=true];uid[unique=true];name;navigationNodes(uid, $contentCV);emailFooter(uid, $contentCV)
+;;EmailFooterBanner;EmailFooterBanner;GPFooterNavigationNavNode;TwitterBannerComponent,LinkedinBannerComponent,YouTubeBannerComponent

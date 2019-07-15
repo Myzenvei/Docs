@@ -1,0 +1,43 @@
+
+.vx-find-distributor {
+  .no-stores {
+    background-color: @brand-secondary-8;
+    height: 284px;
+    line-height: 284px;
+    color: @font-color-label-text;
+    font-weight: @font-weight-regular;
+    text-align: center;
+    clear: both;
+  }
+  .pagination {
+    margin: 32px 0 0;
+    li{
+      a {
+        border: none;
+      }
+      &:not(.page-item) > a{
+        color: @brand-secondary-9;
+      }
+      &.disabled{
+        a{
+          color: @btn-disabled-bg;
+        }
+      }
+      &.active{
+        a{
+          background: none;
+          color: @brand-secondary-9;
+        }
+      }
+    }
+
+  }
+}
+@media (min-width: @screen-sm-min) {
+  .vx-find-distributor {
+    .no-stores {
+      height: 384px;
+      line-height: 384px;
+    }
+  }
+}

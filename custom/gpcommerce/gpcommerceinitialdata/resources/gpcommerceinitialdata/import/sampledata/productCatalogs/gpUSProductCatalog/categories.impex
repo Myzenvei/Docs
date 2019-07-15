@@ -1,0 +1,202 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+# ImpEx for Importing Categories into GP Store
+
+# Macros / Replacement Parameter definitions
+$catalogVersion=catalogVersion(catalog(id[default='gpUSProductCatalog']),version[default='Staged'])[unique=true,default='gpUSProductCatalog:Staged']
+$categories=target(code, $catalogVersion)[unique=true]
+$supercategories=source(code, $catalogVersion)[unique=true]
+$lang=en
+
+# Create Categories
+INSERT_UPDATE Category;code[unique=true];$catalogVersion;supercategories(code,$catalogVersion);allowedPrincipals(uid)[default='customergroup']
+;categories;;
+;areaofservice;;
+;paperproducts;;
+;dispensers;;
+;bundles;;
+;cleaningsupply;;
+ #gpxpress
+;brands;;
+;retailproducttypes;;
+;retailbrands;;
+;sustainablesolutions;;
+;gpxpresscategories;;
+;crossReferenceCategories;;
+
+INSERT_UPDATE Category;code[unique=true];$catalogVersion;supercategories(code,$catalogVersion);allowedPrincipals(uid)[default='customergroup'];categorizationCategory[default=true]
+;b2b;;;;
+;retail;;;;
+
+# Create Categories Dixie Food Services
+INSERT_UPDATE Category;code[unique=true];supercategories(code,$catalogVersion);$catalogVersion;allowedPrincipals(uid)[default='customergroup']
+#;categories;;
+;13627;categories;;
+;12957;categories;;
+;10211;categories;;
+;9375;categories;;
+;9687;categories;;
+;6250;categories;;
+;10474;categories;;
+;9363;categories;;
+;6264;categories;;
+;6183;categories;;
+;211;areaofservice;;
+;212;areaofservice;;
+;213;areaofservice;;
+
+# Create Categories GP employee
+INSERT_UPDATE Category;code[unique=true];supercategories(code,$catalogVersion);$catalogVersion;allowedPrincipals(uid)[default='customergroup']
+###
+;311;paperproducts;;
+;312;paperproducts;;
+;313;paperproducts;;
+;314;paperproducts;;
+;315;paperproducts;;
+;316;paperproducts;;
+;317;dispensers;;
+;318;dispensers;;
+
+;319;cleaningsupply;;
+;320;cleaningsupply;;
+;321;cleaningsupply;;
+;318;dispensers;;
+
+# Create Categories for GPXpress(Retail)
+INSERT_UPDATE Category;code[unique=true];supercategories(code,$catalogVersion);$catalogVersion;allowedPrincipals(uid)[default='customergroup']
+#;categories;;
+;401;gpxpresscategories;;
+;402;gpxpresscategories;;
+;403;gpxpresscategories;;
+;404;gpxpresscategories;;
+;405;gpxpresscategories;;
+;406;gpxpresscategories;;
+;407;gpxpresscategories;;
+;408;gpxpresscategories;;
+;409;gpxpresscategories;;
+;410;gpxpresscategories;;
+;411;gpxpresscategories;;
+;412;gpxpresscategories;;
+;413;gpxpresscategories;;
+;414;retailproducttypes;;
+;415;retailproducttypes;;
+;416;retailproducttypes;;
+;417;retailproducttypes;;
+;418;retailproducttypes;;
+;419;retailproducttypes;;
+;420;retailproducttypes;;
+
+;501;brands;;
+;502;brands;;
+;503;brands;;
+;504;brands;;
+;505;brands;;
+;506;brands;;
+;507;brands;;
+;508;brands;;
+;509;brands;;
+;510;retailbrands;;
+;511;retailbrands;;
+;512;retailbrands;;
+;513;retailbrands;;
+;514;retailbrands;;
+;515;retailbrands;;
+;516;retailbrands;;
+;517;retailbrands;;
+;518;retailbrands;;
+
+;601;sustainablesolutions;;
+;602;sustainablesolutions;;
+;603;sustainablesolutions;;
+;604;sustainablesolutions;;
+;605;sustainablesolutions;;
+;606;sustainablesolutions;;
+;607;sustainablesolutions;;
+;608;sustainablesolutions;;
+;609;sustainablesolutions;;
+;610;sustainablesolutions;;
+;611;sustainablesolutions;;
+
+# Create Cross-Reference Categories
+INSERT_UPDATE Category;code[unique=true];$catalogVersion;supercategories(code,$catalogVersion)[default='crossReferenceCategories'];allowedPrincipals(uid)[default='customergroup']
+;papertowels; ;
+;bathroomtissue; ;
+;compacttissuespindle; ;
+;papernapkins; ;
+;cleaningwipes; ;
+;skincare; ;
+;dispensersCrossReference; ;
+#;officepaper; ;
+#;tablecovers; ;
+;hotcups; ;
+;coldcups; ;
+;foamcups; ;
+;portioncups; ;
+;cutlery; ;
+;paperplatesbowls; ;
+;cartonstrays; ;
+;delibrakeryfreezer; ;
+;strawsandstirrers; ;
+
+# sub-categories
+;foldedpapertowels; ; papertowels;
+;rolltowels; ; papertowels;
+;kitchenrolltowels; ; papertowels;
+;standardrolltissue; ; bathroomtissue;
+;jumbotissue; ; bathroomtissue;
+;facialtissue; ; bathroomtissue;
+;interfoldedtissue; ; bathroomtissue;
+;seatcovers; ; bathroomtissue;
+;doublerollverticalstack; ; compacttissuespindle;
+;doublerollhorizontal; ; compacttissuespindle;
+;singleordoubleroll; ; compacttissuespindle;
+;singleroll; ; compacttissuespindle;
+;dinnernapkins; ; papernapkins;
+;dispensernapkins; ; papernapkins;
+;beveragenapkins; ; papernapkins;
+;industrialwipers; ; cleaningwipes;
+;foodservicewrapers; ; cleaningwipes;
+;disposableductcloths; ; cleaningwipes;
+;skincaredispenser; ; dispensersCrossReference;
+;papertowldispenser; ; dispensersCrossReference;
+;tissuedispenser; ; dispensersCrossReference;
+;napkindispenser; ; dispensersCrossReference;
+;paperfoamhotcups; ; hotcups;
+;hotcuplids; ; hotcups;
+#;hotcuplids; ; coldcups;
+;paperfoamcoldcups; ; coldcups;
+;plasticcoldcups; ; coldcups;
+;coldcuplids; ; coldcups;
+;drinkcarriersdispensers; ; coldcups;
+;individualcutlerypieces; ; cutlery;
+;wrappedcutlery; ; cutlery;
+;cutlerykits; ; cutlery;
+;delipaper; ; delibrakeryfreezer;
+;freezerbutcherpaper; ; delibrakeryfreezer;
+;bakerypapercups; ; delibrakeryfreezer;
+;panlinersandsheets; ; delibrakeryfreezer;
+
+
+# Create CopperAndCrane Categories
+INSERT_UPDATE Category;code[unique=true];$catalogVersion;supercategories(code,$catalogVersion);allowedPrincipals(uid)[default='customergroup'];name[lang=$lang]
+;spa; ;;;Spa Favorites
+;luxury-bath; ;;;Luxury Bath
+;skin-care; ;;;Skin Care
+;body-care; ;;;Body Care
+;gifts; ; ;;Gift Sets
+;scented-candles; ;;;Scented Candles
+
+# Create VanityFairNapkins Categories
+INSERT_UPDATE Category;code[unique=true];$catalogVersion;supercategories(code,$catalogVersion);allowedPrincipals(uid)[default='customergroup'];name[lang=$lang]
+;everyday-collection; ;;;Everyday Collection
+;entertain-collection; ;;;Entertain Collection
+;extra-absorbent-napkins; ;;;Extra Absorbent Napkins
+

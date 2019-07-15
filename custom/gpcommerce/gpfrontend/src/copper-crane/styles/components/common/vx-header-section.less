@@ -1,0 +1,222 @@
+#copper-crane {
+  .header-section {
+    border-bottom: 1px solid @header-bottom-border-color;
+    .navbar-top {
+      span#extole_zone_global_header {
+        padding-left: 40px;
+      }
+    }
+    .navbar-bottom {
+      color: @font-color-nav-bottom;
+      .logo {
+        padding-left: 40px;
+        img {
+          height: 16px;
+        }
+      }
+      .navbar-bottom {
+        span#extole_zone_global_header {
+          display: none;
+        }
+      }
+      .navbar-bottom-left {
+        margin-left: 0;
+        padding-left: 8px!important;
+        .navigation-menu {
+          .primary-menu {
+            .primary-menu-item {
+              a {
+                color: @font-color-nav-bottom;
+              }
+              .secondary-menu {
+                .sec-title.js-secondary-title {
+                  font-size: @font-size-small;
+                  color: @font-color-sec-nav;
+                  text-transform: capitalize;
+                }
+                ul {
+                  li.js-secondary-child {
+                    a {
+                      font-size: @font-size-medium;
+                      color: @font-color-sec-nav;
+                      font-family: @font-family-queulat-bold;
+                    }
+                    &:hover {
+                      a {
+                        color: @font-color-nav-bottom;
+                      }
+                      background-color: @sec-nav-hover-color;
+                    }
+                  }
+                }
+                .arrow-up {
+                  border-bottom: 12px solid @border-color;
+                  &::after {
+                    content: '';
+                    position: absolute;
+                    width: 0;
+                    height: 0;
+                    top: 1px;
+                    left: -12px;
+                    border-left: 12px solid transparent;
+                    border-right: 12px solid transparent;
+                    border-bottom: 12px solid @brand-secondary-4;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      .navbar-bottom-right {
+        .cart {
+          .icon-cart {
+            color: @font-color-nav-bottom;
+          }
+          .badge {
+            padding: 2px 8px;
+          }
+        }
+        .search-browse-auto-suggest {
+          .right-addon {
+            width: 272px;
+          }
+          .autosuggest-panel {
+            top: 56px;
+          }
+        }
+      }
+      &.checkout-header {
+        background-color: @background-checkout-header;
+        .header-left-section {
+          .logo {
+            img {
+              height: 32px;
+            }
+          }
+        }
+        .checkout-options {
+          a {
+            padding-top: 20px!important;
+            padding-bottom: 20px!important;
+          }
+        }
+      }
+    }
+  }
+  @media only screen and (max-width: @screen-sm-max) {
+    .header-section {
+      .navbar-top {
+        button.logo {
+          top: initial;
+          background: transparent;
+          border: none;
+          img {
+            height: 16px;
+          }
+        }
+        span#extole_zone_global_header {
+          display: none;
+        }
+      }
+      .navbar-bottom {
+        .logo {
+          padding-left: 0;
+        }
+        .navbar-bottom-right {
+          .search-browse-auto-suggest {
+            .right-addon {
+              width: 575px;
+            }
+            .autosuggest-panel {
+              top: 52px;
+            }
+          }
+        }
+        .navbar-bottom-left {
+          .navigation-menu {
+            .primary-menu {
+              .primary-menu-item {
+                a {
+                  font-family: @font-family-queulat-bold;
+                  font-size: @font-size-medium;
+                  color: @font-color-nav-mobile;
+                }
+                &:hover {
+                  a {
+                    color: @font-color-nav-bottom;
+                  }
+                  background-color: @sec-nav-hover-color;
+                }
+                .secondary-menu {
+                  .icon-chevron-left {
+                    font-size: @font-size-nav-icon-mobile;
+                    margin-bottom: 16px;
+                  }
+                  .sec-title {
+                    font-family: @font-family-cocogoose-light;
+                    font-size: @font-size-small;
+                    color: @font-color-nav-mobile;
+                  }
+                }
+              }
+            }
+          }
+          .vx-left-nav {
+            .left-nav-sub-container {
+              .side-heading {
+                font-family: @font-family-cocogoose-light;
+                font-size: @font-size-small;
+              }
+              ul {
+                li.cd-label {
+                  a {
+                    font-family: @font-family-queulat-bold;
+                    font-size: @font-size-medium;
+                  }
+                }
+              }
+            }
+          }
+          .login-mobile-view {
+            li {
+              a {
+                font-family: @font-family-queulat-bold;
+                font-size: @font-size-medium;
+              }
+              &:hover {
+                a {
+                  color: @font-color-nav-bottom;
+                }
+                background-color: @sec-nav-hover-color;
+              }
+            }
+          }
+          .arrow-up {
+            display: none;
+          }
+        }
+        span#extole_zone_global_header {
+          display: inline;
+          .extole-header {
+            color: @font-color-nav-mobile;
+            padding-left: 16px;
+          }
+        }
+      }
+    }
+  }
+  @media only screen and (max-width: @screen-xs-max) {
+    .header-section {
+      .navbar-bottom {
+        .navbar-bottom-right {
+          .search-browse-auto-suggest {
+            .right-addon {
+              width: 260px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

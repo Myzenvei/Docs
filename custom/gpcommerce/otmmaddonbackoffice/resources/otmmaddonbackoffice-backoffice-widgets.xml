@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.hybris.com/schema/cockpitng/widgets.xsd">
+
+	<widget-extension widgetId="backoffice_content_container">
+		 <widget id="otmmSupportConditionEvaluator" widgetDefinitionId="com.hybris.cockpitng.conditionevaluator" slotId="cockpitWidgetChildrenInvisible" template="false">
+            <setting key="widgetStyleClass" type="String"></setting>
+            <setting key="expression" type="String">#root.id EQ 'backoffice_otmmsupport'</setting>
+            <setting key="widgetStyleAttribute" type="String"></setting>
+            <setting key="socketDataType_$T" type="String">com.hybris.backoffice.navigation.NavigationNode</setting>
+            <virtual-sockets/>
+        </widget>
+		<widget id="backoffice_otmmsupport" widgetDefinitionId="com.opentext.hybris.otmmconnector.backoffice.widgets.otmmsupport" slotId="perspectives" template="false"/>
+	</widget-extension>
+
+	<widget-connection sourceWidgetId="explorerTree" outputId="nodeSelected" targetWidgetId="otmmSupportConditionEvaluator" inputId="input"/>
+	<widget-connection sourceWidgetId="otmmSupportConditionEvaluator" outputId="true" targetWidgetId="backoffice_content_container" inputId="selectPerspective"/>
+	<!-- 
+	<widget-connection sourceWidgetId="otmmSupportConditionEvaluator" outputId="false" targetWidgetId="dashboardConditionEvaluator" inputId="input"/>
+	-->
+
+	<!--
+	<widget-connection sourceWidgetId="otmmSupportConditionEvaluator" outputId="false" targetWidgetId="nonOtmmSupportPropertyExtractor" inputId="genericInput"/>
+	<widget-connection sourceWidgetId="nonOtmmSupportPropertyExtractor" outputId="genericOutput" targetWidgetId="backoffice_content_container" inputId="selectPerspectiveById"/>
+	<widget-connection sourceWidgetId="savedQueries" outputId="advancedSearchInitContext" targetWidgetId="nonOtmmSupportPropertyExtractor" inputId="genericInput"/>
+	-->
+
+	<!-- 
+	<widget-connection sourceWidgetId="explorerTree" outputId="nodeSelected" targetWidgetId="dashboardConditionEvaluator" inputId="input"/>
+	<widget-connection sourceWidgetId="dashboardConditionEvaluator" outputId="true" targetWidgetId="backoffice_content_container" inputId="selectPerspective"/>
+	<widget-connection sourceWidgetId="dashboardConditionEvaluator" outputId="false" targetWidgetId="nonDashboardPropertyExtractor" inputId="genericInput"/>
+    <widget-connection sourceWidgetId="nonDashboardPropertyExtractor" outputId="genericOutput" targetWidgetId="backoffice_content_container" inputId="selectPerspectiveById"/>
+    <widget-connection sourceWidgetId="savedQueries" outputId="advancedSearchInitContext" targetWidgetId="nonDashboardPropertyExtractor" inputId="genericInput"/>
+    
+    <widget-connection sourceWidgetId="backoffice_dashboard" outputId="com.hybris.cockpitng.action.misc.refresh.success" targetWidgetId="backoffice_dashboard" inputId="refresh"/>
+    <widget-connection sourceWidgetId="backoffice_dashboard" outputId="com.hybris.cockpitng.action.run.gc.success" targetWidgetId="backoffice_dashboard" inputId="refresh"/>
+    -->
+
+
+
+
+
+	<widget-connection sourceWidgetId="STUB_com.opentext.hybris.otmmconnector.backoffice.editors.mediareferenceeditor" outputId="referenceSelected" targetWidgetId="collectionEditorAreaGroup" inputId="inputDataInput"/>
+	<widget-connection sourceWidgetId="STUB_com.opentext.hybris.otmmconnector.backoffice.editors.mediareferenceeditor" outputId="inputObject" targetWidgetId="editorArea" inputId="inputObject"/>
+	<widget-connection sourceWidgetId="STUB_com.opentext.hybris.otmmconnector.backoffice.editors.mediareferenceeditor" outputId="inputObject" targetWidgetId="pcmbackoffice-editorArea-area" inputId="inputObject"/>
+
+	<widget-connection sourceWidgetId="STUB_com.opentext.hybris.otmmconnector.backoffice.editors.multimediareferenceeditor" outputId="referenceSelected" targetWidgetId="collectionEditorAreaGroup" inputId="inputDataInput"/>
+	<widget-connection sourceWidgetId="STUB_com.opentext.hybris.otmmconnector.backoffice.editors.multimediareferenceeditor" outputId="inputObject" targetWidgetId="editorArea" inputId="inputObject"/>
+	<widget-connection sourceWidgetId="STUB_com.opentext.hybris.otmmconnector.backoffice.editors.multimediareferenceeditor" outputId="inputObject" targetWidgetId="pcmbackoffice-editorArea-area" inputId="inputObject"/>
+
+	<widget-connection sourceWidgetId="STUB_com.opentext.hybris.otmmconnector.backoffice.actions.importlegacypropertiesaction" outputId="refreshResults" targetWidgetId="advancedSearch" inputId="refreshResults"/>
+    <widget-connection sourceWidgetId="STUB_com.opentext.hybris.otmmconnector.backoffice.actions.synccontenttypesaction" outputId="refreshResults" targetWidgetId="advancedSearch" inputId="refreshResults"/>
+
+    <widget-connection sourceWidgetId="STUB_com.opentext.hybris.otmmconnector.backoffice.editors.implicitattributeeditor" outputId="referenceSelected" targetWidgetId="collectionEditorAreaGroup" inputId="inputDataInput"/>
+    <widget-connection sourceWidgetId="STUB_com.opentext.hybris.otmmconnector.backoffice.editors.implicitattributeeditor" outputId="referenceEditorOutput" targetWidgetId="configurableFlow" inputId="context"/>
+    <widget-connection sourceWidgetId="configurableFlow" outputId="wizardResult" targetWidgetId="STUB_com.opentext.hybris.otmmconnector.backoffice.editors.implicitattributeeditor" inputId="referenceEditorInput"/>
+
+</widgets>

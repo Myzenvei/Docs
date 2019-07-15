@@ -1,0 +1,46 @@
+############ BACKOFFICE TAB CHARACTER LENGTH RESTRICTION ##################
+
+INSERT_UPDATE SizeConstraint;descriptor(enclosingType(code),qualifier);id[unique=true,allownull=true];max[allownull=true];min[allownull=true];qualifier[allownull=true];severity(code,itemtype(code));target[allownull=true];type(code);constraintGroups(id);message[lang=de];message[lang=en]
+;GPProductTabInfo:tabKey;PDPTabLengthConstraint;25;1;tabKey;ERROR:Severity;com.gp.commerce.core.model.GPProductTabInfoModel;GPProductTabInfo;;;Length should be less than 25
+
+############ BACKOFFICE TAB CHARACTER LENGTH RESTRICTION ##################
+
+
+
+$productCatalog=gpUSProductCatalog
+
+$sourceProductCV=sourceVersion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default='$productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$productCatalog]),version[default='Online'])[unique=true,default='$productCatalog:Online']
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;sync gpUSProductCatalog:Staged->Online;;;;
+
+
+$contentCatalog=copperandcraneContentCatalog
+
+$sourceContentCV=sourceVersion(catalog(id[default=$contentCatalog]),version[default='Staged'])[unique=true,default='$contentCatalog:Staged']
+$targetContentCV=targetVersion(catalog(id[default=$contentCatalog]),version[default='Online'])[unique=true,default='$contentCatalog:Online']
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceContentCV;$targetContentCV;
+;sync copperandcraneContentCatalog:Staged->Online;;;;
+
+
+$contentCatalog=copperandcraneContentCatalog
+
+$sourceContentCV=sourceVersion(catalog(id[default=$contentCatalog]),version[default='Staged'])[unique=true,default='$contentCatalog:Staged']
+$targetContentCV=targetVersion(catalog(id[default=$contentCatalog]),version[default='Online'])[unique=true,default='$contentCatalog:Online']
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceContentCV;$targetContentCV;
+;sync vanityfairnapkinsContentCatalog:Staged->Online;;;;
+
+
+
+
+
+UPDATE CatalogVersionSyncJob;code[unique=true];roottypes(code)[mode=append];
+;sync vanityfairnapkinsContentCatalog:Staged->Online;CMSItem,CMSRelation,CxCustomizationsGroup,CxCustomization,CxVariation,CxAbstractTrigger,CxAbstractAction
+
+
+UPDATE CatalogVersionSyncJob;code[unique=true];roottypes(code)[mode=append];
+;sync copperandcraneContentCatalog:Staged->Online;CMSItem,CMSRelation,CxCustomizationsGroup,CxCustomization,CxVariation,CxAbstractTrigger,CxAbstractAction
+

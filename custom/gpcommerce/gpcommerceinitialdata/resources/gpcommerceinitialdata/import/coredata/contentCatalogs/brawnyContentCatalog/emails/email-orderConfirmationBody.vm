@@ -1,0 +1,1273 @@
+##messageSource=classpath:/gpcommerceinitialdata/import/coredata/contentCatalogs/brawnyContentCatalog/messages/email-orderConfirmation_$lang.properties
+#macro( genHtmlBoldFont $text )
+<font color="#414a4f" size="2" face="Arial, Helvetica, sans-serif"><b>$text</b></font>
+#end
+#macro(genHtmlLinkStartTag $url)
+<a href="$url">
+    <font color="#222222">
+        #end
+        #macro(genHtmlLinkEndTag)
+    </font>
+</a>
+#end
+#macro(genHtmlLink $url $textColor $bodyContent)
+<a href="$url">
+    <font color="$textColor">$bodyContent</font>
+</a>
+#end
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Email Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700,700" rel="stylesheet" />
+    <style type="text/css">
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        p,
+        a,
+        span,
+        td,
+        strong {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+    <style type="text/css">
+        /* TODO: Load External Fonts */
+        /* Client-specific Styles */
+        #outlook a {
+            padding: 0;
+        }
+
+        /* Force Outlook to provide a "view in browser" button. */
+        body {
+            width: 100% !important;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .ReadMsgBody {
+            width: 100%;
+        }
+
+        .ExternalClass {
+            width: 100%;
+        }
+
+        /* Force Hotmail to display emails at full width */
+        body {
+            -webkit-text-size-adjust: none;
+            -ms-text-size-adjust: none;
+            text-size-adjust: none;
+        }
+
+        /* Prevent Webkit and Windows Mobile platforms from changing default font sizes. */
+
+        /* Reset Styles */
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        img {
+            height: auto;
+            line-height: 100%;
+            outline: none;
+            -ms-interpolation-mode: bicubic;
+        }
+
+        #backgroundTable {
+            height: 100% !important;
+            margin: 0;
+            padding: 0;
+            width: 100% !important;
+        }
+
+        table {
+            mso-table-lspace: 0pt;
+            mso-table-rspace: 0pt;
+        }
+
+
+        table td {
+            border-collapse: collapse;
+        }
+
+        .ExternalClass * {
+            line-height: 115%;
+        }
+
+        /*Themeing styles*/
+
+        .mail-heading {
+            font-size: 21px;
+            color: #222222;
+            font-weight: 400;
+            line-height: 25px;
+        }
+
+        *[class="m-show"] {
+            display: none !important;
+        }
+
+        *[class="d-hide"] {
+            display: block !important;
+        }
+
+        *[class="td-5"] {
+            margin-bottom: 24px;
+            display: block;
+        }
+
+        *[class="td-link"] {
+            color: #222222;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.15px;
+            line-height: 16px;
+        }
+
+        .container {
+            padding: 56px;
+        }
+
+        .social-icons {
+            padding-right: 19px;
+            padding-left: 0;
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+        }
+
+        .social-icons img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .copyright-text {
+            color: #747678;
+            font-size: 14px;
+        }
+
+        *[class="border-top"] {
+            border-top: 1px solid #cecece;
+        }
+
+        *[class="email-footer"] {
+            background-color: #dfdfdf;
+            display: block;
+            margin-top: 32px;
+        }
+
+        .align-d-right {
+            float: right;
+        }
+
+        .mr-2 {
+            margin: 10px;
+            display: block;
+        }
+
+        .container {
+            padding: 56px;
+        }
+
+        .sm-pb-8 {
+            padding-bottom: 8px;
+        }
+
+        .sm-pb-16 {
+            padding-bottom: 16px;
+        }
+
+        .sm-pb-24 {
+            padding-bottom: 24px;
+        }
+
+        .sm-padding {
+            padding: 24px;
+        }
+
+        .product-data {
+            width: 80%;
+        }
+
+        .product-price {
+            width: 20%;
+            text-align: right;
+        }
+
+        .product {
+            width: 80%;
+        }
+
+        .product-img {
+            width: 15%;
+            padding-right: 24px;
+        }
+
+        .product-img img {
+            padding: 18px 6px;
+            border: .5px solid #CECECE;
+            height: 142px;
+            width: 142px;
+        }
+
+        .order-summary {
+            margin: 32px 40px 32px 0;
+            margin-left: 65%;
+        }
+
+        /* These are our mobile screen media queries */
+
+        @media screen and (max-width: 767px) {
+
+
+            /* Display block allows us to stack elements */
+            *[class="mobile-column"] {
+                display: block;
+            }
+
+            /* Some more stacking elements */
+            *[class="mob-column"] {
+                float: none !important;
+                width: 100% !important;
+            }
+
+            /* Hide stuff */
+            *[class="d-hide"] {
+                display: none !important;
+            }
+
+            *[class="m-show"] {
+                display: block !important;
+            }
+
+            /* This sets elements to 100% width and fixes the height issues too, a god send */
+            *[class="100p"] {
+                width: 100% !important;
+                height: auto !important;
+            }
+
+            /* For the 2x2 stack */
+            *[class="condensed"] {
+                padding-bottom: 40px !important;
+                display: block;
+            }
+
+            /* Centers content on mobile */
+            *[class="center"] {
+                text-align: center !important;
+                width: 100% !important;
+                height: auto !important;
+            }
+
+            /* 100percent width section with 20px padding */
+            *[class="100pad"] {
+                width: 100% !important;
+                padding: 20px;
+            }
+
+            /* 100percent width section with 20px padding left & right */
+            *[class="100padleftright"] {
+                width: 100% !important;
+                padding: 0 20px 0 20px;
+            }
+
+            /* 100percent width section with 20px padding top & bottom */
+            *[class="100padtopbottom"] {
+                width: 100% !important;
+                padding: 20px 0 20px 0;
+            }
+
+            *[class="td-m-block"] {
+                display: block;
+            }
+
+            .footer-m-block {
+                display: block;
+            }
+
+            .followUs-m-left {
+                margin: 10px 10px 10px 3px;
+            }
+
+            .align-m-left {
+                float: left;
+            }
+
+            .align-d-right {
+                float: left;
+            }
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        p,
+        i,
+        b,
+        a,
+        ul,
+        li,
+        blockquote,
+        hr,
+        img,
+        div,
+        span,
+        strong {
+            margin: 0;
+            padding: 0;
+            line-height: 1.428571429;
+        }
+
+        /*  Other styles */
+
+        /* Typography Start */
+        h1 {}
+
+        h2 {}
+
+        h3 {}
+
+        h4 {}
+
+        p {
+            letter-spacing: 0.4px;
+        }
+
+        strong {}
+
+        a {
+            color: #0074E4;
+            letter-spacing: 0.15;
+        }
+
+        /* Typography End */
+        /* Typography Helpers Start */
+
+        .txt-large {
+            font-size: 21px;
+        }
+
+        .txt-regular {
+            font-size: 14px;
+        }
+
+        .txt-item-color {
+            color: #747678;
+        }
+
+        .txt-default-color {
+            color: #222222;
+        }
+
+        .txt-price-color {
+            color: #417505;
+        }
+
+        .txt-error-color {
+            color: #e42610;
+        }
+
+        .txt-weight-regular {
+            font-weight: 400;
+        }
+
+        .txt-weight-semi-bold {
+            font-weight: 700;
+        }
+
+        /* Typography Helpers End */
+        /* Custom CSS Start */
+        a>strong {}
+
+        h2>strong {}
+
+        h4>strong {
+            font-weight: 700;
+        }
+
+        p>strong {}
+
+        /* Border Classes Start */
+        .border-all {
+            border: 1px solid #cecece;
+        }
+
+        .border-white {
+            border-top: 20px solid #ffffff;
+        }
+
+        .border-top {
+            border-top: 1px solid #cecece;
+        }
+
+        .border-bottom {
+            border-bottom: 1px solid #cecece;
+        }
+
+        .border-left {
+            border-left: 1px solid #cecece;
+        }
+
+        .border-right {
+            border-right: 1px solid #cecece;
+        }
+
+        .border-collapse {
+            border-collapse: collapse;
+        }
+
+        /* Border Classes End */
+        /* Background Classes Start */
+        .bg-summary {
+            background-color: #fafafa;
+        }
+
+        .bg-order-details {
+            background-color: #F1F2F4;
+        }
+
+        .bg-default {
+            background-color: #ffffff;
+        }
+
+        /* Background Classes End */
+        /* Spacer Classes Start */
+        .pt-0 {
+            padding-top: 0px;
+        }
+
+        .pt-1 {
+            padding-top: 4px;
+        }
+
+        .pt-2 {
+            padding-top: 8px;
+        }
+
+        .pt-3 {
+            padding-top: 16px;
+        }
+
+        .pt-4 {
+            padding-top: 24px;
+        }
+
+        .pt-5 {
+            padding-top: 32px;
+        }
+
+        .pt-6 {
+            padding-top: 40px;
+        }
+
+        .pb-0 {
+            padding-bottom: 0px;
+        }
+
+        .pb-1 {
+            padding-bottom: 4px;
+        }
+
+        .pb-2 {
+            padding-bottom: 8px;
+        }
+
+        .pb-3 {
+            padding-bottom: 16px;
+        }
+
+        .pb-4 {
+            padding-bottom: 24px;
+        }
+
+        .pb-5 {
+            padding-bottom: 32px;
+        }
+
+        .pb-6 {
+            padding-bottom: 40px;
+        }
+
+        .pl-0 {
+            padding-left: 0px;
+        }
+
+        .pl-1 {
+            padding-left: 4px;
+        }
+
+        .pl-2 {
+            padding-left: 8px;
+        }
+
+        .pl-3 {
+            padding-left: 16px;
+        }
+
+        .pl-4 {
+            padding-left: 24px;
+        }
+
+        .pl-5 {
+            padding-left: 32px;
+        }
+
+        .pl-6 {
+            padding-left: 40px;
+        }
+
+        .pr-0 {
+            padding-right: 0px;
+        }
+
+        .pr-1 {
+            padding-right: 4px;
+        }
+
+        .pr-2 {
+            padding-right: 8px;
+        }
+
+        .pr-3 {
+            padding-right: 16px;
+        }
+
+        .pr-4 {
+            padding-right: 24px;
+        }
+
+        .pr-5 {
+            padding-right: 32px;
+        }
+
+        .pr-6 {
+            padding-right: 40px;
+        }
+
+        .px-0 {
+            padding-right: 0px;
+            padding-left: 0px;
+        }
+
+        .px-1 {
+            padding-right: 4px;
+            padding-left: 4px;
+        }
+
+        .px-2 {
+            padding-right: 8px;
+            padding-left: 8px;
+        }
+
+        .px-3 {
+            padding-right: 16px;
+            padding-left: 16px;
+        }
+
+        .px-4 {
+            padding-right: 24px;
+            padding-left: 24px;
+        }
+
+        .px-5 {
+            padding-right: 32px;
+            padding-left: 32px;
+        }
+
+        .px-6 {
+            padding-right: 40px;
+            padding-left: 40px;
+        }
+
+        .py-0 {
+            padding-top: 0px;
+            padding-bottom: 0px;
+        }
+
+        .py-1 {
+            padding-top: 4px;
+            padding-bottom: 4px;
+        }
+
+        .py-2 {
+            padding-top: 8px;
+            padding-bottom: 8px;
+        }
+
+        .py-3 {
+            padding-top: 16px;
+            padding-bottom: 16px;
+        }
+
+        .py-4 {
+            padding-top: 24px;
+            padding-bottom: 24px;
+        }
+
+        .py-5 {
+            padding-top: 32px;
+            padding-bottom: 32px;
+        }
+
+        .py-6 {
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+
+        @media screen and (max-width: 1199px) {
+            .content-slot {
+                padding-left: 32px;
+                padding-right: 32px;
+            }
+        }
+
+        @media screen and (max-width: 767px) {
+            body>table {
+                width: 360px;
+            }
+
+            .content-slot {
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+        }
+
+        /* Custom CSS End */
+
+
+        .content-slot {
+            padding-left: 40px;
+            padding-right: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <table cellspacing="0" cellpadding="0" align="center" border="0" width="800" bgcolor="#ffffff">
+        <tr>
+            <td valign="top" align="left" width="100%">
+                <table cellspacing="0" cellpadding="0" align="left" border="0" width="100%">
+                    <tr>
+                        <td valign="top" align="left" width="100%" height="73px">
+                            <a href="${ctx.baseUrl}">${ctx.cmsSlotContents.SiteLogo}</a>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <table cellspacing="0" cellpadding="0" align="center" border="0" width="700" bgcolor="#ffffff">
+        <tr>
+            <td valign="top" align="left" width="100%" class="pt-4">
+                <table cellspacing="0" cellpadding="0" align="left" border="0" width="100%" bgcolor="#ffffff">
+                    <tr>
+                        <td valign="top" align="left" width="100%" colspan="4" class="txt-large txt-weight-bold txt-default-color pb-4"
+                            style="margin:0;padding:0px;padding-bottom:16px;">${ctx.messages.emailTitle}</td>
+                    </tr>
+                    <tr>
+                        <td valign="top" align="left" width="100%" colspan="4">
+                            #set ($qty = ${ctx.order.deliveryItemsQuantity}+${ctx.order.pickupItemsQuantity})
+                            <p class="txt-regular txt-default-color txt-weight-regular">${ctx.messages.getMessage('thankYouForOrder',$qty)}</p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <table cellspacing="0" cellpadding="0" align="center" border="0" width="700" bgcolor="#ffffff">
+        <tr>
+            <td valign="top" align="left" width="100%" style="padding-top:24px; padding-bottom:0px;padding-left: 0px;padding-right: 0px;">
+                <table cellspacing="0" cellpadding="0" align="left" border="0" width="100%" class="bg-summary">
+                    <tr>
+                        <td valign="top" align="left" class="bg-summary" style="padding-top:0; padding-bottom:16px;padding-left: 24px;padding-right: 24px;">
+                            <table cellspacing="0" cellpadding="0" align="left" border="0" width="100%">
+                                <tr>
+                                    <td colspan="2" valign="top" align="left" class="py-4 bg-summary ">
+                                        <p class="txt-large txt-default-color txt-weight-regular">${ctx.messages.orderSummary}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" valign="top" width="50%" align="left" style="border-collapse: collapse;font-family: 'Poppins', lato, Helvetica, Arial, Verdana, sans-serif;">
+                                        <table cellspacing="0" cellpadding="0" align="left" border="0" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+                                            <tr>
+                                                <td valign="top" align="left" class=" pb-4" style="border-collapse: collapse; padding-bottom: 24px; font-family: 'Poppins', lato, Helvetica, Arial, Verdana, sans-serif;">
+                                                    <p class="txt-big txt-default-color txt-weight-regular" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #222222; font-weight: 400; font-family: 'Poppins', lato, Helvetica, Arial, Verdana, sans-serif;">
+                                                        ${ctx.messages.getMessage('orderNumber',${ctx.order.code})}
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td valign="top" align="left" class=" pb-5" style="margin:0;padding:0; padding-bottom:24px;">
+                                                    <table>
+                                                        <tr>
+                                                            <td class="txt-regular txt-default-color txt-weight-semi-bold pb-2"
+                                                                style="margin:0; padding:0; padding-bottom:8px;">${ctx.messages.orderPlaced}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="txt-regular txt-default-color txt-weight-regular ">${ctx.createdDate}</td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td align="left">
+                                                    <table>
+                                                        <tr>
+                                                            <td class="txt-regular txt-default-color txt-weight-semi-bold pb-2"
+                                                                style="margin:0; padding:0; padding-bottom:8px;">${ctx.messages.billedTo}</td>
+                                                        </tr>
+                                                        #if(${ctx.order.paymentInfo})
+                                                        <tr>
+                                                            <td class="txt-regular txt-default-color txt-weight-regular ">
+                                                                #if(${ctx.order.paymentInfo} &&
+                                                                (${ctx.order.paymentInfo.cardType}==${ctx.messages.paypal}))
+                                                                <br>
+                                                                ${ctx.order.paymentInfo.accountHolderName}
+                                                                <br>
+                                                                ${ctx.order.paymentInfo.cardType}
+                                                                #end
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="txt-regular txt-default-color txt-weight-regular">
+                                                                #if(${ctx.order.paymentInfo} &&
+                                                                    !(${ctx.order.paymentInfo.cardType}==${ctx.messages.paypal}))
+                                                                    ${ctx.order.paymentInfo.accountHolderName}
+                                                                    <br>
+                                                                    #if(${ctx.order.paymentInfo.cardType})
+                                                                    ${ctx.order.paymentInfo.cardType}
+                                                                    <br>
+                                                                    ${ctx.order.paymentInfo.cardNumber}
+                                                                    #end
+                                                                    #if(${ctx.order.paymentInfo.cardType.name})
+                                                                    ${ctx.order.paymentInfo.cardType.name}
+                                                                    #end
+                                                                    #if(${ctx.order.paymentInfo.expiryMonth})
+                                                                    <br>
+                                                                    ${ctx.order.paymentInfo.expiryMonth}/${ctx.order.paymentInfo.expiryYear}
+                                                                    #end
+                                                                    #if(${ctx.order.paymentInfo.billingAddress.postalCode})
+                                                                    <br>
+                                                                    ${ctx.order.paymentInfo.billingAddress.postalCode}
+                                                                    #end
+                                                                #end
+                                                            </td>
+                                                        </tr>
+                                                        #else
+                                                        <tr>
+                                                            <td class="text-weight-normal text-small text-default-color lne-height-small">
+                                                                NA
+                                                            </td>
+                                                        </tr>
+                                                        #end
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td colspan="2" valign="top" width="50%" class=" bg-summary ">
+                                        <table cellspacing="0" width="100%" cellpadding="0" align="right" border="0">
+                                            <tr>
+                                                <td valign="top" align="left" width="70%" class="pb-3">
+                                                    <p class="txt-regular txt-default-color txt-weight-regular">Cart
+                                                        Subtotal
+                                                        (${ctx.order.totalItems}
+                                                        #if(${ctx.order.totalItems} > 1)
+                                                        items)
+                                                        #else
+                                                        item)
+                                                        #end</p>
+                                                </td>
+                                                <td valign="top" align="right" width="30%" class="pb-3">
+                                                    <p class="txt-regular txt-default-color txt-weight-regular">${ctx.order.subTotal.formattedValue}</p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td valign="top" align="left" width="" class="pb-3">
+                                                    <p class="txt-regular txt-default-color txt-weight-regular">${ctx.messages.shipping}</p>
+                                                </td>
+                                                <td valign="top" align="right" width="" class="pb-3">
+                                                    <p class="txt-regular txt-default-color txt-weight-regular">
+                                                        ${ctx.totalDeliveryCost}
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                            #if(${ctx.order.totalDiscounts} &&
+                                            ${ctx.order.totalDiscounts.formattedValue} != "$0.00")
+                                            <tr>
+                                                <td valign="top" align="left" width="" class="pb-3">
+                                                    <p class="txt-regular txt-default-color txt-weight-regular">${ctx.messages.totalSavings}</p>
+                                                </td>
+                                                <td valign="top" align="right" width="" class="pb-3">
+                                                    <p class="txt-regular txt-price-color txt-weight-regular">-${ctx.order.totalDiscounts.formattedValue}</p>
+                                                </td>
+                                            </tr>
+                                            #end
+                                            <tr>
+                                                <td valign="top" align="left" width="" class="pb-3">
+                                                    <p class="txt-regular txt-default-color txt-weight-regular">${ctx.messages.tax}</p>
+                                                </td>
+                                                <td valign="top" align="right" width="" class="pb-3">
+                                                    <p class="txt-regular txt-default-color txt-weight-regular">${ctx.order.totalTax.formattedValue}</p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td valign="center" align="left" width="" class="border-top py-3" style="margin:0;padding:0px;padding-bottom:16px;padding-top:16px;">
+                                                    <p class="txt-regular txt-default-color txt-weight-regular">${ctx.messages.total}</p>
+                                                </td>
+                                                <td valign="center" align="right" width="" class="border-top py-3"
+                                                    style="margin:0;padding:0px;padding-bottom:16px;padding-top:16px;">
+                                                    <p class="txt-large txt-default-color txt-weight-regular">${ctx.order.totalPriceWithTax.formattedValue}</p>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <!-- single delivery address order -->
+    #if($ctx.singleShipping == 1)
+    <table cellspacing="0" cellpadding="0" align="center" border="0" width="700" bgcolor="#ffffff">
+        <tr>
+            <td valign="top" width="100%" class="pt-4" style="padding-bottom: 0;padding-left: 0px;padding-right: 0px; padding-top:24px;">
+                <table cellspacing="0" cellpadding="0" border="0" align="left" width="100%" bgcolor="#ffffff">
+                    <tr>
+                        <td valign="top" align="left" width="100%" class="bg-order-details px-4 pt-4 pb-4" style="padding-top: 24px; padding-bottom: 24px;padding-left: 24px;padding-right: 24px;">
+                            <table class="bg-order-details" cellspacing="0" cellpadding="0" align="left" border="0"
+                                width="100%">
+                                <tr>
+                                    <td valign="top" align="left" colspan="2" width="50%">
+                                        <p class="txt-regular txt-item-color txt-weight-regular">${ctx.messages.shippedTo}</p>
+                                    </td>
+                                    <td valign="top" align="left" colspan="2" width="50%">
+                                        <p class="txt-regular txt-item-color txt-weight-regular">${ctx.messages.deliveryMethod}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td valign="top" align="left" colspan="2" class="py-3" width="50%">
+                                        <p class="txt-regular txt-default-color txt-weight-regular">${ctx.order.deliveryAddress.firstName}
+                                            ${ctx.order.deliveryAddress.lastName}</p>
+                                        <p class="txt-regular txt-default-color txt-weight-regular">
+                                            ${ctx.order.deliveryAddress.line1} </p>
+                                        #if($ctx.order.deliveryAddress.line2)
+                                        <p class="txt-regular txt-default-color txt-weight-regular">
+                                            ${ctx.order.deliveryAddress.line2} </p>
+                                        #end
+                                        <p class="txt-regular txt-default-color txt-weight-regular">
+                                            ${ctx.order.deliveryAddress.town}
+                                            ${ctx.order.deliveryAddress.region.isocodeShort}
+                                            ${ctx.order.deliveryAddress.postalCode} <br>
+                                            ${ctx.order.deliveryAddress.country.name}
+                                        </p>
+                                    </td>
+                                    <td valign="top" align="left" colspan="2" class="py-3" width="50%">
+                                        <p class="txt-regular txt-default-color txt-weight-regular">
+                                            #if(${ctx.order.deliveryMode.code})
+                                            ${ctx.order.deliveryMode.name}
+                                            #end
+                                        </p>
+                                    </td>
+                                </tr>
+                                #if(${ctx.order.deliveryAddress.palletShipment} == true)
+                                <tr>
+                                    <td valign="top" align="left" colspan="2">
+                                        <p class="txt-regular txt-item-color txt-weight-regular">
+                                            (${ctx.messages.palletShipment})</p>
+                                    </td>
+                                    <td valign="top" align="left" colspan="2">
+                                        <p class="txt-regular txt-default-color txt-weight-regular">
+                                            &nbsp;
+                                        </p>
+                                    </td>
+                                </tr>
+                                #end
+                                #if(${ctx.descriptionValNotEmpty} && ${ctx.descriptionValNotEmpty} ==
+                                "notempty")
+                                <tr>
+                                    <td valign="top" align="left" colspan="2" class="pt-3" width="50%">
+                                        <p class="txt-regular txt-item-color txt-weight-regular">${ctx.messages.deliveryInstructions}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td valign="top" align="left" colspan="2" class="pt-3" width="50%">
+                                        <p class="txt-regular txt-default-color txt-weight-regular">
+                                            ${ctx.deliveryModeDescription}</p>
+                                    </td>
+                                </tr>
+                                #end
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <table cellspacing="0" cellpadding="0" align="center" border="0" width="700" bgcolor="#ffffff">
+        #foreach( $entry in ${ctx.order.entries} )
+        #if($entry.visible)
+        <tr>
+            <td valign="top" align="left" width="100%" class="pt-4" style=" padding-bottom: 0; padding-top:24px;padding-left: 0px;padding-right: 0px;">
+                <table class="bg-order-details" cellspacing="0" cellpadding="0" align="left" border="0" width="100%">
+                    <tr>
+                        <td valign="top" align="left" colspan="4">
+                            <table cellspacing="0" cellpadding="0" align="center" width="100%" bgcolor="#ffffff" class="bg-order-details">
+                                <tr>
+                                    <td align="center" class="py-4" style="width:22%; vertical-align: top;padding-top: 24px; padding-bottom: 24px; padding-left: 20px; padding-right:0px; font-family:'Poppins', lato, Helvetica, Roboto, Arial;">
+                                        #foreach($image in $entry.product.images)
+                                        #if($image.imageType == "PRIMARY" && $image.format == "thumbnail" )
+                                        <div style="height: 130px; width: 130px; display: table-cell; vertical-align: middle;margin:0px; border-top: 1px solid #cecece; border-left: 1px solid #cecece;border-right: 1px solid #cecece;border-bottom: 1px solid #cecece;">
+                                            <img src="$image.url" alt="" style="max-width: 100%; max-height: 100%; width: auto; -ms-interpolation-mode: bicubic; margin: 0; padding: 0; line-height: 1.428571429; display: block; outline: none;">
+                                        </div>
+                                        #end
+                                        #end
+                                    </td>
+                                    <td align="center" valign="top" style="text-align:left; padding-top: 24px; padding-bottom: 24px; padding-left: 10px; padding-right:  24px; font-family:'Poppins', lato, Helvetica, Roboto, Arial;">
+                                        <table cellspacing="0" cellpadding="0" align="center" width="100%" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+                                            <tr>
+                                                <td style="padding-top: 0px; padding-right: 0px; padding-left: 0px; padding-bottom: 8px; font-family: 'Poppins', lato, Helvetica, Roboto, Arial;">
+                                                    <a class="txt-large txt-weight-semi-bold " href="${ctx.secureBaseUrl}$entry.product.url"
+                                                        title="" style="display: block; outline: none; border: none;"
+                                                        target="_blank">
+                                                        $entry.product.name &reg;
+                                                    </a>
+                                                </td>
+                                                <td style="display: none;">
+                                                    &nbsp;
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="pb-2" style="margin:0; padding:0; padding-bottom:8px;">
+                                                    <p class="txt-weight-regular txt-default-color txt-regular">ITEM
+                                                        ID
+                                                        $entry.product.code</p>
+                                                </td>
+                                                <td>
+                                                    &nbsp;
+                                                </td>
+                                            </tr>
+                                            #if($entry.product.stock != '' &&
+                                            $entry.product.stock.stockLevelStatus !=
+                                            '')
+                                            <tr>
+                                                <td style="border-collapse: collapse; font-family: 'Poppins', lato, Helvetica, Arial, Verdana,sans-serif;margin:0; padding:0; padding-bottom:8px;">
+                                                    #if($entry.product.materialStatus == "OBSOLETE" &&
+                                                    $entry.product.replacementProductCode &&
+                                                    $entry.product.replacementProductCode
+                                                    !="" )
+                                                    <p class="txt-weight-regular txt-error-color txt-small" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #E42610; font-weight: 400; font-family: 'Poppins', lato, Helvetica, Arial, Verdana,sans-serif;">
+                                                        ${ctx.messages.getMessage('discountAndReplace',$entry.product.replacementProductCode)}
+                                                    </p>
+                                                    #else
+                                                    #if($entry.product.materialStatus == "OBSOLETE" &&
+                                                    !$entry.product.replacementProductCode)
+                                                    <p class="txt-weight-regular txt-error-color txt-small" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #E42610; font-weight: 400; font-family: 'Poppins', lato, Helvetica, Arial, Verdana,sans-serif;">
+                                                        ${ctx.messages.discount}
+                                                    </p>
+                                                    #else
+                                                    #if($entry.product.stock.stockLevelStatus == "inStock")
+                                                    <p class="txt-weight-regular txt-default-color txt-small" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #222222; font-weight: 400; font-family: 'Poppins', lato, Helvetica, Arial, Verdana,sans-serif;">
+                                                        ${ctx.messages.inStock}</p>
+                                                    #elseif($entry.product.stock.stockLevelStatus == "lowStock")
+                                                    <p class="txt-weight-regular txt-default-color txt-small" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #E42610; font-weight: 400; font-family: 'Poppins', lato, Helvetica, Arial, Verdana,sans-serif;">
+                                                        ${ctx.messages.lowStock}</p>
+                                                    #elseif($entry.product.stock.stockLevelStatus == "outOfStock")
+                                                    <p class="txt-weight-regular txt-default-color txt-small" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #E42610; font-weight: 400; font-family: 'Poppins', lato, Helvetica, Arial, Verdana,sans-serif;">
+                                                        ${ctx.messages.outOfStock}</p>                                                    
+                                                    #else
+                                                    <p class="txt-weight-regular txt-error-color txt-small" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #E42610; font-weight: 400; font-family: 'Poppins', lato, Helvetica, Arial, Verdana,sans-serif;">
+                                                        $entry.product.stock.stockLevelStatus</p>
+                                                    #end
+                                                    #end
+                                                    #end
+                                                    </p>
+                                                </td>
+                                                <td style="font-family: 'Poppins', lato, Helvetica, Arial, Verdana,sans-serif;">&nbsp;</td>
+                                            </tr>
+                                            #end
+                                            <tr>
+                                                #foreach ($rno in $ctx.promoMap.keySet())
+                                                #if($entry.entryNumber == $rno)
+                                                <td class="pb-2" style="margin:0; padding:0; padding-bottom:8px;">
+                                                    <p class="txt-regular txt-default-color txt-weight-regular">Promo:
+                                                        $ctx.promoMap[$rno]</p>
+                                                </td>
+                                                <td style="font-family: 'Poppins', lato, Helvetica, Arial, Verdana,
+                                                    sans-serif;">&nbsp;</td>
+                                                #end
+                                                #end
+                                            </tr>
+                                            <tr>
+                                                <td class="pb-2" style="margin:0; padding:0; padding-bottom:8px;">
+                                                    <p class="txt-regular txt-default-color txt-weight-regular">${ctx.messages.getMessage('quantity',$entry.quantity)}</p>
+                                                </td>
+                                                <td class="pl-5">
+                                                    <p class="txt-large txt-default-color txt-weight-semi-bold ">#if($entry.totalPrice.value
+                                                        > 0)
+                                                        $entry.totalPrice.formattedValue
+                                                        #else ${ctx.messages.free}
+                                                        #end</p>
+                                                </td>
+                                            </tr>
+                                            #if($entry.giftWrapped == true)
+                                            <tr>
+                                                <td style="border-collapse: collapse; font-family: 'Poppins', lato, Helvetica, Arial, Verdana,  sans-serif;">
+                                                    <p class="txt-weight-regular txt-item-color txt-small" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #747678; font-weight: 400; font-family: 'Poppins', lato, Helvetica, Arial, Verdana,        sans-serif;">This
+                                                        item is a gift</p>
+                                                </td>
+                                                <td style="border-collapse: collapse; font-family: 'Poppins', lato, Helvetica, Arial, Verdana, sans-serif;">
+                                                    &nbsp;
+                                                </td>
+                                            </tr>
+                                            #if($entry.giftMessage != '')
+                                            <tr>
+                                                <td style="border-collapse: collapse; font-family: 'Poppins', lato, Helvetica, Arial, Verdana, sans-serif;">
+                                                    <p class="txt-weight-regular txt-default-color txt-small" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #222222; font-weight: 400; font-family: 'Poppins', lato, Helvetica, Arial, Verdana, sans-serif;">Gift
+                                                        Message: $entry.giftMessage</p>
+                                                </td>
+                                                <td style="border-collapse: collapse; font-family: 'Poppins', lato, Helvetica, Arial, Verdana, sans-serif;">
+                                                    &nbsp;
+                                                </td>
+                                            </tr>
+                                            #end
+                                            #end
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        <tr>
+            #end
+            #end
+    </table>
+    <!-- End of single shipping order-->
+    #else
+    <!-- Multiple Shipping Address Order-->
+    <table cellspacing="0" cellpadding="0" align="center" border="0" width="700" bgcolor="#ffffff">
+        #foreach( $entry in ${ctx.order.entries} )
+        #foreach( $splitEntry in ${entry.splitEntries} )
+        #if($entry.visible)
+        <tr>
+            <td valign="top" width="100%" class="pt-4">
+                <table cellspacing="0" cellpadding="0" border="0" align="left" width="100%" bgcolor="#ffffff">
+                    <tr>
+                        <td valign="top" align="left" width="100%" class="pt-4">
+                            <table class="bg-order-details" cellspacing="0" cellpadding="0" align="left" border="0"
+                                width="100%">
+                                <tr>
+                                    <td valign="top" align="left" colspan="2" class="pt-3 px-4" width="50%">
+                                        <p class="txt-regular txt-item-color txt-weight-light">${ctx.messages.shippedTo}</p>
+                                    </td>
+                                    <td valign="top" align="left" colspan="2" class="pt-3 pr-4" width="50%">
+                                        <p class="txt-regular txt-item-color txt-weight-light">${ctx.messages.deliveryMethod}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td valign="top" align="left" colspan="2" class="py-3 px-4" width="50%">
+                                        <p class="txt-regulartxt-default-color txt-weight-regular">#if($splitEntry.deliveryAddress
+                                            != '')
+                                            $splitEntry.deliveryAddress.firstName
+                                            $splitEntry.deliveryAddress.lastName</p>
+                                        <p class="txt-regulartxt-default-color txt-weight-regular">
+                                            $splitEntry.deliveryAddress.line1 <br>
+                                            #if($splitEntry.deliveryAddress.line2)
+                                            $splitEntry.deliveryAddress.line2 <br>
+                                            #end
+
+                                            $splitEntry.deliveryAddress.town
+                                            $splitEntry.deliveryAddress.region.isocodeShort
+                                            $splitEntry.deliveryAddress.postalCode<br>
+                                            $splitEntry.deliveryAddress.country.name
+                                            #end</p>
+                                    </td>
+                                    <td valign="top" align="left" colspan="2" class="pr-4 py-3" width="50%">
+                                        <p class="txt-regulartxt-default-color txt-weight-regular">
+                                            #if($splitEntry.deliveryMode.code)
+                                            $splitEntry.deliveryMode.name
+                                            #end
+                                        </p>
+                                    </td>
+                                </tr>
+                                #if(${ctx.order.deliveryAddress.palletShipment} == true)
+                                <tr>
+                                    <td valign="top" align="left" colspan="2" class="pb-3 px-4">
+                                        <p class="txt-regulartxt-item-color txt-weight-regular">
+                                            (${ctx.messages.palletShipment})</p>
+                                    </td>
+                                    <td valign="top" align="left" colspan="2" class="pr-4 pb-3">
+                                        <p class="txt-regular txt-default-color txt-weight-regular">
+                                            &nbsp;
+                                        </p>
+                                    </td>
+                                </tr>
+                                #end
+                                #if($splitEntry.deliveryInstruction && $!splitEntry.deliveryInstruction !=
+                                '')
+                                <tr>
+                                    <td valign="top" align="left" colspan="2" class="pt-3 px-4" width="50%">
+                                        <p class="txt-regular txt-item-color txt-weight-regular">${ctx.messages.deliveryInstructions}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td valign="top" align="left" colspan="2" class="pb-3 px-4" width="50%">
+                                        <p class="txt-regular txt-default-color txt-weight-regular">
+                                            $splitEntry.deliveryInstruction</p>
+                                    </td>
+                                </tr>
+                                #end
+                            </table>
+                        </td>
+                    </tr>
+                    <table cellspacing="0" cellpadding="0" align="center" border="0" width="700" bgcolor="#ffffff"
+                        style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 700px;">
+                        <tr>
+                            <td valign="top" align="left" width="100%">
+                                <table class="bg-order-details" cellspacing="0" cellpadding="0" align="left" border="0"
+                                    width="100%">
+                                    <tr>
+                                        <td valign="top" align="left" colspan="4" class="pb-4">
+                                            <table cellspacing="0" cellpadding="0" align="center" width="100%" bgcolor="#ffffff">
+                                                <tr>
+                                                    <td align="center" class="py-4" style="width:22%; vertical-align: top;padding-top: 24px; padding-bottom: 24px; padding-left: 20px; padding-right:0px; font-family:'Poppins', lato, Helvetica, Roboto, Arial;">
+                                                        #foreach($image in $entry.product.images)
+                                                        #if($image.imageType == "PRIMARY" && $image.format
+                                                        ==
+                                                        "thumbnail" )
+                                                        <div style="height: 130px; width: 130px; display: table-cell; vertical-align: middle;margin:0px; border-top: 1px solid #cecece; border-left: 1px solid #cecece;border-right: 1px solid #cecece;border-bottom: 1px solid #cecece;">
+                                                            <img src="$image.url" alt="" style="max-width: 100%; max-height: 100%; width: auto; -ms-interpolation-mode: bicubic; margin: 0; padding: 0; line-height: 1.428571429; display: block; outline: none;">
+                                                        </div>
+                                                        #end
+                                                        #end
+                                                    </td>
+                                                    <td align="center" valign="top" style="text-align:left; padding-top: 24px; padding-bottom: 24px; padding-left: 10px; padding-right:  24px; font-family:'Poppins', lato, Helvetica, Roboto, Arial;">
+                                                        <table cellspacing="0" cellpadding="0" align="center" width="100%"
+                                                            style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+                                                            <tr>
+                                                                <td style="padding-top: 0px; padding-right: 0px; padding-left: 0px; padding-bottom: 8px; font-family: 'Poppins', lato, Helvetica, Roboto, Arial;">
+                                                                    <a class="txt-large txt-weight-semi-bold " href="${ctx.secureBaseUrl}$entry.product.url"
+                                                                        title="" style="display: block; outline: none; border: none;"
+                                                                        target="_blank">
+                                                                        $entry.product.name &reg;
+                                                                    </a>
+                                                                </td>
+                                                                <td style="display: none;">
+                                                                    &nbsp;
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="pb-2" style="margin:0; padding:0; padding-bottom:8px;">
+                                                                    <p class="txt-weight-regular txt-default-color txt-regular">ITEM
+                                                                        ID $splitEntry.code</p>
+                                                                </td>
+                                                                <td>
+                                                                    &nbsp;
+                                                                </td>
+                                                            </tr>
+                                                            #if($entry.product.stock != '' &&
+                                                            $entry.product.stock.stockLevelStatus !=
+                                                            '')
+                                                            <tr>
+                                                                #if($entry.product.stock.stockLevelStatus=='inStock')
+                                                                <td class="pb-2" style="font-family: 'Poppins', lato, Helvetica, Arial, Verdana,sans-serif; margin:0; padding:0; padding-bottom:8px;">
+                                                                    <p class="txt-regular txt-weight-light txt-default-color">$entry.product.stock.stockLevelStatus</p>
+                                                                </td>
+                                                                #else
+                                                                <td class="pb-2" style="font-family: 'Poppins', lato, Helvetica, Arial, Verdana,sans-serif; margin:0; padding:0; padding-bottom:8px;">
+                                                                    <p class="txt-regular txt-weight-light txt-error-color">$entry.product.stock.stockLevelStatus</p>
+                                                                </td>
+                                                                #end
+                                                                <td style="font-family: 'Poppins', lato, Helvetica, Arial, Verdana, sans-serif;">&nbsp;</td>
+                                                            </tr>
+                                                            #end
+                                                            <tr>
+                                                                #foreach ($rno in $ctx.promoMap.keySet())
+                                                                #if($entry.entryNumber == $rno)
+                                                                <td class="pb-2" style="font-family: 'Poppins', lato, Helvetica, Arial, Verdana,sans-serif; margin:0; padding:0; padding-bottom:8px;">
+                                                                    <p class="txt-regular txt-default-color txt-weight-regular ">Promo:
+                                                                        $ctx.promoMap[$rno]</p>
+                                                                </td>
+                                                                <td style="font-family: 'Poppins', lato, Helvetica, Arial, Verdana, sans-serif;">&nbsp;</td>
+                                                                #end
+                                                                #end
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="pb-2" style="font-family: 'Poppins', lato, Helvetica, Arial, Verdana,sans-serif; margin:0; padding:0; padding-bottom:8px;">
+                                                                    <p class="txt-regular txt-default-color txt-weight-regular ">${ctx.messages.getMessage('quantity',$entry.quantity)}</p>
+                                                                </td>
+                                                                <td class="pl-5">
+                                                                    <p class="txt-large txt-default-color txt-weight-semi-bold ">
+                                                                        $entry.basePrice.formattedValue
+                                                                    </p>
+                                                                </td>
+                                                            </tr>
+                                                            #if($entry.giftWrapped == true)
+                                                            <tr>
+                                                                <td style="border-collapse: collapse; font-family: 'Poppins', lato, Helvetica, Arial, Verdana,  sans-serif;">
+                                                                    <p class="txt-weight-regular txt-item-color txt-small"
+                                                                        style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #747678; font-weight: 400; font-family: 'Poppins', lato, Helvetica, Arial, Verdana,        sans-serif;">This
+                                                                        item is a gift</p>
+                                                                </td>
+                                                                <td style="border-collapse: collapse; font-family: 'Poppins', lato, Helvetica, Arial, Verdana, sans-serif;">
+                                                                    &nbsp;
+                                                                </td>
+                                                            </tr>
+                                                            #if($entry.giftMessage != '')
+                                                            <tr>
+                                                                <td style="border-collapse: collapse; font-family: 'Poppins', lato, Helvetica, Arial, Verdana, sans-serif;">
+                                                                    <p class="txt-weight-regular txt-default-color txt-small"
+                                                                        style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #222222; font-weight: 400; font-family: 'Poppins', lato, Helvetica, Arial, Verdana, sans-serif;">Gift
+                                                                        Message: $entry.giftMessage</p>
+                                                                </td>
+                                                                <td style="border-collapse: collapse; font-family: 'Poppins', lato, Helvetica, Arial, Verdana, sans-serif;">
+                                                                    &nbsp;
+                                                                </td>
+                                                            </tr>
+                                                            #end
+                                                            #end
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </table>
+            </td>
+        </tr>
+        #end
+        #end
+        #end
+        #end
+    </table>
+    <table cellspacing="0" cellpadding="0" align="center" border="0" width="800" bgcolor="#ffffff" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 800px;">
+        <tr>
+            <td style="display: block; width: 100%; margin:0; padding:0; ">
+                <a href="${ctx.baseUrl}" style="display:block; margin:0px;">${ctx.cmsSlotContents.BottomContent}</a>
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>

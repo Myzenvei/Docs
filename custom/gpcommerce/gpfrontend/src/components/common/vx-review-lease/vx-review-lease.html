@@ -1,0 +1,6 @@
+<div class="vx-review-lease mx-xs-3 mx-sm-5">
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>
+  </vx-spinner>
+  <h3 class="lease-heading" v-if="leaseAgrementData && leaseAgrementData.legalTermName" v-html="leaseAgrementData.legalTermName"></h3>
+  <p class="lease-body mt-xs-4 mt-md-5" v-if="leaseAgrementData && leaseAgrementData.legalTermsText" v-html="leaseAgrementData.legalTermsText"></p>
+</div>

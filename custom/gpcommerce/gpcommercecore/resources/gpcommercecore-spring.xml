@@ -1,0 +1,2687 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:util="http://www.springframework.org/schema/util"
+	   xmlns:p="http://www.springframework.org/schema/p"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+	<context:annotation-config/>
+	<!-- Spring Integration -->
+	<import resource="classpath:/gpcommercecore/integration/hot-folder-common-spring.xml"/>
+
+	<!-- SystemSetup for the GpcommerceCore -->
+	<bean id="acceleratorCoreSystemSetup" class="com.gp.commerce.core.setup.CoreSystemSetup"
+		  parent="abstractCoreSystemSetup"/>
+
+	<bean id="gpCoreSystemSetup" class="com.gp.commerce.core.setup.GPAbstractSystemSetup"
+		  parent="abstractCoreSystemSetup" abstract="true"/>
+
+	<!-- Solr field value providers -->
+
+	<bean id="volumeAwareProductPriceValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.VolumeAwareProductPriceValueProvider"  parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+		<property name="priceService" ref="priceService"/>
+		<property name="commonI18NService" ref="commonI18NService"/>
+		<property name="sessionService" ref="sessionService"/>
+		<property name="userService" ref="userService"/>
+		<property name="priceComparator" ref="volumePriceComparator"/>
+		<property name="catalogVersionService" ref="catalogVersionService"/>
+	</bean>
+
+	<bean id="volumePriceComparator" class="com.gp.commerce.core.comparators.VolumeAwarePriceInformationComparator" scope="singleton"/>
+
+	<bean id="productVolumePricesProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.ProductVolumePricesProvider"  parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+		<property name="priceService" ref="priceService"/>
+	</bean>
+
+	<bean id="abstractGPCategoryCodeValueProvider" abstract="true"
+		  class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPCategoryCodeValueProvider"
+		  parent="abstractPropertyFieldValueProvider" >
+		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+		<property name="commonI18NService" ref="commonI18NService"/>
+	</bean>
+	<bean id="abstractCategoryNameValueProvider" abstract="true"
+		  class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPCategoryNameValueProvider"
+		  parent="abstractPropertyFieldValueProvider" >
+		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+		<property name="commonI18NService" ref="commonI18NService"/>
+	</bean>
+
+	<bean id="image515ValueProvider" parent="abstractImageValueProvider" >
+		<property name="mediaFormat" value="515Wx515H"/>
+	</bean>
+	<bean id="image300ValueProvider" parent="abstractImageValueProvider" >
+		<property name="mediaFormat" value="300Wx300H"/>
+	</bean>
+	<bean id="image96ValueProvider" parent="abstractImageValueProvider" >
+		<property name="mediaFormat" value="96Wx96H"/>
+	</bean>
+	<bean id="image65ValueProvider" parent="abstractImageValueProvider" >
+		<property name="mediaFormat" value="65Wx65H"/>
+	</bean>
+	<bean id="image30ValueProvider" parent="abstractImageValueProvider" >
+		<property name="mediaFormat" value="30Wx30H"/>
+	</bean>
+
+	<bean id="productUrlValueProvider"
+		  class="de.hybris.platform.commerceservices.search.solrfacetsearch.provider.impl.ProductUrlValueProvider"
+		  parent="abstractPropertyFieldValueProvider" >
+		<property name="urlResolver" ref="productModelUrlResolver"/>
+		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+		<property name="i18nService" ref="i18nService"/>
+		<property name="commonI18NService" ref="commonI18NService"/>
+	</bean>
+
+	<bean id="promotionCodeValueProvider"
+		  class="de.hybris.platform.commerceservices.search.solrfacetsearch.provider.impl.PromotionCodeValueProvider"
+		  parent="abstractPropertyFieldValueProvider" >
+		<property name="promotionsService" ref="promotionsService"/>
+		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+	</bean>
+
+	<bean id="promotionImageValueProvider"
+		  class="de.hybris.platform.commerceservices.search.solrfacetsearch.provider.impl.PrimaryPromotionImageValueProvider"
+		  parent="abstractPropertyFieldValueProvider" >
+		<property name="promotionsService" ref="promotionsService"/>
+		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+	</bean>
+
+	<bean id="colorFacetValueProvider"
+		  class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.ColorFacetValueProvider"
+		  parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+	</bean>
+
+	<bean id="colorFacetDisplayNameProvider"
+		  class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.ColorFacetDisplayNameProvider"
+	>
+		<property name="enumerationService" ref="enumerationService"/>
+		<property name="i18nService" ref="i18nService"/>
+		<property name="commonI18NService" ref="commonI18NService"/>
+	</bean>
+
+	<!--
+		Event listeners are singletons, therefore the dependency for a bean in tenant-scope
+		must be configured with a lookup method.
+	-->
+	<bean id="orderCancelledEventListener"
+		  class="com.gp.commerce.core.event.OrderCancelledEventListener" parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+	<bean id="orderRefundEventListener"
+		  class="com.gp.commerce.core.event.OrderRefundEventListener" parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+	<bean id="custRegistrationEventListener"
+		  class="com.gp.commerce.core.event.RegistrationEventListener" parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+	<bean id="itemEventListener"
+	      class="com.gp.commerce.core.event.GPEmailItemEventListener" parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+	<bean id="forgottenPasswordEventListener"
+		  class="com.gp.commerce.core.event.ForgottenPasswordEventListener" parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+	<bean id="passwordResetEventListener"
+		  class="com.gp.commerce.core.event.PasswordResetEventListener" parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+	<bean id="shareCartEventListener"
+		  class="com.gp.commerce.core.event.ShareCartEventListener" parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+	<bean id="shareWishlistEventListener"
+	      class="com.gp.commerce.core.event.ShareWishlistEventListener" parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+	<bean id="submitOrderEventListener" class="com.gp.commerce.core.event.SubmitOrderEventListener" parent="abstractAcceleratorSiteEventListener">
+		<property name="businessProcessService" ref="businessProcessService"/>
+		<property name="modelService" ref="modelService"/>
+		<property name="baseStoreService" ref="baseStoreService"/>
+	</bean>
+	<bean id="orderConfirmationEventListener"
+		  class="com.gp.commerce.core.event.OrderConfirmationEventListener" parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+		<property name="b2bUnitService" ref="b2bUnitService"/>
+	</bean>
+	<bean id="sendDeliveryMessageEventListener"
+		  class="com.gp.commerce.core.event.SendDeliveryMessageEventListener" parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+	<bean id="sendReadyForPickupMessageEventListener"
+		  class="com.gp.commerce.core.event.SendReadyForPickupMessageEventListener" parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+	<bean id="sendOrderPartiallyCanceledMessageEventListener"
+		  class="com.gp.commerce.core.event.SendOrderPartiallyCanceledMessageEventListener" parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+	<bean id="sendOrderPartiallyRefundedMessageEventListener"
+		  class="com.gp.commerce.core.event.SendOrderPartiallyRefundedMessageEventListener" parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+	<bean id="sendNotPickedUpConsignmentCanceledMessageEventListener"
+		  class="com.gp.commerce.core.event.SendNotPickedUpConsignmentCanceledMessageEventListener" parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+	<bean id="orderCompletedEventListener" class="com.gp.commerce.core.event.OrderCompletedEventListener" parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+	
+	<bean id="gpQuickOrderEventListener" class="com.gp.commerce.core.services.event.GPQuickOrderEventListener"
+		parent="abstractAcceleratorSiteEventListener">
+		<property name="businessProcessService" ref="businessProcessService" />
+	</bean>
+	
+	<bean id="quickOrderRemoveAction"
+	      class="com.gp.commerce.core.services.process.GPQuickOrderRemoveAction"
+	      parent="abstractAction">
+	</bean>
+
+	<!-- Process resources definition -->
+
+	<bean id="customerRegistrationEmailProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/gpcommercecore/processes/customerRegistrationEmailProcess.xml"/>
+	</bean>
+	
+	<bean id="gpAddressNotificationEmailProcessDefinitionResource"
+	      class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/gpcommercecore/processes/gpAddressNotificationEmailProcess.xml"/>
+	</bean>
+	<bean id="forgottenPasswordEmailProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/gpcommercecore/processes/forgottenPasswordEmailProcess.xml"/>
+	</bean>
+	<bean id="passwordResetEmailProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/gpcommercecore/processes/passwordResetEmailProcess.xml"/>
+	</bean>
+	<bean id="shareCartEmailProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/gpcommercecore/processes/shareCartEmailProcess.xml"/>
+	</bean>
+	<bean id="shareWishlistEmailProcessDefinitionResource"
+	      class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/gpcommercecore/processes/shareWishlistEmailProcess.xml"/>
+	</bean>
+	<bean id="orderConfirmationEmailProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/gpcommercecore/processes/orderConfirmationEmailProcess.xml"/>
+	</bean>
+	<bean id="sendDeliveryEmailProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/gpcommercecore/processes/sendDeliveryEmailProcess.xml"/>
+	</bean>
+	<bean id="sendReadyForPickupEmailProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/gpcommercecore/processes/sendReadyForPickupEmailProcess.xml"/>
+	</bean>
+	<bean id="sendOrderCancelledEmailProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/gpcommercecore/processes/sendOrderCancelledEmailProcess.xml"/>
+	</bean>
+	<bean id="sendOrderRefundEmailProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/gpcommercecore/processes/sendOrderRefundEmailProcess.xml"/>
+	</bean>
+	<bean id="sendOrderPartiallyCanceledEmailProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/gpcommercecore/processes/sendOrderPartiallyCanceledEmailProcess.xml"/>
+	</bean>
+	<bean id="sendOrderPartiallyRefundedEmailProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/gpcommercecore/processes/sendOrderPartiallyRefundedEmailProcess.xml"/>
+	</bean>
+	<bean id="sendNotPickedUpConsignmentCanceledEmailProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/gpcommercecore/processes/sendNotPickedUpConsignmentCanceledEmailProcess.xml"/>
+	</bean>
+	<bean id="sendFailedOrderEmailProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/gpcommercecore/processes/sendFailedOrderEmail.xml"/>
+	</bean>
+	<bean id="gpQuickOrderEmailProcessDefinitionResource"
+		class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+		<property name="resource"
+			value="classpath:/gpcommercecore/processes/GPQuickOrderEmailProcess.xml" />
+	</bean>
+	<bean id="orderIssuesNotificationEmailProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/gpcommercecore/processes/orderIssuesNotificationProcess.xml"/>
+	</bean>
+
+	<bean id="orderIssuesNotificationContext" class="com.gp.commerce.facades.process.email.context.OrderIssuesNotificationContext" parent="abstractEmailContext" scope="prototype">
+	</bean>
+
+	<!-- Actions -->
+	<bean id="abstractAction" class="de.hybris.platform.processengine.action.AbstractAction"
+		  abstract="true">
+		<property name="modelService" ref="modelService"/>
+		<property name="processParameterHelper" ref="processParameterHelper"/>
+	</bean>
+
+	<bean id="sendEmail" class="de.hybris.platform.acceleratorservices.process.email.actions.SendEmailAction"
+		  parent="abstractAction">
+		<property name="emailService" ref="emailService"/>
+	</bean>
+
+	<bean id="abstractGenerateEmailAction" class="de.hybris.platform.acceleratorservices.process.email.actions.GenerateEmailAction"
+		  parent="abstractAction" abstract="true">
+		<property name="modelService" ref="modelService"/>
+		<property name="cmsEmailPageService" ref="cmsEmailPageService"/>
+		<property name="contextResolutionStrategy" ref="processContextResolutionStrategy"/>
+		<property name="emailGenerationService" ref="emailGenerationService"/>
+	</bean>
+
+	<bean id="generateCustomerRegistrationEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="CustomerRegistrationEmailTemplate"/>
+	</bean>
+		
+	<bean id="generateGPEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="GPAddressNotificationEmailTemplate"/>
+	</bean>
+	<bean id="generatePasswordResetEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="PasswordResetEmailTemplate"/>
+	</bean>
+	<!-- <bean id="generateShareCartEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="ShareCartEmailTemplate"/>
+	</bean> -->
+
+	<bean id="generateForgottenPasswordEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="ForgottenPasswordEmailTemplate"/>
+	</bean>
+
+	<bean id="generateOrderConfirmationEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="OrderConfirmationEmailTemplate"/>
+	</bean>
+
+	<bean id="generateDeliverySentEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="DeliverySentEmailTemplate"/>
+	</bean>
+
+	<bean id="generateReadyForPickupEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="ReadyForPickupEmailTemplate"/>
+	</bean>
+
+	<bean id="generateOrderCancelledEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="OrderCancelledEmailTemplate"/>
+	</bean>
+
+	<bean id="generateOrderRefundEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="OrderRefundEmailTemplate"/>
+	</bean>
+
+	<bean id="generateOrderPartiallyCanceledEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="OrderPartiallyCanceledEmailTemplate"/>
+	</bean>
+	<bean id="generateOrderPartiallyRefundedEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="OrderPartiallyRefundedEmailTemplate"/>
+	</bean>
+	<bean id="generateNotPickedUpConsignmentCanceledEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="NotPickedUpConsignmentCanceledEmailTemplate"/>
+	</bean>
+	<bean id="generateFailedOrderEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="FailedOrderEmailTemplate"/>
+	</bean>
+	<bean id="generateSubscriptionOrderCancelledEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="SubscriptionOrderCancelledEmailTemplate"/>
+	</bean>
+	<!--Notify order issues  -->
+	<bean id="generateOrderIssuesEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="OrderIssuesNotifyEmailTemplate"/>
+	</bean>
+	
+	<bean id="generateEmailBeforeNdays" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="GPNextOrderSubscriptionEmailTemplate"/>
+	</bean>
+	
+	<bean id="gpNextOrderSubscriptionEmailDefinitionResource"
+		class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" scope="tenant">
+		<property name="resource"
+			value="classpath:/gpcommercecore/processes/sendEmailBeforeNdaysOfSubscription.xml" />
+	</bean>
+
+	<bean id="removeSentEmail"
+		  class="de.hybris.platform.acceleratorservices.process.email.actions.RemoveSentEmailAction"
+		  parent="abstractAction">
+		<property name="modelService" ref="modelService"/>
+	</bean>
+
+	<bean id="markQuoteNotificationAsSent"
+		  class="com.gp.commerce.core.actions.quote.MarkQuoteNotificationAsSentAction"
+		  parent="abstractAction" abstract="true">
+		<property name="quoteService" ref="quoteService"/>
+	</bean>
+	
+	<bean id="gpQuickOrderEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="GPQuickOrderEmailTemplate"/>
+	</bean>
+
+	<!-- Simple Suggestion Service -->
+	<alias alias="simpleSuggestionService" name="defaultSimpleSuggestionService"/>
+	<bean id="defaultSimpleSuggestionService"
+		  class="com.gp.commerce.core.suggestion.impl.DefaultSimpleSuggestionService" >
+		<property name="simpleSuggestionDao" ref="simpleSuggestionDao"/>
+	</bean>
+	<alias alias="simpleSuggestionDao" name="defaultSimpleSuggestionDao"/>
+	<bean id="defaultSimpleSuggestionDao"
+		  class="com.gp.commerce.core.suggestion.dao.impl.DefaultSimpleSuggestionDao"
+		  parent="abstractItemDao" >
+		<property name="flexibleSearchService" ref="flexibleSearchService"/>
+	</bean>
+
+	<bean id="mccSiteUrlHelper" class="com.gp.commerce.core.util.MccSiteUrlHelper" >
+		<property name="siteChannelValidationStrategy" ref="siteChannelValidationStrategy"/>
+		<property name="siteBaseUrlResolutionService" ref="siteBaseUrlResolutionService"/>
+		<property name="cmsSiteService" ref="cmsSiteService"/>
+	</bean>
+
+	<!-- Product Reference Lookup Strategies-->
+	<alias name="gpCrossSellingProductReferenceTargetStrategy" alias="crossSellingProductReferenceTargetStrategy"/>
+	<bean id="gpCrossSellingProductReferenceTargetStrategy"
+		  parent="defaultCrossSellingProductReferenceTargetStrategy">
+		<property name="productReferenceTargetStrategies">
+			<list merge="true">
+				<ref bean="gpCommerceSizeProductReferenceTargetStrategy"/>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="gpCommerceSizeProductReferenceTargetStrategy"
+		  class="com.gp.commerce.core.strategies.impl.GPCommerceSizeProductReferenceTargetStrategy">
+		<property name="commerceCategoryService" ref="commerceCategoryService"/>
+		<property name="rootCategoryCode" value="categories"/>
+	</bean>
+
+	<!-- Sales quote process actions -->
+
+	<!-- quote-->
+	<bean id="quoteBuyerSubmitEventListener" class="com.gp.commerce.core.event.QuoteBuyerSubmitEventListener"
+		  parent="abstractEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+
+	<bean id="quoteSalesRepSubmitEventListener" class="com.gp.commerce.core.event.QuoteSalesRepSubmitEventListener"
+		  parent="abstractEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+
+	<bean id="quoteSellerApprovalSubmitEventListener" class="com.gp.commerce.core.event.QuoteSellerApprovalSubmitEventListener"
+		  parent="abstractEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+
+	<bean id="quoteBuyerOrderPlacedEventListener" class="com.gp.commerce.core.event.QuoteBuyerOrderPlacedEventListener"
+		  parent="abstractEventListener">
+		<property name="commerceQuoteService" ref="commerceQuoteService"/>
+		<property name="modelService" ref="modelService"/>
+	</bean>
+
+	<bean id="quoteToExpireSoonEventListener" class="com.gp.commerce.core.event.QuoteToExpireSoonEventListener"
+		  parent="abstractEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+
+	<bean id="quoteExpiredEventListener" class="com.gp.commerce.core.event.QuoteExpiredEventListener"
+		  parent="abstractEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+
+	<bean id="quoteCancelEventListener" class="com.gp.commerce.core.event.QuoteCancelEventListener"
+		  parent="abstractEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+
+	<bean id="quoteBuyerProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/gpcommercecore/processes/quote/quote-buyer-process.xml"/>
+	</bean>
+
+	<bean id="quoteSalesRepProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/gpcommercecore/processes/quote/quote-salesrep-process.xml"/>
+	</bean>
+
+
+	<bean id="quoteSellerApprovalProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/gpcommercecore/processes/quote/quote-seller-approval-process.xml"/>
+	</bean>
+
+	<bean id="quotePostCancellationProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/gpcommercecore/processes/quote/quote-post-cancellation-process.xml"/>
+	</bean>
+
+	<bean id="quoteToExpireSoonProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/gpcommercecore/processes/quote/quote-to-expire-soon-email-process.xml"/>
+	</bean>
+
+	<bean id="quoteExpiredProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/gpcommercecore/processes/quote/quote-expired-email-process.xml"/>
+	</bean>
+
+	<!-- Quotes email notification jobs -->
+	<bean id="quoteToExpireSoonJobPerformable"
+		  class="com.gp.commerce.core.job.QuoteToExpireSoonJobPerformable"
+		  parent="abstractJobPerformable">
+		<property name="supportedQuoteStatuses">
+			<set value-type="de.hybris.platform.core.enums.QuoteState">
+				<value>BUYER_OFFER</value>
+			</set>
+		</property>
+		<property name="commerceQuoteDao" ref="commerceQuoteDao"/>
+		<property name="eventService" ref="eventService" />
+		<property name="configurationService" ref="configurationService" />
+		<property name="timeService" ref="timeService" />
+	</bean>
+
+	<bean id="quoteExpiredJobPerformable"
+		  class="com.gp.commerce.core.job.QuoteExpiredJobPerformable"
+		  parent="abstractJobPerformable">
+		<property name="supportedQuoteStatuses">
+			<set value-type="de.hybris.platform.core.enums.QuoteState">
+				<value>BUYER_OFFER</value>
+			</set>
+		</property>
+		<property name="commerceQuoteDao" ref="commerceQuoteDao"/>
+		<property name="eventService" ref="eventService" />
+		<property name="timeService" ref="timeService" />
+	</bean>
+
+	<import resource="/gpcommercecore/processes/quote/quote-buyer-process-spring.xml"/>
+	<import resource="/gpcommercecore/processes/quote/quote-salesrep-process-spring.xml"/>
+	<import resource="/gpcommercecore/processes/quote/quote-seller-approval-process-spring.xml"/>
+
+	<import resource="/gpcommercecore/processes/quote/quote-to-expire-soon-email-process-spring.xml"/>
+	<import resource="/gpcommercecore/processes/quote/quote-expired-email-process-spring.xml"/>
+
+	<import resource="/gpcommercecore/processes/quote/quote-post-cancellation-process-spring.xml"/>
+	<import resource="/gpcommercecore/processes/quote/shareCartEmailProcess-spring.xml"/>
+	<import resource="/gpcommercecore/processes/quote/shareWishlistEmailProcess-spring.xml"/>
+	
+	<!-- Customer cleanup -->
+	<alias name="defaultCustomerCleanupRelatedObjectsAction" alias="customerCleanupRelatedObjectsAction"/>
+	<bean id="defaultCustomerCleanupRelatedObjectsAction" class="com.gp.commerce.core.retention.impl.DefaultCustomerCleanupRelatedObjectsAction" parent="abstractExtensibleRemoveCleanupAction">
+		<property name="itemCleanupHooks" ref="customerCleanupHooks"/>
+	</bean>
+
+	<!-- Cleanup the customers not owning any order currently and the current date has past deactivation date+retention date. Also removes customers audit records. -->
+	<alias name="defaultCustomerNotOwningOrdersRemoveCleanupAction" alias="customerNotOwningOrdersRemoveCleanupAction"/>
+	<bean id="defaultCustomerNotOwningOrdersRemoveCleanupAction" class="de.hybris.platform.retention.impl.DefaultExtensibleRemoveCleanupAction" parent="abstractExtensibleRemoveCleanupAction">
+		<property name="itemCleanupHooks" ref="customerCleanupHooks"/>
+	</bean>
+
+	<!-- Order cleanup -->
+	<!-- Cleanup the order related objects and then remove order and its audit records. -->
+	<alias name="defaultOrderRemoveCleanupAction" alias="orderRemoveCleanupAction"/>
+	<bean id="defaultOrderRemoveCleanupAction" class="de.hybris.platform.retention.impl.DefaultExtensibleRemoveCleanupAction" parent="abstractExtensibleRemoveCleanupAction">
+		<property name="itemCleanupHooks" ref="orderCleanupHooks"/>
+	</bean>
+
+	<!-- CsTicket Remove action -->
+	<alias name="defaultCSTicketRemoveCleanupAction" alias="csTicketRemoveCleanupAction"/>
+	<bean id="defaultCSTicketRemoveCleanupAction" class="de.hybris.platform.retention.impl.DefaultExtensibleRemoveCleanupAction" parent="abstractExtensibleRemoveCleanupAction">
+		<property name="itemCleanupHooks" ref="csTicketCleanupHooks"/>
+	</bean>
+
+	<!-- CsTicket Stagnation action -->
+	<alias name="defaultCSTicketStagnationAction" alias="csTicketStagnationAction"/>
+	<bean id="defaultCSTicketStagnationAction" class="com.gp.commerce.core.retention.impl.DefaultCSTicketStagnationAction" parent="abstractExtensibleRemoveCleanupAction">
+		<property name="itemCleanupHooks" ref="csTicketRetentionHooks"/>
+		<property name="ticketBusinessService" ref="ticketBusinessService"/>
+	</bean>
+
+	<bean id="defaultGPCustomerAccountService" class="com.gp.commerce.core.services.impl.DefaultGPCustomerAccountService" parent="defaultCustomerAccountService"/>
+
+	<!-- customerAccountService -->
+	<alias alias="customerAccountService" name="defaultCustomerAccountService"/>
+	<bean id="defaultCustomerAccountService"
+		  class="de.hybris.platform.commerceservices.customer.impl.DefaultCustomerAccountService">
+		<property name="userService" ref="userService"/>
+		<property name="paymentService" ref="paymentService"/>
+		<property name="modelService" ref="modelService"/>
+		<property name="flexibleSearchService" ref="flexibleSearchService"/>
+		<property name="i18nService" ref="i18nService"/>
+		<property name="passwordEncoderService" ref="passwordEncoderService"/>
+		<property name="secureTokenService" ref="secureTokenService"/>
+		<property name="tokenValiditySeconds" value="#{configurationService.configuration.getProperty('email.token.expiration.time')}"/>
+		<property name="customerAccountDao" ref="customerAccountDao"/>
+		<property name="baseSiteService" ref="baseSiteService"/>
+		<property name="baseStoreService" ref="baseStoreService"/>
+		<property name="eventService" ref="eventService"/>
+		<property name="commonI18NService" ref="commonI18NService"/>
+		<property name="customerEmailResolutionService" ref="customerEmailResolutionService"/>
+		<property name="passwordEncoding" value="#{configurationService.configuration.getProperty('default.password.encoding')}"/>
+		<property name="typeService" ref="typeService"/>
+		<property name="customerNameStrategy" ref="defaultCustomerNameStrategy"/>
+		<property name="timeService" ref="timeService"/>
+		<property name="commerceCommonI18NService" ref="commerceCommonI18NService"/>
+		<property name="monthsForOrderExpiry"
+				  value="#{configurationService.configuration.getProperty('guest.orderstatuspage.access.expiry.month')}"/>
+		<property name="configurationService" ref="configurationService"/>
+	</bean>
+
+	<bean id="gpCustomerAccountService"
+			class="com.gp.commerce.core.customer.impl.GPCustomerAccountService" parent="defaultCustomerAccountService"/>
+			
+	<!-- GP Customer Survey Components-->
+	<bean id="gpSurveyService" class="com.gp.commerce.core.services.survey.impl.GPSurveyServiceImpl">
+		<property name="gpSurveyDAO" ref="gpSurveyDAO"/>
+	</bean>
+
+	<bean id="gpSurveyDAO" class="com.gp.commerce.core.survey.dao.impl.GPSurveyDAOImpl">
+		<property name="flexibleSearchService" ref="flexibleSearchService"/>
+	</bean>
+
+	<bean id="gpCustomerOriginalUIDPrepareInterceptor"
+		  class="com.gp.commerce.core.interceptor.customer.GPCustomerOriginalUidPrepareInterceptor"/>
+
+	<bean id="gpCustomerOriginalUIDPrepareMapping"
+		  class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+		<property name="interceptor" ref="gpCustomerOriginalUIDPrepareInterceptor"/>
+		<property name="typeCode" value="customer"/>
+		<property name="replacedInterceptors" ref="customerOriginalUIDPrepareInterceptor"/>
+	</bean>
+
+	<alias alias="customerEmailResolutionService" name="gpCustomerEmailResolutionService"/>
+	<bean id="gpCustomerEmailResolutionService" class="com.gp.commerce.core.services.GPCustomerEmailResolutionService"
+		  parent="defaultCustomerEmailResolutionService">
+		  <property name="configurationService" ref="configurationService" />
+		  <property name="baseSiteService" ref="baseSiteService"/>
+	</bean>
+
+	<alias name="gpdefaultCategoryModelUrlResolver" alias="categoryModelUrlResolver"/>
+	<bean id="gpdefaultCategoryModelUrlResolver"
+		  class="com.gp.commerce.core.url.impl.GPDefaultCategoryModelUrlResolver">
+		<property name="threadContextService" ref="threadContextService"/>
+		<property name="commerceCategoryService" ref="commerceCategoryService"/>
+		<property name="baseSiteService" ref="baseSiteService"/>
+		<property name="pattern" value="/category/{category-code}"/>
+	</bean>
+
+
+	<bean id="removeDataOnSetURLPrepareInterceptor" class="com.gp.commerce.core.interceptor.customer.CustomRemoveDataOnSetURLPrepareInterceptor" />
+
+	<bean id="removeDataOnSetURLMapping" class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+		<property name="interceptor" ref="removeDataOnSetURLPrepareInterceptor"/>
+		<property name="typeCode" value="Media"/>
+	</bean>
+
+	<bean id="generateShareProductEmail"
+		  parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName"
+				  value="ShareProductEmailTemplate" />
+	</bean>
+
+	<bean id="shareProductEmailProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource"
+		  scope="tenant">
+		<property name="resource"
+				  value="classpath:/gpcommercecore/processes/shareProductEmailProcess.xml" />
+	</bean>
+	
+	<bean id="subscriptionOrderCancelledEmailProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource"
+		  scope="tenant">
+		<property name="resource"
+				  value="classpath:/gpcommercecore/processes/subscriptionOrderCancelledEmailProcess.xml" />
+	</bean>
+
+ 	<bean id="generateSubscriptionOrderConfirmationEmail"
+		  parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName"
+				  value="GPSubscrpOrderConfirmationMailTemplate" />
+	</bean>
+
+	<bean id="discontinuedReplacedProductEmailProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource"
+		  scope="tenant">
+		<property name="resource"
+				  value="classpath:/gpcommercecore/processes/discontinuedReplacedProductEmailProcess.xml" />
+	</bean>
+
+	<bean id="generateDiscontinuedReplacedProductEmail"
+		  parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName"
+				  value="GPDiscontinuedReplacedProductMailTemplate" />
+	</bean>
+
+	<bean id="subscriptionOrderConfirmationEmailProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource"
+		  scope="tenant">
+		<property name="resource"
+				  value="classpath:/gpcommercecore/processes/subscriptionOrderConfirmationEmailProcess.xml" />
+	</bean> 
+	
+
+	<bean id="shareProductEventListener"
+		  class="com.gp.commerce.core.event.ShareProductEventListener"
+		  parent="abstractEventListener">
+		<property name="businessProcessService"
+				  ref="businessProcessService" />
+		<property name="modelService" ref="modelService" />
+		<property name="baseSiteService" ref="baseSiteService" />
+		<!-- <property name="cmsSiteService" ref="cmsSiteService" /> -->
+	</bean>
+
+	<bean id="gpShareProductService" class="com.gp.commerce.core.services.impl.GPDefaultShareProductService">
+		<property name= "eventService" ref="eventService" />
+		<property name= "emailService" ref="defaultEmailService" />
+		<property name= "mediaService" ref="mediaService" />
+		<property name= "productService" ref="productService" />
+		<property name= "guidKeyGenerator" ref="guidKeyGenerator" />
+	</bean>
+
+	<!-- product average rating value provider based on bazaar voice rating -->
+	<bean id="bvproductReviewAverageRatingValueProvider"
+            class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPBazaarvoiceProductRatingReviewValueProvider"
+            parent="abstractPropertyFieldValueProvider">
+            <property name="indexType" value="productRating" />
+            <property name="fieldNameProvider" ref="solrFieldNameProvider" />
+	</bean>
+
+	<alias alias="cmsSiteService" name="defaultGpCMSSiteService" />
+	<bean id="defaultGpCMSSiteService" class="com.gp.commerce.core.services.impl.DefaultGPCMSSiteService" parent="defaultCMSSiteService">
+	</bean>
+	<alias name="defaultGPCartService" alias="gpCartService"/>
+		<bean id="defaultGPCartService" class="com.gp.commerce.core.services.impl.DefaultGPCartService">
+			<property name="eventService" ref="eventService"/>
+			<property name="businessProcessService" ref="businessProcessService"/>
+			<property name="gpCartDao" ref="gpCartDao" />
+			<property name="gpCouponDao" ref="gpCouponDao" />
+		</bean>
+		
+	<bean id="gpCartDao" class="com.gp.commerce.core.dao.impl.GPDefaultCartDao">
+	<property name="flexibleSearchService" ref="flexibleSearchService" />
+	</bean>
+
+    <alias alias="emailGenerationService" name="defaultGPEmailGenerationService"/>
+	<bean id="defaultGPEmailGenerationService"
+		  class="com.gp.commerce.core.services.impl.DefaultGPEmailGenerationService" parent="defaultEmailGenerationService">
+	</bean>
+
+	<alias alias="processContextResolutionStrategyMap" name="defaultGPProcessContextResolutionStrategyMap"/>
+	<bean id="defaultGPProcessContextResolutionStrategyMap" class="org.springframework.beans.factory.config.MapFactoryBean" parent="defaultProcessContextResolutionStrategyMap">
+		<property name="sourceMap">
+			<map merge="true">
+				<entry value-ref="shareCartProcessContextStrategy">
+					<key>
+						<value type="java.lang.Class">com.gp.commerce.core.model.CartProcessModel</value>
+					</key>
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+	<alias alias="shareCartProcessContextStrategy" name="defaultShareCartProcessContextStrategy"/>
+	<bean id="defaultShareCartProcessContextStrategy"
+		  class="com.gp.commerce.core.strategies.impl.ShareCartProcessContextStrategy"
+		  parent="abstractProcessContextStrategy">
+		  <property name="userService" ref="userService"/>
+	</bean>
+
+	<!-- GP product specific beans -->
+
+	<bean id="gpProductDao"
+		  class="com.gp.commerce.core.product.dao.impl.GPDefaultProductDao"
+		  parent="defaultProductDao">
+		  <property name="pagedFlexibleSearchService" ref="gpPagedFlexibleSearchService" />
+		  <property name="catalogVersionService" ref="catalogVersionService"/>
+	</bean>
+
+	<bean id="gpProductService"
+		  class="com.gp.commerce.core.product.services.impl.GPDefaultProductService"
+		  parent="defaultProductService">
+		<property name="configurationService" ref="configurationService" />
+		<property name="cmsSiteService" ref="cmsSiteService" />
+		<property name="gpProductDao" ref="gpProductDao" />
+	</bean>
+
+	<bean id="gpB2BProductService"
+		  class="com.gp.commerce.core.product.services.impl.GPB2BDefaultProductService"
+		  parent="gpProductService">
+		<property name="gpProductDao" ref="gpProductDao" />
+	</bean>
+
+
+	<alias alias="emailService" name="defaultGPEmailService"/>
+	<bean id="defaultGPEmailService"
+		  class="com.gp.commerce.core.services.impl.DefaultGPEmailService" parent="defaultEmailService">
+	</bean>
+
+	<bean id="gpPriceFactory" class="com.gp.commerce.core.price.service.impl.GPDefaultEurope1PriceFactory"
+		  init-method="init" destroy-method="destroy">
+		<property name="netGrossStrategy" ref="netGrossStrategy"/>
+		<property name="timeService" ref="timeService"/>
+		<property name="modelService" ref="modelService"/>
+		<property name="retrieveChannelStrategy" ref="retrieveChannelStrategy"/>
+	</bean>
+
+	<bean id="gpPrecuratedListService" class="com.gp.commerce.core.services.impl.GPDefaultPrecuratedListService"/>
+
+	<bean id="gpPrecuratedListDao" class="com.gp.commerce.core.dao.impl.GPDefaultPrecuratedListDao"/>
+
+
+
+
+	<bean id="gpCommerceAddToCartMethodHook"
+		  class="com.gp.commerce.core.order.hook.impl.GPCommerceAddToCartMethodHook">
+		<property name="modelService" ref="modelService" />
+		<property name="productService" ref="productService" />
+		<property name="commercePriceService" ref="commercePriceService" />
+		<property name="commonI18NService" ref="commonI18NService" />
+		<property name="commerceCommonI18NService" ref="commerceCommonI18NService" />
+		<property name="i18NService" ref="i18NService" />
+	</bean>
+
+	<bean id="commerceAddToCartMethodHooksListMergeDirective"
+		  depends-on="commerceAddToCartMethodHooks" parent="listMergeDirective">
+		<property name="add" ref="gpCommerceAddToCartMethodHook" />
+	</bean>
+
+	<bean id="gpCommerceUpdateCartMethodHook"
+		  class="com.gp.commerce.core.order.hook.impl.GPCommerceUpdateCartMethodHook">
+		<property name="modelService" ref="modelService" />
+	</bean>
+
+	<bean id="commerceUpdateMethodHooksListMergeDirective"
+		  depends-on="commerceUpdateCartEntryMethodHooks" parent="listMergeDirective">
+		<property name="add" ref="gpCommerceUpdateCartMethodHook" />
+	</bean>
+	
+	<alias name="gpDefaultCategorySource" alias="abstractCategorySource" />
+	<bean id="gpDefaultCategorySource" abstract="true" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPDefaultCategorySource"
+	parent="defaultCategorySource">
+	</bean>
+
+	<bean id="gpCategorySource" parent="abstractCategorySource">
+		<property name="rootCategory" value="categories"/> <!-- 'categories' is the root gp category -->
+	</bean>
+
+	<bean id="gpAreaOfServiceCategorySource" parent="abstractCategorySource">
+		<property name="rootCategory" value="areaofservice"/>
+	</bean>
+	
+	<bean id="gpPaperproductsCategorySource" parent="abstractCategorySource">
+		<property name="rootCategory" value="paperproducts"/>
+	</bean>
+	
+	<bean id="gpDispensersCategorySource" parent="abstractCategorySource">
+		<property name="rootCategory" value="dispensers"/>
+	</bean>
+
+	<bean id="gpBundlesCategorySource" parent="abstractCategorySource">
+		<property name="rootCategory" value="bundles"/>
+	</bean>
+
+	<bean id="gpCleaningSupplyCategorySource" parent="abstractCategorySource">
+		<property name="rootCategory" value="cleaningsupply"/>
+	</bean>
+
+	<bean id="gpCategoryCodeValueProvider" parent="abstractGPCategoryCodeValueProvider">
+		<property name="categorySource" ref="gpCategorySource"/>
+	</bean>
+
+	<bean id="gpAreaOfServiceCategoryCodeValueProvider" parent="abstractGPCategoryCodeValueProvider">
+		<property name="categorySource" ref="gpAreaOfServiceCategorySource"/>
+	</bean>
+	
+	<bean id="gpPaperproductsCategoryCodeValueProvider" parent="abstractGPCategoryCodeValueProvider">
+		<property name="categorySource" ref="gpPaperproductsCategorySource"/>
+	</bean>
+	
+	<bean id="gpDispensersCategoryCodeValueProvider" parent="abstractGPCategoryCodeValueProvider">
+		<property name="categorySource" ref="gpDispensersCategorySource"/>
+	</bean>
+
+	<bean id="gpBundlesCategoryCodeValueProvider" parent="abstractGPCategoryCodeValueProvider">
+		<property name="categorySource" ref="gpBundlesCategorySource"/>
+	</bean>
+
+	<bean id="gpCleaningSupplyCategoryCodeValueProvider" parent="abstractGPCategoryCodeValueProvider">
+		<property name="categorySource" ref="gpCleaningSupplyCategorySource"/>
+	</bean>
+
+	<bean id="gpCategoryNameValueProvider" parent="abstractCategoryNameValueProvider">
+		<property name="categorySource" ref="gpCategorySource"/>
+	</bean>
+
+	<bean id="gpAreaOfServiceCategoryNameValueProvider" parent="abstractCategoryNameValueProvider">
+		<property name="categorySource" ref="gpAreaOfServiceCategorySource"/>
+	</bean>
+	
+	<bean id="gpPaperproductsCategoryNameValueProvider" parent="abstractCategoryNameValueProvider">
+		<property name="categorySource" ref="gpPaperproductsCategorySource"/>
+	</bean>
+	
+	<bean id="gpDispensersCategoryNameValueProvider" parent="abstractCategoryNameValueProvider">
+		<property name="categorySource" ref="gpDispensersCategorySource"/>
+	</bean>
+
+	<bean id="gpBundlesCategoryNameValueProvider" parent="abstractCategoryNameValueProvider">
+		<property name="categorySource" ref="gpBundlesCategorySource"/>
+	</bean>
+
+	<bean id="gpCleaningSupplyCategoryNameValueProvider" parent="abstractCategoryNameValueProvider">
+		<property name="categorySource" ref="gpCleaningSupplyCategorySource"/>
+	</bean>
+
+	<bean id="gpPointOfServiceFacetDisplayNameProvider"
+		  class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.PointOfServiceFacetDisplayNameProvider">
+		<property name="pointOfServiceService" ref="pointOfServiceService"/>
+	</bean>
+	
+	<bean id="gpb2bPermissionService" class="com.gp.commerce.core.services.permission.impl.GPDefaultB2BPermissionService">
+		<property name="defaultGPB2BPermissionDao" ref="defaultGPB2BPermissionDao"/>
+	</bean>
+	
+	<bean id="gpb2buserGroupService" class="com.gp.commerce.core.services.usergroups.impl.GPDefaultB2BUserGroupService">
+		<property name="defaultGPPagedB2BUserGroupDao" ref="defaultGPPagedB2BUserGroupDao"/>
+	</bean>
+
+   <alias alias="b2bPermissionDao" name="defaultGPB2BPermissionDao"/>
+	<bean id="defaultGPB2BPermissionDao" class="com.gp.commerce.core.dao.impl.DefaultGPB2BPermissionDao" />
+	
+	
+	<alias name="defaultGPPagedB2BUserGroupDao" alias="pagedB2BUserGroupDao"/>
+	<bean name="defaultGPPagedB2BUserGroupDao" class="com.gp.commerce.core.dao.impl.DefaultGPB2BUserGroupDao" parent="defaultPagedB2BUserGroupDao">
+	</bean>
+	
+
+	<bean id="gpProductNextDeliveryDateValueProvider"
+		  class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductNextDeliveryDateValueProvider"
+		  parent="gpPropertyFieldValueProvider">
+		<property name="commerceStockService" ref="commerceStockService"/>
+		<property name="stockService" ref="stockService"/>
+	</bean>
+
+	<bean id="gpProductWeblistPriceValueProvider"
+		  class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductWeblistPriceValueProvider"
+		  parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+	</bean>
+	
+	<bean id="gpQuickOrderDao" class="com.gp.commerce.core.quickorder.dao.impl.GPQuickOrderDaoImpl" parent="abstractItemDao"/>
+	
+	<bean id="gpQuickOrderService" class="com.gp.commerce.core.services.quickorder.impl.GPQuickOrderServiceImpl">
+		<property name="gpQuickOrderDao" ref="gpQuickOrderDao"/>
+	</bean>
+	
+	<bean id="gpProductPriceRangeValueProvider"
+		  class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductPriceRangeValueProvider"
+		  parent="abstractMultidimensionalProductFieldValueProvider">
+	</bean>
+	<bean id="gpBazaarvoiceProductNumberOfReviewsValueProvider" parent="bvproductReviewAverageRatingValueProvider">
+		<property name="indexType" value="productReviews" />
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+	</bean>
+
+	<bean id="gpBazaarvoiceRatingRangeValueProvider" parent="bvproductReviewAverageRatingValueProvider">
+		<property name="indexType" value="ratingRange" />
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+	</bean>
+	
+	<bean id="gpDeliveryService"
+			class="com.gp.commerce.core.services.GPDeliveryService">	
+		<property name="gpDeliveryDao" ref="gpDeliveryDao" />
+	</bean>
+	
+	<bean id="gpDeliveryDao"
+			class="com.gp.commerce.core.dao.impl.GPDefaultDeliveryDao">	
+		<property name="flexibleSearchService" ref="flexibleSearchService" />
+	</bean>
+	
+	<!-- UpdatedProfileEmail -->
+   	<bean id="generateUpdateProfileEmail"
+		  parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="UpdateProfileEmailTemplate" />
+	</bean>
+	
+	<bean id="updateProfileEmailProcessDefinitionResource"
+	      class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/gpcommercecore/processes/updateProfileEmailProcess.xml"/>
+	</bean>
+
+	<bean id="updateProfileEventListener"
+		  class="com.gp.commerce.core.event.UpdateProfileEventListner"
+		  parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>	
+	
+	<!-- UpdatedProfileEmail eND -->
+	
+	<!-- UpdatedEmailNotificationEmail -->
+   	<bean id="generateChangeUIDEmail"
+		  parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="ChangeUIDEmailTemplate" />
+	</bean>
+	
+	<bean id="changeUIDEmailProcessDefinitionResource"
+	      class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/gpcommercecore/processes/changeUIDEmailProcess.xml"/>
+	</bean>
+
+	<bean id="changeUIDEventListener"
+		  class="com.gp.commerce.core.event.ChangeUIDEventListener"
+		  parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>	
+	
+	<!-- UpdatedEmailNotificationEmail eND -->
+	
+	<!-- CSR Notification for fraud order -->
+	<bean id="generateCSROrderApprovalRejectionEmail"
+		  parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="CSROrderApprovalRejectionEmailTemplate" />
+	</bean>
+	
+	<bean id="csrOrderApprovalRejectionProcessDefinitionResource"
+	      class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/gpcommercecore/processes/csrOrderApprovalRejectionEmailProcess.xml"/>
+	</bean>
+
+	<bean id="csrOrderApprovalRejectionEventListener"
+		  class="com.gp.commerce.core.event.CSROrderApprovalRejectionEventListener"
+		  parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>	
+	<!-- CSR Notification for fraud order end -->
+
+	<!-- B2B order approval or rejection notification -->
+	<bean id="generateB2BOrderApprovalNotifyEmail"
+		  parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="B2BOrderApprovalNotifyEmailTemplate" />
+	</bean>
+	
+	<bean id="b2bOrderApprovalNotifyProcessDefinitionResource"
+	      class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/gpcommercecore/processes/b2bOrderApprovalNotifyEmailProcess.xml"/>
+	</bean>
+
+	<bean id="b2bOrderApprovalNotifyEventListener"
+		  class="com.gp.commerce.core.event.listener.B2BOrderApprovalNotifyEventListener"
+		  parent="abstractEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>	
+	<!-- B2B order approval or rejection notification -->
+	
+    <bean id="gpWishlistDao"
+	     class="com.gp.commerce.core.wishlist.dao.impl.GPDefaultWishlistDao"
+	     parent="defaultWishlistDao">
+    </bean>
+	<bean id="gpWishlistService"
+		class="com.gp.commerce.core.wishlist.services.impl.GPDefaultWishlistService"
+		parent="defaultWishlistService">
+		<property name="gpWishlistDao" ref="gpWishlistDao" />
+		<property name="wishlistService" ref="wishlistService" />
+		<property name="productService" ref="productService" />
+		<property name="wishlistConverter" ref="wishlistConverter" />
+		<property name="guidKeyGenerator" ref="guidKeyGenerator" />
+		<property name="gpWishlistUtil" ref="gpWishlistUtil" />
+	</bean>
+	
+	<bean id="gpWishlistUtil"
+	     class="com.gp.commerce.core.util.GPWishlistUtil">
+	     <property name="baseSiteService" ref="baseSiteService"/> 
+	     <property name="configurationService" ref="configurationService"/>
+	     <property name="sessionService" ref="sessionService"/>
+    </bean>
+	
+	<alias alias="wishlistService" name="defaultWishlistService" />
+	<bean id="defaultWishlistService" class="de.hybris.platform.wishlist2.impl.DefaultWishlist2Service">
+		<property name="wishlistDao" ref="wishlistDao"/>
+		<property name="saveAnonymousWishlists" value="true"/>
+		<property name="modelService" ref="modelService"/>
+	</bean>
+	
+	<!-- Alert Product -->
+	
+	<bean id="gpProductAlertDao"
+	     class="com.gp.commerce.core.xpress.alert.dao.impl.GPProductAlertDaoImpl">
+	     <property name="modelService" ref="modelService"/> 
+	     <property name="flexibleSearchService" ref="flexibleSearchService"/>
+    </bean>
+	<bean id="gpProductAlertService"
+		class="com.gp.commerce.core.xpress.alert.service.impl.GPProductAlertServiceImpl">
+	</bean>
+	
+	
+	 <!-- <bean id="gpAfterAddressSaveEventListener"
+		class="com.gp.commerce.core.event.GPAfterAddressSaveEventListener">
+	</bean>  -->
+	
+	<!--  <bean id="gpAfterCustomerSaveEventHandler"
+		class="com.gp.commerce.core.event.GPAfterCustomerSaveEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="secureTokenService" ref="secureTokenService"/>
+		<property name="tokenValiditySeconds" value="#{configurationService.configuration.getProperty('email.token.expiration.time')}"/>
+		<property name="baseSiteService" ref="baseSiteService"/>
+		<property name="baseStoreService" ref="baseStoreService"/>
+		<property name="eventService" ref="eventService"/>
+		<property name="commonI18NService" ref="commonI18NService"/>
+		<property name="b2bUnitService" ref="b2bUnitService"/>
+		<property name="userService" ref="gpUserService"/>
+		<property name="configurationService" ref="configurationService" />
+	</bean>  -->
+	
+	<alias alias="gpB2BUnitsService" name="gpB2BUnitsService"/>
+	<bean id="gpB2BUnitsService" class="com.gp.commerce.core.company.services.impl.GPDefaultB2BUnitsService" >
+	<property name="b2bUnitDao" ref="b2bUnitDao"/>
+	<property name="principalGroupMembersDao" ref="principalGroupMembersDao"/>
+	<property name="modelService" ref="modelService"/>
+	<property name="sessionService" ref="sessionService"/>
+	<property name="userService" ref="userService"/>
+	<property name="configurationService" ref="configurationService"/>
+	<property name="typeService" ref="typeService"/>
+	<property name="processDefinitionFactory" ref="processDefinitionFactory"/>
+	<property name="searchRestrictionService" ref="searchRestrictionService"/>
+	</bean>
+	
+	<alias alias="gpb2bUnitDao" name="gpb2bUnitDao"/>
+	<bean id="gpb2bUnitDao" class="com.gp.commerce.core.company.dao.impl.GPDefaultB2BUnitDao" >
+	</bean>
+
+	<!-- Tax Exemption bean configuration start -->
+	<bean id="generateTaxExemptionSubmitReviewEmailAction" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="TaxExemptionSubmitReviewEmailTemplate"/>
+	</bean>
+	
+	<bean id="taxExemptionSubmitReviewProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/gpcommercecore/processes/taxExemptionSubmitReviewEmailProcess.xml"/>
+	</bean>
+	
+	<bean id="taxExemptionSubmitReviewEventListener"
+	      class="com.gp.commerce.core.event.listener.GPTaxExemptionSubmitReviewEventListener" parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+		<property name="baseSiteService" ref="baseSiteService"/>
+		<property name="baseStoreService" ref="baseStoreService"/>
+		<property name="cmsSiteService" ref="cmsSiteService"/>
+	</bean>
+	<!-- Tax Exemption bean configuration end -->
+	<bean id="gpCouponDao" class="com.gp.commerce.core.coupon.dao.impl.GPCouponDaoImpl" >
+			<property name="flexibleSearchService" ref="flexibleSearchService"/>
+	</bean>
+	
+	<alias name="gpUserService" alias="userService"/>
+	<bean id="gpUserService" class="com.gp.commerce.core.services.impl.DefaultGPUserService" parent="defaultUserService">
+	</bean>
+	
+	<alias name="gpConsignmentTrackingService" alias="consignmentTrackingService"/>
+	<bean id="gpConsignmentTrackingService" class="com.gp.commerce.core.services.impl.GPDefaultConsignmentTrackingService" parent="defaultConsignmentTrackingService">
+	</bean>
+	
+	<alias name="gpUserDao" alias="userDao"/>
+	<bean id="gpUserDao" class="com.gp.commerce.core.user.dao.impl.GPDefaultUserDao">
+	</bean>
+	
+	<alias alias="commercePlaceOrderStrategy" name="gpCommercePlaceOrderStrategy"/>
+	<bean id="gpCommercePlaceOrderStrategy"
+			class="com.gp.commerce.core.strategies.GPCommercePlaceOrderStrategy" parent="defaultCommercePlaceOrderStrategy">
+			<property name="consignmentCodeGenerator" ref="consignmentCodeGenerator"/>
+			<property name="stockService" ref="stockService"/>
+			<property name="deliveryModeService" ref="deliveryModeService"/>
+			<property name="sessionService" ref="sessionService"/>
+	</bean>
+
+	<bean id="gpSavedValuesDao" class="com.gp.commerce.core.savedvalus.dao.impl.GPDefaultSavedValuesDao">
+            <property name="modelService" ref="modelService" />
+            <property name="flexibleSearchService" ref="flexibleSearchService" />
+   </bean>
+	
+	 <bean id="gpOrderApprovalEmailProcessDefinitionResource"
+         class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+         <property name="resource" value="classpath:/gpcommercecore/processes/gpOrderApprovalEmailProcess.xml"/>
+    </bean>
+
+	    
+    <bean id="generateGPApprovalEmail" parent="abstractGenerateEmailAction">
+        <property name="frontendTemplateName" value="GPOrderApprovalEmailTemplate"/>
+    </bean>
+    
+	<bean id="gpProductMaterialStatusValueProvider"
+		  class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductMaterialStatusValueProvider"
+		  parent="abstractPropertyFieldValueProvider">
+		  <property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+	</bean>
+	
+	<bean id="B2BUnitModelValidateInterceptor" class="com.gp.commerce.core.b2bunit.interceptor.GPB2BUnitModelValidateInterceptor">
+		<property name="b2bUnitService" ref="b2bUnitService"/>
+		<property name="userService" ref="userService"/>
+		<property name="modelService" ref="modelService"/>
+		<property name="l10NService" ref="l10nService"/>
+	</bean>
+	
+	<bean id="B2BUnitModelValidateInterceptorMapping" class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+		<property name="interceptor" ref="B2BUnitModelValidateInterceptor"/>
+		<property name="typeCode" value="B2BUnit"/>
+	</bean>
+	
+	<alias name="gpCalculationService" alias="calculationService"/>
+	<bean id="gpCalculationService" class="com.gp.commerce.core.calculation.service.impl.GPCalculationService" 
+			parent="defaultCalculationService">
+		<property name="commonI18NService" ref="commonI18NService"/>
+		<property name="findPriceStrategy" ref="currentFactoryFindPricingStrategy"/>
+		<property name="findDiscountsStrategies" ref="discountStrategiesFinderList"/>
+		<property name="findTaxesStrategies" ref="taxesStrategiesFinderList"/>
+		<property name="findDeliveryCostStrategy" ref="findDeliveryCostStrategy"/>
+		<property name="findPaymentCostStrategy" ref="findPaymentCostStrategy"/>
+		<property name="orderRequiresCalculationStrategy" ref="orderRequiresCalculationStrategy"/>
+		<property name="taxFreeEntrySupport" value="${abstractorder.taxFreeEntrySupport}"/>
+		<property name="gpAvalaraTaxService" ref="gpAvalaraTaxService" />
+		<property name="gpOneSourceTaxService" ref="gpOneSourceTaxService" />
+		<property name="cartService" ref="cartService"/>
+	</bean>
+
+	<bean id="gpAvalaraTaxService" class="com.gp.commerce.core.calculation.service.impl.GPDefaultAvalaraTaxCalculationService">
+		<property name="gpProductTaxCodeService" ref="gpProductTaxCodeService"/>
+	</bean>
+	<bean id="gpOneSourceTaxService" class="com.gp.commerce.core.calculation.service.impl.GPDefaultOneSourceTaxCalculationService">
+	</bean>
+
+	<alias alias="shareWishlistProcessContextStrategy" name="defaultShareWishlistProcessContextStrategy"/>
+	<bean id="defaultShareWishlistProcessContextStrategy"
+		  class="com.gp.commerce.core.strategies.impl.ShareWishlistProcessContextStrategy"
+		  parent="abstractProcessContextStrategy">
+	</bean>
+
+	<bean id="gpProductOnlineDateValueProvider"
+		  class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductDateValueProvider"
+		  parent="gpPropertyFieldValueProvider">
+		  <property name="indexType" value="productOnlineDate"/>
+	</bean>
+	
+	<bean id="gpProductOfflineDateValueProvider"  parent="gpProductOnlineDateValueProvider">
+		  <property name="indexType" value="productOfflineDate"/>
+	</bean>
+	
+	<bean id="gpReplacementProductCodeValueProvider"
+		  class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPReplacementProductCodeValueProvider"
+		  parent="abstractPropertyFieldValueProvider">
+		  <property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+	</bean>
+
+	<alias name="gpDefaultProductModelUrlResolver" alias="productModelUrlResolver"/>
+	<bean id="gpDefaultProductModelUrlResolver"
+			class="com.gp.commerce.core.url.impl.GPDefaultProductModelUrlResolver" 
+			parent="defaultProductModelUrlResolver">
+	</bean>	
+
+	<alias name="gpCustomerAccountDao" alias="customerAccountDao" />
+	<bean id="gpCustomerAccountDao" class="com.gp.commerce.order.dao.impl.GPCustomerAccountDaoImpl" parent="defaultCustomerAccountDao">
+		<property name="pagedFlexibleSearchService" ref="gpPagedFlexibleSearchService" />
+	</bean>
+
+	<bean id="gpB2BCustomerAccountDao" class="com.gp.commerce.core.dao.impl.GPB2BCustomerAccountDaoImpl" parent="defaultCustomerAccountDao">
+		<property name="pagedFlexibleSearchService" ref="gpPagedFlexibleSearchService" />
+	</bean>
+
+	<bean id="gpB2BCustomerAccountService" class="com.gp.commerce.core.customer.impl.GPB2BCustomerAccountServiceImpl">
+		<property name="gpB2BCustomerAccountDao" ref="gpB2BCustomerAccountDao" />
+	</bean>
+
+	<!-- Consignment -->
+    <bean id="consignmentCodeGenerator" class="de.hybris.platform.servicelayer.keygenerator.impl.PersistentKeyGenerator">
+        <property name="key" value="${keygen.consignment.code.name}"/>
+        <property name="digits" value="${keygen.consignment.code.digits}"/>
+        <property name="start" value="${keygen.consignment.code.start}"/>
+        <property name="type" value="${keygen.consignment.code.type}"/>
+        <property name="template" value="${keygen.consignment.code.template}"/>
+    </bean>
+    
+	<bean id="orderFulfillmentErrorJob" class="com.gp.commerce.core.job.OrderFulfillmentErrorCronjob" parent="abstractJobPerformable">
+		<property name="gpOrderService" ref="gpOrderService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+	
+	<alias name="defaultGPOrderService" alias="gpOrderService"/>
+	<bean id="defaultGPOrderService" class="com.gp.commerce.core.order.service.impl.GPOrderServiceImpl">
+		<property name="gpOrderDao" ref="gpOrderDao"/>
+	</bean>
+
+	<alias name="defaultGPOrderDao" alias="gpOrderDao"/>
+	<bean id="defaultGPOrderDao" class="com.gp.commerce.core.order.dao.impl.GPOrderDaoImpl">
+		<property name="flexibleSearchService" ref="flexibleSearchService"/>
+	</bean>
+	
+	<bean id="gpOMSOrderService" class="com.gp.commerce.core.order.impl.GPOmsOrderServiceImpl">
+		  <property name="modelService" ref="modelService"/>
+		  <property name="orderCancelService" ref="orderCancelService"/>
+		  <property name="userService" ref="userService"/>
+		  <property name="configurationService" ref="configurationService" />
+		  <property name="stockService" ref="stockService"/>
+		  <property name="enumerationService" ref="enumerationService"/>
+		  <property name="eventService" ref="eventService" />
+		  <property name="orderGenericDao" ref="orderGenericDao"/>
+	</bean>
+	
+	<alias name="defaultGPDebitCalculationService" alias="gpDebitCalulationService"/>
+	<bean id="defaultGPDebitCalculationService" class="com.gp.commerce.core.services.impl.GPDebitCalculationServiceImpl">
+	</bean>
+
+	<bean id="gpConsignmentDao" class="com.gp.commerce.core.dao.impl.GPConsignmentDaoImpl">
+		<property name="flexibleSearchService" ref="flexibleSearchService"/>
+	</bean>
+	
+	<bean id="gpConsignmentService" class="com.gp.commerce.core.services.impl.GPConsignmentServiceImpl">
+		<property name="gpConsignmentDao" ref="gpConsignmentDao"/>
+	</bean>
+	
+	<bean id="orderRejectEmailProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/gpcommercecore/processes/orderRejectEmailProcess.xml"/>
+	</bean>
+	
+	<bean id="gpOrderRejectedEventListener"
+		  class="com.gp.commerce.core.event.GPOrderRejectedEventListener" parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+	
+	<bean id="generateOrderRejectEmailProcess" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="OrderRejectEmailTemplate"/>
+	</bean>
+	
+	<alias name="gpExternalTaxesService" alias="externalTaxesService"/>
+	<bean id="gpExternalTaxesService"
+			class="com.gp.commerce.core.externaltax.impl.GPExternalTaxesService" parent="defaultExternalTaxesService"/>
+
+
+	<alias alias="b2bOrderThresholdEvaluationStrategy" name="defaultGPB2BOrderThresholdEvaluationStrategy" />
+	<bean id="defaultGPB2BOrderThresholdEvaluationStrategy" class="com.gp.commerce.core.services.permission.impl.GPDefaultB2BOrderThresholdEvaluationStrategy"
+		parent="defaultB2BOrderThresholdEvaluationStrategy">
+	</bean>
+
+	<alias alias="b2bOrderThresholdTimespanEvaluationStrategy" name="defaultGPB2BOrderThresholdTimespanEvaluationStrategy" />
+	<bean id="defaultGPB2BOrderThresholdTimespanEvaluationStrategy" class="com.gp.commerce.core.services.permission.impl.GPDefaultB2BOrderThresholdTimespanEvaluationStrategy"
+		parent="defaultB2BOrderThresholdTimespanEvaluationStrategy">
+	</bean>
+	
+	<alias alias="countryZoneDeliveryModeDao" name="gpCountryZoneDeliveryModeDao"/>
+	<bean id="gpCountryZoneDeliveryModeDao"
+			class="com.gp.commerce.core.delivery.dao.impl.GPCountryZoneDeliveryModeDao"
+			parent="defaultCountryZoneDeliveryModeDao">
+			<property name="gpCartDao" ref="gpCartDao" />
+	</bean>
+	<bean id="gpRejectedAddressesCronJob"
+		class="com.gp.commerce.core.cronjob.addresses.GPRemoveRejectedAddressesCronJob"
+		parent="abstractJobPerformable">
+		<property name="configurationService"
+			ref="configurationService" />
+				<property name="flexibleSearchService"
+			ref="flexibleSearchService" />
+	</bean>
+	
+	<alias name="defaultGPB2BPendingApprovalBusinessProcessStrategy" alias="b2bApprovalBusinessProcessStrategy" />
+	<bean id="defaultGPB2BPendingApprovalBusinessProcessStrategy" class="de.hybris.platform.b2b.strategies.impl.DefaultB2BApprovalBusinessProcessStrategy"
+		parent="defaultB2BApprovalBusinessProcessStrategy">
+		<property name="processCode" value="pending.approval" />
+		<property name="processName" value="PENDING_APPROVAL" />
+		<property name="b2bUnitService" ref="b2bUnitService" />
+		<property name="processCodeGenerator" ref="b2bProcessCodeGenerator" />
+		<property name="businessProcessService" ref="businessProcessService" />
+		<property name="modelService" ref="modelService" />
+	</bean>
+
+   	<alias name="defaultAcceleratorB2BApprovalBusinessProcessStrategy" alias="b2bApprovalBusinessProcessStrategy" />
+	<bean id="defaultAcceleratorB2BApprovalBusinessProcessStrategy" class="de.hybris.platform.b2b.strategies.impl.DefaultB2BApprovalBusinessProcessStrategy" parent="defaultB2BApprovalBusinessProcessStrategy" >
+		<property name="processCode" value="accApproval"/>
+		<property name="processName" value="CREATED"/>
+	</bean>
+	
+		<alias name="defaultB2BApprovalBusinessProcessStrategy" alias="b2bApprovalBusinessProcessStrategy"/>
+	<bean id="defaultB2BApprovalBusinessProcessStrategy"
+	      class="de.hybris.platform.b2b.strategies.impl.DefaultB2BApprovalBusinessProcessStrategy">
+		<property name="processCode" value="approval"/>
+		<property name="processName" value="CREATED"/>
+		<property name="b2bUnitService" ref="b2bUnitService"/>
+		<property name="processCodeGenerator" ref="b2bProcessCodeGenerator"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+		<property name="modelService" ref="modelService"/>
+	</bean>
+	
+	<!-- Added For Status Display of Order Confirmation -->
+	<alias alias="dynamicAttributesOrderStatusDisplay"
+	       name="gpAcceleratorDynamicAttributesOrderStatusDisplayByMap"/>
+
+	<util:map id="gpAcceleratorStatusDisplayMap">
+		<entry key="CREATED" value="Placed"/>
+		<entry key="OPEN" value="Open"/>
+		<entry key="CANCELLED" value="Cancelled"/>
+		<entry key="CANCELLING" value="Cancelling"/>
+		<entry key="COMPLETED" value="Completed"/>
+		<entry key="CHECKED_INVALID" value="Error"/>
+		<entry key="PAYMENT_AMOUNT_NOT_RESERVED" value="Error"/>
+		<entry key="PAYMENT_NOT_AUTHORIZED" value="Error"/>
+		<entry key="PAYMENT_NOT_CAPTURED" value="Error"/>
+		<entry key="PROCESSING_ERROR" value="Error"/>
+		<entry key="PENDING_APPROVAL" value="Pending Approval" />
+		<entry key="APPROVED" value="Placed" />
+		<entry key="REJECTED" value="Rejected" />
+		<entry key="FRAUD_CHECKED" value="Placed"/>
+		<entry key="FRAUD_CHECKED_PASSED" value="Placed"/>
+		<entry key="WAIT_FRAUD_MANUAL_CHECK" value="Placed"/>
+		<entry key="FRAUD_REJECTED" value="Placed" />
+		<entry key="PAYMENT_AUTHORIZED" value="Placed" />
+		<entry key="SUBMITTED" value="Submitted"/>
+		<entry key="PARTIALLY_SHIPPED" value="In Process"/>
+		<entry key="SHIPPED" value="Shipped"/>
+		<entry key="PAYMENT_ERROR" value="In Process"/>		
+	</util:map>
+
+	<bean id="gpAcceleratorDynamicAttributesOrderStatusDisplayByMap" class="de.hybris.platform.orderhandler.DynamicAttributesOrderStatusDisplayByMap">
+		<property name="statusDisplayMap" ref="gpAcceleratorStatusDisplayMap" />
+		<property name="defaultStatus" value="processing"/>
+		
+	</bean>
+	
+	<alias name="gpb2bApprovalBusinessProcessCreationPlaceOrderMethodHook" alias="b2bApprovalBusinessProcessCreationPlaceOrderMethodHook"/>
+	<bean id="gpb2bApprovalBusinessProcessCreationPlaceOrderMethodHook"
+	      class="com.gp.commerce.core.order.hooks.GPB2BApprovalBusinessProcessCreationPlaceOrderMethodHook">
+	       <property name="businessProcessCreationStrategy" ref="defaultB2BCreateOrderFromCartStrategy"/>
+	</bean>
+
+	<bean id="gpDefaultCommercePriceService" class="com.gp.commerce.core.price.service.impl.GPDefaultCommercePriceService">
+		<property name="gpPriceFactory" ref="gpPriceFactory"/>
+		<property name="modelService" ref="modelService"/>
+	</bean>
+
+	<bean id="gpCommerceCartCalculationMethodHook" class="com.gp.commerce.core.order.hook.impl.GPCommerceCartCalculationMethodHook">
+		<property name="calculationService" ref="calculationService" />
+		<property name="gpDefaultCommercePriceService" ref="gpDefaultCommercePriceService" />
+		<property name="modelService" ref="modelService"/>
+		<property name="cartService" ref="cartService"/>
+	</bean>
+
+	<bean id="commerceCartCalculationMethodHooksListMergeDirective"
+		  depends-on="commerceCartCalculationMethodHooks" parent="listMergeDirective">
+		<property name="add" ref="gpCommerceCartCalculationMethodHook" />
+	</bean>
+
+	<bean id="PriceRowModelValidateInterceptor"
+		  class="com.gp.commerce.core.interceptor.validate.PriceRowModelValidateInterceptor">
+	</bean>
+
+	<bean id="PriceRowModelValidateInterceptorMapping"
+		  class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+		<property name="interceptor" ref="PriceRowModelValidateInterceptor"/>
+		<property name="typeCode" value="PriceRow"/>
+	</bean>
+	<bean id="gpProductTaxCodeService"
+		  class="com.gp.commerce.core.services.impl.DefaultGPProductTaxCodeService">
+		  <property name="flexibleSearchService" ref="flexibleSearchService"/>
+	</bean>
+
+	<!-- IRI Service -->
+	<bean id="defaultGpStoreLocatorCategoriesPopulator"
+			class="com.gp.commerce.facades.populators.GPStoreLocatorCategoriesPopulator" >
+	</bean>
+
+	<bean id="gpStoreCategoriesFacade"
+		class="com.gp.commerce.facades.storeLocator.categories.impl.GPDefaultStoreCategoriesFacadeImpl">
+		<property name="baseSiteService" ref="baseSiteService" />
+	</bean>
+
+	<alias name="defaultOrderEntryRaoEntryMapPricePopulator" alias="orderEntryRaoEntryMapPricePopulator" />
+	<bean id="defaultOrderEntryRaoEntryMapPricePopulator" class="com.gp.commerce.core.rulesengineservices.converters.populators.OrderEntryRaoMapPricePopulator"/>
+
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="defaultOrderEntryRaoConverter" />
+		<property name="add" ref="orderEntryRaoEntryMapPricePopulator" />
+	</bean>
+
+	<alias name="defaultGPOrderEntryRaoToNumberedLineItemConverter" alias="orderEntryRaoToNumberedLineItemConverter"/>
+	<bean id="defaultGPOrderEntryRaoToNumberedLineItemConverter" class="com.gp.commerce.core.rulesengineservices.converters.GPOrderEntryRaoToNumberedLineItemConverter">
+		<property name="abstractOrderRaoToCurrencyConverter" ref="abstractOrderRaoToCurrencyConverter"/>
+	</bean>
+
+    <alias name="gpDefaultMinimumAmountValidationStrategy" alias="minimumAmountValidationStrategy"/>
+    <bean id="gpDefaultMinimumAmountValidationStrategy" class="com.gp.commerce.core.rulesengineservices.calculation.impl.GPDefaultMinimumAmountValidationStrategy">
+        <property name="orderLowerLimitAmount" value="0"/>
+        <property name="lineItemLowerLimitAmount" value="0"/>
+    </bean>
+
+    <!--  <alias name="gpDefaultRuleEngineCalculationService" alias="ruleEngineCalculationService" />
+    <bean id="gpDefaultRuleEngineCalculationService"
+          class="com.gp.commerce.core.rulesengineservices.calculation.impl.GPDefaultRuleEngineCalculationService"
+          parent="defaultRuleEngineCalculationService">
+
+    </bean>-->
+  	
+	<alias alias="faqDao" name="faqDao"/>
+	<bean id="faqDao" class="com.gp.commerce.core.dao.impl.GPDefaultFAQDao"/>
+	
+	<alias alias="faqService" name="faqService"/>
+	<bean id="faqService" class="com.gp.commerce.core.services.impl.GPDefaultFAQService"/>
+	
+		<alias alias="storeProductDao" name="storeProductDao"/>
+	<bean id="storeProductDao" class="com.gp.commerce.core.dao.impl.GPDefaultStoreProductDao"/>
+	
+	<alias alias="storeProductService" name="storeProductService"/>
+	<bean id="storeProductService" class="com.gp.commerce.core.services.impl.GPDefaultStoreProductService" parent ="storeFinderService"/>
+
+
+
+
+
+	<!--<alias alias="retrieveChannelStrategy" name ="gpDefaultRetrieveChannelStrategy"/>
+	<bean id="gpDefaultRetrieveChannelStrategy"
+		  class="com.gp.commerce.core.price.strategies.impl.GPDefaultRetrieveChannelStrategy" scope="tenant">
+		<property name="modelService" ref="modelService"/>
+		<property name="enumerationService" ref="enumerationService"/>
+	</bean> -->
+
+
+
+	<bean id="productAssociatedWithSiteHandler" class="com.gp.commerce.core.attributes.ProductAssociatedWithSiteHandler"/>
+	
+	<bean id="dynamicProductDisplayAttributesHandler" class="com.gp.commerce.core.attributes.DynamicProductDisplayAttributesHandler"/>
+	
+	<bean id="productSKUValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductSKUValueProvider" 
+			  parent="gpPropertyFieldValueProvider">
+		<property name="indexType" value="productUppercaseSku"/>	  
+		</bean>
+		
+	<bean id="gpImageValueProvider" abstract="true"
+		class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPImageValueProvider">
+		<property name="mediaService" ref="mediaService" />
+		<property name="mediaContainerService" ref="mediaContainerService" />
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+	</bean>
+	
+	<bean id="gpImage515ValueProvider" parent="gpImageValueProvider" >
+		<property name="mediaFormat" value="515Wx515H"/>
+	</bean>
+	<bean id="gpImage300ValueProvider" parent="gpImageValueProvider" >
+		<property name="mediaFormat" value="300Wx300H"/>
+	</bean>
+	<bean id="gpImage96ValueProvider" parent="gpImageValueProvider" >
+		<property name="mediaFormat" value="96Wx96H"/>
+	</bean>
+	<bean id="gpImage65ValueProvider" parent="gpImageValueProvider" >
+		<property name="mediaFormat" value="65Wx65H"/>
+	</bean>
+	<bean id="gpImage30ValueProvider" parent="gpImageValueProvider" >
+		<property name="mediaFormat" value="30Wx30H"/>
+	</bean>
+	
+	<bean id="gpProductOriginalSKUValueProvider" parent="productSKUValueProvider">
+		<property name="indexType" value="originalSku"/>
+		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+		</bean>
+	
+	<alias alias="stockService" name="gpStockService"/>
+	<bean id="gpStockService" class="com.gp.commerce.core.stock.services.impl.GPStockServiceImpl" parent="defaultStockService"/>
+	
+	<bean id="orderShipmentCronjob" class="com.gp.commerce.core.job.GPOrderShipmentCronjob" parent="abstractJobPerformable">
+		<property name="gpConsignmentService" ref="gpConsignmentService"/>
+		<property name="eventService" ref="eventService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+	
+	<bean id="gpPropertyFieldValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPPropertyFieldValueProvider" 
+		parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+		</bean>
+		
+	<bean id="gpAfterSaveAddressesCronJob"
+		class="com.gp.commerce.core.cronjob.addresses.GPAfterSaveAddressesCronJob" parent="abstractJobPerformable">
+	</bean>
+	
+	<bean id="gpUpdateCustomerCronJob"
+		class="com.gp.commerce.core.cronjob.customer.GPUpdateCustomerCronJob" parent="abstractJobPerformable">
+	</bean>
+	
+	<bean id="gpCreateCustomerCronJob"
+		class="com.gp.commerce.core.cronjob.customer.GPCreateCustomerCronJob" parent="abstractJobPerformable">
+		<property name="tokenValiditySeconds" value="#{configurationService.configuration.getProperty('email.token.expiration.time')}"/>
+	</bean>
+	
+	<bean id="gpRemoveShareCartListCronjob"
+		class="com.gp.commerce.core.cronjob.wishlist.GPRemoveShareCartListCronjob" parent="abstractJobPerformable">
+	</bean> 
+	
+	<bean id="gpProductAlertCleanupCronJob"
+		class="com.gp.commerce.core.cronjob.xpress.alert.GPProductAlertCleanupCronJob" parent="abstractJobPerformable">
+	</bean> 
+	
+	<alias name="gpDefaultCustomerNameStrategy" alias="customerNameStrategy"/>
+	<bean id="gpDefaultCustomerNameStrategy"
+			class="com.gp.commerce.core.strategies.GPDefaultCustomerNameStrategy" parent="defaultCustomerNameStrategy"/>
+			
+	<alias name="gpCommerceWebServicesCartService" alias="commerceWebServicesCartService"/>
+	<bean id="gpCommerceWebServicesCartService" parent="defaultCommerceCartService">
+		<property name="cartValidationStrategy" ref="defaultCartValidationStrategy"/>
+        <property name="productConfigurationStrategy" ref="productConfigurationStrategy"/>
+    </bean>
+	
+	<alias alias="gpPagedFlexibleSearchService" name="gpPagedFlexibleSearchService"/>
+	<bean id="gpPagedFlexibleSearchService" class="com.gp.commerce.core.services.impl.GPPagedFlexibleSearchService" 
+			parent="defaultPagedFlexibleSearchService">
+		<property name="flexibleSearchService" ref="flexibleSearchService"/>
+	</bean>
+
+	<bean id="gpSampleCartService" class="com.gp.commerce.core.services.impl.GPSampleCartServiceImpl">
+		<property name="cartService" ref="cartService" />
+		<property name="gpSampleCartConverter"
+			ref="gpSampleCartConverter" />
+	</bean>
+	
+		<bean id="gpProductNameValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductFieldsValueProvider" 
+			  parent="gpPropertyFieldValueProvider">
+		<property name="commonI18NService" ref="commonI18NService"/>
+		<property name="indexedField" value="name"></property>	  
+	</bean>
+	
+	<bean id="gpProductDescriptionValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductFieldsValueProvider" 
+			  parent="gpPropertyFieldValueProvider">
+		<property name="commonI18NService" ref="commonI18NService"/>
+		<property name="indexedField" value="description"></property>
+	</bean>
+			  
+	<bean id="gpProductSummaryValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductFieldsValueProvider" 
+			  parent="gpPropertyFieldValueProvider">
+		<property name="commonI18NService" ref="commonI18NService"/>
+		<property name="indexedField" value="summary"></property>	  
+	</bean>
+	
+	<bean id="gpProductEanValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductFieldsValueProvider" 
+			  parent="gpPropertyFieldValueProvider">
+		<property name="commonI18NService" ref="commonI18NService"/>
+		<property name="indexedField" value="ean"></property>	  
+	</bean>
+		
+	<bean id="gpProductSeasonalValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductFieldsValueProvider" 
+			  parent="gpPropertyFieldValueProvider">
+		<property name="commonI18NService" ref="commonI18NService"/>
+		<property name="indexedField" value="seasonal"></property>	  
+	</bean>
+	
+	<bean id="gpProductCustomizableValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductFieldsValueProvider" 
+			  parent="gpPropertyFieldValueProvider">
+		<property name="commonI18NService" ref="commonI18NService"/>
+		<property name="indexedField" value="customizable"></property>	  
+	</bean>
+	
+	<bean id="gpProductKeywordsValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductKeywordsValueProvider"
+		parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+		<property name="commonI18NService" ref="commonI18NService" />
+		<property name="sessionService" ref="sessionService" />
+	</bean>
+	
+	<bean id="gpProductUrlValueProvider"
+		  class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductUrlValueProvider"
+		  parent="abstractPropertyFieldValueProvider" >
+		<property name="urlResolver" ref="productModelUrlResolver"/>
+		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+		<property name="i18nService" ref="i18nService"/>
+		<property name="commonI18NService" ref="commonI18NService"/>
+	</bean>
+
+	<bean id="gpProductStockLevelStatusValueProvider"
+		class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductStockLevelStatusValueProvider"
+		parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+		<property name="commerceStockService" ref="commerceStockService" />
+	</bean>
+	
+	<bean id="gpProductObseleteIndicatorValueProvider"
+		class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductObseleteIndicatorValueProvider"
+		parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+		<property name="commerceStockService" ref="commerceStockService" />
+	</bean>
+	
+	<bean id="gpProductInStockFlagValueProvider"
+		class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductInStockFlagValueProvider"
+		parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+		<property name="commerceStockService" ref="commerceStockService" />
+	</bean>
+	
+	<bean id="gpVolumeAwareProductPriceValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPVolumeAwareProductPriceValueProvider"  parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+	</bean>
+	
+	<bean id="gpProductBundleAvailableValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductFieldsValueProvider" 
+			  parent="gpPropertyFieldValueProvider">
+		<property name="commonI18NService" ref="commonI18NService"/>
+		<property name="indexedField" value="bundleAvailable"></property>	  
+	</bean>
+
+	<bean id="gpProductBulkBuyValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductFieldsValueProvider" 
+			  parent="gpPropertyFieldValueProvider">
+		<property name="commonI18NService" ref="commonI18NService"/>
+		<property name="indexedField" value="bulkBuy"></property>	  
+	</bean>
+	
+	<bean id="gpProductSubscribableValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductFieldsValueProvider" 
+			  parent="gpPropertyFieldValueProvider">
+		<property name="commonI18NService" ref="commonI18NService"/>
+		<property name="indexedField" value="subscribable"></property>	  
+	</bean>
+	
+	<bean id="gpProductOnlineOnlyValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductFieldsValueProvider" 
+			  parent="gpPropertyFieldValueProvider">
+		<property name="commonI18NService" ref="commonI18NService"/>
+		<property name="indexedField" value="onlineOnly"></property>	  
+	</bean>
+	
+	<bean id="gpProductAssetCodeValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductFieldsValueProvider" 
+			  parent="gpPropertyFieldValueProvider">
+		<property name="commonI18NService" ref="commonI18NService"/>
+		<property name="indexedField" value="assetCode"></property>	  
+	</bean>
+	
+	<bean id="gpProductDropShipEligibleValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductFieldsValueProvider" 
+			  parent="gpPropertyFieldValueProvider">
+		<property name="commonI18NService" ref="commonI18NService"/>
+		<property name="indexedField" value="dropShipEligible"></property>	  
+	</bean>
+	
+	<bean id="gpProductMaxOrderQuantityValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductFieldsValueProvider" 
+			  parent="gpPropertyFieldValueProvider">
+		<property name="commonI18NService" ref="commonI18NService"/>
+		<property name="indexedField" value="maxOrderQuantity"></property>	  
+	</bean>
+	
+	<bean id="gpItemIdentityProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPItemIdentityProvider">
+		<property name="modelService" ref="modelService" />
+		<property name="catalogTypeService" ref="catalogTypeService" />
+	</bean>
+	
+	<alias name="gpDefaultSolrIndexedTypePopulator" alias="solrIndexedTypePopulator"/>
+	<bean id="gpDefaultSolrIndexedTypePopulator"
+			class="de.hybris.platform.solrfacetsearch.converters.populator.DefaultIndexedTypePopulator">
+		<property name="indexedPropertyConverter" ref="indexedPropertyConverter"/>
+		<property name="defaultIdentityProvider" value="gpItemIdentityProvider"/>
+		<property name="defaultModelLoader" value="defaultModelLoader"/>
+		<property name="solrSearchQueryTemplateConverter" ref="solrSearchQueryTemplateConverter"/>
+		<property name="indexedTypeSortConverter" ref="indexedTypeSortConverter" />
+	</bean>
+	
+	<bean id="gpCategoryPathValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPCategoryPathValueProvider"
+		parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+		<property name="categoryService" ref="categoryService" />
+		<property name="categorySource" ref="allCategoriesSource" />
+	</bean>
+	
+	<bean id="categoryNameValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPSolrCategoryNameValueProvider"
+		parent="abstractPropertyFieldValueProvider">
+		<property name="categoriesQualifier" value="supercategories" />
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+	</bean>
+
+	<bean id="gpSolrCategoryCodeValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPSolrCategoryCodeValueProvider"
+		parent="abstractPropertyFieldValueProvider">
+		<property name="categoriesQualifier" value="supercategories" />
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+	</bean>
+	
+	<bean id="gpProductPriceRowDateValueProvider"
+		  class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductPriceRowDateValueProvider"
+		  parent="gpPropertyFieldValueProvider">
+		  <property name="indexedField" value="priceStartDate"/>
+	</bean>
+	
+	<bean id="gpProductPriceRowEndDateValueProvider"  parent="gpProductPriceRowDateValueProvider">
+		  <property name="indexedField" value="priceEndDate"/>
+	</bean>
+	
+	<bean id="gpProductPriceUserGroupValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductPriceFieldValueProvider"
+		parent="gpPropertyFieldValueProvider">
+		  <property name="indexedField" value="priceUserGroup"/>
+	</bean>
+	
+	<bean id="gpProductPriceGPUsergroupValueProvider" parent="gpProductPriceUserGroupValueProvider">
+		  <property name="indexedField" value="priceGpUserGroup"/>
+	</bean>
+	
+	<bean id="gpProductPriceChannelValueProvider" parent="gpProductPriceUserGroupValueProvider">
+		  <property name="indexedField" value="priceChannel"/>
+	</bean>
+	
+	
+	<alias name="defaultCommerceSearchTextPopulator" alias="commerceSearchTextPopulator" />
+	<bean id="defaultCommerceSearchTextPopulator" class="de.hybris.platform.commerceservices.search.solrfacetsearch.populators.SearchTextPopulator">
+		<property name="freeTextQueryBuilders">
+			<list>
+				<bean class="de.hybris.platform.commerceservices.search.solrfacetsearch.querybuilder.impl.DefaultFreeTextQueryBuilder">
+					<property name="propertyName" value="ean" />
+					<property name="boost" value="100" />
+				</bean>
+				<bean class="de.hybris.platform.commerceservices.search.solrfacetsearch.querybuilder.impl.DefaultFreeTextQueryBuilder">
+					<property name="propertyName" value="code" />
+					<property name="boost" value="100" />
+				</bean>
+				<bean class="de.hybris.platform.commerceservices.search.solrfacetsearch.querybuilder.impl.DefaultFreeTextQueryBuilder">
+					<property name="propertyName" value="name" />
+					<property name="boost" value="90" />
+				</bean>
+				<bean class="de.hybris.platform.commerceservices.search.solrfacetsearch.querybuilder.impl.DefaultFreeTextQueryBuilder">
+					<property name="propertyName" value="description" />
+					<property name="boost" value="80" />
+				</bean>
+				<bean
+					class="de.hybris.platform.commerceservices.search.solrfacetsearch.querybuilder.impl.ClassificationFreeTextQueryBuilder">
+					<property name="boost" value="30" />
+				</bean>
+				<bean class="de.hybris.platform.commerceservices.search.solrfacetsearch.querybuilder.impl.DefaultFreeTextQueryBuilder">
+					<property name="propertyName" value="categoryName" />
+					<property name="boost" value="80" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="gpProductSalePriceValueProvider"
+		  class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductSalePriceValueProvider"
+		  parent="gpPropertyFieldValueProvider">
+	</bean>
+	
+	<bean id="gpFacetSearchQueryCollapseFilterPopulator"
+		class="com.gp.commerce.core.search.solrfacetsearch.impl.populators.GPFacetSearchQueryCollapseFilterPopulator" />
+	
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="facetSearchQueryConverter" />
+		<property name="add" ref="gpFacetSearchQueryCollapseFilterPopulator" />
+	</bean>
+	
+	 <!-- Site Map Related beans START-->
+	<bean id="gpAbstractSiteMapGenerator"
+	      class="com.gp.commerce.core.sitemap.generator.impl.GPAbstractSiteMapGenerator"
+	      abstract="true">
+		<property name="impersonationService" ref="impersonationService"/>
+		<property name="rendererService" ref="rendererService"/>
+		<property name="commonI18NService" ref="commonI18NService"/>
+		<property name="flexibleSearchService" ref="flexibleSearchService"/>
+		<property name="catalogVersionService" ref="catalogVersionService"/>
+	</bean>
+	
+	<alias name="gpCategoryPageSiteMapGenerator" alias="defaultCategoryPageSiteMapGenerator"/>
+	<bean id="gpCategoryPageSiteMapGenerator"
+	      class="com.gp.commerce.core.sitemap.generator.impl.GPCategoryPageSiteMapGenerator"
+	      parent="gpAbstractSiteMapGenerator">
+		<property name="siteMapUrlDataConverter" ref="categoryModelToSiteMapUrlDataConverter"/>
+		<property name="siteMapPageEnum" value="CATEGORY"/>
+	</bean>
+
+	<alias name="gpProductPageSiteMapGenerator" alias="defaultProductPageSiteMapGenerator"/>
+	<bean id="gpProductPageSiteMapGenerator"
+	      class="com.gp.commerce.core.sitemap.generator.impl.GPProductPageSiteMapGenerator"
+	      parent="gpAbstractSiteMapGenerator">
+		<property name="siteMapUrlDataConverter" ref="productModelToSiteMapUrlDataConverter"/>
+		<property name="siteMapPageEnum" value="PRODUCT"/>
+	</bean>
+
+	<alias name="gpPointOfServicePageSiteMapGenerator" alias="defaultPointOfServicePageSiteMapGenerator"/>
+	<bean id="gpPointOfServicePageSiteMapGenerator"
+	      class="com.gp.commerce.core.sitemap.generator.impl.GPPointOfServicePageSiteMapGenerator"
+	      parent="gpAbstractSiteMapGenerator">
+		<property name="siteMapUrlDataConverter" ref="pointOfServiceModelToSiteMapUrlDataConverter"/>
+		<property name="siteMapPageEnum" value="STORE"/>
+	</bean>
+
+	<alias name="gpHomePageSiteMapGenerator" alias="defaultHomePageSiteMapGenerator"/>
+	<bean id="gpHomePageSiteMapGenerator"
+	      class="com.gp.commerce.core.sitemap.generator.impl.GPHomePageSiteMapGenerator"
+	      parent="gpAbstractSiteMapGenerator">
+		<property name="siteMapUrlDataConverter" ref="homepageToSiteMapUrlDataConverter"/>
+		<property name="siteMapPageEnum" value="HOMEPAGE"/>
+		<property name="cmsPageService" ref="cmsPageService"/>
+	</bean>
+
+	<alias name="gpContentPageModelSiteMapGenerator" alias="defaultContentPageModelSiteMapGenerator"/>
+	<bean id="gpContentPageModelSiteMapGenerator"
+	      class="com.gp.commerce.core.sitemap.generator.impl.GPContentPageModelSiteMapGenerator"
+	      parent="gpAbstractSiteMapGenerator">
+		<property name="siteMapUrlDataConverter" ref="contentPageModelToSiteMapUrlDataConverter"/>
+		<property name="siteMapPageEnum" value="CONTENT"/>
+	</bean>
+
+	<alias name="gpCategoryLandingPageSiteMapGenerator" alias="defaultCategoryLandingPageSiteMapGenerator"/>
+	<bean id="gpCategoryLandingPageSiteMapGenerator"
+	      class="com.gp.commerce.core.sitemap.generator.impl.GPCategoryLandingPageSiteMapGenerator"
+	      parent="gpAbstractSiteMapGenerator">
+		<property name="siteMapUrlDataConverter" ref="categoryModelToSiteMapUrlDataConverter"/>
+		<property name="siteMapPageEnum" value="CATEGORYLANDING"/>
+
+
+	</bean>
+	<alias name="gpCustomPageSiteMapGenerator" alias="defaultCustomPageSiteMapGenerator"/>
+	<bean id="gpCustomPageSiteMapGenerator"
+	      class="com.gp.commerce.core.sitemap.generator.impl.GPCustomPageSiteMapGenerator"
+	      parent="gpAbstractSiteMapGenerator">
+		<property name="siteMapUrlDataConverter" ref="customPageToSiteMapUrlDataConverter"/>
+		<property name="siteMapPageEnum" value="CUSTOM"/>
+	</bean>
+	
+	<alias name="gpSiteMapMediaJob" alias="siteMapMediaJob"/>
+	<bean id="gpSiteMapMediaJob"
+	      class="de.hybris.platform.acceleratorservices.cronjob.SiteMapMediaJob"
+	      parent="abstractJobPerformable">
+		<property name="generators">
+			<list>
+				<ref bean="gpPointOfServicePageSiteMapGenerator"/>
+				<ref bean="gpProductPageSiteMapGenerator"/>
+				<ref bean="gpCategoryPageSiteMapGenerator"/>
+				<ref bean="gpHomePageSiteMapGenerator"/>
+				<ref bean="gpContentPageModelSiteMapGenerator"/>
+				<ref bean="gpCategoryLandingPageSiteMapGenerator"/>
+				<ref bean="gpCustomPageSiteMapGenerator"/>
+			</list>
+		</property>
+		<property name="mediaService" ref="mediaService"/>
+		<property name="activateBaseSiteInSession" ref="activateBaseSiteInSessionStrategy"/>
+		<property name="cmsSiteService" ref="cmsSiteService"/>
+	</bean>
+	
+   <alias name="gpProductModelToSiteMapUrlDataPopulator" alias="defaultProductModelToSiteMapUrlDataPopulator"/>
+	<bean id="gpProductModelToSiteMapUrlDataPopulator"
+	      class="de.hybris.platform.acceleratorservices.sitemap.populators.ProductModelToSiteMapUrlDataPopulator">
+		<property name="urlResolver" ref="gpDefaultProductModelUrlResolver"/>
+	</bean>
+	
+	<alias name="gpCategoryModelToSiteMapUrlDataPopulator"
+	       alias="defaultCategoryModelToSiteMapUrlDataPopulator"/>
+	<bean id="gpCategoryModelToSiteMapUrlDataPopulator"
+	      class="de.hybris.platform.acceleratorservices.sitemap.populators.CategoryModelToSiteMapUrlDataPopulator">
+		<property name="urlResolver" ref="gpdefaultCategoryModelUrlResolver"/>
+	</bean>
+	
+	<bean id="gpSiteMapContext"
+	      class="com.gp.commerce.core.sitemap.renderer.GPSiteMapContext"
+	      scope="prototype">
+		<property name="baseSiteService" ref="baseSiteService"/>
+		<property name="siteBaseUrlResolutionService" ref="siteBaseUrlResolutionService"/>
+		<property name="urlEncoderService" ref="urlEncoderService"/>
+	</bean>
+	
+	  <!-- Site Map Related beans END-->
+	  
+	
+	<alias alias="stockLevelDao" name="defaultGpStockLevelDao"/>
+
+      <bean id="defaultGpStockLevelDao" class="com.gp.commerce.core.stock.services.impl.DefaultGPStockLevelDao" parent="defaultStockLevelDao">
+
+      </bean> 
+
+	 <bean id="gpProductCMIRCodeValueProvider"
+		  class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductCMIRCodeValueProvider"
+		  parent="abstractPropertyFieldValueProvider">
+		  <property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+	</bean>
+	
+	<bean id="gpProductBrandValueProvider"
+		  class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductBrandValueProvider"
+		  parent="gpPropertyFieldValueProvider">
+	</bean>
+	
+	<bean id="gpProductCertificationProvider"
+		  class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductCertificationProvider"
+		  parent="gpPropertyFieldValueProvider">
+	</bean>
+	
+	<alias alias="gpDistributorFeedService" name="gpDistributorFeedService"/>
+	<bean id="gpDistributorFeedService" class="com.gp.commerce.core.distributorfeed.services.impl.GPDefaultDistributorFeedService" >
+		<property name="modelService" ref="modelService"/>
+		<property name="productService" ref="productService"/>
+	</bean>
+	<bean id="gpDistributorFeedCronJob" 
+		class="com.gp.commerce.core.job.GPDistributorFeedCronJob" parent="abstractJobPerformable">
+		<property name="configurationService"
+			ref="configurationService" />
+		<property name="gpDistributorFeedService"
+			ref="gpDistributorFeedService" />
+	</bean>
+
+	<bean id="gpProductDistributorValueProvider"
+		  class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductDistributorValueProvider"
+		  parent="gpPropertyFieldValueProvider">
+	</bean>
+	<alias alias="commerceStockService" name="gpCommerceStockServiceImpl"/>
+	<bean id="gpCommerceStockServiceImpl"
+			class="com.gp.commerce.core.stock.impl.GPCommerceStockServiceImpl" parent="defaultCommerceStockService">
+		<property name="cmsSiteService" ref="cmsSiteService" />
+	</bean>
+	
+	<bean id="gpProductAvailableForLocationValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductFieldsValueProvider" 
+			  parent="gpPropertyFieldValueProvider">
+		<property name="commonI18NService" ref="commonI18NService"/>
+		<property name="indexedField" value="availableForLocation"></property>	  
+	</bean>
+	
+	 <alias name="gpDefaultDistanceHelper" alias="distanceHelper"/>
+    <bean id="gpDefaultDistanceHelper"
+            class="com.gp.commerce.core.helpers.GPDefaultDistanceHelper" parent="defaultDistanceHelper">
+    </bean>
+	
+	<bean id="gpProductAuditService" class="com.gp.commerce.core.catalog.GPProductAuditService"
+		  autowire="byName">
+		<property name="readAuditGateway" ref="readAuditGateway"/>
+		<property name="writeAuditGateway" ref="writeAuditGateway"/>
+		<property name="modelService" ref="modelService"/>
+		<property name="catalogService" ref="catalogService"/>
+		<property name="gpProductService" ref="gpProductService"/>
+		<property name="jdbcTemplate" ref="jdbcTemplate"/>
+		<property name="payloadConverterRegistry" ref="payloadConverterRegistry"/>
+	</bean>
+	
+	<bean id="gpSaveAuditRecordsCronJob"
+		class="com.gp.commerce.core.cronjob.xpress.alert.GPSaveAuditRecordsCronJob" parent="abstractJobPerformable">
+		<property name="gpProductAuditService" ref="gpProductAuditService"></property>
+	</bean>
+	
+	<bean id="gpCommerceProductInterceptor"
+		  class="com.gp.commerce.core.interceptor.validate.GpCommerceProductInterceptor">		
+	</bean>
+	
+	<bean id="gpCommerceProductInterceptorMapping"
+		  class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+		<property name="interceptor" ref="gpCommerceProductInterceptor"/>
+		<property name="typeCode" value="GPCommerceProduct"/>
+	</bean>
+	
+		<alias name="gpGoogleMapTools" alias="googleMapTools"/>
+	<bean id="gpGoogleMapTools" class="de.hybris.platform.storelocator.impl.GoogleMapTools" scope="prototype">
+		<property name="addressLocationParser" ref="firstPlacemarkWinsGoogleResponseParser"/>
+		<property name="routeDataParser" ref="routeDataGoogleResponseParser"/>
+		<property name="directionsUrlBuilder" ref="geolocationDirectionsUrlBuilder"/>	
+		<property name="googleKey" value="${google.maps.api.key}"></property>	
+	</bean>
+
+
+	<bean id="gpProductTypeValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductFieldsValueProvider"
+			  parent="gpPropertyFieldValueProvider">
+		<property name="commonI18NService" ref="commonI18NService"/>
+		<property name="indexedField" value="productType"></property>
+	</bean>
+
+	<bean id="gpProductBrandNameValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductFieldsValueProvider"
+			  parent="gpPropertyFieldValueProvider">
+		<property name="commonI18NService" ref="commonI18NService"/>
+		<property name="indexedField" value="brand"></property>
+	</bean>
+
+	<bean id="gpProductColorValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductFieldsValueProvider"
+			  parent="gpPropertyFieldValueProvider">
+		<property name="commonI18NService" ref="commonI18NService"/>
+		<property name="indexedField" value="color"></property>
+	</bean>
+
+	<bean id="gpProductSizeValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductFieldsValueProvider"
+			  parent="gpPropertyFieldValueProvider">
+		<property name="commonI18NService" ref="commonI18NService"/>
+		<property name="indexedField" value="Size LxWxH"></property>
+	</bean>
+
+	<bean id="gpProductRootCategoryValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductFieldsValueProvider" 
+			  parent="gpPropertyFieldValueProvider">
+		<property name="commonI18NService" ref="commonI18NService"/>
+		<property name="indexedField" value="rootCategory"></property>	  
+	</bean>
+
+	<!-- Share Product Resource Email-->
+	<bean id="generateShareProductResourceEmail"
+		  parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName"
+				  value="ShareProductResourceEmailTemplate" />
+	</bean>
+
+	<bean id="shareProductResourceEmailProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource"
+		  scope="tenant">
+		<property name="resource"
+				  value="classpath:/gpcommercecore/processes/shareProductResourceEmailProcess.xml" />
+	</bean>
+
+	<bean id="shareProductResourceContext" class="com.gp.commerce.facades.process.email.context.ShareProductResourceContext" parent="abstractEmailContext" scope="prototype">
+	</bean>
+	<bean id="shareProductResourceEventListener"
+		  class="com.gp.commerce.core.event.ShareProductResourceEventListener"
+		  parent="abstractEventListener">
+		<property name="businessProcessService"
+				  ref="businessProcessService" />
+		<property name="modelService" ref="modelService" />
+		<property name="baseSiteService" ref="baseSiteService" />
+		<!-- <property name="cmsSiteService" ref="cmsSiteService" /> -->
+	</bean>
+
+	<bean id="gpShareProductResourceService" class="com.gp.commerce.core.services.impl.GPDefaultShareProductResourceService">
+		<property name= "eventService" ref="eventService" />
+	</bean>
+
+	<bean id="gpKnowledgeCenterIndexingCronJob"
+		class="com.gp.commerce.core.cronjob.xpress.alert.GPKnowledgeCenterIndexingCronJob" parent="abstractJobPerformable">
+		<property name="gpProductDao" ref="gpProductDao" />
+	</bean>
+
+
+	<bean id="failedOrdersEmailNotifyJob" class="com.gp.commerce.core.job.FailedOrdersEmailNotifyJob" parent="abstractJobPerformable">
+		<property name="gpOrderService" ref="gpOrderService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+
+
+
+	<alias name="createBaseAndVariantProductsJob" alias="createBaseAndVariantProductsJob"/>
+	<bean id="createBaseAndVariantProductsJob" class="com.gp.commerce.core.workflow.job.CreateBaseAndVariantProductsJob">
+		<property name="gpVariantUtils" ref="gpVariantUtils"/>
+		<property name="modelService" ref="modelService"/>
+	</bean>
+
+
+	<bean id="gpVariantUtils" class="com.gp.commerce.core.catalog.GPVariantUtils">
+		<property name="modelService" ref="modelService"/>
+		<property name="categoryService" ref="categoryService"/>
+		<property name="catalogVersionService" ref="catalogVersionService"/>
+		<property name="variantsService" ref="variantsService"/>
+		<property name="productService" ref="productService"/>
+		<property name="gpDefaultVariantCategory" value="GPDefaultVariantCategory"/>
+		<property name="gpDefaultVariantValueCategory" value="GPDefaultVariantValueCategory"/>
+		<property name="gpDefaultVariantCatalogId" value="gpUSProductCatalog"/>
+		<property name="gpDefaultVariantProduct" value="GenericVariantProduct"/>
+	</bean>
+	
+	
+	
+	<alias name="createKitBaseAndVariantProductsJob" alias="createKitBaseAndVariantProductsJob"/>
+	<bean id="createKitBaseAndVariantProductsJob" class="com.gp.commerce.core.workflow.job.CreateKitBaseAndVariantProductsJob">
+		<property name="gpKitVariantUtils" ref="gpKitVariantUtils"/>
+		<property name="modelService" ref="modelService"/>
+	</bean>
+
+
+	<bean id="gpKitVariantUtils" class="com.gp.commerce.core.catalog.GPKitVariantUtils">
+		<property name="modelService" ref="modelService"/>
+		<property name="categoryService" ref="categoryService"/>
+		<property name="catalogVersionService" ref="catalogVersionService"/>
+		<property name="variantsService" ref="variantsService"/>
+		<property name="productService" ref="productService"/>
+		<property name="gpDefaultVariantCategory" value="GPDefaultVariantCategory"/>
+		<property name="gpDefaultVariantValueCategory" value="GPDefaultVariantValueCategory"/>
+		<property name="gpDefaultVariantCatalogId" value="gpUSProductCatalog"/>
+		<property name="gpDefaultVariantProduct" value="GenericVariantProduct"/>
+	</bean>
+	
+	
+	
+	
+	
+
+	<alias name="gpGenerateEmailAction" alias="abstractGenerateEmailAction"/>
+	<bean id="gpGenerateEmailAction" class="com.gp.commerce.core.email.actions.GPGenerateEmailAction" abstract="true">
+		<property name="userService" ref="userService"/>
+		<property name="modelService" ref="modelService"/>
+		<property name="cmsEmailPageService" ref="cmsEmailPageService"/>
+		<property name="contextResolutionStrategy" ref="processContextResolutionStrategy"/>
+		<property name="emailGenerationService" ref="emailGenerationService"/>
+	</bean>
+
+	<bean id="gpSubbrandValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductFieldsValueProvider"
+			  parent="gpPropertyFieldValueProvider">
+		<property name="commonI18NService" ref="commonI18NService"/>
+		<property name="indexedField" value="subbrand"></property>
+	</bean>
+
+	<bean id="gpSkuNgramValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductFieldsValueProvider"
+			  parent="gpPropertyFieldValueProvider">
+		<property name="commonI18NService" ref="commonI18NService"/>
+		<property name="indexedField" value="sku_ngram"></property>
+	</bean>
+
+	<bean id="gpSkuEdgeValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductFieldsValueProvider"
+			  parent="gpPropertyFieldValueProvider">
+		<property name="commonI18NService" ref="commonI18NService"/>
+		<property name="indexedField" value="sku_edge"></property>
+	</bean>
+
+	<bean id="gpGtinValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductFieldsValueProvider"
+			  parent="gpPropertyFieldValueProvider">
+		<property name="commonI18NService" ref="commonI18NService"/>
+		<property name="indexedField" value="gtin"></property>
+	</bean>
+
+	<bean id="gpSapDescriptionValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductFieldsValueProvider"
+			  parent="gpPropertyFieldValueProvider">
+		<property name="commonI18NService" ref="commonI18NService"/>
+		<property name="indexedField" value="sapDescription"></property>
+	</bean>
+
+	<bean id="gpleasableValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductFieldsValueProvider"
+			  parent="gpPropertyFieldValueProvider">
+		<property name="commonI18NService" ref="commonI18NService"/>
+		<property name="indexedField" value="leasable"></property>
+	</bean>
+
+	<bean id="gpProductAllCertificationValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductFieldsValueProvider"
+			  parent="gpPropertyFieldValueProvider">
+		<property name="commonI18NService" ref="commonI18NService"/>
+		<property name="indexedField" value="productCertifications"></property>
+	</bean>
+	<bean id="gpProductCertificationValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductFieldsValueProvider"
+			  parent="gpPropertyFieldValueProvider">
+		<property name="commonI18NService" ref="commonI18NService"/>
+		<property name="indexedField" value="certifications"></property>
+	</bean>
+	<bean id="gpIsProductSampleValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductFieldsValueProvider"
+			  parent="gpPropertyFieldValueProvider">
+		<property name="commonI18NService" ref="commonI18NService"/>
+		<property name="indexedField" value="sample"></property>
+	</bean>
+	<bean id="gpInstallationProductValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductFieldsValueProvider"
+			  parent="gpPropertyFieldValueProvider">
+		<property name="commonI18NService" ref="commonI18NService"/>
+		<property name="indexedField" value="installationProduct"></property>
+	</bean>
+	<bean id="gpSearchTextValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductFieldsValueProvider"
+			  parent="gpPropertyFieldValueProvider">
+		<property name="commonI18NService" ref="commonI18NService"/>
+		<property name="indexedField" value="search_text"></property>
+	</bean>
+	<bean id="gpProductUPCValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductFieldsValueProvider"
+			  parent="gpPropertyFieldValueProvider">
+		<property name="commonI18NService" ref="commonI18NService"/>
+		<property name="indexedField" value="upc"></property>
+	</bean>
+	<bean id="gpProductMaterialValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductFieldsValueProvider"
+			  parent="gpPropertyFieldValueProvider">
+		<property name="commonI18NService" ref="commonI18NService"/>
+		<property name="indexedField" value="GENERIC MATERIAL"></property>
+	</bean>
+	<bean id="gpProductPlyValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductFieldsValueProvider"
+			  parent="gpPropertyFieldValueProvider">
+		<property name="commonI18NService" ref="commonI18NService"/>
+		<property name="indexedField" value="ply"></property>
+	</bean>
+
+	<alias name="gpEurope1.manager" alias="europe1.manager"/>
+	<bean id="gpEurope1.manager" class="com.gp.commerce.core.price.service.impl.GPDefaultEurope1PriceFactory"
+		  init-method="init" destroy-method="destroy">
+		<property name="netGrossStrategy" ref="netGrossStrategy"/>
+		<property name="timeService" ref="timeService"/>
+		<property name="modelService" ref="modelService"/>
+		<property name="retrieveChannelStrategy" ref="retrieveChannelStrategy"/>
+	</bean>
+	
+	<bean id="gpFilteredPriceContainer" class="com.gp.commerce.core.price.service.impl.GPFilteredPriceContainerImpl">
+	</bean>
+	
+	<bean id="gpB2BUnitPrepareInteceptor" class="com.gp.commerce.core.interceptor.customer.GPB2BUnitPrepareInterceptor" >
+		<property name="gpDefaultCatalogId" value="gpUSProductCatalog"/>
+	</bean>
+
+	<bean id="gpB2BUnitPrepareInteceptorMapping" class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+		<property name="interceptor" ref="gpB2BUnitPrepareInteceptor"/>
+		<property name="typeCode" value="B2BUnit"/>
+	</bean>
+	
+	<alias name="gpSupportTicketService" alias="gpSupportTicketService"/>
+	<bean id="gpSupportTicketService" class="com.gp.commerce.core.ticket.services.impl.GPSupportTicketServiceImpl"  parent = "defaultTicketBusinessService">
+	<property name="gpSupportTicketDao" ref="gpSupportTicketDao"/>
+	</bean>
+	
+	<alias name="gpSupportTicketDao" alias="gpSupportTicketDao"/>
+	<bean id="gpSupportTicketDao" class="com.gp.commerce.core.ticket.dao.impl.GPSupportTicketDaoImpl">
+	<property name="flexibleSearchService" ref="flexibleSearchService"/>
+	</bean>
+	
+	<bean id="gpCompetitorReplacementProductsValueProvider"
+		  class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductFieldsValueProvider"
+		  parent="gpPropertyFieldValueProvider">
+		  <property name="commonI18NService" ref="commonI18NService"/>
+		  <property name="indexedField" value="competitorReplacementProducts"></property>
+	</bean>
+
+	<bean id="gpProductsItemtypeValueProvider"
+		  class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductFieldsValueProvider"
+			  parent="gpPropertyFieldValueProvider">
+		<property name="commonI18NService" ref="commonI18NService"/>
+		  <property name="indexedField" value="itemtype"></property>
+	</bean>
+	
+	<bean id="productDataExportCronjobPrepareMapping" class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+        <property name="interceptor" ref="productDataExportCronjobPrepareInterceptor"/>
+        <property name="typeCode" value="ProductDataExportCronjob"/>
+    </bean>
+	
+	<bean id="productDataExportCronjobPrepareInterceptor"
+          class="com.gp.commerce.core.prepare.interceptor.GPProductDataExportCronjobPrepareInterceptor"/>
+          
+    <bean id="productDataExportJob" class="com.gp.commerce.core.job.ProductDataExportJob" parent="abstractJobPerformable">
+    	<property name="gpProductDao" ref="gpProductDao"></property>
+    </bean>
+    
+	<alias name="gpSpecsAttributesMap" alias="specsAttributesMap"/>
+	<util:map id="gpSpecsAttributesMap" key-type="java.lang.String">
+		<entry key="brand" value="Brand"/>
+		<entry key="brandOwner" value="Brand Owner"/>
+		<entry key="code" value="MFG #"/>
+		<entry key="upc" value="UP-UPC"/>
+		<entry key="unspsc" value="UNSPSC"/>
+		<entry key="replaced_product" value="Replaces Item"/>
+		<entry key="gtin" value="GTIN"/>
+		<entry key="grossWeight" value="Gross Weight"/>
+		<entry key="netweight" value="Net Weight"/>
+		<entry key="netwgt" value="Net Wgt"/>
+		<entry key="dimensions" value="Dimensions LxWxH"/>
+		<entry key="volume" value="Volume"/>
+		<entry key="color" value="Color"/>
+		<entry key="items_per_each" value="Items Per Each"/>
+		<entry key="size" value="Size LxWxH"/>
+		<entry key="capacity" value="Capacity"/>
+		<entry key="kosher_product_indicator" value="Kosher"/>
+		<entry key="physical_ti" value="TI-QTY/Layer"/>
+		<entry key="physical_hi" value="HI-Layers/Unit"/>
+		<entry key="sheet_count" value="Sheet Count"/>
+		<entry key="sheet_widthlength" value="Sheet W x L"/>
+		<entry key="statFactor" value="Stat Factor"/>
+		<entry key="shipContainerType" value="Shipping Container Type"/>
+		<entry key="squareInches" value="Square Inches (Per Sheet)"/>
+		<entry key="squareCM" value="Square CM (Per Sheet)"/>
+		<entry key="squareFeet" value="Square Feet (Per Pack)"/>
+		<entry key="totalPalletHeight" value="Total Pallet Height (Inches)"/>
+		<entry key="pallet_type" value="Pallet Type"/>
+		<entry key="floor_unit_load_53ft_truck" value="Truck Load Qty (Floor)"/>
+		<entry key="pallet_unit_load_53ft_truck" value="Truck Load Qty (Pallet)"/>
+		<entry key="qsu_hi" value="QSU Hi"/>
+		<entry key="qsu_ti" value="QSU Ti"/>
+		<entry key="qsu_hi_ti" value="QSU TiHi"/>
+		<entry key="each_per_ship_unit" value="Each per Ship Unit"/>
+		<entry key="each_per_ship_uom" value="Each per Ship UOM"/>
+		<entry key="case_total" value="Case Total"/>
+		<entry key="total_pallet_height" value="Total Pallet Height (Inches)"/>
+		<entry key="buyMultiple" value="Buy Multiple"/>
+		<entry key="buy_multiple_uom" value="Buy Multiple UOM"/>
+		<entry key="unit_qty" value="Unit Qty"/>
+	</util:map>
+		
+	<bean id="gpProductSpecificationUtils" class="com.gp.commerce.core.util.GPProductSpecificationUtils">
+		<property name="classificationService" ref="classificationService"/>
+		<property name="commerceCommonI18NService" ref="commerceCommonI18NService"/>
+		<property name="configurationService" ref="configurationService"/>
+		<property name="messageSource" ref="messageSource"/>
+		<property name="modelService" ref="modelService"/>
+		<property name="flexibleSearchService" ref="flexibleSearchService"/>
+		<property name="specsAttributesMap" ref="specsAttributesMap"/>
+		<property name="gpClassificationAttributeAssignmentService" ref="gpClassificationAttributeAssignmentService"/>
+		<property name="enumerationService" ref="enumerationService"/>
+	</bean>
+		
+	<bean id="productSpecsPopulatorJob" class="com.gp.commerce.core.job.ProductSpecsPopulatorJob" parent="abstractJobPerformable">
+		<property name="classificationSystemService" ref="classificationSystemService"/>
+		<property name="gpProductService" ref="gpProductService"/>
+		<property name="gpProductSpecificationUtils" ref="gpProductSpecificationUtils"/>
+		<property name="classificationService" ref="classificationService"/>
+	</bean>
+	
+	<bean id="gpBrandLabelPopulatorJob" class="com.gp.commerce.core.job.GpBrandLabelPopulatorJob" parent="abstractJobPerformable">
+		<property name="classificationSystemService" ref="classificationSystemService"/>
+		<property name="gpProductService" ref="gpProductService"/>
+		<property name="gpProductSpecificationUtils" ref="gpProductSpecificationUtils"/>
+		<property name="classificationService" ref="classificationService"/>
+	</bean>
+
+	
+	<bean id="gpHasVariantValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductFieldsValueProvider"
+			  parent="gpPropertyFieldValueProvider">
+		<property name="commonI18NService" ref="commonI18NService"/>
+		<property name="indexedField" value="hasVariant"></property>
+	</bean>
+	<bean id="gpProductPriceGPUserGroupValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductFieldsValueProvider"
+			  parent="gpPropertyFieldValueProvider">
+	<property name="commonI18NService" ref="commonI18NService"/>
+	<property name="indexedField" value="gpusergroup"></property>
+	</bean>
+	
+	
+	
+	<alias name="defaultGPProductCommerceSearchSolrQueryPopulator" alias="commerceSearchSolrQueryPopulator" />
+	<bean id="defaultGPProductCommerceSearchSolrQueryPopulator" class="com.gp.commerce.core.search.solrfacetsearch.impl.populators.GPProductSearchSolrQueryPopulator">
+		<property name="catalogVersionService" ref="catalogVersionService" />
+		<property name="baseSiteService" ref="baseSiteService" />
+		<property name="commonI18NService" ref="commonI18NService" />
+		<property name="baseStoreService" ref="baseStoreService" />
+		<property name="facetSearchService" ref="facetSearchService" />
+		<property name="facetSearchConfigService" ref="facetSearchConfigService" />
+		<property name="solrFacetSearchConfigSelectionStrategy" ref="solrFacetSearchConfigSelectionStrategy" />
+		<property name="searchQueryTemplateNameResolver" ref="searchQueryTemplateNameResolver"/>
+	</bean>
+	
+		 <alias name="defaultGPClassificationAttributeAssignmentDAO" alias="gpclassificationAttributeAssignmentDAO"/>
+    <bean id="defaultGPClassificationAttributeAssignmentDAO" class="com.gp.commerce.core.product.dao.impl.DefaultGPClassificationAttributeAssignmentDAO">
+        <property name="flexibleSearchService" ref="flexibleSearchService"/>
+    </bean>
+
+
+    <alias name="defaultGPClassificationAttributeAssignmentService" alias="gpClassificationAttributeAssignmentService"/>
+    <bean id="defaultGPClassificationAttributeAssignmentService" class="com.gp.commerce.core.services.impl.DefaultGPClassificationAttributeAssignmentService">
+        <property name="gpclassificationAttributeAssignmentDAO" ref="gpclassificationAttributeAssignmentDAO"/>
+    </bean>
+    
+    <bean id="gpProductOccasionValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductFieldsValueProvider"
+			  parent="gpPropertyFieldValueProvider">
+		<property name="commonI18NService" ref="commonI18NService"/>
+		<property name="indexedField" value="occasion"></property>
+	</bean>
+	
+ 
+		
+	<alias name="subscriptionCartServiceImpl" alias="subscriptionCartServiceImpl"/>
+	<bean id="subscriptionCartServiceImpl" class="com.gp.commerce.subscription.service.impl.GPSubscriptionServiceImpl">
+	</bean>
+	
+	<alias name="subscriptionCartDaoImpl" alias="subscriptionCartDaoImpl"/>
+	<bean id="subscriptionCartDaoImpl" class="com.gp.commerce.subscription.dao.impl.GPSubscriptionDaoImpl">
+	</bean>
+	
+	
+	<alias name="gpsubscriptionCartParameterConverter" alias="gpsubscriptionCartParameterConverter"/>
+	<bean name="gpsubscriptionCartParameterConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="de.hybris.platform.commerceservices.service.data.CommerceCartParameter"/>
+		<property name="populators">
+			<list>
+				<ref bean="subscriptionCommerceCartParameterBasicPopulator"/>
+			</list>
+		</property>
+	</bean>
+	
+	
+	<bean id="subscriptionCommerceCartParameterBasicPopulator"
+		  class="com.gp.commerce.facades.subscription.populators.GPSubscriptionCommerceCartPopulator">
+		<property name="cartService" ref="cartService"/>
+		<property name="productService" ref="productService"/>
+		<property name="pointOfServiceService" ref="pointOfServiceService"/>
+		<property name="commonI18NService" ref="commonI18NService"/>
+		<property name="netGrossStrategy" ref="netGrossStrategy"/>
+		<property name="baseSiteService" ref="baseSiteService"/>
+		<property name="baseStoreService" ref="baseStoreService"/>
+		<property name="guidKeyGenerator" ref="guidKeyGenerator"/>
+		<property name="keyGenerator" ref="keyGenerator"/>
+	</bean>
+	
+	<alias name="subscriptionDefaultCartPopulator" alias="cartPopulator"/>
+	<bean id="subscriptionDefaultCartPopulator"
+			class="com.gp.commerce.facades.subscription.populators.GPSubscriptionDefaultCartPopulator" parent="defaultCartPopulator">
+	</bean>
+	 
+	<alias name="subscriptionCommerceAddToCartStrategy" alias="subscriptionCommerceAddToCartStrategy"/>
+	<bean id="subscriptionCommerceAddToCartStrategy"
+			class="com.gp.commerce.core.strategies.GPSubscriptionAddToCartStrategy"
+			parent="abstractCommerceAddToCartStrategy">
+		<property name="commerceAddToCartMethodHooks" ref="commerceAddToCartMethodHooks"/>
+        <property name="entryMergeStrategy" ref="entryMergeStrategy"/>
+		<property name="configurationService" ref="configurationService"/>
+	</bean>
+	
+		<alias alias="cartService" name="subscriptionCartService" />
+	<bean id="subscriptionCartService"
+		class="com.gp.commerce.subscription.service.impl.GPSubscriptionDefaultCartService"
+		parent="defaultCartService">
+	</bean>
+	
+	<bean id="gpProductWidthValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductFieldsValueProvider"
+			  parent="gpPropertyFieldValueProvider">
+	<property name="commonI18NService" ref="commonI18NService"/>
+	<property name="indexedField" value="product_width"></property>
+	</bean>
+	
+	<bean id="gpProductHeightValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductFieldsValueProvider"
+			  parent="gpPropertyFieldValueProvider">
+	<property name="commonI18NService" ref="commonI18NService"/>
+	<property name="indexedField" value="product_height"></property>
+	</bean>
+	
+	<bean id="gpProductLengthValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductFieldsValueProvider"
+			  parent="gpPropertyFieldValueProvider">
+	<property name="commonI18NService" ref="commonI18NService"/>
+	<property name="indexedField" value="product_length"></property>
+	</bean>
+	
+	<bean id="gpProductDimensionValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductFieldsValueProvider"
+			  parent="gpPropertyFieldValueProvider">
+	<property name="commonI18NService" ref="commonI18NService"/>
+	<property name="indexedField" value="product_uom"></property>
+	</bean>
+	
+	<bean id="gpProductCapacityValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductFieldsValueProvider"
+			  parent="gpPropertyFieldValueProvider">
+	<property name="commonI18NService" ref="commonI18NService"/>
+	<property name="indexedField" value="product_capacity"></property>
+	</bean>
+	
+	<bean id="gpProductItemsPerEachValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductFieldsValueProvider"
+			  parent="gpPropertyFieldValueProvider">
+	<property name="commonI18NService" ref="commonI18NService"/>
+	<property name="indexedField" value="product_itemspereach"></property>
+	</bean>
+	
+	<bean id="gpProductItemsPerEachuomValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductFieldsValueProvider"
+			  parent="gpPropertyFieldValueProvider">
+	<property name="commonI18NService" ref="commonI18NService"/>
+	<property name="indexedField" value="product_itemspereachuom"></property>
+	</bean>
+	
+	<bean id="gpProductEachPerShipUnitValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductFieldsValueProvider"
+			  parent="gpPropertyFieldValueProvider">
+	<property name="commonI18NService" ref="commonI18NService"/>
+	<property name="indexedField" value="product_eachpershipunit"></property>
+	</bean>
+	
+	<bean id="gpProductEachPerShipUnituomValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductFieldsValueProvider"
+			  parent="gpPropertyFieldValueProvider">
+	<property name="commonI18NService" ref="commonI18NService"/>
+	<property name="indexedField" value="product_eachpershipunituom"></property>
+	</bean>
+	
+	<bean id="gpFreeShippingValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductFieldsValueProvider"
+			  parent="gpPropertyFieldValueProvider">
+	<property name="commonI18NService" ref="commonI18NService"/>
+	<property name="indexedField" value="freeShipping"></property>
+	</bean>
+	
+	<bean id="gpInstallableValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductFieldsValueProvider"
+			  parent="gpPropertyFieldValueProvider">
+	<property name="commonI18NService" ref="commonI18NService"/>
+	<property name="indexedField" value="installable"></property>
+	</bean>
+	
+	<bean id="gpCommerceCoreUtils" class="com.gp.commerce.core.util.GPCommerceCoreUtils">
+		<property name="modelService" ref="modelService"/>
+		<property name="typeService" ref="typeService"/>
+        <property name="contextualAttributeValuesSessionService" ref="contextualAttributeValuesSessionService"/>
+	</bean>
+	
+	<alias name="gpDefaultCommerceAddToCartStrategy" alias="commerceAddToCartStrategy"/>
+	<bean id="gpDefaultCommerceAddToCartStrategy"
+			class="com.gp.commerce.core.strategies.GPDefaultCommerceAddToCartStrategy" parent="defaultCommerceAddToCartStrategy">
+			<property name="gpCommerceCoreUtils" ref="gpCommerceCoreUtils"/>
+	</bean>
+	
+		<alias name="gpDefaultCommerceCartMergingStrategy" alias="commerceCartMergingStrategy"/>
+	<bean id="gpDefaultCommerceCartMergingStrategy"
+			class="com.gp.commerce.core.order.impl.GPDefaultCommerceCartMergingStrategy"
+			parent="defaultCommerceCartMergingStrategy">
+	</bean>
+
+	<alias name="gpDefaultCommerceCartRestorationStrategy" alias="commerceCartRestorationStrategy"/>
+	<bean id="gpDefaultCommerceCartRestorationStrategy"
+		  class="com.gp.commerce.core.order.impl.GPDefaultCommerceCartRestorationStrategy"
+		  parent="defaultCommerceCartRestorationStrategy">
+	</bean>
+
+	<bean id="gpSessionHelperService"
+		  class="com.gp.commerce.core.services.session.impl.GPSessionHelperServiceImpl">
+		<property name="sessionService" ref="sessionService"/>
+	</bean>
+	
+	<alias alias="commerceCartCalculationStrategy" name="gpDefaultCommerceCartCalculationStrategy"/>
+	<bean id="gpDefaultCommerceCartCalculationStrategy"
+		  class="com.gp.commerce.core.order.impl.GPDefaultCommerceCartCalculationStrategy" parent="defaultCommerceCartCalculationStrategy">
+		<property name="calculationService" ref="calculationService"/>
+		<property name="promotionsService" ref="promotionsService"/>
+		<property name="timeService" ref="timeService"/>
+		<property name="baseSiteService" ref="baseSiteService"/>
+		<property name="configurationService" ref="configurationService"/>
+		<property name="commerceCartCalculationMethodHooks" ref="commerceCartCalculationMethodHooks"/>
+		<property name="externalTaxesService" ref="externalTaxesService"/>
+		<property name="calculateExternalTaxes" value="false"/>
+	</bean>
+
+    <alias alias="checkoutCartCalculationStrategy" name="gpDefaultCheckoutCartCalculationStrategy"/>
+    <bean id="gpDefaultCheckoutCartCalculationStrategy"
+          class="com.gp.commerce.core.order.impl.GPDefaultCommerceCartCalculationStrategy"
+          parent="gpDefaultCommerceCartCalculationStrategy">
+        <property name="calculateExternalTaxes" value="true"/>
+    </bean>
+    
+    <bean id="generateSubscriptionOrderStatusEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="SubscriptionOrderStatusEmailTemplate"/>
+	</bean>
+	
+	<bean id="subscriptionOrderStatusEmailProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource"
+		  scope="tenant">
+		<property name="resource"
+				  value="classpath:/gpcommercecore/processes/subscriptionOrderStatusEmailProcess.xml" />
+	</bean>
+
+	<bean id="subcriptionOrderStatusEventListener"
+		  class="com.gp.commerce.core.event.SubscriptionOrderStatusEventListener" parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+	<alias alias="siteBaseUrlResolutionService" name="gpDefaultSiteBaseUrlResolutionService"/>
+	<bean id="gpDefaultSiteBaseUrlResolutionService"
+		  class="com.gp.commerce.core.services.impl.GPSiteBaseUrlResolutionServiceImpl" parent="defaultSiteBaseUrlResolutionService">
+	</bean>
+
+	<alias name="defaultGpBundleService" alias="gpBundleService"/>
+	<bean id="defaultGpBundleService" class="com.gp.commerce.core.services.configurablebundle.impl.DefaultGPBundleService" >
+		<property name="bundleTemplateService" ref="bundleTemplateService"/>
+	</bean>
+
+	<alias alias="bundleTemplateDao" name="gpDefaultBundleTemplateDao"/>
+	<bean id="gpDefaultBundleTemplateDao" class="com.gp.commerce.core.dao.impl.GPDefaultBundleTemplateDao" parent="defaultBundleTemplateDao" >
+	</bean>
+
+
+	<alias name="gpDefaultShippingActionStrategy" alias="shippingActionStrategy"/>
+	<bean id="gpDefaultShippingActionStrategy" parent="abstractRuleActionStrategy" class="com.gp.commerce.core.promotion.action.impl.GPDefaultShippingActionStrategy" >
+		<property name="deliveryModeDao" ref="deliveryModeDao"/>
+		<property name="promotionAction" value="de.hybris.platform.promotionengineservices.model.RuleBasedOrderChangeDeliveryModeActionModel"/>
+	</bean>
+	
+	<bean id="givenShippingActionStrategiesMergeDirective" depends-on="actionStrategies" parent="listMergeDirective" >
+       <property name="add" ref="gpDefaultShippingActionStrategy" />
+    </bean>
+
+	<alias alias="gpBundleDao" name="gpBundleDaoImpl"/>
+	<bean id="gpBundleDaoImpl" class="com.gp.commerce.core.dao.impl.GPBundleDaoImpl" >
+	</bean>
+
+    <bean id="installationProductEmailProcessDefinitionResource" class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+		<property name="resource" value="classpath:/gpcommercecore/processes/installationProductEmailProcess.xml"/>
+	</bean>
+	
+	<bean id="generateInstallationProductEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="InstallationProductEmailTemplate"/>
+	</bean>
+
+	
+	<bean class="de.hybris.platform.cmsfacades.types.service.impl.DefaultComponentTypeAttributeStructure" p:typecode="Category" p:qualifier="authoringContent">
+		<property name="populators">
+			<set>
+				<ref bean="richTextComponentTypeAttributePopulator" />
+				<ref bean="requiredComponentTypeAttributePopulator" />
+			</set>
+		</property>
+	</bean>
+    
+    <bean id="gpProductBrandLabelValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductFieldsValueProvider"
+			  parent="gpPropertyFieldValueProvider">
+		<property name="commonI18NService" ref="commonI18NService"/>
+		<property name="indexedField" value="brandLabel"></property>
+	</bean>
+
+	<bean id="gpBrawnyShopCategorySource" parent="abstractCategorySource">
+		<property name="rootCategory" value="brawnyshop" />
+	</bean>
+
+	<bean id="gpBrawnyShopCategoryCodeValueProvider" parent="abstractGPCategoryCodeValueProvider">
+		<property name="categorySource" ref="gpBrawnyShopCategorySource" />
+	</bean>
+
+	<bean id="gpBrawnyShopCategoryNameValueProvider" parent="abstractCategoryNameValueProvider">
+		<property name="categorySource" ref="gpBrawnyShopCategorySource" />
+	</bean>
+	
+	<bean id="gpSoldIndividuallyValueProvider" class="com.gp.commerce.core.search.solrfacetsearch.provider.impl.GPProductFieldsValueProvider"
+			  parent="gpPropertyFieldValueProvider">
+	<property name="commonI18NService" ref="commonI18NService"/>
+	<property name="indexedField" value="soldIndividually"></property>
+	</bean>
+	
+	<bean id="gpInnoviaShopCategorySource" parent="abstractCategorySource">
+		<property name="rootCategory" value="innoviashop" />
+	</bean>
+
+	<bean id="gpInnoviaShopCategoryCodeValueProvider" parent="abstractGPCategoryCodeValueProvider">
+		<property name="categorySource" ref="gpInnoviaShopCategorySource" />
+	</bean>
+
+	<bean id="gpInnoviaShopCategoryNameValueProvider" parent="abstractCategoryNameValueProvider">
+		<property name="categorySource" ref="gpInnoviaShopCategorySource" />
+	</bean>
+	
+</beans>

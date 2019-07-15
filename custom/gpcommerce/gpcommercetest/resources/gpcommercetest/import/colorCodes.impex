@@ -1,0 +1,25 @@
+INSERT_UPDATE GPVariantColorCodes;colorName[unique=true];colorCode
+;red;#FF0000	
+;green;#008000
+;blue;#0000FF
+;white;#FFFFFF
+;black;#000000
+;yellow;#FFFF00
+;lime;#00FF00
+;cyan;#00FFFF
+;magenta;#FF00FF
+;silver;#C0C0C0
+;gray;#808080	
+;maroon;#800000
+;olive;#808000
+;green;#008000
+;purple;#800080
+;teal;#008080
+;navy;#000080
+;brown;#A52A2A
+;flint dotcom;#808080
+;true black;#000000
+;true black dotcom;#800000
+;twilight;#0000CD
+;vain;#FF0000
+;zest dotcom;#32CD32

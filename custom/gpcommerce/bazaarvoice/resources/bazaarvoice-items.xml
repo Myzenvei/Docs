@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- [y] hybris Platform Copyright (c) 2000-2013 hybris AG All rights reserved. 
+	This software is the confidential and proprietary information of hybris ("Confidential 
+	Information"). You shall not disclose such Confidential Information and shall 
+	use it only in accordance with the terms of the license agreement you entered 
+	into with hybris. -->
+<!-- ATTENTION: This is just an example file. You have to edit it according 
+	to your needs. -->
+
+<items xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="items.xsd">
+
+	<collectiontypes>
+		<collectiontype code="bvCategories" elementtype="Category" autocreate="true" generate="true" type="list" />
+	</collectiontypes>		
+	<enumtypes>
+		<enumtype code="environmentType" autocreate="true" generate="true">
+			<value code="Staging" />
+			<value code="Production" />
+		</enumtype>
+	</enumtypes>
+
+	<itemtypes>
+
+		<itemtype code="BazaarvoiceProductFeedExportCronJob" extends="CronJob"
+			autocreate="true" generate="true">
+			<deployment table="c_bv_cronJob" typecode="20001"/>
+			<attributes>
+				<attribute qualifier="bazaarvoiceStorefront" type="CMSSite">
+					<description>Bazaarvoice credential information</description>
+					<modifiers initial="true" read="true" write="true"
+						optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="catalogVersion" type="CatalogVersion">
+					<persistence type="property" />
+					<modifiers optional="false" initial="true" read="true"
+						write="true" />
+				</attribute>
+				<attribute qualifier="brandID" type="java.lang.String">
+					<persistence type="property" />
+					<modifiers read="true" write="true" optional="true" />
+				</attribute>
+					<attribute qualifier="brandName" type="java.lang.String">
+					<persistence type="property" />
+					<modifiers read="true" write="true" optional="true" />
+				</attribute>
+				<attribute qualifier="categories" type="bvCategories">
+					<persistence type="property" />
+					<modifiers read="true" write="true" optional="true" />
+				</attribute>
+				<attribute qualifier="isUPCEANRequired" type="java.lang.Boolean">
+					<persistence type="property" />
+					<modifiers read="true" write="true" optional="true" />
+					<defaultvalue>Boolean.FALSE</defaultvalue>
+				</attribute>
+			</attributes>
+		</itemtype>
+
+		<itemtype code="BazaarvoiceConfig" autocreate="true"
+			generate="true">
+			<deployment table="c_bv_config" typecode="20002"/>
+			<attributes>
+				<attribute qualifier="code" type="java.lang.String">
+					<description>unique code that identifies the Bazaarvoice
+							configuration</description>
+					<persistence type="property" />
+					<modifiers read="true" write="false" initial="true"
+						optional="false" unique="true" />
+				</attribute>
+				<attribute qualifier="clientName" type="java.lang.String">
+					<description>Name of client</description>
+					<persistence type="property" />
+					<modifiers read="true" write="true" optional="false" />
+				</attribute>
+				<attribute qualifier="ftpUserName" type="java.lang.String">
+					<description>FTP user name</description>
+					<persistence type="property" />
+					<modifiers read="true" write="true" optional="false" />
+				</attribute>
+				<attribute qualifier="ftpPassword" type="java.lang.String">
+					<description>FTP password</description>
+					<persistence type="property" />
+					<modifiers read="true" write="true" optional="false" />
+				</attribute>
+				<attribute qualifier="zone" type="java.lang.String">
+					<description>Deployment Zone Name</description>
+					<persistence type="property" />
+					<modifiers read="true" write="true" optional="false" />
+				</attribute>
+				<attribute qualifier="seoKey" type="java.lang.String">
+					<description>Cloud SEO Key</description>
+					<persistence type="property" />
+					<modifiers read="true" write="true" optional="false" />
+				</attribute>
+				<attribute qualifier="ftpServer" type="java.lang.String">
+					<description>The address to connect to the SFTP server</description>
+					<persistence type="property" />
+					<modifiers read="true" write="true" optional="false" />
+				</attribute>
+				<attribute qualifier="extensionVersion" type="java.lang.String">
+					<persistence type="dynamic" attributeHandler="hybrisExtensionVersionHandler" />
+					<modifiers read="true" write="false" />
+					<description>hybris extension version</description>
+				</attribute>
+				<attribute qualifier="environment" type="environmentType">
+					<description>Production or Staging Environment button</description>
+					<defaultvalue>em().getEnumerationValue("environmentType","Staging")</defaultvalue>
+					<persistence type="property" />
+					<modifiers read="true" write="true" optional="false" />
+				</attribute>
+                <attribute qualifier="upcMethodName" type="java.lang.String">
+                    <description>The name of your getter method for upc from ProductModel</description>
+                    <persistence type="property" />
+                    <modifiers read="true" write="true" optional="true" />
+                </attribute>
+				<attribute qualifier="showReviewsScript" type="java.lang.String">
+					<description>Code snippet that will be executed in the show reviews script</description>
+					<persistence type="property" />
+					<modifiers read="true" write="true" optional="true" />
+				</attribute>
+				<attribute qualifier="showQuestionsScript" type="java.lang.String">
+					<description>Code snippet that will be executed in the show questions script</description>
+					<persistence type="property" />
+					<modifiers read="true" write="true" optional="true" />
+				</attribute>
+				<attribute qualifier="isFamiliesEnabled" type="java.lang.Boolean">
+					<description>Code snippet that will be executed in the show questions script</description>
+					<persistence type="property" />
+					<modifiers read="true" write="true" optional="false" />
+					<defaultvalue>Boolean.FALSE</defaultvalue>
+				</attribute>
+				<attribute qualifier="licenseAccepted" type="java.lang.Boolean">
+					<description>Is licence agreement accepted</description>
+					<persistence type="property" />
+					<modifiers read="true" write="true" optional="false" />
+					<defaultvalue>Boolean.FALSE</defaultvalue>
+				</attribute>
+			</attributes>
+		</itemtype>
+
+		<itemtype code="CMSSite" generate="false" autocreate="false">
+			<attributes>
+				<attribute qualifier="bvConfig" type="BazaarvoiceConfig">
+					<description>BazaarVoice config object with required information for remote connection</description>
+					<persistence type="property" />
+					<modifiers read="true" write="true" optional="true" />
+				</attribute>
+				<attribute generate="true" autocreate="true" qualifier="bvLocale" type="localized:java.lang.String">
+					<persistence type="property" qualifier=""/>
+					<modifiers read="true" write="true" search="true" encrypted="false" optional="true" removable="true" initial="false" unique="false" private="false" partof="false"/>
+					<defaultvalue>String.valueOf("en_US")</defaultvalue>
+				</attribute>
+			</attributes>
+		</itemtype>
+		
+		<itemtype code="BazaarvoiceImportRatingsCronJob" extends="CronJob"
+			autocreate="true" generate="true">
+			<deployment table="bv_ratingsjob" typecode="20043" />
+			<attributes>
+				<attribute qualifier="bazaarvoiceStorefront" type="CMSSite">
+					<description>Bazaarvoice Import Feed Job</description>
+					<modifiers initial="true" read="true" write="true"
+						optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="catalogVersion" type="CatalogVersion">
+					<persistence type="property" />
+					<modifiers optional="false" initial="true" read="true"
+						write="true" />
+				</attribute>
+			</attributes>
+		</itemtype>
+	</itemtypes>
+
+</items>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:annotation-config/>
+
+	<!-- System Setup -->
+	
+	<alias alias="b2bAcceleratorCoreSystemSetup" name="gpb2bStoreSystemSetup" />
+	<bean id="gpb2bStoreSystemSetup" class="com.gp.b2binitialdata.setup.GpB2BInitialDataSystemSetup" parent="gpCoreSystemSetup">
+		<property name="gpb2bCoreDataImportService" ref="gpb2bCoreDataImportService"/>
+		<property name="gpb2bSampleDataImportService" ref="gpb2bSampleDataImportService"/>
+	</bean>
+	
+	<bean id="gpb2bSampleDataImportService" class="com.gp.b2binitialdata.dataimport.impl.GpB2BSampleDataImportService" 
+		parent="sampleDataImportService">
+	</bean>
+    <bean id="gpb2bCoreDataImportService" class="com.gp.b2binitialdata.dataimport.impl.GpB2BCoreDataImportService"
+          parent="coreDataImportService">
+    </bean>
+    
+    <!-- Solr field value providers TEMPORARY FOR NOW SO DO NOT NEED TO DEPEND ON yb2bacceleratorcore -->
+	
+	<bean id="gpb2bCategoryCodeValueProvider" parent="abstractGPCategoryCodeValueProvider">
+        <property name="categorySource" ref="gpb2bCategorySource"/>
+    </bean>
+    <bean id="gpb2bBrandCategoryCodeValueProvider" parent="abstractGPCategoryCodeValueProvider">
+        <property name="categorySource" ref="gpb2bBrandCategorySource"/>
+    </bean>
+    <bean id="gpb2bVariantCategoryCodeValueProvider" parent="abstractGPCategoryCodeValueProvider">
+        <property name="categorySource" ref="gpb2bVariantCategorySource"/>
+    </bean>
+
+
+    <bean id="gpb2bCategoryNameValueProvider" parent="abstractCategoryNameValueProvider">
+        <property name="categorySource" ref="gpb2bCategorySource"/>
+    </bean>
+    
+    <bean id="gpb2bBrandCategoryNameValueProvider" parent="abstractCategoryNameValueProvider">
+        <property name="categorySource" ref="gpb2bBrandCategorySource"/>
+    </bean>
+    
+        <bean id="gpb2bCategorySource" parent="variantCategorySource">
+        <property name="rootCategory" value="1"/> <!-- '1' is the root icecat category -->
+    </bean>
+    <bean id="gpb2bVariantCategorySource" parent="variantCategorySource"/>
+
+    <bean id="gpb2bBrandCategorySource" parent="defaultCategorySource">
+        <property name="rootCategory" value="brands"/> <!-- 'brands' is the root of the brands hierarchy -->
+    </bean>
+
+</beans>

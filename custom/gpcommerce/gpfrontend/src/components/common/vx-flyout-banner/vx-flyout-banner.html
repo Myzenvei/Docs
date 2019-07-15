@@ -1,0 +1,15 @@
+<section class="flyout-banner" v-if="visible" :class="{'flyout-checkout-position': isCheckout, 'flyout-position': !isCheckout }">
+    <div class="flyout-container d-flex justify-content-between" :class="flyoutObject.status">
+      <div class="flyout-wrapper d-flex justify-content-between">
+        <div class="d-flex flex-row">
+          <span v-if="flyoutObject.status === flyoutStatus.success" class="icon-check success-icon-color flyout-icons"
+            :title="i18n.iconSuccessTitle"></span>
+          <span v-else class="icon-alert-triangle error-icon-color flyout-icons" :title="i18n.iconAlertTitle"></span>
+          <span aria-live="assertive" aria-atomic="true" class="text-container mx-xs-2" v-html="flyoutObject.message"></span>
+        </div>
+        <span class="icon-x flyout-icons" :title="i18n.iconCloseTitle" role="button" tabindex="0" :aria-label="i18n.iconCloseTitle"
+          :class="{'success-icon-color': flyoutObject.status === flyoutStatus.success, 'error-icon-color':flyoutObject.status === flyoutStatus.error }"
+          @click="dismissFlyout($event)" @keyup.enter-space="dismissFlyout($event)"></span>
+      </div>
+    </div>
+</section>

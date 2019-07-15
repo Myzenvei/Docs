@@ -1,0 +1,129 @@
+@import '../../../styles/common/mixins.less';
+.m-xs-auto{
+  margin: 0 auto !important;
+  @media(min-width: @screen-sm-min) and (max-width: @screen-sm-max){
+    width: 100%;
+    padding: 0;
+  }
+}
+.mg-image-text-layout {
+  &.our-napkins,
+  &.teachers-lounge {
+    padding: 20px 0;
+    .m-auto{
+      margin: 0 auto;
+    }
+  }
+  &.faqs {
+    padding: 20px 0 0;
+  }
+  img {
+    max-width: 100%;
+    @media (min-width:@screen-sm-min) {
+      margin-top: 25px;
+    }
+  }
+  .text-layout {
+    .title {
+      .font(
+        54px,
+        @font-weight-medium,
+        @font-family-base,
+        @text-color-3,
+        @line-height-base
+      );
+      display: inline-block;
+      border-bottom: 7px dotted #522773;
+      padding-left: 25px;
+
+      h1 {
+        font-size: inherit;
+        color: inherit;
+        margin: 0;
+        padding: 0;
+        font-weight: inherit;
+        letter-spacing: inherit;
+        font-family: inherit;
+        display: inline-block;
+      }
+    }
+    .sub-title {
+      .font(89px, @font-weight-medium, @font-family-base, @text-color-4, 1);
+    }
+    .description {
+      .font(28px, @font-weight-regular, @font-family-base, @text-color-3, 1);
+    }
+    .form-layout {
+      .btn-download-activity-kit {
+        height: 50px;
+        width: 272px;
+        border-radius: @btn-primary-radius;
+        background-color: @text-color-3;
+        .font(30px, @font-weight-medium, @font-family-base, @text-color-6, 1);
+      }
+      .sign-up-form {
+        .teacher-email {
+          border: 1px solid @border-3;
+          font-size: @font-size-h2;
+          border-radius: 10px;
+        }
+        .form-button {
+          position: relative;
+          right: 5px;
+        }
+        .btn-teachers-sign-up {
+          background-color: #e3218f;
+          border-top-right-radius: 20px;
+          border-bottom-right-radius: 20px;
+          .font(
+            @font-size-h2,
+            @font-weight-medium,
+            @font-family-base,
+            @text-color-6,
+            1
+          );
+        }
+        @media only screen and (max-width: 767px) {
+          .form-button,
+          .form-input {
+            flex-grow: 1;
+          }
+        }
+      }
+      .quick-promo {
+        .promo-text {
+          transform: rotate(-9deg);
+          .font(
+            28px,
+            @font-weight-regular,
+            @font-family-base,
+            @text-color-3,
+            1
+          );
+        }
+        .promo-img {
+          height: 47px;
+          width: 86px;
+          position: relative;
+          right: 10px;
+        }
+      }
+    }
+  }
+  &.faqs {
+    display: flex;
+    .image-layout {
+      display: flex;
+      align-items: flex-end;
+      img{
+        width: 100%;
+      }
+    }
+  }
+  &.mardigras-pink {
+    padding-bottom: 50px;
+    @media (min-width: @screen-sm-min) {
+      padding-bottom: 150px;
+    }
+  }
+}

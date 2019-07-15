@@ -1,0 +1,27 @@
+<section class="vx-save-cart" v-show="!guestListName">
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>
+  </vx-spinner>
+  <form @submit.prevent="createAList">
+    <div class="mb-md-5 mb-xs-4 form-group">
+      <label for="createNewList" :aria-hidden="isDeviceAndroid()">{{i18n.createNewListLabel}}</label>
+      <!-- <input type="text" :maxlength="40" class="form-control" name="createNewList" :value="createNewListName" @input="$event.target.value=$event.target.value.substr(0,40)"
+        v-on:change="createNewListName=$event.target.value"> -->
+      <input type="text" :maxlength="40" class="form-control" name="createNewList" v-model="createNewListName" @input="$event.target.value=$event.target.value.substr(0,40)"
+        v-on:change="createNewListName=$event.target.value" @keyup="clearRadioGroup" :aria-label="i18n.createNewListLabel"
+        aria-describedby="list_err_msg"  v-validate="{ rules: { required: !existingList} }" v-bind:class="{'input-error': errors.has('createNewList')}"
+        v-on:blur="showListError($event)">
+    </div>
+    <div class="mb-xs-5" v-if="wishLists && wishLists.length!==0">
+      <vx-radio-button-group ref="existingWhishlists" @selected-option="selectAList($event,index)" :radiobuttonValues="wishLists"></vx-radio-button-group>
+    </div>
+    <div class="pb-xs-5">
+      <span class="error-icon icon-alert-triangle" :title="i18n.iconAlertTitle" v-if="errors.first('createNewList') || inlineError || existingListError"></span>
+      <span class="error-msg" v-show="errors.first('createNewList')" :aria-hidden="!errors.first('createNewList')">{{errors.first('createNewList')}}</span>
+      <span class="error-msg" v-if="inlineError">{{i18n.saveAListError}}</span>
+      <span class="error-msg" v-if="existingListError">{{i18n.existingListError}}</span>
+    </div>
+    <div class="save-list-button-container modal-btn-IEspacing modal-btn-EDGEspacing">
+      <button type="submit" :disabled="errors.any()" class="btn btn-primary modal-btn-primary-small modal-btn-xs-sticky center-block">{{i18n.save}}</button>
+    </div>
+  </form>
+</section>

@@ -1,0 +1,35 @@
+#vanity-fair {
+  .banner {
+    &.hero-center {
+      .banner__promotion {
+        .banner__heading {
+          font-size: @font-size-h1;
+          line-height: 34px;
+        }
+        .banner__subheading {
+          font-size: @font-size-h3;
+          line-height: 28px;
+          margin-top: 22px;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: @screen-xs-max) {
+    .banner {
+      &.hero-center {
+        .banner__promotion {
+          .banner__heading {
+            font-size: @font-size-h2;
+            line-height: 34px;
+          }
+          .banner__subheading {
+            font-size: @font-size-h3;
+            line-height: 21px;
+            margin-top: 16px;
+          }
+        }
+      }
+    }
+  }
+}

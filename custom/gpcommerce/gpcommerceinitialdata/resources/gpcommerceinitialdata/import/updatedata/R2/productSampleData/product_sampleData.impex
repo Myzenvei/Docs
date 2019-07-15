@@ -1,0 +1,813 @@
+
+
+###############SAMPLE DATA for KITS. TO BE REMOVED for PROD : START##########
+
+# USE CTRL-SPACE for type-ahead support
+$productCatalog=gpUSProductCatalog
+$productCatalogName=GP US Product Catalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$baseProduct=baseProduct(code, catalogVersion(catalog(id[default='$productCatalog']),version[default='Staged']))
+$approved=approvalstatus(code)[default='approved']
+$taxGroup=Europe1PriceFactory_PTG(code)[default=us-sales-tax-full]
+$giftWrapProduct=giftWrapProduct(code, catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged']))
+$installationProduct=installationProduct(code, catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged']))
+ 
+ INSERT_UPDATE GPComponentProducts;code[unique=true];kitcomponent(code,$catalogVersion);quantity
+;Comp1;19375;2
+;Comp2;19378;8
+;Comp3;19378;8
+;Comp4;19378;8
+;Comp5;19378;8
+;Comp6;19375;8
+
+
+
+INSERT_UPDATE GPProductKit;code[unique=true];$catalogVersion;supercategories(code,$catalogVersion);ean;unit(code);varianttype(code);$approved;$taxGroup;site(uid);kitcomponent(code);name[lang=en]
+;KITPRODUCT1; ;9687;78731601919;CS;;;;b2bwhitelabel,b2cwhitelabel;Comp1,Comp1;Kits Product KIT01
+;KITPRODUCT2; ;9687;78731601919;CS;;;;b2bwhitelabel,b2cwhitelabel;Comp2,Comp3;Kits Product KIT02
+;KITPRODUCT3; ;9687;78731601919;CS;;;;b2bwhitelabel,b2cwhitelabel;Comp4,Comp5;Kits Product KIT03
+;KITPRODUCT4; ;9687;78731601919;CS;;;;b2bwhitelabel,b2cwhitelabel;Comp6,Comp1;Kits Product KIT04
+;KITPRODUCT5; ;9687;78731601919;CS;;;;b2bwhitelabel,b2cwhitelabel;Comp3,Comp1;Kits Product KIT05
+
+
+$solrIndexedType=solrIndexedType(identifier)[unique=true]
+$indexedType=multiBrandProductType
+$productCatalog=gpUSProductCatalog
+$catalogVersion=catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default='$productCatalog:Staged']
+INSERT_UPDATE ContextualAttributeValue;$catalogVersion;product(code,$catalogVersion)[unique=true];context(code);name;description;featureList
+
+;;KITPRODUCT1;DixieContext;Test 44COT Context;44COT Description DixieContext
+;;KITPRODUCT1;B2BWhitelabelContext;Test 44COT Context;44COT Description B2BWhitelabelContext
+;;KITPRODUCT1;B2CWhitelabelContext;Test 44COT Context;44COT Description B2CWhitelabelContext
+;;KITPRODUCT1;GPXpressContext;Test 44COT Context;44COT Description GPXpressContext
+
+;;KITPRODUCT2;DixieContext;Test 44COT Context;44COT Description DixieContext
+;;KITPRODUCT2;B2BWhitelabelContext;Test 44COT Context;44COT Description B2BWhitelabelContext
+;;KITPRODUCT2;B2CWhitelabelContext;Test 44COT Context;44COT Description B2CWhitelabelContext
+;;KITPRODUCT2;GPXpressContext;Test 44COT Context;44COT Description GPXpressContext
+
+;;KITPRODUCT3;DixieContext;Test 44COT Context;44COT Description DixieContext
+;;KITPRODUCT3;B2BWhitelabelContext;Test 44COT Context;44COT Description B2BWhitelabelContext
+;;KITPRODUCT3;B2CWhitelabelContext;Test 44COT Context;44COT Description B2CWhitelabelContext
+;;KITPRODUCT3;GPXpressContext;Test 44COT Context;44COT Description GPXpressContext
+
+;;KITPRODUCT4;DixieContext;Test 44COT Context;44COT Description DixieContext
+;;KITPRODUCT4;B2BWhitelabelContext;Test 44COT Context;44COT Description B2BWhitelabelContext
+;;KITPRODUCT4;B2CWhitelabelContext;Test 44COT Context;44COT Description B2CWhitelabelContext
+;;KITPRODUCT4;GPXpressContext;Test 44COT Context;44COT Description GPXpressContext
+
+;;KITPRODUCT5;DixieContext;Test 44COT Context;44COT Description DixieContext
+;;KITPRODUCT5;B2BWhitelabelContext;Test 44COT Context;44COT Description B2BWhitelabelContext
+;;KITPRODUCT5;B2CWhitelabelContext;Test 44COT Context;44COT Description B2CWhitelabelContext
+;;KITPRODUCT5;GPXpressContext;Test 44COT Context;44COT Description GPXpressContext
+
+
+# ProductAvailabilityGroup
+INSERT_UPDATE ProductAvailabilityGroup;id[unique=true];description[lang=en];stores(uid)
+;gpemployee-availability;Multibrand Product availability Group for GPEmployee;gpemployee
+;dixie-availability;Multibrand Product availability Group for Dixie;dixie
+;b2bwhitelabel-availability;Multibrand Product availability Group for B2BWhitelabel;b2bwhitelabel
+;b2cwhitelabel-availability;Multibrand Product availability Group for B2CWhitelabel;b2cwhitelabel
+;gpxpress-availability;Multibrand Product availability Group for GPXpress;gpxpress
+
+
+
+
+# ProductAvailabilityAssignment for B2CWhitelabel
+$productCatalog=gpUSProductCatalog
+$availabilityGroup=b2cwhitelabel-availability
+$approvalStatus=approved 
+$catalogVersion=catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default='$productCatalog:Staged']
+INSERT_UPDATE ProductAvailabilityAssignment;product(code,$catalogVersion)[unique=true];availabilityGroup(id)[default=$availabilityGroup,unique=true];status(code)[default=$approvalStatus];onlineDate[dateformat=dd.MM.yyyy, default=01.02.2014];offlineDate[dateformat=dd.MM.yyyy];$catalogVersion
+;KITPRODUCT1
+;KITPRODUCT2
+;KITPRODUCT3
+;KITPRODUCT4
+;KITPRODUCT5
+
+
+
+$productCatalog=gpUSProductCatalog
+$availabilityGroup=b2bwhitelabel-availability
+$approvalStatus=approved 
+$catalogVersion=catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default='$productCatalog:Staged']
+INSERT_UPDATE ProductAvailabilityAssignment;product(code,$catalogVersion)[unique=true];availabilityGroup(id)[default=$availabilityGroup,unique=true];status(code)[default=$approvalStatus];onlineDate[dateformat=dd.MM.yyyy, default=01.02.2014];offlineDate[dateformat=dd.MM.yyyy];$catalogVersion
+;KITPRODUCT1
+;KITPRODUCT2
+;KITPRODUCT3
+;KITPRODUCT4
+;KITPRODUCT5
+
+
+# Insert Brand Specific Product prices
+$productCatalog=gpUSProductCatalog
+$productCatalogName=GP US Product Catalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+
+# Brand specific Prices for Dixie
+INSERT_UPDATE PriceRow; product(code,$catalogVersion)[unique=true];ug(code)[unique=true];channel(code)[unique=true];currency(isocode)[unique=true];price[unique=true];unit(code)[default=pieces];net[default=true];salePrice[default=false]
+; KITPRODUCT1;;;USD;80.99;CS; ;
+; KITPRODUCT2;;;USD;80.99;CS; ;
+; KITPRODUCT3;;;USD;80.99;CS; ;
+; KITPRODUCT4;;;USD;80.99;CS; ;
+; KITPRODUCT5;;;USD;80.99;CS; ;
+
+#####################################END OF NEW KIT PRODUCTS############################
+
+####################################EXISTING KIT PRODUCTS########################
+$productCatalog=gpUSProductCatalog
+$productCatalogName=GP US Product Catalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+
+# Brand specific Prices for Dixie
+INSERT_UPDATE PriceRow; product(code,$catalogVersion)[unique=true];ug(code)[unique=true];channel(code)[unique=true];currency(isocode)[unique=true];price[unique=true];unit(code)[default=pieces];net[default=true];salePrice[default=false]
+; KIT111;;;USD;80.99;CS; ;
+; KIT112;;;USD;80.99;CS; ;
+; KIT113;;;USD;80.99;CS; ;
+; KIT114;;;USD;80.99;CS; ;
+; KIT115;;;USD;80.99;CS; ;
+
+
+####################################END EXISTING KIT PRODUCTS########################
+
+
+###############SAMPLE DATA for KITS. TO BE REMOVED for PROD : END########### USE CTRL-SPACE for type-ahead support
+
+
+
+############################SAMPLE DATA FOR S/4 COPPER AND CRANE KITS#######################
+
+$productCatalog=gpUSProductCatalog
+$productCatalogName=GP US Product Catalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$baseProduct=baseProduct(code, catalogVersion(catalog(id[default='$productCatalog']),version[default='Staged']))
+$approved=approvalstatus(code)[default='approved']
+$taxGroup=Europe1PriceFactory_PTG(code)[default=us-sales-tax-full]
+$giftWrapProduct=giftWrapProduct(code, catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged']))
+$installationProduct=installationProduct(code, catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged']))
+ 
+
+ INSERT_UPDATE GPComponentProducts;code[unique=true]; kitcomponent(code,$catalogVersion);quantity
+;Component1;CC-CDL-1000033;1
+;Component2;CC-ELX-1000018;1
+;Component3;CC-MSK-1000017;1
+;Component4;CC-MST-1000015;1
+;Component5;CC-PCH-1000062;1
+;Component6;CC-RGD-1000042;1
+;Component7;CC-SRM-1000020;1
+
+
+
+;Component8;CC-MST-1000016;1
+;Component9;CC-PVN-1000063;1
+;Component10;CC-SRM-1000020;1
+;Component11;CC-MSK-1000017;1
+
+
+
+;Component12;CC-BAR-1000027;1
+;Component13;CC-EXF-1000003;1
+;Component14;CC-LTN-1000009;1
+;Component15;CC-PCH-1000062;1
+
+
+;Component16;CC-BAR-1000027;3
+;Component17;CC-RGD-1000044;1
+
+
+
+INSERT_UPDATE GPProductKit;code[unique=true];$catalogVersion;supercategories(code,$catalogVersion);ean;unit(code);varianttype(code);$approved;$taxGroup;site(uid);kitcomponent(code);name[lang=en]
+;CC-KIT-1000089; ;9687;78731601919;CS;;;;copperandcrane;Component1,Component2,Component3,Component4,Component5,Component6,Component7;Kits Product 
+;CC-KIT-1000078 ; ;9687;78731601919;CS;;;;copperandcrane;Component8,Component9,Component10,Component11;Kits Product 
+;CC-KIT-1000087; ;9687;78731601919;CS;;;;copperandcrane;Component12,Component13,Component14,Component15;Kits Product 
+;CC-BAR-1000048; ;9687;78731601919;CS;;;;copperandcrane;Component16,Component17;Kits Product 
+
+
+
+
+# ProductAvailabilityGroup
+INSERT_UPDATE ProductAvailabilityGroup;id[unique=true];description[lang=en];stores(uid)
+;copperandcrane-availability;Multibrand Product availability Group for CopperAndCrane;copperandcrane
+
+
+# ProductAvailabilityAssignment for GPEmployee
+$productCatalog=gpUSProductCatalog
+$availabilityGroup=copperandcrane-availability
+$approvalStatus=approved 
+$catalogVersion=catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default='$productCatalog:Staged']
+INSERT_UPDATE ProductAvailabilityAssignment;product(code,$catalogVersion)[unique=true];availabilityGroup(id)[default=$availabilityGroup,unique=true];status(code)[default=$approvalStatus];onlineDate[dateformat=dd.MM.yyyy, default=01.02.2014];offlineDate[dateformat=dd.MM.yyyy];$catalogVersion
+;CC-KIT-1000089
+;CC-KIT-1000078 
+;CC-KIT-1000087
+;CC-BAR-1000048
+
+
+
+
+
+# Insert Brand Specific Product prices
+$productCatalog=gpUSProductCatalog
+$productCatalogName=GP US Product Catalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+
+# Brand specific Prices for Dixie
+INSERT_UPDATE PriceRow; product(code,$catalogVersion)[unique=true];ug(code)[unique=true];channel(code)[unique=true];currency(isocode)[unique=true];price[unique=true];unit(code)[default=pieces];net[default=true];salePrice[default=false]
+; CC-KIT-1000089;;;USD;80.99;CS; ;
+; CC-KIT-1000078 ;;;USD;80.99;CS; ;
+; CC-KIT-1000087;;;USD;80.99;CS; ;
+; CC-BAR-1000048;;;USD;80.99;CS; ;
+
+
+##############################END OF S/4 KITS COPPER AND CRANE SAMPLE DATA############################
+
+
+
+###############################MUTLIDIMENTIONAL KIT VARIANTS#################################
+
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2018 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+#PRODUCTS
+
+# Macros / Replacement Parameter definitions
+$productCatalog=gpUSProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$supercategories=supercategories(code, $catalogVersion)
+$baseProduct=baseProduct(code,$catalogVersion)
+$approved=approvalstatus(code)[default='approved']
+
+# Language
+$lang=en
+
+
+$productCatalog=gpUSProductCatalog
+$productCatalogName=GP US Product Catalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$baseProduct=baseProduct(code, catalogVersion(catalog(id[default='$productCatalog']),version[default='Staged']))
+$approved=approvalstatus(code)[default='approved']
+$taxGroup=Europe1PriceFactory_PTG(code)[default=us-sales-tax-full]
+$giftWrapProduct=giftWrapProduct(code, catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged']))
+$installationProduct=installationProduct(code, catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged']))
+ 
+ INSERT_UPDATE GPComponentProducts;code[unique=true];kitcomponent(code,$catalogVersion);quantity
+;CompVar1;19375;2
+;CompVar2;19378;8
+;CompVar3;CC-BAR-1000027;8
+
+
+
+
+INSERT_UPDATE GPProductKit ; code[unique=true] ; $catalogVersion ; supercategories(code,$catalogVersion) ; ean         ; unit(code) ; varianttype(code) ; $approved ; $taxGroup ; site(uid)                   ; kitcomponent(code)    ; name[lang=en]     
+                           ; BaseKit           ;                 ; 9687,color,size                       ; 78731601919 ; CS         ;                   ; approved     ;           ; b2bwhitelabel,b2cwhitelabel,copperandcrane ; CompVar1,CompVar2 ; Sample Base Kit Product
+ 						   ; BaseColorKit           ;            ; 9687,color                       ; 78731601919 ; CS         ;                        ; approved     ;           ; b2bwhitelabel,b2cwhitelabel,copperandcrane ; CompVar1,CompVar2 ; Sample Base Color Kit Product
+				     	   ; BaseCountKit           ;            ; 9687,count                       ; 78731601919 ; CS         ;                        ; approved     ;           ; b2bwhitelabel,b2cwhitelabel,copperandcrane ; CompVar1,CompVar2 ; Sample Base Count Kit Product
+						   ; BaseScentKit           ;            ; 9687,scent                       ; 78731601919 ; CS         ;                        ; approved     ;           ; b2bwhitelabel,b2cwhitelabel,copperandcrane ; CompVar1,CompVar2 ; Sample Base Scent Kit Product
+  						   ; BaseSizeKit           ;            ; 9687,size                       ; 78731601919 ; CS         ;                        ; approved     ;           ; b2bwhitelabel,b2cwhitelabel,copperandcrane ; CompVar1,CompVar2 ; Sample Base Size Kit Product
+		
+		               	   ; BaseCCKit         		  ;                 ; 9687,color,size                       ; 78731601919 ; CS         ;                   ; approved     ;           ; b2bwhitelabel,b2cwhitelabel,copperandcrane ; CompVar3 ; Sample CC Base Kit Product
+ 						   ; BaseCCColorKit           ;            ; 9687,color                       ; 78731601919 ; CS         ;                        ; approved     ;           ; b2bwhitelabel,b2cwhitelabel,copperandcrane ; CompVar3 ; Sample CC Base Color Kit Product
+				     	   ; BaseCCCountKit           ;            ; 9687,count                       ; 78731601919 ; CS         ;                        ; approved     ;           ; b2bwhitelabel,b2cwhitelabel,copperandcrane ; CompVar3 ; Sample CC Base Count Kit Product
+						   ; BaseCCScentKit           ;            ; 9687,scent                       ; 78731601919 ; CS         ;                        ; approved     ;           ; b2bwhitelabel,b2cwhitelabel,copperandcrane ; CompVar3 ; Sample CC Base Scent Kit Product
+  						   ; BaseCCSizeKit           ;            ; 9687,size                       ; 78731601919 ; CS         ;                        ; approved     ;           ; b2bwhitelabel,b2cwhitelabel,copperandcrane ; CompVar3 ; Sample CC Base Size Kit Product
+		
+
+
+# Insert Variant Category                   
+INSERT_UPDATE GPDefaultVariantCategory ; code[unique=true] ; name  ; $supercategories ; hasImage ; $catalogVersion ; allowedPrincipals(uid)[default='customergroup']
+                                       ; color             ; Color ;                  ; true     
+                                       ; count             ; Count ;                  ; false    
+                                       ; size              ; Size  ;                  ; false    
+                                       ; scent             ; Scent ;                  ; false    
+
+								                               
+#Insert Variant Value Category         
+INSERT_UPDATE GPDefaultVariantValueCategory ; code[unique=true] ; name      ; $supercategories ; sequence ;hexCode; $catalogVersion ; allowedPrincipals(uid)[default='customergroup']
+                                            ; B2B_5             ; 5         ; size             ; 91       
+                                            ; B2B_5_5           ; 5.5       ; size             ; 92       
+                                            ; B2B_6             ; 6         ; size             ; 93       
+                                            ; B2B_6_5           ; 6.5       ; size             ; 94       
+                                            ; B2B_7             ; 7         ; size             ; 95       
+                                            ; B2B_7_5           ; 7.5       ; size             ; 96       
+                                            ; B2B_8             ; 8         ; size             ; 97       
+                                            ; B2B_8_5           ; 8.5       ; size             ; 98       
+                                            ; B2B_9             ; 9         ; size             ; 99       
+                                            ; B2B_9_5           ; 9.5       ; size             ; 100      
+                                            ; B2B_10            ; 10        ; size             ; 101      
+                                            ; B2B_10_5          ; 10.5      ; size             ; 102      
+                                            ; B2B_11            ; 11        ; size             ; 103      
+                                            ; B2B_11_5          ; 11.5      ; size             ; 104      
+                                            ; B2B_12            ; 12        ; size             ; 105      
+                                            ; B2B_13            ; 13        ; size             ; 106      
+                                            ; B2B_13_5          ; 13.5      ; size             ; 107      
+                                            ; B2B_14            ; 14        ; size             ; 108      
+                                            ; B2B_14_5          ; 14.5      ; size             ; 109      
+                                            ; B2B_15            ; 15        ; size             ; 200      
+                                            ; B2B_16            ; 16        ; size             ; 201      
+                                            ; B2B_17            ; 17        ; size             ; 202      
+                                            ; B2B_M             ; M         ; count            ; 91       
+                                            ; B2B_F             ; F         ; count            ; 92       
+                                            ; B2B_W             ; W         ; count            ; 93       
+                                           
+                                            ; B2B_Black         ; Black     ; color            ; 91  ;#000000     
+                                            ; B2B_Brown         ; Brown     ; color            ; 92  ;#A52A2A     
+                                            ; B2B_Dark_Grey     ; Dark Grey ; color            ; 93  ;#A9A9A9     
+                                            ; B2B_Yellow        ; Yellow    ; color            ; 94  ;#FFFF00     
+                                            ; B2B_White         ; White     ; color            ; 95  ;#ffffff    
+                                            ; B2B_Wheat         ; Wheat     ; color            ; 96      
+                                            ; B2B_philips	   ; Philips	; scent		       ; 91
+                                 		    ; B2B_scotted	   ; Scotted	; scent		       ; 92
+                                            ; B2B_robertson	   ; Robertson	; scent		       ; 93
+                                            ; B2B_hexagon	   ; Hexagon	; scent		       ; 94
+                           
+                                            
+                                            
+
+INSERT_UPDATE GPProductKit ; code[unique=true] ; $catalogVersion ; supercategories(code,$catalogVersion) ; ean         ; unit(code) ; varianttype(code) ; $approved ; $taxGroup ; site(uid)                   ; kitcomponent(code)    ; name[lang=en]     
+                           ; BaseKit           ;                 ; 9687,color,size                       ; 78731601919 ; CS         ; GPVariantProductKit                  ; approved     ;           ; b2bwhitelabel,b2cwhitelabel ; CompVar1,CompVar2 ; Sample Base Kit Product
+ 						   ; BaseColorKit           ;            ; 9687,color                       ; 78731601919 ; CS         ;  GPVariantProductKit                      ; approved     ;           ; b2bwhitelabel,b2cwhitelabel ; CompVar2,CompVar1 ; Sample Base Color Kit Product
+				     	   ; BaseCountKit           ;            ; 9687,count                       ; 78731601919 ; CS         ; GPVariantProductKit                       ; approved     ;           ; b2bwhitelabel,b2cwhitelabel ; CompVar2,CompVar1 ; Sample Base Count Kit Product
+						   ; BaseScentKit           ;            ; 9687,scent                       ; 78731601919 ; CS         ; GPVariantProductKit                       ; approved     ;           ; b2bwhitelabel,b2cwhitelabel ; CompVar1,CompVar2 ; Sample Base Scent Kit Product
+						   ; BaseSizeKit           ;             ; 9687,size                       ; 78731601919 ; CS         ; GPVariantProductKit                       ; approved     ;           ; b2bwhitelabel,b2cwhitelabel ; CompVar1,CompVar2 ; Sample Base Size Kit Product
+
+                         
+                           ; BaseCCKit           ;                 ; 9687,color,size                       ; 78731601919 ; CS         ; GPVariantProductKit                  ; approved     ;           ; b2bwhitelabel,b2cwhitelabel ; CompVar3 ; Sample Base Kit Product
+ 						   ; BaseCCColorKit           ;            ; 9687,color                       ; 78731601919 ; CS         ;  GPVariantProductKit                      ; approved     ;           ; b2bwhitelabel,b2cwhitelabel ; CompVar3 ; Sample Base Color Kit Product
+				     	   ; BaseCCCountKit           ;            ; 9687,count                       ; 78731601919 ; CS         ; GPVariantProductKit                       ; approved     ;           ; b2bwhitelabel,b2cwhitelabel ; CompVar3 ; Sample Base Count Kit Product
+						   ; BaseCCScentKit           ;            ; 9687,scent                       ; 78731601919 ; CS         ; GPVariantProductKit                       ; approved     ;           ; b2bwhitelabel,b2cwhitelabel ; CompVar3 ; Sample Base Scent Kit Product
+						   ; BaseCCSizeKit           ;             ; 9687,size                       ; 78731601919 ; CS         ; GPVariantProductKit                       ; approved     ;           ; b2bwhitelabel,b2cwhitelabel ; CompVar3 ; Sample Base Size Kit Product
+                         
+#Updating product information
+INSERT_UPDATE GPVariantProductKit ; code[unique=true] ; $baseProduct ; $catalogVersion ; name                                                         ; summary                                                      ; ean       ; $supercategories    ; $approved ;kitcomponent(code); description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+                                  ; BaseKit_1         ; BaseKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  7    ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  7    ; 906539611 ; B2B_7,B2B_Yellow    ; approved  ;Comp1 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseKit_2         ; BaseKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  7.5  ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  7.5  ; 906539666 ; B2B_7_5,B2B_Yellow  ; approved  ;Comp1 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseKit_3         ; BaseKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  8    ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  8    ; 906539697 ; B2B_8,B2B_Yellow    ; approved  ;Comp1 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseKit_4         ; BaseKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  8.5  ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  8.5  ; 906539727 ; B2B_8_5,B2B_Yellow  ; approved  ;Comp1 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseKit_5         ; BaseKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  9    ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  9    ; 906539765 ; B2B_9,B2B_Yellow    ; approved  ;Comp1 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseKit_6         ; BaseKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  9.5  ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  9.5  ; 906539642 ; B2B_9_5,B2B_Yellow  ; approved  ;Comp1 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseKit_7         ; BaseKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  10   ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  10   ; 906539673 ; B2B_10,B2B_Yellow   ; approved  ;Comp1 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseKit_8         ; BaseKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  10.5 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  10.5 ; 906539703 ; B2B_10_5,B2B_Yellow ; approved  ;Comp1 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseKit_9         ; BaseKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  11   ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  11   ; 906539741 ; B2B_11,B2B_Yellow   ; approved  ;Comp1 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseKit_10        ; BaseKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  11.5 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  11.5 ; 906539772 ; B2B_11_5,B2B_Yellow ; approved  ;Comp1 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseKit_11        ; BaseKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  12   ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  12   ; 906539796 ; B2B_12,B2B_Yellow   ; approved  ;Comp1 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseKit_12        ; BaseKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  13   ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  13   ; 906539826 ; B2B_13,B2B_Yellow   ; approved  ;Comp1 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseKit_13        ; BaseKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  14   ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  14   ; 906539840 ; B2B_14,B2B_Yellow   ; approved  ;Comp1 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseKit_14        ; BaseKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  15   ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  15   ; 906539871 ; B2B_15,B2B_Yellow   ; approved  ;Comp1 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                   
+                                   
+                                  ; BaseColorKit_1         ; BaseColorKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  7    ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow      ; 906539611 ; B2B_Yellow    ; approved  ;Comp1 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseColorKit_2         ; BaseColorKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  7.5  ; Direct Attach Waterproof Insulated 8" Steel Toe Brown  ; 906539666 ; B2B_Brown  ; approved  ;Comp1 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseColorKit_3         ; BaseColorKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  8    ; Direct Attach Waterproof Insulated 8" Steel Grey    ; 906539697 ; B2B_Dark_Grey    ; approved  ;Comp1 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseColorKit_4         ; BaseColorKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  8.5  ; Direct Attach Waterproof Insulated 8" Steel Black  ; 906539727 ; B2B_Black  ; approved  ;Comp1 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseColorKit_5         ; BaseColorKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  9    ; Direct Attach Waterproof Insulated 8" Steel White    ; 906539765 ; B2B_White    ; approved  ;Comp1 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                 
+                                 
+								  ; BaseCountKit_1         ; BaseCountKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  7    ; Direct Attach Waterproof Insulated 8" Steel Toe M   ; 906539611 ; B2B_M    ; approved  ;Comp1 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseCountKit_2         ; BaseCountKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  7.5  ; Direct Attach Waterproof Insulated 8" Steel Toe F  ; 906539666 ; B2B_F  ; approved  ;Comp1 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseCountKit_3         ; BaseCountKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  8    ; Direct Attach Waterproof Insulated 8" Steel Toe W   ; 906539697 ; B2B_W    ; approved  ;Comp1 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseColorKit_4         ; BaseCountKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  8.5  ; Direct Attach Waterproof Insulated 8" Steel Toe M  ; 906539727 ; B2B_M  ; approved  ;Comp1 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseCountKit_5         ; BaseCountKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  9    ; Direct Attach Waterproof Insulated 8" Steel Toe M    ; 906539765 ; B2B_M    ; approved  ;Comp1 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                                                  
+                                 
+								  ; BaseScentKit_1         ; BaseScentKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  7    ; Direct Attach Waterproof Insulated 8" Steel Toe philips   ; 906539611 ; B2B_philips    ; approved  ;Comp1 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseScentKit_2         ; BaseScentKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  7.5  ; Direct Attach Waterproof Insulated 8" Steel Toe scotted  ; 906539666 ; B2B_scotted  ; approved  ;Comp1 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseScentKit_3         ; BaseScentKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  8    ; Direct Attach Waterproof Insulated 8" Steel Toe robertson   ; 906539697 ; B2B_robertson    ; approved  ;Comp1 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseScentKit_4         ; BaseScentKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  8.5  ; Direct Attach Waterproof Insulated 8" Steel Toe robertson ; 906539727 ; B2B_robertson  ; approved  ;Comp1 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseScentKit_5         ; BaseScentKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  9    ; Direct Attach Waterproof Insulated 8" Steel Toe scotted    ; 906539765 ; B2B_scotted    ; approved  ;Comp1 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                         
+                                
+                                 
+                            	  ; BaseSizeKit_1         ; BaseSizeKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  7    ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  5    ; 906539611 ; B2B_5    ; approved  ;Comp1 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseSizeKit_2         ; BaseSizeKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  7.5  ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  5.5  ; 906539666 ; B2B_5_5  ; approved  ;Comp1 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseSizeKit_3         ; BaseSizeKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  8    ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  6    ; 906539697 ; B2B_6    ; approved  ;Comp1 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseSizeKit_4         ; BaseSizeKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  8.5  ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  6.5  ; 906539727 ; B2B_6_5  ; approved  ;Comp1 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseSizeKit_5         ; BaseSizeKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  9    ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  7    ; 906539765 ; B2B_7    ; approved  ;Comp1 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                    
+                                 
+                                 
+                                 
+                                  ; BaseCCKit_1         ; BaseCCKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  7    ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  7    ; 906539611 ; B2B_7,B2B_Yellow    ; approved  ;Comp3 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseCCKit_2         ; BaseCCKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  7.5  ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  7.5  ; 906539666 ; B2B_7_5,B2B_Yellow  ; approved  ;Comp3 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseCCKit_3         ; BaseCCKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  8    ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  8    ; 906539697 ; B2B_8,B2B_Yellow    ; approved  ;Comp3 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseCCKit_4         ; BaseCCKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  8.5  ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  8.5  ; 906539727 ; B2B_8_5,B2B_Yellow  ; approved  ;Comp3 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseCCKit_5         ; BaseCCKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  9    ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  9    ; 906539765 ; B2B_9,B2B_Yellow    ; approved  ;Comp3 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseCCKit_6         ; BaseCCKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  9.5  ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  9.5  ; 906539642 ; B2B_9_5,B2B_Yellow  ; approved  ;Comp3 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseCCKit_7         ; BaseCCKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  10   ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  10   ; 906539673 ; B2B_10,B2B_Yellow   ; approved  ;Comp3 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseCCKit_8         ; BaseCCKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  10.5 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  10.5 ; 906539703 ; B2B_10_5,B2B_Yellow ; approved  ;Comp3 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseCCKit_9         ; BaseCCKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  11   ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  11   ; 906539741 ; B2B_11,B2B_Yellow   ; approved  ;Comp3 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseCCKit_10        ; BaseCCKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  11.5 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  11.5 ; 906539772 ; B2B_11_5,B2B_Yellow ; approved  ;Comp3 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseCCKit_11        ; BaseCCKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  12   ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  12   ; 906539796 ; B2B_12,B2B_Yellow   ; approved  ;Comp3 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseCCKit_12        ; BaseCCKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  13   ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  13   ; 906539826 ; B2B_13,B2B_Yellow   ; approved  ;Comp3 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseCCKit_13        ; BaseCCKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  14   ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  14   ; 906539840 ; B2B_14,B2B_Yellow   ; approved  ;Comp3 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseCCKit_14        ; BaseCCKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  15   ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  15   ; 906539871 ; B2B_15,B2B_Yellow   ; approved  ;Comp3 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                   
+                                   
+                                  ; BaseCCColorKit_1         ; BaseCCColorKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  7    ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  7    ; 906539611 ; B2B_Yellow    ; approved  ;Comp3 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseCCColorKit_2         ; BaseCCColorKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  7.5  ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  7.5  ; 906539666 ; B2B_White  ; approved  ;Comp3 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseCCColorKit_3         ; BaseCCColorKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  8    ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  8    ; 906539697 ; B2B_Dark_Grey    ; approved  ;Comp3 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseCCColorKit_4         ; BaseCCColorKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  8.5  ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  8.5  ; 906539727 ; B2B_Black  ; approved  ;Comp3 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseCCColorKit_5         ; BaseCCColorKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  9    ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  9    ; 906539765 ; B2B_Yellow    ; approved  ;Comp3 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                 
+                                 
+								  ; BaseCCCountKit_1         ; BaseCCCountKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  7    ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  7    ; 906539611 ; B2B_M    ; approved  ;Comp3 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseCCCountKit_2         ; BaseCCCountKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  7.5  ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  7.5  ; 906539666 ; B2B_F  ; approved  ;Comp3 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseCCCountKit_3         ; BaseCCCountKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  8    ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  8    ; 906539697 ; B2B_W    ; approved  ;Comp3 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseCCColorKit_4         ; BaseCCCountKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  8.5  ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  8.5  ; 906539727 ; B2B_M  ; approved  ;Comp3 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseCCCountKit_5         ; BaseCCCountKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  9    ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  9    ; 906539765 ; B2B_M    ; approved  ;Comp3 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                                                  
+                                 
+								  ; BaseCCScentKit_1         ; BaseCCScentKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  7    ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  7    ; 906539611 ; B2B_philips    ; approved  ;Comp3 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseCCScentKit_2         ; BaseCCScentKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  7.5  ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  7.5  ; 906539666 ; B2B_scotted  ; approved  ;Comp3 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseCCScentKit_3         ; BaseCCScentKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  8    ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  8    ; 906539697 ; B2B_robertson    ; approved  ;Comp3 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseCCScentKit_4         ; BaseCCScentKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  8.5  ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  8.5  ; 906539727 ; B2B_robertson  ; approved  ;Comp3 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseCCScentKit_5         ; BaseCCScentKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  9    ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  9    ; 906539765 ; B2B_scotted    ; approved  ;Comp3 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                         
+                                
+                                 
+                            	  ; BaseCCSizeKit_1         ; BaseCCSizeKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  7    ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  5    ; 906539611 ; B2B_5    ; approved  ;Comp3 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseCCSizeKit_2         ; BaseCCSizeKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  7.5  ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  5.5  ; 906539666 ; B2B_5_5  ; approved  ;Comp3 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseCCSizeKit_3         ; BaseCCSizeKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  8    ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  6    ; 906539697 ; B2B_6    ; approved  ;Comp3 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseCCSizeKit_4         ; BaseCCSizeKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  8.5  ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  6.5  ; 906539727 ; B2B_6_5  ; approved  ;Comp3 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                  ; BaseCCSizeKit_5         ; BaseCCSizeKit      ;                 ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  9    ; Direct Attach Waterproof Insulated 8" Steel Toe Yellow  7    ; 906539765 ; B2B_7    ; approved  ;Comp3 ; <strong> Direct Attach Waterproof Insulated</strong><br /><br />8" Steel Toe<br />Wheat Nubuck Leather<br /><ul><li>Seam-sealed waterproof leather uppers for durability and dry, comfortable feet</li><li>Steel safety toe for protection</li><li>Direct-inject construction for durability</li><li>Padded top collar for comfort</li><li>Lightweight blown-thermal plastic midsole for flexibility and cushioning</li><li>Mesh lining with Agion antimicrobial treatment for odor control and comfortable feet</li><li>Nylon shock diffusion plate for support and torsional rigidity</li><li>Thermolite 400g insulation (8") or 200g insulation (6")</li><li>Open cell polyurethane footbed with Agion for breathable comfort and odor control</li></ul><strong>Timberland PRO Rubber Outsole:</strong><br /><ul><li>Classic rubber lug outsole for durable traction </li><li>Oil resistant </li><li>Non-marking</li></ul>
+                                   
+                                 
+                                 
+                                 
+                                 
+INSERT_UPDATE PriceRow ; product(code,$catalogVersion)[unique=true] ; ug(code)[unique=true] ; gpUserPriceGroup(code)[unique=true] ; currency(isocode)[unique=true] ; price[unique=true] ; unit(code)[default=pieces] ; net[default=true] ; salePrice[default=false] ;  ; minAdvertisedPrice[default=false] ; startTime[dateformat=dd-MM-yyyy] ; endTime[dateformat=dd-MM-yyyy]
+                       ; BaseKit                                    ;                       ;                                     ; USD                            ; 85                 ; CS                         ;                   ;                          
+                       ; BaseKit_1                                  ;                       ;                                     ; USD                            ; 85                 ; CS                         ;                   ;                          
+                       ; BaseKit_2                                  ;                       ;                                     ; USD                            ; 85                 ; CS                         ;                   ;                          
+                       ; BaseKit_3                                  ;                       ;                                     ; USD                            ; 85                 ; CS                         ;                   ;                          
+                       ; BaseKit_4                                  ;                       ;                                     ; USD                            ; 85                 ; CS                         ;                   ;                          
+                       ; BaseKit_5                                  ;                       ;                                     ; USD                            ; 85                 ; CS                         ;                   ;                          
+                       ; BaseKit_6                                  ;                       ;                                     ; USD                            ; 85                 ; CS                         ;                   ;                          
+                       ; BaseKit_7                                  ;                       ;                                     ; USD                            ; 85                 ; CS                         ;                   ;                          
+                       ; BaseKit_8                                  ;                       ;                                     ; USD                            ; 85                 ; CS                         ;                   ;                          
+                       ; BaseKit_9                                  ;                       ;                                     ; USD                            ; 85                 ; CS                         ;                   ;                          
+                       ; BaseKit_10                                 ;                       ;                                     ; USD                            ; 97                 ; CS                         ;                   ;                          
+                       ; BaseKit_11                                 ;                       ;                                     ; USD                            ; 97                 ; CS                         ;                   ;                          
+                       ; BaseKit_12                                 ;                       ;                                     ; USD                            ; 97                 ; CS                         ;                   ;                          
+                       ; BaseKit_13                                 ;                       ;                                     ; USD                            ; 97                 ; CS                         ;                   ;                          
+                       ; BaseKit_14                                 ;                       ;                                     ; USD                            ; 97                 ; CS                         ;                   ;                          
+                       
+
+ 					   ; BaseColorKit                                    ;                       ;                                     ; USD                            ; 85                 ; CS                         ;                   ;                          
+                       ; BaseColorKit_1                                  ;                       ;                                     ; USD                            ; 85                 ; CS                         ;                   ;                          
+                       ; BaseColorKit_2                                  ;                       ;                                     ; USD                            ; 85                 ; CS                         ;                   ;                          
+                       ; BaseColorKit_3                                  ;                       ;                                     ; USD                            ; 85                 ; CS                         ;                   ;                          
+                       ; BaseColorKit_4                                  ;                       ;                                     ; USD                            ; 85                 ; CS                         ;                   ;                          
+                       ; BaseColorKit_5                                  ;                       ;                                     ; USD                            ; 85                 ; CS                         ;                   ;                          
+                       ; BaseCountKit                                  ;                       ;                                     ; USD                            ; 85                 ; CS                         ;                   ;                          
+                       ; BaseCountKit_1                                  ;                       ;                                     ; USD                            ; 85                 ; CS                         ;                   ;                          
+                       ; BaseCountKit_2                                  ;                       ;                                     ; USD                            ; 85                 ; CS                         ;                   ;                          
+                       ; BaseCountKit_3                                  ;                       ;                                     ; USD                            ; 85                 ; CS                         ;                   ;                          
+                       ; BaseColorKit_4                                 ;                       ;                                     ; USD                            ; 97                 ; CS                         ;                   ;                          
+                       ; BaseCountKit_5                                 ;                       ;                                     ; USD                            ; 97                 ; CS                         ;                   ;                          
+                       ; BaseScentKit                                 ;                       ;                                     ; USD                            ; 97                 ; CS                         ;                   ;                          
+                       ; BaseScentKit_1                                 ;                       ;                                     ; USD                            ; 97                 ; CS                         ;                   ;                          
+                       ; BaseScentKit_2                                 ;                       ;                                     ; USD                            ; 97                 ; CS                         ;                   ;                          
+                       ; BaseScentKit_3                                 ;                       ;                                     ; USD                            ; 97                 ; CS                         ;                   ;                          
+                       ; BaseScentKit_4                                 ;                       ;                                     ; USD                            ; 97                 ; CS                         ;                   ;                          
+                       ; BaseScentKit_5                                 ;                       ;                                     ; USD                            ; 97                 ; CS                         ;                   ;                          
+                        
+
+
+   				       ; BaseSizeKit_1                                 ;                       ;                                     ; USD                            ; 97                 ; CS                         ;                   ;                          
+                       ; BaseSizeKit_2                                 ;                       ;                                     ; USD                            ; 97                 ; CS                         ;                   ;                          
+                       ; BaseSizeKit_3                                 ;                       ;                                     ; USD                            ; 97                 ; CS                         ;                   ;                          
+                       ; BaseSizeKit_4                                 ;                       ;                                     ; USD                            ; 97                 ; CS                         ;                   ;                          
+                       ; BaseSizeKit_5                                 ;                       ;                                     ; USD                            ; 97                 ; CS                         ;                   ;                          
+                       ; BaseSizeKit                                 ;                       ;                                     ; USD                            ; 97                 ; CS                         ;                   ;                          
+                         
+
+
+
+
+  					   ; BaseCCKit                                    ;                       ;                                     ; USD                            ; 85                 ; CS                         ;                   ;                          
+                       ; BaseCCKit_1                                  ;                       ;                                     ; USD                            ; 85                 ; CS                         ;                   ;                          
+                       ; BaseCCKit_2                                  ;                       ;                                     ; USD                            ; 85                 ; CS                         ;                   ;                          
+                       ; BaseCCKit_3                                  ;                       ;                                     ; USD                            ; 85                 ; CS                         ;                   ;                          
+                       ; BaseCCKit_4                                  ;                       ;                                     ; USD                            ; 85                 ; CS                         ;                   ;                          
+                       ; BaseCCKit_5                                  ;                       ;                                     ; USD                            ; 85                 ; CS                         ;                   ;                          
+                       ; BaseCCKit_6                                  ;                       ;                                     ; USD                            ; 85                 ; CS                         ;                   ;                          
+                       ; BaseCCKit_7                                  ;                       ;                                     ; USD                            ; 85                 ; CS                         ;                   ;                          
+                       ; BaseCCKit_8                                  ;                       ;                                     ; USD                            ; 85                 ; CS                         ;                   ;                          
+                       ; BaseCCKit_9                                  ;                       ;                                     ; USD                            ; 85                 ; CS                         ;                   ;                          
+                       ; BaseCCKit_10                                 ;                       ;                                     ; USD                            ; 97                 ; CS                         ;                   ;                          
+                       ; BaseCCKit_11                                 ;                       ;                                     ; USD                            ; 97                 ; CS                         ;                   ;                          
+                       ; BaseCCKit_12                                 ;                       ;                                     ; USD                            ; 97                 ; CS                         ;                   ;                          
+                       ; BaseCCKit_13                                 ;                       ;                                     ; USD                            ; 97                 ; CS                         ;                   ;                          
+                       ; BaseCCKit_14                                 ;                       ;                                     ; USD                            ; 97                 ; CS                         ;                   ;                          
+                       
+
+ 					   ; BaseCCColorKit                                    ;                       ;                                     ; USD                            ; 85                 ; CS                         ;                   ;                          
+                       ; BaseCCColorKit_1                                  ;                       ;                                     ; USD                            ; 85                 ; CS                         ;                   ;                          
+                       ; BaseCCColorKit_2                                  ;                       ;                                     ; USD                            ; 85                 ; CS                         ;                   ;                          
+                       ; BaseCCColorKit_3                                  ;                       ;                                     ; USD                            ; 85                 ; CS                         ;                   ;                          
+                       ; BaseCCColorKit_4                                  ;                       ;                                     ; USD                            ; 85                 ; CS                         ;                   ;                          
+                       ; BaseCCColorKit_5                                  ;                       ;                                     ; USD                            ; 85                 ; CS                         ;                   ;                          
+                       ; BaseCCCountKit                                  ;                       ;                                     ; USD                            ; 85                 ; CS                         ;                   ;                          
+                       ; BaseCCCountKit_1                                  ;                       ;                                     ; USD                            ; 85                 ; CS                         ;                   ;                          
+                       ; BaseCCCountKit_2                                  ;                       ;                                     ; USD                            ; 85                 ; CS                         ;                   ;                          
+                       ; BaseCCCountKit_3                                  ;                       ;                                     ; USD                            ; 85                 ; CS                         ;                   ;                          
+                       ; BaseCCColorKit_4                                 ;                       ;                                     ; USD                            ; 97                 ; CS                         ;                   ;                          
+                       ; BaseCCCountKit_5                                 ;                       ;                                     ; USD                            ; 97                 ; CS                         ;                   ;                          
+                       ; BaseCCScentKit                                 ;                       ;                                     ; USD                            ; 97                 ; CS                         ;                   ;                          
+                       ; BaseCCScentKit_1                                 ;                       ;                                     ; USD                            ; 97                 ; CS                         ;                   ;                          
+                       ; BaseCCScentKit_2                                 ;                       ;                                     ; USD                            ; 97                 ; CS                         ;                   ;                          
+                       ; BaseCCScentKit_3                                 ;                       ;                                     ; USD                            ; 97                 ; CS                         ;                   ;                          
+                       ; BaseCCScentKit_4                                 ;                       ;                                     ; USD                            ; 97                 ; CS                         ;                   ;                          
+                       ; BaseCCScentKit_5                                 ;                       ;                                     ; USD                            ; 97                 ; CS                         ;                   ;                          
+                        
+
+
+   				       ; BaseCCSizeKit_1                                 ;                       ;                                     ; USD                            ; 97                 ; CS                         ;                   ;                          
+                       ; BaseCCSizeKit_2                                 ;                       ;                                     ; USD                            ; 97                 ; CS                         ;                   ;                          
+                       ; BaseCCSizeKit_3                                 ;                       ;                                     ; USD                            ; 97                 ; CS                         ;                   ;                          
+                       ; BaseCCSizeKit_4                                 ;                       ;                                     ; USD                            ; 97                 ; CS                         ;                   ;                          
+                       ; BaseCCSizeKit_5                                 ;                       ;                                     ; USD                            ; 97                 ; CS                         ;                   ;                          
+                       ; BaseCCSizeKit                                 ;                       ;                                     ; USD                            ; 97                 ; CS                         ;                   ;                          
+                         
+
+$productCatalog=gpUSProductCatalog
+$availabilityGroup=b2bwhitelabel-availability
+$approvalStatus=approved 
+$catalogVersion=catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default='$productCatalog:Staged']
+INSERT_UPDATE ProductAvailabilityAssignment ; product(code,$catalogVersion)[unique=true] ; availabilityGroup(id)[default=$availabilityGroup,unique=true] ; status(code)[default=$approvalStatus] ; onlineDate[dateformat=dd.MM.yyyy, default=01.02.2014] ; offlineDate[dateformat=dd.MM.yyyy] ; $catalogVersion
+                                            ; BaseKit                                    
+                                            ; BaseKit_1                                  
+                                            ; BaseKit_2                                  
+                                            ; BaseKit_3                                  
+                                            ; BaseKit_4                                  
+                                            ; BaseKit_5                                  
+                                            ; BaseKit_6                                  
+                                            ; BaseKit_7                                  
+                                            ; BaseKit_8                                  
+                                            ; BaseKit_9                                  
+                                            ; BaseKit_10                                 
+                                            ; BaseKit_11                                 
+                                            ; BaseKit_12                                 
+                                            ; BaseKit_13                                 
+                                            ; BaseKit_14                                 
+
+                                            
+                                            ; BaseColorKit                                    
+                                            ; BaseColorKit_1                                  
+                                            ; BaseColorKit_2                                  
+                                            ; BaseColorKit_3                                  
+                                            ; BaseColorKit_4                                  
+                                            ; BaseColorKit_5                                  
+                                            ; BaseCountKit                                  
+                                            ; BaseCountKit_1                                  
+                                            ; BaseCountKit_2                                  
+                                            ; BaseCountKit_3                                  
+                                            ; BaseColorKit_4                                 
+                                            ; BaseCountKit_5                                 
+                                            ; BaseScentKit                                 
+                                            ; BaseScentKit_1                                 
+                                            ; BaseScentKit_2 
+                                            ; BaseScentKit_3                                 
+                                            ; BaseScentKit_4                                 
+                                            ; BaseScentKit_5    
+                                            
+                                              ; BaseSizeKit                                 
+                                            ; BaseSizeKit_1                                 
+                                            ; BaseSizeKit_2 
+                                            ; BaseSizeKit_3                                 
+                                            ; BaseSizeKit_4                                 
+                                            ; BaseSizeKit_5   
+                                            
+                                            
+                                            
+  $productCatalog=gpUSProductCatalog
+$availabilityGroup=b2cwhitelabel-availability
+$approvalStatus=approved 
+$catalogVersion=catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default='$productCatalog:Staged']
+INSERT_UPDATE ProductAvailabilityAssignment ; product(code,$catalogVersion)[unique=true] ; availabilityGroup(id)[default=$availabilityGroup,unique=true] ; status(code)[default=$approvalStatus] ; onlineDate[dateformat=dd.MM.yyyy, default=01.02.2014] ; offlineDate[dateformat=dd.MM.yyyy] ; $catalogVersion
+                                            ; BaseKit                                    
+                                            ; BaseKit_1                                  
+                                            ; BaseKit_2                                  
+                                            ; BaseKit_3                                  
+                                            ; BaseKit_4                                  
+                                            ; BaseKit_5                                  
+                                            ; BaseKit_6                                  
+                                            ; BaseKit_7                                  
+                                            ; BaseKit_8                                  
+                                            ; BaseKit_9                                  
+                                            ; BaseKit_10                                 
+                                            ; BaseKit_11                                 
+                                            ; BaseKit_12                                 
+                                            ; BaseKit_13                                 
+                                            ; BaseKit_14                                 
+
+                                            
+                                            ; BaseColorKit                                    
+                                            ; BaseColorKit_1                                  
+                                            ; BaseColorKit_2                                  
+                                            ; BaseColorKit_3                                  
+                                            ; BaseColorKit_4                                  
+                                            ; BaseColorKit_5                                  
+                                            ; BaseCountKit                                  
+                                            ; BaseCountKit_1                                  
+                                            ; BaseCountKit_2                                  
+                                            ; BaseCountKit_3                                  
+                                            ; BaseColorKit_4                                 
+                                            ; BaseCountKit_5                                 
+                                            ; BaseScentKit                                 
+                                            ; BaseScentKit_1                                 
+                                            ; BaseScentKit_2 
+                                            ; BaseScentKit_3                                 
+                                            ; BaseScentKit_4                                 
+                                            ; BaseScentKit_5 
+                                            
+                                              ; BaseSizeKit                                 
+                                            ; BaseSizeKit_1                                 
+                                            ; BaseSizeKit_2 
+                                            ; BaseSizeKit_3                                 
+                                            ; BaseSizeKit_4                                 
+                                            ; BaseSizeKit_5    
+                                            
+                                            
+                                              
+ $productCatalog=gpUSProductCatalog
+$availabilityGroup=copperandcrane-availability
+$approvalStatus=approved 
+$catalogVersion=catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default='$productCatalog:Staged']
+INSERT_UPDATE ProductAvailabilityAssignment ; product(code,$catalogVersion)[unique=true] ; availabilityGroup(id)[default=$availabilityGroup,unique=true] ; status(code)[default=$approvalStatus] ; onlineDate[dateformat=dd.MM.yyyy, default=01.02.2014] ; offlineDate[dateformat=dd.MM.yyyy] ; $catalogVersion
+                                            ; BaseCCKit                                    
+                                            ; BaseCCKit_1                                  
+                                            ; BaseCCKit_2                                  
+                                            ; BaseCCKit_3                                  
+                                            ; BaseCCKit_4                                  
+                                            ; BaseCCKit_5                                  
+                                            ; BaseCCKit_6                                  
+                                            ; BaseCCKit_7                                  
+                                            ; BaseCCKit_8                                  
+                                            ; BaseCCKit_9                                  
+                                            ; BaseCCKit_10                                 
+                                            ; BaseCCKit_11                                 
+                                            ; BaseCCKit_12                                 
+                                            ; BaseCCKit_13                                 
+                                            ; BaseCCKit_14                                 
+
+                                            
+                                            ; BaseCCColorKit                                    
+                                            ; BaseCCColorKit_1                                  
+                                            ; BaseCCColorKit_2                                  
+                                            ; BaseCCColorKit_3                                  
+                                            ; BaseCCColorKit_4                                  
+                                            ; BaseCCColorKit_5                                  
+                                            ; BaseCCCountKit                                  
+                                            ; BaseCCCountKit_1                                  
+                                            ; BaseCCCountKit_2                                  
+                                            ; BaseCCCountKit_3                                  
+                                            ; BaseCCColorKit_4                                 
+                                            ; BaseCCCountKit_5                                 
+                                            ; BaseCCScentKit                                 
+                                            ; BaseCCScentKit_1                                 
+                                            ; BaseCCScentKit_2 
+                                            ; BaseCCScentKit_3                                 
+                                            ; BaseCCScentKit_4                                 
+                                            ; BaseCCScentKit_5 
+                                            
+                                            ; BaseCCSizeKit                                 
+                                            ; BaseCCSizeKit_1                                 
+                                            ; BaseCCSizeKit_2 
+                                            ; BaseCCSizeKit_3                                 
+                                            ; BaseCCSizeKit_4                                 
+                                            ; BaseCCSizeKit_5                                             
+                                                                                                                      
+                                            
+#############################END MULTIDIMENSIONAL KIT VARIANTS############################
+
+########################### COPPER and CRANE PRODUCTS ##################
+INSERT_UPDATE GPCommerceProduct;code[unique=true];$catalogVersion;supercategories(code,$catalogVersion);ean;unit(code);varianttype(code);$approved;$taxGroup;site(uid);
+;CC-KIT-1000089; ;skincare,giftsets;;CS;;;;copperandcrane;
+;CC-KIT-1000078; ;skincare,giftsets;;CS;;;;copperandcrane;
+;CC-SRM-1000020; ;skincare;;CS;;;;copperandcrane;
+;CC-SRM-1000021; ;skincare;;CS;;;;copperandcrane;
+;CC-ELX-1000018; ;skincare;;CS;;;;copperandcrane;
+;CC-ELX-1000019; ;skincare;;CS;;;;copperandcrane;
+;CC-MSK-1000017; ;skincare;;CS;;;;copperandcrane;
+;CC-CLN-1000010; ;skincare,luxurybath;;CS;;;;copperandcrane;
+;CC-MST-1000016; ;skincare;;CS;;;;copperandcrane;
+;CC-MST-1000015; ;skincare;;CS;;;;copperandcrane;
+;DR-1000653; ;bodycare,giftsets;;CS;;;;copperandcrane;
+;DR-1000652; ;bodycare,giftsets;;CS;;;;copperandcrane;
+;CC-OIL-1000006; ;bodycare;;CS;;;;copperandcrane;
+;CC-OIL-1000007; ;bodycare;;CS;;;;copperandcrane;
+;CC-OIL-1000026; ;bodycare,luxurybath;;CS;;;;copperandcrane;
+;CC-LTN-1000009; ;bodycare,spafavorites;;CS;;;;copperandcrane;
+;CC-EXF-1000004; ;bodycare,spafavorites;;CS;;;;copperandcrane;
+;CC-EXF-1000003; ;bodycare,spafavorites;;CS;;;;copperandcrane;
+;CC-LTN-1000008; ;bodycare;;CS;;;;copperandcrane;
+;CC-OIL-1000005; ;bodycare,luxurybath;;CS;;;;copperandcrane;
+;CC-EXF-1000002; ;bodycare;;CS;;;;copperandcrane;
+;CC-OIL-1000001; ;bodycare,luxurybath;;CS;;;;copperandcrane;
+;DR-1000571; ;luxurybath,giftsets;;CS;;;;copperandcrane;
+;DR-1000572; ;luxurybath,giftsets;;CS;;;;copperandcrane;
+;DR-1000409; ;luxurybath;;CS;;;;copperandcrane;
+;DR-1000401; ;luxurybath,spafavorites;;CS;;;;copperandcrane;
+;CC-KIT-1000079; ;luxurybath,giftsets;;CS;;;;copperandcrane;
+;CC-BAR-1000048; ;luxurybath,giftsets;;CS;;;;copperandcrane;
+;CC-CND-1000025; ;luxurybath;;CS;;;;copperandcrane;
+;CC-SMP-1000024; ;luxurybath;;CS;;;;copperandcrane;
+;DR-1000552; ;scentedcandles,giftsets;;CS;;;;copperandcrane;
+;DR-1000474; ;scentedcandles;;CS;;;;copperandcrane;
+;DR-1000408; ;scentedcandles;;CS;;;;copperandcrane;
+;DR-1000407; ;scentedcandles;;CS;;;;copperandcrane;
+;DR-1000406; ;scentedcandles;;CS;;;;copperandcrane;
+;DR-1000405; ;scentedcandles;;CS;;;;copperandcrane;
+;DR-1000404; ;scentedcandles;;CS;;;;copperandcrane;
+;DR-1000403; ;scentedcandles;;CS;;;;copperandcrane;
+;DR-1000402; ;scentedcandles;;CS;;;;copperandcrane;
+;DR-1000659; ;giftsets;;CS;;;;copperandcrane;
+;DR-1000660; ;giftsets;;CS;;;;copperandcrane;
+;DR-1000636; ;giftsets;;CS;;;;copperandcrane;
+;DR-1000634; ;giftsets;;CS;;;;copperandcrane;
+;DR-1000626; ;giftsets;;CS;;;;copperandcrane;
+;DR-1000555; ;giftsets;;CS;;;;copperandcrane;
+;DR-1000575; ;giftsets;;CS;;;;copperandcrane;
+;DR-1000554; ;giftsets;;CS;;;;copperandcrane;
+;DR-1000574; ;giftsets;;CS;;;;copperandcrane;
+;DR-1000553; ;giftsets;;CS;;;;copperandcrane;
+;DR-1000551; ;giftsets;;CS;;;;copperandcrane;
+;DR-1000550; ;giftsets;;CS;;;;copperandcrane;
+;DR-1000443; ;giftsets;;CS;;;;copperandcrane;
+;DR-1000442; ;giftsets;;CS;;;;copperandcrane;
+;CC-KIT-1000088; ;giftsets;;CS;;;;copperandcrane;
+;CC-KIT-1000076; ;giftsets;;CS;;;;copperandcrane;
+;CC-KIT-1000069; ;giftsets;;CS;;;;copperandcrane;
+;CC-KIT-1000066; ;giftsets;;CS;;;;copperandcrane;
+;CC-PCH-1000062; ;giftsets;;CS;;;;copperandcrane;
+;CC-PVN-1000063; ;giftsets;;CS;;;;copperandcrane;
+;CC-SBG-1000061; ;giftsets;;CS;;;;copperandcrane;
+
+########################### VANITYFAIR NAPKINS PRODUCTS ##################
+INSERT_UPDATE GPCommerceProduct;code[unique=true];$catalogVersion;supercategories(code,$catalogVersion);ean;unit(code);varianttype(code);$approved;$taxGroup;site(uid);
+;35132/18; ;everydaycollection;;CS;;;;vanityfairnapkins;
+;35130/18; ;everydaycollection;;CS;;;;vanityfairnapkins;
+;35134/18; ;entertaincollection;;CS;;;;vanityfairnapkins;
+;35515/18; ;entertaincollection;;CS;;;;vanityfairnapkins;
+;35546/17; ;entertaincollection;;CS;;;;vanityfairnapkins;
+;35518/18; ;entertaincollection;;CS;;;;vanityfairnapkins;
+;35468/18; ;entertaincollection;;CS;;;;vanityfairnapkins;
+;35501/18; ;everydaycollection;;CS;;;;vanityfairnapkins;
+;35502/18; ;everydaycollection;;CS;;;;vanityfairnapkins;
+;35503/18; ;everydaycollection;;CS;;;;vanityfairnapkins;
+;35575/18; ;everydaycollection;;CS;;;;vanityfairnapkins;
+;35236/18; ;everydaycollection;;CS;;;;vanityfairnapkins;
+;35270/19; ;everydaycollection;;CS;;;;vanityfairnapkins;
+;35272/18; ;everydaycollection;;CS;;;;vanityfairnapkins;
+#;3558320; ;;;CS;;;;vanityfairnapkins;
+#;3558119; ;;;CS;;;;vanityfairnapkins;
+
+
+#################### Test data for Occasion attribute  #######################################################
+
+UPDATE Product ; code[unique=true] ; $catalogVersion ; occasion(code)
+;26491	 ;  ;EVERYDAY
+;26496	 ;  ;EVERYDAY
+;32019	 ;  ;SPECIAL_OCCASION
+;32006	 ;  ;SPECIAL_OCCASION
+;35130/18;  ;SPECIAL_OCCASION	 
+;15734/30DR;;ENTERTAINING	 
+;94313/50DR;;ENTERTAINING	
+;29651	 ;  ;ENTERTAINING 
+;13728	   ;;EVERYDAY
+;19375	   ;;EVERYDAY
+;19378	   ;;EVERYDAY
+############# Test Data ###############	
+
+
+ ##############################  promo text Contextual Attribute ########################################						 
+INSERT_UPDATE ContextualAttributeValue;$catalogVersion;product(code,$catalogVersion)[unique=true];context(code)[unique=true];promoText
+;;19375;B2BWhitelabelContext;Promo Text 19375
+;;19378;B2BWhitelabelContext;Promo Text 19378
+;;13728;B2BWhitelabelContext;PromoText 13728
+;;CC-BGL-1000050;CopperandCraneContext;PromoText CC
+;;33110/50DR;VanityFairNapkinsContext;PromoText VF
+ ##############################  promo text Contextual Attribute ends ########################################
+ 
+ 
+############# REPLACED BY PRODUCTS DATA ################
+
+INSERT_UPDATE Product;code[unique=true];replacedBy(code,$catalogVersion);$catalogVersion
+;CC-OIL-1000026;CC-EXF-1000003
+;ES9PCOMP;5ECP8
+;914LSRD;21000
+;43211/57DR;87396/50DR
+;59590;5989
+;SX12PATH;SXP9PATH
+;TM23C7;RP2008
+;33110/50DR;33110/50
+;33110/50;87396/50DR 
+
+############# REPLACED BY PRODUCTS DATA ################

@@ -1,0 +1,125 @@
+.vx-shopping-lists {
+  .is-disabled {
+    color: @brand-secondary-5;
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: 0.5;
+    text-decoration: none;
+    background: none;
+    border: 0;
+  }
+  .is-enabled{
+    background: none;
+    border: 0;
+    &:extend(a);
+  }
+  h5 {
+    font-weight: @font-weight-light;
+  }
+  .h3{
+    font-weight: @font-weight-regular;
+  }
+  #shopping-lists-data-table {
+    table {
+      thead {
+        tr {
+          th {
+            background-color: @brand-secondary-11;
+            color: @brand-secondary-9;
+            &:first-child {
+              padding-right: 0px;
+            }
+            &:nth-child(2) {
+              padding-left: 4px;
+            }
+            .checkmark {
+              top: -6px;
+            }
+          }
+        }
+      }
+      tbody {
+        tr {
+          td {
+            &:first-child {
+              padding-right: 0px;
+            }
+            &:nth-child(2) {
+              padding-left: 4px;
+            }
+            .checkmark {
+              top: -6px;
+            }
+          }
+        }
+      }
+    }
+    .select-checkbox {
+      .checkbox-container {
+        display: inline;
+      }
+    }
+  }
+}
+@media screen and (min-width: @screen-sm-max) {
+  .vx-shopping-lists {
+    margin-right: 24px;
+  }
+}
+
+@media (max-width: @screen-xs-max) {
+  .Checkbox-align {
+    margin-bottom: 0px;
+  }
+  .vx-shopping-lists {
+    min-height: calc(100vh - 282px);
+    .modal-body {
+      overflow: visible;
+      min-height: 300px;
+    }
+    #shopping-lists-data-table {
+      td {
+        display: inline-block;
+        padding-left: calc(45% + 15px);
+        vertical-align: top;
+        a {
+          display: inline-block;
+          vertical-align: middle;
+          margin-top: -3px;
+        }
+        &:before {
+          top: 16px;
+        }
+        &:nth-child(1) {
+          width: 13%;
+          padding-left: 3px;
+          padding-right: 30px;
+        }
+        &:nth-child(2) {
+          &:before {
+            left: 0px;
+          }
+        }
+        &:not(:first-child) {
+          display: inline-block;
+          vertical-align: middle;
+          width: 80%;
+        }
+        &:nth-child(n + 3) {
+          width: 100%;
+          padding-left: calc(60% + 5px);
+          &:before {
+            left: 13%;
+          }
+        }
+      }
+    }
+    .table[id*='-data-table'] td.dataTables_empty {
+      padding: 33px 75px !important;
+      width: auto !important;
+    }
+    .refine-results-body {
+      height: 100%;
+    }
+  }
+}

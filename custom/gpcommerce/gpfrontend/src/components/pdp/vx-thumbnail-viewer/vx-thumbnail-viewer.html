@@ -1,0 +1,83 @@
+<section class="vx-thumbnail-viewer row d-flex">
+  <div class="col-sm-12 pr-sm-0 d-flex flex-column image-width">
+    <vx-modal ref="pdpImageModal" size="large" :heading="thumbnailObj.name">
+      <div class="text-center" slot="component">
+        <img class="px-sm-2 py-sm-3 px-md-5 py-md-6 selected-product-img" :alt="selectedItem.altText" :src="selectedItem.zoomUrl || globals.assetsPath+'images/no_image.svg'" />
+        <video controls :src="selectedItem.thumbnailUrl" v-if="selectedItem.mimeType && selectedItem.mimeType.indexOf('video') >= 0">
+        </video>
+      </div>
+    </vx-modal>
+    <div class="row hidden-xs d-flex thumbnail-wrapper">
+      <div class="col-sm-3 col-md-2 thumbnail-container">
+        <button class="btn-top icon-chevron-up" @click="moveTop" :disabled="currentTopIndex === 0" :aria-label='i18n.iconChevronUpTitle'></button>
+        <div :class="'slider' + (isSlidingToPrevious ? ' sliding-to-previous' : '')">
+          <transition-group name='list' tag="ul">
+            <li v-for="(item,index) in currentCarouselData" v-bind:key="index"
+              v-bind:class="{ noKaonUrl: item.kaonUrl && !globals.siteConfig.is3DImageEnabled }"
+              class="list-item px-sm-2" @click="updatePicture(item)" tabindex="0"
+              @keyup.enter-space="updatePicture(item)">
+              <img :src="item.thumbnailUrl" :alt="item.altText" />
+            </li>
+          </transition-group>
+        </div>
+        <button @click="moveBottom" class="btn-down icon-chevron-down" :disabled="currentBottomIndex === totalCount || totalCount < itemsToDisplay"
+          :aria-label='i18n.iconChevronDownTitle'></button>
+      </div>
+      <div class="col-sm-9 col-md-10 px-xs-0 product-image-container">
+        <p class="info-text promo-text px-xs-1 py-md-2 py-xs-1 px-md-2" v-if="!globals.isGpXpress()
+          && thumbnailObj.hasOwnProperty('promoText')">
+          {{thumbnailObj.promoText}}
+        </p>
+        <p class="info-text coming-soon px-xs-1 py-md-2 py-xs-1 px-md-2" v-if="thumbnailObj.materialStatus === 'COMING_SOON'">
+          {{i18n.comingSoon}}
+        </p>
+         <template v-if="isResponseHandled">
+          <img v-if="!selectedItem" class="p-sm-5 p-md-8 selected-product-img" alt="No Image" :src="globals.assetsPath+'images/no_image.svg'" />
+        </template>
+        <iframe v-if="selectedItem.kaonUrl && globals.siteConfig.is3DImageEnabled" :src="selectedItem.kaonUrl"
+          width="100%" :height="iFrameHeight" class="selected-product-iframe" frameborder="0" allowfullscreen>
+        </iframe>
+        <template v-else>
+          <img v-if="!selectedItem.kaonUrl && selectedItem.mimeType && selectedItem.mimeType.indexOf('image') >= 0"
+            class="p-sm-5 p-md-8 selected-product-img" :alt="selectedItem.altText"
+            :src="selectedItem.zoomUrl || globals.assetsPath+'images/no_image.svg'" />
+        </template>
+        <video controls :src="selectedItem.thumbnailUrl"
+          v-if="selectedItem.mimeType && selectedItem.mimeType.indexOf('video') >= 0">
+        </video>
+        <span class="icon-maximize" v-if="!selectedItem.kaonUrl" @click="expandPDPImage($event)" :title="i18n.iconMaximizeTitle"
+          @keyup.enter-space="expandPDPImage($event)" role='button' tabindex='0' :aria-label='i18n.iconMaximizeTitle'></span>
+      </div>
+    </div>
+    <div class="row visible-xs-block center-block">
+      <div class="col-xs-12 visible-xs-block carousel-container">
+        <vx-banner-carousel :carousel-data="mobileCarouselObj">
+          <template slot-scope="{row}">
+            <p class="info-text promo-text py-xs-1 px-xs-2" v-if="!globals.isGpXpress() && thumbnailObj && thumbnailObj.hasOwnProperty('promoText')">
+              {{thumbnailObj.promoText}}
+            </p>
+            <p class="info-text coming-soon py-xs-1 px-xs-2" v-if="thumbnailObj && thumbnailObj.materialStatus === 'COMING_SOON'">
+              {{i18n.comingSoon}}
+            </p>
+            <template v-if="row.kaonUrl">
+              <iframe class="selected-product-iframe ml-xs-5" :src="row.kaonUrl && globals.siteConfig.is3DImageEnabled"
+                width="90%" :height="iFrameHeight" frameborder="0" allowfullscreen>
+              </iframe>
+            </template>
+            <template v-else>
+              <img v-if="row && row.mimeType && row.mimeType.indexOf('image') >= 0" class="selected-product-img" :alt="row.altText"
+                :src="row.zoomUrl || globals.assetsPath+'images/no_image.svg'" tabindex="-1" />
+            </template>
+            <video controls :src="row.thumbnailUrl" v-if="row && row.mimeType && row.mimeType.indexOf('video') >= 0">
+            </video>
+          </template>
+        </vx-banner-carousel>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-10 col-md-offset-2 col-sm-9 col-sm-offset-3 pl-md-5 pl-sm-0 pl-xs-3 py-xs-3 py-sm-0">
+        <vx-product-icons v-if="productIconsData" :product-icons="productIconsData" :i18n="i18n.productIconsTitle"></vx-product-icons>
+      </div>
+    </div>
+  </div>
+</section>

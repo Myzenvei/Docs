@@ -1,0 +1,37 @@
+#innovia {
+  .contact-page-heading {
+    @media screen and(max-width: @screen-sm-min) {
+      margin-top: 10px !important;
+    }
+  }
+
+  .access-customer-service-live-chat {
+    font-family: @font-family-text;
+
+    .icon-message-square,
+    .icon-phone,
+    .icon-mail-us,
+    .icon-mail {
+      color: @help-text-color;
+      font-size: @font-icon-size;
+    }
+
+    .call-text-number {
+      a {
+        text-decoration: underline;
+        color: @text-color;
+        font-weight: @font-weight-bold;
+      }
+    }
+
+    .livechat-section {
+      flex-direction: column !important;
+
+      .left-section {
+        .send-email-heading {
+          background-color: @body-bg;
+        }
+      }
+    }
+  }
+}

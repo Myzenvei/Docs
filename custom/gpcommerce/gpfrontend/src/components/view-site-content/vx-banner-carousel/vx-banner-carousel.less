@@ -1,0 +1,53 @@
+
+.carousel-control{
+  &.left,&.right{
+    background-image: none;
+    background-repeat: no-repeat;
+    position: absolute;
+    z-index: 3;
+  }
+  &.left{
+    .glyphicon-chevron-left{
+      left: 48px;
+      background-image: url('@{assets-path}images/previous-indicator.svg');
+      background-repeat: no-repeat;
+      height: 50px;
+      @media(max-width: @screen-sm-max){
+        width: 30px;
+        left: 25px;
+      }
+      &:before{
+        content: ""
+      }
+    }
+
+  }
+  &.right{
+    .glyphicon-chevron-right{
+      right: 48px;
+      background-image: url('@{assets-path}images/next-indicator.svg');
+      background-repeat: no-repeat;
+      height: 50px;
+      @media(max-width: @screen-sm-max){
+        width: 30px;
+        right: 25px;
+      }
+      &:before{
+        content: ""
+      }
+    }
+  }
+}
+.carousel-indicators{
+  bottom: 0;
+  margin-bottom: 24px;
+  z-index: 3;
+  li{
+    height: 8px;
+    width:8px;
+    margin-right: 16px;
+    &.active{
+      margin-right: 16px;
+    }
+  }
+}

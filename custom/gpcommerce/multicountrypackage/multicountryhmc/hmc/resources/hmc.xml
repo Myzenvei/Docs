@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2012 hybris AG
+ All rights reserved.
+
+ This software is the confidential and proprietary information of hybris
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with hybris.
+
+  
+-->
+<configuration xmlns="hybris.de/schemas/hmc/generic"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:schemaLocation="hybris.de/schemas/hmc/generic hmc.xsd">
+
+	<!-- Configuration for extension multicountry -->
+		 
+   <action type="create" classname="de.hybris.platform.multicountry.hmc.MultiCountyServicelayerHMCCreateAction"/>
+	
+	<explorertree>
+	 <group name="c2l" mode="append">
+         <typeref type="Timezone" />
+      </group>
+	</explorertree>     
+			 
+	<type name="Product" mode="append">
+	<organizer>
+		<editor>
+		<tab name="tab.multicountry" position="10">
+		<section name="properties">
+			<listlayout>
+				<attribute name="lockedBy">
+    			<referencecollectioneditor showsearcheditor="true">
+            	<itemlayout>
+                   <attribute name="uid" width="150"/>
+                   <attribute name="name" width="150"/>
+             	</itemlayout>
+             	</referencecollectioneditor>
+    			</attribute>
+    			<attribute name="availability">
+    			<referencecollectioneditor externalcreate="false" resortable="false" create="true" editable="true" remove="true" >
+            		<preset targetattribute="product"/>
+            		<preset targetattribute="catalogVersion" sourceattribute="catalogVersion"/>                         
+	             	<itemlayout>
+	                   <attribute name="availabilityGroup" width="150" />
+	                   <attribute name="status" width="150"/>
+	                   <attribute name="onlineDate" width="150"/>
+	                   <attribute name="offlineDate" width="150"/>
+	             	</itemlayout>
+             	</referencecollectioneditor>
+    			</attribute>
+			</listlayout>
+		</section>
+		</tab>
+		
+		<tab name="tab.product.prices" id="tab_europe1_prices" mode="append" position="4">
+              <section name="section.product.pricesdiscounts" mode="append">
+			     <listlayout>
+                    <attribute name="europe1Taxes">
+                       <referencecollectioneditor editable="true" externalcreate="false" resortable="false" remove="true" create="true">
+                          <preset targetattribute="product"/>
+             			  <preset targetattribute="catalogVersion" sourceattribute="catalogVersion"/>
+                          <itemlayout>
+                             <attribute name="minqtd" width="45"/>
+                             <attribute name="tax" width="80"/>
+                             <attribute name="ug" width="80"/>
+                          </itemlayout>
+                       </referencecollectioneditor>
+                    </attribute>
+                 </listlayout>
+              </section>
+         </tab>
+         	
+	</editor>
+	</organizer>
+	</type>
+
+	<type name="BaseStore" mode="append">
+	<organizer>
+		<editor>
+		<tab name="properties" position="1" mode="append">
+			<section name="section.baseStore.taxgroup" mode="delete"/>
+		</tab>			
+		<tab name="tab.multicountry">
+		<section name="properties">
+			<listlayout>
+				<attribute name="country"/>
+				<attribute name="userPriceGroup"/>
+				<attribute name="taxGroup"/>
+				<attribute name="timezone"/>
+			</listlayout>
+    	</section>
+    	<section name="multicountry.employees">
+			<listlayout>
+			<attribute name="employees">
+    			<referencecollectioneditor showsearcheditor="true">
+            	<itemlayout>
+                   <attribute name="uid" width="150"/>
+                   <attribute name="name" width="150"/>
+             	</itemlayout>
+             	</referencecollectioneditor>
+             </attribute>
+             </listlayout>
+		</section>
+		</tab>
+		</editor>
+	</organizer>
+	</type>
+
+	<type name="Employee" mode="append">
+	<organizer>
+	<editor>
+	<tab name="tab.common" id="tab_user_properties" mode="append" position="0">
+	<section name="properties" mode="append">
+    <listlayout>
+    	<attribute name="managedStores">
+    		<referencecollectioneditor showsearcheditor="true">
+            <itemlayout>
+                   <attribute name="uid" width="150"/>
+                   <attribute name="name" width="150"/>
+             </itemlayout>
+             </referencecollectioneditor>
+    	</attribute>
+    	<attribute name="lockedProducts">
+    		<referencecollectioneditor showsearcheditor="true">
+            <itemlayout>
+                   <attribute name="code" width="150"/>
+                   <attribute name="name" width="150"/>
+             </itemlayout>
+             </referencecollectioneditor>
+    	</attribute>
+    </listlayout>
+    </section>
+	</tab>
+	</editor>
+	</organizer>
+	</type>
+	
+	<type name="MultiCountryBatchApprovalWizard">
+	<organizer>
+         <editor>
+            <tab name="products">
+            <section name="general">
+            	<listlayout>
+            		<attribute name="productAssignments">
+            			<referencecollectioneditor editable="true">
+            				<itemlayout>
+            					<attribute name="product"/>
+            					<attribute name="availabilityGroup" width="150"/>
+                   				<attribute name="status"/>
+                   				<attribute name="onlineDate"/>
+            					<attribute name="offlineDate"/>
+            				</itemlayout>
+            			</referencecollectioneditor>
+            		</attribute>
+            	</listlayout>
+            </section>
+            </tab>
+            </editor>
+            </organizer>
+	</type>
+	
+	 <type name="Product" mode="append">
+      <organizer>
+         <result mode="append">
+            <action type="searchresult" classname="de.hybris.platform.multicountry.hmc.MultiCountryBatchApprovalAction" name="action.multicountry.batchapprove"/>
+		</result>
+		</organizer>
+	</type>
+	
+	 <type name="ProductAvailabilityGroup">
+        <organizer>
+            <search>
+                <condition attribute="id"/>
+                <condition attribute="description"/>
+            </search>
+            <result>
+                <listview>
+                    <itemlayout>
+                        <attribute name="id"/>
+                        <attribute name="description"/>
+                    </itemlayout>
+                </listview>
+            </result>
+            <editor>
+                <essentials>
+                    <columnlayout>
+                        <row>
+                            <attribute name="id"/>
+                            <attribute name="description"/>
+                        </row>
+                    </columnlayout>
+                </essentials>
+                <tab name="properties">
+                    <section name="common">
+                        <listlayout>
+                            <attribute name="stores" width="595">
+                                <referencecollectioneditor create="false">
+                                    <itemlayout>
+                                        <attribute name="uid" width="100" />
+                                        <attribute name="name" width="495" />
+                                    </itemlayout>
+                                </referencecollectioneditor>
+                            </attribute>
+                        </listlayout>
+                    </section>
+                </tab>
+            </editor>
+        </organizer>
+        <defaultreference searchattribute="id" mode="replace">
+            <itemlayout>
+                <attribute name="id"/>
+                <attribute name="description"/>
+            </itemlayout>
+        </defaultreference>
+    </type>
+
+
+    <type name="ProductAvailabilityAssignment">
+    <organizer>
+         <search>
+            <condition attribute="product" />
+            <condition attribute="baseStore" />
+            <condition attribute="availabilityGroup" />
+        </search>
+        <result>
+            <listview>
+                <itemlayout>
+                    <attribute name="id"/>
+                    <attribute name="description"/>
+                </itemlayout>
+            </listview>
+        </result>
+        <editor>
+        <essentials>
+            <columnlayout>
+                <row>
+                    <attribute name="id"/>
+                    <attribute name="description"/>
+                </row>
+            </columnlayout>
+        </essentials>
+        <tab name="properties">
+            <section name="common">
+                <listlayout>
+                    <attribute name="product"/>
+                    <attribute name="availabilityGroup"/>
+                    <attribute name="catalogVersion" />
+                    <attribute name="onlineDate" />
+                    <attribute name="offlineDate" />
+                    <attribute name="status" />
+                 </listlayout>
+                </section>
+            </tab>
+           </editor>
+        </organizer>
+</type>
+<type name="PromotionTimeRestriction" mode="append">
+	<organizer>
+		<editor mode="append">
+			<tab name="tab.restriction.properties" mode="append">
+				<section name="section.restriction.activation" mode="append"
+					position="2">
+					<listlayout>
+						<attribute name="activeFrom" />
+						<attribute name="activeUntil" />
+						<attribute name="useStoreTimeZone" />
+					</listlayout>
+				</section>
+			</tab>
+		</editor>
+	</organizer>
+	</type>
+	<type name="PromotionBaseStoreRestriction" mode="append">
+	<organizer>
+		<editor mode="append">
+			<tab name="tab.restriction.properties" mode="append">
+				<section name="section.restriction.activation" mode="append"
+					position="2">
+					<listlayout>
+						<attribute name="baseStores" />
+					</listlayout>
+				</section>
+			</tab>
+		</editor>
+	</organizer>
+</type>
+<type name="BaseStoreVoucherRestriction" mode="append">
+		<organizer>
+	      <result>
+	         <listview>
+	            <itemlayout>
+	               <attribute name="baseStore" width="200"/>
+	            </itemlayout>
+	         </listview>
+	         <editview>
+	            <itemlayout>
+	               <attribute name="baseStore" width="200"/>
+	            </itemlayout>
+	         </editview>
+	         <treeview>
+	            <itemlayout>
+	               <attribute name="baseStore" width="200"/>
+	            </itemlayout>
+	         </treeview>
+	      </result>
+	      <editor>
+	         <essentials mode="replace">
+	            <listlayout>
+	               <text name="text.userrestriction.common" width="353"/>
+	               <attribute name="voucher"/>
+	               <attribute name="description"/>
+	            </listlayout>
+	         </essentials>
+	         <tab name="properties">
+	            <section name="section.restrictions" mode="replace" position="0">
+	               <listlayout>
+	                  <attribute name="baseStore">
+                        </attribute>
+	               </listlayout>
+	            </section>
+	         </tab>
+	      </editor>
+	   </organizer>
+	</type>
+	
+	<type name="SolrIndexedType" mode="append">
+	<organizer>
+	<editor>
+	<tab name="tab.configuration.indexedtype"  mode="append" >
+    <section name="sec.configuration.indexedtype" mode="append">
+						<listlayout mode="append">
+							<attribute name="identifier"/>
+							<attribute name="type"/>
+							<attribute name="indexName"/>
+							<attribute name="configSet" editable="false"/>
+							<attribute name="solrIndexedProperties" editable="true">
+								<referencecollectioneditor resortable="false" create="true" remove="true" autosave="false"
+																	editable="true">
+									<itemlayout mode="append">
+										<attribute name="name"/>
+										<attribute name="type"/>
+										<attribute name="facet"/>
+										<attribute name="multiValue"/>
+										<attribute name="useForSpellchecking"/>
+										<attribute name="useForAutocomplete"/>
+										<attribute name="includeInResponse"/>
+										<attribute name="contextual"/>
+									</itemlayout>
+								</referencecollectioneditor>
+							</attribute>
+							<attribute name="solrIndexerQueries">
+								<referencecollectioneditor resortable="false" create="true" remove="true" autosave="false"
+																	editable="true">
+									<itemlayout>
+										<attribute name="type"/>
+										<attribute name="query" width="300"/>
+									</itemlayout>
+								</referencecollectioneditor>
+							</attribute>
+							<attribute name="identityProvider"/>
+							<attribute name="modelLoader"/>
+							<attribute name="defaultFieldValueProvider">
+								<customeditor classname="de.hybris.platform.solrfacetsearch.hmc.FieldValueProviderSelectEditorChip"/>
+							</attribute>
+							<attribute name="valuesProvider"/>
+							<attribute name="solrResultConverter"/>
+						</listlayout>
+					</section>
+	</tab>
+	</editor>
+	</organizer>
+	</type>
+</configuration>

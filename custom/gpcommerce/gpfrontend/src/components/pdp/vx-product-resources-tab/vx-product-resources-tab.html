@@ -1,0 +1,151 @@
+<div class="product-resources-tab" v-if="(productResourcesTabData.dataSheets.dataSheet && productResourcesTabData.dataSheets.dataSheet.length > 0) || (productResourcesTabData.productResourceVideos.video && productResourcesTabData.productResourceVideos.video.length > 0)">
+  <vx-modal ref="shareResourceModal" size="medium" :heading="i18n.shareModal.title">
+    <vx-share-resource slot="component" :i18n="i18n.shareModal" :resource="shareResource" 
+    @share-resource-success="onShareResourceSuccess"></vx-share-resource>
+  </vx-modal>
+
+  <div class="container product-resource-tab-selection">
+    <div class="row heading-row">
+      <div class="col-xs-12 heading-cols">
+        <ul class="nav nav-tabs resource-tab-selection">
+          <li class="active" v-if="(productResourcesTabData.dataSheets.dataSheet &&
+  productResourcesTabData.dataSheets.dataSheet.length> 0)">
+            <a class="product-resources-tab__topleftheading" @click="toggleTabViews('productinfo')" data-toggle="tab"
+              href="#productInformation" aria-expanded="true">{{i18n.topLeftHeading}}</a>
+          </li>
+          <li v-if="(productResourcesTabData.productResourceVideos.video && productResourcesTabData.productResourceVideos.video.length > 0)">
+            <a class="product-resources-tab__toprightheading" @click="toggleTabViews('productresources')" data-toggle="tab"
+              href="#productResources" aria-expanded="false">{{i18n.topRightHeading}}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="product-resources-tab__container tab-content">
+    <div class="section row">
+      <div class="col-md-6 col-sm-6 col-xs-12 product-resources-tab__productinfo-container" :class="{'show-tab': showProductInfoTab, 'hide-tab': showProductResTab}"
+        id="productInformation" v-if="(productResourcesTabData.dataSheets.dataSheet &&
+productResourcesTabData.dataSheets.dataSheet.length > 0)">
+        <h3 class="product-resources-tab__topleftheading subheadings pl-md-4">{{i18n.topLeftHeading}}</h3>
+        <div>
+          <p class="product-resources-tab__topleftcontent pr-md-5 pr-sm-5 pr-xs-3 pl-md-4">
+            <span class="product-resources-tab__subheading1 pt-xs-3 pt-sm-4 pb-xs-2" v-if="productInfoDocuments">{{i18n.subHeading1}}</span>
+            <ul class="product-resources-tab__toprightcontent pl-xs-0">
+              <li class="product-resources-tab__list py-xs-3" v-for="(product,index) in productResourcesTabData.dataSheets.dataSheet"
+                v-if="!product.mimeType.includes('Video') && !product.mimeType.includes('Audio')">
+                <div class="row">
+                  <div class="pl-xs-2 pr-xs-0 mr-xs-0 img-icon col-xs-2">
+                    <a :href="product.resourceURL" target="_blank">
+                      <img class="imgBlock" :src="product.url" :alt="product.altText" />
+                    </a>
+                  </div>
+                  <div class="description col-xs-10">
+                    <a :href="product.resourceURL" target="_blank">
+                      <div class="product-resources-tab__pname pt-xs-1 pb-xs-2" v-html="product.altText"></div>
+                    </a>
+                    <div class="product-resources-tab__dlink">
+                      <a :href="product.resourceURL" target="_blank"> {{i18n.subHeading2}} </a>
+                      <span class="mb-xs-3 share-resource-btn" @click="handleShareResource(product)"
+                      v-if="globals.isB2BWhiteLabel() || globals.isB2CWhiteLabel() || globals.isGpXpress()" 
+                      @keyup.enter-space="handleShareResource(product)" tabindex="0" role="button" :aria-label="i18n.share">| {{i18n.share}}</span>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </p>
+        </div>
+        <div>
+          <p class="product-resources-tab__topleftcontent pr-md-5 pr-sm-5 pr-xs-3 pl-md-4">
+            <span class="product-resources-tab__subheading1 pt-sm-4 pb-xs-2" v-if="productInfoVideos">{{i18n.subHeading3}}</span>
+            <ul class="product-resources-tab__toprightcontent pl-xs-0">
+              <li class="product-resources-tab__list py-xs-3" v-for="(product,index) in productResourcesTabData.dataSheets.dataSheet"
+                v-if="product.mimeType.includes('Video') || product.mimeType.includes('Audio')">
+                <div class="row">
+                  <div class="pl-xs-2 pr-xs-0 mr-xs-0 img-icon col-xs-2">
+                    <a :href="product.resourceURL" target="_blank">
+                      <img class="imgBlock" :src="product.url" :alt="product.altText" />
+                    </a>
+                  </div>
+                  <div class="description col-xs-10">
+                    <a :href="product.resourceURL" target="_blank">
+                      <div class="product-resources-tab__pname pt-xs-1 pb-xs-2">{{product.altText}}</div>
+                    </a>
+                    <div class="product-resources-tab__dlink">
+                      <a :href="product.resourceURL" target="_blank"> {{i18n.view}} </a>
+                      <span class="mb-xs-3 share-resource-btn" @click="handleShareResource(product)"
+                      v-if="globals.isB2BWhiteLabel() || globals.isB2CWhiteLabel() || globals.isGpXpress()" 
+                      @keyup.enter-space="handleShareResource(product)" tabindex="0" role="button" :aria-label="i18n.share">| {{i18n.share}}</span>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </p>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-6 col-xs-12 product-resources-tab__productres-container" :class="{'show-tab': showProductResTab, 'hide-tab': showProductInfoTab}"
+        id="productResources" v-if="(productResourcesTabData.productResourceVideos.video &&
+productResourcesTabData.productResourceVideos.video.length > 0)">
+        <h3 class="product-resources-tab__toprightheading subheadings">{{i18n.topRightHeading}}</h3>
+        <div>
+          <span class="product-resources-tab__subheading1 pt-xs-3 pt-sm-4 pb-xs-2" v-if="productResourcesDocuments">{{i18n.subHeading1}}</span>
+          <ul class="product-resources-tab__toprightcontent pl-xs-0">
+            <li class="product-resources-tab__list py-xs-3" v-for="(product,index) in productResourcesTabData.productResourceVideos.video"
+              v-if="!product.mimeType.includes('Video') && !product.mimeType.includes('Audio')">
+              <div class="row">
+                <div class="pl-xs-2 pr-xs-0 mr-xs-0 img-icon col-xs-2">
+                  <a :href="product.resourceURL" target="_blank">
+                    <img class="imgBlock" :src="product.url" :alt="product.altText" />
+                  </a>
+                </div>
+                <div class="description col-xs-10">
+                  <a :href="product.resourceURL" target="_blank">
+                    <div class="product-resources-tab__pname pt-xs-1 pb-xs-2">{{product.altText}}</div>
+                  </a>
+                  <div class="product-resources-tab__dlink">
+                    <a :href="product.resourceURL" target="_blank" download="sample.pdf"> {{i18n.subHeading2}} </a>
+                    <span class="mb-xs-3 share-resource-btn" @click="handleShareResource(product)"
+                    v-if="globals.isB2BWhiteLabel() || globals.isB2CWhiteLabel() || globals.isGpXpress()" 
+                    @keyup.enter-space="handleShareResource(product)" tabindex="0" role="button" :aria-label="i18n.share">| {{i18n.share}}</span>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <span class="product-resources-tab__subheading1 pt-sm-4 pb-xs-2" v-if="productResourcesVideos">{{i18n.subHeading3}}</span>
+          <ul class="product-resources-tab__toprightcontent pl-xs-0">
+            <li class="product-resources-tab__list py-xs-3" v-for="(product,index) in productResourcesTabData.productResourceVideos.video"
+              v-if="product.mimeType.includes('Video') || product.mimeType.includes('Audio')">
+              <div class="row">
+                <div class="pl-xs-2 pr-xs-0 mr-xs-0 img-icon col-xs-2">
+                  <a :href="product.resourceURL" target="_blank">
+                    <a :href="product.resourceURL" target="_blank">
+                      <img class="imgBlock" :src="product.url" :alt="product.altText" />
+                    </a>
+                  </a>
+                </div>
+                <div class="description col-xs-10">
+                  <div class="pt-xs-1 pb-xs-2">
+                    <a :href="product.resourceURL" target="_blank">
+                      <span class="product-resources-tab__pname">{{product.altText}}</span>
+                    </a>
+                  </div>
+                  <div class="product-resources-tab__dlink">
+                    <a :href="product.resourceURL" target="_blank"> {{i18n.view}} </a>
+                    <span class="mb-xs-3 share-resource-btn" @click="handleShareResource(product)"
+                    v-if="globals.isB2BWhiteLabel() || globals.isB2CWhiteLabel() || globals.isGpXpress()" 
+                    @keyup.enter-space="handleShareResource(product)" tabindex="0" role="button" :aria-label="i18n.share">| {{i18n.share}}</span>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

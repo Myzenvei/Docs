@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+All Product Cockpit related Spring Beans.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   default-autowire="byName"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+>
+
+
+	<bean id="otmmProductEditorAreaController"
+		  class="com.opentext.hybris.otmmconnector.ui.assetassignment.cockpit.OtmmEditorAreaController"
+		  scope="session"
+	>
+		<property name="sectionRowRenderer">
+			<bean id="ProductEditorSectionRowRenderer" parent="EditorSectionRowRenderer"/>
+		</property>
+		<property name="editorFactory">
+			<ref bean="EditorFactory"/>
+		</property>
+	</bean>
+	<alias name="otmmProductEditorAreaController" alias="ProductEditorAreaController"/>
+
+
+	<bean id="otmmaddonui.assetAssignmentSessionContext" class="com.opentext.hybris.otmmconnector.ui.assetassignment.generic.impl.AssetAssignmentSessionContext" scope="session"/>
+
+	<bean id="otmmaddonui.cockpitOtmmSessionHolder" class="com.opentext.hybris.otmmconnector.ui.generic.impl.UiOtmmSessionHolder" scope="session">
+		<property name="settings" ref="otmmaddon.assetAssignmentUiSettings"/>
+		<property name="riaService" ref="otmmRiaService2"/>
+	</bean>
+
+	<bean id="otmmaddonui.openAssetInspectorHelper" class="com.opentext.hybris.otmmconnector.ui.assetassignment.cockpit.editors.OpenAssetInspectorHelper">
+		<property name="uiHelperService" ref="otmmaddon.uiHelperService"/>
+		<property name="settings" ref="otmmaddon.assetAssignmentUiSettings"/>
+		<property name="exceptionHandler" ref="otmmaddonui.cockpitExceptionHandler"/>
+
+		<lookup-method name="getOtmmSessionHolder" bean="otmmaddonui.cockpitOtmmSessionHolder"/>
+	</bean>
+
+</beans>

@@ -1,0 +1,136 @@
+.vx-order-summary-details {
+  .order-summary {
+    background-color: @brand-secondary-8;
+  }
+
+  .order-summary-heading {
+    font-size: 21px;
+  }
+
+  .section-divider {
+    border-bottom: 1px solid @border-color;
+  }
+
+  .sub-total {
+    font-weight: @font-weight-medium;
+  }
+
+  .cart-savings-label,
+  .cart-total-label,
+  .sub-total-label {
+    display: inline-block;
+  }
+
+  .cart-total {
+
+    .cart-savings-label,
+    .cart-total-label {
+      font-weight: @font-weight-medium;
+    }
+  }
+
+  .cart-savings {
+    .cart-savings-label {
+      font-weight: @font-weight-medium;
+    }
+  }
+
+  .discounts-value {
+    float: right;
+    font-weight: @font-weight-regular;
+  }
+
+  .cart-calculation {
+    font-size: @font-size-large;
+  }
+
+  .cart-item-number-label {
+    font-size: @font-size-small;
+  }
+
+  .sub-total-value {
+    font-size: 24px;
+  }
+
+  .cart-savings-value,
+  .cart-total-value,
+  .sub-total-value {
+    float: right;
+    font-weight: @font-weight-medium;
+  }
+
+  .sub-total-helper-text {
+    font-size: @font-size-small;
+    color: @text-color-secondary;
+    padding-top: 12px;
+    font-weight: @font-weight-regular;
+  }
+
+  .progress-bar {
+    width: 70%;
+  }
+
+  .shipping-progress-wrapper {
+    &::before {
+      border-bottom: 1px solid @border-color;
+      content: ' ';
+      display: block;
+      position: absolute;
+      width: 100%;
+      left: 0;
+    }
+    .shipping-progress-helper-text {
+      padding-top: 24px;
+      font-size: @font-size-medium;
+    }
+    .shipping-progress {
+      background-color: @brand-secondary-10;
+      height: 4px;
+    }
+  }
+  .progress-bar-success {
+    background-color: @brand-secondary-7;
+  }
+  .promotion-section {
+    padding-bottom: 16px;
+  }
+  .mobile-pull-up-arrow {
+    display: none;
+  }
+  .savings {
+    color: @product-tile-savings-color;
+  }
+  .order-helper-text {
+    color: @help-text-color;
+    font-size: 12px;
+    font-weight: @font-weight-regular;
+  }
+  a {
+    color: @product-tile-link-color;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .cart-total,
+  .cart-savings-label {
+    letter-spacing: 0.4px;
+  }
+  @media only screen and (max-width: @screen-sm-max) {
+    .order-summary {
+      height: auto;
+    }
+    .order-summary-heading {
+      font-size: 20px;
+    }
+    .sub-total-value {
+      position: absolute;
+      right: 16px;
+    }
+    .mobile-pull-up-arrow {
+      display: block;
+      font-size: @font-icon-size-2;
+      color: @font-icon-color-3;
+      float: right;
+      cursor: pointer;
+    }
+  }
+}

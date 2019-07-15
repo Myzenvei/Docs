@@ -1,0 +1,251 @@
+.vx-list-details {
+  .list-details-name {
+    font-weight: @font-weight-regular;
+  }
+
+  .list-filter {
+    float: right;
+  }
+
+  .list-items-container {
+    .vx-product-tile {
+      margin-bottom: 32px;
+
+      &.spacingGPXpressLeftSection {
+        .left-section {
+          margin-bottom: 24px;
+        }
+      }
+    }
+
+    .quantity-section {
+      justify-content: flex-end;
+
+      .stepper-wrapper {
+        display: inline-block;
+
+        .quantity-label {
+          color: @font-color-label-text;
+        }
+      }
+    }
+
+    .card-content-right-section {
+      flex-direction: row;
+    }
+
+    .icon-trash {
+      font-size: 20px;
+      color: @font-icon-color-3;
+    }
+  }
+
+  .list-subtotal-container {
+    font-size: @font-size-large;
+    font-weight: @font-weight-regular;
+    color: @text-color;
+
+    a {
+      span {
+        color: @font-icon-color-3;
+        font-size: @font-icon-size;
+      }
+    }
+
+    strong {
+      font-weight: @font-weight-medium;
+    }
+
+    .icon-edit,
+    .icon-share,
+    .icon-trash,
+    .icon-add-to-list,
+    .icon-download,
+    .icon-plus,
+    .icon-save,
+    .icon-download-info,
+    .icon-download-info-new,
+    .icon-add-custom-attributes {
+      font-size: 20px;
+      color: @font-icon-color-3;
+    }
+
+    span[disabled] {
+      pointer-events: none;
+      color: @font-icon-color-1;
+    }
+
+    .icon-plus-active {
+      color: @brand-secondary-2;
+    }
+  }
+
+  .add-to-cart-container {
+    position: fixed;
+    bottom: 0;
+    left: 0%;
+    background-color: @brand-secondary-4;
+    width: 100%;
+    margin: 0 auto;
+    z-index: 2;
+
+    button {
+      width: 264px;
+    }
+  }
+
+  .error-text {
+    color: @font-color-error;
+    font-size: @font-size-error;
+  }
+
+  .product-old-price {
+    color: @font-color-error;
+  }
+
+  .product-stock-status {
+    font-size: @font-size-small;
+
+    &.text-danger {
+      color: @font-color-error;
+    }
+  }
+
+  .gpxpressItemDescription {
+    color: @brand-secondary-5;
+    font-size: @font-size-small;
+    font-weight: @font-weight-regular;
+  }
+
+  .gpxpressProductAvailability {
+    color: @text-color;
+    font-size: @font-size-small;
+    font-weight: @font-weight-regular;
+    margin-top: 20px;
+  }
+
+  .vx-accordion {
+    padding-left: 0px;
+    padding-right: 0px;
+
+    .col-xs-12,
+    .col-sm-4 {
+      padding-left: 0px;
+      padding-right: 0px;
+    }
+
+    border-top: 1px solid @border-color;
+  }
+
+  .accordionHeading {
+    font-weight: @font-weight-medium;
+    font-size: @font-size-medium;
+    color: @text-color;
+    margin-top: 21px;
+
+    .icon-minus,
+    .icon-plus {
+      font-size: 20px;
+      color: @font-icon-color-3;
+    }
+  }
+
+  .accordionContent {
+    margin-top: 34px;
+  }
+
+  .input-container {
+    input {
+      width: 328px;
+    }
+  }
+
+  .vx-product-icons {
+    ul {
+      li {
+        padding-right: 8px;
+      }
+    }
+  }
+  .display-attributes {
+    display: table;
+    font-weight: @font-weight-regular;
+    font-size: @font-size-small;
+    color: @font-color-label-text;
+    word-break: break-word;
+    letter-spacing: 0.4px;
+    margin-bottom: 16px;
+  }
+}
+
+@media screen and (max-width: @screen-sm-max) {
+  .vx-list-details {
+    .list-items-container {
+      .quantity-section {
+        justify-content: flex-start;
+
+        .stepper-wrapper {
+          .quantity-label {
+            text-align: left;
+          }
+        }
+      }
+
+      .card-content-right-section {
+        flex-direction: column;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: @screen-xs-max) {
+  .vx-list-details {
+    .list-items-container {
+      .vx-product-tile {
+        margin-bottom: 16px;
+      }
+
+      .product-total-price {
+        font-size: @font-size-h3;
+      }
+
+      .cart-icons {
+        margin-bottom: 8px;
+        display: block;
+      }
+    }
+
+    .add-to-cart-container {
+      button {
+        width: 100%;
+      }
+    }
+
+    .list-subtotal-container {
+      .subtotal-section {
+        display: flex;
+        flex-direction: column;
+
+        .list-subtotal-label {
+          text-align: right;
+        }
+      }
+    }
+
+    .input-container {
+      input {
+        width: 294px;
+      }
+    }
+
+    .vx-product-icons {
+      ul {
+        li {
+          display: block;
+          padding-bottom: 8px;
+          padding-right: 0;
+        }
+      }
+    }
+  }
+}

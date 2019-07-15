@@ -1,0 +1,35 @@
+#copper-crane {
+  .vx-my-account-address {
+    padding-top: 36px!important;
+    & > .col-xs-12 {
+      .row {
+        & > h1 {
+          margin: 0;
+          padding-top: 0!important;
+        }
+      }
+    }
+    .address-cards-container {
+      margin-top: 16px;
+      .vx-profile-card {
+        min-height: 262px;
+        .profile-card {
+          padding: 24px 8px!important;
+        }
+      }
+    }
+    .icon-edit,
+    .icon-trash {
+      font-size: @font-icon-size;
+    }
+  }
+
+  @media screen and (max-width: @screen-xs-max) {
+    .vx-my-account-address {
+      padding-top: 24px!important;
+      .address-cards-container {
+        margin-top: 0;
+      }
+    }
+  }
+}

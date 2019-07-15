@@ -1,0 +1,62 @@
+// @import './variables.less';
+
+.heading {
+  color: @text-color;
+  font-weight: @font-weight-light;
+  font-size: @font-size-h3;
+  margin-top: 30px;
+
+  .addUser {
+    float: right;
+    color: @font-color-nav-link;
+    font-size: @font-size-h4;
+    font-weight: @font-weight-medium;
+    cursor: pointer;
+  }
+}
+
+.sub-heading {
+  font-size: @font-size-large;
+  font-weight: @font-weight-medium;
+}
+
+.add-create-btn {
+  font-size: @font-size-large;
+  font-weight: @font-weight-medium;
+}
+.add-create-btn:hover {
+  font-size: @font-size-large;
+  font-weight: @font-weight-medium;
+}
+.description {
+  letter-spacing: 0.15px;
+  font-weight: @font-weight-light;
+}
+
+.alert-msg {
+  border: 1px solid @border-color-5;
+  background: @help-text-background-color;
+  color: @font-color-nav-link;
+  font-size: @font-size-large;
+  letter-spacing: 0.15px;
+}
+
+.dataTables_empty {
+  text-align: center;
+  padding: 250px !important;
+  letter-spacing: 0.15px;
+  color: @text-color;
+}
+
+.existing-permissions-info {
+  p {
+    letter-spacing: @letter-spacing-default;
+  }
+}
+
+@media (max-width: @screen-xs-max) {
+  .table[id*='-data-table'] td.dataTables_empty {
+    padding: 56px 80px !important;
+    text-align: center;
+  }
+}

@@ -1,0 +1,144 @@
+$contentCatalog=gpxpressContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$jarEmailResource=jar:com.gp.b2binitialdata.constants.Gpb2binitialdataConstants&/gpb2binitialdata/import/coredata/contentCatalogs/gpxpressContentCatalog/emails
+$picture=media(code, $contentCV);
+$wideContent=CMSImageComponent,BannerComponent,CMSLinkComponent
+$siteResource=jar:com.gp.b2binitialdata.constants.Gpb2binitialdataConstants&/gpb2binitialdata/import/sampledata/contentCatalogs/$contentCatalog
+
+# Language
+$lang=en
+
+# Import config properties into impex macros for modulegen
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+$emailResource=$config-emailResourceValue
+
+# Language
+$lang=en
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active
+;;EmailSoldToLogoSlot;Email Sold To Logo Slot;true
+
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='ShareWishlistEmailTemplate'] ; validComponentTypes(code)
+							  ; SiteLogo          ;                                                                                 ;                          ; logo
+							  ; TopContent        ;                                                                                 ; $wideContent             ;     
+							  ; BottomContent     ;                                                                                 ; $wideContent 			   ;
+							  ; EmailSoldToLogo   ;																					; $wideContent 	
+
+
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]                     ; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='ShareWishlistEmailTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+									 ;                         ; SiteLogo-ShareWishlistEmail      		  ; SiteLogo              ;                                                                                     ; EmailSiteLogoSlot                        ; true          
+									 ;                         ; TopContent-ShareWishlistEmail            ; TopContent            ;                                                                                     ; EmailTopSlot                             ; true          
+									 ;                         ; BottomContent-ShareWishlistEmail         ; BottomContent         ;                                                                                     ;EmailBottomSlot; true
+									 ;						   ; EmailSoldToLogo-ShareWishlistEmail  	  ; EmailSoldToLogo		  ;																						;EmailSoldToLogoSlot					   ;true
+
+UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(uid,$contentCV)
+;;EmailSoldToLogoSlot;EmailSoldToSiteLogoImage	
+
+# CMS Image Components
+INSERT_UPDATE CMSImageComponent;$contentCV[unique=true];uid[unique=true];name
+;;EmailSoldToSiteLogoImage;Email Sold To Site Logo Image	
+
+# Media
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime[default='image/jpeg'];folder(qualifier)[default='images']
+;;/images/email/gp-email-header.png;gp-email-header.png;$siteResource/images/email/gp-email-header.png
+
+# CMS Image Components
+UPDATE CMSImageComponent;$contentCV[unique=true];uid[unique=true];$picture[lang=$lang];
+;;EmailSoldToSiteLogoImage;/images/email/gp-email-header.png
+
+# CMS components and Email velocity templates
+UPDATE RendererTemplate;code[unique=true];description[lang=$lang];templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+ 
+ ;gpxpress_Email_Share_Wishlist_Subject;"Share Wishlist Email Subject";$jarEmailResource/email-shareWishlistSubject.vm
+ ;gpxpress_Email_Share_Wishlist_Body;"Share Wishlist Email Body";$jarEmailResource/email-shareWishlistBody.vm
+ 
+ INSERT_UPDATE CMSNavigationNode;$contentCV[unique=true];uid[unique=true];title[lang=$lang];name;parent(uid, $contentCV);parentPos
+;;GPProductsNavNode;Products;Products;GPProCategoryNavNode;
+;;GPProductOverviewNavNode;Product Overview;Product Overview;GPProductsNavNode;
+;;GPPaperTowelsNavNode;Paper Towels Nav Node;Paper Towels Nav Node;GPProductOverviewNavNode;0
+;;GPToiletPaperNavNode;Toilet Paper Nav Node;Toilet Paper Nav Node;GPProductOverviewNavNode;1
+;;GPFacialTissueNavNode;Facial Tissue Nav Node;Facial Tissue Nav Node;GPProductOverviewNavNode;2
+;;GPSkinCareNavNode;Skin Care Nav Node;Skin Care Nav Node;GPProductOverviewNavNode;3
+;;GPAirCareNavNode;Air Care Nav Node;Air Care Nav Node;GPProductOverviewNavNode;4
+;;GPJobsiteNavNode;Jobsite Nav Node;Jobsite Nav Node;GPProductOverviewNavNode;6
+;;GPCleaningAndWipesNode;Cleaning And Wipes Node;Cleaning And Wipes Node;GPProductOverviewNavNode;5
+;;GPNapkinNavNode;Napkin Nav Node;Napkin Nav Node;GPProductOverviewNavNode;9
+;;GPPlatesAndBowlsNavNode;Plates And Bowls Nav Node;Plates And Bowls Nav Node;GPProductOverviewNavNode;10
+;;GPCupsLidsNavNode;Cups Lids Nav Node;Cups Lids Nav Node;GPProductOverviewNavNode;7
+;;GPCutleryNavNode;Cutlery Nav Node;Cutlery Nav Node;GPProductOverviewNavNode;8
+;;GPFoodPackNavNode;Food Pack Nav Node;Food Pack Nav Node;GPProductOverviewNavNode;12
+;;GPPartsNavNode;Parts Nav Node;Parts Nav Node;GPProductOverviewNavNode;14
+;;GPPortionCupsNavNode;Portion Cups Nav Node;Portion Cups Nav Node;GPProductOverviewNavNode;11
+;;GPFoodWrapsNavNode;Food Wraps & Papers Nav Node;Food Wraps & Papers Nav Node;GPProductOverviewNavNode;13
+;;GPBrochuresNavNode;Brochures, Kits & Sell Sheets Nav Node;Brochures, Kits & Sell Sheets Nav Node;GPProductOverviewNavNode;15
+;;GPClubNavNode;Club Nav Node;Club Nav Node;GPProductOverviewNavNode;16
+
+;;GPBrandsNavNode;Brands;Brands;GPProCategoryNavNode;
+;;GPBrandsOverviewNavNode;Brands Overview;Brands Overview;GPBrandsNavNode;
+;;GPDixieNavNode;Dixie Nav Node;Dixie Nav Node;GPBrandsOverviewNavNode;3
+;;GPEnMotionNavNode;En Motion Nav Node;En Motion Nav Node;GPBrandsOverviewNavNode;7
+;;GPSparkleNavNode;Sparkle Nav Node;Sparkle Nav Node;GPBrandsOverviewNavNode;8
+;;GPActiveAireNavNode;Active Aire Nav Node;Active Aire Nav Node;GPBrandsOverviewNavNode;1
+;;GPCompactNavNode;Compact Nav Node;Compact Nav Node;GPBrandsOverviewNavNode;0
+;;GPBrawnyProfNavNode;Brawny Nav Node;Brawny Nav Node;GPBrandsOverviewNavNode;4
+;;GPAngelProfNavNode;Angel Soft Nav Node;Angel Soft Nav Node;GPBrandsOverviewNavNode;5
+;;GPPacificBlueNavNode;Pacific Blue Nav Node;Pacific Blue Nav Node;GPBrandsOverviewNavNode;6
+;;GPCoverMaxNavNode;Cover Max Nav Node;Cover Max Nav Node;GPBrandsOverviewNavNode;2
+
+;;GPSustainableNavNode;Sustainable Solutions;Sustainable Solutions;GPProCategoryNavNode;
+;;GPSustainableOverviewNavNode;Sustainable Solutions Overview;Sustainable Solutions Overview;GPSustainableNavNode;
+;;GPEPANavNode;EPA Nav Node;EPA Nav Node;GPSustainableOverviewNavNode;9
+;;GPGreenSealNavNode;Green Seal Nav Node;Green Seal Nav Node;GPSustainableOverviewNavNode;10
+;;GPUSDANavNode;USDA Nav Node;USDA Nav Node;GPSustainableOverviewNavNode;0
+;;GPBPINavNode;BPI Nav Node;BPI Nav Node;GPSustainableOverviewNavNode;2
+;;GPLEEDNavNode;LEED Nav Node;LEED Nav Node;GPSustainableOverviewNavNode;1
+;;GPWasteRedNavNode;Waste Red Nav Node;Waste Red Nav Node;GPSustainableOverviewNavNode;3
+;;GPEcoLogoNavNode;EcoLogo Nav Node;EcoLogo Nav Node;GPSustainableOverviewNavNode;4
+;;GPSFINavNode;SFI Nav Node;SFI Nav Node;GPSustainableOverviewNavNode;6
+;;GPSaferChoiceNavNode;Safer Choice Nav Node;Safer Choice Nav Node;GPSustainableOverviewNavNode;5
+;;GPHow2RecycleNavNode;How2Recycle Nav Node;How2Recycle Nav Node;GPSustainableOverviewNavNode;7
+;;GPFSCNavNode;FSC Nav Node;FSC Nav Node;GPSustainableOverviewNavNode;8
+
+;;GPRetailProdNavNode;Retail Products;Retail Products;GPRetailCategoryNavNode;
+;;GPRetailProdOverviewNavNode;Retail Prod Overview;Retail Prod Overview;GPRetailProdNavNode;
+;;GPBathTissueNavNode;Bath Tissue Nav Node;Bath Tissue Nav Node;GPRetailProdOverviewNavNode;0
+;;GPPaperNavNode;Paper Towels Nav Node;Paper Towels Nav Node;GPRetailProdOverviewNavNode;1
+;;GPLivingwareNavNode;Livingware Nav Node;Livingware Nav Node;GPRetailProdOverviewNavNode;2
+;;GPPaperNapkinsNavNode;Paper Napkins Nav Node;Paper Napkins Nav Node;GPRetailProdOverviewNavNode;3
+;;GPHomeCleanNavNode;Home Clean Node;Home Clean Node;GPRetailProdOverviewNavNode;4
+;;GPMixedPalletsNavNode;Mixed Pallets Nav Node;Mixed Pallets Nav Node;GPRetailProdOverviewNavNode;5
+;;GPArchiveNavNode;Archive Nav Node;Archive Nav Node;GPRetailProdOverviewNavNode;6
+
+;;GPRetailBrandNavNode;Retail Brands;Retail Brands;GPRetailCategoryNavNode;
+;;GPRetailBrandOverviewNavNode;Brand Overview;Brand Overview;GPRetailBrandNavNode;
+;;GPAngelSoftNavNode;AngelSoft Nav Node;AngelSoft Nav Node;GPRetailBrandOverviewNavNode;0
+;;GPQuiltedNavNode;Quilted Nav Node;Quilted Nav Node;GPRetailBrandOverviewNavNode;8
+;;GPMDNavNode;MD Nav Node;MD Nav Node;GPRetailBrandOverviewNavNode;5
+;;GPAriaNavNode;Aria Nav Node;Aria Nav Node;GPRetailBrandOverviewNavNode;1
+;;GPRetSparkleNavNode;Sparkle Nav Node;Sparkle Nav Node;GPRetailBrandOverviewNavNode;6
+;;GPBrawnyNavNode;Brawny Nav Node;Brawny Nav Node;GPRetailBrandOverviewNavNode;2
+;;GPRetDixieNavNode;Dixie Nav Node;Dixie Nav Node;GPRetailBrandOverviewNavNode;3
+;;GPVanityNavNode;Vanity Nav Node;Vanity Nav Node;GPRetailBrandOverviewNavNode;9
+;;GPMardiNavNode;Mardi Nav Node;Mardi Nav Node;GPRetailBrandOverviewNavNode;4
+;;GPStainNavNode;Stain Nav Node;Stain Nav Node;GPRetailBrandOverviewNavNode;7
+;;GPPrivateNavNode;Private Label Nav Node;Private Label Nav Node;GPRetailBrandOverviewNavNode;10
+
+
+INSERT_UPDATE CMSNavigationEntry;$contentCV[unique=true];uid[unique=true];name;navigationNode(uid,$contentCV);item(CMSLinkComponent.uid,CMSLinkComponent.$contentCV);
+;;GPPortionNavEntry;Portion Cups Nav Entry;GPPortionCupsNavNode;GPPortionLink;
+;;GPFoodWrapsNavEntry;Food Wraps Nav Entry;GPFoodWrapsNavNode;GPFoodWrapsLink;
+;;GPBrochuresNavEntry;Brochures Nav Entry;GPBrochuresNavNode;GPBrochuresLink;
+;;GPClubNavEntry;Club Nav Entry;GPClubNavNode;GPClubLink;
+;;GPPrivateNavEntry;Private Label Nav Entry;GPPrivateNavNode;GPPrivateLink;
+
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];linkName[lang=$lang];url;styleAttributes;target(code)[default='sameWindow'];external[default=false];socialLink[default=false];markAsViewAll[default=false]
+;;GPPortionLink;"Portion Cups";/category/453;;;; 
+;;GPFoodWrapsLink;"Food Wraps & Papers";/category/451;;;; 
+;;GPBrochuresLink;"Brochures, Kits & Sell Sheets";/category/450;;;; 
+;;GPClubLink;"Club";/category/455;;;; 
+;;GPPrivateLink;"Private Label";/category/462;;;;
+;;GPAirCareLink;"Air Care & Dispensers";/category/405;;;;
+;;GPNapkinLink;"Napkins & Dispensers";/category/407;;;;
+
+
+ 

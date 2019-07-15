@@ -1,0 +1,24 @@
+<div class="vx-communication-preferences">
+  <vx-spinner ref="communicationPreferencesSpinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>
+  </vx-spinner>
+  <h4>{{i18n.txtMarketingCommunication}}</h4>
+  <div class="form-group mt-xs-3 mb-xs-2" v-show="Object.keys(frequency).length > 0">
+    <label v-if="frequency.question">{{frequency.question}}</label>
+    <vx-dropdown-primary @selected-option="selectedFrequency=$event.value" :dropdownValues="frequencyDropdownValues"
+      ref="frequencyDropdown"></vx-dropdown-primary>
+  </div>
+  <div class="form-group" v-for="questionData in schema">
+    <label v-if="questionData.question">{{questionData.question}}</label>
+    <vx-radio-button-group v-if="questionData.selectionType === 'RADIO'" :radiobutton-values='questionData.marketingPreferencesAnsList'
+      name="questionData.question" v-model='questionAnswers[questionData.question]'></vx-radio-button-group>
+
+    <template v-else v-for='answer in questionData.marketingPreferencesAnsList'>
+      <label class="checkbox-container">{{answer.description}}
+        <input type="checkbox" v-model='answer.selected'>
+        <span class="checkmark"></span>
+      </label>
+    </template>
+  </div>
+  <button class="btn btn-primary center-block mt-xs-5 modal-btn-primary-large modal-btn-xs-sticky" @click="applyPreferences"
+    :aria-label="i18n.btnSave">{{i18n.btnSave}}</button>
+</div>

@@ -1,0 +1,80 @@
+.stepper-control {
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+    margin: 0;
+  }
+
+  .input-group {
+    display: flex;
+    .btn,
+    input[type='number'],
+    input[type='text'] {
+      max-height: 48px;
+      // border: none;
+      background-color: @bg-color-stepper;
+      -webkit-appearance: none;
+      -moz-appearance: textfield;
+    }
+    .btn[disabled] {
+      opacity: 1;
+    }
+    .btn.input-group-btn {
+      font-size: initial;
+      width: 48px;
+      height: 48px;
+    }
+    .btn.input-group-btn:last-child {
+      float: right;
+      border: 1px solid @border-color;
+      border-left-width: 0;
+    }
+    .btn.input-group-btn:first-child {
+      border: 1px solid @border-color;
+      border-right-width: 0;
+      float: left;
+    }
+    input[type='number'],
+    input[type='text'] {
+      display: inline-block;
+      text-align: center;
+      width: 48px;
+      height: 48px;
+      border: solid 1px @border-color;
+      font-size: @font-size-medium;
+      font-weight: @font-weight-medium;
+      color: @font-color-stepper;
+    }
+    .icon-minus,
+    .icon-plus {
+      display: inline-block;
+      color: @font-icon-color-3;
+      font-size: @font-icon-size;
+      vertical-align: middle;
+    }
+  }
+}
+
+@media screen and (max-width: @screen-sm-max) {
+  .stepper-control {
+    .input-group {
+      .btn,
+      input[type='number'],
+      input[type='text'] {
+        max-height: 48px;
+      }
+
+      .btn.input-group-btn {
+        width: 48px;
+        height: 48px;
+      }
+      input[type='number'],
+      input[type='text'] {
+        width: 48px;
+        height: 48px;
+        padding: 0;
+      }
+    }
+  }
+}

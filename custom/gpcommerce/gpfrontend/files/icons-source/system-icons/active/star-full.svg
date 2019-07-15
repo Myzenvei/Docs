@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>Icons/Star filled</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M8.24611004,7.64165085 L11.1033814,1.58330058 C11.4701804,0.805566474 12.5298196,0.805566474 12.8966186,1.58330058 L15.75389,7.64165085 L22.1436246,8.61914281 C22.9634582,8.74455971 23.2902093,9.79927736 22.6966745,10.4043286 L18.0739208,15.1167786 L19.1648997,21.7742578 C19.3050044,22.6292184 18.4475404,23.2811564 17.7139834,22.8774034 L12,19.7324016 L6.28601662,22.8774034 C5.55245963,23.2811564 4.69499561,22.6292184 4.83510027,21.7742578 L5.92607916,15.1167786 L1.30332552,10.4043286 C0.709790719,9.79927736 1.03654183,8.74455971 1.85637539,8.61914281 L8.24611004,7.64165085 Z" id="path-1"></path>
+    </defs>
+    <g id="Icons/Star-filled" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <mask id="mask-2" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+        <g id="Shape" fill-rule="nonzero"></g>
+        <g id="Color/Secondary/Blue" mask="url(#mask-2)" fill="#167BB4">
+            <rect x="0" y="0" width="24" height="24"></rect>
+        </g>
+    </g>
+</svg>

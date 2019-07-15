@@ -1,0 +1,20 @@
+<div class="vx-contact-us">
+  <template v-if="globals.siteConfig.isContactUsFormEnabled">
+    <div class="col-sm-5 col-xs-12 px-xs-0">
+      <vx-live-chat :i18n="i18n.liveChat" :live-chat-theme='liveChatTheme' :show-contact-us='showContactUs'
+        :image-text-data='imageTextData' :is-live-chat-enabled='isLiveChatEnabled'>
+      </vx-live-chat>
+    </div>
+    <div class="col-sm-7 col-xs-12 px-xs-0">
+      <vx-service-ticket :i18n='i18n.serviceTicket' :topic-of-inquiry="topicOfInquiry">
+      </vx-service-ticket>
+    </div>
+  </template>
+  <template v-else>
+    <div class="col-xs-12 px-xs-0">
+      <vx-live-chat :i18n="i18n.liveChat" :live-chat-theme='liveChatTheme' :show-contact-us='showContactUs'
+        :image-text-data='imageTextData' :is-live-chat-enabled='isLiveChatEnabled'>
+      </vx-live-chat>
+    </div>
+  </template>
+</div>

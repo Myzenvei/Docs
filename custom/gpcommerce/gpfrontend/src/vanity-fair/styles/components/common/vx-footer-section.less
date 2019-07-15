@@ -1,0 +1,54 @@
+#vanity-fair {
+  footer {
+    .footer-section {
+      .footer__column {
+        h5 {
+          color: @link-text-color;
+          line-height: 16px;
+          letter-spacing: @letter-spacing-default;
+        }
+      }
+    }
+  }
+  @media only screen and (min-width: @screen-md-min) {
+    .footer-section {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      .footer {
+        padding: 26px 40px 0 40px !important;
+        .footer__column {
+          .footer__column__item {
+            a {
+              font-size: @font-size-small;
+              letter-spacing: @letter-spacing-slashed;
+            }
+          }
+        }
+      }
+    }
+  }
+  @media only screen and (max-width: @screen-xs-max) {
+    .footer {
+      .footer__column {
+        h5 {
+          font-weight: @font-weight-regular;
+          .icon-chevron-down,
+          .icon-chevron-up {
+            color: @font-icon-color-6;
+          }
+        }
+      }
+    }
+    .footer-section {
+      .footer {
+        .social-block {
+          background-color: @brand-primary;
+          h5 {
+            font-weight: @font-weight-medium;
+          }
+        }
+      }
+    }
+  }
+}

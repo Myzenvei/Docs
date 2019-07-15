@@ -1,0 +1,120 @@
+<div class="vx-store-locator mx-xs-3 mx-sm-5 mt-xs-4 mb-xs-5 mt-sm-5">
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'"></vx-spinner>
+
+  <vx-modal ref="filtersModal" size="small" :heading="i18n.narrowSearch">
+    <div class="row" slot="component">
+      <div class="col-xs-12 col-sm-4 mt-xs-4">
+        <label class="dropdown-label">{{i18n.distance}}</label>
+        <vx-dropdown-primary @selected-option="filters.distanceItem=$event" :dropdownValues="distanceList" ref="distanceDropdown"></vx-dropdown-primary>
+      </div>
+      <div class="col-xs-12 col-sm-4 mt-xs-4">
+        <label class="dropdown-label">{{i18n.category}}</label>
+        <vx-dropdown-primary @selected-option="filters.categoryItem=$event" :dropdownValues="categoryList" ref="categoryDropdown"
+          v-on:primaryDropdownMounted="categoriesDropdownLoaded()"></vx-dropdown-primary>
+        <div v-if="categoryError">
+          <span class="error-msg">{{categoryError}}</span>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-4 mt-xs-4" v-if="showProductDropdown">
+        <label class="dropdown-label">{{i18n.product}}</label>
+        <vx-dropdown-primary @selected-option="filters.productItem=$event" :dropdownValues="productList" ref="productDropdown" v-on:primaryDropdownMounted="productDropdownLoaded()"></vx-dropdown-primary>
+        <div v-if="productError">
+          <span class="error-msg">{{productError}}</span>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-4 mt-xs-4">
+        <button class="btn btn-tertiary modal-btn-primary-small modal-btn-xs-sticky" @click="searchStores()">{{i18n.apply}}</button>
+      </div>
+    </div>
+  </vx-modal>
+
+  <vx-modal ref="locationModal" size="extra-small" :heading="i18n.locationDisabled">
+    <div class="row" slot="component">
+      <h3>{{i18n.locationMessage}}</h3>
+    </div>
+  </vx-modal>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <h3 class="mb-xs-5 mt-xs-0">{{i18n.findAStore}}
+        <span class="icon-filter pull-right visible-xs" @click="openFilterModal($event)" @keyup.enter-space="openFilterModal($event)"
+          tabindex="0" role="button" :aria-label="i18n.iconFilterTitle" :title="i18n.iconFilterTitle"></span>
+      </h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-7 col-md-5">
+      <div class="input-group">
+        <input type="tel" class="form-control zip-field" v-model="pincode" maxlength="30" :placeholder="i18n.placeholderText"
+          :aria-label="i18n.placeholderText">
+        <span class="icon-search" @click="searchStores()" :aria-label="i18n.iconSearchTitle"></span>
+        <span class="icon-search" @click="searchStores()" :aria-label="i18n.iconSearchTitle" :title="i18n.iconSearchTitle"></span>
+        <span class="input-group-btn" @click="searchStores()">
+          <button class="btn btn-tertiary" type="button">{{i18n.submit}}</button>
+        </span>
+      </div>
+      <div v-if="storesError">
+        <span class="error-msg">{{storesError}}</span>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-1 seperator py-xs-3 py-0 px-sm-2">
+      {{i18n.or}}
+    </div>
+    <div class="col-xs-12 col-sm-4 col-md-2">
+      <button class="btn btn-tertiary px-xs-4" @click="getLocation()">{{i18n.findStoreNearby}}</button>
+      <div class="location-text pt-xs-2 pt-sm-3">{{i18n.enableLocation}}</div>
+    </div>
+  </div>
+  <div class="row hidden-xs">
+    <div class="col-xs-12 mt-sm-4 narrow-search">{{i18n.narrowYourSearch}}</div>
+    <div class="col-xs-12 col-sm-4 col-md-3 mt-xs-4">
+      <label class="dropdown-label">{{i18n.distance}}</label>
+      <vx-dropdown-primary @selected-option="filters.distanceItem=$event" :dropdownValues="distanceList" ref="distanceDropdown"></vx-dropdown-primary>
+    </div>
+    <div class="col-xs-12 col-sm-4 col-md-3 mt-xs-4">
+      <label class="dropdown-label">{{i18n.category}}</label>
+      <vx-dropdown-primary @selected-option="filters.categoryItem=$event" :dropdownValues="categoryList" ref="categoryDropdown"></vx-dropdown-primary>
+      <div v-if="categoryError">
+        <span class="error-msg">{{categoryError}}</span>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-4 col-md-3 mt-xs-4" v-if="showProductDropdown">
+      <label class="dropdown-label">{{i18n.product}}</label>
+      <vx-dropdown-primary @selected-option="filters.productItem=$event" :dropdownValues="productList" ref="productDropdown" v-on:primaryDropdownMounted="productDropdownLoaded()"></vx-dropdown-primary>
+      <div v-if="productError">
+        <span class="error-msg">{{productError}}</span>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-3">
+      <button class="btn btn-tertiary apply-btn" @click="searchStores()">{{i18n.apply}}</button>
+    </div>
+  </div>
+  <div class="row mt-xs-5 mt-sm-6 stores-found-container">
+    <div class="store__found mb-xs-4 col-xs-12" v-if="storesList.length">{{i18n.storesFound}} <span class="store-length">- {{storesList.length}}</span></div>
+    <div class="col-xs-12 col-sm-6 store__container" v-if="storesList.length">
+      <div class="store__details px-xs-3 py-xs-3 px-sm-4 py-sm-4" v-for="store in storesList" @click="storeSelected(store)" :class="{active: store.STORE_ID == selectedStore.STORE_ID}">
+        <div>
+          <span class="store-name">{{store.NAME}}</span>
+          <span class="store-distance">{{store.DISTANCE}} {{i18n.miles}}</span>
+        </div>
+        <div class="py-xs-3 store-info">{{store.ADDRESS}}, {{store.CITY}}, {{store.STATE}}, {{store.ZIP}}</div>
+        <div class="store-info">{{store.PHONE}}</div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 hidden-xs" v-if="storesList.length">
+      <div class="row mt-sm-6 selected-store">
+        <div class="col-sm-4 col-md-3">
+          <img :src="selectedStore.img" alt="store image">
+        </div>
+        <div class="col-sm-8 col-md-9">
+          <div class="store-name" @click="desktopMapNavigation()">{{selectedStore.NAME}}</div>
+          <div class="store-info mt-sm-3 mb-sm-2">{{selectedStore.ADDRESS}}</div>
+          <div class="store-info mb-sm-2">{{selectedStore.CITY}}, {{selectedStore.STATE}}, {{selectedStore.ZIP}}</div>
+          <div class="store-info">{{selectedStore.PHONE}}</div>
+        </div>
+      </div>
+      <vx-map-locator ref="storemap" v-on:mapLoaded="mapLoaded()"></vx-map-locator>
+    </div>
+  </div>
+  <div class="mt-xs-5 mt-sm-6 no-stores" v-if="!storesList.length">{{i18n.noStoresFound}}</div>
+</div>

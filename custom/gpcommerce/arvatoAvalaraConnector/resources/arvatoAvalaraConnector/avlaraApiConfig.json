@@ -1,0 +1,4 @@
+{
+	"modelPackage" : "com.arvatosystems.avlara.rest.model",
+	"apiPackage" : "com.arvatosystems.avlara.rest.api"
+}

@@ -1,0 +1,15 @@
+<div class="vx-refine-approval-list">
+  <div class="pb-xs-2 filterHeading">{{i18n.filter}}</div>
+  <slot name="sortDropdown">
+  </slot>
+
+  <div class="pt-xs-4 pb-xs-2 status">{{i18n.statusOptions.title}}</div>
+  <div class="mb-xs-3">
+    <vx-checkbox-group ref="statusCheckbox" @checked-options="checkedOptions" :check-box-values="filterOptions"></vx-checkbox-group>
+  </div>
+  <div class="pb-xs-2 status-error" v-if="filterError">{{statusError}}</div>
+  <div class="col-xs-12 filter-sort-buttons">
+    <button type="button" @click="filterAction('clear')" class="col-xs-6 clear-filter-button btn btn-default mr-xs-4">{{i18n.clearAll}}</button>
+    <button type="button" @click="filterAction('apply')" class="col-xs-5 save-filter-button btn btn-primary ">{{i18n.apply}}</button>
+  </div>
+</div>

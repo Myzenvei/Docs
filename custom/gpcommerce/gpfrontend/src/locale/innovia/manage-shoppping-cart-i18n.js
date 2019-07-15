@@ -1,0 +1,141 @@
+const manageShoppingCart = {
+  shoppingCart: {
+    shoppingCartHeading: 'Shopping Cart',
+    cartId: 'Cart ID',
+    quantity: 'Quantity',
+    shareListHeading: 'Share Cart',
+    shareListDescription:
+      'If you would like to share your cart, please add email addresses here. Separate each address with a comma.',
+    shareListEmail: 'Recipient Emails*',
+    shareListButton: 'Share',
+    shareListError: 'Please enter in a valid Email Address',
+    sendername: "Sender's Name*",
+    sender_name_err_msg: "Please enter the sender's name.",
+    senderemail: "Sender's Email Address*",
+    sender_email_error_msg: 'Please enter a valid email address.',
+    createNewListLabel: 'Create New List',
+    saveListHeading: 'Select a List',
+    save: 'Save',
+    emptyListError: 'Please enter in a valid New List Name.',
+    saveAListError: 'Existing List has already been selected.',
+    existingListError:
+      'List Name is already in use. Please enter in a New List Name.',
+    item: 'item',
+    items: 'items',
+    itemId: 'ITEM ID',
+    leaseProductError: 'Lease Approval required for purchase.',
+    leaseCartError:
+      'This order contains a product that requires lease approval. Please contact your admin to obtain approval or remove the items from your cart.',
+    promo: 'Promo',
+    addInstallationHeading: 'Add Installation',
+    addInstallationButton: 'Add to cart',
+    installationMsg:
+      'Installation services have been requested for this product.',
+    installationDetailsHeading: 'Installation Services',
+    removeInstallationHeading: 'Delete',
+    removeInstallationButton: 'Confirm',
+    removeInstallationMsg:
+      'Are you sure you want to delete the installation fee?',
+    giftHeading: 'Gifting Details',
+    giftCheckbox: 'Gift this item',
+    giftClose: 'Close',
+    giftInfo: 'Gift Information',
+    deleteButtonText: 'delete',
+    discontinued: 'Discontinued',
+    replacedBy: 'and Replaced By',
+    backOderabledate: 'available: ',
+    lowStockLabel: 'Low Inventory',
+    outOfStock: 'Out of stock',
+    lowInventoryMessage: 'Low Inventory',
+    lowQuantityErrorMessage:
+      'There is not enough inventory available for your order. Please try to reduce quantity or remove item from your cart',
+    iconCertificationTitle: 'Green Certified',
+    iconShippingTitle: 'Free Shipping Available',
+    iconOnlineTitle: 'Only Available Online',
+    iconSubscriptionTitle: 'Subscribe',
+    iconSeasonalTitle: 'Seasonal Product',
+    iconAlertTitle: 'Important Notice',
+    iconDeleteTitle: 'Delete',
+    iconCloseTitle: 'Close',
+    iconAddToListTitle: 'Add to list',
+    iconShareTitle: 'Share',
+    maxValueUpdatedStatus:
+      'The product quantity is adjusted to the maximum allowed quantity.',
+    minValueUpdatedStatus:
+      'The product quantity is adjusted to the minimum allowed quantity.',
+    stockLevelUpdatedStatus:
+      'The product quantity is adjusted to the stock availability.',
+    productIconsTitle: {
+      freeShipping: 'Free Shipping Eligible',
+      onlineOnly: 'Only Available Online',
+      subscribable: 'Subscription Eligible',
+      seasonal: 'Seasonal Product',
+      bundleAvailable: 'Bundle Eligible',
+      certification: 'Certifications Available',
+      customisation: 'Customizable Product',
+      installation: 'Installation Service Available',
+      sample: 'Sample Eligible',
+    },
+    guestList: 'Guest List',
+    edit: 'Edit',
+    removeBundle: 'Remove entire bundle',
+    bundleProductError: {
+      maxQuantitySubstr1: 'The quantity of ',
+      maxQuantitySubstr2:
+        ' has been reduced to the maximum allowable quantity for the bundle.',
+    },
+  },
+  emptyShoppingCart: {
+    emptyShoppingCartHeading: 'Your shopping cart is empty',
+    emptyShoppingCartMsg:
+      'Provide messaging around product promotions or coupon deals. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.',
+    continueShoppingButton: 'Continue Shopping',
+  },
+  miniCart: {
+    itemNumber: 'Total items in cart',
+    subTotal: 'Subtotal',
+    shippingTaxMsg: 'Shipping and tax will be calculated at checkout',
+    cartButton: 'view cart',
+    quantity: 'Quantity',
+    emptyMiniCartMsg: 'No items in the cart',
+  },
+  orderSummary: {
+    orderSummaryHeading: 'Order Summary',
+    cartProductTotal: 'Cart Subtotal',
+    totalDiscounts: 'My Savings',
+    priceDiscounts: 'Price Discounts',
+    promotionalDiscounts: 'Promotional Discounts',
+    totalPrice: 'Subtotal',
+    orderHelpingText: 'Shipping and tax will be calculated at checkout.',
+    promoDetailsHeading: 'Promotions Details',
+    promotionsClose: 'Close',
+    applyProduct: 'Apply',
+    enterPromo: 'Enter promo code',
+    // Error Messages
+    108: 'Promo code entered is invalid or out of date.',
+    iconCloseTitle: 'Close',
+  },
+  cartCheckout: {
+    incompatibleProductHeading: 'Incompatible Products',
+    incompatibleProductDescription:
+      "You've selected a refill that isn't compatible with GP PRO Ultra® Back-of-House Napkin Machine, Stainless Finish you currently have in your cart.Please double check your.If you need assistance, please contact",
+    incompatibleProductContact: 'Customer Service',
+    btnCheckout: 'Checkout',
+    underReview:
+      'Your account is under review, please contact customer service for assistance.',
+    maxPurchaseableQuantityErrorCode: '197',
+    maxPurchaseableQuantityErrorMessage:
+      'One of the product in the cart exceeds Maximum allowable quantity. The quantity is updated to meet the threshold.',
+    maxPurchaseableQuantityUpdateMessage1:
+      'Maximum order quantity for this item is',
+    maxPurchaseableQuantityUpdateMessage2:
+      'your cart has been automatically updated.',
+    lowStockErrorCode: '198',
+    lowStockErrorMessage:
+      'One of the product in the cart is running low on stock only available quantity is added to your cart',
+    lowQuantityErrorMessage:
+      'There is not enough inventory available for your order. Please try to reduce quantity or remove item from your cart',
+  },
+};
+
+export default manageShoppingCart;

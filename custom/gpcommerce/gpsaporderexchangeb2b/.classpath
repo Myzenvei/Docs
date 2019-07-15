@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry exported="true" kind="src" path="/gpsaporderexchange"/>
+	<classpathentry exported="true" kind="src" path="/saporderexchangeb2b"/>
+	<classpathentry exported="true" kind="src" path="/platform"/>
+	<classpathentry kind="src" path="gensrc"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="testsrc"/>
+	<classpathentry kind="src" path="web/src"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="output" path="eclipsebin"/>
+</classpath>

@@ -1,0 +1,23 @@
+.btn {
+  width: 210px;
+  &-primary {
+    &:active,
+    &:focus,
+    &:hover {
+      color: @btn-primary-color !important;
+      background: @btn-primary-bg !important;
+    }
+  }
+  &-tertiary {
+    color: @btn-tertiary-color;
+    background: @btn-tertiary-bg;
+    border: @btn-tertiary-hover-border;
+    text-decoration: @btn-tertiary-text-decoration;
+    &:hover,
+    &:focus {
+      text-decoration: @btn-tertiary-hover-text-decoration;
+      color: @btn-tertiary-hover-color;
+      background: @btn-tertiary-hover-bg;
+    }
+  }
+}

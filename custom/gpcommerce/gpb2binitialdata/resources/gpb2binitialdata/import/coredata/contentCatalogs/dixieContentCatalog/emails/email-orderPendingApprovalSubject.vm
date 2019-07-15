@@ -1,0 +1,2 @@
+## messageSource=classpath:/gpb2binitialdata/import/coredata/contentCatalogs/dixieContentCatalog/messages/email-orderPendingApprovalSubject_$lang.properties
+${ctx.messages.getMessage('emailSubject', ${ctx.order.code})}

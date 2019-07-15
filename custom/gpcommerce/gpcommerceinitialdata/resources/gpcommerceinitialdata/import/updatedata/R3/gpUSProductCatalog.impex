@@ -1,0 +1,74 @@
+########################################Bundle setup ######################################################
+$productCatalog=gpUSProductCatalog
+$syncJobCode=sync $productCatalog:Staged->Online
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+
+
+# Add BundleTemplate and BundleTemplateStatus as rootTypes to the synchronization
+UPDATE CatalogVersionSyncJob;code[unique=true];roottypes(code)[mode=append];
+;$syncJobCode;BundleTemplate,BundleTemplateStatus,BundleSelectionCriteria;
+############################################################################################################
+
+INSERT_UPDATE UserGroup;uid[unique=true];locname[lang=en]
+;L3UserGroup;L3 User Group
+
+## Sample data for L2 and L3 Price - YCOM-661 ##
+INSERT_UPDATE UserPriceGroup;code[unique=true];name[lang=en];
+;L2_B2b_REGISTERED_PRICE_GROUP;L2_B2b_REGISTERED_PRICE_GROUP;
+;L3_B2b_REGISTERED_PRICE_GROUP;L3_B2b_REGISTERED_PRICE_GROUP;
+
+INSERT_UPDATE UserGroup;uid[unique=true];locname[lang=en];userPriceGroup(code)
+;L2UserGroup;L2 User Group;L2_B2b_REGISTERED_PRICE_GROUP
+;L3UserGroup;L3 User Group;L3_B2b_REGISTERED_PRICE_GROUP
+
+#b2bwhitelabel usergroup specific prices
+INSERT_UPDATE PriceRow ; product(code,$catalogVersion)[unique=true] ; ug(code)[unique=true]    ; gpUserPriceGroup(code)[unique=true] ; currency(isocode)[unique=true] ; price[unique=true] ; unit(code)[default=pieces] ; net[default=true] ; salePrice[default=false] ;  ; minAdvertisedPrice[default=false] ; startTime[dateformat=dd-MM-yyyy] ; endTime[dateformat=dd-MM-yyyy]
+;19378;pricegroup-b2bwhitelabel;L2_B2b_REGISTERED_PRICE_GROUP;USD;65.98;CS;;; 
+;19378;pricegroup-b2bwhitelabel;L3_B2b_REGISTERED_PRICE_GROUP;USD;60.98;CS;;;            
+
+######################################################################################################  
+
+
+
+########    SOLD TO SETUP FOR GPXPRESS  #########  
+
+INSERT_UPDATE B2BUnit;uid[unique=true];name       ;locName[lang=en];groups(uid);b2bUnitLevel;brandLabel(code);rootCategoryReference(code,$catalogVersion)
+;444444;;gpxpress;;L1;DIXIE,GEORGIA-PACIFIC,ANDERSON ERICKSON,COSTCO,GUEST SUPPLY
+;555555;;gpxpress;;L1;DIXIE,GEORGIA-PACIFIC,ANDERSON ERICKSON,COSTCO,GUEST SUPPLY;retail
+
+######################################################################################################  
+
+
+
+###############  BrandLabel Enum Creation #######################
+INSERT_UPDATE BrandLabelEnum;code[unique=true]
+;DIXIE
+;GEORGIA-PACIFIC
+;ANDERSON ERICKSON
+;COSTCO
+;GUEST SUPPLY 
+#################################################################  
+
+     
+#################################### CLASSFICATION ASSOCIATION TO CATEGORIES START #######################################################
+$productCatalog=gpUSProductCatalog
+$productCatalogName=GP US Product Catalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$classCatalogVersion=catalogversion(catalog(id[default='gpUSClassification']),version[default='1.0'])[unique=true,default='gpUSClassification:1.0']
+$classSystemVersion=systemVersion(catalog(id[default='gpUSClassification']),version[default='1.0'])[unique=true]
+$class=classificationClass(ClassificationClass.code,$classCatalogVersion)[unique=true]
+$supercategories=source(code, $classCatalogVersion)[unique=true]
+$categories=target(code, $catalogVersion)[unique=true]
+$attribute=classificationAttribute(code,$classSystemVersion)[unique=true]
+$unit=unit(code,$classSystemVersion)
+$lang=en
+
+INSERT_UPDATE ClassificationAttribute;&AttrRef;$classSystemVersion;code[unique=true]
+;AttrRef8;;Case Total, 11007
+;AttrRef9;;Size LxWxH, 11008
+
+INSERT_UPDATE GPProductType2ClassificationAttribute ;productType[unique=true]        ;classAttributes(&AttrRef)
+	;Dispensers	        ;AttrRef8,AttrRef9
+    ;Equipment	        ;AttrRef8,AttrRef9    
+###########################  PRODUCT TYPE TO CLASSIFICATIONATTRIBUTE impex for product display attributes ENDS ########################
+

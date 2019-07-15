@@ -1,0 +1,39 @@
+.vx-order-approvals {
+  .no-of-orders {
+    font-size: @font-size-base;
+    font-weight: @font-weight-medium;
+    color: @font-color-input-text;
+  }
+  .order-history-heading {
+    font-size: @font-size-h1;
+    margin-top: 40px;
+  }
+  .transaction-data-dropdown {
+    flex-grow: 1;
+  }
+  .order-transaction-filter {
+    font-size: 20px;
+    float: right;
+    padding-top: 10px;
+    cursor: pointer;
+  }
+  .checkbox-container {
+    display: block;
+  }
+  .order-approvals-filter {
+    font-size: 30px;
+  }
+  .filter-list {
+    display: flex;
+    align-items: center;
+
+    .icon-x {
+      font-size: @font-size-base;
+    }
+  }
+  @media (max-width: @screen-xs-max) {
+    .modal-body {
+      height: 85vh;
+    }
+  }
+}

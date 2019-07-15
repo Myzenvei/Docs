@@ -1,0 +1,90 @@
+#innovia {
+  .main__inner-wrapper {
+    padding-top: 88px;
+    margin-top: 0;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .login-page,
+  .register-page {
+    margin-top: 32px;
+  }
+
+  .title-underline {
+    display: block !important;
+    border-bottom: 1px solid @border-color-9;
+    margin: 0 auto 20px;
+    width: 100px;
+  }
+
+  input {
+    font-family: @font-family-montserrat;
+  }
+
+  .stepper-control .input-group input[type=number],
+  .stepper-control .input-group input[type=text] {
+    font-family: @font-family-base;
+    font-weight: 500;
+    border-radius: 0;
+  }
+
+  .tag {
+    font-weight: @font-weight-regular;
+  }
+
+  .vx-cart-product-tile {
+    .shopping-cart-product-tile {
+      .product-title {
+        a {
+          color: @text-color-secondary-5;
+          text-decoration: underline;
+          font-weight: @font-weight-regular;
+        }
+      }
+    }
+  }
+
+  .vx-overview {
+    .vx-product-tile {
+      .product-tile {
+        .product-title {
+          a {
+            color: @text-color-secondary-5;
+          }
+        }
+      }
+    }
+  }
+
+  .vx-shopping-cart {
+    .cart-heading {
+      @media screen and (max-width: @screen-xs-max) {
+        margin-top: 16px;
+      }
+    }
+  }
+}
+
+body.page-checkoutPage {
+  #innovia {
+    .main__inner-wrapper {
+      padding-top: 50px;
+      margin-top: 0;
+    }
+  }
+}
+
+#innovia {
+  .btn {
+    text-transform: @btn-default-text-transform-uppercase;
+    border-radius: 0 !important;
+  }
+
+  .btn-primary.focus,
+  .btn-primary:focus,
+  .btn-primary:hover {
+    background: @btn-primary-bg;
+    color: @btn-primary-hover-color;
+  }
+}

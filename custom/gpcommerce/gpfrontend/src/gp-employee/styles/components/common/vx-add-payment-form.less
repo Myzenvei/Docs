@@ -1,0 +1,141 @@
+#gp-employee {
+  .vx-add-payment-form {
+    .payment-form-iframe {
+      border: none;
+    }
+    .dropdown-menu {
+      min-width: 149px;
+    }
+  }
+}
+@media screen and (min-width: @screen-sm) {
+  #gp-employee {
+    .vx-add-payment-form {
+      .brand-title {
+        font-size: @font-size-large;
+      }
+      .zipcode-field{
+        clear: both;
+      }
+      #credit-card-form {
+        .card-num-block {
+          padding-right: 0;
+        }
+        .card-name-block {
+          padding-left: 0;
+        }
+        .input-elements {
+          padding-left: 16px;
+        }
+        & > div:nth-of-type(3) {
+          .col-sm-8 {
+            width: 50%;
+            padding-right: 12px;
+            .card-expiry-block {
+              display: flex;
+            }
+          }
+          .col-sm-4 {
+            width: 50%;
+            padding-left: 12px;
+            padding-right: 16px;
+            .cvv-query {
+              text-decoration: underline;
+            }
+          }
+          margin-bottom: 8px;
+        }
+        & > .form-elements {
+          & > div.col-xs-12 {
+            .top-block {
+              border-top: 1px solid @border-color;
+            }
+          }
+        }
+        & > div:nth-last-of-type(3) {
+          .col-sm-4 {
+            width: 50%;
+            &:first-child,
+            &:last-child {
+              padding-right: 12px;
+            }
+            &:nth-child(2) {
+              padding: 0 12px;
+            }
+          }
+        }
+        & > .form-elements,
+        .bottom-block {
+          & > .col-sm-6:nth-child(1),
+          & > .col-sm-4:nth-child(1),
+          & > .col-sm-4:nth-child(3) {
+            padding-right: 12px;
+          }
+          & > .col-sm-6:nth-child(2),
+          & > .col-sm-4:nth-child(2) {
+            padding-left: 12px;
+          }
+          & > .col-sm-4 {
+            width: 50%;
+          }
+          .state-select-box {
+            padding-right: 0px;
+          }
+        }
+        .payment-submit-btn {
+          color: @btn-primary-color;
+        }
+        & > div:nth-of-type(2) {
+          & > .col-md-6 {
+            width: 50%;
+            &:nth-child(1) {
+              padding-right: 12px;
+            }
+            &:nth-child(2) {
+              padding-left: 12px;
+            }
+            &.right-side-content {
+              margin-top: 0!important;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: @screen-xs-max) {
+  #gp-employee {
+    .vx-add-payment-form {
+      #credit-card-form {
+        & > div:nth-of-type(3) {
+          .col-sm-4 {
+            width: 100%;
+          }
+        }
+        .form-elements {
+          font-size: @font-size-medium;
+        }
+        .payment-submit-btn {
+          color: @btn-primary-color;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: @screen-md-min) {
+  #gp-employee {
+    .vx-add-payment-form {
+      div.col-xs-12 {
+        &.extra-padding-right {
+          padding-right: 12px;
+        }
+        &.extra-padding-left-top {
+          padding-left: 12px;
+        }
+      }
+    }
+  }
+}
+

@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- [y] hybris Platform Copyright (c) 2018 SAP SE or an SAP affiliate company. All rights reserved. This software is the confidential 
+	and proprietary information of SAP ("Confidential Information"). You shall not disclose such Confidential Information and shall use 
+	it only in accordance with the terms of the license agreement you entered into with SAP. -->
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:annotation-config />
+	
+	<context:component-scan base-package="com.gp.commerce.gpcommerceaddon.controllers.cms" />
+
+	<!-- Expose /acceleratoraddon/web/webroot/WEB-INF/messages/base.js.properties resource bundle as javascript variables -->
+	<bean id="defaultGpcommonaddonJavaScriptMessageResourceAccessor" parent="abstractJavaScriptMessageResourceAccessor">
+		<property name="addOnName" value="gpcommonaddon" />
+	</bean>
+
+	<bean id="defaultGpcommonaddonBeforeViewJsPropsHandlerAdaptee" parent="abstractBeforeViewJsPropsHandlerAdaptee"
+		class="de.hybris.platform.addonsupport.interceptors.ExportJsPropertiesBeforeViewHandler">
+		<property name="messageSource" ref="defaultGpcommonaddonJavaScriptMessageResourceAccessor" />
+	</bean>
+
+	<bean id="getGpcommonaddonBeforeViewHandler" parent="beforeViewHandlerAdapter">
+		<property name="adaptee">
+			<ref bean="defaultGpcommonaddonBeforeViewJsPropsHandlerAdaptee" />
+		</property>
+	</bean>
+	<bean id="GpcommonaddonBeforeViewHandlerListMergeDirective" depends-on="beforeViewHandlersList" parent="listMergeDirective">
+		<property name="add" ref="getGpcommonaddonBeforeViewHandler" />
+	</bean>
+
+	<bean id="gpFAQCMSParagraphComponentRenderer" parent="genericAddOnCMSComponentRenderer" />
+	
+	<bean id="gpFAQCMSParagraphComponentRendererMapping" parent="addonCmsComponentRendererMapping">
+		<property name="typeCode" value="GPFAQCMSParagraphComponent" />
+		<property name="renderer" ref="gpFAQCMSParagraphComponentRenderer" />
+	</bean>
+	
+	<bean id="cmsParagraphComponentRenderer" parent="genericAddOnCMSComponentRenderer" />
+	
+	<bean id="cmsParagraphComponentRendererMapping" parent="addonCmsComponentRendererMapping">
+		<property name="typeCode" value="CMSParagraphComponent" />
+		<property name="renderer" ref="cmsParagraphComponentRenderer" />
+	</bean>
+	
+	<alias alias="cmsParagraphComponentRenderer" name="defaultGPCMSParagraphComponentRenderer" />
+	<bean id="defaultGPCMSParagraphComponentRenderer"
+		class="com.gp.commerce.component.renderer.GPCMSParagraphComponentRenderer" parent="defaultCMSParagraphComponentRenderer"/>
+	
+	
+	<alias alias="footerDataPopulator" name="footerDataPopulator"/>
+	<bean id="footerDataPopulator" class="com.gp.commerce.gpcommerceaddon.populators.GPFooterDataPopulator" > </bean>
+	
+	<alias alias="imageDataPopulator" name="imageDataPopulator"/>
+	<bean id="imageDataPopulator" class="com.gp.commerce.gpcommerceaddon.populators.GPBannerImageDataPopulator" > </bean>
+	
+	<alias alias="imageAndTextDataPopulator" name="imageAndTextDataPopulator"/>
+	<bean id="imageAndTextDataPopulator" class="com.gp.commerce.gpcommerceaddon.populators.GPImageAndTextDataPopulator" > </bean>
+	
+	<alias alias="imageTileDataPopulator" name="imageTileDataPopulator"/>
+	<bean id="imageTileDataPopulator" class="com.gp.commerce.gpcommerceaddon.populators.GPImageTilePopulator" > </bean>
+	
+	<alias alias="gpImageTextPopulator" name="gpImageTextPopulator"/>
+	<bean id="gpImageTextPopulator" class="com.gp.commerce.gpcommerceaddon.populators.GPImageTextPopulator" > </bean>
+	
+	<alias alias="gpImageComponentPopulator" name="gpImageComponentPopulator"/>
+	<bean id="gpImageComponentPopulator" class="com.gp.commerce.gpcommerceaddon.populators.GPImageComponentPopulator" > </bean>
+	
+	<alias alias="gpBannerImageComponentPopulator" name="gpBannerImageComponentPopulator"/>
+	<bean id="gpBannerImageComponentPopulator" class="com.gp.commerce.gpcommerceaddon.populators.GPBannerImageComponentPopulator" > </bean>
+	
+	<alias alias="gpBannerImageTextPopulator" name="gpBannerImageTextPopulator"/>
+	<bean id="gpBannerImageTextPopulator" class="com.gp.commerce.gpcommerceaddon.populators.GPBannerImageTextPopulator" > </bean>
+	
+	<alias alias="jspIncludeDataPopulator" name="jspIncludeDataPopulator"/>
+	<bean id="jspIncludeDataPopulator" class="com.gp.commerce.gpcommerceaddon.populators.GPJspIncludePropertiesDataPopulator"> </bean>
+	
+	<alias alias="gpRotatingImagesPopulator" name="gpRotatingImagesPopulator"/>
+	<bean id="gpRotatingImagesPopulator" class="com.gp.commerce.gpcommerceaddon.populators.GPRotatingImagesPopulator"> </bean>
+	
+	<alias name="gpTipsAndKnowledgeInfoPopulator" alias="gpTipsAndKnowledgeInfoPopulator"/>
+	<bean id="gpTipsAndKnowledgeInfoPopulator" class="com.gp.commerce.gpcommerceaddon.populators.GPTipsAndKnowledgeInfoPopulator"></bean>
+	
+	<alias name="gpProductCarouselPopulator" alias="gpProductCarouselPopulator"/>
+	<bean id="gpProductCarouselPopulator" class="com.gp.commerce.gpcommerceaddon.populators.GPProductCarouselPopulator"></bean>
+	
+	<alias name="maridgrasNapkinsPopulator" alias="maridgrasNapkinsPopulator"/>
+	<bean id="maridgrasNapkinsPopulator" class="com.gp.commerce.gpcommerceaddon.populators.MaridgrasNapkinsPopulator"></bean>
+	
+	<alias name="mardigrasVideoPopulator" alias="mardigrasVideoPopulator"/>
+	<bean id="mardigrasVideoPopulator" class="com.gp.commerce.gpcommerceaddon.populators.MardigrasVideoPopulator"></bean>
+	
+	<alias name="mardigrasBoredomPopulator" alias="mardigrasBoredomPopulator"/>
+	<bean id="mardigrasBoredomPopulator" class="com.gp.commerce.gpcommerceaddon.populators.MardigrasBoredomPopulator"></bean>
+	
+	<alias name="mardigrasHeaderNavigationPopulator" alias="mardigrasHeaderNavigationPopulator"/>
+	<bean id = "mardigrasHeaderNavigationPopulator" class="com.gp.commerce.gpcommerceaddon.populators.MardigrasHeaderNavigationPopulator"></bean>
+	
+	<alias name="mardigrasOurPacksPopulator" alias="mardigrasOurPacksPopulator"/>
+	<bean id="mardigrasOurPacksPopulator" class="com.gp.commerce.gpcommerceaddon.populators.MardigrasOurPacksPopulator"></bean>
+	
+	<alias name="gpXpressHeaderNavigationPopulator" alias="gpXpressHeaderNavigationPopulator"/>
+	<bean id="gpXpressHeaderNavigationPopulator" class="com.gp.commerce.gpcommerceaddon.populators.GPXpressHeaderNavigationPopulator"></bean>
+	
+	<alias name="gpProductSolutionPopulator" alias="gpProductSolutionPopulator"/>
+	<bean id="gpProductSolutionPopulator" class="com.gp.commerce.gpcommerceaddon.populators.GPProductSolutionPopulator"></bean>
+	
+	<alias name="gpNavigationPopulator" alias="gpNavigationPopulator"/>
+	<bean id="gpNavigationPopulator" class="com.gp.commerce.gpcommerceaddon.populators.GPNavigationPopulator"></bean>
+	
+	<alias name="gpMarketingSidebySidePopulator" alias="gpMarketingSidebySidePopulator"/>
+	<bean id="gpMarketingSidebySidePopulator" class="com.gp.commerce.gpcommerceaddon.populators.GPMarketingSidebySidePopulator"></bean>
+	
+	<alias name="gpMarketingPopulator" alias="gpMarketingPopulator"/>
+	<bean id="gpMarketingPopulator" class="com.gp.commerce.gpcommerceaddon.populators.GPMarketingPopulator"></bean>
+	
+	<alias name="gpIndustrialSolutionsPopulator" alias="gpIndustrialSolutionsPopulator"/>
+	<bean id="gpIndustrialSolutionsPopulator" class="com.gp.commerce.gpcommerceaddon.populators.GPIndustrialSolutionsPopulator"></bean>
+	
+	<alias name="gpCheckoutFooterNavigationPopulator" alias="gpCheckoutFooterNavigationPopulator"/>
+	<bean id="gpCheckoutFooterNavigationPopulator" class="com.gp.commerce.gpcommerceaddon.populators.GPCheckoutFooterNavigationPopulator"></bean>
+	
+	<alias name="gpBrandBarPopulator" alias="gpBrandBarPopulator"/>
+	<bean id="gpBrandBarPopulator" class="com.gp.commerce.gpcommerceaddon.populators.GPBrandBarPopulator"></bean>
+	
+	<alias name="gpBundleImagePopulator" alias="gpBundleImagePopulator"/>
+	<bean id="gpBundleImagePopulator" class="com.gp.commerce.gpcommerceaddon.populators.GPBundleImagePopulator"></bean>
+	
+	<alias name="footerNavigationPopulator" alias="footerNavigationPopulator"/>
+	<bean id="footerNavigationPopulator" class="com.gp.commerce.gpcommerceaddon.populators.FooterNavigationPopulator"></bean>
+			
+	<alias name="gpImageTileFacade" alias="gpImageTileFacade"/>
+	<bean id="gpImageTileFacade" class="com.gp.commerce.gpcommerceaddon.facades.impl.GPDefaultImageTileFacade"></bean>
+	
+	<alias name="gpBannerImageComponentFacade" alias="gpBannerImageComponentFacade"/>
+	<bean id= "gpBannerImageComponentFacade" class= "com.gp.commerce.gpcommerceaddon.facades.impl.GPDefaultBannerImageComponentFacade"></bean>
+	
+	<alias name="gpBannerImageTextFacade" alias="gpBannerImageTextFacade"/>
+	<bean id= "gpBannerImageTextFacade" class="com.gp.commerce.gpcommerceaddon.facades.impl.GPDefaultBannerImageTextFacade"></bean>
+	
+	<alias name="gpBannerImageDataFacade" alias="gpBannerImageDataFacade"/>
+	<bean id= "gpBannerImageDataFacade" class="com.gp.commerce.gpcommerceaddon.facades.impl.GPDefaultBannerImageDataFacade"></bean>
+	
+	<alias name="gpFooterDataFacade" alias="gpFooterDataFacade"/>
+	<bean id= "gpFooterDataFacade" class="com.gp.commerce.gpcommerceaddon.facades.impl.GPDefaultFooterDataFacade"></bean>
+	
+	<alias name="gpImageAndTextDataFacade" alias="gpImageAndTextDataFacade"/>
+	<bean id="gpImageAndTextDataFacade" class="com.gp.commerce.gpcommerceaddon.facades.impl.GPDefaultImageAndTextDataFacade"></bean>
+	
+	<alias name="gpImageComponentFacade" alias="gpImageComponentFacade"/>
+	<bean id="gpImageComponentFacade" class="com.gp.commerce.gpcommerceaddon.facades.impl.GPDefaultImageComponentFacade"></bean>
+	
+	<alias name="gpImageTextFacade" alias="gpImageTextFacade"/>
+	<bean id="gpImageTextFacade" class="com.gp.commerce.gpcommerceaddon.facades.impl.GPDefaultImageTextFacade"></bean>
+	
+	<alias name="gpJspIncludePropertiesFacade" alias="gpJspIncludePropertiesFacade"/>
+	<bean id="gpJspIncludePropertiesFacade" class="com.gp.commerce.gpcommerceaddon.facades.impl.GPDefaultJspIncludePropertiesFacade"></bean>
+	
+	<alias name="gpRotatingImagesFacade" alias="gpRotatingImagesFacade"/>
+	<bean id="gpRotatingImagesFacade" class="com.gp.commerce.gpcommerceaddon.facades.impl.GPDefaultRotatingImagesFacade"></bean>
+	
+	<alias name="gpTipsAndKnowledgeInfoFacade" alias="gpTipsAndKnowledgeInfoFacade"/>
+	<bean id="gpTipsAndKnowledgeInfoFacade" class="com.gp.commerce.gpcommerceaddon.facades.impl.GPDefaultTipsAndKnowledgeInfoFacade"></bean>
+		
+	<alias name="gpProductCarouselFacade" alias="gpProductCarouselFacade"/>	
+	<bean id="gpProductCarouselFacade" class="com.gp.commerce.gpcommerceaddon.facades.impl.GPDefaultProductCarouselFacade"></bean>
+
+	<alias name="maridgrasNapkinsFacade" alias="maridgrasNapkinsFacade"/>
+	<bean id="maridgrasNapkinsFacade" class="com.gp.commerce.gpcommerceaddon.facades.impl.DefaultMaridgrasNapkinsFacade"></bean>
+
+	<alias name="mardigrasVideoFacade" alias="mardigrasVideoFacade"/>
+	<bean id="mardigrasVideoFacade" class="com.gp.commerce.gpcommerceaddon.facades.impl.DefaultMardigrasVideoFacade"></bean>
+	
+	<alias name="mardigrasBoredomFacade" alias="mardigrasBoredomFacade"/>
+	<bean id="mardigrasBoredomFacade" class="com.gp.commerce.gpcommerceaddon.facades.impl.DefaultMardigrasBoredomFacade"></bean>
+	
+	<alias name="mardigrasHeaderNavigationFacade" alias="mardigrasHeaderNavigationFacade"/>
+	<bean id="mardigrasHeaderNavigationFacade" class="com.gp.commerce.gpcommerceaddon.facades.impl.DefaultMardigrasHeaderNavigationFacade"></bean>
+	
+	<alias name="mardigrasOurPacksFacade" alias="mardigrasOurPacksFacade"/>
+	<bean id="mardigrasOurPacksFacade" class="com.gp.commerce.gpcommerceaddon.facades.impl.DefaultMardigrasOurPacksFacade"></bean>
+	
+	<alias name="gpXpressHeaderNavigationFacade" alias="gpXpressHeaderNavigationFacade"/>
+	<bean id="gpXpressHeaderNavigationFacade" class="com.gp.commerce.gpcommerceaddon.facades.impl.DefaultGPXpressHeaderNavigationFacade"></bean>
+	
+	<alias name="gpProductSolutionFacade" alias="gpProductSolutionFacade"/>
+	<bean id="gpProductSolutionFacade" class="com.gp.commerce.gpcommerceaddon.facades.impl.DefaultGPProductSolutionFacade"></bean>
+	
+	<alias name="gpNavigationFacade" alias="gpNavigationFacade"/>
+	<bean id="gpNavigationFacade" class="com.gp.commerce.gpcommerceaddon.facades.impl.GPDefaultNavigationFacade"></bean>
+	
+	<alias name="gpMarketingSidebySideFacade" alias="gpMarketingSidebySideFacade"/>
+	<bean id="gpMarketingSidebySideFacade" class="com.gp.commerce.gpcommerceaddon.facades.impl.GPDefaultMarketingSidebySideFacade"></bean>
+	
+	<alias name="gpMarketingFacade" alias="gpMarketingFacade"/>
+	<bean id="gpMarketingFacade" class="com.gp.commerce.gpcommerceaddon.facades.impl.GPDefaultMarketingFacade"></bean>
+	
+	<alias name="gpIndustrialSolutionsFacade" alias="gpIndustrialSolutionsFacade"/>
+	<bean id="gpIndustrialSolutionsFacade" class="com.gp.commerce.gpcommerceaddon.facades.impl.GPDefaultIndustrialSolutionsFacade"></bean>
+	
+	<alias name="gpBrandBarFacade" alias="gpBrandBarFacade"/>
+	<bean id="gpBrandBarFacade" class="com.gp.commerce.gpcommerceaddon.facades.impl.GPDefaultBrandBarFacade"></bean>
+	
+	<alias name="gpCheckoutFooterNavigationFacade" alias="gpCheckoutFooterNavigationFacade"/>
+	<bean id="gpCheckoutFooterNavigationFacade" class="com.gp.commerce.gpcommerceaddon.facades.impl.GPDefaultCheckoutFooterNavigationFacade"></bean>
+	
+	<alias name="gpBundleImageFacade" alias="gpBundleImageFacade"/>
+	<bean id="gpBundleImageFacade" class="com.gp.commerce.gpcommerceaddon.facades.impl.GPDefaultBundleImageFacade"></bean>
+	
+	<alias name="footerNavigationFacade" alias="footerNavigationFacade"/>
+	<bean id="footerNavigationFacade" class="com.gp.commerce.gpcommerceaddon.facades.impl.DefaultFooterNavigationFacade"></bean>
+	
+	
+</beans>

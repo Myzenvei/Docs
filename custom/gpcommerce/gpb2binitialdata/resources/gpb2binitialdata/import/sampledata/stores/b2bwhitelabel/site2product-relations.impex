@@ -1,0 +1,5 @@
+$siteUid=b2bwhitelabel
+$productCatalog=gpUSProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Online'])[unique=true,default=$productCatalog:'Online']
+
+INSERT_UPDATE Site2product ; target(code,$catalogVersion)[unique=true] ; source(uid[default=$siteUid])[unique=true]

@@ -1,0 +1,238 @@
+############################################  email-content.impex   GPEmployee ####################################
+$contentCatalog=gpemployeeContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$wideContent=CMSImageComponent,BannerComponent,CMSLinkComponent
+$jarEmailResourceCms=jar:com.gp.commerce.initialdata.constants.GpcommerceInitialDataConstants&/gpcommerceinitialdata/import/coredata/contentCatalogs/gpemployeeContentCatalog/emails
+
+# Import modulegen config properties into impex macros
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+$jarResourceCms=$config-jarResourceCmsValue                                                                
+$emailPackageName=$config-emailContextPackageName                                                          
+
+INSERT_UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]                    ; name                                    ; masterTemplate(uid,$contentCV)              ; defaultPage ; approvalStatus(code)[default='approved'] ; fromEmail[lang=en]          ; fromName[lang=en]     
+		 				;						  ;OrderIssuesNotifyEmail				;Order Issue Notification Email			  ;OrderIssuesNotifyEmailTemplate				;true		  ;											 ;customerservices@hybris.com  ;Customer Services Team						
+
+INSERT_UPDATE EmailPageTemplate ; $contentCV[unique=true] ; uid[unique=true]               ; name                                                                       ; active ; frontendTemplateName   ; subject(code)                                   ; htmlTemplate(code)                        ; restrictedPageTypes(code)
+
+                                ;                         ; OrderIssuesNotifyEmailTemplate ; Order Issues Notification EmailTemplate                                    ; true   ; orderIssuesNotifyEmail ; gpemployee_Email_Share_Product_Resource_Subject ; gpemployee_Email_Order_Issues_Notify_Body ; EmailPage                
+
+
+UPDATE EmailPageTemplate        ; $contentCV[unique=true] ; uid[unique=true]               ; velocityTemplate[translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+
+                                ;                         ; OrderIssuesNotifyEmailTemplate ; $jarEmailResource/structure-view/structure_shareOrderIssuesEmailTemplate.vm
+
+                                
+INSERT_UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]       ; name                           ; masterTemplate(uid,$contentCV) ; defaultPage ; approvalStatus(code)[default='approved'] ; fromEmail[lang=en]          ; fromName[lang=en]     
+
+                        ;                         ; OrderIssuesNotifyEmail ; Order Issue Notification Email ; OrderIssuesNotifyEmailTemplate ; true        ;                                          ; customerservices@hybris.com ; Customer Services Team
+
+		                      
+UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]       ; previewImage(code, $contentCV)
+                 ;                         ; OrderIssuesNotifyEmail ; EmailPageModel_preview        
+
+				             
+				             
+				             
+##########################################    email-content_en.impex  GPEmployee ############################################
+$contentCatalog=gpemployeeContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$jarEmailResource=jar:com.gp.commerce.initialdata.constants.GpcommerceInitialDataConstants&/gpcommerceinitialdata/import/coredata/contentCatalogs/gpemployeeContentCatalog/emails
+
+# Import config properties into impex macros for modulegen
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+$emailResource=$config-emailResourceValue                                                                  
+
+# Language                                                                                                 
+$lang=en  
+
+UPDATE RendererTemplate ; code[unique=true]                            ; description[lang=$lang]          ; templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                        ; gpemployee_Email_Order_Issues_Notify_Body    ; "Order Issues Notification BOdy" ; $jarEmailResource/email-orderIssuesNotificationBody.vm                                                        
+                        ; gpemployee_Email_Order_Issues_Notify_Subject ; "Order Issues Notification BOdy" ; $jarEmailResource/email-orderIssuesNotificationSubject.vm                                                     
+ 				                   
+				                    
+UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]             ; fromEmail[lang=$lang]                ; fromName[lang=$lang]    
+                 ;                         ; CustomerRegistrationEmail    ; "customerservices@shop-gp.com"       ; "Customer Services Team"
+                 ;                         ; PasswordResetEmail           ; "customerservices@shop-gp.com"       ; "Customer Services Team"
+                 ;                         ; DeliverySentEmail            ; "customerservices@shop-gp.com"       ; "Customer Services Team"
+                 ;                         ; ForgottenPasswordEmail       ; "customerservices@shop-gp.com"       ; "Customer Services Team"
+                 ;                         ; ShareCartEmail               ; "customerservice@shop-gp.com"        ; "Customer Services Team"
+                 ;                         ; OrderCancelledEmail          ; "customerservices@shop-gp.com"       ; "Customer Services Team"
+                 ;                         ; OrderCollectionReminderEmail ; "customerservices@shop-gp.com"       ; "Customer Services Team"
+                 ;                         ; OrderConfirmationEmail       ; "customerservices@shop-gp.com"       ; "Customer Services Team"
+                 ;                         ; OrderMoveToCsEmail           ; "customerservices@shop-gp.com"       ; "Customer Services Team"
+                 ;                         ; OrderPartiallyCanceledEmail  ; "customerservices@shop-gp.com"       ; "Customer Services Team"
+                 ;                         ; OrderPartiallyRefundedEmail  ; "customerservices@shop-gp.com"       ; "Customer Services Team"
+                 ;                         ; OrderRefundEmail             ; "customerservices@shop-gp.com"       ; "Customer Services Team"
+                 ;                         ; ReadyForPickupEmail          ; "customerservices@shop-gp.com"       ; "Customer Services Team"
+                 ;                         ; ShareWishlistEmail           ; "customerservice@shop-gp.com"        ; "Customer Services Team"
+                 ;                         ; ChangeUIDEmail               ; "customerservices@shop-gp.com"       ; "Customer Services Team"
+                 ;                         ; UpdateProfileEmail           ; "customerservices@shop-gp.com"       ; "Customer Services Team"
+                 ;                         ; FailedOrderEmail             ; "customerservices@shop-gp.com"       ; "Customer Services Team"
+                 ;                         ; OrderRejectEmail             ; "customerservices@shop-gp.com"       ; "Customer Services Team"
+                 ;                         ; OrderIssuesNotifyEmail       ; "customerservices@b2bwhitelabel.com" ; "Customer Services Team"
+
+
+#$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+##########################################  site.impex  GPEmployee         ############################################
+$productCatalog=gpUSProductCatalog
+$contentCatalog=gpemployeeContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$defaultLanguage=en
+$storeUid=gpemployee
+$siteUid=gpemployee
+$webServiceSiteUid=$siteUidWS
+$siteMapUrlLimitPerFile=50000
+$storefrontContextRoot=/gpcommercestorefront
+$siteMapLangCur=enUsd
+$siteMapPage=Homepage,Product,CategoryLanding,Category,Store,Content,Custom
+$customSiteMapUrls=/Kategorien/c/categories?q=:relevance:allPromotions:BOGOFApparel:allPromotions:10DiscountShoes:allPromotions:MultiBuyApparel:allPromotions:PerfectPartnerApparel:allPromotions:ProductBundleApparel,/Kategorien/Snowwear-Women/Snowboard-Jacken-Women/c/200100?q=%3Arelevance%3AswatchColors%3AORANGE&text=#,/Kategorien/Streetwear-Women/T-Shirts-Women/c/260100?q=%3Arelevance%3AswatchColors%3AGREEN&text=#,/Kategorien/Accessoires-Women/Taschen-Women/c/160400?q=%3Arelevance%3AswatchColors%3ABROWN&text=#,/Kategorien/Bekleidung/Schuhe/Sandals/c/sandals?q=%3Arelevance%3Abrand%3AReef%3AswatchColors%3AWHITE&text=#
+
+# Import config properties into impex macros
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+
+# Import modulegen config properties into impex macros
+$jarResource=$config-jarResource
+
+# SiteMap Configuration
+INSERT_UPDATE SiteMapLanguageCurrency;&siteMapLanguageCurrency;language(isoCode)[unique=true];currency(isocode)[unique=true];
+;enUsd;en;USD;
+
+INSERT_UPDATE CatalogUnawareMedia;&siteMapMediaId;code[unique=true];realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime[default='text/plain']
+;$siteUid-siteMapMedia;$siteUid-siteMapMedia;siteMapTemplate.vm;$jarResource/site-siteMapTemplate.vm;
+
+INSERT_UPDATE RendererTemplate;&siteMapRenderer;code[unique=true];content(&siteMapMediaId);contextClass;rendererType(code)[default='velocity'];
+;$siteUid-siteMapTemplate;$siteUid-siteMapTemplate;$siteUid-siteMapMedia;de.hybris.platform.acceleratorservices.sitemap.renderer.SiteMapContext;
+
+
+
+##########################################  site-responsive.impex  GPEmployee         ############################################
+$productCatalog=gpUSProductCatalog
+$contentCatalog=gpemployeeContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$defaultLanguage=en
+$storeUid=gpemployee
+$siteUid=gpemployee
+$webServiceSiteUid=$siteUidWS
+$siteMapUrlLimitPerFile=50000
+$storefrontContextRoot=/gpcommercestorefront
+$siteMapLangCur=enUsd
+$siteMapPage=Homepage,Product,CategoryLanding,Category,Store,Content,Custom
+$customSiteMapUrls=/Kategorien/c/categories?q=:relevance:allPromotions:BOGOFApparel:allPromotions:10DiscountShoes:allPromotions:MultiBuyApparel:allPromotions:PerfectPartnerApparel:allPromotions:ProductBundleApparel,/Kategorien/Snowwear-Women/Snowboard-Jacken-Women/c/200100?q=%3Arelevance%3AswatchColors%3AORANGE&text=#,/Kategorien/Streetwear-Women/T-Shirts-Women/c/260100?q=%3Arelevance%3AswatchColors%3AGREEN&text=#,/Kategorien/Accessoires-Women/Taschen-Women/c/160400?q=%3Arelevance%3AswatchColors%3ABROWN&text=#,/Kategorien/Bekleidung/Schuhe/Sandals/c/sandals?q=%3Arelevance%3Abrand%3AReef%3AswatchColors%3AWHITE&text=#
+
+# Remove black and blue themes for responsive
+REMOVE SiteTheme;code[unique=true]
+;black
+;blue
+
+# Import config properties into impex macros
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+
+# Import modulegen config properties into impex macros
+$jarResource=$config-jarResource
+
+
+# SiteMap Configuration
+INSERT_UPDATE SiteMapLanguageCurrency;&siteMapLanguageCurrency;language(isoCode)[unique=true];currency(isocode)[unique=true];
+;enUsd;en;USD;
+
+INSERT_UPDATE CatalogUnawareMedia;&siteMapMediaId;code[unique=true];realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime[default='text/plain']
+;$siteUid-siteMapMedia;$siteUid-siteMapMedia;siteMapTemplate.vm;$jarResource/site-siteMapTemplate.vm;
+
+INSERT_UPDATE RendererTemplate;&siteMapRenderer;code[unique=true];content(&siteMapMediaId);contextClass;rendererType(code)[default='velocity'];
+;$siteUid-siteMapTemplate;$siteUid-siteMapTemplate;$siteUid-siteMapMedia;de.hybris.platform.acceleratorservices.sitemap.renderer.SiteMapContext;
+
+
+UPDATE CMSSite ; uid[unique=true] ; siteConfig                             
+               ; $siteUid         ; "addToAffilatedMarketComm.us.b2c->true ; addToMarket.us.b2c->true ; addToAffilatedMarketComm.ca.b2c->false ; addToMarket.ca.b2c->false ; addToAffilatedMarketComm.other.b2c->false ; addToMarket.other.b2c->false ; default.max.product.quantity->100 ; gp_bvId->gppro_test ; root.category->categories ; isFavoritesEnabled->true ; gp_mpQues->How frequently would you like to hear from us? ; socialaggrstartdate.b2c-> ; socialaggrenddate.b2c-> ; socialaggrfeedId.b2c->travel-08efe5d2-63c3-4b99-bc32-c97c29024269 ; socialaggrdataPer.b2c-> ; socialaggrpages.b2c-> 2 ; socialaggrtruncate.b2c-> ; socialaggrgutter.b2c->20 ; socialaggrcolumns.b2c->4 ; socialaggrinterval.b2c-> ; socialaggrfilter.b2c-> ; socialaggrstyle.b2c->widget ; socialaggroverlay.b2c-> ; isSocialEnabled->true ; isSocialShareforFBEnabled->true ; isSocialShareForTwitterEnabled->true ; isSocialShareForLinkedInEnabled->false ; isSocialShareForPinterestEnabled->true ; GTMID->GTM-TRVPTX7 ; google.maps.api.key->AIzaSyDk2KFvE5UgpLcYM4nVlOLSRDWqPMB1bNI ; showCompanyLinks->false ; showTaxExemption->false ; contactNumber->800-975-9462 ; termAndCondPageLabel->/terms-of-use ; gpYMarketingSiteId->ZSHOPGP ; ymarketing.permissions.id.origin.create->ZSHOPGP ; ymarketing.permissions.id.origin.update->EMAIL ; ymarketing.source.system.id->ZSHOPGP ; ymarketing.marketing.area.id->ZDIGITALRM ; isBazaarVoiceEnabled->false ; showDownload->false ; bv_feed_file_name->bv_angelsoft_ratings ; isRelatedEnabled->false ; isDownloadable->false ; isExcelDownloadable->false ; isSharable->true ; isBulkEnabled->false ; isDOBEnabled->false ; isGenderEnabled->false"
+
+
+
+
+
+##########################################  solr.impex  GPEmployee         ############################################
+$productCatalog=gpUSProductCatalog
+$catalogVersions=catalogVersions(catalog(id),version);
+$facetSearchConfigName=gpemployeeIndex
+$facetSearchConfigDescription=GP Employee Solr Index
+$searchIndexNamePrefix=gpemployee
+$solrIndexedType=gpemployeeProductType
+$indexBaseSite=gpemployee
+$indexLanguages=en
+$indexCurrencies=USD
+$solrServerUrl=$config-solrServerUrl
+
+# Import config properties into impex macros
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+$solrServerUrl=$config-solrServerUrl
+#
+# Setup the indexed types, their properties, and the update queries
+#
+
+# Removes old http endpoints
+REMOVE SolrEndpointUrl ; solrServerConfig(name)[unique=true] ; url[unique=true]          
+                       ; Default                             ; https://localhost:8983/solr
+
+
+# Updates the endpoints for the Solr server configurations
+INSERT_UPDATE SolrEndpointUrl ; solrServerConfig(name)[unique=true] ; url[unique=true]            ; master
+                              ; Default                             ; $solrServerUrl		      ; true  
+ 
+
+# Declare the indexed type Product
+INSERT_UPDATE SolrIndexedType;identifier[unique=true];type(code);variant;sorts(&sortRefID)
+; $solrIndexedType        ; PriceRow    ; false   ; sortRef1,sortRef2,sortRef3
+#sortRef4
+
+INSERT_UPDATE SolrFacetSearchConfig;name[unique=true];description;indexNamePrefix;languages(isocode);currencies(isocode);solrServerConfig(name);solrSearchConfig(description);solrIndexConfig(name);solrIndexedTypes(identifier);enabledLanguageFallbackMechanism;$catalogVersions
+;$facetSearchConfigName;$facetSearchConfigDescription;$searchIndexNamePrefix;$indexLanguages;$indexCurrencies;Default;Default;Default;$solrIndexedType;true;$productCatalog:Online,$productCatalog:Staged
+
+UPDATE BaseSite;uid[unique=true];solrFacetSearchConfiguration(name)
+;$indexBaseSite;$facetSearchConfigName
+
+INSERT_UPDATE SolrIndexedType ; identifier[unique=true] ; type(code) ; variant ; sorts(&sortRefID)         
+                              ; $solrIndexedType        ; PriceRow   ; false   ; sortRef1,sortRef2,sortRef3
+#sortRef4                     
+
+INSERT_UPDATE SolrValueRangeSet ; name[unique=true] ; qualifier ; type   ; solrValueRanges(&rangeValueRefID)                                                   
+                                ; gpRatingsRangeUSD ; USD       ; double ; rangeRefRatings1,rangeRefRatings2,rangeRefRatings3,rangeRefRatings4,rangeRefRatings5
+
+INSERT_UPDATE SolrValueRange ; &rangeValueRefID ; solrValueRangeSet(name)[unique=true] ; name[unique=true] ; from ; to  
+                             ; rangeRefRatings5 ; gpRatingsRangeUSD                    ; 0 Stars & Up      ; 0    ; 0.99
+                             ; rangeRefRatings4 ; gpRatingsRangeUSD                    ; 1 Star & Up       ; 1    ; 5.00
+                             ; rangeRefRatings3 ; gpRatingsRangeUSD                    ; 2 Stars & Up      ; 2    ; 5.00
+                             ; rangeRefRatings2 ; gpRatingsRangeUSD                    ; 3 Stars & Up      ; 3    ; 5.00
+                             ; rangeRefRatings1 ; gpRatingsRangeUSD                    ; 4 Stars & Up      ; 4    ; 5.00
+# Define the available sorts
+INSERT_UPDATE SolrSort;&sortRefID;indexedType(identifier)[unique=true];code[unique=true];useBoost
+;sortRef1;$solrIndexedType;relevance;true
+;sortRef2;$solrIndexedType;price-asc;false
+;sortRef3;$solrIndexedType;price-desc;false
+;sortRef4;$solrIndexedType;numberOfReviews-desc;false      
+
+
+##########################################  solr_en.impex  GPEmployee         ############################################
+$solrIndexedType=gpemployeeProductType
+
+# Language
+$lang=en
+
+UPDATE SolrIndexedProperty ; solrIndexedType(identifier)[unique=true] ; name[unique=true] ; displayName[lang=$lang]
+                           ; $solrIndexedType                         ; rating            ; "Ratings"              
+
+UPDATE SolrSort ; indexedType(identifier)[unique=true] ; code[unique=true]    ; name[lang=$lang]
+                ; $solrIndexedType                     ; numberOfReviews-desc ; "Average Rating"   
+
+                     ##########################################  store.impex  GPEmployee         ############################################
+$shippingCountries=$unitedStates,$canada
+
+
+##########################################    cms-content.impex GPEMPLOYEECONTENTCATALOG    ########################################## 
+INSERT_UPDATE CMSLinkComponent ; $contentCV[unique=true] ; uid[unique=true]        ; name                             ; url                                            ; category(code, $productCV) ; target(code)[default='sameWindow'] ;  ; socialLink[default=false] ; markAsViewAll[default=false]
+                               ;                         ; FacebookLink            ; Facebook Link                    ; https://www.gppro.com/                         ;                            ; newWindow                          ;  ; true                      ;                             
+                               ;                         ; TwitterLink             ; Twitter Link                     ; https://twitter.com/GPProfessional             ;                            ; newWindow                          ;  ; true                      ;                             
+                               ;                         ; InstagramLink           ; Instagram Link                   ; https://www.gppro.com/                         ;                            ; newWindow                          ;  ; true                      ;                             
+                               ;                         ; PinterestLink           ; Pinterest Link                   ; https://www.gppro.com/                         ;                            ; newWindow                          ;  ; true                      ;                             
+                               ;                         ; YouTubeLink             ; Youtube Link                     ; https://www.youtube.com/user/GeorgiaPacificPro ;                            ; newWindow                          ;  ; true                      ;                             
+                               ;                         ; LinkedInLink            ; LinkedIn Link                    ; https://www.linkedin.com/company/gppro/        ;                            ; newWindow                          ;  ; true                      ;                             
+                               ;                         ; SnapchatLink            ; Snapchat Link                    ; https://www.gppro.com/                         ;                            ; newWindow                          ;  ; true                      ;                             

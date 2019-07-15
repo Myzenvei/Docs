@@ -1,0 +1,27 @@
+.vx-live-agent-btn {
+  position: fixed;
+  right: -33px;
+  top: 50%;
+  transform: rotate(-90deg);
+  z-index: 6;
+  height: auto;
+  width: auto;
+  .icon-container {
+    transform: rotate(90deg);
+    padding-top: 8px;
+    .icon-message-square {
+      color: @btn-tertiary-color;
+    }
+  }
+  .btn {
+    font-size: @font-size-small;
+    color: @btn-tertiary-color;
+    height: auto;
+    line-height: initial;
+    padding: 6px;
+    &[disabled] {
+      background-color: @live-chat-disabled-btn-color;
+      border-color: @live-chat-disabled-btn-color;
+    }
+  }
+}

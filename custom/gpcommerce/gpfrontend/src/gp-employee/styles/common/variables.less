@@ -1,0 +1,492 @@
+/**
+/**  Variables
+/**  --------------------------------------------------
+
+/** == Colors
+/**
+/** ## brand colors for use across site. **/
+
+@brand-primary: #0074e4; // changed as per header color
+@brand-secondary: #f5ae23; // to be changed as per primary button hover color
+@brand-tertiary: #e32626; // cahged as per error color
+
+@brand-swap-secondary: #f7bd2b; /** light yellow **/
+
+@brand-secondary-2: #0274e5; // changed as per Apply promo button
+@brand-secondary-3: #5eb6e3; // promo text section in tiles is not there
+@brand-secondary-4: #ffffff;
+@brand-secondary-5: #747678;
+@brand-secondary-6: #a0a0a0; // changed from mini cart tax text
+@brand-secondary-7: #81bc02; // not used
+@brand-secondary-8: #fafafa; // cant find state
+@brand-secondary-9: #000000;
+@brand-secondary-10: #c6c6c6;
+@brand-secondary-11: #f9f9f9; // not used
+@brand-secondary-12: #f1f2f4; // to change body background
+@brand-secondary-13: #393939;
+@brand-secondary-14: #4d4e50;
+/** Flyout Colors **/
+@flyout-default-bg-color: #f4f4f4;
+@flyout-success-bg-color: #7ed321;
+@flyout-success-border-color: #7ed321;
+@flyout-alert-border-color: #0074e4;
+@flyout-error-border-color: #e32626;
+@flyout-success-text-color: #ffffff;
+@success-text-color: #417505;
+@error-border-color: #e32626;
+@alert-border-color: #0074e4;
+@flyout-error-text-color: #ffffff;
+@flyout-error-bg-color: #e32626;
+/** Flyout Colors End here **/
+
+/**  Background color for `<body>`. **/
+@body-bg: #f1f2f4;
+@modal-bg: rgba(68, 61, 61, 0.5);
+/** *******Typography Colors********* **/
+@text-color: #222222; // two text colours used, other one is #201f1f
+@text-color-secondary: #a0a0a0;
+@text-color-secondary-2: #ffffff;
+@text-color-secondary-3: #0274e5;
+@text-color-secondary-4: #201f1f;
+@text-color-error: #e32626; // #fd0202 at one place
+@link-color: @brand-primary;
+@link-hover-color: @brand-primary;
+@headline-color: @link-hover-color;
+@help-text-background-color: #eff6fa;
+@help-text-color: #969292;
+@product-tile-savings-color: #417505;
+@product-tile-link-color: #167bb4;
+@success-text-background-color: #eef5e7;
+@success-icon-color: #b7d975;
+@input-disabled-color: #eee;
+@error-page-font-color: #222222;
+
+@text-color-secondary-2: #ffffff;
+@text-color-heading: #353333;
+
+// #322B2A text color in header
+// #3E3838 for product tile horizontal
+// #272525 in subscription tile
+// #625656 in payment cards and for name in address cards
+// #167bb4, (#006198, #0074e4) for links
+// #75A742 for savings in order summary
+// #3C3938 text color footer
+// #353333-empty cart page/labels and #151414-homepage heading
+// #969292 help text
+
+/** == Borders **/
+@border-color: #c6c6c6;
+@border-color-2: #e5e5e5;
+@border-color-3: #cccccc;
+@border-color-4: #dfdfdf;
+@border-color-5: #0274e5;
+@border-color-6: #dddddd;
+@border-color-7: #979797;
+@border-color-8: #a8d156;
+@filter-section-border-color: #dfdfdf;
+@file-dropbox-border-color: #aaaaaa;
+
+/** == Typography **/
+
+// Three font families: Poppins, Avenir, Gotham
+// and varied font-weights for different families -- 300, 500, 600, 900-- Avenir
+@font-family-gotham: 'Gotham A', 'Gotham B', Helvetica, Roboto, Arial,
+  sans-serif;
+@font-family-poppins: 'Poppins', sans-serif;
+/**  dont use this on other files **/
+/**  Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`. **/
+@font-family-monospace: Menlo, Monaco, Consolas, 'Courier New', monospace;
+@font-family-base: @font-family-poppins; /** use this variable for the fonts **/
+
+@font-weight-light: 300;
+@font-weight-regular: 400;
+@font-weight-medium: 500;
+@font-weight-bold: 700;
+
+@font-size-base: 14px;
+
+@font-size-large: 16px;
+@font-size-medium: 14px;
+@font-size-small: 12px;
+
+@font-size-xs-h1: 21px; // 30px and 32px used
+
+@font-size-h1: 32px; // 36px at a couple of places
+@font-size-h2: 24px;
+@font-size-h3: 21px;
+@font-size-h4: 16px;
+@font-size-h5: 14px;
+@font-size-h6: 12px;
+
+@font-family-heading: @font-family-base;
+
+/**  Unit-less `line-height` for use in components like buttons. **/
+@line-height-base: 1.428571429; /**  20/14 **/
+/**  Computed "line-height" (`font-size` * `line-height`) for use with `margin`, `padding`, etc.  **/
+@line-height-computed: floor(
+  (@font-size-base * @line-height-base)
+); /**  ~20px **/
+@line-height-medium: 24px;
+
+/** spacer **/
+@s: 8px;
+
+@assets-path: '/static/assets/';
+
+/** == Media queries breakpoints **/
+/** ## Define the breakpoints at which your layout will change, adapting to different screen sizes. **/
+
+/**  Extra small screen / phone **/
+/**  Deprecated `@screen-xs` as of v3.0.1 **/
+@screen-xs: 360px;
+/**  Deprecated `@screen-xs-min` as of v3.2.0 **/
+@screen-xs-min: @screen-xs;
+/**  Deprecated `@screen-phone` as of v3.0.1 **/
+@screen-phone: @screen-xs-min;
+
+/**  Small screen / tablet **/
+/**  Deprecated `@screen-sm` as of v3.0.1 **/
+@screen-sm: 768px;
+@screen-sm-min: @screen-sm;
+/**  Deprecated `@screen-tablet` as of v3.0.1 **/
+@screen-tablet: @screen-sm-min;
+
+/**  Medium screen / desktop **/
+/**  Deprecated `@screen-md` as of v3.0.1 **/
+@screen-md: 1200px;
+@screen-md-min: @screen-md;
+/**  Deprecated `@screen-desktop` as of v3.0.1 **/
+@screen-desktop: @screen-md-min;
+
+/**  Large screen / wide desktop **/
+/**  Deprecated `@screen-lg` as of v3.0.1 **/
+@screen-lg: 1200px;
+@screen-lg-min: @screen-lg;
+/**  Deprecated `@screen-lg-desktop` as of v3.0.1 **/
+@screen-lg-desktop: @screen-lg-min;
+
+/**  So media queries don't overlap when required, provide a maximum **/
+@screen-xs-max: (@screen-sm-min - 1);
+@screen-sm-max: (@screen-md-min - 1);
+@screen-md-max: (@screen-lg-min - 1);
+
+/** == Grid system **/
+/** ## Define your custom responsive grid. **/
+
+/**  Number of columns in the grid. **/
+@grid-columns: 12;
+/**  Padding between columns. Gets divided in half for the left and right. **/
+@grid-gutter-width: 32px;
+/**  Navbar collapse **/
+/**  Point at which the navbar becomes uncollapsed. **/
+@grid-float-breakpoint: @screen-sm-min;
+/**  Point at which the navbar begins collapsing. **/
+@grid-float-breakpoint-max: (@grid-float-breakpoint - 1);
+
+/** == Container sizes **/
+/** **/
+/** ## Define the maximum width of `.container` for different screen sizes. **/
+
+/**  Small screen / tablet **/
+@container-tablet: (720px + @grid-gutter-width);
+/**  For `@screen-sm-min` and up. **/
+@container-sm: @container-tablet;
+
+/**  Medium screen / desktop **/
+@container-desktop: (1140px + @grid-gutter-width);
+/**  For `@screen-md-min` and up. **/
+@container-md: @container-desktop;
+
+/**  Large screen / wide desktop **/
+@container-large-desktop: (1140px + @grid-gutter-width);
+/**  For `@screen-lg-min` and up. **/
+@container-lg: @container-large-desktop;
+
+/** buttons **/
+@font-size-button: 14px;
+@font-size-button-sm: 12px;
+
+/** Btn size **/
+@btn-height: 48px;
+@btn-width: 208px;
+
+/** Deafult Button State /** White **/
+@btn-default-color: #006198;
+@btn-default-bg: #ffffff;
+@btn-default-border: #afafaf;
+@btn-default-text-transform: capitalize;
+@btn-border-radius: 4px;
+
+@btn-default-hover-color: #006198;
+@btn-default-hover-border: #ffffff;
+@btn-default-hover-bg: #ffffff;
+
+/** Disabled section not given **/
+@btn-primary-disabled-bg: #000000;
+
+/** Visited Section not given **/
+
+/** Primary Button State /** Yellow **/
+@btn-primary-color: #ffffff;
+@btn-primary-bg: #0074e4;
+@btn-primary-border: #0074e4; /** not given **/
+@btn-primary-text-decoration: none;
+
+@btn-primary-hover-color: #ffffff;
+@btn-primary-hover-border: #0074e4; /** not given **/
+@btn-primary-hover-bg: #0074e4;
+@btn-primary-hover-text-decoration: none;
+
+/** Disabled section not given **/
+@btn-primary-disabled-bg: #000000;
+
+/** Visited Section not given **/
+
+/** Tertiary Button State **/
+@btn-tertiary-color: #32476e;
+@btn-tertiary-bg: #ffffff;
+@btn-tertiary-border: #afafaf;
+@btn-tertiary-text-decoration: none;
+
+@btn-tertiary-hover-color: #32476e;
+@btn-tertiary-hover-border: solid 1px #afafaf;
+@btn-tertiary-hover-bg: #ffffff;
+@btn-tertiary-hover-text-decoration: none;
+
+/** Error Button State for custom dropdowns **/
+@btn-error-border: #c6c6c6;
+@btn-error-bg: #ffffff;
+
+/** Disabled Section **/
+@btn-tertiary-disabled-bg: #000000;
+
+/** disabled button color **/
+@btn-disabled-bg: #e8e8e8;
+@btn-disabled-text-color: #747678;
+@btn-disabled-text-decoration: none;
+/** Visited Section **/
+
+/** error properties **/
+@font-size-error: 12px;
+@font-color-error: #e32626;
+
+/** checkbox properties **/
+@checkbox-label-color: #222222;
+@checkbox-not-checked-border: #cecece;
+@checkbox-not-checked-background: transparent; // transparent
+@checkbox-checked-background: #167bb4;
+@checkbox-text-font-weight: 400;
+@checkbox-default-font-size: 14px;
+
+/** tag properties **/
+@tag-border-color: #ffffff;
+@tag-default-color: #747678;
+@tag-font-size: 12px;
+@tag-background-color: #ffffff;
+
+/** input properties **/
+@font-size-input-text: 14px;
+@font-size-label-text: 14px;
+@font-color-input-text: #000000;
+@font-color-label-text: #353333;
+@font-color-profile-dots: #6f6c6c;
+@font-color-profile-icon: #4d4d4d;
+@bg-color-error: #ffffff;
+@border-color-input: #c6c6c6;
+@border-color-error: #c6c6c6;
+@border-radius-input: 4px;
+
+//not done
+/** dropdown properties **/
+@font-size-dropdown: 14px;
+@font-color-dropdown: #222222;
+@bg-color-menu-item: #fafafa;
+@bg-color-dropdown: #ffffff;
+// dropdown expanded state
+
+/**  stepper control properties **/
+@bg-color-stepper: transparent;
+@font-color-stepper: #222222;
+
+/** badge properties **/
+@bg-color-badge: #000000;
+@font-color-badge: #ffffff;
+@border-radius-badge: 50%;
+@font-size-badge: @font-size-small;
+@font-weight-badge: @font-weight-medium;
+@badge-height: 20px;
+@badge-width: 20px;
+
+/** radio button properties **/
+@font-color-radio-label: #222222;
+@font-size-radio-label: 16px;
+@border-color-radio-checked: #0274e5;
+@border-color-radio-unchecked: #747678;
+@bg-color-radio: #ffffff; // need to make transparent
+// checked radio styles
+
+/** font-icon-sizes **/
+@font-icon-size: 20px;
+@font-icon-size-1: 32px;
+@font-icon-size-2: 25px;
+@font-icon-size-3: 22px;
+@font-icon-color-1: #c6c6c6; // to check
+@font-icon-color-2: #a0a0a0; // not used anywhere
+@font-icon-color-3: #000000;
+@font-icon-color-disabled: #e8e8e8;
+
+/** Promotext Background **/
+@promo-background-color: @brand-primary;
+@promo-text-color: #ffffff;
+@promo-text-size: 10px;
+
+/** Coming soon banner Background **/
+@coming-soon-background-color: #a0a0a0;
+@coming-soon-text-color: #ffffff;
+
+/** header properties **/
+@background-nav-top: #006eb4;
+@background-nav-bottom: #ffffff;
+@background-nav-secondary-menu: #ffffff;
+@font-color-nav: #312b2b;
+@font-color-nav-top: #ffffff;
+@font-color-nav-mobile: #222222; // expanded hamburger not in design
+@font-color-nav-link: #0274e5; // no links this time
+@font-size-nav-icon-mobile: 20px; // to do
+@font-size-nav-icon-desktop: 24px; // to do
+@secondary-nav-box-shadow: 0 5px 8px -4px rgba(193, 183, 183, 0.5);
+@secondary-nav-border-radius: 4px;
+
+/** Mini Cart Border **/
+@mini-cart-border-color: #ffffff;
+
+/** Auto suggest **/
+@autosuggest-border-color: #ececec;
+@autosuggest-bg-color: #fafafa;
+
+/** footer colors **/
+@footer-background: #ffffff;
+@footer-sub-links: #3c3938;
+@footer-copy-right: #3c3938;
+@footer-background-mobile: #ffffff;
+@footer-social-block-background: @brand-secondary-8; //not needed
+@footer-border-color: @border-color-4; // not needed
+@footer-heading-color: #3c3938;
+
+/** Bazaar Voice Variables **/
+@bv-star-color-filled: #edde25;
+@bv-histogram-color-unfilled: #e3e4e4;
+@bv-fieldset-background-color: #ffffff;
+
+/** Tab Component **/
+@tab-background-color: transparent;
+@tab-background-color-active: #ffffff;
+@tab-header-text-color: #393939;
+@tab-font-weight: @font-weight-regular;
+@tab-backround-color-hover: transparent;
+@tab-selected-border-color: @tab-background-color; // keep same as tab-bg-color
+/** Profile Card Component **/
+@card-default-border-color: #c6c6c6;
+@card-disabled-background-color: #fafafa;
+@card-disabled-text-color: #747678;
+@add-card-border-color: @brand-primary;
+@add-card-background-color: #f4f9fc;
+@card-hyperlink-color: #bbb3b3;
+
+/** Favorite Heart Icon **/
+@fav-icon-fill-color: #0274e5;
+
+/** Checkbox Disabled State **/
+@checkbox-disabled-color: #c6c6c6;
+
+/** Breadcrumbs **/
+@breadcrumb-nav-link-color: #0274e5;
+@breadcrumb-seperator-color: #0274e5;
+@breadcrumb-background-color: @body-bg; // to check
+@breadcrumb-font-size: 14px;
+@breadcrumb-text-decoration: none;
+
+/** Modal Sizes Large, Medium, Small, Extra-Small **/
+@modal-desktop-large: 713px;
+@modal-tablet-large: 713px;
+@modal-mobile-large: 345px;
+
+@modal-desktop-medium: 593px;
+@modal-tablet-medium: 593px;
+@modal-mobile-medium: 345px;
+
+@modal-desktop-small: 390px;
+@modal-tablet-small: 390px;
+@modal-mobile-small: 345px;
+
+@modal-desktop-xs: 390px;
+@modal-tablet-xs: 390px;
+@modal-mobile-xs: 345px;
+
+@modal-top-bar-font-size: 24px;
+@modal-top-bar-border-bottom: 1px solid @brand-primary;
+@modal-top-bar-background-color: @brand-primary;
+@modal-heading-color: #ffffff;
+@modal-body-color: #ffffff;
+@modal-top-bar-dismiss-icn-size: 24px;
+@modal-top-bar-height: 70px;
+
+@modal-default-cta-width: 170px;
+@modal-default-cta-height: 50px;
+@modal-small-cta-width: 170px;
+@modal-small-cta-height: 50px;
+@modal-dual-cta-width: 230px;
+
+// Accordion properties
+@accordion-heading-color: #222222;
+@accordion-icon-color: #747678;
+
+// Social login properties
+@facebook-button-background-color: #3b5998;
+@google-button-background-color: #db4437;
+
+//TO UPDATE in emp store
+@hyperlink-text-decoration: underline;
+
+@card-layout-bg-color: #ffffff;
+@card-layout-border-radius: 4px;
+
+@product-tile-slashed-price-color: #ababab;
+@product-tile-text-color: #3e3838;
+@product-length-text-color: #9b9b9b;
+
+@autosuggest-tile-border-color: #ebebeb;
+
+@profile-card-bg-color: #eff0f4;
+@address-card-bg-color: #eaf4f9;
+@payment-card-bg-color: #eaf4f9;
+
+@left-nav-heading-border: #ececec;
+
+@font-size-section-heading: 18px;
+
+@horizontal-card-bg-color: @body-bg;
+
+@mini-cart-title-color: #3b3b3b;
+@mini-cart-title-border: #979797;
+@cart-tile-title-color: #3e3838;
+@cart-tile-quantity-color: #afafaf;
+@cart-tile-price-color: #404040;
+@cart-tile-bg-color: #fafafa;
+@mini-cart-shipping-message-color: #bcbcbc;
+
+@support-section-bg-color: #f6f6f6;
+@font-icon-color-4: #e1e1e1;
+@font-icon-color-5: #006eb4;
+@font-icon-color-6: #969696;
+@left-nav-selected-bg-color: transparent;
+@product-tile-savings-color-2: #75A742;
+@pdp-heading-color: #3e3838;
+@stepper-disabled-icon-color: #cecece;
+
+// PLP page banner Section
+@plp-banner-title-color: #222222;
+@plp-banner-title-bg: #ffffff;
+
+//star rating
+@star-stroke: #f7bd2b;

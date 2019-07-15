@@ -1,0 +1,172 @@
+## messageSource=classpath:/gpb2binitialdata/import/coredata/contentCatalogs/gpxpressContentCatalog/messages/email-shareProduct_$lang.properties
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style type="text/css">
+            body {
+                width: 100% !important;
+                -webkit-text-size-adjust: 100%;
+                -ms-text-size-adjust: 100%;
+                margin: 0;
+                font-family: 'Gotham A', 'Gotham B', lato, Helvetica, Roboto, Arial, sans-serif;
+                padding: 0;
+                word-break: break-word;
+            }
+            table.table-wrapper {
+                width: 800px;
+            }
+            table.table-body-wrapper {
+                width: 700px;
+            }
+            .header img {
+                max-width: 100%;
+            }
+            .product-image {
+                width: 142px;
+                height: 142px;
+            }
+            .product-image-container {
+                height: 142px;
+            }
+            @media screen and (max-width: 1199px) {
+                table.table-wrapper {
+                    width: 768px;
+                }
+
+                .content-slot {
+                    padding-left: 32px;
+                    padding-right: 32px;
+                }
+            }
+
+            @media screen and (max-width: 767px) {
+                table.table-wrapper {
+                    width: 100%;
+                }
+                table.table-body-wrapper {
+                    width: calc(100% - 32px);
+                }
+                .content-slot {
+                    padding-left: 16px;
+                    padding-right: 16px;
+                }
+                .product-image {
+                    width: 72px;
+                    height: 72px;
+                }
+                .product-image-container {
+                    height: 72px;
+                }
+            }
+        </style>
+    </head>
+
+    <body style="-webkit-text-size-adjust: none; -ms-text-size-adjust: none; text-size-adjust: none; margin: 0; padding: 0; width: 100%;">
+        <table cellspacing="0" cellpadding="0" align="center" border="0" bgcolor="#ffffff" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" class="table-wrapper">
+            <tr>
+                <td valign="top" align="left" width="100%" height="73px" style="border-collapse: collapse; font-family:'Gotham A', 'Gotham B', lato, Helvetica, Arial, Verdana, sans-serif;">
+                    #if(${ctx.soldTo} == true)
+                        <a href="${ctx.secureBaseUrl}" class="header">${ctx.cmsSlotContents.SiteLogoSoldTo}</a>
+                    #else
+                        <a href="${ctx.secureBaseUrl}" class="header">${ctx.cmsSlotContents.SiteLogo}</a>
+                    #end 
+                </td>
+            </tr>
+        </table>
+        <table cellspacing="0" cellpadding="0" align="center" border="0" bgcolor="#ffffff" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" class="table-body-wrapper">
+            <tr>
+                <td valign="top" align="left" width="100%" class="txt-xl txt-weight-light txt-default-color pt-4"
+                    style="font-size: 21px; color: #222222; line-height: 32px;font-weight: 300; padding: 24px 0 16px; font-family: Helvetica, Arial, Verdana, sans-serif;">
+                    ${ctx.displayName} ${ctx.messages.sharedProduct} 
+                </td>
+            </tr>
+            <tr>
+                <td valign="top" align="left" width="100%">
+                #foreach( $entry in ${ctx.shareProductData.entries} )
+                    <table cellspacing="0" cellpadding="0" align="left" bgcolor="#ffffff" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding: 0;">
+                        <tr>
+                            <td align="left" valign="top" style="padding: 16px 0 0;" class="product-image">
+                                #foreach($image in $entry.images)
+                                #if($image.imageType == "PRIMARY" && $image.format == "thumbnail" )
+                                <p style="margin:0; border: 1px solid #cecece;width:100%;padding:0;" class="product-image-container">
+                                    <img src="$image.url" alt="${image.altText}" title="${image.altText}" style="max-width: 100%;max-height: 100%" />
+                                </p>
+                                #end
+                                #end
+                            </td>
+                            <td width="78%" valign="top" style="padding: 16px 0 0 24px;">
+                                #if(${ctx.soldTo} == true)
+									<p class="txt-weight-light txt-medium pt-4" style="font-size:14px;margin: 0; padding: 4px 0; line-height: 1.5; letter-spacing: 0.4px; font-weight: 400; font-family: Helvetica, Arial, Verdana, sans-serif;">
+                                    $entry.pdtName
+                                    </p>
+                                    <p class="txt-weight-light txt-medium pt-4" style="font-size:14px;margin: 0; padding: 4px 0; line-height: 1.5; letter-spacing: 0.4px; font-weight: 400; font-family: Helvetica, Arial, Verdana, sans-serif;">
+                                    ${ctx.messages.productId} : $entry.code
+                                    </p>
+                                #else
+									<a class="txt-regular txt-weight-bold " href="${ctx.secureBaseUrl}$entry.url" style="font-size: 14px;font-weight: 500; display: block; text-decoration: none; outline: none; border: none;padding-bottom: 4px;">
+										$entry.pdtName
+									</a><br>
+                                    <a class="txt-regular txt-weight-bold " href="${ctx.secureBaseUrl}$entry.url" style="font-size: 14px;font-weight: 500; display: block; text-decoration: none; outline: none; border: none;padding-bottom: 4px;">
+                                        ${ctx.messages.productId} : $entry.code</br>
+                                    </a>
+                                #end
+								#if($entry.displayAttributes)
+								<p class="txt-weight-light txt-medium pt-4" style="font-size:14px;margin: 0; padding: 4px 0; line-height: 1.5; letter-spacing: 0.4px; font-weight: 400; font-family: Helvetica, Arial, Verdana, sans-serif;">
+                                    $entry.displayAttributes
+                                </p>       
+                                #end
+                                <p class="txt-weight-light txt-medium pt-4" style="font-size:14px;margin: 0; padding: 4px 0; line-height: 1.5; letter-spacing: 0.4px; font-weight: 400; font-family: Helvetica, Arial, Verdana, sans-serif;">
+                                    $entry.productDescription
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                    <table cellspacing="0" cellpadding="0" align="left" bgcolor="#ffffff" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding: 0;">
+                        #if(${ctx.addLink} == true && ${ctx.soldTo} != true)
+                        #if(${entry.videoEmpty} && ${entry.videoEmpty} == "notEmpty")
+                        <tr>
+                            <td valign="top" align="left" width="100%" style="padding-top: 24px;">
+                                <p class="txt-big txt-weight-semi-bold" style="margin: 0; padding: 0; line-height: 1.5; letter-spacing: 0.4px; font-size: 14px; font-weight: 500; font-family: Helvetica, Arial, Verdana, sans-serif;">
+                                    ${ctx.messages.moreInfo}
+                                </p>
+                            </td>
+                        </tr>
+                        #end
+                        #foreach($video in ${entry.productResourceVideos.video})
+                        <tr>
+                            <td valign="top" align="left" width="100%" style="padding: 10px 0;">
+                                <a class="txt-regular txt-weight-semi-bold" href="$video.url" 
+                                title="$video.name" style="margin: 0; padding: 0; line-height: 1.5; color: #167bb4; letter-spacing: 0.15px; font-size: 14px; font-weight: 400; display: block; text-decoration: none; outline: none; border: none; font-family: Helvetica, Arial, Verdana,sans-serif;" target="_blank">
+                                    <a style="color: #167BB4;" href="$video.resourceURL" target="_blank">$video.altText</a>
+                                </a>
+                            </td>
+                        </tr>
+                        #end
+                        #foreach($dataSheets in ${entry.dataSheets.dataSheets})
+                        <tr>
+                            <td valign="top" align="left" width="100%" style="padding: 10px 0;">
+                                <a class="txt-regular txt-weight-semi-bold " href="$video.url" title="$video.name" style="margin: 0; padding: 0; line-height: 1.428571429; color: #167bb4; letter-spacing: 0.15px; font-size: 14px; font-weight: 400; display: block; text-decoration: none; outline: none; border: none; font-family: Helvetica, Arial, Verdana,sans-serif;" target="_blank">
+                                    <a style="color: #167BB4;" href="$dataSheets.resourceURL"
+                                        target="_blank">$dataSheets.altText</a>
+                                </a>
+                            </td>
+                        </tr>
+                        #end
+                        #end
+                    </table>
+                #end
+                </td>
+            </tr>
+        </table>
+        <table cellspacing="0" cellpadding="0" align="center" border="0" bgcolor="#ffffff" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" class="table-wrapper">
+            <tr>
+                <td style="display: block; width: 100%; margin:0px; padding:0px;">
+                    <a href="${ctx.baseUrl}" style="display:block; margin:0px;">${ctx.cmsSlotContents.BottomContent}</a>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

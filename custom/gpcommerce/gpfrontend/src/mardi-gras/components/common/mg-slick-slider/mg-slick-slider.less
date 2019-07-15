@@ -1,0 +1,29 @@
+@import '../../../../../node_modules/slick-carousel/slick/slick.css';
+@import '../../../../../node_modules/slick-carousel/slick/slick-theme.css';
+
+@import '../../../styles/common/mixins.less';
+.slick-slider{
+    .slick-dots{
+        bottom: -20px;
+        li{
+            button{
+                &:before{
+                    color:@border-1;
+                    font-size: 10px;
+                }
+            }
+            &.slick-active{
+                button{
+                    &:before{
+                        color:@border-3;
+                    }
+                }
+            }
+        }
+
+    }
+    .slick-prev,.slick-next{
+        width: 50px;
+        height: 50px;
+    }
+}

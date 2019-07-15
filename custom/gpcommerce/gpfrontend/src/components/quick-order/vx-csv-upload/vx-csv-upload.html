@@ -1,0 +1,11 @@
+<div class="vx-csv-upload">
+  <div class="upload-info">{{i18n.csvUpload.uploadInfo}}</div>
+  <div class="my-xs-3 download-link">
+    <a tabindex="0" class="download-link" @click="fileDownload()">
+      {{i18n.csvUpload.downloadCaption}}
+    </a>
+  </div>
+
+  <vx-file-upload :i18n="i18n.fileUpload" :disableAttach="disableAttach" :fileType="fileType" @file-upload="fileUpload($event)"
+    @attachments-updated="attachmentListUpdated" :templateError="templateFormatError"></vx-file-upload>
+</div>

@@ -1,0 +1,8 @@
+<div class="vx-bundles">
+  <h1 class="mb-xs-4">{{bundlesData.title}}</h1>
+  <div class="row bundles-wrapper">
+    <div class="bundles-image-wrapper mb-sm-4 mb-xs-3 col-xs-12 col-sm-6 col-md-4" v-for="(bundle, index) in bundlesData.ImageList">
+      <vx-image-tile :imageTileData="bundle"></vx-image-tile>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,166 @@
+# &Item;catalogVersion;certifications;code
+
+# ---- Extension: core ---- Type: Product ----
+"#% impex.setTargetFile( ""ProductCert.csv"" );"
+insert_update Product;&Item;catalogVersion(catalog(id),version)[unique=true,allownull=true];certifications(code,itemtype(code));code[unique=true,allownull=true]
+"#% impex.exportItemsFlexibleSearch( "" select {p.pk} from {product as p} where {certifications} is not null "" );"
+
+#$lang=en      
+#$catalogVersion=catalogVersion(catalog(id[default='gpUSProductCatalog']),version[default='Staged'])[unique=true,default='gpUSProductCatalog:Staged']
+
+# Insert GpCertifications Data
+INSERT_UPDATE GPCertifications ; id(code)[unique=true]; url ; description 
+;SFI; http://www.sfiprogram.org/; 
+;USDA; https://www.biopreferred.gov/BioPreferred/;
+;ECC;https://ec.europa.eu/commission/index_en;
+;FSC; https://us.fsc.org/en-us;
+;WASTE_REDUCING; https://www.gppro.com/gp/solutions/ecosmart-sustainability-solutions ;
+;BPI;https://bpiworld.org/;
+;USGBC_LEED;https://new.usgbc.org/about;
+;GREEN_SEAL; https://www.greenseal.org/;
+;ECO_LOGO; http://ulenvironment.com/ecologo;
+;DFE; https://www.epa.gov/saferchoice;
+;EPA; https://www.epa.gov/smm/comprehensive-procurement-guidelines-paper-and-paper-products;
+;HOW_2_RECYCLE; http://www.how2recycle.info/;
+;CUSTOMIZABLE; https://www.gppro.com/gp/contact-us;
+
+
+
+
+# Update allProducts with localizations 
+UPDATE Product ; code[unique=true] ; gpcertifications(id(code))  ; $catalogVersion   
+              # ; 16PPATH           ; SFI                  ;                
+              # ; 19375             ; WASTE_REDUCING       ; 
+			   
+
+update Product catalogVersion(catalog(id),version)[unique=true,allownull=true];gpcertifications(code,itemtype(code));code[unique=true,allownull=true]
+;gpUSProductCatalog:Staged;SFI:CertificationsEnum;9PPATH
+;gpUSProductCatalog:Staged;WASTE_REDUCING:CertificationsEnum;SSWPS5
+;gpUSProductCatalog:Staged;USDA:CertificationsEnum;43822
+;gpUSProductCatalog:Staged;SFI:CertificationsEnum;2342PATH
+;gpUSProductCatalog:Staged;USGBA_LEED:CertificationsEnum;29662
+;gpUSProductCatalog:Staged;FSC:CertificationsEnum;1TOC
+;gpUSProductCatalog:Staged;USGBA_LEED:CertificationsEnum;48280
+;gpUSProductCatalog:Staged;WASTE_REDUCING:CertificationsEnum;32006
+;gpUSProductCatalog:Staged;WASTE_REDUCING:CertificationsEnum;SSSD120
+;gpUSProductCatalog:Staged;BPI:CertificationsEnum;96019
+;gpUSProductCatalog:Staged;WASTE_REDUCING:CertificationsEnum;56788
+;gpUSProductCatalog:Staged;USGBA_LEED:CertificationsEnum;53590
+;gpUSProductCatalog:Staged;SFI:CertificationsEnum;UX7WS
+;gpUSProductCatalog:Staged;USGBA_LEED:CertificationsEnum;19448/01
+;gpUSProductCatalog:Staged;USGBA_LEED:CertificationsEnum;26491
+;gpUSProductCatalog:Staged;WASTE_REDUCING:CertificationsEnum;19375
+;gpUSProductCatalog:Staged;FSC:CertificationsEnum;8TOC
+;gpUSProductCatalog:Staged;USGBA_LEED:CertificationsEnum;29651
+;gpUSProductCatalog:Staged;WASTE_REDUCING:CertificationsEnum;SSWPF5
+;gpUSProductCatalog:Staged;GREEN_SEAL:CertificationsEnum;43715
+;gpUSProductCatalog:Staged;WASTE_REDUCING:CertificationsEnum;SSWPT5
+;gpUSProductCatalog:Staged;USGBA_LEED:CertificationsEnum;48255
+;gpUSProductCatalog:Staged;WASTE_REDUCING:CertificationsEnum;54527A
+;gpUSProductCatalog:Online;SFI:CertificationsEnum;16PPATH
+;gpUSProductCatalog:Online;WASTE_REDUCING:CertificationsEnum;19375
+;gpUSProductCatalog:Online;USGBA_LEED:CertificationsEnum;19448/01
+;gpUSProductCatalog:Staged;WASTE_REDUCING:CertificationsEnum;SSKD120
+;gpUSProductCatalog:Online;FSC:CertificationsEnum;1TOC
+;gpUSProductCatalog:Online;USGBA_LEED:CertificationsEnum;26491
+;gpUSProductCatalog:Online;SFI:CertificationsEnum;2342PATH
+;gpUSProductCatalog:Online;ECO_LOGO:CertificationsEnum;26496
+;gpUSProductCatalog:Staged;USGBA_LEED:CertificationsEnum;48265
+;gpUSProductCatalog:Online;USGBA_LEED:CertificationsEnum;29662
+;gpUSProductCatalog:Online;USGBA_LEED:CertificationsEnum;29651
+;gpUSProductCatalog:Staged;WASTE_REDUCING:CertificationsEnum;SSWPK5
+;gpUSProductCatalog:Online;FSC:CertificationsEnum;2TOC
+;gpUSProductCatalog:Online;WASTE_REDUCING:CertificationsEnum;32006
+;gpUSProductCatalog:Online;WASTE_REDUCING:CertificationsEnum;38000
+;gpUSProductCatalog:Online;WASTE_REDUCING:CertificationsEnum;32019
+;gpUSProductCatalog:Online;WASTE_REDUCING:CertificationsEnum;38015
+;gpUSProductCatalog:Online;FSC:CertificationsEnum;3TOC
+;gpUSProductCatalog:Online;USGBA_LEED:CertificationsEnum;43335
+;gpUSProductCatalog:Online;USGBA_LEED:CertificationsEnum;43337
+;gpUSProductCatalog:Online;GREEN_SEAL:CertificationsEnum;43714
+;gpUSProductCatalog:Online;GREEN_SEAL:CertificationsEnum;43716
+;gpUSProductCatalog:Online;USDA:CertificationsEnum;43818
+;gpUSProductCatalog:Online;USDA:CertificationsEnum;43822
+;gpUSProductCatalog:Online;USGBA_LEED:CertificationsEnum;48255
+;gpUSProductCatalog:Online;USGBA_LEED:CertificationsEnum;48260
+;gpUSProductCatalog:Online;USGBA_LEED:CertificationsEnum;48265
+;gpUSProductCatalog:Online;USGBA_LEED:CertificationsEnum;48280
+;gpUSProductCatalog:Online;USGBA_LEED:CertificationsEnum;48285
+;gpUSProductCatalog:Online;USGBA_LEED:CertificationsEnum;48290
+;gpUSProductCatalog:Online;USGBA_LEED:CertificationsEnum;48295
+;gpUSProductCatalog:Online;FSC:CertificationsEnum;4TOC
+;gpUSProductCatalog:Online;GREEN_SEAL:CertificationsEnum;43715
+;gpUSProductCatalog:Online;WASTE_REDUCING:CertificationsEnum;5342DX
+;gpUSProductCatalog:Online;WASTE_REDUCING:CertificationsEnum;5356DX
+;gpUSProductCatalog:Online;USGBA_LEED:CertificationsEnum;53590
+;gpUSProductCatalog:Online;USGBA_LEED:CertificationsEnum;56803
+;gpUSProductCatalog:Staged;USGBA_LEED:CertificationsEnum;43337
+;gpUSProductCatalog:Online;WASTE_REDUCING:CertificationsEnum;58000A
+;gpUSProductCatalog:Online;WASTE_REDUCING:CertificationsEnum;54527A
+;gpUSProductCatalog:Online;FSC:CertificationsEnum;8TOC
+;gpUSProductCatalog:Online;BPI:CertificationsEnum;96019
+;gpUSProductCatalog:Online;SFI:CertificationsEnum;9PPATH
+;gpUSProductCatalog:Online;USDA:CertificationsEnum;ES9CSCOMP
+;gpUSProductCatalog:Online;USDA:CertificationsEnum;ES9PCOMP
+;gpUSProductCatalog:Staged;USGBA_LEED:CertificationsEnum;48260
+;gpUSProductCatalog:Staged;WASTE_REDUCING:CertificationsEnum;5356DX
+;gpUSProductCatalog:Online;WASTE_REDUCING:CertificationsEnum;SSFAUTODSP
+;gpUSProductCatalog:Online;WASTE_REDUCING:CertificationsEnum;SSFD120
+;gpUSProductCatalog:Online;WASTE_REDUCING:CertificationsEnum;SSKAUTODSP
+;gpUSProductCatalog:Online;WASTE_REDUCING:CertificationsEnum;SSKD120
+;gpUSProductCatalog:Online;WASTE_REDUCING:CertificationsEnum;SSSD120
+;gpUSProductCatalog:Online;WASTE_REDUCING:CertificationsEnum;SSSAUTODSP
+;gpUSProductCatalog:Online;WASTE_REDUCING:CertificationsEnum;SSW3D85
+;gpUSProductCatalog:Online;WASTE_REDUCING:CertificationsEnum;SSW1D85
+;gpUSProductCatalog:Online;WASTE_REDUCING:CertificationsEnum;SSWPF5
+;gpUSProductCatalog:Online;WASTE_REDUCING:CertificationsEnum;SSWPK5
+;gpUSProductCatalog:Online;WASTE_REDUCING:CertificationsEnum;SSWPT5
+;gpUSProductCatalog:Online;WASTE_REDUCING:CertificationsEnum;SSWPS5
+;gpUSProductCatalog:Online;SFI:CertificationsEnum;SX12PATH
+;gpUSProductCatalog:Online;SFI:CertificationsEnum;SXP6PATH
+;gpUSProductCatalog:Online;SFI:CertificationsEnum;SXP9PATH
+;gpUSProductCatalog:Staged;GREEN_SEAL:CertificationsEnum;43714
+;gpUSProductCatalog:Online;SFI:CertificationsEnum;UX9PATH
+;gpUSProductCatalog:Staged;WASTE_REDUCING:CertificationsEnum;58000A
+;gpUSProductCatalog:Staged;WASTE_REDUCING:CertificationsEnum;32019
+;gpUSProductCatalog:Online;WASTE_REDUCING:CertificationsEnum;58000B
+;gpUSProductCatalog:Staged;WASTE_REDUCING:CertificationsEnum;54550A
+;gpUSProductCatalog:Staged;WASTE_REDUCING:CertificationsEnum;SSFD120
+;gpUSProductCatalog:Staged;SFI:CertificationsEnum,WASTE_REDUCING:CertificationsEnum,USDA:CertificationsEnum;5320CD
+;gpUSProductCatalog:Online;WASTE_REDUCING:CertificationsEnum;56788
+;gpUSProductCatalog:Online;WASTE_REDUCING:CertificationsEnum;19378
+;gpUSProductCatalog:Online;USGBA_LEED:CertificationsEnum;48250
+;gpUSProductCatalog:Staged;USDA:CertificationsEnum;ES9CSCOMP
+;gpUSProductCatalog:Staged;FSC:CertificationsEnum;4TOC
+;gpUSProductCatalog:Staged;SFI:CertificationsEnum;UX9PATH
+;gpUSProductCatalog:Staged;WASTE_REDUCING:CertificationsEnum;5342DX
+;gpUSProductCatalog:Staged;ECO_LOGO:CertificationsEnum;26496
+;gpUSProductCatalog:Staged;SFI:CertificationsEnum;SXP9PATH
+;gpUSProductCatalog:Staged;USDA:CertificationsEnum;ES9PCOMP
+;gpUSProductCatalog:Staged;WASTE_REDUCING:CertificationsEnum;SSSAUTODSP
+;gpUSProductCatalog:Staged;FSC:CertificationsEnum;3TOC
+;gpUSProductCatalog:Staged;FSC:CertificationsEnum;2TOC
+;gpUSProductCatalog:Staged;USDA:CertificationsEnum;43818
+;gpUSProductCatalog:Staged;SFI:CertificationsEnum;16PPATH
+;gpUSProductCatalog:Staged;WASTE_REDUCING:CertificationsEnum;19378
+;gpUSProductCatalog:Staged;GREEN_SEAL:CertificationsEnum;43716
+;gpUSProductCatalog:Staged;WASTE_REDUCING:CertificationsEnum;38000
+;gpUSProductCatalog:Staged;WASTE_REDUCING:CertificationsEnum;56781
+;gpUSProductCatalog:Staged;WASTE_REDUCING:CertificationsEnum;SSW1D85
+;gpUSProductCatalog:Staged;USGBA_LEED:CertificationsEnum;48290
+;gpUSProductCatalog:Staged;WASTE_REDUCING:CertificationsEnum;58000B
+;gpUSProductCatalog:Staged;WASTE_REDUCING:CertificationsEnum;SSFAUTODSP
+;gpUSProductCatalog:Staged;USGBA_LEED:CertificationsEnum;48285
+;gpUSProductCatalog:Staged;SFI:CertificationsEnum;SXP6PATH
+;gpUSProductCatalog:Staged;WASTE_REDUCING:CertificationsEnum;SSW3D85
+;gpUSProductCatalog:Staged;SFI:CertificationsEnum;SX12PATH
+;gpUSProductCatalog:Staged;USGBA_LEED:CertificationsEnum;56803
+;gpUSProductCatalog:Staged;USGBA_LEED:CertificationsEnum;43335
+;gpUSProductCatalog:Staged;USGBA_LEED:CertificationsEnum;48250
+;gpUSProductCatalog:Staged;USGBA_LEED:CertificationsEnum;48295
+;gpUSProductCatalog:Staged;WASTE_REDUCING:CertificationsEnum;38015
+;gpUSProductCatalog:Staged;WASTE_REDUCING:CertificationsEnum;SSKAUTODSP
+;gpUSProductCatalog:Online;WASTE_REDUCING:CertificationsEnum;54550A
+;gpUSProductCatalog:Online;SFI:CertificationsEnum;UX7WS
+;gpUSProductCatalog:Online;WASTE_REDUCING:CertificationsEnum;56781
+;gpUSProductCatalog:Online;SFI:CertificationsEnum,WASTE_REDUCING:CertificationsEnum,USDA:CertificationsEnum;5320CD

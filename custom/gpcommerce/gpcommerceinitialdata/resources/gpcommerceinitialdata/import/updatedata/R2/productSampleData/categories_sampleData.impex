@@ -1,0 +1,40 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+# ImpEx for Importing Categories into GP Store
+
+# Macros / Replacement Parameter definitions
+$catalogVersion=catalogVersion(catalog(id[default='gpUSProductCatalog']),version[default='Staged'])[unique=true,default='gpUSProductCatalog:Staged']
+$categories=target(code, $catalogVersion)[unique=true]
+$supercategories=source(code, $catalogVersion)[unique=true]
+$lang=en
+
+# Create Categories
+INSERT_UPDATE Category;code[unique=true];$catalogVersion;supercategories(code,$catalogVersion);allowedPrincipals(uid)[default='customergroup']
+;copperandCraneCategories;;
+;vanityFairNapkinsCategories;;
+
+
+# Create CopperAndCrane Categories
+INSERT_UPDATE Category;code[unique=true];$catalogVersion;supercategories(code,$catalogVersion)[default='copperandCraneCategories'];allowedPrincipals(uid)[default='customergroup']
+;spafavorites; ;
+;luxurybath; ;
+;skincare; ;
+;bodycare; ;
+;giftsets; ;
+;scentedcandles; ;
+
+# Create VanityFairNapkins Categories
+INSERT_UPDATE Category;code[unique=true];$catalogVersion;supercategories(code,$catalogVersion)[default='vanityFairNapkinsCategories'];allowedPrincipals(uid)[default='customergroup']
+;everydaycollection; ;
+;entertaincollection; ;
+;extraabsorbentnapkins; ;
+
+

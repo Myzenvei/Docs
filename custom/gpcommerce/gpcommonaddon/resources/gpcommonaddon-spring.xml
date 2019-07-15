@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2018 SAP SE or an SAP affiliate company.  All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd
+           http://www.springframework.org/schema/util
+           http://www.springframework.org/schema/util/spring-util.xsd">
+           
+    <context:annotation-config/> 
+
+	<bean id="gpcommonaddonCoreDataImportedEventListener" parent="abstractCoreDataImportedEventListener">
+		<property name="supportedChannels">
+			<list value-type="de.hybris.platform.commerceservices.enums.SiteChannel">
+				<value>B2C</value>
+				<!--
+								<value>B2B</value>
+				-->
+			</list>
+		</property>
+		<property name="addonExtensionMetadata">
+			<bean class="de.hybris.platform.addonsupport.data.AddonExtensionMetadata">
+				<property name="suffixChannel" value="false"/>
+				<property name="baseExtensionName" value="gpcommonaddon"/>
+			</bean>
+		</property>
+	</bean>
+	
+	<alias alias="dataMapper" name="defaultDataMapper"/>
+	<bean id="defaultDataMapper" class="de.hybris.platform.webservicescommons.mapping.impl.DefaultDataMapper">
+		<property name="fieldSetBuilder" ref="fieldSetBuilder"/>
+	</bean>
+	
+	<alias alias="fieldSetBuilder" name="defaultFieldSetBuilder"/>
+	<bean id="defaultFieldSetBuilder"
+	      class="de.hybris.platform.webservicescommons.mapping.impl.DefaultFieldSetBuilder">
+		<property name="defaultRecurrencyLevel" value="4"/>
+		<property name="defaultMaxFieldSetSize" value="50000"/>
+		<property name="fieldSetLevelHelper" ref="fieldSetLevelHelper"/>
+	</bean>
+
+	<bean class="de.hybris.platform.cmssmarteditwebservices.structures.comparator.ComponentTypeAttributeDataComparator" p:typecode="GPImageComponent" p:mode="DEFAULT">
+		<property name="orderedAttributes">
+			<list>
+				<value>headingText</value>
+				<value>link</value>
+				<value>altText</value>
+				<value>altTextColor</value>
+				<value>ctaText</value>
+				<value>ctaColor</value>
+				<value>ctaBgColor</value>
+				<value>urlLink</value>
+				<value>headingColor</value>
+				<value>subHeadingColor</value>
+				<value>subHeadingText</value>
+				<value>subHeadBgColor</value>
+				<value>backgroundColor</value>
+				<value>textPosition</value>
+				<value>showTextFullWidth</value>
+			</list>
+		</property>
+	</bean>
+	
+	<alias alias="fieldSetLevelHelper" name="defaultFieldSetLevelHelper"/>
+	<bean id="defaultFieldSetLevelHelper"
+	      class="de.hybris.platform.webservicescommons.mapping.impl.DefaultFieldSetLevelHelper">
+	</bean>
+
+	<bean id="gpcommonaddonSampleDataEventListener" parent="abstractGenericAddOnSampleDataEventListener"  >
+		<property name="extensionName" value="gpcommonaddon" />
+	</bean>
+	
+	<!-- <bean id="gpCategoryHierarchyPopulator"	class="com.gp.commerce.facades.populators.GpCategoryHierarchyPopulator" parent ="defaultCategoryHierarchyPopulator">
+	</bean>
+	
+	<alias name="gpDefaultCatalogFacade" alias="catalogFacade"/>
+	<bean id="gpDefaultCatalogFacade" class="com.gp.commerce.facade.catalog.impl.GpCatalogFacadeImpl">
+		<property name="gpCategoryHierarchyPopulator" ref="gpCategoryHierarchyPopulator"/>
+		<property name="catalogService" ref="catalogService"/>
+		<property name="categoryService" ref="categoryService"/>
+		<property name="catalogVersionService" ref="catalogVersionService"/>
+		<property name="catalogVersionPopulator" ref="catalogVersionPopulator"/>
+		<property name="catalogHierarchyPopulator" ref="catalogHierarchyPopulator"/>
+		<property name="categoryHierarchyPopulator" ref="categoryHierarchyPopulator"/>
+		<property name="baseSiteService" ref="baseSiteService"/>
+	</bean> -->
+	
+	<alias name="gpdefaultCacheKeyProviders" alias="cacheKeyProviders"/>
+	<util:map id="gpdefaultCacheKeyProviders" key-type="java.lang.String">
+		<entry key="AbstractCMSComponent" value-ref="cmsCacheKeyProvider"/>
+		<entry key="NavigationBarComponent" value-ref="cmsCacheKeyProvider"/>
+		<entry key="BannerComponent" value-ref="cmsCacheKeyProvider"/>
+		<entry key="SimpleBannerComponent" value-ref="cmsCacheKeyProvider"/>
+		<entry key="RotatingImagesComponent" value-ref="cmsCacheKeyProvider"/>
+		<entry key="ImageMapComponent" value-ref="cmsCacheKeyProvider"/>
+		<entry key="ProductCarouselComponent" value-ref="cmsCacheKeyProvider"/>
+		<entry key="CategoryFeatureComponent" value-ref="cmsCacheKeyProvider"/>
+		<entry key="ProductFeatureComponent" value-ref="cmsCacheKeyProvider"/>
+		<entry key="CMSParagraphComponent" value-ref="cmsCacheKeyProvider"/>
+		<entry key="CMSImageComponent" value-ref="cmsCacheKeyProvider"/>
+		<entry key="CMSTabParagraphComponent" value-ref="cmsCacheKeyProvider"/>
+		<entry key="FooterComponent" value-ref="cmsCacheKeyProvider"/>
+		<entry key="ProductReferencesComponent" value-ref="currentProductCmsCacheKeyProvider"/>
+		<entry key="ProductDetailComponent" value-ref="currentProductCmsCacheKeyProvider"/>
+		<entry key="ProductVariantSelectorComponent" value-ref="currentProductCmsCacheKeyProvider"/>
+		<entry key="DynamicBannerComponent" value-ref="currentCategoryCmsCacheKeyProvider"/>
+		
+		<entry key="GPImageTileComponent" value-ref="cmsCacheKeyProvider"/>
+		<entry key="GPRotatingImagesComponent" value-ref="cmsCacheKeyProvider"/>
+		<entry key="GPIndustrialSolutionsComponent" value-ref="cmsCacheKeyProvider"/>
+		<entry key="GPFeatureProductsComponent" value-ref="cmsCacheKeyProvider"/>
+		<entry key="GPBannerComponent" value-ref="cmsCacheKeyProvider"/>
+		<entry key="GPMediaComponent" value-ref="cmsCacheKeyProvider"/>
+		<entry key="GPBrandBarComponent" value-ref="cmsCacheKeyProvider"/>
+		<entry key="GPImageTextComponent" value-ref="cmsCacheKeyProvider"/>
+		<entry key="GPImageLinkComponent" value-ref="cmsCacheKeyProvider"/>
+		<entry key="GPMarketingSidebySideComponent" value-ref="cmsCacheKeyProvider"/>
+		<entry key="GPMarketingComponent" value-ref="cmsCacheKeyProvider"/>
+		<entry key="GPImageComponent" value-ref="cmsCacheKeyProvider"/>
+		<entry key="GPVideoBannerComponent" value-ref="cmsCacheKeyProvider"/>
+		<entry key="GPPreCuratedListComponent" value-ref="cmsCacheKeyProvider"/>
+		<entry key="GPProductCarouselComponent" value-ref="cmsCacheKeyProvider"/>
+		<entry key="GPProductSolutionCMSComponent" value-ref="cmsCacheKeyProvider"/>
+		<!-- <entry key="FooterNavigationComponent" value-ref="cmsCacheKeyProvider"/> -->
+		<entry key="GPBundleImageComponent" value-ref="cmsCacheKeyProvider"/>
+		<entry key="GPCheckoutFooterNavigationComponent" value-ref="cmsCacheKeyProvider"/>
+		<entry key="CMSLinkComponent" value-ref="cmsCacheKeyProvider"/>
+		<entry key="MardigrasBoredomComponent" value-ref="cmsCacheKeyProvider"/>
+		<entry key="MardigrasVideosComponent" value-ref="cmsCacheKeyProvider"/>
+		<entry key="MaridgrasNapkinsComponent" value-ref="cmsCacheKeyProvider"/>
+		<entry key="MardigrasOurPacksComponent" value-ref="cmsCacheKeyProvider"/>
+		<!-- <entry key="GPTipsAndKnowledgeInfoComponent" value-ref="cmsCacheKeyProvider"/> -->
+		<entry key="GPMarketingCategories" value-ref="cmsCacheKeyProvider"/>
+		<!-- <entry key="GPTipsAndKnowledgeInfo" value-ref="cmsCacheKeyProvider"/> -->
+		<!-- <entry key="GPNavigationComponent" value-ref="cmsCacheKeyProvider"/> -->
+		<entry key="GPProductReferencesComponent" value-ref="cmsCacheKeyProvider"/>
+		<entry key="MardiGrasFooterComponent" value-ref="cmsCacheKeyProvider"/>
+		<entry key="MardiGrasHeroBannerComponent" value-ref="cmsCacheKeyProvider"/>
+		<entry key="MardiGrasImageAndTextComponent" value-ref="cmsCacheKeyProvider"/>
+		<entry key="MardiGrasFAQComponent" value-ref="cmsCacheKeyProvider"/>
+		<entry key="MardigrasCouponsComponent" value-ref="cmsCacheKeyProvider"/>
+		<entry key="GPLiveChatComponent" value-ref="cmsCacheKeyProvider"/>
+		<entry key="GPUnsubscribeComponent" value-ref="cmsCacheKeyProvider"/>
+		<!-- Commenting till the test data is setup
+		<entry key="GPXpressHeaderNavigationComponent" value-ref="cmsCacheKeyProvider"/>   -->
+	</util:map>
+</beans>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2018 SAP SE or an SAP affiliate company.  All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd">
+           
+    <context:annotation-config/> 
+
+	<bean id="subscriptionaddonCoreDataImportedEventListener" parent="abstractCoreDataImportedEventListener">
+		<property name="supportedChannels">
+			<list value-type="de.hybris.platform.commerceservices.enums.SiteChannel">
+				<value>B2C</value>
+				<!--
+								<value>B2B</value>
+				-->
+			</list>
+		</property>
+		<property name="addonExtensionMetadata">
+			<bean class="de.hybris.platform.addonsupport.data.AddonExtensionMetadata">
+				<property name="suffixChannel" value="false"/>
+				<property name="baseExtensionName" value="subscriptionaddon"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="subscriptionaddonSampleDataEventListener" parent="abstractGenericAddOnSampleDataEventListener"  >
+		<property name="extensionName" value="subscriptionaddon" />
+	</bean>
+
+	<bean id="customPriceFactoryService" class="com.deloitte.service.impl.CustomPriceFactoryServiceImpl" 
+		init-method="init" destroy-method="destroy">
+		<property name="netGrossStrategy" ref="netGrossStrategy"/>
+		<property name="timeService" ref="timeService"/>
+		<property name="modelService" ref="modelService"/>
+		<property name="retrieveChannelStrategy" ref="retrieveChannelStrategy"/>
+	</bean>
+	
+	<bean id="subscriptionJob" class="com.deloitte.jobs.SubscriptionJob" autowire="byName"/>
+	
+	<alias name="subscriptionCartFacadeImpl" alias="subscriptionCartFacadeImpl"/>
+	<bean id="subscriptionCartFacadeImpl" class="com.deloitte.facade.impl.SubscriptionCartFacadeImpl"/>
+	
+	<alias name="subscriptionCartServiceImpl" alias="subscriptionCartServiceImpl"/>
+	<bean id="subscriptionCartServiceImpl" class="com.deloitte.service.impl.SubscriptionCartServiceImpl"/>
+	
+	<alias name="subscriptionCartDaoImpl" alias="subscriptionCartDaoImpl"/>
+	<bean id="subscriptionCartDaoImpl" class="com.deloitte.dao.impl.SubscriptionCartDaoImpl"/>
+	
+	<alias name="subscriptionCommerceCartParameterConverter" alias="subscriptionCommerceCartParameterConverter"/>
+	<bean name="subscriptionCommerceCartParameterConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="de.hybris.platform.commerceservices.service.data.CommerceCartParameter"/>
+		<property name="populators">
+			<list>
+				<ref bean="subscriptionCommerceCartParameterBasicPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="subscriptionCommerceCartParameterBasicPopulator"
+		  class="com.deloitte.populators.SubscriptionCommerceCartParameterBasicPopulator">
+		<property name="cartService" ref="cartService"/>
+		<property name="productService" ref="productService"/>
+		<property name="pointOfServiceService" ref="pointOfServiceService"/>
+		<property name="commonI18NService" ref="commonI18NService"/>
+		<property name="netGrossStrategy" ref="netGrossStrategy"/>
+		<property name="baseSiteService" ref="baseSiteService"/>
+		<property name="baseStoreService" ref="baseStoreService"/>
+		<property name="guidKeyGenerator" ref="guidKeyGenerator"/>
+	</bean>
+	
+	<alias name="subscriptionDefaultCartPopulator" alias="cartPopulator"/>
+	<bean id="subscriptionDefaultCartPopulator"
+			class="com.deloitte.populators.SubscriptionDefaultCartPopulator" parent="defaultCartPopulator">
+	</bean>
+	
+	<alias name="subscriptionCommerceAddToCartStrategy" alias="subscriptionCommerceAddToCartStrategy"/>
+	<bean id="subscriptionCommerceAddToCartStrategy"
+			class="com.deloitte.strategy.SubscriptionCommerceAddToCartStrategy"
+			parent="abstractCommerceAddToCartStrategy">
+		<property name="commerceAddToCartMethodHooks" ref="commerceAddToCartMethodHooks"/>
+        <property name="entryMergeStrategy" ref="entryMergeStrategy"/>
+		<property name="configurationService" ref="configurationService"/>
+	</bean>
+	
+	<alias name="subscriptionCouponFacade" alias="subscriptionCouponFacade"/>
+	<bean id="subscriptionCouponFacade" class="com.deloitte.facade.impl.SubscriptionCouponFacadeImpl" parent="defaultCouponFacade">
+		<property name="couponService" ref="couponService"/>
+		<property name="cartService" ref="cartService"/>
+		<property name="couponCodeModelConverter" ref="couponCodeModelConverter"/>
+		<property name="couponModelConverter" ref="couponModelConverter"/>
+	</bean>
+	
+	<alias alias="cartService" name="subscriptionCartService" />
+	<bean id="subscriptionCartService"
+		class="com.deloitte.service.impl.SubscriptionDefaultCartService"
+		parent="defaultCartService">
+	</bean>
+	
+	<alias name="subscriptionDefaultCartFacade" alias="cartFacade"/>
+	<bean id="subscriptionDefaultCartFacade" class="com.deloitte.facade.impl.SubscriptionDefaultCartFacade" parent="defaultCartFacade">
+    </bean>
+    
+    <alias name="subscriptiondefaultCalculationService" alias="calculationService" />
+	<bean id="subscriptiondefaultCalculationService" class="com.deloitte.service.impl.SubscriptionDefaultCalculationService"
+		parent="defaultCalculationService">
+	</bean>
+	
+</beans>

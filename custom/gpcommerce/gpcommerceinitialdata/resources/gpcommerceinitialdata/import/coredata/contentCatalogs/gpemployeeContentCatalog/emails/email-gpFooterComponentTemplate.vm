@@ -1,0 +1,31 @@
+## messageSource=classpath:/gpcommercecore/messages/email-footerText_$lang.properties
+#set ( $siteUrl = $ctx.urlResolutionService.getWebsiteUrlForSite($ctx.site,true,$ctx.urlLink) )
+#set ( $mediaUrl = $ctx.urlResolutionService.getMediaUrlForSite($ctx.site,false,$ctx.media.url) )
+<tfoot>
+    <tr>
+        <td style=" margin:0px;padding:0px;padding-top:24px;">
+            <table border="0" cellspacing="0" cellpadding="0" width="100%" style="background-color: #dfdfdf;border-top: 1px solid #cecece;border-collapse: separate !important;">
+                <tr>
+                    <td align="left" valign="middle" style="border-collapse:collapse ;padding-top:24px;padding-left:24px; padding-bottom:24px; padding-right:10px;"
+                        class="footer-m-block">
+                        <table width="100%">
+                            <tr>
+                                <td style=" color: #167BB4 !important;font-size:14px !important;text-decoration:none !important;">
+                                    #foreach( $entry in ${ctx.navigationNodes} ) #foreach( $link in ${entry.links} )
+                                    #set (
+                                    $linkUrl =
+                                    $ctx.urlResolutionService.getWebsiteUrlForSite($ctx.site,true,$link.url) )
+                                    <a href="${linkUrl}" style=" color: #167BB4;font-size:14px;padding:10px,display:inline-block;text-decoration:none;outline:0;outline:none;border:0;border:none">${link.linkName}</a>
+                                    #end #end
+                                </td>
+                                <td style="letter-spacing: 0.15px;color: #747678;font-size: 14px;" align="left">
+                                    &copy; $ctx.urlResolutionService.getYear() | Georgia-Pacific
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</tfoot>

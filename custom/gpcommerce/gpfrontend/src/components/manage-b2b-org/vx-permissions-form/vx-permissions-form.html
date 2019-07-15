@@ -1,0 +1,79 @@
+<div class="vx-permissions-form">
+  <form class="row" @submit.prevent="submitForm">
+    <div class="mb-xs-4 form-group col-xs-12 col-md-6">
+      <label for="permissionTypeDD" :aria-hidden="!isTablet()"> {{i18n.permissionType}} </label>
+      <br>
+      <vx-dropdown-primary v-if="!isEdit" v-validate="'required'" @selected-option="setTimeperiodLabel($event)"
+        :dropdownValues="permissionType" ref="permissionTypeDropdown" v-model="permissionsModel.type" name="permissionTypeDD"
+        :dropdownError="errors.has('permissionTypeDD')">
+      </vx-dropdown-primary>
+      <span v-else>
+        {{permissionsModel.type}}
+      </span>
+      <div class="mt-xs-2" v-if="errors.has('permissionTypeDD')">
+        <span class="error-icon icon-alert-triangle" :title="i18n.iconAlertTitle"></span>
+        <span class="error-msg" aria-live="assertive">{{ errors.first('permissionTypeDD') }}</span>
+      </div>
+    </div>
+    <div class="mb-xs-4 form-group col-xs-12 col-md-6">
+      <label for="permissionId" :aria-hidden="isDeviceAndroid()">{{i18n.PermissionID}}</label>
+      <input type="text" class="form-control" :class="{'input-error': errors.has('permissionId')}" v-validate="'required'"
+        name="permissionId" :aria-label="i18n.PermissionID" v-model="permissionsModel.permissionId">
+      <div class="mt-xs-2" v-if="errors.has('permissionId')">
+        <span class="error-icon icon-alert-triangle" :title="i18n.iconAlertTitle"></span>
+        <span class="error-msg">{{ errors.first('permissionId') }}</span>
+      </div>
+    </div>
+    <div class="mb-xs-4 form-group col-xs-12 col-md-6">
+      <label for="businessUnit" :aria-hidden="!isTablet()"> {{i18n.businessUnit}} </label>
+      <br>
+      <vx-dropdown-primary v-validate="'required'" v-model="permissionsModel.bussinessUnit" name="businessUnit"
+        @selected-option="permissionsModel.bussinessUnit=$event" :dropdownValues="businessUnitsDropDown" ref="businessUnitDropdown"
+        :dropdownError="errors.has('businessUnit')"></vx-dropdown-primary>
+      <div class="mt-xs-2" v-if="errors.has('businessUnit')">
+        <span class="error-icon icon-alert-triangle" :title="i18n.iconAlertTitle"></span>
+        <span class="error-msg" aria-live="assertive">{{ errors.first('businessUnit') }}</span>
+      </div>
+    </div>
+    <div class="mb-xs-4 form-group col-xs-12 col-md-6" v-if="permissionsModel.type===i18n.timeSpanPermissionValue || permissionsModel.code=== i18n.timeSpanPermissionValue">
+      <label for="timePeriod" :aria-hidden="!isTablet()"> {{i18n.timePeriod}} </label>
+      <br>
+
+      <vx-dropdown-primary v-validate="'required'" v-model="permissionsModel.timePeriod" name="timePeriod"
+        @selected-option="permissionsModel.timePeriod=$event" :dropdownValues="timePeriodDropdown" ref="timePeriodDropdown"
+        :dropdownError="errors.has('timePeriod')"></vx-dropdown-primary>
+      <div class="mt-xs-2" v-if="errors.has('timePeriod')">
+        <span class="error-icon icon-alert-triangle" :title="i18n.iconAlertTitle"></span>
+        <span class="error-msg" aria-live="assertive">{{ errors.first('timePeriod') }}</span>
+      </div>
+    </div>
+    <div class="mb-xs-4 form-group col-xs-12 col-md-6">
+      <label for="thresholdAmount" :aria-hidden="isDeviceAndroid()">{{i18n.thresholdAmount}}</label>
+      <input type="telephone" class="form-control" :class="{'input-error': errors.has('thresholdAmount')}" v-validate="'required|decimal:2'"
+        name="thresholdAmount" v-model="permissionsModel.thresholdAmount" :aria-label="i18n.thresholdAmount">
+      <div class="mt-xs-2" v-if="errors.has('thresholdAmount')">
+        <span class="error-icon icon-alert-triangle" :title="i18n.iconAlertTitle"></span>
+        <span class="error-msg">{{ errors.first('thresholdAmount') }}</span>
+      </div>
+    </div>
+    <div class="mb-xs-4 form-group col-xs-12 col-md-6">
+      <label for="currencyType" :aria-hidden="!isTablet()">{{i18n.currencyType}} </label>
+      <br>
+      <vx-dropdown-primary v-validate="'required'" v-model="permissionsModel.currency" name="currencyType"
+        @selected-option="permissionsModel.currencyType=$event" :dropdownValues="currencyList" ref="currencyDropdown"
+        :dropdownError="errors.has('currencyType')"></vx-dropdown-primary>
+      <div class="mt-xs-2" v-if="errors.has('currencyType')">
+        <span class="error-icon icon-alert-triangle" :title="i18n.iconAlertTitle"></span>
+        <span class="error-msg" aria-live="assertive">{{ errors.first('currencyType') }}</span>
+      </div>
+    </div>
+    <div v-if="isErrorMsg!==''">
+      <div class="col-xs-12 alert-msg p-xs-3 mb-xs-5 mt-xs-3">
+        {{isErrorMsg}}
+      </div>
+    </div>
+    <div class="form-group col-xs-12 d-flex justify-content-center">
+      <button class="btn btn-primary px-xs-5 modal-btn-primary-large" type="submit">{{i18n.save}}</button>
+    </div>
+  </form>
+</div>

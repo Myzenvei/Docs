@@ -1,0 +1,1 @@
+<vx-shopping-lists :i18n="messages.manageProfileShoppingLists"></vx-shopping-lists>

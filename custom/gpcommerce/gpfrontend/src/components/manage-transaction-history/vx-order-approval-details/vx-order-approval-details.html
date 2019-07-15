@@ -1,0 +1,288 @@
+<div class="vx-order-approval-details">
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>
+  </vx-spinner>
+  <vx-modal ref="viewTermsModal" size="large" :heading="leaseAgrementData.legalTermName">
+    <div class="row" slot="component">
+      <div class="row">
+        <div class="terms-content col-xs-12">
+          <div class="row">
+            <div class="col-xs-12 terms-content-intro mt-xs-4" v-html="leaseAgrementData.legalTermsText"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </vx-modal>
+  <template v-if="dataLoaded">
+    <div class="col-xs-12 px-xs-0 pt-xs-4">
+      <h1 class="col-sm-4 col-xs-12 px-xs-0 my-xs-0 approval-details-page-title">
+        {{i18n.orderApprovalDetails.orderDetails}}
+      </h1>
+      <div class="approval-buttons col-sm-8 col-xs-12 px-xs-0 d-flex pt-xs-4 pt-sm-0" v-if="!statusUpdated">
+        <button type="button" @click="onStatusUpdate(approvalDetailStatus.created)" class="approve-order-button btn btn-default mr-sm-4">{{i18n.orderApprovalDetails.approveOrder}}</button>
+        <button type="button" @click="onStatusUpdate(approvalDetailStatus.rejected)" class="reject-order-button btn btn-primary mt-xs-3 mt-sm-0">{{i18n.orderApprovalDetails.rejectOrder}}</button>
+      </div>
+    </div>
+    <div class="col-xs-12 px-xs-0 order-number pt-xs-4 pt-sm-5">{{i18n.orderApprovalDetails.order}}
+      #{{orderDetails.code}}</div>
+    <div class="col-md-8 col-sm-12 col-xs-12 pr-xs-0 pl-xs-0 d-flex flex-row flex-wrap">
+      <div class="col-sm-3 col-xs-6 pt-xs-4 pt-sm-5 px-xs-0">
+        <div class="order-info-heading">
+          {{i18n.orderApprovalDetails.orderPlaced}}
+        </div>
+        <div class="order-info">
+          {{getDate(orderDetails.created)}}
+        </div>
+      </div>
+      <div class="col-sm-3 col-xs-6 pt-xs-4 pt-sm-5 px-xs-0">
+        <div class="order-info-heading">
+          {{i18n.orderApprovalDetails.orderStatus}}
+        </div>
+        <div class="order-info order-status">
+          {{orderDetails.statusDisplay}}
+        </div>
+      </div>
+      <div class="col-sm-3 col-xs-6 pt-xs-4 pt-sm-5 px-xs-0">
+        <div class="order-info-heading">
+          {{i18n.orderApprovalDetails.orderPlacedBy}}
+        </div>
+        <div class="order-info">
+          {{orderDetails.user.name}}
+        </div>
+      </div>
+      <div class="col-sm-3 col-xs-6 pt-xs-4 pt-sm-5 px-xs-0">
+        <div class="order-info-heading">
+          {{i18n.orderApprovalDetails.buisnessUnit}}
+        </div>
+        <div class="order-info">
+          {{orderDetails.deliveryAddress.unit.uid}}
+        </div>
+      </div>
+      <div v-if="!isMultiple" class="col-sm-3 col-xs-6 pt-xs-4 pt-sm-5 px-xs-0">
+        <div class="order-info-heading">
+          {{i18n.orderApprovalDetails.shippedTo}}
+        </div>
+        <div class="order-info d-flex flex-column">
+          <span>
+            <span>{{orderDetails.deliveryGroup[0].value.splitEntries[0].deliveryAddress.firstName}}</span>
+            <span>{{orderDetails.deliveryGroup[0].value.splitEntries[0].deliveryAddress.lastName}}</span>
+          </span>
+          <span v-if="orderDetails.deliveryGroup[0].value && orderDetails.deliveryGroup[0].value.splitEntries && orderDetails.deliveryGroup[0].value.splitEntries.length!==0 && orderDetails.deliveryGroup[0].value.splitEntries[0] && orderDetails.deliveryGroup[0].value.splitEntries[0].deliveryAddress && orderDetails.deliveryGroup[0].value.splitEntries[0].deliveryAddress.companyName">{{orderDetails.deliveryGroup[0].value.splitEntries[0].deliveryAddress.companyName}}</span>
+          <span>{{orderDetails.deliveryGroup[0].value.splitEntries[0].deliveryAddress.line1}}</span>
+          <span v-if="orderDetails.deliveryGroup[0].value.splitEntries[0].deliveryAddress.line2">
+            {{orderDetails.deliveryGroup[0].value.splitEntries[0].deliveryAddress.line2}}
+          </span>
+          <span>
+            <span>{{orderDetails.deliveryGroup[0].value.splitEntries[0].deliveryAddress.town}}</span>
+            <span>{{orderDetails.deliveryGroup[0].value.splitEntries[0].deliveryAddress.region.isocodeShort}}</span>
+            <span>{{orderDetails.deliveryGroup[0].value.splitEntries[0].deliveryAddress.postalCode}}</span>
+          </span>
+          <span>{{orderDetails.deliveryGroup[0].value.splitEntries[0].deliveryAddress.country.isocode}} </span>
+        </div>
+      </div>
+      <div class="col-sm-3 col-xs-6 pt-xs-4 pt-sm-5 px-xs-0">
+        <div class="order-info-heading">
+          {{i18n.orderApprovalDetails.billedTo}}
+        </div>
+        <div class="order-info d-flex flex-column" v-if="orderDetails.paymentInfo.cardType.name === paymentTypes.googlePay">
+          <span>{{orderDetails.paymentInfo.accountHolderName}}</span>
+          <span>{{orderDetails.paymentInfo.cardNumber}}</span>
+          <span>{{orderDetails.paymentInfo.cardType.name}}</span>
+        </div>
+        <div class="order-info d-flex flex-column" v-else-if="orderDetails.paymentInfo">
+          <span>{{orderDetails.paymentInfo.accountHolderName}}</span>
+          <span v-if="orderDetails.paymentInfo.cardType && orderDetails.paymentInfo.cardType.name && orderDetails.paymentInfo.cardType.name.indexOf('PayPal') === -1">{{orderDetails.paymentInfo.cardType.name}}</span>
+          <span>{{orderDetails.paymentInfo.cardNumber}}</span>
+          <span v-if="orderDetails.paymentInfo.cardType && orderDetails.paymentInfo.cardType.name && orderDetails.paymentInfo.cardType.name.indexOf('PayPal') > -1">{{orderDetails.paymentInfo.cardType.name}}</span>
+          <span v-if="orderDetails.paymentInfo.expiryMonth">{{orderDetails.paymentInfo.expiryMonth}}/{{orderDetails.paymentInfo.expiryYear}}</span>
+          <span v-if="orderDetails.paymentInfo.billingAddress">{{orderDetails.paymentInfo.billingAddress.postalCode}}</span>
+        </div>
+        <div class="order-info d-flex flex-column" v-else>
+          {{i18n.orderConfirmation.notAvailable}}
+        </div>
+      </div>
+      <template v-if="globals.isB2B() && !isMultiple">
+        <template v-for="entry in orderDetails.deliveryGroup[0].value.splitEntries">
+          <div v-if="checkInstallable(formattedEntries[entry.entryNumber])" class="col-sm-3 col-xs-6 pt-xs-4 pt-sm-5 px-xs-0">
+            <div class="order-info-heading">
+              {{i18n.orderApprovalDetails.installation}}
+            </div>
+            <div class="order-info">
+              <span>{{getInstallDate(orderDetails.scheduleInstallation.preferredDate)}} |</span>
+              <span class="install-time"> {{orderDetails.scheduleInstallation.preferredTime}}</span>
+            </div>
+          </div>
+        </template>
+      </template>
+      <div v-if="!isMultiple" class="col-sm-3 col-xs-6 pt-xs-4 pt-sm-5 px-xs-0">
+        <div class="order-info-heading">
+          {{i18n.orderApprovalDetails.deliveryMethod}}
+        </div>
+        <template v-if="orderDetails.deliveryMode">
+          <div class="order-info shipping-method">
+            {{orderDetails.deliveryMode.name}}
+          </div>
+        </template>
+        <template v-else>
+          <div class="order-info shipping-method">
+            {{orderDetails.deliveryGroup[0].value.splitEntries[0].deliveryMode.name}}
+          </div>
+        </template>
+      </div>
+      <template v-if="!isMultiple">
+        <template v-if="orderDetails.deliveryMode">
+          <div v-if="orderDetails.deliveryMode.description" class="col-sm-3 col-xs-6 pt-xs-4 pt-sm-5 px-xs-0">
+            <div class="order-info-heading">
+              {{i18n.orderApprovalDetails.deliveryInstructions}}
+            </div>
+            <div class="order-info">
+              {{orderDetails.deliveryMode.description}}
+            </div>
+          </div>
+        </template>
+        <template v-else>
+          <div v-if="orderDetails.deliveryGroup[0].value.splitEntries[0].deliveryInstruction" class="col-sm-3 col-xs-6 pt-xs-4 pt-sm-5 px-xs-0">
+            <div class="order-info-heading">
+              {{i18n.orderApprovalDetails.deliveryInstructions}}
+            </div>
+            <div class="order-info">
+              {{orderDetails.deliveryGroup[0].value.splitEntries[0].deliveryInstruction}}
+            </div>
+          </div>
+        </template>
+      </template>
+      <template v-if="globals.isB2B()">
+        <div v-if="checkLeasable(orderDetails.deliveryGroup)" class="col-sm-3 col-xs-6 pt-xs-4 pt-sm-5 px-xs-0">
+          <div class="order-info-heading">
+            {{i18n.orderApprovalDetails.leaseAgreement}}
+          </div>
+          <div class="order-info">
+            {{i18n.orderApprovalDetails.leaseAgreementName}}
+          </div>
+          <div class="order-info">
+            <a href="#" @click="showLeaseAgreement($event)">{{i18n.orderApprovalDetails.download}}</a>
+          </div>
+        </div>
+      </template>
+      <p class="col-xs-12 px-xs-0 pt-xs-5 sub-title">{{i18n.orderApprovalDetails.itemsOrdered}}</p>
+      <template v-for='groups in orderDetails.deliveryGroup'>
+        <div v-if="isMultiple" class="col-xs-12 px-xs-4 py-xs-4 multi-shipping-details d-flex flex-row flex-wrap">
+          <div class="col-xs-12 col-sm-6 px-xs-0">
+            <div class="order-info-heading">
+              {{i18n.orderApprovalDetails.shippedTo}}
+            </div>
+            <div class="order-info d-flex flex-column">
+              <span class="mb-xs-0">
+                <span>{{groups.value.splitEntries[0].deliveryAddress.firstName}}
+                  {{groups.value.splitEntries[0].deliveryAddress.lastName}}</span>
+              </span>
+              <span v-if="groups.value.splitEntries && groups.value.splitEntries.length!==0 && groups.value.splitEntries[0] && groups.value.splitEntries[0].deliveryAddress && groups.value.splitEntries[0].deliveryAddress.companyName">{{groups.value.splitEntries[0].deliveryAddress.companyName}}</span>
+              <span>{{groups.value.splitEntries[0].deliveryAddress.line1}}</span>
+              <span v-if="groups.value.splitEntries[0].deliveryAddress.line2">,
+                {{groups.value.splitEntries[0].deliveryAddress.line2}}
+              </span>
+              <span>
+                <span>{{groups.value.splitEntries[0].deliveryAddress.town}} </span>
+                <span>{{groups.value.splitEntries[0].deliveryAddress.region.isocodeShort}} </span>
+                <span>{{groups.value.splitEntries[0].deliveryAddress.postalCode}}</span>
+              </span>
+              <span v-if="groups.value.splitEntries[0].deliveryAddress && groups.value.splitEntries[0].deliveryAddress.country && groups.value.splitEntries[0].deliveryAddress.country.isocode">{{groups.value.splitEntries[0].deliveryAddress.country.isocode}}</span>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-6 px-xs-0 pt-xs-4 pt-sm-0">
+            <div class="order-info-heading">
+              {{i18n.orderApprovalDetails.deliveryMethod}}
+            </div>
+            <div class="order-info shipping-method">
+              {{groups.value.splitEntries[0].deliveryMode.name}}
+            </div>
+          </div>
+          <template v-if="groups.value.splitEntries[0].deliveryInstruction">
+            <div class="col-xs-12 col-sm-6 pt-xs-4 px-xs-0">
+              <div class="order-info-heading">
+                {{i18n.orderApprovalDetails.deliveryInstructions}}
+              </div>
+              <div class="order-info">
+                {{groups.value.splitEntries[0].deliveryInstruction}}
+              </div>
+            </div>
+          </template>
+          <template v-if="globals.isB2B()">
+            <template v-for="entry in groups.value.splitEntries">
+              <div v-if="checkInstallable(formattedEntries[entry.entryNumber])" class="col-xs-12 col-sm-6 pt-xs-4 px-xs-0">
+                <div class="order-info-heading">
+                  {{i18n.orderApprovalDetails.installation}}
+                </div>
+                <div class="order-info">
+                  <span>{{getInstallDate(orderDetails.scheduleInstallation.preferredDate)}} |</span>
+                  <span class="install-time"> {{orderDetails.scheduleInstallation.preferredTime}}</span>
+                </div>
+              </div>
+            </template>
+          </template>
+        </div>
+        <vx-product-tile class="pb-xs-5 px-xs-0 col-xs-12" v-for='productEntry in groups.value.splitEntries' v-if="productEntry.visible">
+          <template v-if="formattedEntries[productEntry.entryNumber].product.images && formattedEntries[productEntry.entryNumber].product.images.length !==0"
+            slot="image-slot">
+            <img :alt="formattedEntries[productEntry.entryNumber].product.name" :src="globals.getThumbnailImageUrl(formattedEntries[productEntry.entryNumber].product.images)">
+          </template>
+          <template slot="details">
+            <p class="product-title mb-xs-2">
+              <a :href="globals.getNavigationUrl('empty')+formattedEntries[productEntry.entryNumber].product.url" v-html="formattedEntries[productEntry.entryNumber].product.name"></a>
+            </p>
+            <span class="sr-only">{{i18n.orderApprovalDetails.itemId}}:
+              {{formattedEntries[productEntry.entryNumber].product.code}}</span>
+            <p class="product-code mb-xs-2" aria-hidden="true">{{i18n.orderApprovalDetails.itemId}}
+              {{formattedEntries[productEntry.entryNumber].product.code}}
+            </p>
+            <p class="error-text" v-if="formattedEntries[productEntry.entryNumber] && formattedEntries[productEntry.entryNumber].product && formattedEntries[productEntry.entryNumber].product.materialStatus==='OBSOLETE' && formattedEntries[productEntry.entryNumber].product.replacementProductCode && formattedEntries[productEntry.entryNumber].product.replacementProductCode!==''">
+              {{i18n.orderApprovalDetails.discontinued}} {{i18n.orderApprovalDetails.replacedBy}}
+              {{formattedEntries[productEntry.entryNumber].product.replacementProductCode}}
+            </p>
+            <p class="error-text" v-if="formattedEntries[productEntry.entryNumber] && formattedEntries[productEntry.entryNumber].product && formattedEntries[productEntry.entryNumber].product.materialStatus==='OBSOLETE' && !formattedEntries[productEntry.entryNumber].product.replacementProductCode">
+              {{i18n.orderApprovalDetails.discontinued}}
+            </p>
+            <!-- Commented since this implementation has been shifted to R2 -->
+            <!-- <template v-if="formattedEntries[productEntry.entryNumber] && formattedEntries[productEntry.entryNumber].product &&  formattedEntries[productEntry.entryNumber].product.materialStatus!=='OBSOLETE'">
+              <p class="product-stock mb-xs-3" v-if="formattedEntries[productEntry.entryNumber].product.stock.stockLevelStatus != 'inStock'">{{formattedEntries[productEntry.entryNumber].product.stock.stockLevelStatus}}</p>
+            </template> -->
+            <p class="product-quantity mb-xs-3">{{i18n.orderApprovalDetails.quantity}} : {{productEntry.qty}}</p>
+            <p class="product-promo mb-xs-3 mr-sm-3" v-if="promotionData[productEntry.entryNumber]">{{i18n.orderApprovalDetails.promo}}:
+              {{promotionData[productEntry.entryNumber]}}
+            </p>
+            <template v-if="globals.isB2C() && globals.siteConfig.isGiftingEnabled">
+              <template v-if="checkGiftable(formattedEntries[productEntry.entryNumber])">
+                <p class="helper-text mb-xs-3">{{i18n.orderApprovalDetails.giftable}}</p>
+                <template v-if="formattedEntries[productEntry.entryNumber].giftMessage">
+                  <p class="gift-message-heading mb-xs-2">{{i18n.orderApprovalDetails.giftMessageHeading}}</p>
+                  <p class="gift-message">{{formattedEntries[productEntry.entryNumber].giftMessage}}</p>
+                </template>
+              </template>
+            </template>
+            <template v-if="globals.isB2B()">
+              <template v-if="istallableProducts[productEntry.entryNumber]">
+                <p class="helper-text mb-xs-3">{{i18n.orderApprovalDetails.installable}}</p>
+              </template>
+            </template>
+          </template>
+          <template slot="right-section-slot">
+            <p class="product-discount" v-if="formattedEntries[productEntry.entryNumber].productPromotion && formattedEntries[productEntry.entryNumber].productPromotion.value && (formattedEntries[productEntry.entryNumber].productPromotion.value != discount.discountZero)">-${{formattedEntries[productEntry.entryNumber].productPromotion.value}}</p>
+            <p class="product-total-price mb-xs-3">{{formattedEntries[productEntry.entryNumber].totalPrice.formattedValue}}</p>
+            <button class="btn btn-primary">{{i18n.orderApprovalDetails.buyAgainButton}}</button>
+          </template>
+        </vx-product-tile>
+      </template>
+    </div>
+    <div class="col-md-4 col-xs-12 px-xs-0 mb-xs-5 order-summary-container">
+      <vx-order-summary :i18n="i18n.orderSummary" :order-details="orderDetails" class="ml-sm-5" page="orderApprovalDetails" :is-shipping-multiple="isMultiple"
+        :is-giftable="isGiftable" :is-installable="isInstallable"></vx-order-summary>
+      <div class="comments-section ml-md-5 mt-xs-4 mt-sm-0 mt-md-5" v-if="!statusUpdated">
+        <p class="comments-section-title pb-xs-2">{{i18n.orderApprovalDetails.comments}}</p>
+        <textarea type="text" v-model="approvalComments"></textarea>
+      </div>
+      <div class="comments-section ml-md-5 mt-xs-4 mt-sm-0 mt-md-5" v-if="orderDetails.approverComments">
+        <p class="comments-section-title pb-xs-2">{{i18n.orderApprovalDetails.comments}}</p>
+        <div class="comments-section-text">{{orderDetails.approverComments}}</div>
+      </div>
+    </div>
+  </template>
+</div>

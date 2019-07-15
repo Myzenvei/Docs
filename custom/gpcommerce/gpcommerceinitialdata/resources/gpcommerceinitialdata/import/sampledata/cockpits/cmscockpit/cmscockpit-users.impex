@@ -1,0 +1,42 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+#
+# Import Sample CMS Cockpit User
+#
+
+$defaultPassword=1234
+
+# Impexing previewmanagergroup as previewwebservices might not be impexed by the time this file is executed and the user impex uploads might fail
+INSERT_UPDATE UserGroup;UID[unique=true];groups(uid)[mode=append]
+;previewmanagergroup;employeegroup
+
+INSERT_UPDATE UserGroup;UID[unique=true];groups(uid)[mode=append]
+;cmsmanagergroup;cockpitgroup,employeegroup
+;gpemployee-cmsmanagergroup;employeegroup
+;vanityfair-cmsmanagergroup;employeegroup
+;gpb2c-cmsreadergroup;employeegroup
+
+INSERT_UPDATE PrincipalGroupRelation;source(uid)[unique=true];target(uid)[unique=true]
+;gpemployee-cmsmanagergroup;basecmsmanagergroup;
+;vanityfair-cmsmanagergroup;basecmsmanagergroup;
+;gpb2c-cmsreadergroup;basecmsmanagergroup;
+
+INSERT_UPDATE Employee;UID[unique=true];password[default=$defaultPassword];description;name;groups(uid)[mode=append];sessionLanguage(isocode);sessionCurrency(isocode)
+;cmsmanager;;CMS manager;CMS Manager;cmsmanagergroup;en;USD
+;cmsmanager-gpemployee;;CMS manager GP Employee;CMS Manager GP Employee;gpemployee-cmsmanagergroup,previewmanagergroup,cockpitgroup;en;USD
+;cmsmanager-vanityfair;;CMS manager VanityFair;CMS Manager VanityFair;vanityfair-cmsmanagergroup,previewmanagergroup,cockpitgroup;en;USD
+;cmsreader-gpb2c;;CMS Reader Apparel;CMS Reader Apparel;gpb2c-cmsreadergroup,previewmanagergroup,cockpitgroup;en;USD
+
+UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];writePrincipals(uid)[mode=append];readPrincipals(uid)[mode=append];
+;vanityfairnapkinsContentCatalog;Staged;cmsmanagergroup,vanityfair-cmsmanagergroup;gpb2c-cmsreadergroup
+;gpemployeeContentCatalog;Staged;cmsmanagergroup,gpemployee-cmsmanagergroup;gpb2c-cmsreadergroup
+;vanityfairnapkinsContentCatalog;Online;;cmsmanagergroup,vanityfair-cmsmanagergroup,gpb2c-cmsreadergroup
+;gpemployeeContentCatalog;Online;;cmsmanagergroup,gpemployee-cmsmanagergroup,gpb2c-cmsreadergroup

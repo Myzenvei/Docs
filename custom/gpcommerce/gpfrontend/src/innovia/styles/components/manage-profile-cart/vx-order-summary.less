@@ -1,0 +1,78 @@
+#innovia {
+  .vx-order-summary {
+
+    .order-summary {
+      .vx-order-summary-details {
+
+        .cart-savings .cart-savings-label,
+        .cart-total .cart-savings-label,
+        .cart-total .cart-total-label {
+          font-weight: @font-weight-regular;
+        }
+
+        .sub-total-helper-text,
+        .order-helper-text,
+        .order-helper-text p a {
+          color: @brand-secondary-5;
+        }
+
+        .cart-calculation {
+          font-family: @font-family-montserrat;
+
+          &.sub-total-label {
+            font-family: @font-family-karla;
+          }
+        }
+
+        .shipping-progress-helper-text {
+          font-family: @font-family-montserrat;
+        }
+
+        .order-summary-heading {
+          @media screen and (max-width: @screen-xs-max) {
+            margin-bottom: 24px !important;
+          }
+        }
+
+        .sub-total+.section-divider {
+          @media screen and (max-width: @screen-xs-max) {
+            display: none;
+          }
+        }
+      }
+    }
+
+    .promotion-section {
+      .vx-promotion {
+        .promotions-label {
+          font-family: @font-family-karla;
+        }
+
+        .voucher-coupon {
+          color: @font-icon-color-2;
+          font-family: @font-family-karla;
+        }
+
+        .promotions-body {
+          .apply-promo {
+            input {
+              font-family: @font-family-karla;
+            }
+          }
+        }
+      }
+
+      .checkout-terms-cond {
+
+        span,
+        a {
+          font-size: @font-size-small,
+        }
+
+        a {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}

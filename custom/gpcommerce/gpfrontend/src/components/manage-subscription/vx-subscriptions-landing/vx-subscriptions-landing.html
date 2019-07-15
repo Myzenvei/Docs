@@ -1,0 +1,101 @@
+<div class="vx-subscriptions-landing">
+  <vx-modal ref="cancelSubscriptionModal" size="medium" :heading="i18n.cancelSubscription.heading">
+    <vx-cancel-subscription slot="component" :i18n="i18n.cancelSubscription" :subscriptionId="subscriptioncode" @cancel-Subscription-success="handleCancelSubscriptionSuccess"
+      @cancel-Subscription-error="handleCancelSubscriptionError" @keep-subscription="handleKeepSubscription">
+    </vx-cancel-subscription>
+  </vx-modal>
+  <vx-modal ref="editSubscriptionModal" size="large" :heading="i18n.subscriptionsLanding.editSubscription">
+    <vx-edit-subscription slot="component" :subscription-entry="subscriptionEntryTemp" :i18n="i18n" @updated-subscription="updatedSubscriptionSuccess($event)"></vx-edit-subscription>
+  </vx-modal>
+  <template v-if="subscriptionData && subscriptionData.carts && subscriptionData.carts.length">
+    <h3 class="subscription-length">{{subscriptionData.carts.length}}{{i18n.subscriptionsLanding.subscription}}</h3>
+    <div class="subscriptions-container">
+      <div class="product-tile-container" v-for='(subscriptionEntry, key) in displayedSubscriptions'>
+        <div class="upper-info-section d-flex justify-content-between">
+          <div class="subscription-info d-flex">
+            <div class="subscription-info-container">
+              <div class="subscription-heading">{{i18n.subscriptionsLanding.subscriptionID}}</div>
+              <div class="info">{{subscriptionEntry.code}}</div>
+            </div>
+            <div class="subscription-info-container" v-if="subscriptionEntry.entries[0].splitEntries.length">
+              <div class="subscription-heading">{{i18n.subscriptionsLanding.shipTo}}</div>
+              <div class="info" ref="subscribeAddressPopover">
+                {{subscriptionEntry.entries[0].splitEntries[0].deliveryAddress.firstName}} {{subscriptionEntry.entries[0].splitEntries[0].deliveryAddress.lastName}}
+                <span role="button" tabindex="0" class="icon-info popover-subscribe-address" data-toggle="popover" :data-content="getPopoverAddressContent(subscriptionEntry)"
+                  @mouseover="openSubscriptionAddressTooltip()"></span>
+              </div>
+            </div>
+            <div class="subscription-info-container">
+              <div class="subscription-heading">{{i18n.subscriptionsLanding.status}}</div>
+              <div class="info">{{handleSubscriptionStatus(subscriptionEntry.subscriptionCartStatus)}}</div>
+            </div>
+          </div>
+          <div class="subscription-icons">
+            <span class="icon-edit" :title="i18n.subscriptionsLanding.edit" @click="handleEditSubscription($event,subscriptionEntry)"
+              tabindex="0" role="button" @keyup.enter-space="handleEditSubscription($event,subscriptionEntry)" :aria-label="i18n.subscriptionsLanding.edit"></span>
+            <span class="icon-trash" :title="i18n.subscriptionsLanding.cancel" :aria-label="i18n.subscriptionsLanding.cancel" @click="handleCancelSubscription($event,subscriptionEntry)"
+              @keyup.enter-space="handleCancelSubscription($event,subscriptionEntry)" tabindex="0" role="button"></span>
+          </div>
+        </div>
+        <vx-product-tile>
+          <template slot="upper-full-slot" v-if="subscriptionEntry.nextActivationDate">
+            <div class="next-shipment-info">
+              {{i18n.subscriptionsLanding.nextShipment}} {{ formatDate(subscriptionEntry.nextActivationDate)}}
+            </div>
+          </template>
+          <template slot="image-slot" v-if="subscriptionEntry.entries[0].product.images">
+            <img :src="globals.getThumbnailImageUrl(subscriptionEntry.entries[0].product.images)"
+              :alt="subscriptionEntry.entries[0].product.images[2].altText">
+            <p class="coming-soon-status hidden-xs "
+              v-if="subscriptionEntry.entries[0].product.materialStatus === ProductAvailability.COMING_SOON">
+              {{i18n.subscriptionsLanding.comingSoonLabel}}</p>
+          </template>
+          <template slot="image-slot" v-if="!subscriptionEntry.entries[0].product.images">
+            <img :src="globals.assetsPath + 'images/no_image.svg'" alt="no image">
+            <p class="coming-soon-status hidden-xs"
+              v-if="subscriptionEntry.entries[0].product.materialStatus === ProductAvailability.COMING_SOON">
+              {{i18n.subscriptionsLanding.comingSoonLabel}}</p>
+          </template>
+          <template slot="details">
+            <p class="product-title">
+              <a :href="globals.getNavigationUrl('empty')+subscriptionEntry.entries[0].product.url"
+                v-html="subscriptionEntry.entries[0].product.name"></a>
+            </p>
+            <p>
+              <span class="item-id">{{i18n.subscriptionsLanding.itemID}}
+                <span>{{subscriptionEntry.entries[0].product.code}}</span>
+              </span>
+            </p>
+            <div class="product-info">
+              {{i18n.subscriptionsLanding.quantityLabel}}{{subscriptionEntry.entries[0].quantity}}</div>
+            <div class="product-info">
+              {{i18n.subscriptionsLanding.subscriptionLabel}}{{subscriptionEntry.entries[0].subscriptionFrequency.entry[0].key}}
+            </div>
+          </template>
+          <template slot="right-section-slot">
+            <div class="product-price">
+              <p v-if="subscriptionEntry.entries[0].product && subscriptionEntry.entries[0].product.subscriptionPrice && subscriptionEntry.entries[0].product.subscriptionPrice.formattedValue"
+                class="subscription-price-info" ref="subscribeInfoPopover">
+                {{subscriptionEntry.entries[0].product.subscriptionPrice.formattedValue}}
+                <span role="button" tabindex="0" class="icon-info popover-subscribe-info"
+                  @mouseover="openSubscriptionInfoTooltip()" :data-content="getPopoverInfoContent()"
+                  data-toggle="popover"></span>
+              </p>
+            </div>
+          </template>
+        </vx-product-tile>
+      </div>
+    </div>
+    <vx-paginate :page-count="pagination.totalPages" :page-range="pagination.pageRange" :margin-pages="2" :click-handler="paginationCallback"
+      :prev-text="pagination.previous" :next-text="pagination.next" :container-class="'pagination col-xs-12 d-flex justify-content-center'"
+      :page-class="'page-item'">
+    </vx-paginate>
+  </template>
+  <template v-else>
+    <div class="empty-table mx-sm-3 my-sm-5">
+      <div>
+        <p class="mb-xs-0">{{i18n.subscriptionsLanding.noSubscriptions}}</p>
+      </div>
+    </div>
+  </template>
+</div>

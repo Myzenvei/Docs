@@ -1,0 +1,42 @@
+<div class="vx-left-nav">
+  <main class="cd-main-content">
+    <nav class="cd-side-nav">
+      <div class="left-nav-sub-container" v-for="navData in leftNavData" :class="{'hidden' : !(navData.title && navData.title !== '') || (navData.title === leftNavigation.yourCompany && !showCompanySection)}">
+        <!-- Updated condition for Left Nav based on B2B / B2C
+          <template v-if="(userInfo?((userInfo.indexOf('b2bcustomergroup')>=0)?true:false):false)"> -->
+        <template v-if="globals.isB2B()">
+          <template v-if="navData.title && navData.title.toUpperCase() === leftNavigation.yourCompany.toUpperCase() && showCompanySection">
+            <h3 class="side-heading h3">{{navData.title}}</h3>
+            <ul>
+              <li class="cd-label" :class="[{ 'selected' : (listData.linkTo === currentUrlPath) }]" v-for="listData in navData.links">
+                <template v-if="listData.linkText">
+                  <a :href="baseURL+listData.linkTo">{{listData.linkText}}</a>
+                </template>
+              </li>
+            </ul>
+          </template>
+          <template v-if="navData.title && navData.title.toUpperCase() === leftNavigation.yourAccount.toUpperCase()">
+            <h3 class="side-heading h3">{{navData.title}}</h3>
+            <ul>
+              <li class="cd-label" :class="[{ 'selected' : (listData.linkTo === currentUrlPath) }]" v-for="listData in navData.links">
+                <template v-if="listData.linkText">
+                  <a :href="baseURL+listData.linkTo">{{listData.linkText}}</a>
+                </template>
+              </li>
+            </ul>
+          </template>
+        </template>
+        <template v-else>
+          <h3 class="side-heading" v-if="navData.title">{{navData.title}}</h3>
+          <ul>
+            <li class="cd-label" :class="[{ 'selected' : (~listData.linkTo.indexOf(currentUrlPath)) && (~currentUrlPath.search(/\/[a-z]/)) }]" v-for="listData in navData.links">
+              <template v-if="listData.linkText">
+                <a :href="baseURL+listData.linkTo">{{listData.linkText}}</a>
+              </template>
+            </li>
+          </ul>
+        </template>
+      </div>
+    </nav>
+  </main>
+</div>

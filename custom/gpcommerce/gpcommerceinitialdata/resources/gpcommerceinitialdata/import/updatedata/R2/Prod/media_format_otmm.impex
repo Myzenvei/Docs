@@ -1,0 +1,26 @@
+insert_update MediaDeliveryService;command;isDefault;mediaFolder(qualifier);name[unique=true,allownull=true];renditionSet;mediaFormatQualifier
+;original;false;otmmRoot;smarteditDesktopSingleFormat;smartedit;desktop
+;original;false;otmmRoot;smarteditMobileSingleFormat;smartedit;mobile
+;original;false;otmmRoot;smarteditWidescreenSingleFormat;smartedit;widescreen
+
+INSERT_UPDATE MediaFormat;qualifier[unique=true]
+;2000Wx2000H
+;1200Wx1200H
+;515Wx515H
+;365Wx246H
+;300Wx300H
+;96Wx96H
+;65Wx65H
+;30Wx30H
+;original
+
+
+insert_update MediaDeliveryService;&Item;command;isDefault;mediaFolder(qualifier);name[unique=true,allownull=true];renditionSet
+;Item3;;false;otmmRoot;1200Wx1200H;productpictures
+;Item4;;false;otmmRoot;300Wx300H;productpictures
+;Item5;;false;otmmRoot;30Wx30H;productpictures
+;Item6;;false;otmmRoot;515Wx515H;productpictures
+;Item7;;false;otmmRoot;65Wx65H;productpictures
+;Item8;;false;otmmRoot;96Wx96H;productpictures
+;Item9;;true;otmmRoot;2000Wx2000H;productpictures
+;Item10;;true;otmmRoot;original;

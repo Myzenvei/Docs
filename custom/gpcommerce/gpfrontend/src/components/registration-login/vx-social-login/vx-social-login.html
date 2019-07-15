@@ -1,0 +1,50 @@
+<!-- 1. Social login component is a parent component which contains
+   google login button and facebook login button in which we need to pass appid or client id.
+   On click of the buttons event goes to respective components and will return facebookAccesstoken/googleAuthCode
+2. This accessToken/authCode we need to send as request data to login/register ajax call
+    which will be decided if register attribute is passed through props.  -->
+<section class="social-login">
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>
+  </vx-spinner>
+  <vx-modal ref="updateEmailModal" :show-close-btn="false" :heading="i18n.updateEmailHeading">
+    <vx-update-email slot="component" :i18n="i18n" :update-email-data="updateEmailData" v-on:email-updated="handleEmailupdated" v-on:email-update-initiate="handleEmailUpdateInitiated" v-on:hide-spinner="hideSpinner"></vx-update-email>
+  </vx-modal>
+  <div class="row social-section">
+    <h1 class="col-xs-12 pt-xs-2 pt-sm-0 pt-md-0 social-heading" :class="{'my-sm-4 mb-xs-3 mt-xs-0' : isCheckout}">{{heading}}</h1>
+    <vx-facebook-login ref="facebookLogin" @response="facebookResponse" @error="facebookErrorResponse" :app-id="globals.thirdPartyApps.facebook.appId"></vx-facebook-login>
+    <!-- <button type="button" class="btn social-button btn-primary" v-on:click="facebookLogin">{{i18n.facebook}}</button> -->
+    <div class="col-xs-12" :class="{'col-sm-6' : isCheckout}">
+      <button class="loginBtn btn btn-block loginBtn-facebook" v-on:click="facebookLogin">
+        <span class="icon-socials icon-facebook" aria-hidden="true" :title="i18n.facebook"></span>
+        <span class="pb-xs-3 social-text" :class="{'pl-sm-5 pl-mb-0' : isCheckout}">{{i18n.facebook}}</span>
+      </button>
+    </div>
+    <br />
+    <vx-google-login ref="googleLogin" @response="googleResponse" @error="googleErrorResponse" :google-client-id="globals.thirdPartyApps.google.appId"></vx-google-login>
+    <!-- <button type="button" class="btn social-button btn-info" v-on:click="googleLogin">{{i18n.google}}</button> -->
+    <div class="col-xs-12 mb-xs-3 mb-md-0 mb-sm-0" :class="{'col-sm-6 pb-xs-3' : isCheckout}">
+      <button class="mt-xs-3 btn btn-block loginBtn loginBtn-google" :class="{'mt-sm-0' : isCheckout}" v-on:click="googleLogin">
+        <span class="icon-socials icon-google" aria-hidden="true" :title="i18n.google"></span>
+        <span class="pb-xs-3 social-text" :class="{'pl-sm-5 pl-mb-0' : isCheckout}">{{i18n.google}}</span>
+      </button>
+    </div>
+  </div>
+  <!-- <p v-if="!isCheckout" class="mt-sm-4 mt-xs-0 mb-xs-0 support">{{i18n.support}}
+    <a :href="`tel:${i18n.supportNumber}`">{{i18n.supportNumber}}</a>
+  </p> -->
+  <div class="mt-xs-4 mb-xs-2" v-if="serverError">
+    <span class="error-icon icon-alert-triangle" :title="i18n.iconAlertTriangleTitle"></span>
+    <span class="error-msg">{{serverError}}</span>
+  </div>
+
+  <form ref="loginForm" :action="actionUrl" method="post" hidden>
+    <input type="hidden" name="token" :value="appToken">
+    <input type="hidden" name="loginType" :value="loginType">
+
+    <input type="hidden" name="j_username" value="username">
+    <input type="hidden" name="j_password" value="password">
+    <input type="hidden" name="baseSiteId" :value="globals.siteId">
+    <input type="hidden" name="CSRFToken" :value="globals.csrfToken">
+  </form>
+
+</section>

@@ -1,0 +1,17 @@
+<div class="row mg-home-banner">
+  <div class="container image-container px-xs-0 pt-xs-5">
+    <template v-for="(image,index) in imagesArray.images">
+      <template v-if="index===0">
+        <div class="col-xs-12 col-sm-7 text-center">
+          <img class="mardi-gras-logo" :src="image.imageSrcD" :alt="image.imageAltText">
+        </div>
+      </template>
+      <template v-else>
+        <div class="col-xs-12 col-sm-5 text-center">
+          <img class="vector-smart-object" :src="image.imageSrcD" :alt="image.imageAltText">
+        </div>
+      </template>
+    </template>
+  </div>
+  <div class="col-xs-12 col-sm-12 header-end-tear"></div>
+</div>

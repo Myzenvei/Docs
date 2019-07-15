@@ -1,0 +1,53 @@
+# USE CTRL-SPACE for type-ahead support
+
+$contentCatalog=gpxpressContentCatalog
+
+UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];writePrincipals(uid)[mode=append];readPrincipals(uid)[mode=append];
+                     ;$contentCatalog;Online;cxmanagergroup,cmsmanagergroup,admingroup;cxmanagergroup,cmsmanagergroup,admingroup;
+                     ;$contentCatalog;Staged;cxmanagergroup,cmsmanagergroup,admingroup;cxmanagergroup,cmsmanagergroup,admingroup;
+
+$contentCatalog=copperandcraneContentCatalog
+UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];writePrincipals(uid)[mode=append];readPrincipals(uid)[mode=append];
+                     ;$contentCatalog;Online;cxmanagergroup,cmsmanagergroup,admingroup;cxmanagergroup,cmsmanagergroup,admingroup;
+                     ;$contentCatalog;Staged;cxmanagergroup,cmsmanagergroup,admingroup;cxmanagergroup,cmsmanagergroup,admingroup;
+
+$contentCatalog=vanityfairnapkinsContentCatalog
+UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];writePrincipals(uid)[mode=append];readPrincipals(uid)[mode=append];
+                     ;$contentCatalog;Online;cxmanagergroup,cmsmanagergroup,admingroup;cxmanagergroup,cmsmanagergroup,admingroup;
+                     ;$contentCatalog;Staged;cxmanagergroup,cmsmanagergroup,admingroup;cxmanagergroup,cmsmanagergroup,admingroup;
+
+$contentCatalog=b2bwhitelabelContentCatalog
+UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];writePrincipals(uid)[mode=append];readPrincipals(uid)[mode=append];
+                     ;$contentCatalog;Online;cxmanagergroup,cmsmanagergroup,admingroup;cxmanagergroup,cmsmanagergroup,admingroup;
+                     ;$contentCatalog;Staged;cxmanagergroup,cmsmanagergroup,admingroup;cxmanagergroup,cmsmanagergroup,admingroup;
+
+$contentCatalog=dixieContentCatalog
+UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];writePrincipals(uid)[mode=append];readPrincipals(uid)[mode=append];
+                     ;$contentCatalog;Online;cxmanagergroup,cmsmanagergroup,admingroup;cxmanagergroup,cmsmanagergroup,admingroup;
+                     ;$contentCatalog;Staged;cxmanagergroup,cmsmanagergroup,admingroup;cxmanagergroup,cmsmanagergroup,admingroup;
+
+$contentCatalog=gpproContentCatalog
+UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];writePrincipals(uid)[mode=append];readPrincipals(uid)[mode=append];
+                     ;$contentCatalog;Online;cxmanagergroup,cmsmanagergroup,admingroup;cxmanagergroup,cmsmanagergroup,admingroup;
+                     ;$contentCatalog;Staged;cxmanagergroup,cmsmanagergroup,admingroup;cxmanagergroup,cmsmanagergroup,admingroup;
+
+$contentCatalog=b2cwhitelabelContentCatalog
+UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];writePrincipals(uid)[mode=append];readPrincipals(uid)[mode=append];
+                     ;$contentCatalog;Online;cxmanagergroup,cmsmanagergroup,admingroup;cxmanagergroup,cmsmanagergroup,admingroup;
+                     ;$contentCatalog;Staged;cxmanagergroup,cmsmanagergroup,admingroup;cxmanagergroup,cmsmanagergroup,admingroup;
+
+$contentCatalog=mardigrasContentCatalog
+UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];writePrincipals(uid)[mode=append];readPrincipals(uid)[mode=append];
+                     ;$contentCatalog;Online;cxmanagergroup,cmsmanagergroup,admingroup;cxmanagergroup,cmsmanagergroup,admingroup;
+                     ;$contentCatalog;Staged;cxmanagergroup,cmsmanagergroup,admingroup;cxmanagergroup,cmsmanagergroup,admingroup;
+
+$contentCatalog=sparkleContentCatalog
+UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];writePrincipals(uid)[mode=append];readPrincipals(uid)[mode=append];
+                     ;$contentCatalog;Online;cxmanagergroup,cmsmanagergroup,admingroup;cxmanagergroup,cmsmanagergroup,admingroup;
+                     ;$contentCatalog;Staged;cxmanagergroup,cmsmanagergroup,admingroup;cxmanagergroup,cmsmanagergroup,admingroup;
+
+
+
+
+
+

@@ -1,0 +1,64 @@
+.vx-promotion {
+  .voucher-container {
+    font-size: @font-size-large;
+    font-weight: @font-weight-light;
+  }
+  .voucher-coupon {
+    color: @brand-secondary-2;
+    font-size: @font-size-base;
+    font-weight: @font-weight-light;
+    letter-spacing: 0.15px;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  .promotions-label {
+    font-weight: @font-weight-medium;
+  }
+  .apply-voucher {
+    input {
+      letter-spacing: 0.15px;
+    }
+    .btn {
+      min-width: 100px;
+    }
+  }
+  .promo-error {
+    background-color: @brand-secondary-4;
+    border: 1px solid @error-border-color;
+  }
+  .error-msg {
+    font-size: @font-size-small;
+    font-weight: @font-weight-light;
+    color: @brand-tertiary;
+  }
+  .promotion-x {
+    color: @brand-secondary-5;
+  }
+  button {
+    &[disabled] {
+      background: @btn-disabled-bg;
+      border: @btn-disabled-bg;
+      color: @btn-disabled-text-color;
+    }
+  }
+}
+
+@media only screen and (max-width: @screen-xs-max) {
+  .vx-promotion {
+    .promotions-body {
+      display: flex;
+      flex-direction: column;
+      .apply-promo,
+      .applied-promo {
+        width: 100%;
+      }
+      .apply-promo {
+        .apply-voucher {
+          input {
+            height: 48px;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+<section class="search-browse-list-page" :class="{'pt-xs-0':singleProductEnabled && isMobile()}" ref="listPage">
+  <div class="d-flex" :class="singleProductEnabled && isMobile()?'tile-group-single-product':'tile-group'">
+    <vx-product-tile-vertical v-if="products.length" v-for="(product,index) in products"
+      :key="(product && product.code)? product.code + index : product" :product="product"
+      @checkedElement="addToCompare($event)" @unCheckedElement="removeFromCompare($event)"
+      @incrementCounter="updateCounter" @decrementCounter="updateCounter" :uncheckProduct="uncheckProduct"
+      :show-compare-option="!isBulkEnabled" :is-bulk-enabled="isBulkEnabled" :is-favorite-visible="isFavorites"
+      :is-item-id-hide=true :is-bazaar-voice="isBazaarVoice" :i18n="searchBrowseI18n.productTile">
+    </vx-product-tile-vertical>
+  </div>
+  <vx-panel-view v-if="compareProduct.length" :compared-products="compareProduct"
+    :disableButtonFalse="disableButtonFalse" @panelDelete="updateTotalCountPanel()" :maxProductsCompare="viewportCount"
+    :i18n="searchBrowseI18n.comparePanel">
+  </vx-panel-view>
+</section>

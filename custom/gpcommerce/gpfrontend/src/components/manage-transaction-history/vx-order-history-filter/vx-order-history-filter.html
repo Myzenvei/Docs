@@ -1,0 +1,13 @@
+<div class="vx-order-history-filter">
+  <slot name="sortDropdown">
+
+  </slot>
+  <div class="pt-xs-4 pb-xs-3 filterHeading">{{i18n.dateFilter}}</div>
+  <slot name="dateDropdown">
+
+  </slot>
+  <div class="col-xs-12 px-xs-0 filter-sort-buttons">
+    <button type="button" @click="filterAction('clear')" class="col-xs-6 clear-filter-button btn btn-default">{{i18n.clearAll}}</button>
+    <button type="button" @click="filterAction('apply')" class="col-xs-6 save-filter-button btn btn-tertiary">{{i18n.apply}}</button>
+  </div>
+</div>

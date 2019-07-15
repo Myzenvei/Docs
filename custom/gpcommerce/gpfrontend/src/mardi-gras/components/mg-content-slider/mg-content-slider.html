@@ -1,0 +1,19 @@
+<div class="content-slider-bg row" :class="componentClass">
+  <div class="mg-content-slider">
+    <mg-slick-slider>
+      <template slot="slickSlide">
+        <a href="javascript:void(0)" v-for="item in items">
+          <img :src="item.backgroundImage" :alt="item.bannerDesc" @click="getClickedSlideInfo($event)" />
+        </a>
+      </template>
+    </mg-slick-slider>
+  </div>
+  <div class="tear-bg"></div>
+  <div class="slider-zoom-view" v-if="zommedContainertoggle" :style="{'background-color': '#312e2ebf'}">
+    <a href="javascript:void(0)" @click="toggleZoomWindow()" class="close-wrapper">
+      CLOSE
+      <!-- <span tabindex="0" role="button" aria-label="close" class="close-icon"></span> -->
+    </a>
+    <img :src="zommedImgSrc" :alt="zoomedImgAlt" />
+  </div>
+</div>

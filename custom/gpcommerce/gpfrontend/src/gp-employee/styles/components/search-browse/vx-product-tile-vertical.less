@@ -1,0 +1,123 @@
+#gp-employee {
+  .search-browse-product-tile {
+    position: relative;
+    padding-bottom: 40px;
+    .tile-body {
+      text-align: center;
+      .form-group {
+        display: none;
+      }
+      .tile-image {
+        border: none;
+        position: relative;
+        img {
+          padding: 0;
+        }
+        .info-text {
+          display: flex;
+          top: -8px;
+          width: auto;
+          left: 0;
+          border-radius: 0 @card-layout-border-radius @card-layout-border-radius 0;
+          font-size: @promo-text-size;
+          align-items: center;
+          padding: 0 8px;
+          justify-content: center;
+          height: 24px;
+        }
+      }
+
+      .product-name {
+        font-size: @font-size-section-heading;
+
+        h6 {
+          font-size: @font-size-section-heading;
+          color: @product-tile-text-color;
+        }
+      }
+
+      .prices {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+
+        .product-price {
+          color: @product-tile-text-color;
+          font-size: @font-size-h3;
+          font-weight: @font-weight-bold;
+          order: 1;
+
+          &.product-slashed-price {
+            color: @font-color-error;
+            font-size: @font-size-small;
+            font-weight: @font-weight-regular;
+            order: 0;
+            margin-left: 0;
+          }
+        }
+      }
+      button {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        top: 0;
+        margin-bottom: 0;
+        height: @btn-height;
+        line-height: @line-height-search;
+        border-radius: 0 0 @btn-border-radius @btn-border-radius;
+      }
+      .product-indicators-container {
+        display: none;
+      }
+      .fav-container {
+        right: 0;
+        top: -8px;
+        .favorite {
+          max-height: 30px;
+          width: 30px;
+          .heart {
+            width: 25px;
+          }
+          #heart-outline {
+            fill: @border-color;
+          }
+          &.active {
+            svg {
+              #heart-outline {
+                fill: @fav-icon-fill-color;
+              }
+              #fill {
+                animation: none;
+              }
+            }
+          }
+        }
+      }
+    }
+    .error-text {
+      font-weight: @font-weight-medium;
+    }
+    .icon-add-to-list {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: @screen-xs-max) {
+  #gp-employee {
+    .search-browse-product-tile {
+      .tile-body {
+        .fav-container {
+          .favorite {
+            top: 0;
+            height: 54px;
+            .heart {
+              display: inline-block;
+            }
+          }
+        }
+      }
+    }
+  }
+}

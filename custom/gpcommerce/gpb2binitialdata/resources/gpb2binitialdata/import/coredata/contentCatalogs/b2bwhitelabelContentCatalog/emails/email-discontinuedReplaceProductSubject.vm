@@ -1,0 +1,5 @@
+#if($ctx.isDiscontinued  &&  $ctx.isDiscontinued  == true)
+${ctx.messages.getMessage('emailSubjectDiscontinued', ${ctx.cartData.entries.get(0).product.name})}
+#else
+${ctx.messages.getMessage('emailSubjectReplaced', ${ctx.cartData.entries.get(0).product.name},${ctx.productData.name})}
+#end

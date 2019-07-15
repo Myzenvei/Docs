@@ -1,0 +1,191 @@
+## messageSource=classpath:/gpcommerceinitialdata/import/coredata/contentCatalogs/sparkleContentCatalog/messages/email-shareProductResource_$lang.properties
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Product Resource Share Email</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style type="text/css">
+        @font-face {
+            font-family: 'TradeGothicLT';
+            src: url('webfonts/3947F0_0_0.eot');
+            src: url('webfonts/3947F0_0_0.eot?#iefix') format('embedded-opentype'),url('webfonts/3947F0_0_0.woff2') format('woff2'),url('webfonts/3947F0_0_0.woff') format('woff'),url('webfonts/3947F0_0_0.ttf') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'TradeGothicLT-Bold';
+            src: url('webfonts/3947F0_A_0.eot');
+            src: url('webfonts/3947F0_A_0.eot?#iefix') format('embedded-opentype'),url('webfonts/3947F0_A_0.woff2') format('woff2'),url('webfonts/3947F0_A_0.woff') format('woff'),url('webfonts/3947F0_A_0.ttf') format('truetype');
+        }
+        body {
+            width: 100% !important;
+            -webkit-text;
+            size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            margin: 0;
+            font-family: 'TradeGothicLT', 'TradeGothicLT-Bold', lato, Helvetica, Roboto, Arial, sans-serif;
+            padding: 0;
+            word-break: break-word;
+        }
+		table.table-wrapper {
+            width: 800px;
+        }
+        table.table-body-wrapper {
+            width: 700px;
+        }
+		.header img {
+			max-width: 100%;
+		}
+        @media screen and (max-width: 767px) {
+            *[class="mobile-column"] {
+                display: block;
+            }
+
+            *[class="mob-column"] {
+                float: none !important;
+                width: 100% !important;
+            }
+
+            *[class="d-hide"] {
+                display: none !important;
+            }
+
+            *[class="m-show"] {
+                display: block !important;
+            }
+
+            *[class="100p"] {
+                width: 100% !important;
+                height: auto !important;
+            }
+
+            *[class="condensed"] {
+                padding-bottom: 40px !important;
+                display: block;
+            }
+
+            *[class="center"] {
+                text-align: center !important;
+                width: 100% !important;
+                height: auto !important;
+            }
+
+            *[class="100pad"] {
+                width: 100% !important;
+                padding: 20px;
+            }
+
+            *[class="100padleftright"] {
+                width: 100% !important;
+                padding: 0 20px 0 20px;
+            }
+
+            *[class="100padtopbottom"] {
+                width: 100% !important;
+                padding: 20px 0 20px 0;
+            }
+
+            *[class="td-m-block"] {
+                display: block;
+            }
+
+            .footer-m-block {
+                display: block;
+            }
+
+            .followUs-m-left {
+                margin: 10px 10px 10px 3px;
+            }
+
+            .align-m-left {
+                float: left;
+            }
+
+            .align-d-right {
+                float: left;
+            }
+        }
+
+        @media screen and (max-width: 1199px) {
+            table.table-wrapper {
+                width: 768px;
+            }
+
+            .content-slot {
+                padding-left: 32px;
+                padding-right: 32px;
+            }
+        }
+
+        @media screen and (max-width: 767px) {
+            table.table-wrapper {
+                width: calc(100% - 0px);
+            }
+            table.table-body-wrapper {
+                width: calc(100% - 32px);
+                margin: 0 auto;
+            }
+            .content-slot {
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+        }
+    </style>
+    
+</head>
+
+<body style="-webkit-text-size-adjust: none; -ms-text-size-adjust: none; text-size-adjust: none; margin: 0; padding: 0; width: 100%;">
+    <table cellspacing="0" cellpadding="0" align="center" border="0" bgcolor="#ffffff" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" class="table-wrapper">
+        <tr>
+            <td valign="top" align="left" width="100%" style="border-collapse: collapse; font-family:'TradeGothicLT', 'TradeGothicLT-Bold', lato, Helvetica, Arial, Verdana, sans-serif;">
+                <table cellspacing="0" cellpadding="0" align="left" border="0" width="100%" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+                    <tr>
+                        <td valign="top" align="left" width="100%" height="73px" style="border-collapse: collapse; font-family:'TradeGothicLT', 'TradeGothicLT-Bold', lato, Helvetica, Arial, Verdana, sans-serif;">
+                            <a href="${ctx.secureBaseUrl}" class="header">${ctx.cmsSlotContents.SiteLogo}</a>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <table cellspacing="0" cellpadding="0" align="center" border="0" bgcolor="#ffffff" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" class="table-body-wrapper">
+		<tr>
+			<td valign="top" align="left" width="100%" colspan="4" class="txt-xl txt-weight-light txt-default-color pt-4"
+				style="font-size: 16px; color: #222222; line-height: 19px;font-weight: 500; padding: 24px 0 16px; font-family: 'TradeGothicLT-Bold',Helvetica, Arial, Verdana,
+				sans-serif;">${ctx.senderName} Commented: ${ctx.senderMessage}
+			</td>
+		</tr>
+		<tr>
+            <table cellspacing="0" cellpadding="0" align="center" bgcolor="#ffffff" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; border: 1px solid #cecece; padding: 24px 24px 40px;" class="table-body-wrapper">
+                <tr>
+                    <td colspan="2" style="font-size: 16px;font-weight: 500;line-height: 19px;color: #222;">${ctx.resourceTitle}</td>
+                </tr>
+                <tr>
+                    <td align="center" valign="top" width="22%" style="padding-top: 16px;">
+                        <a href="${ctx.resourcePageUrl}" target="_blank" style="display: block;">
+                            <img src="${ctx.imgurl}" style="width: 100%;max-height: 100%">
+                        </a>
+                    </td>
+                    <td width="78%" valign="top" style="padding: 16px 0 0 24px;">
+                        <a href="${ctx.resourcePageUrl}" target="_blank" style="font-size: 14px;font-weight: 500;line-height: 16px;letter-spacing: 0.15px;color: #022169;margin: 0 0 8px; display: block; text-decoration: none;">
+                            ${ctx.resourceTitle}
+					    </a>
+                        <p style="font-size: 14px;font-weight: 300;line-height: 20px;letter-spacing: 0.15px;color: #222;margin: 0">
+                            ${ctx.resourceDescription}
+                        </p>
+                    </td>
+                </tr>
+            </table>
+		</tr>
+	</table>
+    <table cellspacing="0" cellpadding="0" align="center" border="0" bgcolor="#ffffff" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" class="table-wrapper">
+        <tr>
+            <td style="display: block; width: calc(100% - 0px); margin:0px; padding:0px;">
+                <a href="${ctx.baseUrl}" style="display:block; margin:0px;">${ctx.cmsSlotContents.BottomContent}</a>
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>

@@ -1,0 +1,19 @@
+<div class="vx-store-list">
+  <div class="store__found mb-xs-4 col-xs-12" v-if="stores">{{i18n.distributorsFound}} <span class="sotre__found_no">-
+      {{noOfDistributor}}</span></div>
+  <div class="col-xs-12 col-sm-6 store__container" v-if="stores">
+    <div class="store__details px-xs-3 py-xs-3 px-sm-4 py-sm-4" v-for="(store, index) in storesList" @click="storeSelected(store, '', true,index)"
+      :class="{'active' : store.address.id == selectedStore.STORE_ID}" :ref="`store${index}`">
+      <div class="d-flex">
+        <div class="store-name">{{store.name}}</div>
+        <div class="store-distance">{{store.formattedDistance.toLowerCase()}}</div>
+      </div>
+      <div class="py-xs-3 store-info">
+        <span v-if="store.address.line1">{{store.address.line1}},</span>
+        <span v-if="store.address.town">{{store.address.town}} <template v-if="store.address.region">{{store.address.region.isocodeShort}}</template>,</span>
+        <span v-if="store.address.postalCode">{{store.address.postalCode}}</span>
+      </div>
+      <a :href="`tel:${store.address.phone}`" class="store-info" v-if="store.address.phone" @click.stop="">{{store.address.phone}}</a>
+    </div>
+  </div>
+</div>

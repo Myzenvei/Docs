@@ -1,0 +1,194 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+# All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+#******************************This file is generated - please do not edit it. It will be regenerated after every build.********************************#
+#
+#	ImpEx for GP Mardigras CMS Content, en localisations
+#
+
+$contentCatalog=mardigrasContentCatalog 
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$productCatalog=gpUSProductCatalog
+$productCV=catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$picture=media(code, $contentCV)
+$medias=medias(code, $contentCV);
+$mediaContainer=media(qualifier, $contentCV)[lang=$lang];
+$siteResource=jar:com.gp.commerce.initialdata.constants.GpcommerceInitialDataConstants&/gpcommerceinitialdata/import/sampledata/contentCatalogs/$contentCatalog
+$jarResourceCms=jar:com.gp.commerce.initialdata.constants.GpcommerceInitialDataConstants&/gpcommerceinitialdata/import/sampledata/cockpits/cmscockpit
+
+# Language
+$lang=en
+
+# Import config properties into impex macros
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+
+# Load the storefront context root config param
+$storefrontContextRoot=$config-storefrontContextRoot
+
+# Apparel general data
+# Media
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime[default='image/jpeg'];folder(qualifier)[default='images'];altText
+;;/images/theme/logo_hybris_responsive.svg;logo_hybris_responsive.svg;$siteResource/images/theme/logo_hybris_responsive.svg;image/svg+xml;;"hybris Accelerator"
+
+# Site Logo Component
+UPDATE SimpleBannerComponent;$contentCV[unique=true];uid[unique=true];$picture[lang=$lang]
+;;SiteLogoComponent;/images/theme/logo_hybris_responsive.svg
+
+
+# ImageMapComponents
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime[default='image/jpeg'];folder(qualifier)[default='images'];altText
+;;Appa_710x421_GeneralBrands_EN_01.jpg;$siteResource/images/banners/category_banners/Appa_710x421_GeneralBrands_EN_01.jpg;;;""
+;;Appa_788x467_CaliforniaLook_EN_01.jpg;$siteResource/images/banners/category_banners/Appa_788x467_CaliforniaLook_EN_01.jpg;;;""
+;;Appa_788x467_SunglassesBrands_EN_01.jpg;$siteResource/images/banners/category_banners/Appa_788x467_SunglassesBrands_EN_01.jpg;;;""
+;;homepage-street-GBP_en.jpg;$siteResource/images/landing_pages/homepage-street-GBP_en.jpg;;;""
+;;homepage-surf-GBP_en.jpg;$siteResource/images/landing_pages/homepage-surf-GBP_en.jpg;;;""
+
+# Apparel UK Homepage
+INSERT_UPDATE ProductCarouselComponent;$contentCV[unique=true];uid[unique=true];title[lang=en]
+ ;;MardigrasHomepageProductCarouselComponent;"Best Selling Products"
+ ;;NewMardigrasHomepageProductCarouselComponent;"What's New"
+
+INSERT_UPDATE Media;mediaFormat(qualifier);code[unique=true];@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];realfilename;altText;mime[default='image/jpeg'];$contentCV[unique=true];folder(qualifier)[default=images];
+;widescreen;Appa_1400x50_Save_EN_01_1400W.jpg;$siteResource/images/banners/homepage/responsive/Appa_1400x50_Save_EN_01_1400W.jpg;Appa_1400x50_Save_EN_01_1400W.jpg;"Save Big on Select Streetwear";
+;widescreen;Appa_1400x600_Season_EN_01_1400W.jpg;$siteResource/images/banners/homepage/responsive/Appa_1400x600_Season_EN_01_1400W.jpg;Appa_1400x600_Season_EN_01_1400W.jpg;"Start Your Season";
+;widescreen;Appa_1400x80_FreeDel_EN_01_1400W.jpg;$siteResource/images/banners/homepage/responsive/Appa_1400x80_FreeDel_EN_01_1400W.jpg;Appa_1400x80_FreeDel_EN_01_1400W.jpg;"Free Shipping on All Orders This Weekend";
+;tablet;Appa_200x200_HomeService_EN_01_200W.jpg;$siteResource/images/banners/homepage/responsive/Appa_200x200_HomeService_EN_01_200W.jpg;Appa_200x200_HomeService_EN_01_200W.jpg;"Shades Von Zipper Papa G";
+;tablet;Appa_200x200_HomeShipment_EN_01_200W.jpg;$siteResource/images/banners/homepage/responsive/Appa_200x200_HomeShipment_EN_01_200W.jpg;Appa_200x200_HomeShipment_EN_01_200W.jpg;"Adapt New Era Blacktop";
+;tablet;Appa_200x200_HomeShop_EN_01_200W.jpg;$siteResource/images/banners/homepage/responsive/Appa_200x200_HomeShop_EN_01_200W.jpg;Appa_200x200_HomeShop_EN_01_200W.jpg;"Airline Bag Bluebird Uni";
+;tablet;Appa_200x200_HomeSmallDiscount_EN_01_200W.jpg;$siteResource/images/banners/homepage/responsive/Appa_200x200_HomeSmallDiscount_EN_01_200W.jpg;Appa_200x200_HomeSmallDiscount_EN_01_200W.jpg;"Maguro Pu Belt plaid";
+;tablet;Appa_200x240_Brands_EN_01_200W.jpg;$siteResource/images/banners/homepage/responsive/Appa_200x240_Brands_EN_01_200W.jpg;Appa_200x240_Brands_EN_01_200W.jpg;"Our brand range";
+;tablet;Appa_200x240_Men_EN_01_200W.jpg;$siteResource/images/banners/homepage/responsive/Appa_200x240_Men_EN_01_200W.jpg;Appa_200x240_Men_EN_01_200W.jpg;"Men";
+;tablet;Appa_200x240_Women_EN_01_200W.jpg;$siteResource/images/banners/homepage/responsive/Appa_200x240_Women_EN_01_200W.jpg;Appa_200x240_Women_EN_01_200W.jpg;"Women";
+;tablet;Appa_200x240_Youth_EN_01_200W.jpg;$siteResource/images/banners/homepage/responsive/Appa_200x240_Youth_EN_01_200W.jpg;Appa_200x240_Youth_EN_01_200W.jpg;"Youth";
+;desktop;Appa_240x240_HomeService_EN_01_240W.jpg;$siteResource/images/banners/homepage/responsive/Appa_240x240_HomeService_EN_01_240W.jpg;Appa_240x240_HomeService_EN_01_240W.jpg;"Shades Von Zipper Papa G";
+;desktop;Appa_240x240_HomeShipment_EN_01_240W.jpg;$siteResource/images/banners/homepage/responsive/Appa_240x240_HomeShipment_EN_01_240W.jpg;Appa_240x240_HomeShipment_EN_01_240W.jpg;"Adapt New Era Blacktop";
+;desktop;Appa_240x240_HomeShop_EN_01_240W.jpg;$siteResource/images/banners/homepage/responsive/Appa_240x240_HomeShop_EN_01_240W.jpg;Appa_240x240_HomeShop_EN_01_240W.jpg;"Airline Bag Bluebird Uni";
+;desktop;Appa_240x240_HomeSmallDiscount_EN_01_240W.jpg;$siteResource/images/banners/homepage/responsive/Appa_240x240_HomeSmallDiscount_EN_01_240W.jpg;Appa_240x240_HomeSmallDiscount_EN_01_240W.jpg;"Maguro Pu Belt plaid";
+;desktop;Appa_240x290_Brands_EN_01_240W.jpg;$siteResource/images/banners/homepage/responsive/Appa_240x290_Brands_EN_01_240W.jpg;Appa_240x290_Brands_EN_01_240W.jpg;"Our brand range";
+;desktop;Appa_240x290_Men_EN_01_240W.jpg;$siteResource/images/banners/homepage/responsive/Appa_240x290_Men_EN_01_240W.jpg;Appa_240x290_Men_EN_01_240W.jpg;"Men";
+;desktop;Appa_240x290_Women_EN_01_240W.jpg;$siteResource/images/banners/homepage/responsive/Appa_240x290_Women_EN_01_240W.jpg;Appa_240x290_Women_EN_01_240W.jpg;"Women";
+;desktop;Appa_240x290_Youth_EN_01_240W.jpg;$siteResource/images/banners/homepage/responsive/Appa_240x290_Youth_EN_01_240W.jpg;Appa_240x290_Youth_EN_01_240W.jpg;"Youth";
+;widescreen;Appa_350x350_HomeService_EN_01_350W.jpg;$siteResource/images/banners/homepage/responsive/Appa_350x350_HomeService_EN_01_350W.jpg;Appa_350x350_HomeService_EN_01_350W.jpg;"Shades Von Zipper Papa G";
+;widescreen;Appa_350x350_HomeShipment_EN_01_350W.jpg;$siteResource/images/banners/homepage/responsive/Appa_350x350_HomeShipment_EN_01_350W.jpg;Appa_350x350_HomeShipment_EN_01_350W.jpg;"Adapt New Era Blacktop";
+;widescreen;Appa_350x350_HomeShop_EN_01_350W.jpg;$siteResource/images/banners/homepage/responsive/Appa_350x350_HomeShop_EN_01_350W.jpg;Appa_350x350_HomeShop_EN_01_350W.jpg;"Airline Bag Bluebird Uni";
+;widescreen;Appa_350x350_HomeSmallDiscount_EN_01_350W.jpg;$siteResource/images/banners/homepage/responsive/Appa_350x350_HomeSmallDiscount_EN_01_350W.jpg;Appa_350x350_HomeSmallDiscount_EN_01_350W.jpg;"Maguro Pu Belt plaid";
+;widescreen;Appa_350x430_Brands_EN_01_350W.jpg;$siteResource/images/banners/homepage/responsive/Appa_350x430_Brands_EN_01_350W.jpg;Appa_350x430_Brands_EN_01_350W.jpg;"Our brand range";
+;widescreen;Appa_350x430_Men_EN_01_350W.jpg;$siteResource/images/banners/homepage/responsive/Appa_350x430_Men_EN_01_350W.jpg;Appa_350x430_Men_EN_01_350W.jpg;"Men";
+;widescreen;Appa_350x430_Women_EN_01_350W.jpg;$siteResource/images/banners/homepage/responsive/Appa_350x430_Women_EN_01_350W.jpg;Appa_350x430_Women_EN_01_350W.jpg;"Women";
+;widescreen;Appa_350x430_Youth_EN_01_350W.jpg;$siteResource/images/banners/homepage/responsive/Appa_350x430_Youth_EN_01_350W.jpg;Appa_350x430_Youth_EN_01_350W.jpg;"Youth";
+;mobile;Appa_480x110_FreeDel_EN_01_480W.jpg;$siteResource/images/banners/homepage/responsive/Appa_480x110_FreeDel_EN_01_480W.jpg;Appa_480x110_FreeDel_EN_01_480W.jpg;"Free Shipping on All Orders This Weekend";
+;mobile;Appa_480x110_Save_EN_01_480W.jpg;$siteResource/images/banners/homepage/responsive/Appa_480x110_Save_EN_01_480W.jpg;Appa_480x110_Save_EN_01_480W.jpg;"Save Big on Select Streetwear";
+;mobile;Appa_480x320_Season_EN_01_480W.jpg;$siteResource/images/banners/homepage/responsive/Appa_480x320_Season_EN_01_480W.jpg;Appa_480x320_Season_EN_01_480W.jpg;"Start Your Season";
+;tablet;Appa_770x350_Season_EN_01_770W.jpg;$siteResource/images/banners/homepage/responsive/Appa_770x350_Season_EN_01_770W.jpg;Appa_770x350_Season_EN_01_770W.jpg;"Start Your Season";
+;tablet;Appa_770x50_Save_EN_01_770W.jpg;$siteResource/images/banners/homepage/responsive/Appa_770x50_Save_EN_01_770W.jpg;Appa_770x50_Save_EN_01_770W.jpg;"Save Big on Select Streetwear";
+;tablet;Appa_770x80_FreeDel_EN_01_770W.jpg;$siteResource/images/banners/homepage/responsive/Appa_770x80_FreeDel_EN_01_770W.jpg;Appa_770x80_FreeDel_EN_01_770W.jpg;"Free Shipping on All Orders This Weekend";
+;desktop;Appa_960x400_Season_EN_01_960W.jpg;$siteResource/images/banners/homepage/responsive/Appa_960x400_Season_EN_01_960W.jpg;Appa_960x400_Season_EN_01_960W.jpg;"Start Your Season";
+;desktop;Appa_960x50_Save_EN_01_960W.jpg;$siteResource/images/banners/homepage/responsive/Appa_960x50_Save_EN_01_960W.jpg;Appa_960x50_Save_EN_01_960W.jpg;"Save Big on Select Streetwear";
+;desktop;Appa_960x80_FreeDel_EN_01_960W.jpg;$siteResource/images/banners/homepage/responsive/Appa_960x80_FreeDel_EN_01_960W.jpg;Appa_960x80_FreeDel_EN_01_960W.jpg;"Free Shipping on All Orders This Weekend";
+
+INSERT_UPDATE MediaContainer;qualifier[unique=true];$medias;$contentCV[unique=true]
+;mardigras-homepage-brands-en;Appa_200x240_Brands_EN_01_200W.jpg,Appa_240x290_Brands_EN_01_240W.jpg,Appa_350x430_Brands_EN_01_350W.jpg
+;mardigras-homepage-discount-en;Appa_480x110_FreeDel_EN_01_480W.jpg,Appa_770x80_FreeDel_EN_01_770W.jpg,Appa_960x80_FreeDel_EN_01_960W.jpg,Appa_1400x80_FreeDel_EN_01_1400W.jpg
+;mardigras-homepage-men-en;Appa_200x240_Men_EN_01_200W.jpg,Appa_240x290_Men_EN_01_240W.jpg,Appa_350x430_Men_EN_01_350W.jpg
+;mardigras-homepage-save-en;Appa_480x110_Save_EN_01_480W.jpg,Appa_770x50_Save_EN_01_770W.jpg,Appa_960x50_Save_EN_01_960W.jpg,Appa_1400x50_Save_EN_01_1400W.jpg
+;mardigras-homepage-service-en;Appa_200x200_HomeService_EN_01_200W.jpg,Appa_240x240_HomeService_EN_01_240W.jpg,Appa_350x350_HomeService_EN_01_350W.jpg
+;mardigras-homepage-shipment-en;Appa_200x200_HomeShipment_EN_01_200W.jpg,Appa_240x240_HomeShipment_EN_01_240W.jpg,Appa_350x350_HomeShipment_EN_01_350W.jpg
+;mardigras-homepage-shop-en;Appa_200x200_HomeShop_EN_01_200W.jpg,Appa_240x240_HomeShop_EN_01_240W.jpg,Appa_350x350_HomeShop_EN_01_350W.jpg
+;mardigras-homepage-sm-discount-en;Appa_200x200_HomeSmallDiscount_EN_01_200W.jpg,Appa_240x240_HomeSmallDiscount_EN_01_240W.jpg,Appa_350x350_HomeSmallDiscount_EN_01_350W.jpg
+;mardigras-homepage-spalsh-en;Appa_480x320_Season_EN_01_480W.jpg,Appa_770x350_Season_EN_01_770W.jpg,Appa_960x400_Season_EN_01_960W.jpg,Appa_1400x600_Season_EN_01_1400W.jpg
+;mardigras-homepage-women-street-en;Appa_200x240_Women_EN_01_200W.jpg,Appa_240x290_Women_EN_01_240W.jpg,Appa_350x430_Women_EN_01_350W.jpg
+;mardigras-homepage-youth-en;Appa_200x240_Youth_EN_01_200W.jpg,Appa_240x290_Youth_EN_01_240W.jpg,Appa_350x430_Youth_EN_01_350W.jpg
+
+INSERT_UPDATE SimpleResponsiveBannerComponent;$contentCV[unique=true];uid[unique=true];$mediaContainer
+;;mardigrasHomepageBrandsBannerComponent;mardigras-homepage-brands-en
+;;mardigrasHomepageFreeDelBannerComponent;mardigras-homepage-discount-en
+;;mardigrasHomepageMenStreetBannerComponent;mardigras-homepage-men-en
+;;mardigrasHomepageSaveBannerComponent;mardigras-homepage-save-en
+;;mardigrasHomepageServiceBannerComponent;mardigras-homepage-service-en
+;;mardigrasHomepageShipmentBannerComponent;mardigras-homepage-shipment-en
+;;mardigrasHomepageShopBannerComponent;mardigras-homepage-shop-en
+;;mardigrasHomepageSmDiscountBannerComponent;mardigras-homepage-sm-discount-en
+;;mardigrasHomepageSplashBannerComponent;mardigras-homepage-spalsh-en
+;;mardigrasHomepageStreetYouthBannerComponent;mardigras-homepage-youth-en
+;;mardigrasHomepageWomenStreetBannerComponent;mardigras-homepage-women-street-en
+
+
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];linkName[lang=en];socialLink[default=false];markAsViewAll[default=false]
+;;LinkedInLink;"LinkedIn"
+;;FacebookLink;"Facebook"
+;;TwitterLink;"Twitter"
+;;InstagramLink;"Instagram"
+;;PinterestLink;"Pinterest"
+;;YouTubeLink;"YouTube"
+;;SnapchatLink;"Snapchat"
+;;FAQLink;"Help"
+;;AboutUsLink;"About Us"
+;;TermsAndConditionsLink;"Legal Disclaimer"
+;;ContactUsLink;"Contact Us"
+
+###Footer Links
+;;GPSiteLink;"GP Sustainability Site"
+;;GPTermsLink;"Terms of Use"
+;;GPPrivacyLink;"Privacy Notice"
+;;GPCaliforniaRightsLink;"California Privacy Rights"
+;;ContactUsLink;"Contact Us"
+
+INSERT_UPDATE CMSNavigationNode;$contentCV[unique=true];uid[unique=true];title[lang=en]
+;;FAQNavNode;"Help"
+;;ContactUsNavNode;"Contact Us"
+;;FacebookNavNode;"Facebook"
+;;TwitterNavNode;"Twitter"
+;;LinkedInNavNode;"LinkedIn"
+;;InstagramNavNode;"Instagram"
+;;PinterestNavNode;"Pinterest"
+;;YouTubeNavNode;"YouTube"
+;;SnapchatNavNode;"Snapchat"
+
+###Footer Nav Nodes
+;;FooterNavNode;""
+;;GPSiteNavNode;"GP Sustainability Site"
+;;GPTermsNavNode;"Terms of Use"
+;;GPPrivacyNavNode;"Privacy Notice"
+;;GPCaliforniaRightsNavNode;"California Privacy Rights"
+;;GPContactUsNavNode;"GP ContactUs"
+
+ #changes for header category navigation
+
+INSERT_UPDATE CMSNavigationNode;$contentCV[unique=true];uid[unique=true];title[lang=$lang];name;parent(uid, $contentCV);
+;;GPHeaderNavigationNode;Main Header Nav Node;Main Header Nav Node;SiteRootNode;
+;;GPCheckoutNavNode;Checkout Nav Node;Checkout Nav Node;GPHeaderNavigationNode;
+;;GPFindStoreNavNode;Find Store Nav Node;Find Store Nav Node;GPHeaderNavigationNode;
+;;GPLoginMenuNavNode;Login Nav Node;Login Nav Node;GPHeaderNavigationNode;
+;;GPLogoutMenuNavNode;Logout Nav Node;Logout Nav Node;GPHeaderNavigationNode;
+;;GPCategoryNavigationNode;Category Navigation Node;Category Navigation Node;GPHeaderNavigationNode;
+;;ProductsNavNode;Products;Products;GPCategoryNavigationNode;
+;;MenuNavNode;Menu 2;Menu 2;GPCategoryNavigationNode;
+;;ProductOverviewNavNode;Product Overview;Product Overview;ProductsNavNode;
+;;MenuOverviewNavNode;Menu Overview;Menu Overview;MenuNavNode;
+;;PaperTowelsNode;Paper Towels and Dispensers;Paper Towels and Dispensers;ProductOverviewNavNode;
+;;FacialTissueNode;Facial Tissues;Facial Tissues;ProductOverviewNavNode;
+;;AirCareNode;Air Care;Air Care;MenuOverviewNavNode;
+;;SkinCareNode;Skin Care;Skin Care;MenuOverviewNavNode;
+
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];linkName[lang=$lang];url;styleAttributes;target(code)[default='sameWindow'];external[default=false];socialLink[default=false];markAsViewAll[default=false]
+;;HelpLink;Help;/faq;;;;
+;;FindStoreLink;Find a Store;/find/locatestore;;;;
+;;LoginLink;Login;/login;;;;
+;;LogoutLink;Logout;/logout;;;;
+;;CreateAccountLink;Create Account;/register;;;;
+;;PaperTowelsLink;Paper Towels;/quickOrder;;;;
+;;FacialTissueLink;Facial Tissue;/import;;;;
+;;AirCareLink;Air Care;/quickOrder;;;;
+;;SkinCareLink;Skin Care;/quickOrder;;;;
+;;ProductsNavLink;Products Nav Link;/import;;;;
+;;MenuNavLink;Menu Nav Link;/import;;;;
+
+

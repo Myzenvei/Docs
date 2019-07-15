@@ -1,0 +1,6 @@
+############ BACKOFFICE TAB CHARACTER LENGTH RESTRICTION ##################
+
+INSERT_UPDATE SizeConstraint;descriptor(enclosingType(code),qualifier);id[unique=true,allownull=true];max[allownull=true];min[allownull=true];qualifier[allownull=true];severity(code,itemtype(code));target[allownull=true];type(code);constraintGroups(id);message[lang=de];message[lang=en]
+;GPProductTabInfo:tabKey;PDPTabLengthConstraint;25;1;tabKey;ERROR:Severity;com.gp.commerce.core.model.GPProductTabInfoModel;GPProductTabInfo;;;Length should be less than 25
+
+############ BACKOFFICE TAB CHARACTER LENGTH RESTRICTION ##################

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2018 SAP SE or an SAP affiliate company.  All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+<!--
+	ATTENTION: This is just an example file. You have to edit it according to your needs.
+-->
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="beans.xsd">
+
+	<bean class="com.gp.commerce.content.search.facades.data.GPContentPageData">
+		<property name="title" type="String" />
+		<property name="body" type="String" />
+		<property name="header" type="String" />
+		<property name="description" type="String" />
+		<property name="keywords" type="String" />
+		<property name="url" type="String" />
+		<property name="contentType" type="String" />
+		<property name="isKnowledgeCenterDocument" type="Boolean" />
+		<property name="resourceImageUrl" type="String" />
+	</bean>
+		<bean class="com.gp.commerce.content.search.facetdata.GPContentSearchPageData&lt;STATE, RESULT>" extends="de.hybris.platform.commerceservices.search.facetdata.FacetSearchPageData&lt;STATE, RESULT>">
+		<description>POJO containing the result page for content search.</description>
+		<property name="textSearch" type="String"/>
+		</bean>
+		
+		<bean class="com.gp.commerce.content.search.data.GPSolrSearchPageData">
+		<description>POJO containing the result page for content search.</description>
+		<property name="contentResult" type="com.gp.commerce.content.search.facetdata.GPContentSearchPageData"/>
+		<property name="productResult" type="de.hybris.platform.commerceservices.search.facetdata.ProductSearchPageData"/>
+		</bean>
+</beans>

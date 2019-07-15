@@ -1,0 +1,1 @@
+<vx-shopping-lists :i18n="messages.manageProfileShoppingLists" :is-favorites="${isFavoritesEnabled}"></vx-shopping-lists>

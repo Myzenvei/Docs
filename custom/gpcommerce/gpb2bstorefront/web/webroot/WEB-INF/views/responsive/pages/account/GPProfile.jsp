@@ -1,0 +1,2 @@
+<vx-profile-preferences :i18n="messages.manageProfileShoppingLists.profilePreferences" :show-tax-exemption="${showTaxExemption}" :is-gender-enabled="${isGenderEnabled}" :is-dob-enabled="${isDOBEnabled}">
+</vx-profile-preferences>

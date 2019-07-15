@@ -1,0 +1,31 @@
+<div class="vx-brand-bar d-flex flex-column align-items-center" :style="[backgroundStyle]" :aria-label="[backgroundAlt]"
+  :class="brandBarData.componentTheme" :id="brandBarData.componentId">
+  <div class="w-xs-100 text-center">
+    <h3 class="vx-brand-bar__header my-xs-0 pb-md-5 pb-xs-3" :style="[fontStyleHeader]" v-if="brandBarData.header"
+      v-html="brandBarData.header"></h3>
+    <p class="vx-brand-bar__sub-header mt-xs-3" :style="[fontStyleSubHeader]" v-if="brandBarData.subHeader" v-html="brandBarData.subHeader"></p>
+    <div class="title-underline" :class="brandBarData.subHeader ? '' : 'mt-xs-0'" :style="brandBarData.subHeaderColor ? {'border-bottom-color': brandBarData.subHeaderColor} : brandBarData.headerColor ? {'border-bottom-color': brandBarData.headerColor} : ''"
+      v-if="brandBarData.header || brandBarData.subHeader"></div>
+    <div class="vx-brand-bar__brands d-flex flex-wrap justify-content-center align-items-center">
+      <span v-for="item in brandBarData.brands" class="vx-brand-bar__brand-link">
+        <a v-if="item.brandLink && !item.jumpToHtml" :href="item.isExternalImage ? item.brandLink : globals.getUrlWithContextPath(item.brandLink)"
+          :target="item.isExternalImage?'_blank':''">
+          <img class="brand-logo" :src="item.brandImage" :alt="item.brandImageAltText ? item.brandImageAltText : item.brandName">
+        </a>
+        <a v-if="item.brandLink && item.jumpToHtml" :href="item.isExternalImage ? item.brandLink : globals.getUrlWithContextPath(item.brandLink)"
+          :target="item.isExternalImage?'_blank':''" @click="emitScrollSignal(item.brandLink)">
+          <img class="brand-logo" :src="item.brandImage" :alt="item.brandImageAltText ? item.brandImageAltText : item.brandName">
+        </a>
+        <span v-if="!item.brandLink && !item.jumpToHtml">
+          <img class="brand-logo" :src="item.brandImage" :alt="item.brandImageAltText ? item.brandImageAltText : item.brandName">
+        </span>
+      </span>
+    </div>
+    <a :class="brandBarData.ctaStyle" class="btn" :href="brandBarData.isExternalLink ? brandBarData.ctaLink : globals.getUrlWithContextPath(brandBarData.ctaLink)"
+      :style="[fontStyleCta]" v-if="brandBarData.ctaText && brandBarData.ctaLink && !brandBarData.jumpToHtml" :target="brandBarData.isExternalLink?'_blank':''"
+      v-html="brandBarData.ctaText"></a>
+    <a :class="brandBarData.ctaStyle" class="btn" :href="brandBarData.isExternalLink ? brandBarData.ctaLink : globals.getUrlWithContextPath(brandBarData.ctaLink)"
+      :style="[fontStyleCta]" v-if="brandBarData.ctaText && brandBarData.ctaLink && brandBarData.jumpToHtml" :target="brandBarData.isExternalLink?'_blank':''"
+      v-html="brandBarData.ctaText" @click="emitScrollSignal(brandBarData.ctaLink)"></a>
+  </div>
+</div>

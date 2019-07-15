@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2012 hybris AG
+ All rights reserved.
+
+ This software is the confidential and proprietary information of hybris
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with hybris.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd"
+	default-autowire="byName">
+
+	<!-- Product perspective: Navigation area -->
+	<bean id="ProductNavigationArea" class="de.hybris.platform.productcockpit.session.impl.NavigationArea" scope="session"
+		parent="BaseNavigationArea">
+<!--		<property name="width" value="300px"/>-->
+		<property name="sectionModel">
+			<ref bean="ProductNavigationAreaModel" />
+		</property>
+		<property name="sections">
+			<list>
+				<ref bean="ProductSpecialCollectionsSection" />
+				<ref bean="BaseStoreSelectorSection"/>
+				<ref bean="ProductCatalogSelectorSection" />
+				<ref bean="ProductQuerySection" />
+				<ref bean="ProductUndoSection" />
+				<ref bean="ProductWorkflowSection"/>
+			</list>
+		</property>
+		<property name="infoSlotAttachmentTypes">
+			<ref bean="WorkflowAttachmentData"/>
+		</property>
+	</bean>
+	
+	<bean id="BaseStoreSelectorSection"
+		class="de.hybris.platform.multicountry.productcockpit.selector.BaseStoreSectionSelectionSection"
+		scope="session" autowire="byName">
+		<property name="localizedLabel" value="multicountry.navigationarea.websites" />
+		<property name="initiallySelected" value="false" />
+		<property name="visible" value="true" />
+		<!-- comment out the next lines in order to use the default cockpit selector 
+			renderer -->
+	 	<property name="renderer">
+			<bean
+				class="de.hybris.platform.multicountry.productcockpit.selector.BaseStoreSelectorSectionRenderer"
+				autowire="byName" />
+		</property>
+		<property name="navigationAreaModel" ref="CatalogNavigationAreaModel" />
+	</bean> 
+	
+	<alias alias="productSearchProvider" name="mcProductSearchProvider" />
+	<bean id="mcProductSearchProvider" class="de.hybris.platform.multicountry.productcockpit.search.ProductCockpitSearchProvider" scope="tenant">
+		<property name="maxCategoryCount" value="900"/>
+		<property name="propagateToVariant" value="false"/>
+	</bean>	
+
+		
+	<alias alias="dynamicQueryService" name="mcDynamicQueryService" />
+	<bean id="mcDynamicQueryService" class="de.hybris.platform.multicountry.productcockpit.services.impl.MulticountryDynamicQueryServiceImpl" parent="defaultDynamicQueryService"/>	
+
+	<bean id="SynchronizationAction" class="de.hybris.platform.multicountry.productcockpit.listview.MulticountryProductSynchronizationAction"
+		scope="prototype" />
+		
+	<bean id="lockedStatus" class="de.hybris.platform.multicountry.productcockpit.listview.MulticountryLockedStatus" scope="prototype"/>	
+	
+	<bean id="ProductContentBrowserStatusColumn" class="de.hybris.platform.cockpit.components.listview.impl.DefaultActionColumnConfiguration"
+		scope="prototype">
+		<constructor-arg value="Status" />
+		<property name="actions">
+			<list>
+				<ref bean="CoverageInfoAction" />
+				<ref bean="ApprovalStatus" />
+				<ref bean="VariantsStatus" />
+				<ref bean="SynchronizationStatus" />
+				<ref bean="lockedStatus" />
+			</list>
+		</property>
+	</bean>
+		
+	<alias alias="uiAccessRightService" name="productCockpitUiAccessRightService" />
+	<bean id="productCockpitUiAccessRightService" class="de.hybris.platform.multicountry.productcockpit.services.security.impl.ProductCockpitUIAccessRightService" scope="tenant">
+		<!--  <property name="cockpitUIComponentAccessRightDao" ref="cockpitUIComponentAccessRightDao"/>
+		<property name="userService" ref="userService"/>
+		<property name="cockpitTypeService" ref="cockpitTypeService"/>
+		<property name="systemService" ref="systemService"/>
+		<property name="modelService" ref="modelService"/>-->
+		<property name="productLockingService" ref="productLockingService"/>
+	</bean>
+	
+	<bean id="productLockingService" class="de.hybris.platform.multicountry.productcockpit.services.impl.ProductLockingServiceImpl" scope="tenant">
+		<property name="modelService" ref="modelService"/>
+	</bean>
+		
+	<bean id="ProductAvailabilityAssignmentSynchronizationStatus" class="de.hybris.platform.multicountry.productcockpit.listview.ProductAvailabilityAssignmentStatus"
+		scope="prototype" />	
+		
+	<bean id="DeleteAction" class="de.hybris.platform.multicountry.productcockpit.listview.ProductAvailabilityDeleteAction" scope="prototype">
+		<property name="modelService" ref="modelService" />
+	</bean>
+		
+	<bean id="ProductAvailabilityContentBrowserStatusColumn" class="de.hybris.platform.cockpit.components.listview.impl.DefaultActionColumnConfiguration"
+		scope="prototype">
+		<constructor-arg value="Status" />
+		<property name="actions">
+			<list>
+				<ref bean="ProductAvailabilityAssignmentSynchronizationStatus" />
+				<ref bean="DeleteAction" />
+			</list>
+		</property>
+		<property name="cellRenderer">
+			<bean class="de.hybris.platform.multicountry.productcockpit.listview.MulticountryActionCellRenderer" />
+		</property>
+	</bean>
+
+	<!-- navigation area sections -->
+	<bean id="ProductCatalogSelectorSection" class="de.hybris.platform.cockpit.components.navigationarea.NavigationPanelSection"
+		  scope="prototype">
+		<property name="localizedLabel" value="navigationarea.catalog" />
+		<property name="visible" value="true" />
+		<property name="renderer">
+			<bean class="de.hybris.platform.multicountry.productcockpit.components.navigationarea.renderer.MulticountryCatalogSelectorSectionRenderer">
+				<property name="sessionService" ref="sessionService"/>
+				<property name="synchronizationService" ref="synchronizationService"/>
+				<property name="productCockpitCatalogService" ref="productCockpitCatalogService"/>
+			</bean>
+		</property>
+	</bean>
+	
+</beans>

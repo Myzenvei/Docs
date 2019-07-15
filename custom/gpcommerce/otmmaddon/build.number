@@ -1,0 +1,11 @@
+#Wed, 08 Aug 2018 04:05:17 +0200
+#Ant properties
+#Thu Aug 29 15:53:54 CEST 2013
+builddate=20180808 0405
+description=otmmaddon
+name=otmmaddon
+vendor=OpenText
+version=16.4.0.346
+
+OpenTextBuildNumber=16.4.0.346
+OpenTextBuildDate=2018-08-08 04\:05

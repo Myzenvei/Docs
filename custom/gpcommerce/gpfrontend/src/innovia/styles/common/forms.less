@@ -1,0 +1,36 @@
+.form-group {
+  label {
+    font-family: @font-family-montserrat;
+    font-size: @font-size-label-text;
+    font-weight: @font-weight-regular;
+    color: @font-color-label-text;
+  }
+
+  [type=checkbox]:checked+label:before,
+  [type=checkbox]:not(:checked)+label:before {
+    border: 1px solid @checkbox-not-checked-border  !important;
+  }
+
+  [type=radio]:checked+label,
+  [type=radio]:not(:checked)+label {
+    font-family: @font-family-karla;
+  }
+}
+
+.dropdown-primary {
+  .dropdown {
+    button {
+      font-weight: @font-weight-regular;
+      font-family: @font-family-montserrat;
+    }
+
+    ul {
+      li {
+        a {
+          font-family: @font-family-montserrat;
+          font-weight: @font-weight-regular;
+        }
+      }
+    }
+  }
+}

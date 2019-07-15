@@ -1,0 +1,169 @@
+
+.vx-add-payment-form {
+  & > p,
+  & h3 {
+    font-weight: @font-weight-medium;
+    font-size: @font-size-large;
+  }
+  .brand-title {
+    font-size: @font-size-large;
+    text-transform: capitalize;
+  }
+  .title {
+    font-size: @font-size-base;
+  }
+  .form-group {
+    margin-bottom: 0;
+  }
+  .payment-form-iframe {
+    height: 0;
+    width: 0;
+    border: none;
+  }
+  .card-icon-holder {
+    .card-icon {
+      width: 40px;
+      height: 24px;
+      margin-right: 8px;
+    }
+  }
+  .form-elements {
+    color: @font-color-label-text;
+    font-weight: @font-weight-regular;
+    letter-spacing: @letter-spacing-default;
+
+    .error-msg,
+    .error-icon {
+      color: @font-color-error;
+    }
+    .card-num-block {
+      .card-number-holder {
+        line-height: 2.8;
+      }
+    }
+    
+    .input-elements {
+      margin-top: 10px;
+      height: 48px;
+      border: 1px solid @border-color;
+      padding-left: 8px;
+      width: 100%;
+    }
+    .right-side-content {
+      padding-left: 0px;
+      .cvv-query {
+        float: right;
+        .tooltip.bottom {
+          width: 300px;
+          padding: 0;
+          margin-left: -20px;
+          padding-right: 72px;
+          right: 0;
+          .tooltip-arrow {
+            border-bottom-color: transparent;
+          }
+          .tooltip-inner {
+            max-width: 100%;
+            padding: 0;
+            background-color: transparent;
+          }
+        }
+
+        a {
+          font-size: @font-size-small;
+          letter-spacing: 0.4px;
+        }
+      }
+    }
+    .card-expiry-block {
+      padding-top: 10px;
+    }
+    .month-select-box {
+      width: 48%;
+      padding: 0;
+      float: left;
+    }
+    .year-select-box {
+      width: 48%;
+      padding: 0;
+      margin-left: 15px;
+      float: left;
+    }
+    .address-select-box {
+      width: 100%;
+      padding: 0px 16px;
+    }
+    .billing-country-block {
+      .country-select-box {
+        width: 100%;
+        padding: 10px 16px 0px 0;
+      }
+    }
+    .state-select-box {
+      width: 100%;
+      padding: 10px 10px 10px 0;
+    }
+    .top-block {
+      padding-bottom: 0px;
+    }
+    .bottom-block {
+      padding-top: 0px;
+    }
+    .submit-btn-block {
+      text-align: center;
+      margin: 15px 0;
+      .payment-submit-btn {
+        background-color: @btn-primary-bg;
+        color: @brand-secondary-9;
+        font-weight: 500;
+        border: none;
+      }
+    }
+    .checkout-save {
+      text-align: left;
+    }
+  }
+}
+
+@media screen and (max-width: @screen-xs-max) {
+  .vx-add-payment-form {
+    .form-elements {
+      .card-name-block {
+        padding-left: 0;
+      }
+      .billing-country-block .country-select-box,
+      .state-select-box {
+        padding-right: 0;
+      }
+      .card-num-block {
+        padding-right: 0px;
+      }
+      .card-expiry-block {
+        display: flex;
+      }
+      .right-side-content {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+      &>div {
+        padding-bottom: 16px;
+        &>.bottom-block {
+          padding-bottom: 16px;
+          &.submit-btn-block {
+            padding-bottom: 0;
+          }
+        }
+      }
+      .submit-btn-block {
+        margin: 0;
+      }
+    }
+  }
+}
+@media screen and (min-width: @screen-sm-min) and (max-width: @screen-md-max) {
+  .vx-add-payment-form {
+    .extra-padding-left-top {
+      padding-top: 16px;
+    }
+  }
+}

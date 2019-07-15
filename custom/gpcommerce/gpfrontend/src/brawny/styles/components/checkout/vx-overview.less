@@ -1,0 +1,33 @@
+#brawny {
+  .vx-accordion {
+    .vx-product-tile {
+      .product-title a,
+      .product-price .product-current-price {
+        font-family: @font-family-heading;
+        text-transform: uppercase;
+      }
+      .product-total-price {
+        font-family: @font-family-heading;
+        font-size: @font-size-h3;
+      }
+      .product-quantity {
+        color: @text-color;
+        font-size: @font-size-small;
+      }
+      .product-title {
+        a {
+          &:hover,
+          &:focus,
+          &:active {
+            color: @text-color;
+          }
+        }
+      }
+    }
+    .icon-plus,
+    .icon-minus {
+      color: @font-icon-color-5;
+      font-size: 24px;
+    }
+  }
+}

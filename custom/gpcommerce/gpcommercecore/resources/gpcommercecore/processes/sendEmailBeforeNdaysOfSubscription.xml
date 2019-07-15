@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process xmlns="http://www.hybris.de/xsd/processdefinition" start="generateEmailBeforeNdays" name="sendEmailBeforeNdaysOfSubscription"
+		processClass="com.gp.commerce.core.model.GPSubscriptionNextOrderEmailProcessModel" onError="error">
+
+	<action id="generateEmailBeforeNdays" bean="generateEmailBeforeNdays">
+		<transition name="OK" to="sendEmail"/>
+		<transition name="NOK" to="error"/>
+	</action>
+
+	<action id="sendEmail" bean="sendEmail">
+		<transition name="OK" to="removeSentEmail"/>
+		<transition name="NOK" to="failed"/>
+	</action>
+
+	<action id="removeSentEmail" bean="removeSentEmail">
+		<transition name="OK" to="success"/>
+		<transition name="NOK" to="error"/>
+	</action>
+
+	<end id="error" state="ERROR">Something went wrong.</end>
+	<end id="failed" state="FAILED">Could not send Email before n days.</end>
+	<end id="success" state="SUCCEEDED">Sent email successfully.</end>
+
+</process>

@@ -1,0 +1,5 @@
+import de.hybris.platform.core.Registry;
+conn = Registry.getCurrentTenant().getDataSource().getConnection();
+stmt = conn.createStatement();
+alterTableQuery = "ALTER TABLE cronjobs DROP COLUMN p_brandlabel";
+abc = stmt.executeUpdate(alterTableQuery);

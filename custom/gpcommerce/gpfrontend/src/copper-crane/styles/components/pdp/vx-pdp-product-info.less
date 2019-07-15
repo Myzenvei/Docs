@@ -1,0 +1,59 @@
+#copper-crane {
+  .pdp-product-description {
+    h1 {
+      font-family: @font-family-queulat-bold;
+    }
+    .price {
+      strong {
+        font-family: @font-family-queulat-bold;
+      }
+    }
+    .pdp-add-to-cart-container {
+      position: static;
+      border: none;
+      & > div {
+        width: auto;
+        padding: 0!important;
+        button {
+          width: 208px;
+          @media screen and (max-width: @screen-xs-max) {
+            float: left !important;
+          }
+        }
+      }
+      @media screen and (max-width: @screen-xs-max) {
+        margin-bottom: 16px;
+      }
+    }
+    .notify-me-btn {
+      width: 208px;
+    }
+    .product-subtitle {
+      color: @text-color;
+      font-size: @font-size-medium;
+    }
+    .product-selling-smt {
+      color: @text-color;
+      font-size: @font-size-medium;
+    }
+    .dropdown-primary {
+      .dropdown {
+        button {
+          border: 1px solid @border-color;
+        }
+      }
+    }
+  }
+  .pdp-product-cta {
+    button.favorite {
+      width: 100%;
+      height: 100%;
+    }
+    .tile-icon.wishlist-btn {
+      margin-bottom: 16px;
+    }
+    .icon-share {
+      margin-bottom: 12px!important;
+    }
+  }
+}

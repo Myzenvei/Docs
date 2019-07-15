@@ -1,0 +1,7 @@
+<div class="vx-cart-suggestions">
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>
+  </vx-spinner>
+  <vx-slider :product-data='suggestionsData' :title="title" v-if="suggestionsData && suggestionsData.length>0"
+    :is-favorites="isFavorites" :slider-slides="sliderSlides" :is-bazaar-voice="isBazaarVoice"
+    :search-browse-i18n="i18n"></vx-slider>
+</div>

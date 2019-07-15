@@ -1,0 +1,111 @@
+#gp-employee {
+  .search-browse-auto-suggest {
+    h5 {
+      font-weight: @font-weight-medium;
+    }
+    .autosuggest-panel {
+      background-color: @card-layout-bg-color;
+      .view-all {
+        padding-left: 0;
+        h5 {
+          font-size: @font-size-medium;
+          color: inherit;
+        }
+      }
+      .product-tile {
+        margin-bottom: 16px;
+        .search-browse-product-tile {
+          border: 1px solid @autosuggest-tile-border-color;
+          border-radius: @card-layout-border-radius;
+          width: calc(25% - 8px);
+          margin-right: 8px;
+          .tile-body {
+            .fav-container {
+              top: 8px;
+            }
+            .tile-image {
+              width: 100%;
+            }
+            .product-id {
+              display: none;
+            }
+            .prices {
+              padding-top: 8px;
+            }
+            .product-name {
+              h6 {
+                font-size: @font-size-large;
+              }
+            }
+            .tile-icon{
+              .fav-container{
+                top:8px;
+              }
+            }
+            .info-text {
+              top: 8px;
+            }
+          }
+          button {
+            border-radius: 0 0 @btn-border-radius @btn-border-radius;
+          }
+          .fav-container {
+            top: 5px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: @screen-sm-max) {
+  #gp-employee {
+    .search-browse-auto-suggest {
+      .autosuggest-panel {
+        max-height: calc((var(--vh, 1vh) * 100) - 92px);
+        .product-tile {
+          .search-browse-product-tile {
+            width: calc(25% - 8px);
+            margin-right: 8px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: @screen-xs-max) {
+  #gp-employee {
+    .search-browse-auto-suggest {
+      .autosuggest-panel {
+        .product-tile {
+          margin-bottom: 0px;
+          .search-browse-product-tile {
+            width: calc(50% - 16px);
+            margin-right: 16px;
+            margin-bottom: 16px;
+            .tile-image {
+              width: auto;
+              .tile-icon {
+                .favorite {
+                  width: auto;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Required only for IE. Solution for YCOM-10431.
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+  #gp-employee {
+    .search-browse-auto-suggest {
+      .autosuggest-panel {
+        z-index: 1;
+      }
+    }
+  }
+}

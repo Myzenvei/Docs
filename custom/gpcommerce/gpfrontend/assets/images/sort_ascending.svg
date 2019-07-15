@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.1 (57501) - http://www.bohemiancoding.com/sketch -->
+    <title>Icons/Sort Ascending</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M1.70710678,0.292893219 C1.31658249,-0.0976310729 0.683417511,-0.0976310729 0.292893219,0.292893219 C-0.0976310729,0.683417511 -0.0976310729,1.31658249 0.292893219,1.70710678 L4.53553391,5.94974747 C4.9260582,6.34027176 5.55922318,6.34027176 5.94974747,5.94974747 L10.1923882,1.70710678 C10.5829124,1.31658249 10.5829124,0.683417511 10.1923882,0.292893219 C9.80186386,-0.0976310729 9.16869888,-0.0976310729 8.77817459,0.292893219 L5.24264069,3.82842712 L1.70710678,0.292893219 Z" id="path-1"></path>
+        <path d="M12.2426407,5.41421356 L15.7781746,8.94974747 C16.1686989,9.34027176 16.8018639,9.34027176 17.1923882,8.94974747 C17.5829124,8.55922318 17.5829124,7.9260582 17.1923882,7.53553391 L12.9497475,3.29289322 C12.5592232,2.90236893 11.9260582,2.90236893 11.5355339,3.29289322 L7.29289322,7.53553391 C6.90236893,7.9260582 6.90236893,8.55922318 7.29289322,8.94974747 C7.68341751,9.34027176 8.31658249,9.34027176 8.70710678,8.94974747 L12.2426407,5.41421356 Z" id="path-3"></path>
+    </defs>
+    <g id="Icons/Sort-Ascending" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Rectangle" x="0" y="0" width="24" height="24"></rect>
+        <g id="🎨Color" transform="translate(7.000000, 14.000000)">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <g id="Mask" fill-rule="nonzero"></g>
+            <g id="Color/Secondary/LightGrey/100%" mask="url(#mask-2)" fill="#CECECE">
+                <g transform="translate(-9.000000, -16.000000)" id="Color/Secondary/LightGrey">
+                    <rect x="0" y="0" width="24" height="24"></rect>
+                </g>
+            </g>
+        </g>
+        <mask id="mask-4" fill="white">
+            <use xlink:href="#path-3"></use>
+        </mask>
+        <g id="Combined-Shape" fill-rule="nonzero"></g>
+        <g id="Color/Secondary/Grey" mask="url(#mask-4)" fill="#747678">
+            <rect id="Color/SecondaryGrey" x="0" y="0" width="24" height="24"></rect>
+        </g>
+    </g>
+</svg>

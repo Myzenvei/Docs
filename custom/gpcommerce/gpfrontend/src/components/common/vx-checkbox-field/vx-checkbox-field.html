@@ -1,0 +1,4 @@
+<div class="vx-checkbox-field form-group">
+  <input :id="preferenceTypeId" type="checkbox" v-bind:checked="selected" @change="$emit('input', $event.target.checked)">
+  <label :for="preferenceTypeId">{{description}}</label>
+</div>

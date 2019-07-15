@@ -1,0 +1,102 @@
+<div class="vx-store-search mt-xs-2 mt-md-3 col-xs-12 col-md-8">
+  <vx-modal ref="locationModal" size="extra-small" :heading="i18n.locationDisabled">
+    <div class="row" slot="component">
+      <h3>{{i18n.locationMessage}}</h3>
+    </div>
+  </vx-modal>
+  <div class="row">
+    <div class="col-xs-12">
+      <h3 class="mb-xs-4">{{i18n.findADistributor}}</h3>
+    </div>
+  </div>
+  <h5 class="narrow-search mb-xs-4">{{i18n.narrowYourSearch}}</h5>
+  <div class="row">
+    <div class="col-xs-12 col-sm-7 col-md-5">
+      <div class="input-group width-100">
+        <label class="mb-xs-2" for="email" :aria-hidden='isDeviceAndroid()'>{{i18n.locationLabel}}</label>
+        <div class="d-flex flex-xs-column flex-sm-row align-start">
+          <div class="d-flex width-100 relative">
+            <input type="text" class="form-control zip-field" v-model="pincode" maxlength="80" :placeholder="isMobile() ? i18n.locationPLaceHolderMobile : i18n.locationPLaceHolder"
+              :aria-label="i18n.placeholderText" :class="{'input-error': showSearchError }" name="email" @keyup.enter="getDistributors()">
+            <button class="btn btn-tertiary search-btn" type="submit" @click="getDistributors()">{{i18n.submit}}</button>
+          </div>
+          <div class="px-xs-0 px-sm-4 px-md-5 py-xs-3">{{i18n.or}}</div>
+          <div class="find-nearby">
+            <button class="btn btn-tertiary fad-btn" @click="getLocation()">{{i18n.findDistributorNearby}}</button>
+            <span v-if="permissionDenied" class="permission-denied error-msg">{{i18n.permissionDeniedError}}</span>
+          </div>
+        </div>
+      </div>
+      <div v-if="storesError">
+        <span class="error-msg">{{storesError}}</span>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-4 col-md-3 pt-xs-4 pb-xs-5">
+      <label class="dropdown-label mb-xs-2">{{i18n.searchRadius}}</label>
+      <vx-dropdown-primary @selected-option="updateRadius($event)" :dropdownValues="distanceList" ref="distanceDropdown"></vx-dropdown-primary>
+    </div>
+  </div>
+  <div class="row" v-if="!globals.getIsLoggedIn() && !isFromPdp">
+    <div class="col-xs-12 message-not-logged-in mt-xs-2 mb-xs-4 mb-sm-3">
+      <a :href="globals.getNavigationUrl('empty') + globals.navigations.login + '/?findadistributor=true'">{{i18n.messageIfNotLoggedIn}}</a>
+    </div>
+  </div>
+  <div class="row list-holder" v-if="!isFromPdp">
+    <div class="col-xs-12 col-md-8">
+      <label class="dropdown-label mb-xs-2">{{i18n.productListLabel}}</label>
+      <div class="d-flex align-items-center flex-sm-row flex-xs-column">
+        <div class="col-sm-6 col-xs-12 px-xs-0">
+          <vx-dropdown-primary @selected-option="selectedList" :dropdownValues="productList" :is-disabled="isDisabled"
+            ref="productListdrp"></vx-dropdown-primary>
+        </div>
+        <div class="col-xs-12 col-md-6 px-xs-0 pl-sm-3 pt-xs-3 pt-sm-0" v-if="globals.getIsLoggedIn() && isLinkShown">
+          <a class="list-link" :href="globals.contextPath + listPageUrl">{{i18n.createListLabel}}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <template v-if="isFromPdp">
+    <div class="row">
+      <div class="d-flex productinfo-section align-center col-xs-12 pt-sm-2">
+        <div>
+          <template v-if="prdInfo.image">
+            <img :src="prdInfo.image" :alt="prdInfo.altText">
+          </template>
+          <template v-else>
+            <img :src="globals.assetsPath + 'images/no_image.svg'" alt="no image" class="no-image">
+          </template>
+        </div>
+        <div class="ml-sm-5 col-sm-5">
+          <a :href="globals.getNavBaseUrl()+prdInfo.pdpLink" class="store-name pb-xs-2">{{prdInfo.prdTitle}}</a>
+          <div class="code-section store-info pb-xs-2">
+            <span v-if="prdInfo.prdSKUId">
+              <template v-if="globals.isGpXpress()">{{i18n.mfgNumber}} </template>
+              <template v-else>{{i18n.itemNumber}} </template>
+              {{prdInfo.prdSKUId}}</span>
+            <span v-if="prdInfo.prdCustId"> {{i18n.custNumber}} {{prdInfo.prdCustId}}</span>
+          </div>
+          <div class="display-attributes" v-if="globals.siteConfig.enableDisplayAttributes && prdInfo.displayAttributes" v-html="displayAttributes(prdInfo.displayAttributes)">
+          </div>
+          <div class="store-info ext-info" v-if="prdInfo.prdExtraInfo">
+            {{prdInfo.prdExtraInfo}}
+          </div>
+          <div class="store-info ext-info" v-if="prdInfo.prdDimensions">
+            {{prdInfo.prdDimensions}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+  <div class="row stock-product-check">
+    <div class="col-xs-12">
+      <div class="form-group mt-xs-3 mb-xs-0 mb-sm-3">
+        <input id="stockProducts" type="checkbox" v-model="showStockProducts" @change="checkStock" :aria-label="isFromPdp ? i18n.stockProductLabel :
+        i18n.stockProductListLabel"
+          :disabled="isDisabledStock" />
+        <label class="stockProductLabel" for="stockProducts" :aria-hidden="isDeviceAndroid()" v-text="isFromPdp ? i18n.stockProductLabel : i18n.stockProductListLabel"></label>
+      </div>
+    </div>
+  </div>
+</div>

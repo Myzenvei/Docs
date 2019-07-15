@@ -1,0 +1,8 @@
+<section class="view-site-content-vx-image-tile px-xs-0" :style="[{width: imageTileData.imageWidth ? imageTileData.imageWidth+'%' : ''},backgroundImage]"
+  v-if="!imageTileData.isVideo" :aria-label="[backgroundAlt]"></section>
+<section class="view-site-content-vx-image-tile px-xs-0" :style="[{width: imageTileData.imageWidth ? imageTileData.imageWidth+'%' : ''},backgroundImage]"
+  v-else :aria-label="[backgroundAlt]">
+  <a @keyup.enter-space="openVideo(imageTileData.videoSrc)" @click="openVideo(imageTileData.videoSrc)" href="javascript:void(0)"
+    :aria-label="i18n.iconPlayTitle" class="icon-play" :style="{color:imageTileData.playIconColor}" :title="i18n.iconPlayTitle">
+  </a>
+</section>

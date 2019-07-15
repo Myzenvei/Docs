@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+ All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+
+
+--><!--
+ All hybris buildcallbacks.xml macrodefinitions:
+ 
+ Build/Documentation
+ 
+	 before/after ant macro "clean"
+		 <macrodef name="otmmws_before_clean"/>
+		 <macrodef name="otmmws_after_clean"/>
+	 
+	 before/after ant macro "build"
+		 <macrodef name="otmmws_before_build"/>
+		 <macrodef name="otmmws_after_build"/>
+		 
+	 before/after ant macro "compile_core" - the core module of the extension
+		 <macrodef name="otmmws_before_compile_core">
+		 <macrodef name="otmmws_after_compile_core">
+	 
+	 before/after ant macro "compile_web" - the web module of the extension
+		 <macrodef name="otmmws_before_compile_web" />
+		 <macrodef name="otmmws_after_compile_web" />
+	 
+	 before/after ant macro "compile_hmc" - the hmc module of the extension
+		 <macrodef name="otmmws_before_compile_hmc" />
+		 <macrodef name="otmmws_after_compile_hmc" />
+ 
+ Preparing extension
+ 
+	 will be called in the beginning of the ant call and only once (also when using multiple 
+	 ant targets e.g. ant build yunittest)	
+		 <macrodef name="otmmws_only_once_prepare"/>
+ 
+ Creating ear module/production
+ 
+	 before/after ant macro "ear"
+		 <macrodef name="otmmws_before_ear"/>
+		 <macrodef name="otmmws_after_ear"/>
+
+	 before/after ant macro "production" - for hybris server only
+		 <macrodef name="otmmws_before_production" />
+		 <macrodef name="otmmws_after_production" />
+ 
+ JUnit Test
+ 
+	 before/after ant macro "yunitinit" 
+		 <macrodef name="otmmws_before_yunitinit" />
+		 <macrodef name="otmmws_after_yunitinit" />
+	 
+	 before/after ant macro "yunit"
+		 <macrodef name="otmmws_before_yunit" />
+		 <macrodef name="otmmws_after_yunit" /> 
+		 
+ Distribution package
+ 
+ 	 before/after ant macro "dist" - internal target; only for use when platform is available in source code
+		 <macrodef name="otmmws_after_dist"/>
+		 <macrodef name="otmmws_before_dist"/>
+	 
+	 before/after ant macro "dist_copy" - internal target; only for use when platform is available in source code
+		 <macrodef name="otmmws_before_dist_copy"/>
+		 <macrodef name="otmmws_after_dist_copy"/>
+		  
+ 	 With these filters you can override the default extension filters defined in platform/resources/ant/dist/filtersets.xml
+ 	  	 <patternset id="extension.otmmws.binary.filter">
+ 	  	  	 <patternset refid="extension.filter" />
+ 	  	  	 <exclude name="**/*-source.jar" />
+ 	  	 </patternset>
+ 	  	 <patternset id="extension.otmmws.source.filter">
+ 	  	  	 <exclude name="**/bin/**" />
+ 	  	 </patternset>
+ 
+-->
+
+<project name="otmmws_buildcallbacks">
+
+	<macrodef name="otmmws_after_clean">
+		<sequential>
+
+			<condition property="is.hybris62.or.greater">
+				<matches string="${hybris.build.version}" pattern="^6\.[23456789].*"/>
+			</condition>
+
+			<property name="otmmws.config" value="${ext.otmmws.path}/web/webroot/WEB-INF/config"/>
+
+			<if>
+				<equals arg1="${is.hybris62.or.greater}" arg2="true"/>
+				<then>
+					<copy overwrite="true" file="${otmmws.config}/security-spring-hyb62.xml" tofile="${otmmws.config}/security-spring.xml"/>
+				</then>
+				<else>
+					<copy overwrite="true" file="${otmmws.config}/security-spring-hyb61.xml" tofile="${otmmws.config}/security-spring.xml"/>
+				</else>
+			</if>
+
+
+			<condition property="is.hybris64.or.greater">
+				<matches string="${hybris.build.version}" pattern="^6\.[456789].*"/>
+			</condition>
+
+			<property name="otmmws.resources" value="${ext.otmmws.path}/resources"/>
+
+			<if>
+				<equals arg1="${is.hybris64.or.greater}" arg2="true"/>
+				<then>
+					<copy overwrite="true" file="${otmmws.resources}/otmmws-spring-hyb64.xml" tofile="${otmmws.resources}/otmmws-spring.xml"/>
+				</then>
+				<else>
+					<copy overwrite="true" file="${otmmws.resources}/otmmws-spring-hyb63.xml" tofile="${otmmws.resources}/otmmws-spring.xml"/>
+				</else>
+			</if>
+
+
+		</sequential>
+	</macrodef>
+
+	<!-- 
+	    Called whenever 'ant ear' is used. this callback can be used to modify the content of the ear file
+	
+	     ${ear.path}: 			path to ear
+	 -->
+	<macrodef name="otmmws_before_ear">
+		<sequential>
+
+			<!-- you can do anything before the EAR file is being packed -->
+
+		</sequential>
+	</macrodef>
+
+</project>

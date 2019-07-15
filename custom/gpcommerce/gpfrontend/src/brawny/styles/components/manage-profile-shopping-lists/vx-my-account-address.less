@@ -1,0 +1,60 @@
+#brawny {
+  .vx-my-account-address {
+    font-family: @font-family-text;
+    @media screen and (min-width: @screen-sm-min) {
+      padding: 0 16px;
+    }
+    @media screen and (min-width: @screen-md-min) {
+      padding: 0;
+      margin-right: 24px;
+    }
+    & > .col-xs-12 {
+      .row {
+        & > h1 {
+          margin: 0;
+          padding: 24px 16px 18px !important;
+          @media screen and (min-width: @screen-sm-min) {
+            padding: 32px 16px 0 !important;
+          }
+          @media screen and (min-width: @screen-md-min) {
+            padding: 48px 16px 0 16px !important;
+          }
+          font-weight: @font-weight-normal;
+        }
+      }
+    }
+    .address-cards-container {
+      margin-top: 16px;
+      @media screen and (min-width: @screen-sm-min) {
+        margin-top: 20px;
+      }
+      .add-card-wrapper {
+        padding-top: 0 !important;
+        @media screen and (min-width: @screen-sm-min) {
+          padding-top: 16px !important;
+        }
+      }
+      .vx-profile-card {
+        min-height: 262px;
+        .profile-card {
+          padding: 24px 8px !important;
+        }
+        .add-card-container {
+          a {
+            .link-large {
+              text-decoration: underline;
+            }
+            .icon-plus {
+              color: @font-icon-color-5;
+            }
+          }
+        }
+      }
+    }
+    .icon-edit,
+    .icon-trash {
+      font-size: @font-icon-size;
+      color: @font-icon-color-5;
+    }
+  }
+}

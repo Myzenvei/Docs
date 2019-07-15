@@ -1,0 +1,106 @@
+<div class="vx-user-group-details">
+  <vx-details-section :i18n-user-status="i18n.userStatus" :i18n="i18n.unitDetail" :details-data="detailPageData.detailsData" :edit-button="true"
+    :disable-button="showDisablebutton" :link-button="true" @disable="handleDisableClick" @enable="handleEnableClick"
+    @edit="handleEditClick" @link="handleDeleteClick"></vx-details-section>
+  <vx-info-section :i18n="i18n.permissions" :info-data="detailPageData.permissionsGroupData" :new-button="false"
+    :existing-button=true :icon-class="'icon-trash'" :display-active-only=false @delete="handleRemoveClick"
+    @addExistingTo="handleAddExistingClick"></vx-info-section>
+  <vx-info-section :i18n="i18n.userGroups" :info-data="detailPageData.membersGroupData" :new-button="false"
+    :existing-button=true :icon-class="'icon-trash'" :display-active-only=false @delete="handleRemoveClick"
+    @addExistingTo="handleAddExistingClick"></vx-info-section>
+
+  <vx-modal ref="disableUserGroupModal" :heading="i18n.disableUserGroupModal.heading" :size="'extra-small'">
+    <div class="d-flex flex-column" slot="component">
+      <p class="mb-xs-0 pb-xs-5">{{i18n.disableUserGroupModal.message1}}{{detailPageData.unitDetailsData.name}}
+        {{i18n.disableUserGroupModal.message2}}</p>
+      <button class="btn btn-primary align-self-center modal-btn-primary-small modal-btn-xs-sticky" @click="sendDisableRequest">{{i18n.disableUserGroupModal.disableText}}</button>
+    </div>
+  </vx-modal>
+
+  <vx-modal ref="removeModal" :heading="`${i18n.removeModal.heading} ${removedInfo.from}`" :size="'extra-small'">
+    <div class="d-flex flex-column" slot="component">
+      <p class="mb-xs-0 pb-xs-5">{{i18n.removeModal.message}} {{removedInfo.delete}} ?</p>
+      <button class="btn btn-primary align-self-center modal-btn-primary-small modal-btn-xs-sticky" @click="sendRemoveRequest">{{i18n.removeModal.removeText}}</button>
+    </div>
+  </vx-modal>
+
+  <vx-modal ref="deleteUserGroupModal" :heading="`${i18n.deleteModal.heading}`" :size="'extra-small'">
+    <div class="d-flex flex-column" slot="component">
+      <p class="mb-xs-0 pb-xs-5">{{i18n.deleteModal.messageWithOutUsers}} ?</p>
+      <button class="btn btn-primary align-self-center modal-btn-primary-small modal-btn-xs-sticky" @click="sendDeleteRequest">{{i18n.deleteModal.deleteWithOutUsers}}</button>
+    </div>
+  </vx-modal>
+
+  <vx-modal ref="addExistingModal" @close="resetAddedValues" :heading="`${i18n.addExistingModal.heading} ${existingAddedTo}`"
+    :size="'extra-small'">
+    <div class="row" slot="component">
+      <div class="col-xs-12" v-if="existingAddedTo === i18n.userGroups.groupLabel">
+        <div class="mb-xs-5" v-for="(item, index) in existingUsers">
+          <div class="form-group mb-xs-0">
+            <input type="checkbox" :id="`checkbox${index}${item.info}`" :value="item.info" v-model="existingItems">
+            <label class="pl-xs-5" :for="`checkbox${index}${item.info}`">
+              <p v-if="item.isPending" class="mb-xs-0">{{item.label}}</p>
+              <a :href="userDetailsUrl+item.link" v-else>{{item.label}}</a>
+            </label>
+          </div>
+          <p class="pl-xs-5 mb-xs-0">{{item.email}}</p>
+        </div>
+      </div>
+      <div class="col-xs-12" v-else-if="existingAddedTo === i18n.permissions.groupLabel">
+        <div class="mb-xs-5 existing-permissions-info" v-for="(item, index) in existingPermissions">
+          <div class="form-group mb-xs-0">
+            <input type="checkbox" :id="`checkbox${index}`" :value="item.link" v-model="existingItems">
+            <label class="pl-xs-5" :for="`checkbox${index}`">
+              <a :href="permissionDetailsUrl+item.link">{{item.link}}</a>
+            </label>
+          </div>
+          <p class="pl-xs-5 mb-xs-0" v-html=item.info></p>
+        </div>
+      </div>
+      <div class="col-xs-12 text-center">
+        <button class="btn btn-primary justify-content-center modal-btn-primary-small modal-btn-xs-sticky" @click="sendAddExistingRequest">{{i18n.addExistingModal.saveText}}</button>
+      </div>
+    </div>
+  </vx-modal>
+
+  <vx-modal ref="editUserGroupModal" size="large" :heading="i18n.editUserGroupModal.heading" @close="resetEditValues">
+    <div class="row" slot="component">
+      <form @submit.prevent="editUserGroup" class="col-xs-12" novalidate="true">
+        <div class="row">
+          <div class="mb-xs-4 form-group col-xs-12 col-md-6">
+            <label for="id" :aria-hidden="isDeviceAndroid()">{{i18n.editUserGroupModal.id}}</label>
+            <input type="text" class="form-control" maxlength="35" v-validate="'required'" v-bind:class="{'input-error': errors.has('id')}"
+              name="id" v-model="editUserGroupData.id" :aria-label="i18n.editUserGroupModal.id">
+            <div class="mt-xs-2" v-if="errors.has('id')">
+              <span class="error-msg">{{ errors.first('id') }}</span>
+            </div>
+          </div>
+          <div class="mb-xs-4 form-group col-xs-12 col-md-6">
+            <label for="userGroupName" :aria-hidden="isDeviceAndroid()">{{i18n.editUserGroupModal.userGroupName}}</label>
+            <input type="text" class="form-control" maxlength="35" v-validate="'required'" v-bind:class="{'input-error': errors.has('userGroupName')}"
+              name="userGroupName" v-model="editUserGroupData.userGroupName" :aria-label="i18n.editUserGroupModal.userGroupName">
+            <div class="mt-xs-2" v-if="errors.has('userGroupName')">
+              <span class="error-msg">{{ errors.first('userGroupName') }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="mb-xs-3 mb-sm-5 form-group col-xs-12 col-md-6">
+            <label for="businessUnitDropdown" class="dropdown-label">{{i18n.editUserGroupModal.businessUnit}}</label>
+            <vx-dropdown-primary @selected-option="editUserGroupData.businessUnit=$event" v-validate="'required'"
+              :dropdownValues="businessUnitsList" ref="businessUnitDropdown" name="businessUnit" v-model="editUserGroupData.businessUnit"
+              :dropdownError="errors.has('businessUnit')" v-on:primaryDropdownMounted="businessUnitDropdownInit"></vx-dropdown-primary>
+          </div>
+        </div>
+        <div class="row" v-if="isUserGroupExists">
+          <div class="col-xs-12 alert-msg p-xs-3 mb-xs-5 mt-xs-3">
+            {{isUserGroupExistsError}}
+          </div>
+        </div>
+        <div class="col-xs-12 text-center">
+          <button class="btn btn-primary save-btn modal-btn-primary-small" type="submit">{{i18n.editUserGroupModal.save}}</button>
+        </div>
+      </form>
+    </div>
+  </vx-modal>
+</div>

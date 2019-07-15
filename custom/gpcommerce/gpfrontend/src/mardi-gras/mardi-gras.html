@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title> Mardi Gras </title>
+  <!-- Latest compiled and minified CSS -->
+  <!-- Gotham fonts-->
+  <link rel="stylesheet" type="text/css" href="https://cloud.typography.com/6228154/6448192/css/fonts.css" />
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+  <style type="text/css">
+    .fonts-section span {
+      padding: 30px;
+    }
+
+    .page-nav {
+      margin-top: 86px;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div id="mardi-gras">
+    <!-- built files will be auto injected -->
+    <!-- for logged in user uid is some email id and for logged out user it is anonymous -->
+    <!-- <vx-application-auth site-id="electronics" site-type="B2C" locale="en" context-path="" common-resource-path=""
+      csrf-token="sometoken" uid="some@some.com" google-maps-key="AIzaSyDk2KFvE5UgpLcYM4nVlOLSRDWqPMB1bNI" is-mock="true"
+      is-local="true"></vx-application-auth> -->
+
+    <!-- This to be placed inside gpstorefront-->
+    <!-- <vx-koch-auth></vx-koch-auth> -->
+
+    <!-- Should be placed in page.tag, it handles the guid-->
+    <!-- <vx-cart-guid></vx-cart-guid> -->
+
+
+
+    <mg-header-section :nav-data="navData" :nav-social-links="navSocialLinks"></mg-header-section>
+
+    <router-view></router-view>
+    <vx-video-player :video-options="videoOptions"></vx-video-player>
+    <mg-footer-section :footer-data="footerData"></mg-footer-section>
+
+  </div>
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,28 @@
+#innovia {
+  .vx-breadcrumb {
+    .breadcrumb {
+      background-color: transparent;
+
+      @media screen and (max-width: @screen-sm-max) {
+        margin-top: 15px;
+      }
+
+      li {
+
+        &:last-child {
+
+          a,
+          span {
+            color: @footer-sub-links;
+            text-decoration: underline;
+            font-weight: @font-weight-regular;
+          }
+        }
+
+        a {
+          font-family: @font-breadcrum-base;
+        }
+      }
+    }
+  }
+}

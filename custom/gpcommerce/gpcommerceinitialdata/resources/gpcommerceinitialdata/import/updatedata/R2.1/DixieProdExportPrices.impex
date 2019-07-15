@@ -1,0 +1,839 @@
+insert PriceRow;&Item;catalogVersion(catalog(id),version)[unique=true];channel(code,itemtype(code));currency(isocode)[allownull=true][unique=true];dateRange[dateformat=dd.MM.yyyy hh:mm:ss];endTime[dateformat=dd.MM.yyyy hh:mm:ss];giveAwayPrice[allownull=true];mapPrice;minqtd[allownull=true];net[allownull=true];owner(&Item)[allownull=true,forceWrite=true];pg(code,itemtype(code))[forceWrite=true];price[allownull=true][unique=true];product(catalogVersion(catalog(id),version),code)[forceWrite=true][unique=true];productId[forceWrite=true];salePrice;sapConditionId;sequenceId;siteId;startTime[dateformat=dd.MM.yyyy hh:mm:ss];ug(code,itemtype(code))[allownull=true][unique=true];unit(code)[allownull=true];unitFactor[allownull=true];user(uid);gpUserPriceGroup(code,itemtype(code))[allownull=true][unique=true]
+;Item0;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;46.99;gpUSProductCatalog:Staged:LO10;;FALSE;359852;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item1;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;46.99;gpUSProductCatalog:Staged:LO10;;FALSE;;;;;;CS;1;;
+;Item2;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;46.99;gpUSProductCatalog:Staged:LO10;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item3;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;54.99;gpUSProductCatalog:Staged:CH26C7;;FALSE;;;;;;CS;1;;
+;Item4;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;54.99;gpUSProductCatalog:Staged:CH26C7;;FALSE;359835;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item5;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;53.99;gpUSProductCatalog:Staged:CH26C7;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item6;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;119.99;gpUSProductCatalog:Staged:9PPATH;;FALSE;;;;;;CS;1;;
+;Item7;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;119.99;gpUSProductCatalog:Staged:9PPATH;;FALSE;359834;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item8;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;119.99;gpUSProductCatalog:Staged:9PPATH;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item9;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;55.99;gpUSProductCatalog:Staged:SSWPS5;;FALSE;;;;;;CS;1;;
+;Item10;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;55.99;gpUSProductCatalog:Staged:SSWPS5;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item11;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;55.99;gpUSProductCatalog:Staged:SSWPS5;;FALSE;359876;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item12;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;125.99;gpUSProductCatalog:Staged:43822;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item13;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;125.99;gpUSProductCatalog:Staged:43822;;FALSE;;;;;;CS;1;;
+;Item14;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;125.99;gpUSProductCatalog:Staged:43822;;FALSE;359776;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item15;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;54.99;gpUSProductCatalog:Staged:FM23C7;;FALSE;;;;;;CS;1;;
+;Item16;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;53.99;gpUSProductCatalog:Staged:FM23C7;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item17;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;54.99;gpUSProductCatalog:Staged:FM23C7;;FALSE;359844;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item18;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;45.99;gpUSProductCatalog:Staged:13728;;FALSE;359748;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item19;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;45.99;gpUSProductCatalog:Staged:13728;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item20;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;45.99;gpUSProductCatalog:Staged:13728;;FALSE;;;;;;CS;1;;
+;Item21;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;75;gpUSProductCatalog:Staged:FF2PLN;;FALSE;359843;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item22;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;75;gpUSProductCatalog:Staged:FF2PLN;;FALSE;;;;;;CS;1;;
+;Item23;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;73.99;gpUSProductCatalog:Staged:FF2PLN;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item24;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;83.99;gpUSProductCatalog:Staged:2342PATH;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item25;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;83.99;gpUSProductCatalog:Staged:2342PATH;;FALSE;;;;;;CS;1;;
+;Item26;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;83.99;gpUSProductCatalog:Staged:2342PATH;;FALSE;359819;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item27;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;29.99;gpUSProductCatalog:Staged:2112014;;FALSE;359754;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item28;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;29.99;gpUSProductCatalog:Staged:2112014;;FALSE;;;;;;CS;1;;
+;Item29;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;28.99;gpUSProductCatalog:Staged:2112014;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item30;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;60.99;gpUSProductCatalog:Staged:29662;;FALSE;;;;;;CS;1;;
+;Item31;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;60.99;gpUSProductCatalog:Staged:29662;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item32;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;60.99;gpUSProductCatalog:Staged:29662;;FALSE;359764;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item33;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;11.99;gpUSProductCatalog:Staged:50013;;FALSE;359787;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;EA;1;;
+;Item34;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;2.5;gpUSProductCatalog:Staged:50013;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;EA;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item35;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;11.99;gpUSProductCatalog:Staged:50013;;FALSE;;;;;;EA;1;;
+;Item36;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;130.99;gpUSProductCatalog:Staged:SC003;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item37;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;150;gpUSProductCatalog:Staged:SC003;;FALSE;;;;;;CS;1;;
+;Item38;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;150;gpUSProductCatalog:Staged:SC003;;FALSE;359859;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item39;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;59.99;gpUSProductCatalog:Staged:1TOC;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item40;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;59.99;gpUSProductCatalog:Staged:1TOC;;FALSE;359818;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item41;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;59.99;gpUSProductCatalog:Staged:1TOC;;FALSE;;;;;;CS;1;;
+;Item42;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;50.99;gpUSProductCatalog:Staged:48280;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item43;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;50.99;gpUSProductCatalog:Staged:48280;;FALSE;;;;;;CS;1;;
+;Item44;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;50.99;gpUSProductCatalog:Staged:48280;;FALSE;359781;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item45;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;10;gpUSProductCatalog:Staged:SSSD120;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item46;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;15.99;gpUSProductCatalog:Staged:SSSD120;;FALSE;;;;;;CS;1;;
+;Item47;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;15.99;gpUSProductCatalog:Staged:SSSD120;;FALSE;359870;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item48;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;52.99;gpUSProductCatalog:Staged:TM53C7;;FALSE;359882;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item49;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;52.99;gpUSProductCatalog:Staged:TM53C7;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item50;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;52.99;gpUSProductCatalog:Staged:TM53C7;;FALSE;;;;;;CS;1;;
+;Item51;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;68.99;gpUSProductCatalog:Staged:32006;;FALSE;359766;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item52;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;68.99;gpUSProductCatalog:Staged:32006;;FALSE;;;;;;CS;1;;
+;Item53;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;68.99;gpUSProductCatalog:Staged:32006;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item54;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;36.99;gpUSProductCatalog:Staged:96019;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item55;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;36.99;gpUSProductCatalog:Staged:96019;;FALSE;359815;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item56;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;36.99;gpUSProductCatalog:Staged:96019;;FALSE;;;;;;CS;1;;
+;Item57;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;17;gpUSProductCatalog:Staged:56788;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item58;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;29.99;gpUSProductCatalog:Staged:56788;;FALSE;;;;;;CS;1;;
+;Item59;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;29.99;gpUSProductCatalog:Staged:56788;;FALSE;359803;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;EA;1;;
+;Item60;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;27.99;gpUSProductCatalog:Staged:53590;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item61;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;27.99;gpUSProductCatalog:Staged:53590;;FALSE;359793;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item62;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;27.99;gpUSProductCatalog:Staged:53590;;FALSE;;;;;;CS;1;;
+;Item63;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;32.99;gpUSProductCatalog:Staged:UX7WS;;FALSE;359885;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item64;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;31.99;gpUSProductCatalog:Staged:UX7WS;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item65;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;32.99;gpUSProductCatalog:Staged:UX7WS;;FALSE;;;;;;CS;1;;
+;Item66;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;29.99;gpUSProductCatalog:Staged:56744A;;FALSE;;;;;;CS;1;;
+;Item67;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;17;gpUSProductCatalog:Staged:56744A;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item68;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;29.99;gpUSProductCatalog:Staged:56744A;;FALSE;359796;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;EA;1;;
+;Item69;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;165.99;gpUSProductCatalog:Staged:6346AR;;FALSE;359829;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item70;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;165.99;gpUSProductCatalog:Staged:6346AR;;FALSE;;;;;;CS;1;;
+;Item71;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;165.99;gpUSProductCatalog:Staged:6346AR;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item72;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;25.99;gpUSProductCatalog:Staged:56790A;;FALSE;359804;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;EA;1;;
+;Item73;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;13;gpUSProductCatalog:Staged:56790A;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item74;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;25.99;gpUSProductCatalog:Staged:56790A;;FALSE;;;;;;CS;1;;
+;Item75;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;108.99;gpUSProductCatalog:Staged:19448/01;;FALSE;359752;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item76;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;108.99;gpUSProductCatalog:Staged:19448/01;;FALSE;;;;;;CS;1;;
+;Item77;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;108.99;gpUSProductCatalog:Staged:19448/01;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item78;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;41.99;gpUSProductCatalog:Staged:26491;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item79;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;41.99;gpUSProductCatalog:Staged:26491;;FALSE;;;;;;CS;1;;
+;Item80;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;41.99;gpUSProductCatalog:Staged:26491;;FALSE;359755;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item81;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;87.99;gpUSProductCatalog:Staged:19375;;FALSE;359750;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item82;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;87.99;gpUSProductCatalog:Staged:19375;;FALSE;;;;;;CS;1;;
+;Item83;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;87.99;gpUSProductCatalog:Staged:19375;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item84;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;95.99;gpUSProductCatalog:Staged:TP9542B;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item85;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;99.99;gpUSProductCatalog:Staged:TP9542B;;FALSE;;;;;;CS;1;;
+;Item86;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;99.99;gpUSProductCatalog:Staged:TP9542B;;FALSE;359884;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item87;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;59.99;gpUSProductCatalog:Staged:8TOC;;FALSE;;;;;;CS;1;;
+;Item88;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;59.99;gpUSProductCatalog:Staged:8TOC;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item89;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;59.99;gpUSProductCatalog:Staged:8TOC;;FALSE;359831;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item90;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;150.99;gpUSProductCatalog:Staged:6342AR;;FALSE;;;;;;CS;1;;
+;Item91;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;150.99;gpUSProductCatalog:Staged:6342AR;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item92;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;150.99;gpUSProductCatalog:Staged:6342AR;;FALSE;359828;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item93;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;55.99;gpUSProductCatalog:Staged:SSWPF5;;FALSE;;;;;;CS;1;;
+;Item94;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;55.99;gpUSProductCatalog:Staged:SSWPF5;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item95;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;55.99;gpUSProductCatalog:Staged:SSWPF5;;FALSE;359874;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item96;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;57.99;gpUSProductCatalog:Staged:29651;;FALSE;359763;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item97;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;57.99;gpUSProductCatalog:Staged:29651;;FALSE;;;;;;CS;1;;
+;Item98;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;57.99;gpUSProductCatalog:Staged:29651;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item99;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;65.99;gpUSProductCatalog:Staged:43715;;FALSE;359773;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item100;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;65.99;gpUSProductCatalog:Staged:43715;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item101;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;65.99;gpUSProductCatalog:Staged:43715;;FALSE;;;;;;CS;1;;
+;Item102;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;41.99;gpUSProductCatalog:Staged:2717201;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item103;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;44.99;gpUSProductCatalog:Staged:2717201;;FALSE;359757;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item104;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;44.99;gpUSProductCatalog:Staged:2717201;;FALSE;;;;;;CS;1;;
+;Item105;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;49.99;gpUSProductCatalog:Staged:SSK51;;FALSE;;;;;;CS;1;;
+;Item106;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;49.99;gpUSProductCatalog:Staged:SSK51;;FALSE;359864;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item107;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;49.99;gpUSProductCatalog:Staged:SSK51;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item108;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;82.99;gpUSProductCatalog:Staged:92220;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item109;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;82.99;gpUSProductCatalog:Staged:92220;;FALSE;359814;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item110;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;82.99;gpUSProductCatalog:Staged:92220;;FALSE;;;;;;CS;1;;
+;Item111;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;26.99;gpUSProductCatalog:Staged:KL300W8;;FALSE;359848;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item112;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;26.99;gpUSProductCatalog:Staged:KL300W8;;FALSE;;;;;;CS;1;;
+;Item113;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;26.99;gpUSProductCatalog:Staged:KL300W8;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item114;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;49.99;gpUSProductCatalog:Staged:SSS51;;FALSE;359868;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item115;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;49.99;gpUSProductCatalog:Staged:SSS51;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item116;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;49.99;gpUSProductCatalog:Staged:SSS51;;FALSE;;;;;;CS;1;;
+;Item117;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;55.99;gpUSProductCatalog:Staged:SSWPT5;;FALSE;359877;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item118;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;55.99;gpUSProductCatalog:Staged:SSWPT5;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item119;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;55.99;gpUSProductCatalog:Staged:SSWPT5;;FALSE;;;;;;CS;1;;
+;Item120;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;49.99;gpUSProductCatalog:Staged:SSF51;;FALSE;359860;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item121;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;49.99;gpUSProductCatalog:Staged:SSF51;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item122;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;49.99;gpUSProductCatalog:Staged:SSF51;;FALSE;;;;;;CS;1;;
+;Item123;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;80.99;gpUSProductCatalog:Staged:1000/44COT;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item124;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;82;gpUSProductCatalog:Staged:1000/44COT;;FALSE;;;;;;CS;1;;
+;Item125;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;82;gpUSProductCatalog:Staged:1000/44COT;;FALSE;359816;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item126;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;80.99;gpUSProductCatalog:Staged:48255;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item127;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;80.99;gpUSProductCatalog:Staged:48255;;FALSE;;;;;;CS;1;;
+;Item128;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;80.99;gpUSProductCatalog:Staged:48255;;FALSE;359778;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item129;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;7.99;gpUSProductCatalog:Staged:54527A;;FALSE;;;;;;CS;1;;
+;Item130;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;5;gpUSProductCatalog:Staged:54527A;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item131;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;7.99;gpUSProductCatalog:Staged:54527A;;FALSE;359794;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item132;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;76.99;gpUSProductCatalog:Staged:16PPATH;;FALSE;;;;;;CS;1;;
+;Item133;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;76.99;gpUSProductCatalog:Staged:16PPATH;;FALSE;359817;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item134;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;76.99;gpUSProductCatalog:Staged:16PPATH;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item135;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;12;gpUSProductCatalog:Staged:56761;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item136;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;34.99;gpUSProductCatalog:Staged:56761;;FALSE;;;;;;CS;1;;
+;Item137;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;34.99;gpUSProductCatalog:Staged:56761;;FALSE;359798;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item138;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;15.99;gpUSProductCatalog:Staged:SSKD120;;FALSE;359866;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item139;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;10;gpUSProductCatalog:Staged:SSKD120;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item140;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;15.99;gpUSProductCatalog:Staged:SSKD120;;FALSE;;;;;;CS;1;;
+;Item141;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;40.99;gpUSProductCatalog:Staged:26496;;FALSE;359756;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item142;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;40.99;gpUSProductCatalog:Staged:26496;;FALSE;;;;;;CS;1;;
+;Item143;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;40.99;gpUSProductCatalog:Staged:26496;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item144;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;42.99;gpUSProductCatalog:Staged:27300;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item145;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;42.99;gpUSProductCatalog:Staged:27300;;FALSE;359758;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item146;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;42.99;gpUSProductCatalog:Staged:27300;;FALSE;;;;;;CS;1;;
+;Item147;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;62.99;gpUSProductCatalog:Staged:29408;;FALSE;359761;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item148;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;62.99;gpUSProductCatalog:Staged:29408;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item149;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;62.99;gpUSProductCatalog:Staged:29408;;FALSE;;;;;;CS;1;;
+;Item150;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;85;gpUSProductCatalog:Staged:27S12;;FALSE;;;;;;CS;1;;
+;Item151;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;85;gpUSProductCatalog:Staged:27S12;;FALSE;359820;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item152;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;73.99;gpUSProductCatalog:Staged:27S12;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item153;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;74.99;gpUSProductCatalog:Staged:29430;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item154;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;74.99;gpUSProductCatalog:Staged:29430;;FALSE;;;;;;CS;1;;
+;Item155;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;74.99;gpUSProductCatalog:Staged:29430;;FALSE;359762;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item156;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;40.99;gpUSProductCatalog:Staged:48265;;FALSE;;;;;;CS;1;;
+;Item157;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;40.99;gpUSProductCatalog:Staged:48265;;FALSE;359780;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item158;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;40.99;gpUSProductCatalog:Staged:48265;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item159;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;45.99;gpUSProductCatalog:Staged:ES300U;;FALSE;359840;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item160;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;45.99;gpUSProductCatalog:Staged:ES300U;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item161;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;45.99;gpUSProductCatalog:Staged:ES300U;;FALSE;;;;;;CS;1;;
+;Item162;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;55.99;gpUSProductCatalog:Staged:SSWPK5;;FALSE;;;;;;CS;1;;
+;Item163;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;55.99;gpUSProductCatalog:Staged:SSWPK5;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item164;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;55.99;gpUSProductCatalog:Staged:SSWPK5;;FALSE;359875;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item165;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;58.99;gpUSProductCatalog:Staged:2TOC;;FALSE;359821;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item166;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;56.99;gpUSProductCatalog:Staged:2TOC;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item167;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;58.99;gpUSProductCatalog:Staged:2TOC;;FALSE;;;;;;CS;1;;
+;Item168;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;54.99;gpUSProductCatalog:Staged:38000;;FALSE;359768;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item169;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;54.99;gpUSProductCatalog:Staged:38000;;FALSE;;;;;;CS;1;;
+;Item170;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;54.99;gpUSProductCatalog:Staged:38000;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item171;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;53.99;gpUSProductCatalog:Staged:38015;;FALSE;;;;;;CS;1;;
+;Item172;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;53.99;gpUSProductCatalog:Staged:38015;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item173;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;53.99;gpUSProductCatalog:Staged:38015;;FALSE;359769;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item174;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;64.99;gpUSProductCatalog:Staged:32019;;FALSE;359767;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item175;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;64.99;gpUSProductCatalog:Staged:32019;;FALSE;;;;;;CS;1;;
+;Item176;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;64.99;gpUSProductCatalog:Staged:32019;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item177;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;40.99;gpUSProductCatalog:Staged:914LSRD;;FALSE;359832;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item178;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;40.99;gpUSProductCatalog:Staged:914LSRD;;FALSE;;;;;;CS;1;;
+;Item179;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;40.99;gpUSProductCatalog:Staged:914LSRD;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item180;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;59.99;gpUSProductCatalog:Staged:3TOC;;FALSE;359822;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item181;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;59.99;gpUSProductCatalog:Staged:3TOC;;FALSE;;;;;;CS;1;;
+;Item182;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;59.99;gpUSProductCatalog:Staged:3TOC;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item183;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;115.99;gpUSProductCatalog:Staged:4021PATH;;FALSE;359824;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item184;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;115.99;gpUSProductCatalog:Staged:4021PATH;;FALSE;;;;;;CS;1;;
+;Item185;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;115.99;gpUSProductCatalog:Staged:4021PATH;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item186;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;93.99;gpUSProductCatalog:Staged:43335;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item187;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;93.99;gpUSProductCatalog:Staged:43335;;FALSE;;;;;;CS;1;;
+;Item188;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;93.99;gpUSProductCatalog:Staged:43335;;FALSE;359770;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item189;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;65.99;gpUSProductCatalog:Staged:43714;;FALSE;359772;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item190;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;65.99;gpUSProductCatalog:Staged:43714;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item191;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;65.99;gpUSProductCatalog:Staged:43714;;FALSE;;;;;;CS;1;;
+;Item192;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;96.99;gpUSProductCatalog:Staged:43337;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item193;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;96.99;gpUSProductCatalog:Staged:43337;;FALSE;359771;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item194;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;96.99;gpUSProductCatalog:Staged:43337;;FALSE;;;;;;CS;1;;
+;Item195;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;75.99;gpUSProductCatalog:Staged:43716;;FALSE;;;;;;CS;1;;
+;Item196;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;75.99;gpUSProductCatalog:Staged:43716;;FALSE;359774;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item197;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;75.99;gpUSProductCatalog:Staged:43716;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item198;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;13;gpUSProductCatalog:Staged:53058;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item199;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;24.99;gpUSProductCatalog:Staged:53058;;FALSE;359790;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;EA;1;;
+;Item200;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;24.99;gpUSProductCatalog:Staged:53058;;FALSE;;;;;;CS;1;;
+;Item201;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;39.99;gpUSProductCatalog:Staged:53060;;FALSE;;;;;;CS;1;;
+;Item202;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;39.99;gpUSProductCatalog:Staged:53060;;FALSE;359791;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;EA;1;;
+;Item203;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;20;gpUSProductCatalog:Staged:53060;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item204;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;109.99;gpUSProductCatalog:Staged:43818;;FALSE;;;;;;CS;1;;
+;Item205;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;109.99;gpUSProductCatalog:Staged:43818;;FALSE;359775;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item206;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;109.99;gpUSProductCatalog:Staged:43818;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item207;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;40.99;gpUSProductCatalog:Staged:48260;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item208;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;40.99;gpUSProductCatalog:Staged:48260;;FALSE;;;;;;CS;1;;
+;Item209;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;40.99;gpUSProductCatalog:Staged:48260;;FALSE;359779;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item210;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;83.99;gpUSProductCatalog:Staged:87242;;FALSE;;;;;;CS;1;;
+;Item211;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;83.99;gpUSProductCatalog:Staged:87242;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item212;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;83.99;gpUSProductCatalog:Staged:87242;;FALSE;359830;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item213;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;50.99;gpUSProductCatalog:Staged:48285;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item214;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;50.99;gpUSProductCatalog:Staged:48285;;FALSE;;;;;;CS;1;;
+;Item215;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;50.99;gpUSProductCatalog:Staged:48285;;FALSE;359782;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item216;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;34.99;gpUSProductCatalog:Staged:56768;;FALSE;;;;;;CS;1;;
+;Item217;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;12;gpUSProductCatalog:Staged:56768;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item218;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;34.99;gpUSProductCatalog:Staged:56768;;FALSE;359799;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item219;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;50.99;gpUSProductCatalog:Staged:48290;;FALSE;359783;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item220;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;50.99;gpUSProductCatalog:Staged:48290;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item221;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;50.99;gpUSProductCatalog:Staged:48290;;FALSE;;;;;;CS;1;;
+;Item222;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;50.99;gpUSProductCatalog:Staged:48295;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item223;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;50.99;gpUSProductCatalog:Staged:48295;;FALSE;;;;;;CS;1;;
+;Item224;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;50.99;gpUSProductCatalog:Staged:48295;;FALSE;359784;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item225;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;60.99;gpUSProductCatalog:Staged:4TOC;;FALSE;;;;;;CS;1;;
+;Item226;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;60.99;gpUSProductCatalog:Staged:4TOC;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item227;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;60.99;gpUSProductCatalog:Staged:4TOC;;FALSE;359825;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item228;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;2.5;gpUSProductCatalog:Staged:50011;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;EA;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item229;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;11.99;gpUSProductCatalog:Staged:50011;;FALSE;;;;;;EA;1;;
+;Item230;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;11.99;gpUSProductCatalog:Staged:50011;;FALSE;359785;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;EA;1;;
+;Item231;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;2.25;gpUSProductCatalog:Staged:50030;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;EA;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item232;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;11.99;gpUSProductCatalog:Staged:50030;;FALSE;;;;;;EA;1;;
+;Item233;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;11.99;gpUSProductCatalog:Staged:50030;;FALSE;359788;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;EA;1;;
+;Item234;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;11.99;gpUSProductCatalog:Staged:50012;;FALSE;359786;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;EA;1;;
+;Item235;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;2.5;gpUSProductCatalog:Staged:50012;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;EA;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item236;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;11.99;gpUSProductCatalog:Staged:50012;;FALSE;;;;;;EA;1;;
+;Item237;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;68.99;gpUSProductCatalog:Staged:5342DX;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item238;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;68.99;gpUSProductCatalog:Staged:5342DX;;FALSE;359826;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item239;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;68.99;gpUSProductCatalog:Staged:5342DX;;FALSE;;;;;;CS;1;;
+;Item240;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;4;gpUSProductCatalog:Staged:53257A;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item241;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;15;gpUSProductCatalog:Staged:53257A;;FALSE;359792;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item242;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;15;gpUSProductCatalog:Staged:53257A;;FALSE;;;;;;CS;1;;
+;Item243;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;77.99;gpUSProductCatalog:Staged:5356DX;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item244;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;77.99;gpUSProductCatalog:Staged:5356DX;;FALSE;359827;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item245;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;77.99;gpUSProductCatalog:Staged:5356DX;;FALSE;;;;;;CS;1;;
+;Item246;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;29.99;gpUSProductCatalog:Staged:16620;;FALSE;359749;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item247;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;29.99;gpUSProductCatalog:Staged:16620;;FALSE;;;;;;CS;1;;
+;Item248;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;28.99;gpUSProductCatalog:Staged:16620;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item249;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;34.99;gpUSProductCatalog:Staged:56757;;FALSE;;;;;;CS;1;;
+;Item250;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;34.99;gpUSProductCatalog:Staged:56757;;FALSE;359797;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item251;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;12;gpUSProductCatalog:Staged:56757;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item252;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;37.99;gpUSProductCatalog:Staged:59589;;FALSE;359811;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;EA;1;;
+;Item253;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;28;gpUSProductCatalog:Staged:59589;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item254;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;37.99;gpUSProductCatalog:Staged:59589;;FALSE;;;;;;CS;1;;
+;Item255;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;14;gpUSProductCatalog:Staged:56783A;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item256;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;16.99;gpUSProductCatalog:Staged:56783A;;FALSE;359801;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;EA;1;;
+;Item257;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;16.99;gpUSProductCatalog:Staged:56783A;;FALSE;;;;;;CS;1;;
+;Item258;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;17;gpUSProductCatalog:Staged:56781;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item259;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;29.99;gpUSProductCatalog:Staged:56781;;FALSE;;;;;;CS;1;;
+;Item260;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;29.99;gpUSProductCatalog:Staged:56781;;FALSE;359800;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;EA;1;;
+;Item261;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;4;gpUSProductCatalog:Staged:56803;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item262;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;12;gpUSProductCatalog:Staged:56803;;FALSE;359805;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;EA;1;;
+;Item263;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;12;gpUSProductCatalog:Staged:56803;;FALSE;;;;;;CS;1;;
+;Item264;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;16.99;gpUSProductCatalog:Staged:56784A;;FALSE;;;;;;CS;1;;
+;Item265;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;16.99;gpUSProductCatalog:Staged:56784A;;FALSE;359802;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;EA;1;;
+;Item266;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;14;gpUSProductCatalog:Staged:56784A;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item267;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;29.99;gpUSProductCatalog:Staged:59009;;FALSE;;;;;;CS;1;;
+;Item268;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;14;gpUSProductCatalog:Staged:59009;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item269;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;29.99;gpUSProductCatalog:Staged:59009;;FALSE;359808;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;EA;1;;
+;Item270;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;1250;gpUSProductCatalog:Staged:58000A;;FALSE;;;;;;CS;1;;
+;Item271;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;1100;gpUSProductCatalog:Staged:58000A;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item272;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;1250;gpUSProductCatalog:Staged:58000A;;FALSE;359806;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;EA;1;;
+;Item273;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;13;gpUSProductCatalog:Staged:53057;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item274;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;24.99;gpUSProductCatalog:Staged:53057;;FALSE;;;;;;CS;1;;
+;Item275;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;24.99;gpUSProductCatalog:Staged:53057;;FALSE;359789;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;EA;1;;
+;Item276;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;37.99;gpUSProductCatalog:Staged:59590;;FALSE;;;;;;CS;1;;
+;Item277;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;37.99;gpUSProductCatalog:Staged:59590;;FALSE;359812;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;EA;1;;
+;Item278;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;28;gpUSProductCatalog:Staged:59590;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item279;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;101.99;gpUSProductCatalog:Staged:92120;;FALSE;359813;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item280;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;101.99;gpUSProductCatalog:Staged:92120;;FALSE;;;;;;CS;1;;
+;Item281;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;101.99;gpUSProductCatalog:Staged:92120;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item282;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;50.99;gpUSProductCatalog:Staged:RP2008;;FALSE;359856;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item283;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;50.99;gpUSProductCatalog:Staged:RP2008;;FALSE;;;;;;CS;1;;
+;Item284;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;49.99;gpUSProductCatalog:Staged:RP2008;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item285;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;52.99;gpUSProductCatalog:Staged:FM53C7;;FALSE;;;;;;CS;1;;
+;Item286;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;52.99;gpUSProductCatalog:Staged:FM53C7;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item287;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;52.99;gpUSProductCatalog:Staged:FM53C7;;FALSE;359845;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item288;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;100.99;gpUSProductCatalog:Staged:964PATH;;FALSE;;;;;;CS;1;;
+;Item289;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;100.99;gpUSProductCatalog:Staged:964PATH;;FALSE;359833;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item290;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;100.99;gpUSProductCatalog:Staged:964PATH;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item291;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;120;gpUSProductCatalog:Staged:PL10X10X5;;FALSE;;;;;;CS;1;;
+;Item292;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;120;gpUSProductCatalog:Staged:PL10X10X5;;FALSE;359855;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item293;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;120;gpUSProductCatalog:Staged:PL10X10X5;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item294;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;75.99;gpUSProductCatalog:Staged:CH56NC7;;FALSE;;;;;;CS;1;;
+;Item295;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;75.99;gpUSProductCatalog:Staged:CH56NC7;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item296;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;75.99;gpUSProductCatalog:Staged:CH56NC7;;FALSE;359836;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item297;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;85;gpUSProductCatalog:Staged:D9542B;;FALSE;359839;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item298;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;68.99;gpUSProductCatalog:Staged:D9542B;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item299;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;85;gpUSProductCatalog:Staged:D9542B;;FALSE;;;;;;CS;1;;
+;Item300;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;80.99;gpUSProductCatalog:Staged:CS7;;FALSE;;;;;;CS;1;;
+;Item301;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;80.99;gpUSProductCatalog:Staged:CS7;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item302;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;80.99;gpUSProductCatalog:Staged:CS7;;FALSE;359837;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item303;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;164.99;gpUSProductCatalog:Staged:ES9CSCOMP;;FALSE;359841;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item304;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;135.99;gpUSProductCatalog:Staged:ES9CSCOMP;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item305;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;164.99;gpUSProductCatalog:Staged:ES9CSCOMP;;FALSE;;;;;;CS;1;;
+;Item306;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;52.99;gpUSProductCatalog:Staged:D9542;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item307;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;52.99;gpUSProductCatalog:Staged:D9542;;FALSE;359838;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item308;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;52.99;gpUSProductCatalog:Staged:D9542;;FALSE;;;;;;CS;1;;
+;Item309;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;79.99;gpUSProductCatalog:Staged:JW7;;FALSE;359846;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item310;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;79.99;gpUSProductCatalog:Staged:JW7;;FALSE;;;;;;CS;1;;
+;Item311;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;79.99;gpUSProductCatalog:Staged:JW7;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item312;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;102.99;gpUSProductCatalog:Staged:ES9PCOMP;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item313;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;102.99;gpUSProductCatalog:Staged:ES9PCOMP;;FALSE;;;;;;CS;1;;
+;Item314;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;102.99;gpUSProductCatalog:Staged:ES9PCOMP;;FALSE;359842;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item315;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;52.99;gpUSProductCatalog:Staged:KM53C7;;FALSE;359850;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item316;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;52.99;gpUSProductCatalog:Staged:KM53C7;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item317;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;52.99;gpUSProductCatalog:Staged:KM53C7;;FALSE;;;;;;CS;1;;
+;Item318;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;33.99;gpUSProductCatalog:Staged:KL200W8;;FALSE;359847;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item319;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;33.99;gpUSProductCatalog:Staged:KL200W8;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item320;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;33.99;gpUSProductCatalog:Staged:KL200W8;;FALSE;;;;;;CS;1;;
+;Item321;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;54.99;gpUSProductCatalog:Staged:KM23C7;;FALSE;359849;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item322;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;54.99;gpUSProductCatalog:Staged:KM23C7;;FALSE;;;;;;CS;1;;
+;Item323;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;53.99;gpUSProductCatalog:Staged:KM23C7;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item324;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;110.99;gpUSProductCatalog:Staged:L9SXP;;FALSE;359851;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item325;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;110.99;gpUSProductCatalog:Staged:L9SXP;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item326;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;110.99;gpUSProductCatalog:Staged:L9SXP;;FALSE;;;;;;CS;1;;
+;Item327;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;59.99;gpUSProductCatalog:Staged:LQ1416PL;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item328;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;59.99;gpUSProductCatalog:Staged:LQ1416PL;;FALSE;359854;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item329;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;59.99;gpUSProductCatalog:Staged:LQ1416PL;;FALSE;;;;;;CS;1;;
+;Item330;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;78.99;gpUSProductCatalog:Staged:LQ1212PL;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item331;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;78.99;gpUSProductCatalog:Staged:LQ1212PL;;FALSE;359853;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item332;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;78.99;gpUSProductCatalog:Staged:LQ1212PL;;FALSE;;;;;;CS;1;;
+;Item333;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;32.99;gpUSProductCatalog:Staged:RP3008;;FALSE;359857;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item334;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;32.99;gpUSProductCatalog:Staged:RP3008;;FALSE;;;;;;CS;1;;
+;Item335;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;30.99;gpUSProductCatalog:Staged:RP3008;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item336;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;54.99;gpUSProductCatalog:Staged:RW86W;;FALSE;359858;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item337;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;54.99;gpUSProductCatalog:Staged:RW86W;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item338;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;54.99;gpUSProductCatalog:Staged:RW86W;;FALSE;;;;;;CS;1;;
+;Item339;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;39.99;gpUSProductCatalog:Staged:SSFAUTODSP;;FALSE;359861;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item340;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;30;gpUSProductCatalog:Staged:SSFAUTODSP;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item341;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;39.99;gpUSProductCatalog:Staged:SSFAUTODSP;;FALSE;;;;;;CS;1;;
+;Item342;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;15.99;gpUSProductCatalog:Staged:SSFD120;;FALSE;;;;;;CS;1;;
+;Item343;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;15.99;gpUSProductCatalog:Staged:SSFD120;;FALSE;359862;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item344;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;10;gpUSProductCatalog:Staged:SSFD120;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item345;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;30;gpUSProductCatalog:Staged:SSKAUTODSP;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item346;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;39.99;gpUSProductCatalog:Staged:SSKAUTODSP;;FALSE;;;;;;CS;1;;
+;Item347;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;39.99;gpUSProductCatalog:Staged:SSKAUTODSP;;FALSE;359865;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item348;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;53.99;gpUSProductCatalog:Staged:TM23C7;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item349;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;54.99;gpUSProductCatalog:Staged:TM23C7;;FALSE;;;;;;CS;1;;
+;Item350;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;54.99;gpUSProductCatalog:Staged:TM23C7;;FALSE;359881;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item351;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;39.99;gpUSProductCatalog:Staged:SSSAUTODSP;;FALSE;359869;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item352;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;39.99;gpUSProductCatalog:Staged:SSSAUTODSP;;FALSE;;;;;;CS;1;;
+;Item353;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;30;gpUSProductCatalog:Staged:SSSAUTODSP;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item354;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;69.99;gpUSProductCatalog:Staged:SSW3D85;;FALSE;359873;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item355;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;45;gpUSProductCatalog:Staged:SSW3D85;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item356;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;69.99;gpUSProductCatalog:Staged:SSW3D85;;FALSE;;;;;;CS;1;;
+;Item357;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;16;gpUSProductCatalog:Staged:SSW1D85;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item358;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;24.99;gpUSProductCatalog:Staged:SSW1D85;;FALSE;359872;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item359;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;24.99;gpUSProductCatalog:Staged:SSW1D85;;FALSE;;;;;;CS;1;;
+;Item360;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;82.99;gpUSProductCatalog:Staged:SX12PATH;;FALSE;359878;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item361;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;82.99;gpUSProductCatalog:Staged:SX12PATH;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item362;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;82.99;gpUSProductCatalog:Staged:SX12PATH;;FALSE;;;;;;CS;1;;
+;Item363;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;66.99;gpUSProductCatalog:Staged:SXP6PATH;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item364;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;67.99;gpUSProductCatalog:Staged:SXP6PATH;;FALSE;;;;;;CS;1;;
+;Item365;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;67.99;gpUSProductCatalog:Staged:SXP6PATH;;FALSE;359879;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item366;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;71.99;gpUSProductCatalog:Staged:SXP9PATH;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item367;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;71.99;gpUSProductCatalog:Staged:SXP9PATH;;FALSE;;;;;;CS;1;;
+;Item368;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;71.99;gpUSProductCatalog:Staged:SXP9PATH;;FALSE;359880;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item369;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;79.99;gpUSProductCatalog:Staged:TP9542;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item370;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;84.99;gpUSProductCatalog:Staged:TP9542;;FALSE;359883;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item371;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;84.99;gpUSProductCatalog:Staged:TP9542;;FALSE;;;;;;CS;1;;
+;Item372;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;30.99;gpUSProductCatalog:Staged:21000;;FALSE;;;;;;CS;1;;
+;Item373;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;30.99;gpUSProductCatalog:Staged:21000;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item374;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;30.99;gpUSProductCatalog:Staged:21000;;FALSE;359753;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item375;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;83.99;gpUSProductCatalog:Staged:UX9PATH;;FALSE;;;;;;CS;1;;
+;Item376;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;83.99;gpUSProductCatalog:Staged:UX9PATH;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item377;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;83.99;gpUSProductCatalog:Staged:UX9PATH;;FALSE;359886;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item378;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;23.99;gpUSProductCatalog:Staged:32001;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item379;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;25.99;gpUSProductCatalog:Staged:32001;;FALSE;;;;;;CS;1;;
+;Item380;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;25.99;gpUSProductCatalog:Staged:32001;;FALSE;359765;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item381;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;24.99;gpUSProductCatalog:Staged:3TOCSC;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item382;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;25.99;gpUSProductCatalog:Staged:3TOCSC;;FALSE;;;;;;CS;1;;
+;Item383;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;25.99;gpUSProductCatalog:Staged:3TOCSC;;FALSE;359823;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item384;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;39.5;gpUSProductCatalog:Staged:59530;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item385;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;41.99;gpUSProductCatalog:Staged:59530;;FALSE;359809;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item386;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;41.99;gpUSProductCatalog:Staged:59530;;FALSE;;;;;;CS;1;;
+;Item387;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;41.99;gpUSProductCatalog:Staged:59535;;FALSE;359810;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item388;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;41.99;gpUSProductCatalog:Staged:59535;;FALSE;;;;;;CS;1;;
+;Item389;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;39.5;gpUSProductCatalog:Staged:59535;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item390;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;1250;gpUSProductCatalog:Staged:58000B;;FALSE;359807;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;EA;1;;
+;Item391;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;1100;gpUSProductCatalog:Staged:58000B;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item392;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;1250;gpUSProductCatalog:Staged:58000B;;FALSE;;;;;;CS;1;;
+;Item393;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;15.99;gpUSProductCatalog:Staged:SSSD80;;FALSE;;;;;;CS;1;;
+;Item394;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;15.99;gpUSProductCatalog:Staged:SSSD80;;FALSE;359871;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item395;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;10;gpUSProductCatalog:Staged:SSSD80;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item396;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;15.99;gpUSProductCatalog:Staged:SSKD80;;FALSE;359867;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item397;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;10;gpUSProductCatalog:Staged:SSKD80;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item398;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;15.99;gpUSProductCatalog:Staged:SSKD80;;FALSE;;;;;;CS;1;;
+;Item399;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;8;gpUSProductCatalog:Staged:54550A;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item400;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;11.99;gpUSProductCatalog:Staged:54550A;;FALSE;;;;;;CS;1;;
+;Item401;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;11.99;gpUSProductCatalog:Staged:54550A;;FALSE;359795;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item402;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;123.99;gpUSProductCatalog:Staged:5320CD;;FALSE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item403;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;124.99;gpUSProductCatalog:Staged:5320CD;;FALSE;;;;;;CS;1;;
+;Item404;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;68.99;gpUSProductCatalog:Staged:19378;;FALSE;;;;;;CS;1;;
+;Item405;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;68.99;gpUSProductCatalog:Staged:19378;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item406;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;68.99;gpUSProductCatalog:Staged:19378;;FALSE;359751;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item407;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;80.99;gpUSProductCatalog:Staged:48250;;FALSE;359777;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item408;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;80.99;gpUSProductCatalog:Staged:48250;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item409;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;80.99;gpUSProductCatalog:Staged:48250;;FALSE;;;;;;CS;1;;
+;Item410;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;10;gpUSProductCatalog:Staged:SSFD80;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item411;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;15.99;gpUSProductCatalog:Staged:SSFD80;;FALSE;359863;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item412;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;15.99;gpUSProductCatalog:Staged:SSFD80;;FALSE;;;;;;CS;1;;
+;Item413;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;44.99;gpUSProductCatalog:Staged:29323;;FALSE;;;;;;CS;1;;
+;Item414;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;40;gpUSProductCatalog:Staged:29323;;FALSE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item415;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;44.99;gpUSProductCatalog:Staged:29323;;FALSE;359759;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item416;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;64.5;gpUSProductCatalog:Staged:29324;;FALSE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item417;gpUSProductCatalog:Staged;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;69.49;gpUSProductCatalog:Staged:29324;;FALSE;359760;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item418;gpUSProductCatalog:Staged;;USD;;;FALSE;;1;TRUE;;;66.49;gpUSProductCatalog:Staged:29324;;FALSE;;;;;;CS;1;;
+;Item419;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;83.99;gpUSProductCatalog:Online:UX9PATH;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item420;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;83.99;gpUSProductCatalog:Online:UX9PATH;;FALSE;359886;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item421;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;83.99;gpUSProductCatalog:Online:UX9PATH;;FALSE;;;;;;CS;1;;
+;Item422;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;52.99;gpUSProductCatalog:Online:TM53C7;;FALSE;359882;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item423;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;52.99;gpUSProductCatalog:Online:TM53C7;;FALSE;;;;;;CS;1;;
+;Item424;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;52.99;gpUSProductCatalog:Online:TM53C7;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item425;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;53.99;gpUSProductCatalog:Online:38015;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item426;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;53.99;gpUSProductCatalog:Online:38015;;FALSE;359769;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item427;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;53.99;gpUSProductCatalog:Online:38015;;FALSE;;;;;;CS;1;;
+;Item428;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;64.99;gpUSProductCatalog:Online:32019;;FALSE;;;;;;CS;1;;
+;Item429;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;64.99;gpUSProductCatalog:Online:32019;;FALSE;359767;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item430;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;64.99;gpUSProductCatalog:Online:32019;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item431;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;60.99;gpUSProductCatalog:Online:29662;;FALSE;;;;;;CS;1;;
+;Item432;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;60.99;gpUSProductCatalog:Online:29662;;FALSE;359764;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item433;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;60.99;gpUSProductCatalog:Online:29662;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item434;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;85;gpUSProductCatalog:Online:27S12;;FALSE;359820;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item435;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;73.99;gpUSProductCatalog:Online:27S12;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item436;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;85;gpUSProductCatalog:Online:27S12;;FALSE;;;;;;CS;1;;
+;Item437;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;83.99;gpUSProductCatalog:Online:2342PATH;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item438;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;83.99;gpUSProductCatalog:Online:2342PATH;;FALSE;;;;;;CS;1;;
+;Item439;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;83.99;gpUSProductCatalog:Online:2342PATH;;FALSE;359819;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item440;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;108.99;gpUSProductCatalog:Online:19448/01;;FALSE;359752;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item441;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;108.99;gpUSProductCatalog:Online:19448/01;;FALSE;;;;;;CS;1;;
+;Item442;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;108.99;gpUSProductCatalog:Online:19448/01;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item443;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;45.99;gpUSProductCatalog:Online:13728;;FALSE;359748;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item444;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;45.99;gpUSProductCatalog:Online:13728;;FALSE;;;;;;CS;1;;
+;Item445;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;45.99;gpUSProductCatalog:Online:13728;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item446;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;68.99;gpUSProductCatalog:Online:5342DX;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item447;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;68.99;gpUSProductCatalog:Online:5342DX;;FALSE;;;;;;CS;1;;
+;Item448;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;68.99;gpUSProductCatalog:Online:5342DX;;FALSE;359826;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item449;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;24.99;gpUSProductCatalog:Online:53057;;FALSE;359789;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;EA;1;;
+;Item450;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;24.99;gpUSProductCatalog:Online:53057;;FALSE;;;;;;CS;1;;
+;Item451;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;13;gpUSProductCatalog:Online:53057;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item452;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;11.99;gpUSProductCatalog:Online:50011;;FALSE;359785;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;EA;1;;
+;Item453;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;2.5;gpUSProductCatalog:Online:50011;;TRUE;;;;;;EA;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item454;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;11.99;gpUSProductCatalog:Online:50011;;FALSE;;;;;;EA;1;;
+;Item455;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;50.99;gpUSProductCatalog:Online:48285;;FALSE;;;;;;CS;1;;
+;Item456;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;50.99;gpUSProductCatalog:Online:48285;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item457;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;50.99;gpUSProductCatalog:Online:48285;;FALSE;359782;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item458;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;80.99;gpUSProductCatalog:Online:48255;;FALSE;;;;;;CS;1;;
+;Item459;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;80.99;gpUSProductCatalog:Online:48255;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item460;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;80.99;gpUSProductCatalog:Online:48255;;FALSE;359778;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item461;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;75.99;gpUSProductCatalog:Online:43716;;FALSE;359774;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item462;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;75.99;gpUSProductCatalog:Online:43716;;FALSE;;;;;;CS;1;;
+;Item463;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;75.99;gpUSProductCatalog:Online:43716;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item464;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;100.99;gpUSProductCatalog:Online:964PATH;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item465;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;100.99;gpUSProductCatalog:Online:964PATH;;FALSE;;;;;;CS;1;;
+;Item466;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;100.99;gpUSProductCatalog:Online:964PATH;;FALSE;359833;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item467;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;82.99;gpUSProductCatalog:Online:92220;;FALSE;;;;;;CS;1;;
+;Item468;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;82.99;gpUSProductCatalog:Online:92220;;FALSE;359814;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item469;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;82.99;gpUSProductCatalog:Online:92220;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item470;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;83.99;gpUSProductCatalog:Online:87242;;FALSE;359830;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item471;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;83.99;gpUSProductCatalog:Online:87242;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item472;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;83.99;gpUSProductCatalog:Online:87242;;FALSE;;;;;;CS;1;;
+;Item473;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;1250;gpUSProductCatalog:Online:58000B;;FALSE;;;;;;CS;1;;
+;Item474;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;1250;gpUSProductCatalog:Online:58000B;;FALSE;359807;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;EA;1;;
+;Item475;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;1100;gpUSProductCatalog:Online:58000B;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item476;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;17;gpUSProductCatalog:Online:56788;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item477;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;29.99;gpUSProductCatalog:Online:56788;;FALSE;;;;;;CS;1;;
+;Item478;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;29.99;gpUSProductCatalog:Online:56788;;FALSE;359803;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;EA;1;;
+;Item479;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;12;gpUSProductCatalog:Online:56761;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item480;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;34.99;gpUSProductCatalog:Online:56761;;FALSE;;;;;;CS;1;;
+;Item481;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;34.99;gpUSProductCatalog:Online:56761;;FALSE;359798;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item482;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;11.99;gpUSProductCatalog:Online:54550A;;FALSE;;;;;;CS;1;;
+;Item483;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;8;gpUSProductCatalog:Online:54550A;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item484;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;11.99;gpUSProductCatalog:Online:54550A;;FALSE;359795;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item485;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;30.99;gpUSProductCatalog:Online:RP3008;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item486;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;32.99;gpUSProductCatalog:Online:RP3008;;FALSE;;;;;;CS;1;;
+;Item487;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;32.99;gpUSProductCatalog:Online:RP3008;;FALSE;359857;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item488;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;78.99;gpUSProductCatalog:Online:LQ1212PL;;FALSE;359853;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item489;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;78.99;gpUSProductCatalog:Online:LQ1212PL;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item490;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;78.99;gpUSProductCatalog:Online:LQ1212PL;;FALSE;;;;;;CS;1;;
+;Item491;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;26.99;gpUSProductCatalog:Online:KL300W8;;FALSE;359848;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item492;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;26.99;gpUSProductCatalog:Online:KL300W8;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item493;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;26.99;gpUSProductCatalog:Online:KL300W8;;FALSE;;;;;;CS;1;;
+;Item494;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;75;gpUSProductCatalog:Online:FF2PLN;;FALSE;;;;;;CS;1;;
+;Item495;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;73.99;gpUSProductCatalog:Online:FF2PLN;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item496;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;75;gpUSProductCatalog:Online:FF2PLN;;FALSE;359843;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item497;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;102.99;gpUSProductCatalog:Online:ES9PCOMP;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item498;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;102.99;gpUSProductCatalog:Online:ES9PCOMP;;FALSE;;;;;;CS;1;;
+;Item499;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;102.99;gpUSProductCatalog:Online:ES9PCOMP;;FALSE;359842;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item500;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;80.99;gpUSProductCatalog:Online:CS7;;FALSE;;;;;;CS;1;;
+;Item501;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;80.99;gpUSProductCatalog:Online:CS7;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item502;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;80.99;gpUSProductCatalog:Online:CS7;;FALSE;359837;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item503;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;82.99;gpUSProductCatalog:Online:SX12PATH;;FALSE;359878;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item504;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;82.99;gpUSProductCatalog:Online:SX12PATH;;FALSE;;;;;;CS;1;;
+;Item505;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;82.99;gpUSProductCatalog:Online:SX12PATH;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item506;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;55.99;gpUSProductCatalog:Online:SSWPF5;;FALSE;359874;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item507;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;55.99;gpUSProductCatalog:Online:SSWPF5;;FALSE;;;;;;CS;1;;
+;Item508;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;55.99;gpUSProductCatalog:Online:SSWPF5;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item509;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;39.99;gpUSProductCatalog:Online:SSSAUTODSP;;FALSE;359869;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item510;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;39.99;gpUSProductCatalog:Online:SSSAUTODSP;;FALSE;;;;;;CS;1;;
+;Item511;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;30;gpUSProductCatalog:Online:SSSAUTODSP;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item512;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;49.99;gpUSProductCatalog:Online:SSK51;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item513;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;49.99;gpUSProductCatalog:Online:SSK51;;FALSE;359864;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item514;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;49.99;gpUSProductCatalog:Online:SSK51;;FALSE;;;;;;CS;1;;
+;Item515;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;124.99;gpUSProductCatalog:Online:5320CD;;FALSE;;;;;;CS;1;;
+;Item516;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;123.99;gpUSProductCatalog:Online:5320CD;;FALSE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item517;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;15.99;gpUSProductCatalog:Online:SSKD80;;FALSE;;;;;;CS;1;;
+;Item518;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;10;gpUSProductCatalog:Online:SSKD80;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item519;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;15.99;gpUSProductCatalog:Online:SSKD80;;FALSE;359867;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item520;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;41.99;gpUSProductCatalog:Online:59535;;FALSE;;;;;;CS;1;;
+;Item521;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;39.5;gpUSProductCatalog:Online:59535;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item522;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;41.99;gpUSProductCatalog:Online:59535;;FALSE;359810;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item523;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;29.99;gpUSProductCatalog:Online:2112014;;FALSE;359754;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item524;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;29.99;gpUSProductCatalog:Online:2112014;;FALSE;;;;;;CS;1;;
+;Item525;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;28.99;gpUSProductCatalog:Online:2112014;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item526;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;115.99;gpUSProductCatalog:Online:4021PATH;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item527;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;115.99;gpUSProductCatalog:Online:4021PATH;;FALSE;;;;;;CS;1;;
+;Item528;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;115.99;gpUSProductCatalog:Online:4021PATH;;FALSE;359824;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item529;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;59.99;gpUSProductCatalog:Online:3TOC;;FALSE;;;;;;CS;1;;
+;Item530;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;59.99;gpUSProductCatalog:Online:3TOC;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item531;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;59.99;gpUSProductCatalog:Online:3TOC;;FALSE;359822;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item532;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;93.99;gpUSProductCatalog:Online:43335;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item533;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;93.99;gpUSProductCatalog:Online:43335;;FALSE;;;;;;CS;1;;
+;Item534;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;93.99;gpUSProductCatalog:Online:43335;;FALSE;359770;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item535;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;54.99;gpUSProductCatalog:Online:38000;;FALSE;359768;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item536;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;54.99;gpUSProductCatalog:Online:38000;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item537;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;54.99;gpUSProductCatalog:Online:38000;;FALSE;;;;;;CS;1;;
+;Item538;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;68.99;gpUSProductCatalog:Online:32006;;FALSE;359766;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item539;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;68.99;gpUSProductCatalog:Online:32006;;FALSE;;;;;;CS;1;;
+;Item540;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;68.99;gpUSProductCatalog:Online:32006;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item541;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;56.99;gpUSProductCatalog:Online:2TOC;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item542;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;58.99;gpUSProductCatalog:Online:2TOC;;FALSE;359821;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item543;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;58.99;gpUSProductCatalog:Online:2TOC;;FALSE;;;;;;CS;1;;
+;Item544;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;57.99;gpUSProductCatalog:Online:29651;;FALSE;;;;;;CS;1;;
+;Item545;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;57.99;gpUSProductCatalog:Online:29651;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item546;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;57.99;gpUSProductCatalog:Online:29651;;FALSE;359763;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item547;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;42.99;gpUSProductCatalog:Online:27300;;FALSE;;;;;;CS;1;;
+;Item548;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;42.99;gpUSProductCatalog:Online:27300;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item549;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;42.99;gpUSProductCatalog:Online:27300;;FALSE;359758;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item550;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;74.99;gpUSProductCatalog:Online:29430;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item551;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;74.99;gpUSProductCatalog:Online:29430;;FALSE;;;;;;CS;1;;
+;Item552;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;74.99;gpUSProductCatalog:Online:29430;;FALSE;359762;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item553;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;62.99;gpUSProductCatalog:Online:29408;;FALSE;359761;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item554;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;62.99;gpUSProductCatalog:Online:29408;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item555;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;62.99;gpUSProductCatalog:Online:29408;;FALSE;;;;;;CS;1;;
+;Item556;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;40.99;gpUSProductCatalog:Online:26496;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item557;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;40.99;gpUSProductCatalog:Online:26496;;FALSE;;;;;;CS;1;;
+;Item558;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;40.99;gpUSProductCatalog:Online:26496;;FALSE;359756;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item559;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;41.99;gpUSProductCatalog:Online:26491;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item560;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;41.99;gpUSProductCatalog:Online:26491;;FALSE;;;;;;CS;1;;
+;Item561;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;41.99;gpUSProductCatalog:Online:26491;;FALSE;359755;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item562;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;82;gpUSProductCatalog:Online:1000/44COT;;FALSE;;;;;;CS;1;;
+;Item563;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;80.99;gpUSProductCatalog:Online:1000/44COT;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item564;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;82;gpUSProductCatalog:Online:1000/44COT;;FALSE;359816;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item565;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;30.99;gpUSProductCatalog:Online:21000;;FALSE;359753;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item566;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;30.99;gpUSProductCatalog:Online:21000;;FALSE;;;;;;CS;1;;
+;Item567;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;30.99;gpUSProductCatalog:Online:21000;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item568;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;59.99;gpUSProductCatalog:Online:1TOC;;FALSE;;;;;;CS;1;;
+;Item569;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;59.99;gpUSProductCatalog:Online:1TOC;;FALSE;359818;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item570;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;59.99;gpUSProductCatalog:Online:1TOC;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item571;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;68.99;gpUSProductCatalog:Online:19378;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item572;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;68.99;gpUSProductCatalog:Online:19378;;FALSE;;;;;;CS;1;;
+;Item573;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;68.99;gpUSProductCatalog:Online:19378;;FALSE;359751;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item574;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;77.99;gpUSProductCatalog:Online:5356DX;;FALSE;;;;;;CS;1;;
+;Item575;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;77.99;gpUSProductCatalog:Online:5356DX;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item576;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;77.99;gpUSProductCatalog:Online:5356DX;;FALSE;359827;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item577;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;15;gpUSProductCatalog:Online:53257A;;FALSE;359792;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item578;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;15;gpUSProductCatalog:Online:53257A;;FALSE;;;;;;CS;1;;
+;Item579;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;4;gpUSProductCatalog:Online:53257A;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item580;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;76.99;gpUSProductCatalog:Online:16PPATH;;FALSE;;;;;;CS;1;;
+;Item581;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;76.99;gpUSProductCatalog:Online:16PPATH;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item582;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;76.99;gpUSProductCatalog:Online:16PPATH;;FALSE;359817;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item583;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;87.99;gpUSProductCatalog:Online:19375;;FALSE;359750;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item584;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;87.99;gpUSProductCatalog:Online:19375;;FALSE;;;;;;CS;1;;
+;Item585;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;87.99;gpUSProductCatalog:Online:19375;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item586;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;27.99;gpUSProductCatalog:Online:53590;;FALSE;359793;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item587;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;27.99;gpUSProductCatalog:Online:53590;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item588;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;27.99;gpUSProductCatalog:Online:53590;;FALSE;;;;;;CS;1;;
+;Item589;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;13;gpUSProductCatalog:Online:53058;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item590;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;24.99;gpUSProductCatalog:Online:53058;;FALSE;;;;;;CS;1;;
+;Item591;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;24.99;gpUSProductCatalog:Online:53058;;FALSE;359790;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;EA;1;;
+;Item592;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;2.5;gpUSProductCatalog:Online:50012;;TRUE;;;;;;EA;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item593;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;11.99;gpUSProductCatalog:Online:50012;;FALSE;359786;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;EA;1;;
+;Item594;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;11.99;gpUSProductCatalog:Online:50012;;FALSE;;;;;;EA;1;;
+;Item595;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;20;gpUSProductCatalog:Online:53060;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item596;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;39.99;gpUSProductCatalog:Online:53060;;FALSE;;;;;;CS;1;;
+;Item597;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;39.99;gpUSProductCatalog:Online:53060;;FALSE;359791;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;EA;1;;
+;Item598;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;11.99;gpUSProductCatalog:Online:50030;;FALSE;359788;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;EA;1;;
+;Item599;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;11.99;gpUSProductCatalog:Online:50030;;FALSE;;;;;;EA;1;;
+;Item600;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;2.25;gpUSProductCatalog:Online:50030;;TRUE;;;;;;EA;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item601;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;11.99;gpUSProductCatalog:Online:50013;;FALSE;359787;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;EA;1;;
+;Item602;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;11.99;gpUSProductCatalog:Online:50013;;FALSE;;;;;;EA;1;;
+;Item603;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;2.5;gpUSProductCatalog:Online:50013;;TRUE;;;;;;EA;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item604;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;60.99;gpUSProductCatalog:Online:4TOC;;FALSE;;;;;;CS;1;;
+;Item605;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;60.99;gpUSProductCatalog:Online:4TOC;;FALSE;359825;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item606;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;60.99;gpUSProductCatalog:Online:4TOC;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item607;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;50.99;gpUSProductCatalog:Online:48295;;FALSE;;;;;;CS;1;;
+;Item608;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;50.99;gpUSProductCatalog:Online:48295;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item609;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;50.99;gpUSProductCatalog:Online:48295;;FALSE;359784;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item610;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;50.99;gpUSProductCatalog:Online:48290;;FALSE;359783;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item611;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;50.99;gpUSProductCatalog:Online:48290;;FALSE;;;;;;CS;1;;
+;Item612;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;50.99;gpUSProductCatalog:Online:48290;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item613;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;125.99;gpUSProductCatalog:Online:43822;;FALSE;359776;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item614;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;125.99;gpUSProductCatalog:Online:43822;;FALSE;;;;;;CS;1;;
+;Item615;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;125.99;gpUSProductCatalog:Online:43822;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item616;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;50.99;gpUSProductCatalog:Online:48280;;FALSE;359781;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item617;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;50.99;gpUSProductCatalog:Online:48280;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item618;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;50.99;gpUSProductCatalog:Online:48280;;FALSE;;;;;;CS;1;;
+;Item619;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;40.99;gpUSProductCatalog:Online:48265;;FALSE;359780;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item620;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;40.99;gpUSProductCatalog:Online:48265;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item621;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;40.99;gpUSProductCatalog:Online:48265;;FALSE;;;;;;CS;1;;
+;Item622;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;65.99;gpUSProductCatalog:Online:43715;;FALSE;;;;;;CS;1;;
+;Item623;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;65.99;gpUSProductCatalog:Online:43715;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item624;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;65.99;gpUSProductCatalog:Online:43715;;FALSE;359773;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item625;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;65.99;gpUSProductCatalog:Online:43714;;FALSE;359772;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item626;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;65.99;gpUSProductCatalog:Online:43714;;FALSE;;;;;;CS;1;;
+;Item627;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;65.99;gpUSProductCatalog:Online:43714;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item628;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;36.99;gpUSProductCatalog:Online:96019;;FALSE;359815;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item629;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;36.99;gpUSProductCatalog:Online:96019;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item630;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;36.99;gpUSProductCatalog:Online:96019;;FALSE;;;;;;CS;1;;
+;Item631;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;40.99;gpUSProductCatalog:Online:48260;;FALSE;359779;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item632;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;40.99;gpUSProductCatalog:Online:48260;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item633;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;40.99;gpUSProductCatalog:Online:48260;;FALSE;;;;;;CS;1;;
+;Item634;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;80.99;gpUSProductCatalog:Online:48250;;FALSE;359777;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item635;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;80.99;gpUSProductCatalog:Online:48250;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item636;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;80.99;gpUSProductCatalog:Online:48250;;FALSE;;;;;;CS;1;;
+;Item637;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;40.99;gpUSProductCatalog:Online:914LSRD;;FALSE;359832;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item638;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;40.99;gpUSProductCatalog:Online:914LSRD;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item639;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;40.99;gpUSProductCatalog:Online:914LSRD;;FALSE;;;;;;CS;1;;
+;Item640;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;109.99;gpUSProductCatalog:Online:43818;;FALSE;;;;;;CS;1;;
+;Item641;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;109.99;gpUSProductCatalog:Online:43818;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item642;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;109.99;gpUSProductCatalog:Online:43818;;FALSE;359775;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item643;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;101.99;gpUSProductCatalog:Online:92120;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item644;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;101.99;gpUSProductCatalog:Online:92120;;FALSE;;;;;;CS;1;;
+;Item645;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;101.99;gpUSProductCatalog:Online:92120;;FALSE;359813;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item646;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;59.99;gpUSProductCatalog:Online:8TOC;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item647;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;59.99;gpUSProductCatalog:Online:8TOC;;FALSE;;;;;;CS;1;;
+;Item648;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;59.99;gpUSProductCatalog:Online:8TOC;;FALSE;359831;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item649;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;28;gpUSProductCatalog:Online:59590;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item650;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;37.99;gpUSProductCatalog:Online:59590;;FALSE;;;;;;CS;1;;
+;Item651;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;37.99;gpUSProductCatalog:Online:59590;;FALSE;359812;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;EA;1;;
+;Item652;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;29.99;gpUSProductCatalog:Online:59009;;FALSE;;;;;;CS;1;;
+;Item653;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;14;gpUSProductCatalog:Online:59009;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item654;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;29.99;gpUSProductCatalog:Online:59009;;FALSE;359808;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;EA;1;;
+;Item655;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;28;gpUSProductCatalog:Online:59589;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item656;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;37.99;gpUSProductCatalog:Online:59589;;FALSE;;;;;;CS;1;;
+;Item657;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;37.99;gpUSProductCatalog:Online:59589;;FALSE;359811;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;EA;1;;
+;Item658;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;12;gpUSProductCatalog:Online:56803;;FALSE;359805;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;EA;1;;
+;Item659;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;4;gpUSProductCatalog:Online:56803;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item660;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;12;gpUSProductCatalog:Online:56803;;FALSE;;;;;;CS;1;;
+;Item661;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;16.99;gpUSProductCatalog:Online:56783A;;FALSE;;;;;;CS;1;;
+;Item662;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;14;gpUSProductCatalog:Online:56783A;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item663;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;16.99;gpUSProductCatalog:Online:56783A;;FALSE;359801;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;EA;1;;
+;Item664;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;29.99;gpUSProductCatalog:Online:56781;;FALSE;359800;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;EA;1;;
+;Item665;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;29.99;gpUSProductCatalog:Online:56781;;FALSE;;;;;;CS;1;;
+;Item666;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;17;gpUSProductCatalog:Online:56781;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item667;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;34.99;gpUSProductCatalog:Online:56768;;FALSE;359799;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item668;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;12;gpUSProductCatalog:Online:56768;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item669;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;34.99;gpUSProductCatalog:Online:56768;;FALSE;;;;;;CS;1;;
+;Item670;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;34.99;gpUSProductCatalog:Online:56757;;FALSE;359797;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item671;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;12;gpUSProductCatalog:Online:56757;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item672;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;34.99;gpUSProductCatalog:Online:56757;;FALSE;;;;;;CS;1;;
+;Item673;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;17;gpUSProductCatalog:Online:56744A;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item674;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;29.99;gpUSProductCatalog:Online:56744A;;FALSE;;;;;;CS;1;;
+;Item675;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;29.99;gpUSProductCatalog:Online:56744A;;FALSE;359796;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;EA;1;;
+;Item676;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;150;gpUSProductCatalog:Online:SC003;;FALSE;359859;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item677;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;150;gpUSProductCatalog:Online:SC003;;FALSE;;;;;;CS;1;;
+;Item678;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;130.99;gpUSProductCatalog:Online:SC003;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item679;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;1100;gpUSProductCatalog:Online:58000A;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item680;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;1250;gpUSProductCatalog:Online:58000A;;FALSE;359806;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;EA;1;;
+;Item681;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;1250;gpUSProductCatalog:Online:58000A;;FALSE;;;;;;CS;1;;
+;Item682;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;54.99;gpUSProductCatalog:Online:RW86W;;FALSE;359858;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item683;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;54.99;gpUSProductCatalog:Online:RW86W;;FALSE;;;;;;CS;1;;
+;Item684;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;54.99;gpUSProductCatalog:Online:RW86W;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item685;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;25.99;gpUSProductCatalog:Online:56790A;;FALSE;;;;;;CS;1;;
+;Item686;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;25.99;gpUSProductCatalog:Online:56790A;;FALSE;359804;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;EA;1;;
+;Item687;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;13;gpUSProductCatalog:Online:56790A;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item688;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;16.99;gpUSProductCatalog:Online:56784A;;FALSE;359802;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;EA;1;;
+;Item689;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;14;gpUSProductCatalog:Online:56784A;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item690;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;16.99;gpUSProductCatalog:Online:56784A;;FALSE;;;;;;CS;1;;
+;Item691;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;5;gpUSProductCatalog:Online:54527A;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item692;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;7.99;gpUSProductCatalog:Online:54527A;;FALSE;;;;;;CS;1;;
+;Item693;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;7.99;gpUSProductCatalog:Online:54527A;;FALSE;359794;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item694;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;110.99;gpUSProductCatalog:Online:L9SXP;;FALSE;;;;;;CS;1;;
+;Item695;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;110.99;gpUSProductCatalog:Online:L9SXP;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item696;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;110.99;gpUSProductCatalog:Online:L9SXP;;FALSE;359851;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item697;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;120;gpUSProductCatalog:Online:PL10X10X5;;FALSE;359855;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item698;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;120;gpUSProductCatalog:Online:PL10X10X5;;TRUE;;;;;pricegroup-dixie:UserPriceGroup;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item699;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;120;gpUSProductCatalog:Online:PL10X10X5;;FALSE;;;;;;CS;1;;
+;Item700;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;50.99;gpUSProductCatalog:Online:RP2008;;FALSE;359856;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item701;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;49.99;gpUSProductCatalog:Online:RP2008;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item702;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;50.99;gpUSProductCatalog:Online:RP2008;;FALSE;;;;;;CS;1;;
+;Item703;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;59.99;gpUSProductCatalog:Online:LQ1416PL;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item704;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;59.99;gpUSProductCatalog:Online:LQ1416PL;;FALSE;;;;;;CS;1;;
+;Item705;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;59.99;gpUSProductCatalog:Online:LQ1416PL;;FALSE;359854;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item706;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;54.99;gpUSProductCatalog:Online:KM23C7;;FALSE;;;;;;CS;1;;
+;Item707;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;54.99;gpUSProductCatalog:Online:KM23C7;;FALSE;359849;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item708;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;53.99;gpUSProductCatalog:Online:KM23C7;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item709;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;79.99;gpUSProductCatalog:Online:JW7;;FALSE;;;;;;CS;1;;
+;Item710;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;79.99;gpUSProductCatalog:Online:JW7;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item711;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;79.99;gpUSProductCatalog:Online:JW7;;FALSE;359846;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item712;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;53.99;gpUSProductCatalog:Online:FM23C7;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item713;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;54.99;gpUSProductCatalog:Online:FM23C7;;FALSE;;;;;;CS;1;;
+;Item714;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;54.99;gpUSProductCatalog:Online:FM23C7;;FALSE;359844;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item715;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;52.99;gpUSProductCatalog:Online:FM53C7;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item716;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;52.99;gpUSProductCatalog:Online:FM53C7;;FALSE;;;;;;CS;1;;
+;Item717;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;52.99;gpUSProductCatalog:Online:FM53C7;;FALSE;359845;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item718;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;164.99;gpUSProductCatalog:Online:ES9CSCOMP;;FALSE;359841;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item719;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;135.99;gpUSProductCatalog:Online:ES9CSCOMP;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item720;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;164.99;gpUSProductCatalog:Online:ES9CSCOMP;;FALSE;;;;;;CS;1;;
+;Item721;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;45.99;gpUSProductCatalog:Online:ES300U;;FALSE;359840;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item722;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;45.99;gpUSProductCatalog:Online:ES300U;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item723;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;45.99;gpUSProductCatalog:Online:ES300U;;FALSE;;;;;;CS;1;;
+;Item724;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;46.99;gpUSProductCatalog:Online:LO10;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item725;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;46.99;gpUSProductCatalog:Online:LO10;;FALSE;;;;;;CS;1;;
+;Item726;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;46.99;gpUSProductCatalog:Online:LO10;;FALSE;359852;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item727;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;52.99;gpUSProductCatalog:Online:KM53C7;;FALSE;;;;;;CS;1;;
+;Item728;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;52.99;gpUSProductCatalog:Online:KM53C7;;FALSE;359850;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item729;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;52.99;gpUSProductCatalog:Online:KM53C7;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item730;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;33.99;gpUSProductCatalog:Online:KL200W8;;FALSE;;;;;;CS;1;;
+;Item731;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;33.99;gpUSProductCatalog:Online:KL200W8;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item732;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;33.99;gpUSProductCatalog:Online:KL200W8;;FALSE;359847;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item733;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;75.99;gpUSProductCatalog:Online:CH56NC7;;FALSE;359836;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item734;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;75.99;gpUSProductCatalog:Online:CH56NC7;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item735;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;75.99;gpUSProductCatalog:Online:CH56NC7;;FALSE;;;;;;CS;1;;
+;Item736;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;85;gpUSProductCatalog:Online:D9542B;;FALSE;359839;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item737;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;85;gpUSProductCatalog:Online:D9542B;;FALSE;;;;;;CS;1;;
+;Item738;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;68.99;gpUSProductCatalog:Online:D9542B;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item739;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;79.99;gpUSProductCatalog:Online:TP9542;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item740;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;84.99;gpUSProductCatalog:Online:TP9542;;FALSE;359883;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item741;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;84.99;gpUSProductCatalog:Online:TP9542;;FALSE;;;;;;CS;1;;
+;Item742;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;54.99;gpUSProductCatalog:Online:CH26C7;;FALSE;359835;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item743;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;53.99;gpUSProductCatalog:Online:CH26C7;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item744;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;54.99;gpUSProductCatalog:Online:CH26C7;;FALSE;;;;;;CS;1;;
+;Item745;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;52.99;gpUSProductCatalog:Online:D9542;;FALSE;359838;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item746;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;52.99;gpUSProductCatalog:Online:D9542;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item747;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;52.99;gpUSProductCatalog:Online:D9542;;FALSE;;;;;;CS;1;;
+;Item748;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;31.99;gpUSProductCatalog:Online:UX7WS;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item749;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;32.99;gpUSProductCatalog:Online:UX7WS;;FALSE;;;;;;CS;1;;
+;Item750;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;32.99;gpUSProductCatalog:Online:UX7WS;;FALSE;359885;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item751;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;71.99;gpUSProductCatalog:Online:SXP9PATH;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item752;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;71.99;gpUSProductCatalog:Online:SXP9PATH;;FALSE;;;;;;CS;1;;
+;Item753;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;71.99;gpUSProductCatalog:Online:SXP9PATH;;FALSE;359880;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item754;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;55.99;gpUSProductCatalog:Online:SSWPT5;;FALSE;359877;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item755;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;55.99;gpUSProductCatalog:Online:SSWPT5;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item756;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;55.99;gpUSProductCatalog:Online:SSWPT5;;FALSE;;;;;;CS;1;;
+;Item757;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;99.99;gpUSProductCatalog:Online:TP9542B;;FALSE;;;;;;CS;1;;
+;Item758;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;95.99;gpUSProductCatalog:Online:TP9542B;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item759;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;99.99;gpUSProductCatalog:Online:TP9542B;;FALSE;359884;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item760;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;54.99;gpUSProductCatalog:Online:TM23C7;;FALSE;359881;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item761;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;53.99;gpUSProductCatalog:Online:TM23C7;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item762;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;54.99;gpUSProductCatalog:Online:TM23C7;;FALSE;;;;;;CS;1;;
+;Item763;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;66.99;gpUSProductCatalog:Online:SXP6PATH;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item764;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;67.99;gpUSProductCatalog:Online:SXP6PATH;;FALSE;;;;;;CS;1;;
+;Item765;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;67.99;gpUSProductCatalog:Online:SXP6PATH;;FALSE;359879;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item766;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;55.99;gpUSProductCatalog:Online:SSWPS5;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item767;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;55.99;gpUSProductCatalog:Online:SSWPS5;;FALSE;;;;;;CS;1;;
+;Item768;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;55.99;gpUSProductCatalog:Online:SSWPS5;;FALSE;359876;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item769;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;24.99;gpUSProductCatalog:Online:SSW1D85;;FALSE;359872;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item770;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;24.99;gpUSProductCatalog:Online:SSW1D85;;FALSE;;;;;;CS;1;;
+;Item771;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;16;gpUSProductCatalog:Online:SSW1D85;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item772;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;55.99;gpUSProductCatalog:Online:SSWPK5;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item773;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;55.99;gpUSProductCatalog:Online:SSWPK5;;FALSE;;;;;;CS;1;;
+;Item774;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;55.99;gpUSProductCatalog:Online:SSWPK5;;FALSE;359875;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item775;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;69.99;gpUSProductCatalog:Online:SSW3D85;;FALSE;;;;;;CS;1;;
+;Item776;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;45;gpUSProductCatalog:Online:SSW3D85;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item777;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;69.99;gpUSProductCatalog:Online:SSW3D85;;FALSE;359873;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item778;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;15.99;gpUSProductCatalog:Online:SSSD120;;FALSE;;;;;;CS;1;;
+;Item779;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;10;gpUSProductCatalog:Online:SSSD120;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item780;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;15.99;gpUSProductCatalog:Online:SSSD120;;FALSE;359870;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item781;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;15.99;gpUSProductCatalog:Online:SSKD120;;FALSE;359866;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item782;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;15.99;gpUSProductCatalog:Online:SSKD120;;FALSE;;;;;;CS;1;;
+;Item783;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;10;gpUSProductCatalog:Online:SSKD120;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item784;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;49.99;gpUSProductCatalog:Online:SSS51;;FALSE;;;;;;CS;1;;
+;Item785;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;49.99;gpUSProductCatalog:Online:SSS51;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item786;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;49.99;gpUSProductCatalog:Online:SSS51;;FALSE;359868;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item787;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;49.99;gpUSProductCatalog:Online:SSF51;;FALSE;359860;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item788;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;49.99;gpUSProductCatalog:Online:SSF51;;FALSE;;;;;;CS;1;;
+;Item789;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;49.99;gpUSProductCatalog:Online:SSF51;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item790;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;30;gpUSProductCatalog:Online:SSKAUTODSP;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item791;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;39.99;gpUSProductCatalog:Online:SSKAUTODSP;;FALSE;;;;;;CS;1;;
+;Item792;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;39.99;gpUSProductCatalog:Online:SSKAUTODSP;;FALSE;359865;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item793;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;44.99;gpUSProductCatalog:Online:29323;;FALSE;359759;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item794;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;40;gpUSProductCatalog:Online:29323;;FALSE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item795;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;44.99;gpUSProductCatalog:Online:29323;;FALSE;;;;;;CS;1;;
+;Item796;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;15.99;gpUSProductCatalog:Online:SSFD120;;FALSE;;;;;;CS;1;;
+;Item797;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;10;gpUSProductCatalog:Online:SSFD120;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item798;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;15.99;gpUSProductCatalog:Online:SSFD120;;FALSE;359862;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item799;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;15.99;gpUSProductCatalog:Online:SSFD80;;FALSE;359863;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item800;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;15.99;gpUSProductCatalog:Online:SSFD80;;FALSE;;;;;;CS;1;;
+;Item801;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;10;gpUSProductCatalog:Online:SSFD80;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item802;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;165.99;gpUSProductCatalog:Online:6346AR;;FALSE;;;;;;CS;1;;
+;Item803;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;165.99;gpUSProductCatalog:Online:6346AR;;FALSE;359829;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item804;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;165.99;gpUSProductCatalog:Online:6346AR;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item805;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;150.99;gpUSProductCatalog:Online:6342AR;;FALSE;;;;;;CS;1;;
+;Item806;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;150.99;gpUSProductCatalog:Online:6342AR;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item807;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;150.99;gpUSProductCatalog:Online:6342AR;;FALSE;359828;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item808;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;39.99;gpUSProductCatalog:Online:SSFAUTODSP;;FALSE;359861;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item809;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;39.99;gpUSProductCatalog:Online:SSFAUTODSP;;FALSE;;;;;;CS;1;;
+;Item810;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;30;gpUSProductCatalog:Online:SSFAUTODSP;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item811;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;25.99;gpUSProductCatalog:Online:3TOCSC;;FALSE;359823;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item812;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;25.99;gpUSProductCatalog:Online:3TOCSC;;FALSE;;;;;;CS;1;;
+;Item813;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;24.99;gpUSProductCatalog:Online:3TOCSC;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item814;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;66.49;gpUSProductCatalog:Online:29324;;FALSE;;;;;;CS;1;;
+;Item815;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;64.5;gpUSProductCatalog:Online:29324;;FALSE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item816;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;69.49;gpUSProductCatalog:Online:29324;;FALSE;359760;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item817;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;15.99;gpUSProductCatalog:Online:SSSD80;;FALSE;359871;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item818;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;15.99;gpUSProductCatalog:Online:SSSD80;;FALSE;;;;;;CS;1;;
+;Item819;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;10;gpUSProductCatalog:Online:SSSD80;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item820;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;28.99;gpUSProductCatalog:Online:16620;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item821;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;29.99;gpUSProductCatalog:Online:16620;;FALSE;;;;;;CS;1;;
+;Item822;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;29.99;gpUSProductCatalog:Online:16620;;FALSE;359749;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item823;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;39.5;gpUSProductCatalog:Online:59530;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item824;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;41.99;gpUSProductCatalog:Online:59530;;FALSE;359809;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item825;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;41.99;gpUSProductCatalog:Online:59530;;FALSE;;;;;;CS;1;;
+;Item826;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;23.99;gpUSProductCatalog:Online:32001;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item827;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;25.99;gpUSProductCatalog:Online:32001;;FALSE;;;;;;CS;1;;
+;Item828;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;25.99;gpUSProductCatalog:Online:32001;;FALSE;359765;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item829;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;44.99;gpUSProductCatalog:Online:2717201;;FALSE;359757;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item830;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;41.99;gpUSProductCatalog:Online:2717201;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item831;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;44.99;gpUSProductCatalog:Online:2717201;;FALSE;;;;;;CS;1;;
+;Item832;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;96.99;gpUSProductCatalog:Online:43337;;FALSE;359771;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item833;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;96.99;gpUSProductCatalog:Online:43337;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup
+;Item834;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;96.99;gpUSProductCatalog:Online:43337;;FALSE;;;;;;CS;1;;
+;Item835;gpUSProductCatalog:Online;;USD;01.06.2019 12:00:00,31.12.9999 11:59:59;31.12.9999 11:59:59;FALSE;;1;TRUE;;;119.99;gpUSProductCatalog:Online:9PPATH;;FALSE;359834;;119000;01.06.2019 12:00:00;pricegroup-dixie:UserPriceGroup;CS;1;;
+;Item836;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;119.99;gpUSProductCatalog:Online:9PPATH;;FALSE;;;;;;CS;1;;
+;Item837;gpUSProductCatalog:Online;;USD;;;FALSE;;1;TRUE;;;119.99;gpUSProductCatalog:Online:9PPATH;;TRUE;;;;;;CS;1;;B2b_REGISTERED_PRICE_GROUP:UserPriceGroup

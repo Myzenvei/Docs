@@ -1,0 +1,38 @@
+<div class="vx-marketing-product">
+  <h3 class="col-md-offset-4 hidden-xs hidden-sm pl-xs-3" v-if="tabBodyTitle" v-html="tabBodyTitle"></h3>
+  <div>
+    <div class="col-md-4 hidden-xs hidden-sm px-md-4">
+      <div class="vx-marketing-product__product-info-image p-xs-3 d-flex align-items-center justify-content-center">
+        <img :src="descriptiveData.descriptiveSrc" :alt="descriptiveData.descriptiveText" />
+      </div>
+      <p class="mt-xs-3 mb-xs-0 promotional-text" v-html="tileText" v-if="tileText"></p>
+      <p class="my-xs-3" v-html="descriptiveData.header" v-if="descriptiveData.header"></p>
+      <div class="d-flex flex-wrap justify-content-center">
+        <a :href="tileCtaData.isExternalLink ? tileCtaData.ctaLink : globals.getUrlWithContextPath(tileCtaData.ctaLink)"
+          :target="tileCtaData.isExternalLink?'_blank':''" class="btn btn-tertiary mb-sm-3 product-cta" v-if="tileCtaData.ctaText && !tileCtaData.jumpToHtml"
+          v-html="tileCtaData.ctaText"></a>
+        <a :href="tileCtaData.isExternalLink ? tileCtaData.ctaLink : globals.getUrlWithContextPath(tileCtaData.ctaLink)"
+          :target="tileCtaData.isExternalLink?'_blank':''" class="btn btn-tertiary mb-sm-3 product-cta" v-if="tileCtaData.ctaText && tileCtaData.jumpToHtml"
+          v-html="tileCtaData.ctaText" @click="emitScrollSignal(tileCtaData.ctaLink)"></a>
+        <a :href="isRequestTrialLinkExternal ? requestTrialLink : globals.getUrlWithContextPath(requestTrialLink)"
+          :target="isRequestTrialLinkExternal?'_blank':''" class="btn btn-tertiary product-cta mb-sm-3" v-if="requestTrialText"
+          v-html="requestTrialText"></a>
+      </div>
+    </div>
+    <div class="col-md-8 col-xs-12 px-xs-0 pt-md-0 position-xs-relative vx-marketing-product__product-wrapper">
+      <div class="d-flex flex-xs-column flex-sm-row flex-wrap w-sm-100">
+        <div class="col-xs-12 col-sm-4 px-xs-0 px-sm-3 mb-xs-2" v-for="prd in tabData">
+          <div class="vx-marketing-product__product d-flex flex-column mx-xs-3 mx-sm-0" @click="loadDescriptiveImage(prd)">
+            <div class="vx-marketing-product__image-container p-xs-2 d-flex justify-content-center" tabindex="0">
+              <img :src="prd.secondaryImgD ? prd.secondaryImgD : globals.assetsPath + 'images/no_image.svg'" :alt="prd.secondaryimgAltTextD">
+            </div>
+            <p class="mt-xs-3 mb-xs-0 promotional-text" v-html="prd.tileText" v-if="prd.tileText"></p>
+            <a href="javascript:void(0)" @click="loadDescriptiveImage(prd)" class="my-xs-3" v-if="prd.header" v-html="prd.header"></a>
+          </div>
+        </div>
+      </div>
+      <a :href="isBrochureLinkExternal ? broucherLink : globals.getUrlWithContextPath(broucherLink)" :target="isBrochureLinkExternal?'_blank':''"
+        class="btn-tertiary btn position-xs-absolute broucher-btn" v-if="brochureText" v-html="brochureText"></a>
+    </div>
+  </div>
+</div>

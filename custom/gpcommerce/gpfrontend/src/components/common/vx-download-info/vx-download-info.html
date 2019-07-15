@@ -1,0 +1,20 @@
+<div class="vx-download-info">
+  <div class="tab-container">
+    <ul id="tabs" class="nav nav-tabs" role="tablist" aria-orientation="horizontal">
+      <li class="tab-item active" v-if="isPdfDownloadEnabled">
+        <a id="tab-pdf" aria-controls='pane-pdf' href="#pane-pdf" class="nav-link" data-toggle="tab" role="tab" tabindex="0">{{i18n.downloadInfo.tabPdf}}</a>
+      </li>
+      <li class="tab-item" v-if="isImageDownloadEnabled">
+        <a id="tab-image" aria-controls='pane-image' href="#pane-image" class="nav-link" data-toggle="tab" role="tab" tabindex="0">{{i18n.downloadInfo.tabImage}}</a>
+      </li>
+    </ul>
+  </div>
+  <div id="content" class="tab-content" role="tablist">
+    <div id="pane-pdf" class="card tab-pane fade in active" role="tabpanel" aria-labelledby="tab-pdf" v-if="isPdfDownloadEnabled">
+      <vx-pdf-download :is-pdp="isPdp" :i18n="i18n.pdfDownload" :colorCodes="colorCodes" :productEntries="productEntries" :certificationsName="certificationsName" @onPdfDownloadInit=onPdfDownloadInit($event)></vx-pdf-download>
+    </div>
+    <div id="pane-image" class="card tab-pane fade" role="tabpanel" aria-labelledby="tab-image" v-if="isImageDownloadEnabled">
+      <vx-image-download :i18n="i18n.imageDownload" @onImageDownloadInit=onImageDownloadInit($event)></vx-image-download>
+    </div>
+  </div>
+</div>

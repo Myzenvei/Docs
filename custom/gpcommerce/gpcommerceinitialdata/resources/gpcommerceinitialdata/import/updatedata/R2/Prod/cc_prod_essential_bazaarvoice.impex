@@ -1,0 +1,119 @@
+######################
+# Configuration part #
+######################
+
+
+
+
+
+$catalogVersion=catalogVersion(catalog(id[default='gpUSProductCatalog']),version[default='Staged'])[unique=true,default='gpUSProductCatalog:Staged']
+$categories=target(code, $catalogVersion)[unique=true]
+$supercategories=source(code, $catalogVersion)[unique=true]
+$lang=en
+
+
+
+INSERT_UPDATE Category;code[unique=true];$catalogVersion;supercategories(code,$catalogVersion);allowedPrincipals(uid)[default='customergroup'];name[lang=$lang]
+;spa; ;;;Spa Favorites
+;luxury-bath; ;;;Luxury Bath
+;skin-care; ;;;Skin Care
+;body-care; ;;;Body Care
+;gifts; ; ;;Gift Sets
+;scented-candles; ;;;Scented Candles
+
+# Create VanityFairNapkins Categories
+INSERT_UPDATE Category;code[unique=true];$catalogVersion;supercategories(code,$catalogVersion);allowedPrincipals(uid)[default='customergroup'];name[lang=$lang]
+;everyday-collection; ;;;Everyday Collection
+;entertain-collection; ;;;Entertain Collection
+;extra-absorbent-napkins; ;;;Extra Absorbent Napkins
+
+
+
+INSERT_UPDATE Category;code[unique=true];$catalogVersion;supercategories(code,$catalogVersion);allowedPrincipals(uid)[default='customergroup'];name[lang=$lang]
+;everyday-collection; ;;;Everyday Collection
+;entertain-collection; ;;;Entertain Collection
+;extra-absorbent-napkins; ;;;Extra Absorbent Napkins
+
+# Update Categories with SKU's
+INSERT_UPDATE Category ; code[unique=true] ; name[lang=$lang]                                                                                                                                                                                                                                                                                                                                                                                                                                      ; $catalogVersion
+# list provided by Emily for which we do not have a category navigation header link
+                       ; bestmoisturizer   ; Best Moisturizer                                                                                                                                                                                                                                                                                                                                                                                                   
+                       ; bestmoisturizers  ; Best Moisturizer                                                                                                                                                                                                                                                                                                                                                                                                   
+                       ; cruelty_free      ; Cruelty Free                                                                                                                                                                                                                                                                                                                                                                                                       
+                       ; crueltyfree       ; Cruelty Free                                                                                                                                                                                                                                                                                                                                                                                                       
+                       ; luxury_spa        ; Luxury Spa                                                                                                                                                                                                                                                                                                                                                                                                                   
+                       ; luxuryspa         ; Luxury Spa                                                                                                                                                                                                                                                                                                                                                                                                                   
+                       ; pamper            ; Pamper                                                                                                                                                                                                                                                                                                                                                                                                                       
+                       ; pampering         ; Pampering                                                                                                                                                                                                                                                                                                                                                                                                                    
+                       ; skin_care         ; Skin Care                                                                                                                                                                                                                                                                                                                                                                                                          
+                       ; skincare          ; Skin Care                                                                                                                                                                                                                                                                                                                                                                                                          
+
+# existing list which have a category navigation header link
+                       ; body-care         ; Body Care                                                                                                                                                                                                                                                                    
+                       ; gifts             ; Gift Sets        
+                       ; luxury-bath       ; Luxury Bath                                                                                                                                                                                                                                               
+                       ; scented-candles   ; Scented Candles                                                                                                                                                                                                                                                                                                                                                             
+                       ; skin-care         ; Skin Care                                                                                                                                                                                                                                                                                                                                                       
+                       ; spa               ; Spa Favorites                                                                                                                                                                                                                                                                                                                                                                                                                
+                              
+
+## Importing settings (bazaarvoiceConfig)
+#########################################
+INSERT_UPDATE BazaarvoiceConfig; code[unique=true]; clientName; ftpUserName; ftpPassword; zone; seoKey; ftpServer; showReviewsScript;showQuestionsScript; isFamiliesEnabled;licenseAccepted;upcMethodName;environment(code)
+;copperncraneBVConfig;copperandcrane;copperandcrane;2BnMvt&YYSFf;Main Site;angelsoft-da75c0ccdcd79cbb4d2e5b68fa5545ef;sftp.bazaarvoice.com;;; true;true;ean;Production
+;vanityfairnapkinsBVConfig;vanityfairnapkins;vanityfairnapkins;Jt^s0ZPKPoCj;Main Site;angelsoft-da75c0ccdcd79cbb4d2e5b68fa5545ef;sftp.bazaarvoice.com;;; true;true;ean;Production
+
+
+## Setting bazaarvoiceConfig to websites
+########################################
+INSERT_UPDATE CMSSite; uid[unique=true]; bvConfig(code);bvLocale
+;copperandcrane;copperncraneBVConfig;en_US
+;vanityfairnapkins;vanityfairnapkinsBVConfig;en_US
+
+###############
+# Export part #
+###############
+
+INSERT_UPDATE ServicelayerJob;code[unique=true];springId
+;bazaarvoiceProductFeedExporter;bazaarvoiceProductFeedExporter
+
+$productCatalog=gpUSProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Online'])[unique=true,default=$productCatalog:Online]
+
+
+### Creating a cronjob for exporting data to BV
+###############################################
+INSERT_UPDATE BazaarvoiceProductFeedExportCronJob;code[unique=true];job(code);bazaarvoiceStorefront(uid);singleExecutable;sessionLanguage(isocode);$catalogVersion;brandID;brandName;categories(code,$catalogVersion);isUPCEANRequired[default=false]
+;bvProductFeedCronjobForcopperandcrane;bazaarvoiceProductFeedExporter; copperandcrane ; false; en;;COPPER_CRANE;COPPER+CRANE;spa,luxury-bath,skin-care,body-care,gifts,scented-candles;
+;bvProductFeedCronjobForvanityfairnapkins;bazaarvoiceProductFeedExporter; vanityfairnapkins ; false; en;;VanityFair;Vanity Fair;everyday-collection,entertain-collection,extra-absorbent-napkins;
+
+### Creating a trigger for cronjob
+##################################
+INSERT_UPDATE Trigger;cronJob(code)[unique=true];cronExpression
+#; bvProductFeedCronjobForvanityfairnapkins ; 0 0 12 * * SUN
+; bvProductFeedCronjobForcopperandcrane ; 0 0 0 ? * 1/7 *
+
+
+###### Import Feed ######
+
+INSERT_UPDATE ServicelayerJob;code[unique=true];springId
+;gpBazaarVoiceDataFeedDownloadJob;gpBazaarVoiceDataFeedDownloadJob
+
+
+
+$productCatalog=gpUSProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Online'])[unique=true,default=$productCatalog:Online]
+
+### Creating a cronjob for importing data from BV
+###############################################
+
+
+INSERT_UPDATE BazaarvoiceImportRatingsCronJob;code[unique=true];$catalogVersion;job(code);bazaarvoiceStorefront(uid);singleExecutable;sessionLanguage(isocode)
+;bvcopperandcraneRatingsImportFeedCronJob;;gpBazaarVoiceDataFeedDownloadJob; copperandcrane ; false; en;
+;bvvanityfairnapkinsRatingsImportFeedCronJob;;gpBazaarVoiceDataFeedDownloadJob; vanityfairnapkins ; false; en;
+
+### Creating a trigger for cronjob
+##################################
+INSERT_UPDATE Trigger;cronJob(code)[unique=true];cronExpression
+; bvcopperandcraneRatingsImportFeedCronJob ; 0 0 8/24 ? * 2/1 *
+#; bvvanityfairnapkinsRatingsImportFeedCronJob ; 0 0 8/24 ? * 2/1 *

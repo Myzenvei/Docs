@@ -1,0 +1,39 @@
+#gp-employee {
+  .vx-promotion {
+    .promotions-label {
+      margin-top: 0;
+    }
+    .icon-x {
+      color: @brand-secondary-5;
+    }
+    .apply-voucher {
+      input {
+        width: 70%;
+        border-radius: @border-radius-input 0 0 @border-radius-input;
+      }
+      button {
+        .btn-primary;
+        min-width: initial;
+        width: 30%;
+        border-radius: 0 @btn-border-radius @btn-border-radius 0;
+        font-size: @font-size-medium;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: @screen-xs-max) {
+  #gp-employee {
+    .vx-promotion {
+      .apply-voucher {
+        input {
+          width: 66%;
+        }
+        button {
+          .btn-primary;
+          width: 33%;
+        }
+      }
+    }
+  }
+}

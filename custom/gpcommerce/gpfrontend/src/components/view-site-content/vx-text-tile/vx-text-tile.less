@@ -1,0 +1,52 @@
+
+
+.view-site-content-vx-text-tile {
+  flex-direction: column;
+  background-size: cover;
+  h3 {
+    font-weight: @font-weight-medium;
+  }
+  p {
+    font-size: @font-size-medium;
+  }
+  a {
+    display: inline-block;
+    font-weight: @font-weight-medium;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+.align-left {
+  h3,
+  p,
+  a {
+    display: block;
+    text-align: left;
+  }
+  align-items: left;
+}
+
+.align-center {
+  h3,
+  p,
+  a {
+    display: block;
+    text-align: center;
+  }
+  align-items: center;
+}
+
+@media (max-width: @screen-xs-max) {
+  .view-site-content-vx-text-tile {
+    h3 {
+      font-size: @font-size-medium;
+    }
+    p {
+      font-size: @font-size-small;
+    }
+    a {
+      font-size: @font-size-small;
+    }
+  }
+}

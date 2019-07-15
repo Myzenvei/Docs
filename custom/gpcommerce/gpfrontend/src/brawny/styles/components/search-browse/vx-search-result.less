@@ -1,0 +1,210 @@
+#brawny {
+  .search-browse-filter-comp {
+    font-family: @font-family-text;
+    .search-heading-desktop {
+      padding-top: 0 !important;
+      font-size: @font-size-h3;
+    }
+    .searched-term {
+      color: @text-color;
+      font-weight: @font-weight-bold;
+      text-decoration: underline;
+      padding-left: 8px;
+    }
+    .search-browse {
+      .tile-container {
+        .header-bar {
+          padding: 0 !important;
+          border-bottom: none !important;
+          .header-dropdown {
+            h1 {
+              padding: 0 !important;
+              margin-bottom: 0 !important;
+              font-weight: @font-weight-bold;
+              @media screen and (min-width: @screen-sm-min) {
+                margin-bottom: 24px !important;
+                padding-top: 16px !important;
+              }
+            }
+          }
+          .applied-filter-section {
+            .applied-filter {
+              .tag {
+                border: 1px solid @border-color-9;
+                .tag-content {
+                  font-weight: @font-weight-bold;
+                }
+              }
+            }
+          }
+        }
+        .list-page-wrapper.no-filter {
+          margin-top: 16px;
+          @media screen and (min-width: @screen-sm-min) {
+            margin: 0 !important;
+          }
+        }
+        .search-browse-list-page {
+          @media screen and (min-width: @screen-sm-min) {
+            padding-top: 0 !important;
+          }
+          .search-browse-product-tile {
+            .tile-body {
+              width: 100% !important;
+              .tile-image {
+                width: 100% !important;
+                height: 152px !important;
+                @media screen and (min-width: @screen-md-min) {
+                  height: 184px !important;
+                }
+              }
+              .btn {
+                margin-bottom: 24px;
+                @media screen and (min-width: @screen-sm-min) {
+                  margin-bottom: 16px;
+                }
+                @media screen and (min-width: @screen-md-min) {
+                  margin-bottom: 24px;
+                }
+              }
+              .bottom-section {
+                .vx-star-rating {
+                  .review-section {
+                    font-size: @font-size-small;
+                    @media screen and (min-width: @screen-md-min) {
+                      font-size: @font-size-base;
+                    }
+                  }
+                }
+              }
+            }
+          }
+          .search-browse-panel {
+            .compare-panel {
+              padding: 0 16px 0 16px;
+              @media screen and (min-width: @screen-sm-min) {
+                padding: 0 24px 0 24px;
+              }
+              .remove-icon-mobile {
+                .icon-x {
+                  color: @font-icon-color-5;
+                  font-size: 16px;
+                  @media screen and (min-width: @screen-md-min) {
+                    font-size: 20px;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      .facet-container {
+        margin-top: 0;
+        .facet-wrapper {
+          .facet-category {
+            .filter-name {
+              font-weight: @font-weight-bold;
+            }
+            .facet-count {
+              color: @text-color-secondary;
+            }
+          }
+        }
+        .clear-all-filter {
+          color: @text-color;
+          text-decoration: underline;
+          padding-top: 4px;
+          font-weight: @font-weight-bold;
+        }
+        .btn {
+          background-color: @btn-tertiary-bg;
+          font-weight: @font-weight-med;
+          color: @btn-tertiary-color;
+        }
+      }
+    }
+    &.no-result-found {
+      margin: 0;
+      padding: 24px !important;
+      min-height: 60vh;
+      @media screen and (min-width: @screen-sm-min) {
+        margin: 32px 32px 40px 32px;
+        padding: 24px 32px 0 32px !important;
+      }
+      @media screen and (min-width: @screen-md-min) {
+        margin: 32px auto 40px auto;
+        padding: 32px 40px 0 40px !important;
+        width: 82%;
+        min-height: 50vh;
+      }
+      .search-heading-desktop {
+        @media screen and (min-width: @screen-sm-min) {
+          font-size: @font-size-h2;
+          margin-bottom: 16px !important;
+        }
+        @media screen and (min-width: @screen-md-min) {
+          font-size: @font-size-h2;
+          margin-bottom: 24px !important;
+        }
+      }
+      .search-results-heading-section {
+        padding-bottom: 20px !important;
+        @media screen and (min-width: @screen-sm-min) {
+          padding-bottom: 16px !important;
+        }
+        h3 {
+          @media screen and (min-width: @screen-sm-min) {
+            font-size: @font-size-h3;
+          }
+        }
+      }
+      .no-results-content {
+        color: @text-color-sub-text;
+        padding-top: 0 !important;
+      }
+    }
+    .search-results-heading-section {
+      h3 {
+        font-size: @font-size-large;
+        font-weight: @font-weight-normal;
+      }
+    }
+    .search-heading-desktop {
+      font-weight: @font-weight-normal;
+    }
+    .tab-container {
+      padding-bottom: 32px !important;
+      .nav-tabs {
+        & > li.active {
+          & > a {
+            border-bottom: 4px solid @tab-selected-border-color;
+            color: @text-color;
+          }
+        }
+      }
+    }
+    .tab-content {
+      .pane-content {
+        .card-body {
+          .tile-container {
+            @media screen and (min-width: @screen-md-min) {
+              padding: 0 16px 0 16px !important;
+            }
+            .header-bar {
+              @media screen and (min-width: @screen-md-min) {
+                padding: 24px 16px 0 16px !important;
+              }
+            }
+            .content-section {
+              a {
+                color: @text-color;
+                text-decoration: underline;
+                font-weight: @font-weight-bold;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

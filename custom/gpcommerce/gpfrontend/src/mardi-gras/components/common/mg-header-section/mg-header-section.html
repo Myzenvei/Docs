@@ -1,0 +1,67 @@
+<nav class="mg-header-section">
+  <div class="navbar m-xs-0">
+    <div class="container d-xs-flex px-xs-0 flex-xs-column flex-md-row py-md-1">
+      <div class="navbar-header d-flex align-items-center py-xs-1 px-xs-3 p-md-0 m-xs-0">
+        <div class="hamburger-icon mr-xs-3" v-if="isTablet()" v-on:click="toggleMenu()" :class="{'open':isHamburgerOpen}">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <template v-if="isHomePage">
+          <a itemscope="itemscope" :itemtype="globals.logoContentSchema.itemType" class="navbar-brand p-md-0 ml-md-0 p-xs-0" :href="globals.contextPath+navData.loginMenu.menuOptions[0].optionLink">
+              <img :itemprop="globals.logoContentSchema.itemProp" :src="globals.assetsPath+'images/mardi-gras/'+navData.headerOptions.brandLogo" :alt="i18n.brandLogo" />
+          </a>
+        </template>
+        <template v-else>
+          <a class="navbar-brand p-md-0 ml-md-0 p-xs-0" :href="globals.contextPath+navData.loginMenu.menuOptions[0].optionLink">
+              <img :src="globals.assetsPath+'images/mardi-gras/'+navData.headerOptions.brandLogo" :alt="i18n.brandLogo" />
+          </a>
+        </template>
+
+      </div>
+      <div class="navbar-items d-xs-flex align-items-center" :class="{'open':isHamburgerOpen}">
+        <ul class="nav navbar-nav flex-xs-column flex-md-row d-xs-flex m-xs-0 pl-xs-4">
+          <li class="py-md-3 px-md-5" v-for="(item,index) in navData.loginMenu.menuOptions">
+            <template v-if="index === activeLink">
+              <a :href="globals.contextPath+item.optionLink" class="p-md-0 px-xs-0 active">
+                {{item.option}}
+              </a>
+            </template>
+            <template v-else>
+              <a :href="globals.contextPath+item.optionLink" class="p-md-0 px-xs-0">
+                {{item.option}}
+              </a>
+            </template>
+
+            <!-- <a v-else :href="item.linkURL" class="p-md-0">
+              <img :src="item.linkImg">
+            </a> -->
+          </li>
+
+          <li class="py-md-3 px-md-5" v-for="(socialLink,_index) in navSocialLinks.navLinks" :class="{'social-links': socialLink.isSocialLink}">
+            <template v-if="_index+5 === activeLink">
+              <a :href="globals.contextPath + socialLink.linkURL" class="p-md-0 px-xs-0 active" v-if="!(socialLink.isSocialIcon)">{{socialLink.linkText}}</a>
+              <a v-else :href="socialLink.linkURL" class="p-md-0 px-xs-0" target="_blank">
+                <img :src="socialLink.linkImg">
+              </a>
+            </template>
+            <template v-else>
+              <template v-if="isHomePage">
+                  <a :href="globals.contextPath + socialLink.linkURL" class="p-md-0 px-xs-0" v-if="!(socialLink.isSocialIcon)">{{socialLink.linkText}}</a>
+                  <a v-else :href="socialLink.linkURL" class="p-md-0 px-xs-0" target="_blank" itemscope="itemscope" itemtype="http://schema.org/Organization" itemprop="sameAs">
+                    <img :src="socialLink.linkImg" :alt="socialLink.linkText">
+                  </a>
+              </template>
+              <template v-else>
+                  <a :href="globals.contextPath + socialLink.linkURL" class="p-md-0 px-xs-0" v-if="!(socialLink.isSocialIcon)">{{socialLink.linkText}}</a>
+                  <a v-else :href="socialLink.linkURL" class="p-md-0 px-xs-0" target="_blank">
+                    <img :src="socialLink.linkImg" :alt="socialLink.linkText">
+                  </a>
+              </template>
+            </template>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,24 @@
+#gp-employee {
+  .vx-place-order {
+    .fill-information-label {
+      margin: 0 !important;
+      padding: 10px 24px;
+      background-color: @body-bg;
+    }
+  }
+}
+
+@media only screen and (max-width: @screen-sm-max) {
+  #gp-employee {
+    .vx-place-order {
+      .fill-information-label {
+        width: 100%;
+        background-color: @card-layout-bg-color;
+        border-radius: 0 0 @card-layout-border-radius @card-layout-border-radius;
+      }
+      button {
+        width: 100%;
+      }
+    }
+  }
+}

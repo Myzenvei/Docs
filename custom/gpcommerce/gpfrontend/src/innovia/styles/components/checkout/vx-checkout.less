@@ -1,0 +1,130 @@
+#innovia {
+  .vx-checkout {
+    .main-heading {
+      margin-top: 32px;
+    }
+
+    .checkout-sections {
+      .checkout-section {
+        border-top: 1px solid @checkout-border-color;
+
+        .section-header {
+          font-family: @font-family-montserrat;
+        }
+
+        .vx-shipping-address a span {
+          color: @text-color-secondary-5;
+          font-weight: @font-weight-regular;
+        }
+
+        .shipping-method-change {
+          a {
+            span {
+              color: @text-color-secondary-5;
+              font-weight: @font-weight-regular;
+              text-decoration: underline;
+            }
+          }
+        }
+
+        .vx-shipping-address,
+        .vx-shipping-method {
+          .shipping-method-change {
+            text-decoration: underline;
+            font-weight: @font-weight-regular;
+          }
+
+          .shipping-method-type {
+            .shipping-location-type {
+              span {
+                text-decoration: underline;
+              }
+            }
+          }
+        }
+
+        .vx-shipping-method {
+          .editable-method {
+            .section-sub-heading {
+              font-family: @font-family-montserrat;
+              font-weight: @font-weight-bold;
+            }
+          }
+
+          .section-sub-heading {
+            font-weight: @font-weight-regular;
+            font-family: @font-family-karla;
+          }
+        }
+
+        .vx-add-edit-address .sub-heading-message {
+          font-weight: @font-weight-regular;
+        }
+
+        &>.heading {
+          font-family: @font-family-montserrat;
+          color: @text-color;
+        }
+
+        .vx-payment-billing {
+          .section-sub-heading {
+            font-family: @font-family-montserrat;
+          }
+
+          &>.section-sub-heading.editable-sub-heading {
+            font-family: @font-family-montserrat;
+            color: @text-color;
+          }
+
+          .change {
+            text-decoration: underline;
+            font-weight: @font-weight-regular;
+          }
+        }
+
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+    }
+
+    .vx-accordion {
+      .accordion-header {
+        .heading-container {
+          .bold-heading {
+            font-family: @font-family-montserrat;
+          }
+        }
+      }
+
+      .accordion-body {
+        .accordion-content {
+          .vx-product-tile {
+            .product-price {
+              .product-current-price {
+                font-family: @font-family-montserrat;
+                font-weight: @font-weight-bold;
+              }
+
+              .product-old-price {
+                color: @text-color-secondary-6;
+                font-family: @font-family-montserrat;
+                font-weight: @font-weight-regular;
+              }
+            }
+
+            .product-promo {
+              color: @brand-secondary-14;
+              font-family: @font-family-montserrat;
+              font-weight: @font-weight-regular;
+            }
+
+            .product-quantity {
+              font-size: @font-size-small;
+            }
+          }
+        }
+      }
+    }
+  }
+}

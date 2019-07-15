@@ -1,0 +1,16 @@
+<div class="vx-download-product-info">
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>></vx-spinner>
+  <h4>{{i18n.downloadProductInfo.downloadProductInfoDescription}}</h4>
+  <label>{{i18n.downloadProductInfo.downloadProductInfoContent}}</label>
+  <div class="mt-xs-4 mb-xs-5 form-group">
+    <h4>{{i18n.downloadProductInfo.downloadProductInfoFormat}}</h4>
+    <div>
+      <vx-radio-button-group :radiobutton-values='downloadOptions' :name="downloadOptions.name"
+        ref="downloadOptions" @input="selectedDownloadOption($event)"></vx-radio-button-group>
+    </div>
+  </div>
+  <div class="d-flex justify-content-center">
+    <button type="submit" :disabled="errors.any()" class="submit btn btn-primary modal-btn-primary-small modal-btn-xs-sticky"
+      @click="downloadExcel">{{i18n.downloadProductInfo.downloadProductInfoButton}}</button>
+  </div>
+</div>

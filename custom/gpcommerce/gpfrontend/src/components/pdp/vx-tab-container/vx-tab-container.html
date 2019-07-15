@@ -1,0 +1,181 @@
+<section class="vx-tab-container row d-flex">
+  <div class="px-xs-0 col-xs-12">
+    <ul id="tabs" class="nav nav-tabs px-sm-3 px-md-4" role="tablist" aria-orientation="horizontal">
+      <li class="tab-item active">
+        <a id="tab-details" :name="i18n.tabDetails" aria-controls='pane-details' href="#pane-details" class="nav-link" data-toggle="tab" role="tab"
+          tabindex="0">{{i18n.tabDetails}}</a>
+      </li>
+      <li class="tab-item" v-if="pdpProductsData && isBazaarVoice === 'true'">
+        <a id="tab-reviews" :name="i18n.tabReviews" aria-controls='pane-reviews' href="#pane-reviews" class="nav-link reviews-tab" data-toggle="tab"
+          role="tab" tabindex="0">{{i18n.tabReviews }}
+          <div class="reviews-value" v-if="pdpProductsData.bvNumberOfReviews">({{pdpProductsData.bvNumberOfReviews}})</div>
+        </a>
+      </li>
+      <li class="tab-item" v-if="(pdpProductsData && ((pdpProductsData.dataSheets && (pdpProductsData.dataSheets.dataSheet &&
+pdpProductsData.dataSheets.dataSheet.length >
+0)) ||
+(pdpProductsData.productResourceVideos && (pdpProductsData.productResourceVideos.video &&
+pdpProductsData.productResourceVideos.video.length > 0)))) && globals.siteConfig.showProductResources">
+        <a id="tab-resources" :name="i18n.tabProductResources" aria-controls='pane-resources' href="#pane-resources" class="nav-link" data-toggle="tab"
+          role="tab" tabindex="-1">{{i18n.tabProductResources}}</a>
+      </li>
+      <li class="tab-item" v-if="(relatedProductIds.length > 0 || isRelatedProducts) && !globals.isVanityfair()">
+        <a id="tab-related-products" :name="i18n.tabRelatedProducts" aria-controls='pane-related-products' href="#pane-related-products" class="nav-link"
+          data-toggle="tab" role="tab" tabindex="0">{{i18n.tabRelatedProducts}}</a>
+      </li>
+      <li class="tab-item" v-if="!globals.isVanityfair() && compareProductIds.length > 1">
+        <a id="tab-compare-products" :name="i18n.tabCompareProducts" aria-controls='pane-compare-products' href="#pane-compare-products" class="nav-link"
+          data-toggle="tab" role="tab" tabindex="0">{{i18n.tabCompareProducts}}</a>
+      </li>
+      <template v-if="pdpProductsData && pdpProductsData.tabInfo && JSON.parse(pdpProductsData.showCustomTabs)">
+        <li class="tab-item" v-for="(tabs, index) in pdpProductsData.tabInfo">
+          <a :id="'tab-custom-'+(index+1)" :name="tabs.name" :aria-controls="'pane-custom-'+(index+1)" :href="'#pane-custom-'+(index+1)" class="nav-link"
+            data-toggle="tab" role="tab" tabindex="0">{{tabs.name}}</a>
+        </li>
+      </template>
+    </ul>
+
+
+    <div id="content" class="tab-content" role="tablist">
+      <div id="pane-details" class="px-sm-3 px-md-3 card tab-pane fade in active" role="tabpanel" aria-labelledby="tab-details">
+        <div class="px-xs-3 card-header" role="tab" id="heading-details">
+          <h5 class="mb-0">
+            <a class="collapsed" data-toggle="collapse" href="#collapse-details" data-parent="#content" aria-expanded="false"
+              aria-controls="collapse-details">
+              {{i18n.tabDetails}}
+              <span class="icon expanded"></span>
+            </a>
+          </h5>
+        </div>
+        <div id="collapse-details" class="px-sm-3 px-md-0 collapse" role="tabpanel" aria-labelledby="heading-details">
+          <div class="card-body">
+            <vx-product-details-tab :product-details-tab-data="pdpProductsData" :i18n="messages.pdp.productDetails"
+              v-if="pdpProductsData"></vx-product-details-tab>
+          </div>
+        </div>
+      </div>
+
+      <div id="pane-reviews" class="card tab-pane fade" role="tabpanel" aria-labelledby="tab-reviews" v-if="pdpProductsData && isBazaarVoice === 'true'">
+        <div class="px-xs-3 card-header" role="tab" id="heading-reviews">
+          <h5 class="mb-0">
+            <a class="collapsed" data-toggle="collapse" href="#collapse-reviews" data-parent="#content" aria-expanded="false"
+              aria-controls="collapse-reviews">
+              {{i18n.tabReviews}}
+              <span class="icon expanded"></span>
+            </a>
+          </h5>
+        </div>
+        <div id="collapse-reviews" class="px-xs-3 collapse" role="tabpanel" aria-labelledby="heading-reviews">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-xs-12">
+                <!-- Summary Container goes above the fold near product name or image -->
+                <div class="summary-container">
+                  <div id="BVRRSummaryContainer"></div>
+                </div>
+              </div>
+
+              <!-- Ratings and Reviews Container goes below product description -->
+              <div class="col-xs-12">
+                <div class="ratings-reviews-container">
+                  <div id="BVRRContainer"></div>
+                </div>
+              </div>
+
+              <!-- Q&A code -->
+              <div class="col-xs-12">
+                <div class="qa-container">
+                  <div id="BVQAContainer"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="pane-resources" class="px-sm-4 px-md-2 card tab-pane fade" role="tabpanel" aria-labelledby="tab-resources"
+        v-if="(pdpProductsData && ((pdpProductsData.dataSheets && (pdpProductsData.dataSheets.dataSheet &&
+pdpProductsData.dataSheets.dataSheet.length >
+0)) ||
+(pdpProductsData.productResourceVideos && (pdpProductsData.productResourceVideos.video &&
+pdpProductsData.productResourceVideos.video.length > 0)))) && globals.siteConfig.showProductResources">
+        <div class="px-xs-3 card-header" role="tab" id="heading-resources">
+          <h5 class="mb-0">
+            <a class="collapsed" data-toggle="collapse" href="#collapse-resources" data-parent="#content" aria-expanded="false"
+              aria-controls="collapse-resources">
+              {{i18n.tabProductResources}}
+              <span class="icon expanded"></span>
+            </a>
+          </h5>
+        </div>
+        <div id="collapse-resources" class="px-xs-2 collapse" role="tabpanel" aria-labelledby="heading-resources">
+          <div class="card-body">
+            <vx-product-resources-tab :product-resources-tab-data="pdpProductsData" :i18n="messages.pdp.productResourcesTab"
+              v-if="pdpProductsData"></vx-product-resources-tab>
+          </div>
+        </div>
+      </div>
+
+      <div id="pane-related-products" class="px-sm-3 px-md-3 card tab-pane fade" role="tabpanel" aria-labelledby="tab-related-products"
+        v-if="relatedProductIds.length > 0 || isRelatedProducts">
+        <div class="px-xs-3 card-header" role="tab" id="heading-related-products">
+          <h5 class="mb-0">
+            <a class="collapsed" data-toggle="collapse" href="#collapse-related-products" data-parent="#content"
+              aria-expanded="false" aria-controls="collapse-related-products">
+              {{i18n.tabRelatedProducts}}
+              <span class="icon expanded"></span>
+            </a>
+          </h5>
+        </div>
+        <div id="collapse-related-products" class="px-xs-3 collapse" role="tabpanel"
+          aria-labelledby="heading-related-products">
+          <div class="card-body" v-if="relatedProductIds.length > 0 || isRelatedProducts">
+            <vx-related-products-tab :parent-product="pdpProductsData.code" :is-favorites="isFavorites"
+              :is-bazaar-voice="isBazaarVoice" :is-related-enabled="isRelatedEnabled" :i18n="searchBrowseI18n">
+            </vx-related-products-tab>
+          </div>
+        </div>
+      </div>
+
+      <div id="pane-compare-products" class="card tab-pane fade" role="tabpanel" aria-labelledby="tab-compare-products"
+        v-if="compareProductIds.length > 1">
+        <div class="px-xs-3 card-header" role="tab" id="heading-compare-products">
+          <h5 class="mb-0">
+            <a class="collapsed" data-toggle="collapse" href="#collapse-compare-products" data-parent="#content"
+              aria-expanded="false" aria-controls="collapse-compare-products">
+              {{i18n.tabCompareProducts}}
+              <span class="icon expanded"></span>
+            </a>
+          </h5>
+        </div>
+        <div id="collapse-compare-products" class="px-xs-0 px-md-3 collapse" role="tabpanel"
+          aria-labelledby="heading-compare-products">
+          <div class="card-body mx-md-4 my-md-4 mt-sm-4 mb-sm-4 mt-xs-4 mb-xs-4">
+            <vx-compare-result-page :show-title="false" :show-remove-option="false" :is-favorites="isFavorites"
+              page-type="PDP_COMPARE" :pdp-compare-ids="compareProductIds" :is-bazaar-voice="isBazaarVoice"
+              :i18n="searchBrowseI18n">
+            </vx-compare-result-page>
+          </div>
+        </div>
+      </div>
+
+      <template v-if="pdpProductsData && pdpProductsData.tabInfo && JSON.parse(pdpProductsData.showCustomTabs)">
+        <div v-for="(tabs, index) in pdpProductsData.tabInfo" :id="'pane-custom-'+(index+1)" class="card tab-pane fade" role="tabpanel" :aria-labelledby="'tab-custom-'+(index+1)">
+          <div class="px-xs-3 card-header" role="tab" :id="'heading-custom-tabs-'+(index+1)">
+            <h5 class="mb-0">
+              <a class="collapsed" data-toggle="collapse" :href="'#collapse-custom-tabs-'+(index+1)" data-parent="#content" aria-expanded="false"
+                :aria-controls="'#collapse-custom-tabs-'+(index+1)">
+                {{tabs.name}}
+                <span class="icon expanded"></span>
+              </a>
+            </h5>
+          </div>
+          <div :id="'collapse-custom-tabs-'+(index+1)" class="px-xs-2 collapse" role="tabpanel" :aria-labelledby="'heading-custom-tabs-'+(index+1)">
+            <div class="card-body mx-xs-5 my-xs-4">
+              <div v-html="tabs.content"></div>
+            </div>
+          </div>
+        </div>
+      </template>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,127 @@
+// import '../../../styles/common/variables.less';
+.vx-order-approval-details {
+  .approval-details-page-title {
+    font-size: @font-size-xs-h1;
+    font-weight: @font-weight-light;
+  }
+  .comments-section-title {
+    font-size: @font-size-large;
+    font-weight: @font-weight-light;
+  }
+  .comments-section-text {
+    color: @font-color-label-text;
+    font-weight: @font-weight-light;
+  }
+  .order-info-heading {
+    font-size: @font-size-base;
+    font-weight: @font-weight-medium;
+  }
+  .order-number {
+    font-size: @font-size-large;
+    font-weight: @font-weight-light;
+  }
+  .sub-title {
+    font-size: @font-size-medium;
+    font-weight: @font-weight-medium;
+  }
+  .multi-shipping-details {
+    border: 1px solid @border-color;
+    border-bottom: none;
+  }
+  .install-time,
+  .order-status {
+    text-transform: capitalize;
+  }
+  .gift-message-heading {
+    font-size: @font-size-small;
+    font-weight: @font-weight-medium;
+  }
+  .gift-message {
+    font-size: @font-size-small;
+    font-weight: @font-weight-light;
+    word-wrap: break-word;
+  }
+  .order-info {
+    font-size: @font-size-small;
+    font-weight: @font-weight-light;
+    word-wrap: break-word;
+    letter-spacing: 0.4px;
+  }
+  a {
+    color: @text-color-secondary-3;
+    font-size: @font-size-medium;
+    font-weight: @font-weight-medium;
+  }
+  .helper-text {
+    color: @brand-secondary-5;
+    font-size: @font-size-small;
+    font-weight: @font-weight-light;
+  }
+  .error-text {
+    color: @font-color-error;
+    font-size: @font-size-error;
+  }
+  .vx-product-tile {
+    .product-quantity {
+      color: @text-color;
+      font-size: @font-size-small;
+      letter-spacing: 0.4px;
+    }
+  }
+  .product-code {
+    color: @brand-secondary-5;
+  }
+  .approval-buttons {
+    justify-content: flex-end;
+  }
+  textarea {
+    height: 142px;
+    border: 1px solid @border-color;
+    width: 100%;
+    resize: none;
+    padding: 16px;
+  }
+  @media only screen and (max-width: @screen-xs-max) {
+    .order-summary-container {
+      display: flex;
+      flex-direction: column;
+    }
+    .approval-buttons {
+      justify-content: start;
+      flex-direction: column;
+      .approve-order-button,
+      .reject-order-button {
+        width: 100%;
+      }
+    }
+  }
+  @media (max-width: @screen-sm-max) and (min-width: @screen-sm-min) {
+    .order-summary-container {
+      display: flex;
+      flex-direction: row-reverse;
+      .vx-order-summary {
+        width: 50%;
+        .order-summary {
+          width: 100%;
+        }
+      }
+      .comments-section {
+        width: 50%;
+      }
+    }
+  }
+  .lease-language {
+    height: 32px;
+    width: 64px;
+    cursor: pointer;
+  }
+  .terms-language {
+    float: right;
+  }
+  .active-class {
+    background: @btn-primary-bg;
+  }
+  .disabled-class {
+    background: @btn-disabled-bg;
+  }
+}

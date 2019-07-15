@@ -1,0 +1,28 @@
+<section class="vx-mini-cart">
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'">
+  </vx-spinner>
+
+  <div v-if="!shoppingCartData.totalItems">
+    <vx-empty-cart is-mini-cart :i18n="i18n" :msg-visible="dataLoaded"></vx-empty-cart>
+  </div>
+
+  <div v-else>
+    <div class="mini-cart-container ml-xs-3 mr-xs-4 mt-xs-3">
+      <p class="total-items">{{i18n.itemNumber}} -
+        <span class="total-items-count">{{shoppingCartData.totalItems}}</span>
+      </p>
+      <vx-cart-product-tile :is-sample-cart="isSampleCart" v-for="(product, index) in (lastNelements(shoppingCartData.entries)).reverse()" :i18n="i18n"
+        :product-data="product" v-bind:key="product.id" is-mini-cart></vx-cart-product-tile>
+    </div>
+    <div v-if="!isSampleCart" class="sub-total-container col-xs-12 py-xs-3 pl-xs-3 pr-xs-4">
+      <div class="sub-total-text col-xs-7 px-xs-0">
+        <p class="heading mt-xs-0">{{i18n.subTotal}}</p>
+        <p class="text">{{i18n.shippingTaxMsg}}</p>
+      </div>
+      <div class="sub-total-price col-xs-5 px-xs-0">
+        <p class="total-price">{{shoppingCartData.totalPrice.formattedValue}}</p>
+      </div>
+    </div>
+    <button class="btn btn-tertiary btn-block" @click="globals.navigateToUrl('cart')">{{i18n.cartButton}}</button>
+  </div>
+</section>

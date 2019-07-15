@@ -1,0 +1,63 @@
+#b2c-white-label {
+  .header-section {
+    .navbar-bottom {
+      .logo {
+        margin-left: 40px;
+        img {
+          max-height: 40px;
+        }
+      }
+      .navbar-bottom-left {
+        margin-left: 16px;
+      }
+      .navbar-bottom-right {
+        .cart .badge {
+          left: initial;
+          right: 0;
+          top: 6px;
+        }
+        .quick-order {
+          display: inline-flex;
+        }
+      }
+    }
+  }
+  .checkout-header {
+    img {
+      height: 100%;
+    }
+  }
+}
+
+@media only screen and (max-width: @screen-sm-max) {
+  #b2c-white-label {
+    .header-section {
+      .navbar-bottom,.navbar-top {
+        .navbar-bottom-left {
+          margin-left: 0;
+        }
+        .logo {
+          margin-left: 50px;
+          background: none;
+          border: 0;
+          top: 12px;
+          transform: translateY(0);
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: @screen-xs-max) {
+  #b2c-white-label {
+    .header-section {
+      .navbar-bottom {
+        .logo {
+          margin-left: 50px;
+          background: none;
+          border: 0;
+        }
+      }
+    }
+  }
+}

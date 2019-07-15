@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry exported="true" kind="src" path="/acceleratorcms"/>
+	<classpathentry exported="true" kind="src" path="/acceleratorservices"/>
+	<classpathentry exported="true" kind="src" path="/cscockpit"/>
+	<classpathentry kind="src" path="gensrc"/>
+	<classpathentry exported="true" kind="src" path="/cmscockpit"/>
+	<classpathentry kind="src" path="testsrc"/>
+	<classpathentry exported="true" kind="src" path="/reportcockpit"/>
+	<classpathentry exported="true" kind="src" path="/platform"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry exported="true" kind="src" path="/productcockpit"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="output" path="eclipsebin"/>
+</classpath>

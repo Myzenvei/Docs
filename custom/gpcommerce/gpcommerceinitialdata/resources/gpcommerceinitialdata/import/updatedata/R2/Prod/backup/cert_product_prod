@@ -1,0 +1,12 @@
+select distinct{p.code},{p.certifications} from {product as p} where {certifications} is not null
+
+# ---- Extension: core ---- Type: Product ----
+"#% impex.setTargetFile( ""Product.csv"" );"
+insert_update Product;&Item;catalogVersion(catalog(id),version)[unique=true,allownull=true];certifications(code,itemtype(code));code[unique=true,allownull=true]
+"#% impex.exportItemsFlexibleSearch( "" select {p.pk} from {product as p} where {certifications} is not null "" );"
+
+
+select distinct{p.code},{p.certifications} from {product as p} where {certifications} is not null
+
+
+

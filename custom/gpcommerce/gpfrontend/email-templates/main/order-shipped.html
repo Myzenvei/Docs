@@ -1,0 +1,804 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=no;">
+<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
+<link rel="stylesheet" type="text/css" href="https://cloud.typography.com/6228154/6448192/css/fonts.css" />
+
+<style>
+  #outlook a {
+    padding: 0;
+  }
+
+  body {
+    width: 100% !important;
+    -webkit-text;
+    size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    margin: 0;
+    font-family: 'Gotham A', 'Gotham B', Helvetica, Roboto, Arial;
+    padding: 0;
+  }
+
+  .ReadMsgBody {
+    width: 100%;
+  }
+
+  .ExternalClass {
+    width: 100%;
+  }
+
+  .backgroundTable {
+    margin: 0 auto;
+    padding: 0;
+    width: 100%;
+  }
+
+  table td {
+    border-collapse: collapse;
+  }
+
+  .ExternalClass * {
+    line-height: 115%;
+  }
+
+  /*Themeing styles*/
+
+  .mail-heading {
+    font-size: 21px;
+    color: #222222;
+    font-weight: 400;
+    line-height: 25px;
+  }
+
+  *[class="m-show"] {
+    display: none !important;
+  }
+
+  *[class="d-hide"] {
+    display: block !important;
+  }
+
+  *[class="td-5"] {
+    margin-bottom: 24px;
+    display: block;
+  }
+
+  *[class="td-link"] {
+    color: #167BB4;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.15px;
+    line-height: 16px;
+    text-decoration: none;
+  }
+
+  .container {
+    padding: 56px;
+  }
+
+  .social-icons {
+    padding-right: 19px;
+    padding-left: 0;
+    text-decoration: none;
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+  }
+
+  .social-icons img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .copyright-text {
+    color: #747678;
+    font-size: 14px;
+  }
+
+  *[class="border-top"] {
+    border-top: 1px solid #cecece;
+  }
+
+  *[class="email-footer"] {
+    background-color: #dfdfdf;
+    display: block;
+    margin-top: 32px;
+  }
+
+  .align-d-right {
+    float: right;
+  }
+
+  .mr-2 {
+    margin: 10px;
+    display: block;
+  }
+
+  .container {
+    padding: 56px;
+  }
+
+  .sm-pb-8 {
+    padding-bottom: 8px;
+  }
+
+  .sm-pb-16 {
+    padding-bottom: 16px;
+  }
+
+  .sm-pb-24 {
+    padding-bottom: 24px;
+  }
+
+  .sm-padding {
+    padding: 24px;
+  }
+
+  .product-data {
+    width: 80%;
+  }
+
+  .product-price {
+    width: 20%;
+    text-align: right;
+  }
+
+  .product {
+    width: 80%;
+  }
+
+  .product-img {
+    width: 15%;
+    padding-right: 24px;
+  }
+
+  .product-img img {
+    padding: 18px 6px;
+    border: .5px solid #CECECE;
+    height: 142px;
+    width: 142px;
+  }
+
+  .order-summary {
+    margin: 32px 40px 32px 0;
+    margin-left: 65%;
+  }
+
+  /* These are our mobile screen media queries */
+  @media screen and (max-width: 1199px) {
+    body>table {
+      width: 768px;
+    }
+
+    .content-slot {
+      padding-left: 32px;
+      padding-right: 32px;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    body>table {
+      width: 360px;
+    }
+
+    .content-slot {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+  }
+
+  @media screen and (max-width: 766px) {
+
+    .wrapper {
+      width: 100%;
+    }
+
+    /* Display block allows us to stack elements */
+    *[class="mobile-column"] {
+      display: block;
+    }
+
+    /* Some more stacking elements */
+    *[class="mob-column"] {
+      float: none !important;
+      width: 100% !important;
+    }
+
+    /* Hide stuff */
+    *[class="d-hide"] {
+      display: none !important;
+    }
+
+    *[class="m-show"] {
+      display: block !important;
+    }
+
+    /* This sets elements to 100% width and fixes the height issues too, a god send */
+    *[class="100p"] {
+      width: 100% !important;
+      height: auto !important;
+    }
+
+    /* For the 2x2 stack */
+    *[class="condensed"] {
+      padding-bottom: 40px !important;
+      display: block;
+    }
+
+    /* Centers content on mobile */
+    *[class="center"] {
+      text-align: center !important;
+      width: 100% !important;
+      height: auto !important;
+    }
+
+    /* 100percent width section with 20px padding */
+    *[class="100pad"] {
+      width: 100% !important;
+      padding: 20px;
+    }
+
+    /* 100percent width section with 20px padding left & right */
+    *[class="100padleftright"] {
+      width: 100% !important;
+      padding: 0 20px 0 20px;
+    }
+
+    /* 100percent width section with 20px padding top & bottom */
+    *[class="100padtopbottom"] {
+      width: 100% !important;
+      padding: 20px 0 20px 0;
+    }
+
+    *[class="td-m-block"] {
+      display: block;
+    }
+
+    .footer-m-block {
+      display: block;
+    }
+
+    .followUs-m-left {
+      margin: 10px 10px 10px 3px;
+    }
+
+    .align-m-left {
+      float: left;
+    }
+
+    .align-d-right {
+      float: left;
+    }
+  }
+
+</style>
+<!–[if gte mso 9]>
+
+<body style="padding:0; margin:0;color: #222222;">
+  <table width="100%" cellspacing="0" cellpadding="0" bgcolor="transparent" class="100p" align="center" style="position: relative;">
+    <tr>
+      <td valign="top" align="left" width="100%" style="font-family: Helvetica, Arial, Verdana,
+      sans-serif;">
+        <table cellspacing="0" cellpadding="0" align="left" border="0" width="100%" bgcolor="#0000ff" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+          <tr>
+            <td valign="top" align="left" width="100%" height="73px" style="font-family: Helvetica, Arial, Verdana,
+      sans-serif;"
+              background="../images/email-header.png" class="100p"></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top" align="left" width="100%" style="font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+        <table class="content-slot" cellspacing="0" cellpadding="0" align="left" border="0" width="100%" bgcolor="#ffffff"
+          style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding-left: 40px; padding-right: 40px;">
+          <tr>
+            <td valign="top" align="left" width="100%" colspan="4" class="txt-xl txt-weight-light txt-default-color py-4"
+              style="font-size: 24px; color: #222222; font-weight: 300; padding-top: 24px; padding-bottom: 24px; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">Order
+              Shipped</td>
+          </tr>
+          <tr>
+            <td valign="top" align="left" width="100%" colspan="4" class="pb-4" style="padding-bottom: 24px; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+              <p class="txt-big txt-default-color txt-weight-light" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 16px; color: #222222; font-weight: 300; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">Your
+                < store name> order has been
+                  shipped.</p>
+            </td>
+          </tr>
+          <tr>
+            <td valign="top" align="left" width="100%" colspan="4" class="pb-4" style="padding-bottom: 24px; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+              <p class="txt-big txt-default-color txt-weight-light" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 16px; color: #222222; font-weight: 300; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">ORDER
+                # - 123467-97862.</p>
+            </td>
+          </tr>
+          <tr>
+            <td valign="top" align="left" width="25%" class=" pb-2" style="padding-bottom: 8px; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+              <p class="txt-regular txt-default-color txt-weight-semi-bold" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #222222; font-weight: 500; font-family: Helvetica, Arial, Verdana,
+    sans-serif;"><strong
+                  style="margin: 0; padding: 0; line-height: 1.428571429; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">Order
+                  Placed</strong></p>
+              <p class="txt-small txt-default-color txt-weight-light " style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 12px; color: #222222; font-weight: 300; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">Jan
+                20, 2018</p>
+            </td>
+            <td valign="top" align="left" width="25%" class=" pb-2" style="padding-bottom: 8px; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+              <p class="txt-regular txt-default-color txt-weight-semi-bold " style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #222222; font-weight: 500; font-family: Helvetica, Arial, Verdana,
+    sans-serif;"><strong
+                  style="margin: 0; padding: 0; line-height: 1.428571429; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">Billed
+                  To</strong></p>
+              <p class="txt-small txt-default-color txt-weight-light " style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 12px; color: #222222; font-weight: 300; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+                < card holder name>
+              </p>
+              <p class="txt-small txt-default-color txt-weight-light" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 12px; color: #222222; font-weight: 300; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+                < card type>
+              </p>
+            </td>
+            <td valign="top" align="left" width="25%" class=" pb-2" style="padding-bottom: 8px; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+              <p class="txt-regular txt-default-color txt-weight-semi-bold" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #222222; font-weight: 500; font-family: Helvetica, Arial, Verdana,
+    sans-serif;"><strong
+                  style="margin: 0; padding: 0; line-height: 1.428571429; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">Shipped
+                  To</strong></p>
+              <p class="txt-small txt-default-color txt-weight-light" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 12px; color: #222222; font-weight: 300; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">Peter
+                Williams 123 Pinegrove Rd, Denver CO, 80221</p>
+            </td>
+            <td valign="top" align="left" width="25%" class=" pb-2" style="padding-bottom: 8px; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+              <p class="txt-regular txt-default-color txt-weight-semi-bold" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #222222; font-weight: 500; font-family: Helvetica, Arial, Verdana,
+    sans-serif;"><strong
+                  style="margin: 0; padding: 0; line-height: 1.428571429; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">Delivery
+                  Instructions</strong></p>
+              <p class="txt-small txt-default-color txt-weight-light" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 12px; color: #222222; font-weight: 300; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">Donec
+                ullamcorper nulla non metus auctor fringilla. Aenean lacinia bibendum nulla sed
+                consectetur.</p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top" align="left" width="100%" class=" px-6 pt-3" style="padding-top: 16px; padding-right: 40px; padding-left: 40px; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+        <p class="txt-regular txt-default-color txt-weight-semi-bold" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #222222; font-weight: 500; font-family: Helvetica, Arial, Verdana,
+    sans-serif;"><strong
+            style="margin: 0; padding: 0; line-height: 1.428571429; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">Items
+            Shipped</strong></p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top" align="left" width="100%" class="px-6 py-5" style="padding-right: 40px; padding-left: 40px; padding-top: 32px; padding-bottom: 32px; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+        <table class="border-all pb-4" cellspacing="0" cellpadding="0" align="left" border="0" width="100%" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; border: 1px solid #cecece; padding-bottom: 24px;">
+          <tr class="bg-summary" style="background-color: #fafafa;" bgcolor="#fafafa">
+            <td valign="top" align="left" colspan="2" class="pt-3 pl-4" style="padding-top: 16px; padding-left: 24px; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+              <p class="txt-regular txt-default-color txt-weight-semi-bold" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #222222; font-weight: 500; font-family: Helvetica, Arial, Verdana,
+    sans-serif;"><strong
+                  style="margin: 0; padding: 0; line-height: 1.428571429; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">Tracking
+                  #</strong></p>
+            </td>
+            <td valign="top" align="left" colspan="2" class="pt-3 pr-4" style="padding-top: 16px; padding-right: 24px; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+              <p class="txt-regular txt-default-color txt-weight-semi-bold" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #222222; font-weight: 500; font-family: Helvetica, Arial, Verdana,
+    sans-serif;"><strong
+                  style="margin: 0; padding: 0; line-height: 1.428571429; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">Delivery
+                  Method</strong></p>
+            </td>
+          </tr>
+          <tr class="bg-summary" style="background-color: #fafafa;" bgcolor="#fafafa">
+            <td valign="top" align="left" colspan="2" class="pb-3 pl-4" style="padding-bottom: 16px; padding-left: 24px; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+              <a href="/#" title="" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.15; font-size: 12px; color: #222222; font-weight: 300; display: block; text-decoration: none; outline: none; border: none; font-family: Helvetica, Arial, Verdana,
+    sans-serif;"
+                target="_blank" class="txt-small txt-default-color txt-weight-light">#1111111111</a>
+            </td>
+            <td valign="top" align="left" colspan="2" class="pr-4 pb-3" style="padding-bottom: 16px; padding-right: 24px; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+              <p class="txt-small txt-default-color txt-weight-light" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 12px; color: #222222; font-weight: 300; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+                method
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td valign="top" align="left" colspan="4" style="font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+              <table cellspacing="0" cellpadding="0" align="center" width="100%" bgcolor="#ffffff" class="border-bottom border-top px-4 "
+                style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-top: 1px solid #cecece; border-bottom: 1px solid #cecece; padding-right: 24px; padding-left: 24px;">
+                <tr>
+                  <td rowspan="5" align="center" class="py-4" style="padding-top: 24px; padding-bottom: 24px; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+                    <img src="https://www.publicdomainpictures.net/pictures/240000/velka/geometric-gear.jpg" alt=""
+                      style="height: auto; text-decoration: none; -ms-interpolation-mode: bicubic; margin: 0; padding: 0; line-height: 1.428571429; display: block; outline: none;"
+                      border="0" width="130">
+                  </td>
+                  <td class="pt-4" style="padding-top: 24px; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+                    <a class="txt-regular txt-weight-semi-bold " href="/#" title="" style="margin: 0; padding: 0; line-height: 1.428571429; color: #167bb4; letter-spacing: 0.15; font-size: 14px; font-weight: 500; display: block; text-decoration: none; outline: none; border: none; font-family: Helvetica, Arial, Verdana,
+    sans-serif;"
+                      target="_blank">
+                      <strong style="margin: 0; padding: 0; line-height: 1.428571429; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">GP
+                        PRO Ultra&copy; Back-of-House Napkin </strong>
+                    </a>
+                  </td>
+                  <td style="font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+                    &nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td style="font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+                    <p class="txt-weight-light txt-item-color txt-small" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 12px; color: #747678; font-weight: 300; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">ITEM
+                      ID 1234</p>
+                  </td>
+                  <td style="font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+                    &nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td style="font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+                    <p class="txt-small txt-weight-light txt-error-color" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 12px; color: #e42610; font-weight: 300; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">Only
+                      3 left in stock</p>
+                  </td>
+                  <td style="font-family: Helvetica, Arial, Verdana,
+    sans-serif;">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td style="font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+                    <p class="txt-small txt-default-color txt-weight-light" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 12px; color: #222222; font-weight: 300; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">Quantity:
+                      3</p>
+                  </td>
+                  <td style="font-family: Helvetica, Arial, Verdana,
+    sans-serif;">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td class="pb-4" style="padding-bottom: 24px; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+                    <p class="txt-small txt-default-color txt-weight-light pb-4" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 12px; color: #222222; font-weight: 300; padding-bottom: 24px; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">Item
+                      has been customized</p>
+                  </td>
+                  <td style="font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+                    <h2 class="txt-xl txt-default-color txt-weight-semi-bold pb-4" style="margin: 0; padding: 0; line-height: 1.428571429; font-size: 24px; color: #222222; font-weight: 500; padding-bottom: 24px; font-family: Helvetica, Arial, Verdana,
+    sans-serif;"><strong
+                        style="margin: 0; padding: 0; line-height: 1.428571429; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">$498.00</strong></h2>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td valign="top" align="left" colspan="4" style="font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+              <table cellspacing="0" cellpadding="0" align="left" width="100%" bgcolor="#ffffff" class="px-4" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding-right: 24px; padding-left: 24px;">
+                <tr>
+                  <td rowspan="5" align="center" class="py-4" style="padding-top: 24px; padding-bottom: 24px; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+                    <img src="https://www.publicdomainpictures.net/pictures/240000/velka/geometric-gear.jpg" alt=""
+                      style="height: auto; text-decoration: none; -ms-interpolation-mode: bicubic; margin: 0; padding: 0; line-height: 1.428571429; display: block; outline: none;"
+                      border="0" width="130">
+                  </td>
+                  <td class="pt-4" style="padding-top: 24px; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+                    <a href="/#" title="" class="txt-regular txt-weight-semi-bold" style="margin: 0; padding: 0; line-height: 1.428571429; color: #167bb4; letter-spacing: 0.15; font-size: 14px; font-weight: 500; display: block; text-decoration: none; outline: none; border: none; font-family: Helvetica, Arial, Verdana,
+    sans-serif;"
+                      target="_blank">
+                      <strong style="margin: 0; padding: 0; line-height: 1.428571429; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">GP
+                        PRO Ultra&copy; Back-of-House Napkin </strong>
+                    </a>
+                  </td>
+                  <td style="font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+                    &nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td style="font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+                    <p class="txt-weight-light txt-item-color txt-small" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 12px; color: #747678; font-weight: 300; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">ITEM
+                      ID 1234</p>
+                  </td>
+                  <td style="font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+                    &nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td style="font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+                    <p class="txt-small txt-weight-light txt-error-color" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 12px; color: #e42610; font-weight: 300; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">Only
+                      3 left in stock</p>
+                  </td>
+                  <td style="font-family: Helvetica, Arial, Verdana,
+    sans-serif;">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td style="font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+                    <p class="txt-small txt-default-color txt-weight-light" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 12px; color: #222222; font-weight: 300; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">Quantity:
+                      3</p>
+                  </td>
+                  <td style="font-family: Helvetica, Arial, Verdana,
+    sans-serif;">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td style="font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+                    <p class="txt-small txt-default-color txt-weight-light pb-4" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 12px; color: #222222; font-weight: 300; padding-bottom: 24px; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">Item
+                      has been customized</p>
+                  </td>
+                  <td style="font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+                    <h2 class="txt-xl txt-default-color txt-weight-semi-bold pb-4" style="margin: 0; padding: 0; line-height: 1.428571429; font-size: 24px; color: #222222; font-weight: 500; padding-bottom: 24px; font-family: Helvetica, Arial, Verdana,
+    sans-serif;"><strong
+                        style="margin: 0; padding: 0; line-height: 1.428571429; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">$498.00</strong></h2>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top" align="left" width="100%" style="font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+        <table cellspacing="0" cellpadding="0" align="left" border="0" width="50%" bgcolor="#ffffff" class="pl-6" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding-left: 40px;">
+          <tr>
+            <td valign="top" align="left" width="100%" style="font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+              <table cellspacing="0" cellpadding="0" align="left" border="0" width="100%" class="bg-summary px-4" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #fafafa; padding-right: 24px; padding-left: 24px;"
+                bgcolor="#fafafa">
+                <tr>
+                  <td colspan="2" valign="top" align="left" width="100%" class="py-4" style="padding-top: 24px; padding-bottom: 24px; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+                    <h3 class="txt-xl txt-default-color txt-weight-light" style="margin: 0; padding: 0; line-height: 1.428571429; font-size: 24px; color: #222222; font-weight: 300; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">Order
+                      Summary</h3>
+                  </td>
+                </tr>
+                <tr>
+                  <td valign="top" align="left" width="60%" class="pb-3" style="padding-bottom: 16px; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+                    <p class="txt-big txt-default-color txt-weight-light" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 16px; color: #222222; font-weight: 300; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">Subtotal
+                      (<#items>)</#items>
+                    </p>
+                  </td>
+                  <td valign="top" align="right" width="" class="pb-3" style="padding-bottom: 16px; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+                    <h4 class="txt-big txt-default-color txt-weight-semi-bold" style="margin: 0; padding: 0; line-height: 1.428571429; font-size: 16px; color: #222222; font-weight: 500; font-family: Helvetica, Arial, Verdana,
+    sans-serif;"><strong
+                        style="margin: 0; padding: 0; line-height: 1.428571429; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">$2,866.00</strong></h4>
+                  </td>
+                </tr>
+                <tr>
+                  <td valign="top" align="left" width="" class="pb-3" style="padding-bottom: 16px; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+                    <p class="txt-big txt-default-color txt-weight-light" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 16px; color: #222222; font-weight: 300; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">Shipping</p>
+                  </td>
+                  <td valign="top" align="right" width="" class="pb-3" style="padding-bottom: 16px; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+                    <h4 class="txt-big txt-default-color txt-weight-semi-bold" style="margin: 0; padding: 0; line-height: 1.428571429; font-size: 16px; color: #222222; font-weight: 500; font-family: Helvetica, Arial, Verdana,
+    sans-serif;"><strong
+                        style="margin: 0; padding: 0; line-height: 1.428571429; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">$70.00</strong></h4>
+                  </td>
+                </tr>
+                <tr>
+                  <td valign="top" align="left" width="" class="pb-3" style="padding-bottom: 16px; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+                    <p class="txt-big txt-default-color txt-weight-light" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 16px; color: #222222; font-weight: 300; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">My
+                      Savings</p>
+                  </td>
+                  <td valign="top" align="right" width="" class="pb-3" style="padding-bottom: 16px; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+                    <p class="txt-big txt-price-color txt-weight-semi-bold" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 16px; color: #417505; font-weight: 500; font-family: Helvetica, Arial, Verdana,
+    sans-serif;"><strong
+                        style="margin: 0; padding: 0; line-height: 1.428571429; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">-
+                        $40.00</strong></p>
+                  </td>
+                </tr>
+                <tr>
+                  <td valign="top" align="left" width="" class="pb-3" style="padding-bottom: 16px; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+                    <p class="txt-big txt-default-color txt-weight-light" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 16px; color: #222222; font-weight: 300; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">Tax</p>
+                  </td>
+                  <td valign="top" align="right" width="" class="pb-3" style="padding-bottom: 16px; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+                    <h4 class="txt-big txt-default-color txt-weight-semi-bold" style="margin: 0; padding: 0; line-height: 1.428571429; font-size: 16px; color: #222222; font-weight: 500; font-family: Helvetica, Arial, Verdana,
+    sans-serif;"><strong
+                        style="margin: 0; padding: 0; line-height: 1.428571429; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">$10.00</strong></h4>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2" valign="top" align="left" width="100%" class="pb-3" style="padding-bottom: 16px; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+                    <p class="txt-small txt-item-color txt-weight-light " style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 12px; color: #747678; font-weight: 300; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">You've
+                      requested installation services.</p>
+                    <a class="txt-small txt-weight-semi-bold" href="#" title="" style="margin: 0; padding: 0; line-height: 1.428571429; color: #167bb4; letter-spacing: 0.15; font-size: 12px; font-weight: 500; display: block; text-decoration: none; outline: none; border: none; font-family: Helvetica, Arial, Verdana,
+    sans-serif;"
+                      target="_blank">Learn More</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td valign="top" align="left" width="" class="border-top pt-3" style="border-top: 1px solid #cecece; padding-top: 16px; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+                    <h4 class="txt-big txt-default-color txt-weight-semi-bold" style="margin: 0; padding: 0; line-height: 1.428571429; font-size: 16px; color: #222222; font-weight: 500; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">Total</h4>
+                  </td>
+                  <td valign="top" align="right" width="" class="border-top pt-3" style="border-top: 1px solid #cecece; padding-top: 16px; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+                    <h4 class="txt-xl txt-default-color txt-weight-semi-bold" style="margin: 0; padding: 0; line-height: 1.428571429; font-size: 24px; color: #222222; font-weight: 500; font-family: Helvetica, Arial, Verdana,
+    sans-serif;"><strong
+                        style="margin: 0; padding: 0; line-height: 1.428571429; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">$2,846.00</strong></h4>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td valign="top" align="left" width="100%" style="font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+              <table cellspacing="0" cellpadding="0" align="left" border="0" width="100%" class="border-top bg-summary"
+                style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-top: 1px solid #cecece; background-color: #fafafa;"
+                bgcolor="#fafafa">
+                <tr>
+                  <td class="px-4 py-3" style="padding-right: 24px; padding-left: 24px; padding-top: 16px; padding-bottom: 16px; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+                    <p class="txt-small txt-item-color txt-weight-light" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 12px; color: #747678; font-weight: 300; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">Please
+                      contact customer service at <###-###-####> for questions regarding your
+                        installation.</###-###-####>
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="px-4 pb-3" style="padding-bottom: 16px; padding-right: 24px; padding-left: 24px; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+                    <p class="txt-small txt-item-color txt-weight-light" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 12px; color: #747678; font-weight: 300; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">For
+                      questions about your order, please contact customer service at
+                      <###-###-####>.</###-###-####>
+                    </p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top" align="left" width="100%" style="font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+        <table class="content-slot" cellspacing="0" cellpadding="0" align="left" border="0" width="100%" bgcolor="#ffffff"
+          style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding-left: 40px; padding-right: 40px;">
+          <tr>
+            <td valign="top" align="left" width=" " class="py-4" style="padding-top: 24px; padding-bottom: 24px; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+              <p class="txt-small txt-item-color txt-weight-light" style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 12px; color: #747678; font-weight: 300; font-family: Helvetica, Arial, Verdana,
+    sans-serif;">Lorem
+                ipsum dolor sit amet, consectetur adipiscing elit. Donec id elit non mi porta gravida
+                at eget metus. Donec ullamcorper nulla non metus auctor fringilla.</p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top" align="left" width="100%" style="font-family: Helvetica, Arial, Verdana,
+    sans-serif;">
+        <table cellspacing="0" cellpadding="0" align="left" border="0" width="100%" bgcolor="#cdcdcd" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+          <tr>
+            <td valign="top" align="center" width="100%">
+              <table cellspacing="0" cellpadding="0" align="center" border="0" width="100%" bgcolor="#cdcdcd">
+                <tr>
+                  <td valign="top" align="left" width="">
+                  </td>
+                </tr>
+                <tr style="margin-top: 32px;background-color: #dfdfdf;">
+                  <td style="border-top: 1px solid #cecece;">
+                    <table border="0" cellspacing="0" cellpadding="0" style="padding: 24px" width="100%">
+                      <tr>
+                        <td align="left" valign="middle" style="border-collapse:collapse" class="footer-m-block">
+                          <table width="100%">
+                            <tr>
+                              <td>
+                                <a href="javascript:void(0)" style=" color: #167BB4;font-size:14px;padding:10px,display:inline-block;text-decoration:none;outline:0;outline:none;border:0;border:none">Contact
+                                  Us</a>
+                              </td>
+                              <td style="color: #747678;font-size: 14px;" align="right">&copy;
+                                2018 | Georgia Pacific</td>
+                            </tr>
+                          </table>
+                        </td>
+                        <td align="right" valign="middle" style="border-collapse:collapse" class="footer-m-block">
+                          <table border="0" cellspacing="0" cellpadding="0" class="align-m-left">
+                            <tbody>
+                              <tr>
+                                <td style="padding-right:10px;margin:10px;display: block;font-size: 14px;" class="followUs-m-left">Follow
+                                  Us</td>
+                                <td>
+                                  <table border="0" cellspacing="0" cellpadding="0">
+                                    <tr>
+                                      <td>
+                                        <a style="font-size:0;border:0;outline:0;border:none;outline:none;text-decoration:none;padding-right:10px;padding-left: 0;"
+                                          href="javascript:void(0) ">
+                                          <img width="32px" height="32px" src="../images/icon-facebook.png ">
+                                        </a>
+                                      </td>
+                                      <td>
+                                        <a style="font-size:0;border:0;outline:0;border:none;outline:none;text-decoration:none;padding-right:10px;padding-left: 0;"
+                                          href="javascript:void(0) ">
+                                          <img width="32px" height="32px" src="../images/icon-twitter.png ">
+                                        </a>
+                                      </td>
+                                      <td>
+                                        <a style="font-size:0;border:0;outline:0;border:none;outline:none;text-decoration:none;padding-right:10px;padding-left: 0;"
+                                          href="javascript:void(0) ">
+                                          <img width="32px" height="32px" src="../images/icon-instagram.png ">
+                                        </a>
+                                      </td>
+                                    </tr>
+                                  </table>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>

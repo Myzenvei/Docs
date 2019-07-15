@@ -1,0 +1,24 @@
+#brawny {
+  .image-title {
+    .header {
+      font-size: @font-size-h2;
+      font-weight: @font-weight-bold;
+    }
+    .title-underline {
+      display: none !important;
+    }
+    .bottom-block {
+      .tile-header {
+        font-size: @font-size-h2;
+        font-weight: @font-weight-bold;
+      }
+      .tile-text {
+        font-size: @font-size-large;
+        letter-spacing: 0.4px;
+      }
+      .tile-btn-container {
+        &:extend(.btn);
+      }
+    }
+  }
+}

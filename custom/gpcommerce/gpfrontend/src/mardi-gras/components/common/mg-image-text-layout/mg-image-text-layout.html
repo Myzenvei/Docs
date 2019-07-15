@@ -1,0 +1,46 @@
+<div class="mg-image-text-layout row" :class="componentClass" :style="{background: setLayoutBackground(componentTheme.layoutBackgroundType, componentTheme.layoutBackground)}">
+  <div class="d-md-flex d-md-justify-content-center container m-auto">
+    <div class="col-xs-12 col-sm-5 col-md-5 image-layout text-center" :class="{ 'hidden-xs': componentTheme.hideBannerInMobile }">
+      <img class="main-image" :src="componentData.imageAndText.imgSrcD" :alt="componentData.imageAndText.bannerDesc">
+    </div>
+    <div class="col-xs-12 col-sm-7 col-md-7 text-layout text-right">
+      <div class="row">
+        <div class="col-sm-12 p-xs-0 p-md-3">
+          <div v-if="componentTheme.borderBottom">
+            <div class="title" v-html="componentData.imageAndText.headingText" :style="{color: componentTheme.titleColor,'border-bottom':componentTheme.borderBottom}"></div>
+          </div>
+          <div v-else>
+            <div class="title" v-html="componentData.imageAndText.headingText" :style="{color: componentTheme.titleColor}"></div>
+          </div>
+          <div class="sub-title" v-html="componentData.imageAndText.subHeadingText" :style="{color: componentTheme.subTitleColor}"></div>
+          <div class="description mt-xs-3" v-html="componentData.imageAndText.informationText" :style="{color: componentTheme.descriptionColor}"></div>
+        </div>
+        <div class="col-sm-12 form-layout d-flex flex-sm-column flex-xs-column justify-content-end p-xs-0 p-md-3" v-if="isForm">
+          <div class="download-btn-form mt-xs-3">
+            <a class="btn btn-download-activity-kit text-center" :href="componentData.downloadBtnLink" target="_blank">
+              {{componentData.imageAndText.downloadBtnLabel}}
+            </a>
+          </div>
+          <div class="sign-up-form d-flex flex-sm-row flex-xs-row justify-content-end mt-xs-3">
+            <div class="form-input">
+              <input type="email" :placeholder="componentData.signUpPlaceholder" name="Email" validation="required"
+                class=" teacher-email">
+            </div>
+            <div class="form-button">
+              <a class="btn btn-teachers-sign-up" :href="componentData.signUpBtnLink" target="_blank">
+                <span class="hidden-xs">{{componentData.signUpBtnLabel}}</span>{{componentData.freeCouponBtnLabel}}
+              </a>
+            </div>
+          </div>
+          <div class="quick-promo d-flex flex-sm-row flex-xs-row justify-content-center text-center mt-xs-3">
+            <div class="promo-text">{{componentData.savingsLabel}}</div>
+            <img class="promo-img" :src="componentData.savingsArrow" :alt="componentData.savingsArrowAlt">
+          </div>
+        </div>
+        <div class="col-sm-12 mt-xs-5 p-xs-0 p-md-3">
+          <slot></slot>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

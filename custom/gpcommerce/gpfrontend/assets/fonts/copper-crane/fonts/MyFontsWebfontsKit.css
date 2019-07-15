@@ -1,0 +1,356 @@
+/**
+ * @license
+ * MyFonts Webfont Build ID 3740064, 2019-03-28T11:36:51-0400
+ * 
+ * The fonts listed in this notice are subject to the End User License
+ * Agreement(s) entered into by the website owner. All other parties are 
+ * explicitly restricted from using the Licensed Webfonts(s).
+ * 
+ * You may obtain a valid license at the URLs below.
+ * 
+ * Webfont: QueulatUni-Regular by Latinotype
+ * URL: https://www.myfonts.com/fonts/latinotype/queulat/uni/
+ * Copyright: Jorge Cisterna
+ * Licensed pageviews: 100,000
+ * 
+ * Webfont: Queulat-BlackItalic by Latinotype
+ * URL: https://www.myfonts.com/fonts/latinotype/queulat/black-italic/
+ * Copyright: Jorge Cisterna
+ * Licensed pageviews: 100,000
+ * 
+ * Webfont: Queulat-Bold by Latinotype
+ * URL: https://www.myfonts.com/fonts/latinotype/queulat/bold/
+ * Copyright: Jorge Cisterna
+ * Licensed pageviews: 100,000
+ * 
+ * Webfont: Queulat-Black by Latinotype
+ * URL: https://www.myfonts.com/fonts/latinotype/queulat/black/
+ * Copyright: Jorge Cisterna
+ * Licensed pageviews: 100,000
+ * 
+ * Webfont: QueulatAlt-Black by Latinotype
+ * URL: https://www.myfonts.com/fonts/latinotype/queulat/alt-black/
+ * Copyright: Jorge Cisterna
+ * Licensed pageviews: 100,000
+ * 
+ * Webfont: Queulat-BoldItalic by Latinotype
+ * URL: https://www.myfonts.com/fonts/latinotype/queulat/bold-italic/
+ * Copyright: Jorge Cisterna
+ * Licensed pageviews: 100,000
+ * 
+ * Webfont: QueulatAlt-BlackItalic by Latinotype
+ * URL: https://www.myfonts.com/fonts/latinotype/queulat/alt-black-italic/
+ * Copyright: Jorge Cisterna
+ * Licensed pageviews: 100,000
+ * 
+ * Webfont: Queulat-Light by Latinotype
+ * URL: https://www.myfonts.com/fonts/latinotype/queulat/light/
+ * Copyright: Jorge Cisterna
+ * Licensed pageviews: 100,000
+ * 
+ * Webfont: QueulatAlt-Bold by Latinotype
+ * URL: https://www.myfonts.com/fonts/latinotype/queulat/alt-bold/
+ * Copyright: Jorge Cisterna
+ * Licensed pageviews: 100,000
+ * 
+ * Webfont: Queulat-LightItalic by Latinotype
+ * URL: https://www.myfonts.com/fonts/latinotype/queulat/light-italic/
+ * Copyright: Jorge Cisterna
+ * Licensed pageviews: 100,000
+ * 
+ * Webfont: Queulat-Medium by Latinotype
+ * URL: https://www.myfonts.com/fonts/latinotype/queulat/medium/
+ * Copyright: Jorge Cisterna
+ * Licensed pageviews: 100,000
+ * 
+ * Webfont: Queulat-MediumItalic by Latinotype
+ * URL: https://www.myfonts.com/fonts/latinotype/queulat/medium-italic/
+ * Copyright: Jorge Cisterna
+ * Licensed pageviews: 100,000
+ * 
+ * Webfont: QueulatAlt-BoldItalic by Latinotype
+ * URL: https://www.myfonts.com/fonts/latinotype/queulat/alt-bold-italic/
+ * Copyright: Jorge Cisterna
+ * Licensed pageviews: 100,000
+ * 
+ * Webfont: Queulat-Regular by Latinotype
+ * URL: https://www.myfonts.com/fonts/latinotype/queulat/regular/
+ * Copyright: Jorge Cisterna
+ * Licensed pageviews: 100,000
+ * 
+ * Webfont: Queulat-RegularItalic by Latinotype
+ * URL: https://www.myfonts.com/fonts/latinotype/queulat/italic/
+ * Copyright: Jorge Cisterna
+ * Licensed pageviews: 100,000
+ * 
+ * Webfont: QueulatAlt-Light by Latinotype
+ * URL: https://www.myfonts.com/fonts/latinotype/queulat/alt-light/
+ * Copyright: Jorge Cisterna
+ * Licensed pageviews: 100,000
+ * 
+ * Webfont: Queulat-Thin by Latinotype
+ * URL: https://www.myfonts.com/fonts/latinotype/queulat/thin/
+ * Copyright: Jorge Cisterna
+ * Licensed pageviews: 100,000
+ * 
+ * Webfont: QueulatAlt-LightItalic by Latinotype
+ * URL: https://www.myfonts.com/fonts/latinotype/queulat/alt-light-italic/
+ * Copyright: Jorge Cisterna
+ * Licensed pageviews: 100,000
+ * 
+ * Webfont: Queulat-ThinItalic by Latinotype
+ * URL: https://www.myfonts.com/fonts/latinotype/queulat/thin-italic/
+ * Copyright: Jorge Cisterna
+ * Licensed pageviews: 100,000
+ * 
+ * Webfont: QueulatAlt-Medium by Latinotype
+ * URL: https://www.myfonts.com/fonts/latinotype/queulat/alt-medium/
+ * Copyright: Jorge Cisterna
+ * Licensed pageviews: 100,000
+ * 
+ * Webfont: QueulatAlt-MediumItalic by Latinotype
+ * URL: https://www.myfonts.com/fonts/latinotype/queulat/alt-medium-italic/
+ * Copyright: Jorge Cisterna
+ * Licensed pageviews: 100,000
+ * 
+ * Webfont: QueulatAlt-Regular by Latinotype
+ * URL: https://www.myfonts.com/fonts/latinotype/queulat/alt-regular/
+ * Copyright: Jorge Cisterna
+ * Licensed pageviews: 100,000
+ * 
+ * Webfont: QueulatAlt-RegularItalic by Latinotype
+ * URL: https://www.myfonts.com/fonts/latinotype/queulat/alt-italic/
+ * Copyright: Jorge Cisterna
+ * Licensed pageviews: 100,000
+ * 
+ * Webfont: QueulatAlt-Thin by Latinotype
+ * URL: https://www.myfonts.com/fonts/latinotype/queulat/alt-thin/
+ * Copyright: Jorge Cisterna
+ * Licensed pageviews: 100,000
+ * 
+ * Webfont: QueulatAlt-ThinItalic by Latinotype
+ * URL: https://www.myfonts.com/fonts/latinotype/queulat/alt-thin-italic/
+ * Copyright: Jorge Cisterna
+ * Licensed pageviews: 100,000
+ * 
+ * Webfont: CocogoosePro-Light by Zetafonts
+ * URL: https://www.myfonts.com/fonts/zetafonts/cocogoose-pro/light/
+ * Copyright: Copyright \(c\) 2016 by Zetafonts. All rights reserved.
+ * Licensed pageviews: 200,000
+ * 
+ * Webfont: CocogoosePro-Italic by Zetafonts
+ * URL: https://www.myfonts.com/fonts/zetafonts/cocogoose-pro/italic/
+ * Copyright: Copyright \(c\) 2016 by Zetafonts. All rights reserved.
+ * Licensed pageviews: 200,000
+ * 
+ * Webfont: CocogoosePro-Inline by Zetafonts
+ * URL: https://www.myfonts.com/fonts/zetafonts/cocogoose-pro/inline/
+ * Copyright: Copyright (c) 2016 by Zetafonts. All rights reserved.
+ * Licensed pageviews: 200,000
+ * 
+ * Webfont: CocogoosePro-Letterpress by Zetafonts
+ * URL: https://www.myfonts.com/fonts/zetafonts/cocogoose-pro/letterpress/
+ * Copyright: Copyright (c) 2014 by Studio kmzero. All rights reserved.
+ * Licensed pageviews: 200,000
+ * 
+ * Webfont: CocogoosePro-Outlined by Zetafonts
+ * URL: https://www.myfonts.com/fonts/zetafonts/cocogoose-pro/outlined/
+ * Copyright: Copyright (c) 2016 by Zetafonts. All rights reserved.
+ * Licensed pageviews: 200,000
+ * 
+ * Webfont: CocogoosePro-Regular by Zetafonts
+ * URL: https://www.myfonts.com/fonts/zetafonts/cocogoose-pro/regular/
+ * Copyright: Copyright \(c\) 2016 by Zetafonts. All rights reserved.
+ * Licensed pageviews: 200,000
+ * 
+ * Webfont: CocogoosePro-LightItalic by Zetafonts
+ * URL: https://www.myfonts.com/fonts/zetafonts/cocogoose-pro/light-italic/
+ * Copyright: Copyright \(c\) 2016 by Zetafonts. All rights reserved.
+ * Licensed pageviews: 200,000
+ * 
+ * Webfont: CocogooseProBlock-BlockBorder by Zetafonts
+ * URL: https://www.myfonts.com/fonts/zetafonts/cocogoose-pro/block-border/
+ * Copyright: Copyright (c) 2016 by Zetafonts. All rights reserved.
+ * Licensed pageviews: 200,000
+ * 
+ * Webfont: CocogoosePro-SemiLight by Zetafonts
+ * URL: https://www.myfonts.com/fonts/zetafonts/cocogoose-pro/semi-light/
+ * Copyright: Copyright \(c\) 2016 by Zetafonts. All rights reserved.
+ * Licensed pageviews: 200,000
+ * 
+ * Webfont: CocogooseProBlock-BlockGradie by Zetafonts
+ * URL: https://www.myfonts.com/fonts/zetafonts/cocogoose-pro/block-gradient/
+ * Copyright: Copyright (c) 2016 by Zetafonts. All rights reserved.
+ * Licensed pageviews: 200,000
+ * 
+ * Webfont: CocogoosePro-SemiLightItalic by Zetafonts
+ * URL: https://www.myfonts.com/fonts/zetafonts/cocogoose-pro/semi-light-italic/
+ * Copyright: Copyright \(c\) 2016 by Zetafonts. All rights reserved.
+ * Licensed pageviews: 200,000
+ * 
+ * Webfont: CocogoosePro-Thin by Zetafonts
+ * URL: https://www.myfonts.com/fonts/zetafonts/cocogoose-pro/thin/
+ * Copyright: Copyright \(c\) 2016 by Zetafonts. All rights reserved.
+ * Licensed pageviews: 200,000
+ * 
+ * Webfont: CocogoosePro-ThinItalic by Zetafonts
+ * URL: https://www.myfonts.com/fonts/zetafonts/cocogoose-pro/thin-italic/
+ * Copyright: Copyright \(c\) 2016 by Zetafonts. All rights reserved.
+ * Licensed pageviews: 200,000
+ * 
+ * Webfont: CocogooseProBlock-BlockInnerl by Zetafonts
+ * URL: https://www.myfonts.com/fonts/zetafonts/cocogoose-pro/block-innerline/
+ * Copyright: Copyright (c) 2016 by Zetafonts. All rights reserved.
+ * Licensed pageviews: 200,000
+ * 
+ * Webfont: CocogooseProBlock-BlockShadow by Zetafonts
+ * URL: https://www.myfonts.com/fonts/zetafonts/cocogoose-pro/block-shadow/
+ * Copyright: Copyright (c) 2016 by Zetafonts. All rights reserved.
+ * Licensed pageviews: 200,000
+ * 
+ * Webfont: CocogoosePro-UltraLight by Zetafonts
+ * URL: https://www.myfonts.com/fonts/zetafonts/cocogoose-pro/ultra-light/
+ * Copyright: Copyright \(c\) 2016 by Zetafonts. All rights reserved.
+ * Licensed pageviews: 200,000
+ * 
+ * Webfont: CocogoosePro-UltraLightItalic by Zetafonts
+ * URL: https://www.myfonts.com/fonts/zetafonts/cocogoose-pro/ultra-light-italic/
+ * Copyright: Copyright \(c\) 2016 by Zetafonts. All rights reserved.
+ * Licensed pageviews: 200,000
+ * 
+ * 
+ * License: https://www.myfonts.com/viewlicense?type=web&buildid=3740064
+ * 
+ * © 2019 MyFonts Inc
+*/
+
+
+/* @import must be at top of file, otherwise CSS will not work */
+@import url("//hello.myfonts.net/count/3911a0");
+
+  
+@font-face {font-family: 'QueulatUni-Regular';src: url('webfonts/3911A0_0_0.eot');src: url('webfonts/3911A0_0_0.eot?#iefix') format('embedded-opentype'),url('webfonts/3911A0_0_0.woff2') format('woff2'),url('webfonts/3911A0_0_0.woff') format('woff'),url('webfonts/3911A0_0_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'Queulat-BlackItalic';src: url('webfonts/3911A0_1_0.eot');src: url('webfonts/3911A0_1_0.eot?#iefix') format('embedded-opentype'),url('webfonts/3911A0_1_0.woff2') format('woff2'),url('webfonts/3911A0_1_0.woff') format('woff'),url('webfonts/3911A0_1_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'Queulat-Bold';src: url('webfonts/3911A0_2_0.eot');src: url('webfonts/3911A0_2_0.eot?#iefix') format('embedded-opentype'),url('webfonts/3911A0_2_0.woff2') format('woff2'),url('webfonts/3911A0_2_0.woff') format('woff'),url('webfonts/3911A0_2_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'Queulat-Black';src: url('webfonts/3911A0_3_0.eot');src: url('webfonts/3911A0_3_0.eot?#iefix') format('embedded-opentype'),url('webfonts/3911A0_3_0.woff2') format('woff2'),url('webfonts/3911A0_3_0.woff') format('woff'),url('webfonts/3911A0_3_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'QueulatAlt-Black';src: url('webfonts/3911A0_4_0.eot');src: url('webfonts/3911A0_4_0.eot?#iefix') format('embedded-opentype'),url('webfonts/3911A0_4_0.woff2') format('woff2'),url('webfonts/3911A0_4_0.woff') format('woff'),url('webfonts/3911A0_4_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'Queulat-BoldItalic';src: url('webfonts/3911A0_5_0.eot');src: url('webfonts/3911A0_5_0.eot?#iefix') format('embedded-opentype'),url('webfonts/3911A0_5_0.woff2') format('woff2'),url('webfonts/3911A0_5_0.woff') format('woff'),url('webfonts/3911A0_5_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'QueulatAlt-BlackItalic';src: url('webfonts/3911A0_6_0.eot');src: url('webfonts/3911A0_6_0.eot?#iefix') format('embedded-opentype'),url('webfonts/3911A0_6_0.woff2') format('woff2'),url('webfonts/3911A0_6_0.woff') format('woff'),url('webfonts/3911A0_6_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'Queulat-Light';src: url('webfonts/3911A0_7_0.eot');src: url('webfonts/3911A0_7_0.eot?#iefix') format('embedded-opentype'),url('webfonts/3911A0_7_0.woff2') format('woff2'),url('webfonts/3911A0_7_0.woff') format('woff'),url('webfonts/3911A0_7_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'QueulatAlt-Bold';src: url('webfonts/3911A0_8_0.eot');src: url('webfonts/3911A0_8_0.eot?#iefix') format('embedded-opentype'),url('webfonts/3911A0_8_0.woff2') format('woff2'),url('webfonts/3911A0_8_0.woff') format('woff'),url('webfonts/3911A0_8_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'Queulat-LightItalic';src: url('webfonts/3911A0_9_0.eot');src: url('webfonts/3911A0_9_0.eot?#iefix') format('embedded-opentype'),url('webfonts/3911A0_9_0.woff2') format('woff2'),url('webfonts/3911A0_9_0.woff') format('woff'),url('webfonts/3911A0_9_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'Queulat-Medium';src: url('webfonts/3911A0_A_0.eot');src: url('webfonts/3911A0_A_0.eot?#iefix') format('embedded-opentype'),url('webfonts/3911A0_A_0.woff2') format('woff2'),url('webfonts/3911A0_A_0.woff') format('woff'),url('webfonts/3911A0_A_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'Queulat-MediumItalic';src: url('webfonts/3911A0_B_0.eot');src: url('webfonts/3911A0_B_0.eot?#iefix') format('embedded-opentype'),url('webfonts/3911A0_B_0.woff2') format('woff2'),url('webfonts/3911A0_B_0.woff') format('woff'),url('webfonts/3911A0_B_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'QueulatAlt-BoldItalic';src: url('webfonts/3911A0_C_0.eot');src: url('webfonts/3911A0_C_0.eot?#iefix') format('embedded-opentype'),url('webfonts/3911A0_C_0.woff2') format('woff2'),url('webfonts/3911A0_C_0.woff') format('woff'),url('webfonts/3911A0_C_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'Queulat-Regular';src: url('webfonts/3911A0_D_0.eot');src: url('webfonts/3911A0_D_0.eot?#iefix') format('embedded-opentype'),url('webfonts/3911A0_D_0.woff2') format('woff2'),url('webfonts/3911A0_D_0.woff') format('woff'),url('webfonts/3911A0_D_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'Queulat-RegularItalic';src: url('webfonts/3911A0_E_0.eot');src: url('webfonts/3911A0_E_0.eot?#iefix') format('embedded-opentype'),url('webfonts/3911A0_E_0.woff2') format('woff2'),url('webfonts/3911A0_E_0.woff') format('woff'),url('webfonts/3911A0_E_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'QueulatAlt-Light';src: url('webfonts/3911A0_F_0.eot');src: url('webfonts/3911A0_F_0.eot?#iefix') format('embedded-opentype'),url('webfonts/3911A0_F_0.woff2') format('woff2'),url('webfonts/3911A0_F_0.woff') format('woff'),url('webfonts/3911A0_F_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'Queulat-Thin';src: url('webfonts/3911A0_10_0.eot');src: url('webfonts/3911A0_10_0.eot?#iefix') format('embedded-opentype'),url('webfonts/3911A0_10_0.woff2') format('woff2'),url('webfonts/3911A0_10_0.woff') format('woff'),url('webfonts/3911A0_10_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'QueulatAlt-LightItalic';src: url('webfonts/3911A0_11_0.eot');src: url('webfonts/3911A0_11_0.eot?#iefix') format('embedded-opentype'),url('webfonts/3911A0_11_0.woff2') format('woff2'),url('webfonts/3911A0_11_0.woff') format('woff'),url('webfonts/3911A0_11_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'Queulat-ThinItalic';src: url('webfonts/3911A0_12_0.eot');src: url('webfonts/3911A0_12_0.eot?#iefix') format('embedded-opentype'),url('webfonts/3911A0_12_0.woff2') format('woff2'),url('webfonts/3911A0_12_0.woff') format('woff'),url('webfonts/3911A0_12_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'QueulatAlt-Medium';src: url('webfonts/3911A0_13_0.eot');src: url('webfonts/3911A0_13_0.eot?#iefix') format('embedded-opentype'),url('webfonts/3911A0_13_0.woff2') format('woff2'),url('webfonts/3911A0_13_0.woff') format('woff'),url('webfonts/3911A0_13_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'QueulatAlt-MediumItalic';src: url('webfonts/3911A0_14_0.eot');src: url('webfonts/3911A0_14_0.eot?#iefix') format('embedded-opentype'),url('webfonts/3911A0_14_0.woff2') format('woff2'),url('webfonts/3911A0_14_0.woff') format('woff'),url('webfonts/3911A0_14_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'QueulatAlt-Regular';src: url('webfonts/3911A0_15_0.eot');src: url('webfonts/3911A0_15_0.eot?#iefix') format('embedded-opentype'),url('webfonts/3911A0_15_0.woff2') format('woff2'),url('webfonts/3911A0_15_0.woff') format('woff'),url('webfonts/3911A0_15_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'QueulatAlt-RegularItalic';src: url('webfonts/3911A0_16_0.eot');src: url('webfonts/3911A0_16_0.eot?#iefix') format('embedded-opentype'),url('webfonts/3911A0_16_0.woff2') format('woff2'),url('webfonts/3911A0_16_0.woff') format('woff'),url('webfonts/3911A0_16_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'QueulatAlt-Thin';src: url('webfonts/3911A0_17_0.eot');src: url('webfonts/3911A0_17_0.eot?#iefix') format('embedded-opentype'),url('webfonts/3911A0_17_0.woff2') format('woff2'),url('webfonts/3911A0_17_0.woff') format('woff'),url('webfonts/3911A0_17_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'QueulatAlt-ThinItalic';src: url('webfonts/3911A0_18_0.eot');src: url('webfonts/3911A0_18_0.eot?#iefix') format('embedded-opentype'),url('webfonts/3911A0_18_0.woff2') format('woff2'),url('webfonts/3911A0_18_0.woff') format('woff'),url('webfonts/3911A0_18_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'CocogoosePro-Light';src: url('webfonts/3911A0_19_0.eot');src: url('webfonts/3911A0_19_0.eot?#iefix') format('embedded-opentype'),url('webfonts/3911A0_19_0.woff2') format('woff2'),url('webfonts/3911A0_19_0.woff') format('woff'),url('webfonts/3911A0_19_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'CocogoosePro-Italic';src: url('webfonts/3911A0_1A_0.eot');src: url('webfonts/3911A0_1A_0.eot?#iefix') format('embedded-opentype'),url('webfonts/3911A0_1A_0.woff2') format('woff2'),url('webfonts/3911A0_1A_0.woff') format('woff'),url('webfonts/3911A0_1A_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'CocogoosePro-Inline';src: url('webfonts/3911A0_1B_0.eot');src: url('webfonts/3911A0_1B_0.eot?#iefix') format('embedded-opentype'),url('webfonts/3911A0_1B_0.woff2') format('woff2'),url('webfonts/3911A0_1B_0.woff') format('woff'),url('webfonts/3911A0_1B_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'CocogoosePro-Letterpress';src: url('webfonts/3911A0_1C_0.eot');src: url('webfonts/3911A0_1C_0.eot?#iefix') format('embedded-opentype'),url('webfonts/3911A0_1C_0.woff2') format('woff2'),url('webfonts/3911A0_1C_0.woff') format('woff'),url('webfonts/3911A0_1C_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'CocogoosePro-Outlined';src: url('webfonts/3911A0_1D_0.eot');src: url('webfonts/3911A0_1D_0.eot?#iefix') format('embedded-opentype'),url('webfonts/3911A0_1D_0.woff2') format('woff2'),url('webfonts/3911A0_1D_0.woff') format('woff'),url('webfonts/3911A0_1D_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'CocogoosePro-Regular';src: url('webfonts/3911A0_1E_0.eot');src: url('webfonts/3911A0_1E_0.eot?#iefix') format('embedded-opentype'),url('webfonts/3911A0_1E_0.woff2') format('woff2'),url('webfonts/3911A0_1E_0.woff') format('woff'),url('webfonts/3911A0_1E_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'CocogoosePro-LightItalic';src: url('webfonts/3911A0_1F_0.eot');src: url('webfonts/3911A0_1F_0.eot?#iefix') format('embedded-opentype'),url('webfonts/3911A0_1F_0.woff2') format('woff2'),url('webfonts/3911A0_1F_0.woff') format('woff'),url('webfonts/3911A0_1F_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'CocogooseProBlock-BlockBorder';src: url('webfonts/3911A0_20_0.eot');src: url('webfonts/3911A0_20_0.eot?#iefix') format('embedded-opentype'),url('webfonts/3911A0_20_0.woff2') format('woff2'),url('webfonts/3911A0_20_0.woff') format('woff'),url('webfonts/3911A0_20_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'CocogoosePro-SemiLight';src: url('webfonts/3911A0_21_0.eot');src: url('webfonts/3911A0_21_0.eot?#iefix') format('embedded-opentype'),url('webfonts/3911A0_21_0.woff2') format('woff2'),url('webfonts/3911A0_21_0.woff') format('woff'),url('webfonts/3911A0_21_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'CocogooseProBlock-BlockGradie';src: url('webfonts/3911A0_22_0.eot');src: url('webfonts/3911A0_22_0.eot?#iefix') format('embedded-opentype'),url('webfonts/3911A0_22_0.woff2') format('woff2'),url('webfonts/3911A0_22_0.woff') format('woff'),url('webfonts/3911A0_22_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'CocogoosePro-SemiLightItalic';src: url('webfonts/3911A0_23_0.eot');src: url('webfonts/3911A0_23_0.eot?#iefix') format('embedded-opentype'),url('webfonts/3911A0_23_0.woff2') format('woff2'),url('webfonts/3911A0_23_0.woff') format('woff'),url('webfonts/3911A0_23_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'CocogoosePro-Thin';src: url('webfonts/3911A0_24_0.eot');src: url('webfonts/3911A0_24_0.eot?#iefix') format('embedded-opentype'),url('webfonts/3911A0_24_0.woff2') format('woff2'),url('webfonts/3911A0_24_0.woff') format('woff'),url('webfonts/3911A0_24_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'CocogoosePro-ThinItalic';src: url('webfonts/3911A0_25_0.eot');src: url('webfonts/3911A0_25_0.eot?#iefix') format('embedded-opentype'),url('webfonts/3911A0_25_0.woff2') format('woff2'),url('webfonts/3911A0_25_0.woff') format('woff'),url('webfonts/3911A0_25_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'CocogooseProBlock-BlockInnerl';src: url('webfonts/3911A0_26_0.eot');src: url('webfonts/3911A0_26_0.eot?#iefix') format('embedded-opentype'),url('webfonts/3911A0_26_0.woff2') format('woff2'),url('webfonts/3911A0_26_0.woff') format('woff'),url('webfonts/3911A0_26_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'CocogooseProBlock-BlockShadow';src: url('webfonts/3911A0_27_0.eot');src: url('webfonts/3911A0_27_0.eot?#iefix') format('embedded-opentype'),url('webfonts/3911A0_27_0.woff2') format('woff2'),url('webfonts/3911A0_27_0.woff') format('woff'),url('webfonts/3911A0_27_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'CocogoosePro-UltraLight';src: url('webfonts/3911A0_28_0.eot');src: url('webfonts/3911A0_28_0.eot?#iefix') format('embedded-opentype'),url('webfonts/3911A0_28_0.woff2') format('woff2'),url('webfonts/3911A0_28_0.woff') format('woff'),url('webfonts/3911A0_28_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'CocogoosePro-UltraLightItalic';src: url('webfonts/3911A0_29_0.eot');src: url('webfonts/3911A0_29_0.eot?#iefix') format('embedded-opentype'),url('webfonts/3911A0_29_0.woff2') format('woff2'),url('webfonts/3911A0_29_0.woff') format('woff'),url('webfonts/3911A0_29_0.ttf') format('truetype');}
+ 

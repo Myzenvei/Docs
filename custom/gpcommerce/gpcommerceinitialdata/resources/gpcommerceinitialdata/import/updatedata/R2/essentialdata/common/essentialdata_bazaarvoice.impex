@@ -1,0 +1,67 @@
+######################
+# Configuration part #
+######################
+
+## Importing settings (bazaarvoiceConfig)
+#########################################
+INSERT_UPDATE BazaarvoiceConfig; code[unique=true]; clientName; ftpUserName; ftpPassword; zone; seoKey; ftpServer; showReviewsScript;showQuestionsScript; isFamiliesEnabled;licenseAccepted;upcMethodName
+;b2cwhitelabelBVConfig;angelsoft;angelsoft;p2p~JTpPQTOk;Main Site;angelsoft-da75c0ccdcd79cbb4d2e5b68fa5545ef;sftp-stg.bazaarvoice.com;;; false;true;ean
+;gpemployeeBVConfig;angelsoft;angelsoft;p2p~JTpPQTOk;Main Site;angelsoft-da75c0ccdcd79cbb4d2e5b68fa5545ef;sftp-stg.bazaarvoice.com;;; false;true;ean
+;copperncraneBVConfig;copperandcrane;copperandcrane;2BnMvt&YYSFf;Main Site;angelsoft-da75c0ccdcd79cbb4d2e5b68fa5545ef;sftp-stg.bazaarvoice.com;;; false;true;ean
+;vanityfairnapkinsBVConfig;vanityfairnapkins;vanityfairnapkins;Jt^s0ZPKPoCj;Main Site;angelsoft-da75c0ccdcd79cbb4d2e5b68fa5545ef;sftp-stg.bazaarvoice.com;;; false;true;ean
+;brawnyBVConfig;Brawny;brawny;p2p~JTpPQTOk;Main Site;brawny-da75c0ccdcd79cbb4d2e5b68fa5545ef;sftp-stg.bazaarvoice.com;;;false;true;ean
+
+## Setting bazaarvoiceConfig to websites
+########################################
+INSERT_UPDATE CMSSite; uid[unique=true]; bvConfig(code);bvLocale
+; b2cwhitelabel ; b2cwhitelabelBVConfig;en_US
+; gpemployee ; gpemployeeBVConfig;en_US
+; copperandcrane;copperncraneBVConfig;en_US
+;vanityfairnapkins;vanityfairnapkinsBVConfig;en_US
+;brawny;brawnyBVConfig;en_US
+###############
+# Export part #
+###############
+
+INSERT_UPDATE ServicelayerJob;code[unique=true];springId
+;bazaarvoiceProductFeedExporter;bazaarvoiceProductFeedExporter
+
+$productCatalog=gpUSProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+
+
+### Creating a cronjob for exporting data to BV
+###############################################
+INSERT_UPDATE BazaarvoiceProductFeedExportCronJob;code[unique=true];job(code);bazaarvoiceStorefront(uid);singleExecutable;sessionLanguage(isocode)
+;bvProductFeedCronjobForB2CWhiteLabel;bazaarvoiceProductFeedExporter; b2cwhitelabel ; false; en
+;bvProductFeedCronjobForGPEmployee;bazaarvoiceProductFeedExporter; gpemployee ; false; en
+;bvProductFeedCronjobForcopperandcrane;bazaarvoiceProductFeedExporter; copperandcrane ; false; en
+;bvProductFeedCronjobForvanityfairnapkins;bazaarvoiceProductFeedExporter; vanityfairnapkins ; false; en
+
+### Creating a trigger for cronjob
+##################################
+#INSERT_UPDATE Trigger;cronJob(code)[unique=true];cronExpression
+#; bvProductFeedCronjobForB2CWhiteLabel ; 0 2 16 * * ?
+#; bvProductFeedCronjobForGPEmployee ; 0 2 16 * * ?
+
+
+###### Import Feed ######
+
+INSERT_UPDATE ServicelayerJob;code[unique=true];springId
+;gpBazaarVoiceDataFeedDownloadJob;gpBazaarVoiceDataFeedDownloadJob
+
+
+### Creating a cronjob for importing data from BV
+###############################################
+
+INSERT_UPDATE BazaarvoiceImportRatingsCronJob;code[unique=true];$catalogVersion;job(code);bazaarvoiceStorefront(uid);singleExecutable;sessionLanguage(isocode)
+;bvB2CWhiteLabelRatingsImportFeedCronJob;;gpBazaarVoiceDataFeedDownloadJob; b2cwhitelabel ; false; en
+;bvGPEmployeeRatingsImportFeedCronJob;;gpBazaarVoiceDataFeedDownloadJob; gpemployee ; false; en;
+;bvcopperandcraneRatingsImportFeedCronJob;;gpBazaarVoiceDataFeedDownloadJob; copperandcrane ; false; en;
+;bvvanityfairnapkinsRatingsImportFeedCronJob;;gpBazaarVoiceDataFeedDownloadJob; vanityfairnapkins ; false; en;
+
+### Creating a trigger for cronjob
+##################################
+#INSERT_UPDATE Trigger;cronJob(code)[unique=true];cronExpression
+#; bvB2CWhiteLabelRatingsImportFeedCronJob ; 0 2 16 * * ?
+#; bvGPEmployeeRatingsImportFeedCronJob ; 0 2 16 * * ?

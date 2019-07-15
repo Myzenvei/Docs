@@ -1,0 +1,41 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+#
+# Import Delivery Modes / Zones
+#
+#% impex.setLocale(Locale.GERMAN)
+
+# Currencies
+$usCurrency=USD
+
+# Delivery Zones
+INSERT_UPDATE Zone                  ; code[unique=true]               ; countries(isocode)
+                                    ; usa                             ; US
+                                    ; ca                              ; CA
+
+# Zone Delivery Modes
+INSERT_UPDATE ZoneDeliveryMode      ; code[unique=true]               ; net                                                                                                                                             ; active[default=true]
+                                    ; Free DFS / Standard 3-5 day  	  ; true    ; false                                 																										 	
+                                    ; Free DFS / 1-Day             	  ; true    ; false                                 																										 	
+                                    ; Free DFS / 2-Day            	  ; true    ; false                                 																										 	
+                                    ; Free GPS / 2 Day Express        ; true ; false
+                                    ; Free GPS / Next Day Express     ; true ; false
+                                    ; Free GPS / FedEx Ground         ; true ; false
+
+
+# USA
+INSERT_UPDATE ZoneDeliveryModeValue ; deliveryMode(code)[unique=true] ; zone(code)[default='usa'][unique=true]                                                                                                          ; currency(isocode)[unique=true] ; value  ; minimum[unique=true];deliveryModeType
+                                    ; Free DFS / Standard 3-5 day     ;                                       																										 	; $usCurrency                    ; 0,00 ; 0,00 ;standard
+                                    ; Free DFS / 1-Day             	  ;                                       																										 	; $usCurrency                    ; 0,00 ; 0,00 ;standard
+                                    ; Free DFS / 2-Day             	  ;                                       																										 	; $usCurrency                    ; 0,00 ; 0,00 ;standard
+									; Free GPS / 2 Day Express        ;                                       																										    ; $usCurrency                    ; 0,00 ; 0,00 ;standard
+									; Free GPS / Next Day Express     ;                                       																										    ; $usCurrency                    ; 0,00 ; 0,00 ;standard
+									; Free GPS / FedEx Ground         ;                                       																										    ; $usCurrency                    ; 0,00 ; 0,00 ;standard

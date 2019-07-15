@@ -1,0 +1,39 @@
+<div class="vx-single-shipping-method row">
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen></vx-spinner>
+  <template v-if="dataLoaded">
+    <div v-if="isEditable" class="editable-method mt-xs-4">
+      <p class="section-sub-heading col-xs-12 mb-xs-0 pb-xs-4">{{i18n.select}}</p>
+      <div class="col-xs-12 col-sm-5">
+        <vx-radio-button-group ref="shippingMethod" @selected-option="handleSelected($event)" :radiobuttonValues="deliveryMethods"
+          @radioButtonMounted="handleDefault()"></vx-radio-button-group>
+      </div>
+      <div class="col-xs-12 col-sm-7" v-if="globals.siteConfig.showDeliveryInstructions && !globals.getIsSubscription()">
+        <p class="delivery-instruction mb-xs-2 mt-xs-0 mt-sm-0" :aria-hidden="isDeviceAndroid()">{{i18n.delivery}}</p>
+        <textarea class="col-xs-12" maxlength="1024" v-model="selectedShippingMethod.instructions" :aria-label='i18n.delivery'></textarea>
+        <p class="section-info-text shift-right mb-xs-0 mt-xs-2">
+          <span v-text="(1024 - selectedShippingMethod.instructions.length)"></span>
+          <span>{{i18n.deliveryCharacterCount}}</span>
+        </p>
+      </div>
+      <div class="col-xs-12 mt-xs-4 pt-sm-4 pt-md-5 mt-sm-0 mt-md-2">
+        <button @click="saveSingleMethod($event)" class="save-method btn btn-primary">{{i18n.singleSaveButton}}</button>
+      </div>
+    </div>
+    <div v-else class="col-xs-12 mt-xs-4">
+      <p class="section-sub-heading mb-xs-3">{{selectedShippingMethod.name}}</p>
+      <p class="section-sub-heading mb-xs-4">{{selectedShippingMethod.cost}}
+      </p>
+      <!-- Commented since this is not part of R1 - YCOM-9285 -->
+      <!-- <p class="section-sub-heading mb-xs-3 estimated-delivery">{{i18n.estimatedDelivery}}</p> -->
+      <!-- <p class="section-text mb-xs-4">20/06/2018</p> -->
+      <template v-if="selectedShippingMethod.instructions && !globals.getIsSubscription()">
+      <p class="section-sub-heading mb-xs-2 pb-xs-2">
+        {{i18n.deliveryInstruction}}</p>
+      <p class="section-text mb-xs-3 delivery-message">
+        {{selectedShippingMethod.instructions}}</p>
+      </template>
+      <!-- Commented since this is not part of R1 - YCOM-9285 -->
+      <!-- <p class="section-info-text">{{i18n.deliveryMessage}} {{selectedShippingMethod.deliveryDetails}}</p> -->
+    </div>
+  </template>
+</div>

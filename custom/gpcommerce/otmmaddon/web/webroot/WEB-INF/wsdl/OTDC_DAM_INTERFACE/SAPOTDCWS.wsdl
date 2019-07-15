@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions targetNamespace="urn:sap-com:document:sap:soap:functions:mc-style"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsoap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+    xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+    xmlns:tns="urn:sap-com:document:sap:soap:functions:mc-style" xmlns:n1="urn:sap-com:document:sap:rfc:functions">
+    <wsdl:documentation>
+        <sidl:sidl xmlns:sidl="http://www.sap.com/2007/03/sidl" />
+    </wsdl:documentation>
+    <wsdl:types>
+        <xsd:schema attributeFormDefault="qualified"
+            targetNamespace="urn:sap-com:document:sap:rfc:functions">
+            <xsd:simpleType name="char10">
+                <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="10" />
+                </xsd:restriction>
+            </xsd:simpleType>
+            <xsd:simpleType name="char5">
+                <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="5" />
+                </xsd:restriction>
+            </xsd:simpleType>
+            <xsd:simpleType name="decimal15.0">
+                <xsd:restriction base="xsd:decimal">
+                    <xsd:totalDigits value="15" />
+                    <xsd:fractionDigits value="0" />
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:schema>
+        <xsd:schema attributeFormDefault="qualified"
+            targetNamespace="urn:sap-com:document:sap:soap:functions:mc-style"
+            xmlns:n0="urn:sap-com:document:sap:rfc:functions">
+            <xsd:import namespace="urn:sap-com:document:sap:rfc:functions" />
+            <xsd:simpleType name="RfcException.Message.Number">
+                <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="3" />
+                    <xsd:pattern value="\d*" />
+                </xsd:restriction>
+            </xsd:simpleType>
+            <xsd:complexType name="_-otdc_-sQueryArgs">
+                <xsd:sequence>
+                    <xsd:element name="ObjType" type="n0:char10" />
+                    <xsd:element name="SearchCriteria" type="tns:_-otdc_-ttSearchCriteria" />
+                    <xsd:element name="ResultFields" type="tns:_-otdc_-ttFieldNames" />
+                    <xsd:element name="DamUser" type="xsd:string" />
+                    <xsd:element name="QueryLang" type="n0:char5" />
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="_-otdc_-sSearchCriterion">
+                <xsd:sequence>
+                    <xsd:element name="Name" type="xsd:string" />
+                    <xsd:element name="Operator" type="xsd:string" />
+                    <xsd:element name="Value" type="xsd:string" />
+                    <xsd:element name="Value2" type="xsd:string" />
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="_-otdc_-sNameValuePair">
+                <xsd:sequence>
+                    <xsd:element name="Name" type="xsd:string" />
+                    <xsd:element name="Value" type="xsd:string" />
+                    <xsd:element name="Lang" type="n0:char5" />
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="_-otdc_-sEventInfo">
+                <xsd:sequence>
+                    <xsd:element name="EventId" type="xsd:int" />
+                    <xsd:element name="ComponentId" type="xsd:int" />
+                    <xsd:element name="ContextName" type="xsd:string" />
+                    <xsd:element name="TimeStamp" type="n0:decimal15.0" />
+                    <xsd:element name="ObjectId" type="xsd:string" />
+                    <xsd:element name="OriginalObjectId" type="xsd:string" />
+                    <xsd:element name="VersionNumber" type="xsd:int" />
+                    <xsd:element name="ObjectName" type="xsd:string" />
+                    <xsd:element name="ObjectType" type="xsd:string" />
+                    <xsd:element name="Data" type="tns:_-otdc_-ttNameValues" />
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="_-otdc_-sNameValue">
+                <xsd:sequence>
+                    <xsd:element name="Name" type="xsd:string" />
+                    <xsd:element name="Value" type="xsd:string" />
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="RfcException.Message">
+                <xsd:sequence>
+                    <xsd:element name="ID" type="xsd:string" />
+                    <xsd:element name="Number" type="tns:RfcException.Message.Number" />
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="_-otdc_-searchObject.RfcException">
+                <xsd:sequence>
+                    <xsd:element name="Name"
+                        type="tns:_-otdc_-searchObject.RfcExceptions" />
+                    <xsd:element name="Text" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="Message" type="tns:RfcException.Message"
+                        minOccurs="0" />
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="_-otdc_-handleDamEvents.RfcException">
+                <xsd:sequence>
+                    <xsd:element name="Name"
+                        type="tns:_-otdc_-handleDamEvents.RfcExceptions" />
+                    <xsd:element name="Text" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="Message" type="tns:RfcException.Message"
+                        minOccurs="0" />
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="_-otdc_-ttSearchCriteria">
+                <xsd:sequence>
+                    <xsd:element name="item" type="tns:_-otdc_-sSearchCriterion"
+                        minOccurs="0" maxOccurs="unbounded" />
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="_-otdc_-ttFieldNames">
+                <xsd:sequence>
+                    <xsd:element name="item" type="xsd:string" minOccurs="0"
+                        maxOccurs="unbounded" />
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="_-otdc_-ttHitlist">
+                <xsd:sequence>
+                    <xsd:element name="item" type="tns:_-otdc_-ttNameValuePairs"
+                        minOccurs="0" maxOccurs="unbounded" />
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="_-otdc_-ttNameValuePairs">
+                <xsd:sequence>
+                    <xsd:element name="item" type="tns:_-otdc_-sNameValuePair"
+                        minOccurs="0" maxOccurs="unbounded" />
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="_-otdc_-ttEventInfos">
+                <xsd:sequence>
+                    <xsd:element name="item" type="tns:_-otdc_-sEventInfo"
+                        minOccurs="0" maxOccurs="unbounded" />
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="_-otdc_-ttNameValues">
+                <xsd:sequence>
+                    <xsd:element name="item" type="tns:_-otdc_-sNameValue"
+                        minOccurs="0" maxOccurs="unbounded" />
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:simpleType name="_-otdc_-searchObject.RfcExceptions">
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="_-otdc_-badiFailed" />
+                </xsd:restriction>
+            </xsd:simpleType>
+            <xsd:simpleType name="_-otdc_-handleDamEvents.RfcExceptions">
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="_-otdc_-badiFailed" />
+                </xsd:restriction>
+            </xsd:simpleType>
+            <xsd:element name="_-otdc_-searchObject.Exception" type="tns:_-otdc_-searchObject.RfcException" />
+            <xsd:element name="_-otdc_-handleDamEvents.Exception"
+                type="tns:_-otdc_-handleDamEvents.RfcException" />
+            <xsd:element name="_-otdc_-searchObject">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="QueryStatement" type="tns:_-otdc_-sQueryArgs" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="_-otdc_-searchObjectResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="Hitlist" type="tns:_-otdc_-ttHitlist" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="_-otdc_-handleDamEvents">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="PitEventInfos" type="tns:_-otdc_-ttEventInfos" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="_-otdc_-handleDamEventsResponse">
+                <xsd:complexType>
+                    <xsd:sequence />
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="_-otdc_-searchObject">
+        <wsdl:part name="parameters" element="tns:_-otdc_-searchObject" />
+    </wsdl:message>
+    <wsdl:message name="_-otdc_-searchObjectResponse">
+        <wsdl:part name="parameter" element="tns:_-otdc_-searchObjectResponse" />
+    </wsdl:message>
+    <wsdl:message name="_-otdc_-searchObject.Exception">
+        <wsdl:part name="_-otdc_-searchObject.Exception" element="tns:_-otdc_-searchObject.Exception" />
+    </wsdl:message>
+    <wsdl:message name="_-otdc_-handleDamEvents">
+        <wsdl:part name="parameters" element="tns:_-otdc_-handleDamEvents" />
+    </wsdl:message>
+    <wsdl:message name="_-otdc_-handleDamEventsResponse">
+        <wsdl:part name="parameter" element="tns:_-otdc_-handleDamEventsResponse" />
+    </wsdl:message>
+    <wsdl:message name="_-otdc_-handleDamEvents.Exception">
+        <wsdl:part name="_-otdc_-handleDamEvents.Exception" element="tns:_-otdc_-handleDamEvents.Exception" />
+    </wsdl:message>
+    <wsdl:portType name="_-OTDC_-DAM_INTERFACE">
+        <wsdl:documentation>
+            <sapdoc:sapdoc xmlns:sapdoc="urn:sap:esi:documentation">
+                <sapdoc:docitem
+                    docURL="http://mucr3d5a.opentext.net:8000/sap/bc/esdt/docu/sd_text?sap-client=800&amp;sd_name=%2fOTDC%2fDAM_INTERFACE" />
+            </sapdoc:sapdoc>
+        </wsdl:documentation>
+        <wsdl:operation name="_-otdc_-searchObject">
+            <wsdl:input message="tns:_-otdc_-searchObject" />
+            <wsdl:output message="tns:_-otdc_-searchObjectResponse" />
+            <wsdl:fault name="_-otdc_-searchObject.Exception" message="tns:_-otdc_-searchObject.Exception" />
+        </wsdl:operation>
+        <wsdl:operation name="_-otdc_-handleDamEvents">
+            <wsdl:input message="tns:_-otdc_-handleDamEvents" />
+            <wsdl:output message="tns:_-otdc_-handleDamEventsResponse" />
+            <wsdl:fault name="_-otdc_-handleDamEvents.Exception"
+                message="tns:_-otdc_-handleDamEvents.Exception" />
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="OTDC_DAM_INTERFACE" type="tns:_-OTDC_-DAM_INTERFACE">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"
+            style="document" />
+        <wsdl:operation name="_-otdc_-searchObject">
+            <soap:operation style="document" />
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+            <wsdl:fault name="_-otdc_-searchObject.Exception">
+                <soap:fault name="_-otdc_-searchObject.Exception" use="literal" />
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="_-otdc_-handleDamEvents">
+            <soap:operation style="document" />
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+            <wsdl:fault name="_-otdc_-handleDamEvents.Exception">
+                <soap:fault name="_-otdc_-handleDamEvents.Exception" use="literal" />
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="OTDC_DAM_INTERFACE_SOAP12" type="tns:_-OTDC_-DAM_INTERFACE">
+        <wsoap12:binding transport="http://schemas.xmlsoap.org/soap/http"
+            style="document" />
+        <wsdl:operation name="_-otdc_-searchObject">
+            <wsoap12:operation style="document" />
+            <wsdl:input>
+                <wsoap12:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <wsoap12:body use="literal" />
+            </wsdl:output>
+            <wsdl:fault name="_-otdc_-searchObject.Exception">
+                <wsoap12:fault name="_-otdc_-searchObject.Exception"
+                    use="literal" />
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="_-otdc_-handleDamEvents">
+            <wsoap12:operation style="document" />
+            <wsdl:input>
+                <wsoap12:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <wsoap12:body use="literal" />
+            </wsdl:output>
+            <wsdl:fault name="_-otdc_-handleDamEvents.Exception">
+                <wsoap12:fault name="_-otdc_-handleDamEvents.Exception"
+                    use="literal" />
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="OTDC_DAM_INTERFACE">
+        <wsdl:port name="OTDC_DAM_INTERFACE" binding="tns:OTDC_DAM_INTERFACE">
+            <soap:address
+                location="http://mucr3d5a.opentext.net:8000/sap/bc/srt/rfc/otdc/dam_interface/800/otdc_dam_interface/otdc_dam_interface" />
+        </wsdl:port>
+        <wsdl:port name="OTDC_DAM_INTERFACE_SOAP12" binding="tns:OTDC_DAM_INTERFACE_SOAP12">
+            <wsoap12:address
+                location="http://mucr3d5a.opentext.net:8000/sap/bc/srt/rfc/otdc/dam_interface/800/otdc_dam_interface/otdc_dam_interface" />
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

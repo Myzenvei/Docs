@@ -1,0 +1,37 @@
+##########################################    cms-content.impex      ##################################################
+$contentCatalog=gpproContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+
+# Language                                                                                                 
+$lang=en 
+
+INSERT_UPDATE ContentPage ; $contentCV[unique=true] ; uid[unique=true] ; name     ; title; masterTemplate(uid,$contentCV) ; label   ; defaultPage[default='true'] ; approvalStatus(code)[default='approved'] ; homepage[default='false']
+                          ;                         ; crossReferencePage          ; Cross Reference Page ; Cross Reference Page ; LandingPage2Template           ; crossReferencePage
+
+################## GP PRO Multibrand specific changes ###################
+INSERT_UPDATE ContextualAttributesContext;code[unique=true];name
+;GPProContext;context for gp pro
+
+UPDATE BaseStore;uid[unique=true];contextualAttributesContext(code)
+;gppro;GPProContext
+
+
+
+INSERT_UPDATE ProductAvailabilityGroup;id[unique=true];description[lang=en];stores(uid)
+;gppro-availability;Multibrand Product availability Group for GPPro;gppro
+
+###For GPPRO Cross Reference Header
+INSERT_UPDATE CMSNavigationNode;$contentCV[unique=true];uid[unique=true];title[lang=$lang];name;parent(uid, $contentCV);
+;;GPCrossReferenceNavNode;Cross Reference;Cross Reference;GPCategoryNavigationNode;
+
+INSERT_UPDATE CMSNavigationEntry;$contentCV[unique=true];uid[unique=true];name;navigationNode(uid,$contentCV);item(CMSLinkComponent.uid,CMSLinkComponent.$contentCV);
+;;CrossReferenceNavNodeEntry;Cross Reference Nav Node Entry;GPCrossReferenceNavNode;CrossReferenceLink;
+
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];linkName[lang=$lang];url;styleAttributes;target(code)[default='sameWindow'];external[default=false];socialLink[default=false];markAsViewAll[default=false]
+;;CrossReferenceLink;CrossReference;/crossReference;;;;
+############ END ##########################
+
+# CMS Footer Component Start
+UPDATE FooterNavigationComponent;$contentCV[unique=true];uid[unique=true];notice[lang=en]
+;;FooterNavigationComponent;"| Georgia-Pacific"
+# CMS Footer Component END

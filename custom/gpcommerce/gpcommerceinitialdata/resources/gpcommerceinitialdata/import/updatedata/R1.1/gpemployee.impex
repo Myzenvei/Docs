@@ -1,0 +1,29 @@
+#####################################email-content_en.impex###############################
+# Language
+$lang=en
+
+$jarEmailResource=jar:com.gp.commerce.initialdata.constants.GpcommerceInitialDataConstants&/gpcommerceinitialdata/import/coredata/contentCatalogs/gpemployeeContentCatalog/emails
+                                                                                                
+# CMS components and Email velocity templates                                                              
+UPDATE RendererTemplate ; code[unique=true]                                        ; description[lang=$lang]                            ; templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+						; gpemployee_Email_Share_Cart_Subject					   ; "Share Cart Email Subject"						    ; $jarEmailResource/email-shareCartSubject.vm
+						; gpemployee_Email_Share_Cart_Body						   ; "Share Cart Email Body" 							; $jarEmailResource/email-shareCartBody.vm						
+                        ; gpemployee_Email_Share_Wishlist_Subject		   		   ; "Share Wishlist Email Subject"					    ; $jarEmailResource/email-shareWishlistSubject.vm
+						; gpemployee_Email_Share_Wishlist_Body			           ; "Share Wishlist Email Body" 					    ; $jarEmailResource/email-shareWishlistBody.vm								
+###########################################################################################
+
+
+##################################site-responsive.impex####################################
+
+$siteUid=gpemployee
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+$jarResource=$config-jarResource
+
+INSERT_UPDATE CatalogUnawareMedia;&siteMapMediaId;code[unique=true];realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];mime[default='text/plain']
+;$siteUid-siteMapMedia;$siteUid-siteMapMedia;siteMapTemplate.vm;$jarResource/site-siteMapTemplate.vm;
+
+INSERT_UPDATE RendererTemplate;&siteMapRenderer;code[unique=true];content(&siteMapMediaId);contextClass;rendererType(code)[default='velocity'];
++;$siteUid-siteMapTemplate;$siteUid-siteMapTemplate;$siteUid-siteMapMedia;com.gp.commerce.core.sitemap.renderer.GPSiteMapContext;
+
+############################################################################################
+

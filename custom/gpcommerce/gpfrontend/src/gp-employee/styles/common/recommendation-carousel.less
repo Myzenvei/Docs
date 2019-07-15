@@ -1,0 +1,200 @@
+#gp-employee {
+  .sap-reco {
+    margin: 0 -16px;
+    .carousel__component--carousel {
+      width: calc(100% - 50px);
+      margin: 10px auto;
+    }
+    .carousel__component--headline {
+      margin-top: 32px;
+      color: @text-color-heading;
+      font-size: @font-size-h1;
+    }
+    .owl-carousel .owl-wrapper-outer {
+      .owl-wrapper {
+        display: flex !important;
+        .owl-item {
+          .carousel__item {
+            height: 100%;
+            background: @card-layout-bg-color;
+            border-radius: 4px;
+            margin: 0 8px;
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 0;
+            a{
+              margin-bottom: auto;
+              flex-grow: 1;
+              padding: 10px 16px 0px;
+              &:focus,&:hover,&:active{
+                color: #19212b;
+              }
+            }
+            .error-text {
+              font-weight: @font-weight-medium;
+            }
+            .carousel__item--weblistprice{
+              color: @product-tile-slashed-price-color;
+              font-size: @font-size-small;
+              font-weight: @font-weight-regular;
+              order: 0;
+              margin-left: 0;
+            }
+            .add-to-cart-placeholder, .notify-me-placeholder{
+              margin-top: auto;
+              button{
+                border-radius: 0 0 4px 4px;
+                width:100%;
+              }
+            }
+            .wishlist-btn{
+              padding-right: 12px;
+              .favorite{
+                float: right;
+              }
+            }
+            .favorite {
+              max-height: 20px;
+              width: 25px;
+              .heart {
+                width: 20px;
+                display: none;
+                &.gpemployee{
+                  display: block;
+                }
+              }
+              #heart-outline {
+                fill: @border-color;
+              }
+              &.active {
+                svg {
+                  #heart-outline {
+                    fill: @fav-icon-fill-color;
+                  }
+                  #fill {
+                    animation: none;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    .carousel .item,
+    .sap-reco .carousel__component--carousel .carousel__item {
+      margin: 0;
+    }
+    .carousel__component--carousel .carousel__item .carousel__item--thumb {
+      height: auto;
+      max-height: 200px;
+      margin-bottom: 8px;
+      img {
+        max-width: 100%;
+        max-height: 200px;
+      }
+    }
+    .carousel__component--carousel .carousel__item .carousel__item--price {
+      font-size: 24px;
+      color: @product-tile-text-color;
+      font-weight: @font-weight-bold;
+      line-height: 35px;
+    }
+    .owl-carousel .owl-controls .owl-buttons .owl-prev,
+    .owl-carousel .owl-controls .owl-buttons .owl-next {
+      color: transparent;
+      &:hover {
+        color: transparent;
+      }
+      span {
+        color: @btn-disabled-text-color;
+      }
+      &.disabled {
+        span.glyphicon{
+          cursor: not-allowed;
+          color:@font-icon-color-disabled;
+        }
+      }
+    }
+    .owl-carousel .owl-controls .owl-buttons .owl-prev {
+      left: -25px;
+    }
+    .owl-carousel .owl-controls .owl-buttons .owl-next {
+      right: -25px;
+    }
+    .carousel .carousel__item .carousel__item--name,
+    .carousel .carousel__item .item__name,
+    .carousel .item .carousel__item--name,
+    .carousel .item .item__name,
+    .carousel__component--carousel .carousel__item .carousel__item--name,
+    .carousel__component--carousel .carousel__item .item__name,
+    .carousel__component--carousel .item .carousel__item--name,
+    .carousel__component--carousel .item .item__name {
+      color: @product-tile-text-color;
+      font-size: 18px;
+      font-weight: @font-weight-medium;
+      line-height: 23px;
+      margin-bottom: 16px;
+      &::before {
+        background: transparent;
+        content: ' ';
+      }
+      &::after {
+        background: transparent;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: @screen-sm-max) {
+  #gp-employee {
+    .sap-reco {
+      .owl-carousel .owl-wrapper-outer {
+        .owl-wrapper {
+          display: flex !important;
+          .owl-item {
+            .carousel__item {
+              padding: 10px;
+            }
+          }
+        }
+      }
+      .carousel__component--carousel .carousel__item .carousel__item--price {
+        font-size: 20px;
+        line-height: 30px;
+      }
+      .carousel .carousel__item .carousel__item--name,
+      .carousel .carousel__item .item__name,
+      .carousel .item .carousel__item--name,
+      .carousel .item .item__name,
+      .carousel__component--carousel .carousel__item .carousel__item--name,
+      .carousel__component--carousel .carousel__item .item__name,
+      .carousel__component--carousel .item .carousel__item--name,
+      .carousel__component--carousel .item .item__name {
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: @screen-xs-max) {
+  #gp-employee {
+    .sap-reco {
+      .carousel__component--carousel .carousel__item .carousel__item--price {
+        font-size: 18px;
+        line-height: 27px;
+      }
+      .carousel .carousel__item .carousel__item--name,
+      .carousel .carousel__item .item__name,
+      .carousel .item .carousel__item--name,
+      .carousel .item .item__name,
+      .carousel__component--carousel .carousel__item .carousel__item--name,
+      .carousel__component--carousel .carousel__item .item__name,
+      .carousel__component--carousel .item .carousel__item--name,
+      .carousel__component--carousel .item .item__name {
+        font-size: 16px;
+        line-height: 18px;
+      }
+    }
+  }
+}

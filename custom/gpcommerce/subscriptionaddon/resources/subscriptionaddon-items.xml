@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2018 SAP SE or an SAP affiliate company.  All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+<!--
+	ATTENTION: This is just an example file. You have to edit it according to your needs.
+-->
+
+<items 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+			xsi:noNamespaceSchemaLocation="items.xsd">
+
+	<collectiontypes>
+		<collectiontype code="PromotionIdList" elementtype="java.lang.String"
+						autocreate="true" generate="true" type="collection" />
+	</collectiontypes>
+
+	<enumtypes>
+		<enumtype generate="true" code="SubscriptionFrequencyEnum" autocreate="true">
+			<value code="DAILY" />
+			<value code="WEEKLY" />
+			<value code="MONTHLY" />
+			<value code="YEARLY" />
+		</enumtype>	
+		
+		<enumtype generate="true" code="SubscriptionStatusEnum" autocreate="true" dynamic="true">
+			<value code="PROCESSED" />
+			<value code="PENDING" />
+			<value code="CANCELLED" />	
+		</enumtype>		
+	</enumtypes>
+
+	<relations>
+		<relation code="SubscriptionCart2SubscriptionScheduleRel" localized="false" autocreate="true" generate="true">
+			<sourceElement type="SubscriptionCart" qualifier="subscriptionCart" cardinality="one"/>
+			<targetElement type="SubscriptionSchedule" qualifier="subscriptionSchedule" collectiontype="list" cardinality="many"/>
+		</relation>
+	</relations>
+	
+	<itemtypes>
+		<typegroup name="SubscriptionModule">
+			<itemtype code="PriceRow" autocreate="false" generate="false">
+				<attributes>
+					<attribute  qualifier="frequency" type="SubscriptionFrequencyEnum">
+						<persistence type="property"></persistence>
+						<description>Subscription Frequency</description>
+					</attribute>
+				</attributes>
+			</itemtype>
+			
+			<itemtype code="SubscriptionCart" extends="Cart" autocreate="true" generate="true">
+				<description>Additional attributes for Subscription implementation</description>
+				<attributes>
+					<attribute  qualifier="frequency" type="SubscriptionFrequencyEnum">
+						<persistence type="property"></persistence>
+						<description>Subscription Frequency</description>
+					</attribute>
+					<attribute qualifier="nextActivationDate" type="java.util.Date">
+						<description>Next Activation Date</description>
+						<persistence type="property" />
+					</attribute>
+					<attribute qualifier="isActive" type="java.lang.Boolean">
+						<description>Active status</description>
+						<persistence type="property" />
+					</attribute>
+				</attributes>
+			</itemtype>
+			
+			<itemtype code="SubscriptionSchedule" generate="true" autocreate="true">
+				<description>ItemType to store SubscriptionSchedule Information</description>
+				<deployment table="SubscriptionSchedule" typecode="13103" />
+				<attributes>
+					<attribute qualifier="nextActivationDate" type="java.util.Date">
+						<description>Next Activation Date</description>
+						<persistence type="property" />
+					</attribute>
+					<attribute qualifier="promotionId" type="PromotionIdList">
+						<description>promotion Id</description>
+						<persistence type="property" />
+					</attribute>
+					<attribute qualifier="subscriptionStatus" type="SubscriptionStatusEnum">
+						<description>subscription Status</description>
+						<persistence type="property" />
+					</attribute>
+				</attributes>
+			</itemtype>
+			
+			<itemtype code="SubscriptionFrequency" generate="true" autocreate="true">
+				<description>ItemType to store Subscription Frequency Information</description>
+				<deployment table="SubscriptionFrequency" typecode="13104" />
+				<attributes>
+					<attribute  qualifier="frequency" type="SubscriptionFrequencyEnum">
+						<persistence type="property"></persistence>
+						<description>Subscription Frequency</description>
+					</attribute>
+					<attribute  qualifier="days" type="java.lang.String">
+						<persistence type="property"></persistence>
+						<description>Subscription Frequency value</description>
+					</attribute>
+				</attributes>
+			</itemtype>
+			
+			<itemtype code="Product" autocreate="false" generate="false">
+				<attributes>
+					<attribute qualifier="subscribable" type="java.lang.Boolean">
+						<persistence type="property" />
+					</attribute>
+				</attributes>
+			</itemtype>
+		
+			<itemtype code="AbstractOrderEntry" autocreate="false"
+					  generate="false">
+				<attributes>
+					<attribute qualifier="frequency" type="SubscriptionFrequencyEnum">
+						<persistence type="property" />
+					</attribute>
+				</attributes>
+			</itemtype>	
+			
+		</typegroup>
+	</itemtypes>
+</items>

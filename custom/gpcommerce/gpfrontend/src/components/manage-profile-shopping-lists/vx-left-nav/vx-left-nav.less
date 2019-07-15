@@ -1,0 +1,46 @@
+.vx-left-nav {
+  margin-left: 24px;
+  .left-nav-sub-container {
+    .side-heading {
+      color: @text-color;
+      font-size: 21px;
+      font-weight: @font-weight-light;
+      line-height: 1.8;
+      text-transform: capitalize;
+      padding: 9px 0;
+    }
+    .side-heading.h3 {
+      padding-top: 16px;
+      line-height: 25px;
+    }
+    ul {
+      padding: 0;
+      margin: 0;
+      list-style-type: none;
+      li.cd-label {
+        padding: 14px 19px;
+        &:hover {
+          background-color: @brand-secondary-8;
+        }
+        a {
+          color: @text-color;
+          font-size: @font-size-h4;
+          font-weight: @font-weight-medium;
+          line-height: 1.2;
+        }
+      }
+      li.cd-label.selected {
+        background-color: @brand-secondary-8;
+        a {
+          color: @background-nav-bottom;
+          font-size: 16px;
+          font-weight: 500;
+          line-height: 1.2;
+        }
+      }
+    }
+    &.hidden {
+      display: none;
+    }
+  }
+}

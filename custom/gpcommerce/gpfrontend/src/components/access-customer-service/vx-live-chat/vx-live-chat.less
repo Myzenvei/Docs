@@ -1,0 +1,247 @@
+.access-customer-service-live-chat {
+  .livechat-section {
+    .left-section {
+      background-color: @brand-secondary-8;
+      width: 50%;
+
+      a {
+        color: @brand-secondary-2;
+      }
+
+      .livechat-heading {
+        background-color: @body-bg;
+
+        .icon-message-square {
+          font-size: @font-icon-size;
+          color: @font-icon-color-1;
+        }
+
+        h6 {
+          display: inline-block;
+          padding-left: 12px;
+        }
+      }
+
+      .call-text-heading {
+        background-color: @body-bg;
+
+        .icon-phone {
+          font-size: @font-icon-size;
+          color: @font-icon-color-1;
+        }
+
+        h6 {
+          display: inline-block;
+          padding-left: 12px;
+        }
+      }
+
+      .call-text-section {
+        background-color: @brand-secondary-8;
+
+        p {
+          color: @text-color;
+          font-size: @font-size-small;
+          font-weight: @font-weight-light;
+        }
+      }
+
+      .writeus-heading {
+        background-color: @body-bg;
+
+        .icon-mail-us {
+          font-size: @font-icon-size;
+          color: @font-icon-color-1;
+        }
+
+        h6 {
+          display: inline-block;
+          padding-left: 12px;
+        }
+      }
+
+      .write-us {
+        background-color: @brand-secondary-8;
+
+        p {
+          color: @text-color;
+          font-size: @font-size-small;
+          font-weight: @font-weight-light;
+        }
+      }
+
+      .chat-section {
+        background-color: @brand-secondary-8;
+
+        p {
+          color: @text-color;
+          font-size: @font-size-small;
+          font-weight: @font-weight-light;
+        }
+
+        .btn {
+          height: 40px;
+          width: 144px;
+          font-size: @font-size-small;
+          color: @brand-secondary-4;
+          background-color: @brand-secondary-2;
+          vertical-align: middle;
+          display: table-cell;
+        }
+      }
+    }
+
+    .right-section {
+      background-color: @brand-secondary-8;
+      width: 50%;
+
+      .mail-us-heading {
+        background-color: @body-bg;
+
+        .icon-mail-us {
+          font-size: @font-icon-size;
+          color: @font-icon-color-1;
+        }
+      }
+
+      a {
+        color: @brand-secondary-2;
+        font-size: @font-size-small;
+        font-weight: @font-weight-medium;
+        letter-spacing: 0.4px;
+      }
+
+      .call-text-heading {
+        background-color: @body-bg;
+
+        .icon-phone {
+          font-size: @font-icon-size;
+          color: @font-icon-color-1;
+        }
+
+        h6 {
+          display: inline-block;
+          padding-left: 12px;
+        }
+      }
+
+      .call-text-section {
+        background-color: @brand-secondary-8;
+
+        p,
+        span {
+          color: @text-color;
+          font-size: @font-size-small;
+          font-weight: @font-weight-light;
+        }
+
+        .call-text-number {
+          flex-direction: row;
+        }
+      }
+    }
+
+    &.livechat-left {
+
+      .right-section {
+        width: 100%;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+      }
+
+      .left-section {
+        width: 100%;
+        margin-right: 0 !important;
+      }
+    }
+  }
+
+  &.live-chat-bold {
+
+    .livechat-heading,
+    .call-text-heading {
+      display: none;
+    }
+
+    .left-section,
+    .right-section {
+      background-color: @brand-secondary-4;
+
+      .call-text-number {
+        display: block !important;
+
+        p {
+          padding-left: 0 !important;
+        }
+      }
+
+      .chat-section,
+      .call-text-section {
+        background-color: @brand-secondary-4;
+
+        @media(min-width: @screen-sm-min) {
+          padding: 0 !important;
+        }
+
+        h3 {
+          color: @help-text-color;
+          font-size: 26px;
+          margin-top: 0;
+        }
+
+        p,
+        span {
+          font-size: @font-size-h4;
+          color: @help-text-color;
+        }
+
+        a {
+          font-size: @font-size-h1;
+          color: @help-text-color;
+        }
+      }
+    }
+  }
+}
+
+// Tablet css
+@media (max-width: @screen-sm-max) {
+  .access-customer-service-live-chat {
+    .livechat-section {
+      .right-section {
+        .call-text-section {
+          .call-text-number {
+            flex-direction: column;
+          }
+        }
+      }
+    }
+  }
+}
+
+//Mobile css
+@media (max-width: @screen-xs-max) {
+  .access-customer-service-live-chat {
+    .livechat-section {
+      flex-direction: column;
+
+      .left-section {
+        width: 100%;
+        background-color: @body-bg;
+        margin-bottom: 24px !important;
+      }
+
+      .right-section {
+        width: 100%;
+        background-color: @body-bg;
+        margin-bottom: 24px !important;
+
+        .call-text-section {
+          .call-text-number {
+            flex-direction: column;
+          }
+        }
+      }
+    }
+  }
+}

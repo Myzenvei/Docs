@@ -1,0 +1,72 @@
+#gp-pro {
+  .video-player {
+    .modal-large {
+      max-width: 90%;
+      height: 100%;
+
+      @media only screen and (min-width: @screen-sm-min) {
+        max-width: 75%;
+      }
+    }
+
+    .modal-mask {
+      background-color: rgba(34, 34, 34, 0.59);
+    }
+
+    .modal-body,
+    .right-close-box {
+      padding: 0 !important;
+    }
+
+    .modal-body {
+      height: 100%;
+      overflow: visible;
+
+      @media(max-width: @screen-sm-max) {
+        height: 75%;
+        width: 85%;
+        margin: 0 auto;
+      }
+
+      .player-container {
+
+        iframe {
+          width: 100% !important;
+          height: 100% !important;
+        }
+      }
+    }
+
+    .right-close-box {
+      height: 40px;
+
+      @media(min-width: @screen-xs-min) and (max-width: @screen-sm-max) {
+        margin-right: 7%;
+      }
+
+      .icon-x {
+        background: url(/static/assets/images/iconClose.png) no-repeat right;
+        width: 100%;
+        height: 100%;
+
+        &:before {
+          content: '';
+        }
+      }
+    }
+
+    .modal-container {
+      background-color: transparent;
+      box-shadow: none;
+      border: 0;
+      height: 100%;
+      overflow: visible;
+
+      .top-bar {
+        background-color: transparent;
+        box-shadow: none;
+        border: 0;
+      }
+    }
+  }
+}

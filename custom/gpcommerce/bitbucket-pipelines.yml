@@ -1,0 +1,25 @@
+# This is a sample build configuration for Java (Maven).
+# Check our guides at https://confluence.atlassian.com/x/zd-5Mw for more examples.
+# Only use spaces to indent your .yml configuration.
+# -----
+# You can specify a custom docker image from Docker Hub as your build environment.
+image: sandeepvalapi/gpcom:latest
+
+clone:
+  depth: full
+
+pipelines:
+
+  custom:
+    sonar-build:
+      - step:
+                name: Sonar Code Check
+                script:
+                 - echo "Running sonar code quality gates on branch -"
+                 - bash ./scripts/trigger_sonar.sh
+    trigger-build:
+      - step:
+          script:
+            - echo "Manual trigger for Build Status!"
+            - apt-get update -y
+            - bash ./scripts/trigger_build.sh

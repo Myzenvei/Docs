@@ -1,0 +1,23 @@
+<div class="vx-qples-form">
+<vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>
+</vx-spinner>
+<div class=" mt-xs-5 page-title">{{i18n.pageTitle}}</div>
+<div class="title-underline mt-xs-0"></div>
+<div v-if="showCouponsIFrame">
+  <iframe style="width:100%; height:600px;" frameborder="0" :src="couponUrl"></iframe>
+</div>
+<div class="my-xs-5" v-else-if="!showSignUpForm" >
+  <div class="sign-up-form input-group">
+    <input type="email" v-validate="'required|email'"
+        class="form-control teacher-email" name="email" :placeholder="i18n.emailPlaceHolder" :aria-label="i18n.email" id="email"
+        v-bind:class="{'input-error': errors.has('email')}" v-model="emailID">
+      <span class="input-group-btn">
+        <button type="submit" @click="getCouponPermissions($event)" target="_blank"
+            class="submit btn btn-primary sign-up-btn"><span class="hidden-xs">{{i18n.signupBtnText}}</span>{{i18n.signUpBtnTextMobile}}</button></span>
+  </div>
+  <div v-show="errors.has('email')" class="help email-error is-danger">{{ errors.first('email') }}</div>
+</div>
+<div v-else>
+  <vx-qples-sign-up @customer-added="handleCouponPermissionsResponse($event)" :i18n="i18n" :firstEmail="emailID"></vx-qples-sign-up>
+</div>
+</div>

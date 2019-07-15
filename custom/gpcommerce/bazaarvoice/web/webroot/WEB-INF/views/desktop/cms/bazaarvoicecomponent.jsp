@@ -1,0 +1,1 @@
+<h1>Here must be java script body of BVComponent</h1>

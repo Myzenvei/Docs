@@ -1,0 +1,48 @@
+#gp-employee  {
+  .flyout-container  {
+    min-height: 0;
+    padding-bottom: 4px;
+    padding-top: 8px;
+    .flyout-wrapper {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      width: 100%;
+    }
+  }
+  .flyout-position  {
+    top: 120px;
+  }
+  .flyout-banner {
+    z-index: 9998;
+    padding: 0;
+    .flyout-icons  {
+      display: flex;
+      align-items: center;
+    }
+    .flyout-icons.icon-x {
+      margin: 0 0 0 auto;
+    }
+  }
+  @media only screen and (max-width: @screen-sm-max) {
+    .flyout-position  {
+      top: 92px;
+    }
+  }
+  @media only screen and (max-width: @screen-xs-max) {
+    .flyout-position  {
+      top: 90px;
+    }
+    .flyout-container  {
+      padding: 12px;
+    }
+
+    .flyout-banner  {
+      .text-container  {
+        font-size: @font-size-medium;
+        font-weight: @font-weight-light;
+        word-wrap: break-word;
+      }
+    }
+  }
+}

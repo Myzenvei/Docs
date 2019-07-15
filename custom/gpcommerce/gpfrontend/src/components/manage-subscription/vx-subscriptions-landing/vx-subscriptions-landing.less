@@ -1,0 +1,205 @@
+.vx-subscriptions-landing {
+  .subscription-length {
+    margin: 34px 0 32px 0
+  }
+
+  .product-tile-container {
+    margin-bottom: 24px;
+
+    .upper-info-section {
+      border: 1px solid @border-color;
+      background-color: @brand-secondary-8;
+      border-bottom: none;
+
+      .subscription-info {
+        padding: 16px 24px;
+
+        .subscription-info-container {
+          padding: 0 40px 0 0;
+        }
+
+        .subscription-heading {
+          font-size: @font-size-medium;
+          font-weight: @font-weight-medium;
+        }
+
+        .info {
+          font-size: @font-size-small;
+          font-weight: @font-weight-regular;
+        }
+      }
+
+      .subscription-icons {
+        padding: 25px 32px;
+
+        .icon-edit,
+        .icon-trash {
+          font-size: 20px;
+          color: @font-icon-color-3;
+        }
+
+        .icon-trash {
+          margin-left: 32px;
+        }
+      }
+    }
+
+    .product-tile {
+      padding: 16px 24px 24px 24px;
+
+      .next-shipment-info {
+        font-size: @font-size-medium;
+        font-weight: @font-weight-medium;
+        margin-bottom: 16px;
+      }
+
+      .item-id {
+        color: @font-color-label-text;
+        font-size: @font-size-small;
+        font-weight: @font-weight-regular;
+      }
+
+      .product-info {
+        color: @text-color;
+        font-size: @font-size-small;
+        font-weight: @font-weight-regular;
+      }
+
+      .product-image {
+        height: 142px;
+        width: 142px;
+      }
+
+      .card-content {
+        height: 100%;
+      }
+
+      .subscription-price-info {
+        font-size: @font-size-h2;
+        font-weight: @font-weight-medium;
+      }
+
+      .discount-info {
+        font-size: @font-size-small;
+        font-weight: @font-weight-regular;
+      }
+
+      .icon-info {
+        font-size: @font-size-h4;
+      }
+
+      .popover-subscribe-info {
+        vertical-align: middle;
+      }
+    }
+  }
+
+  .empty-table {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid @border-color;
+
+    div {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 580px;
+    }
+  }
+
+  .popover {
+    border: 1px solid @subscribe-popover-border-color;
+    border-radius: 1px;
+    background-color: @subscribe-popover-background-color;
+    width: 260px;
+
+    .popover-title {
+      display: none;
+    }
+
+    .popover-content {
+      text-align: start;
+
+      p {
+        font-size: @font-size-small;
+        font-weight: @font-weight-light;
+      }
+
+      a {
+        font-size: @font-size-small;
+      }
+    }
+
+    .arrow::before {
+      border-style: 1px solid;
+      border-bottom-color: @subscribe-popover-border-color;
+    }
+
+    .popover-name {
+      color: @text-color;
+      font-size: @font-size-small;
+      font-weight: @font-weight-regular;
+    }
+
+    .popover-address {
+      color: @font-color-label-text;
+      font-size: @font-size-small;
+      font-weight: @font-weight-regular;
+    }
+  }
+}
+
+
+
+@media screen and (max-width: @screen-xs-max) {
+  .vx-subscriptions-landing {
+    .product-tile-container {
+      .upper-info-section {
+        .subscription-info {
+          padding: 16px 24px;
+          flex-wrap: wrap;
+
+          .subscription-info-container {
+            padding: 0;
+
+            &:first-child {
+              padding: 0px 24px 24px 0px;
+            }
+          }
+        }
+
+        .subscription-icons {
+          flex: 2;
+          display: flex;
+          flex-direction: column;
+          justify-content: start;
+          padding: 20px 24px;
+
+          .icon-edit {
+            padding-bottom: 24px;
+          }
+
+          .icon-trash {
+            margin-left: 0;
+          }
+        }
+      }
+
+      .product-tile {
+        .product-image {
+          height: 72px;
+          width: 72px;
+        }
+      }
+    }
+
+    .empty-table {
+      border: none;
+
+      div {
+        min-height: 245px;
+      }
+    }
+  }
+}

@@ -1,0 +1,46 @@
+<div class="vx-accordion">
+  <div v-if="!isSlotBased" class="panel panel-default">
+    <div class="panel-heading" role="presentation" :id="'heading'+accordionIdentifier">
+      <h2 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" :href="'#' + accordionIdentifier"
+          aria-expanded="false" :aria-controls="accordionIdentifier" class="collapsed">
+          <span>{{accordionData.accordionTitle}} </span>
+        </a>
+      </h2>
+    </div>
+    <div :id="accordionIdentifier" class="panel-collapse collapse" role="tabpanel" :aria-labelledby="'heading'+accordionIdentifier">
+      <div class="panel-body" v-html="accordionData.accordionBody"></div>
+    </div>
+  </div>
+  <div v-if="isSlotBased" class="slot-based">
+    <div class="accordion-header" @click="toggleAccordion($event)" @keyup.enter-space="toggleAccordion($event)">
+      <span class="heading-container">
+        <slot name="heading">
+          <span v-if="accordionData && (accordionData.hideAccordion || accordionData.viewAccordion)">{{isOpened ? accordionData.hideAccordion : accordionData.viewAccordion}}</span>
+        </slot>
+      </span>
+      <span class="icon-container">
+        <span :class="{ 'icon-minus': isOpened, 'icon-plus': !isOpened }" tabindex="0" role="button" :aria-label="isOpened ? 'collapse' : 'expand'">
+        </span>
+      </span>
+    </div>
+    <template v-if="preserveAccordionState">
+      <div class="accordion-body" v-show="isOpened">
+        <div class="accordion-content">
+          <slot name="component">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          </slot>
+        </div>
+      </div>
+    </template>
+    <template v-else>
+      <div class="accordion-body" v-if="isOpened">
+        <div class="accordion-content">
+          <slot name="component">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          </slot>
+        </div>
+      </div>
+    </template>
+  </div>
+</div>

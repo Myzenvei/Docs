@@ -1,0 +1,22 @@
+.vx-cancel-subscription {
+  margin: 0 8px;
+
+  p {
+    white-space: pre-line;
+  }
+
+  .cancel-subscription {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  @media only screen and (max-width: @screen-xs-max) {
+    .cancel-subscription {
+      bottom: 0px;
+      left: 0px;
+      position: fixed;
+      display: block;
+    }
+  }
+}

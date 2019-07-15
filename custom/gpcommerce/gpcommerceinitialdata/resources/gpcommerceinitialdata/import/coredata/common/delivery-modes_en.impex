@@ -1,0 +1,29 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+#
+# Import Delivery Modes / Zones
+#
+
+# Language
+$lang=en
+
+# Zone Delivery Modes
+UPDATE ZoneDeliveryMode;code[unique=true];name[lang=$lang];description[lang=$lang]
+ ;GPS / 2 Day Express;"2 Day Express";
+ ;GPS / FedEx Ground;"Ground Shipping Rates";
+ ;GPS / Next Day Express;"Next Day Express";
+ ;CC / 2-Day;"2 Day Shipping";
+ ;CC / Standard 3-5 day;"3-5 Days Standard Shipping";
+ ;CC / 1-Day;"1 Day Shipping";
+ ;Free GPS / FedEx Ground;"Free Ground Shipping";
+ ;Free GPS / 2 Day Express;"Free 2 Day Express";
+ ;Free GPS / Next Day Express;"Free Next Day Express";
+ 

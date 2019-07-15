@@ -1,0 +1,31 @@
+.vx-business-unit {
+  @import '../../../styles/common/manage-b2b-org.less';
+
+  .vx-info-section:last-of-type {
+    border-bottom: none;
+  }
+  .save-btn {
+  }
+
+  .toast {
+    background-color: @success-text-background-color;
+    font-size: 16px;
+    font-weight: @font-weight-light;
+    border: 1px solid @border-color-8;
+    color: @success-text-color;
+    width: 90%;
+    margin: auto;
+    position: absolute;
+
+    .icon-check {
+      color: @success-icon-color;
+      margin-right: 16px;
+      font-size: 24px;
+    }
+
+    .icon-x {
+      color: @brand-secondary-7;
+      margin-left: 16px;
+    }
+  }
+}

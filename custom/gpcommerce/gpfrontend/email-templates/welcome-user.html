@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Add User Request Email</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      color: #222222;
+      font-family: 'Gotham A', 'Gotham B', Helvetica, Roboto, Arial;
+      font-size: 14px;
+      line-height: 24px;
+      margin: 0px;
+    }
+
+    .header-banner {
+      height: 72px;
+    }
+
+    .header-banner img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .brand-logo {
+      width: 84px;
+      height: 87px;
+      margin-left: 56px;
+      margin-top: -50px;
+    }
+
+    .brand-logo img {
+      height: 100%;
+      width: 100%;
+    }
+
+    .email-content {
+      padding-left: 56px;
+      padding-right: 32px;
+    }
+
+    .welcome-text {
+      padding-top: 58px;
+      font-size: 21px;
+    }
+
+    .salutation-text {
+      padding-top: 23px;
+    }
+
+    .footer {
+      margin-top: 112px;
+      padding-left: 56px;
+      padding-right: 32px;
+      height: 64px;
+      background-color: #FAFAFA;
+      border-top: 1px solid #DFDFDF;
+    }
+
+    .follow {
+      padding-top: 23px;
+      font-weight: 500;
+      width: 10%;
+      float: left;
+      margin: 0px;
+    }
+
+    .icons {
+      padding-top: 16.5px;
+      width: 50%;
+      float: left;
+      margin: 0px;
+    }
+
+    .social-icons {
+      padding-left: 25px;
+    }
+
+    .social-icons img {
+      height: 30px;
+      width: 31px;
+    }
+
+    .copyright-text {
+      padding-top: 20px;
+      font-weight: 300;
+      text-align: right;
+      width: 35%;
+      float: left;
+      margin: 0px;
+    }
+
+    a {
+      color: #005293;
+      text-decoration: none;
+    }
+
+    @media (max-width: 480px) {
+      .header-banner {
+        height: 56px;
+      }
+
+      .brand-logo {
+        display: none;
+      }
+      .email-content {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+
+      .footer {
+        height: 168px;
+        padding-left: 24px;
+        margin-top: 32px;
+      }
+
+      .follow {
+        padding-top: 22px;
+        width: 100%;
+      }
+
+      .icons {
+        padding-top: 13.5px;
+        width: 100%;
+      }
+
+      .social-icons {
+        padding-right: 19px;
+        padding-left: 0px;
+      }
+
+      .copyright-text {
+        padding-top: 23.5px;
+        text-align: left;
+        padding-right: 0px;
+        padding-left: 0px;
+        width: 100%;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+  <div>
+    <div class="header">
+      <div class="header-banner">
+        <img src="./images/email-header.png">
+      </div>
+      <div class="brand-logo">
+        <img src="./images/gp-pro-logo.png">
+      </div>
+    </div>
+    <div class="email-content">
+      <p class="welcome-text">Welcome!</p>
+      <p class="salutation-text">Dear {{first name}},</p>
+      <p>Thank you for registering with {{site name}}.</p>
+      <p>To complete your registration,
+        <a href="">provide copy around what the user needs to do.</a>
+      </p>
+      <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        Nulla vitae elit libero, a pharetra augue.</p>
+      <p>Thank you
+        <br> {{site name}} Team</p>
+    </div>
+    <div class="footer">
+      <p class="follow">
+        Follow us
+      </p>
+      <p class="icons">
+        <span class="social-icons">
+          <img src="./images/icon-facebook.png">
+        </span>
+        <span class="social-icons">
+          <img src="./images/icon-twitter.png">
+        </span>
+        <span class="social-icons">
+          <img src="./images/icon-instagram.png">
+        </span>
+        <span class="social-icons">
+          <img src="./images/icon-pinterest.png">
+        </span>
+      </p>
+      <p class="copyright-text">© 2018 | Georgia Pacific</p>
+    </div>
+  </div>
+</body>
+
+</html>
+​

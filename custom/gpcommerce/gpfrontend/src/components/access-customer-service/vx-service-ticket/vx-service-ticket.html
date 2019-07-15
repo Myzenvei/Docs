@@ -1,0 +1,171 @@
+<section class="access-customer-service-service-ticket">
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>
+  </vx-spinner>
+  <vx-modal ref="fileAttachModal" size="extra-small" :heading="i18n.fileAttachment.heading">
+    <vx-contactus-upload slot="component" :i18n="i18n.fileAttachment" @upload='fileUploaded($event)'
+      :attachments="attachments">
+    </vx-contactus-upload>
+  </vx-modal>
+  <form ref="ticketForm">
+    <div class="serviceticket-section">
+      <div class="d-flex align-items-center">
+        <span class="icon-mail" :title="i18n.iconMailTitle" :aria-label="i18n.iconMailTitle"></span>
+        <h5 class="heading pl-xs-2 my-xs-0">{{i18n.heading}}</h5>
+      </div>
+      <div class="form-group">
+        <label for="topicOfInquiry" :aria-hidden="!isTablet()">{{i18n.topicOfInquiry}}</label>
+        <vx-dropdown-primary ref="topicDropdown" v-validate="'required'" @selected-option="topicOfInquiry = $event"
+          :dropdownValues="topicOfInquiryList" :aria-label="i18n.topicOfInquiry" name="topicOfInquiry"
+          v-model="topicOfInquiry" :dropdownError="errors.has('topicOfInquiry')">
+        </vx-dropdown-primary>
+        <div class="mt-xs-2" v-show="errors.has('topicOfInquiry')">
+          <span class="error-msg" aria-live="assertive">{{ errors.first('topicOfInquiry') }}</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="firstName" :aria-hidden="isDeviceAndroid()">{{i18n.firstName}}</label>
+        <input type="text" v-model="form.firstName" v-validate="{ required: true,
+          regex: /^[A-Za-z\s\’'-]+$/ ,max: 40 }" maxlength="40" class="form-control" id="firstName" name="firstName"
+          v-bind:class="{'input-error': errors.has('firstName')}" :aria-label="i18n.firstName"
+          aria-describedby="firstname_error_msg">
+        <div class="mt-xs-2" v-show="errors.has('firstName')" :aria-hidden="!errors.has('firstName')">
+          <span class="error-msg" id='firstname_error_msg'>{{ errors.first('firstName') }}</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="lastName" :aria-hidden="isDeviceAndroid()">{{i18n.lastName}}</label>
+        <input type="text" v-model="form.lastName" maxlength="80" v-validate="{ required: true,
+          regex: /^[A-Za-z\s\’'-]+$/ ,max: 80 }" v-bind:class="{'input-error': errors.has('lastName')}"
+          class="form-control" id="lastName" name="lastName" :aria-label="i18n.lastName"
+          aria-describedby="lastname_error_msg">
+        <div class="mt-xs-2" v-show="errors.has('lastName')" :aria-hidden="!errors.has('lastName')">
+          <span class="error-msg" id='lastname_error_msg'>{{ errors.first('lastName') }}</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email" :aria-hidden="isDeviceAndroid()">{{i18n.email}}</label>
+        <input type="text" maxlength="80" v-validate="'required|email|max:80'" v-model="form.email" class="form-control"
+          name="email" :aria-label="i18n.email" id="email" v-bind:class="{'input-error': errors.has('email')}">
+        <div class="mt-xs-2" v-show="errors.has('email')" :aria-label="!errors.has('email')">
+          <span class="error-msg">{{ errors.first('email') }}</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="telephone" :aria-hidden="isDeviceAndroid()">{{i18n.phone}}
+          <small class="text-muted">{{i18n.optional}}</small>
+        </label>
+        <the-mask :masked="masked" class="phone-number form-control" mask="+1 ###-###-####" v-model="form.phone"
+          v-validate="'min:15'" type="tel" name="telephone" :aria-label="i18n.phone">
+        </the-mask>
+        <div class="mt-xs-2" v-if="errors.has('telephone')">
+          <span class="error-msg">{{ errors.first('telephone') }}</span>
+        </div>
+      </div>
+      <div class="form-group" v-if="globals.isB2B()">
+        <label for="jobTitle" :aria-hidden="isDeviceAndroid()">{{i18n.jobTitle}}
+          <small class="text-muted">{{i18n.optional}}</small>
+        </label>
+        <input type="text" v-model="form.jobTitle" class="form-control" id="jobTitle" maxlength="80"
+          v-validate="'max:80'" :aria-label="i18n.jobTitle">
+      </div>
+      <div class="form-group" v-if="globals.isB2B()">
+        <label for="company" :aria-hidden="isDeviceAndroid()">{{i18n.company}}
+          <small class="text-muted">{{i18n.optional}}</small>
+        </label>
+        <input type="text" v-model="form.companyName" class="form-control" id="company" maxlength="80"
+          v-validate="'max:80'" :aria-label="i18n.company">
+      </div>
+      <div class="form-group">
+        <label for="address" :aria-hidden="isDeviceAndroid()">{{i18n.streetAddress}}
+        </label>
+        <input type="text" v-model="form.streetAddress" class="form-control" id="address" maxlength="60"
+          v-validate="'required|max:60'" name="address" v-bind:class="{'input-error': errors.has('address')}"
+          :aria-label="i18n.streetAddress" aria-describedby="address_error_msg">
+        <div v-show="errors.has('address')" :aria-hidden="!errors.has('address')">
+          <span class="error-msg" id='address_error_msg'>{{ errors.first('address') }}</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <div>
+          <label for="country" :aria-hidden="!isTablet() && isDeviceAndroid()">{{i18n.country}}
+          </label>
+        </div>
+        <vx-dropdown-primary v-validate="'required'" ref="countryDropdown" @selected-option="setCountry($event)"
+          :dropdownValues="i18n.countryList" :aria-label="i18n.country" name="country" v-model="form.country">
+        </vx-dropdown-primary>
+      </div>
+      <div class="form-group">
+        <label for="city" :aria-hidden="isDeviceAndroid()">{{i18n.city}}
+        </label>
+        <input type="text" v-model="form.city" class="form-control" id="inputCity" v-validate="'required|max:80'"
+          v-bind:class="{'input-error': errors.has('city')}" name="city" :aria-label="i18n.city" maxlength="80"
+          aria-describedby="address_city_error_msg">
+        <div class=" mt-xs-2" v-show="errors.has('city')" :aria-label="!errors.has('city')">
+          <span class="error-msg" id='address_city_error_msg'>{{ errors.first('city') }}</span>
+        </div>
+      </div>
+      <div class="col-xs-12 px-xs-0 mb-xs-4">
+        <div class="form-group col-sm-6 pl-sm-0 pr-sm-3 px-xs-0">
+          <div>
+            <label for="state" :aria-hidden="!isTablet() && isDeviceAndroid()">{{i18n.state}}
+            </label>
+          </div>
+          <vx-dropdown-primary v-validate="'required'" ref="regionDropdown"
+            @selected-option="form.region = $event.label" :dropdownValues="regionList" name="state"
+            :aria-label="i18n.state" :dropdownError="errors.has('state')" v-model="form.region">
+          </vx-dropdown-primary>
+          <div class="mt-xs-2" v-show="errors.has('state')">
+            <span class="error-msg" aria-live="assertive">{{ errors.first('state') }}</span>
+          </div>
+        </div>
+        <div class="form-group col-sm-6 pl-sm-3 pr-sm-0 px-xs-0">
+          <label for="zipcode" :aria-hidden="isDeviceAndroid()">{{i18n.postalCode}}</label>
+          <input type="text" v-model="form.postalCode" class="form-control" id="inputZip" maxlength="20"
+            v-bind:class="{'input-error': errors.has('zipcode')}" v-validate="zipCodeValidation()" name="zipcode"
+            :aria-label="i18n.postalCode" aria-describedby="address_zip_error_msg">
+          <div class="mt-xs-2" v-show="errors.has('zipcode')" :aria-label="!errors.has('zipcode')">
+            <span class="error-msg" id='address_zip_error_msg'>{{ errors.first('zipcode') }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="orderId" :aria-hidden="isDeviceAndroid()">{{i18n.orderId}}
+          <small class="text-muted">{{i18n.optional}}</small>
+        </label>
+        <input type="text" v-model="form.orderNumber" class="form-control" id="orderId"
+          v-validate="{regex: /^[a-z\d\-\s]+$/,max: 20 }" maxlength="20" name="orderId"
+          v-bind:class="{'input-error': errors.has('orderId')}" :aria-label="i18n.orderId">
+        <div class="mt-xs-2" v-show="errors.has('orderId')" :aria-label="!errors.has('orderId')">
+          <span class="error-msg" id='orderId_error_msg'>{{ errors.first('orderId') }}</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="comments" :aria-hidden="isDeviceAndroid()">{{i18n.questionsOrComments}}
+        </label>
+        <textarea maxlength="1024" type="text" v-model="form.ticketComments" v-validate="'required'"
+          class="form-control rounded-0" id="comments" name="comments" rows="3" :aria-label="i18n.questionsOrComments"
+          v-bind:class="{'input-error': errors.has('comments')}"></textarea>
+        <p class="info-text mb-xs-0 mt-xs-2">
+          <span v-text="(1024 - form.ticketComments.length)"></span>
+          <span>{{i18n.commentsCharacterCount}}</span>
+        </p>
+        <div class="mt-xs-2" v-show="errors.has('comments')" :aria-label="!errors.has('comments')">
+          <span class="error-msg">{{ errors.first('comments') }}</span>
+        </div>
+      </div>
+      <div class="mt-xs-4 pt-md-2">
+        <a @click.prevent="attachFiles($event)" href="#" v-bind:class="{ disabled: disableUpload }" role="button"
+          :aria-label="i18n.chooseFile">{{i18n.chooseFile}}
+        </a>
+      </div>
+      <div class="uploaded-files mt-xs-4" v-if="attachments.length !== 0">
+        <div class="d-flex align-items-center file" v-for="(item, key) in attachments"><span
+            class="icon-attachment"></span><span class='file-name'>{{getFileName(item.name)}}</span>
+          <a class="pl-xs-4" @click.prevent="removeAttachment(key,$event)" :data-value="item.name">{{i18n.remove}}</a>
+        </div>
+      </div>
+      <button type="submit" :disabled="errors.any()" @click="handleSubmit"
+        class="submit btn btn-primary mt-xs-4 mt-sm-5 mb-xs-5 mb-md-4">{{i18n.submit}}</button>
+    </div>
+  </form>
+</section>

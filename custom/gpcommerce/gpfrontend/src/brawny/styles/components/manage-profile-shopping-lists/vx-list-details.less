@@ -1,0 +1,60 @@
+#brawny {
+  .vx-list-details {
+    font-family: @font-family-text;
+    margin-top: 24px;
+    @media screen and (min-width: @screen-sm-min) {
+      margin-top: 32px;
+    }
+    @media screen and (min-width: @screen-md-min) {
+      margin-top: 48px;
+    }
+    .favorites {
+      margin-bottom: 29px;
+      @media screen and (min-width: @screen-sm-min) {
+        margin-bottom: 36px;
+      }
+      & > h1 {
+        font-weight: @font-weight-normal;
+        text-transform: capitalize;
+        margin: 0 !important;
+      }
+      .icon-share {
+        font-size: 24px;
+        color: @font-icon-color-5;
+      }
+    }
+    .list-items-container {
+      .icon-trash {
+        font-size: 20px;
+        color: @font-icon-color-5;
+      }
+      .vx-product-tile {
+        .product-title a {
+          color: @link-color;
+          text-decoration: underline;
+          text-transform: uppercase;
+        }
+        .product-title a,
+        .product-price .product-current-price {
+          font-weight: @font-weight-bold;
+        }
+        .product-total-price {
+          font-weight: @font-weight-bold;
+          font-size: @font-size-h3;
+        }
+        .product-quantity {
+          color: @text-color;
+        }
+        .item-id {
+          color: @help-text-color;
+          font-size: @font-size-small;
+        }
+        .quantity-section {
+           .quantity-label {
+            font-size: @font-size-small;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,128 @@
+.form-group {
+  label {
+    font-family: @font-family-base;
+    font-size: @font-size-label-text;
+    font-weight: @font-weight-regular;
+    color: @font-color-label-text;
+    .mb-xs-2;
+  }
+
+  input[type='text'],
+  input[type='telephone'],
+  input[type='email'],
+  input[type='password'] {
+    font-family: @font-family-base;
+    font-size: @font-size-input-text;
+    font-weight: @font-weight-regular;
+    color: @font-color-input-text;
+    border: 1px solid @border-color;
+    border-radius: 0px;
+    padding-left: 16px;
+    height: 48px;
+  }
+
+  .error-style {
+    font-family: @font-family-base;
+    font-size: @font-size-error;
+    font-weight: @font-weight-regular;
+    color: @font-color-error;
+    .mt-xs-2;
+  }
+
+  input[type='text'].input-error,
+  input[type='telephone'].input-error,
+  input[type='email'].input-error,
+  input[type='password'].input-error {
+    border: 1px solid @border-color-error;
+    background-color: @bg-color-error;
+  }
+
+  input[type='text'].no-title,
+  input[type='telephone'].no-title,
+  input[type='email'].no-title,
+  input[type='password'].no-title {
+    background-color: @bg-color-error;
+  }
+}
+
+.dropdown-primary {
+  .dropdown {
+    button {
+      font-family: @font-family-base;
+      font-size: @font-size-dropdown;
+      font-weight: @font-weight-regular;
+      color: @font-color-dropdown;
+      border: 1px solid @border-color;
+      border-radius: 0px;
+      padding-left: 16px;
+      padding-right: 0px;
+      height: 48px;
+      position: relative;
+      text-align: left;
+      background-color: @bg-color-dropdown;
+      span {
+        position: absolute;
+        font-size: 24px;
+        right: 8px;
+        top: 8px;
+      }
+    }
+    ul {
+      border: 1px solid @border-color;
+      border-radius: 0px;
+      width: 100%;
+      padding: 8px 0;
+      max-height: 220px;
+      overflow: auto;
+      li {
+        height: 40px;
+        padding: 12px 0 12px 16px;
+        &:hover {
+          background-color: @bg-color-menu-item;
+        }
+        a {
+          font-family: @font-family-base;
+          font-size: @font-size-dropdown;
+          font-weight: @font-weight-regular;
+          color: @font-color-dropdown;
+          padding: 0px;
+          &:hover {
+            background-color: inherit;
+          }
+        }
+      }
+      li.selected {
+        background-color: @bg-color-menu-item;
+        a {
+          font-weight: @font-weight-medium;
+        }
+      }
+    }
+  }
+}
+
+.badge {
+  display: inline-block;
+  color: @font-color-badge;
+  padding: 2px 6px;
+  -webkit-border-radius: 1.25rem;
+  -moz-border-radius: 1.25rem;
+  border-radius: 1.25rem;
+  white-space: nowrap;
+  vertical-align: middle;
+  border-radius: 8px;
+  background-color: @bg-color-badge;
+  font-size: @font-size-small;
+  font-weight: @font-weight-medium;
+}
+
+@media (max-width: @screen-phone) {
+  .form-group {
+    input[type='text'],
+    input[type='telephone'],
+    input[type='email'],
+    input[type='password'] {
+      height: 40px;
+    }
+  }
+}

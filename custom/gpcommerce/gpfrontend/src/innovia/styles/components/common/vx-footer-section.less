@@ -1,0 +1,45 @@
+#innovia {
+  .footer {
+    border-top: 1px solid @footer-top-border-color;
+
+    &__column {
+      h5 {
+        font-family: @font-family-montserrat;
+        font-weight: @font-weight-bold;
+
+        @media screen and (max-width: @screen-xs-max) {
+          color: @text-color-secondary-3;
+          font-family: @font-family-karla;
+          font-weight: @font-weight-regular;
+          text-decoration: underline;
+        }
+      }
+
+      &.social-block {
+        h5 {
+          @media screen and (max-width: @screen-xs-max) {
+            font-family: @font-family-montserrat;
+            font-weight: @font-weight-bold;
+            color: @brand-secondary-14;
+            text-decoration: none;
+          }
+        }
+      }
+
+      &__item {
+        a {
+          font-family: @font-family-montserrat;
+          text-decoration: underline;
+        }
+      }
+
+      .copy-right {
+        font-family: @font-family-karla;
+        line-height: @line-height-medium;
+        font-size: @font-size-base;
+        color: @text-color;
+      }
+
+    }
+  }
+}

@@ -1,0 +1,34 @@
+#brawny {
+  .vx-profile-preferences {
+    @media screen and (min-width: @screen-sm-min) {
+      padding: 32px 16px 0;
+    }
+    @media screen and (min-width: @screen-md-min) {
+      padding-top: 48px !important;
+    }
+    .profile-cards-container {
+      .container-heading {
+        font-weight: @font-weight-normal;
+        padding-bottom: 12px;
+        @media screen and (min-width: @screen-sm-min) {
+          padding-bottom: 20px;
+        }
+      }
+      .vx-profile-card {
+        h4 {
+          font-weight: @font-weight-bold;
+        }
+        .profile-card {
+          padding: 20px 8px !important;
+        }
+        .link-regular {
+          text-decoration: underline;
+        }
+      }
+    }
+    .icon-edit {
+      font-size: 20px;
+      color: @font-icon-color-5;
+    }
+  }
+}

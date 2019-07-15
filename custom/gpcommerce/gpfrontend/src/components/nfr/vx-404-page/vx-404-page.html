@@ -1,0 +1,21 @@
+<div class="vx-404-page">
+  <div class='error-container'>
+    <div class='error-heading'>{{i18n.heading}}</div>
+    <div class='error-msg-container' v-if="globals.getSiteId()==='gpxpress' || globals.isVanityfair()">
+      <span class="error-msg-code">{{i18n.errorMsgCode}}</span>&nbsp;<span class="error-msg-text">{{i18n.errorMsgText}}</span>
+    </div>
+    <div class='error-msg-container' v-else>{{i18n.errorMsg}}</div>
+    <div class='immediate-assitance'>
+      <span>{{i18n.immediateAssitance}}</span>
+      <template v-if="globals.getSiteId()==='gpxpress'">
+        <span class="custom-word-wrap-all white-space-pre" v-html="i18n.contactUs"></span>
+      </template>
+      <template v-else>
+        <a><span @click="globals.navigateToUrl('contactUs')">{{i18n.contactUs}}</span></a>
+      </template>{{i18n.dot}}
+    </div>
+    <div class='return-home'>
+      <button class="btn btn-tertiary btn-small-text" @click="goToHomePage">{{i18n.buttonText}}</button>
+    </div>
+  </div>
+</div>

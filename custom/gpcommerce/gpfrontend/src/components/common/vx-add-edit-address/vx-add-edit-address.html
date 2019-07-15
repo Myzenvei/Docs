@@ -1,0 +1,177 @@
+<div class="vx-add-edit-address">
+  <!-- /** *call to save the address */ -->
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>
+  </vx-spinner>
+  <vx-modal ref="addressVerificationModal" size="medium" :heading="i18n.addressVerificationHeading" @close="closeAddressVerificationModal">
+    <vx-address-verification slot="component" :i18n="i18n" :unverifiedAddress="unverifiedAddress" @selectedAddress="handleSelectedAddressResponse"
+      @error="handleSelectedAddressError" :isBussinessUnit="isBussinessUnit"></vx-address-verification>
+  </vx-modal>
+  <slot name="header">
+    <div class="section-header">{{i18n.addressHeader}}</div>
+  </slot>
+  <form class="mt-xs-0" @submit.prevent="submitForm">
+    <p class="mb-xs-4 info-text">{{i18n.subHeading}}</p>
+    <div class="section row">
+      <div class="mb-xs-4 col-sm-6 col-xs-12 form-group">
+        <label for="firstName" :aria-hidden="isDeviceAndroid()">{{i18n.firstName}}</label>
+        <input type="text" class="form-control" maxlength="35" v-bind:class="{'input-error': errors.has('firstName')}"
+          v-validate="{ required: true,
+          regex: /^[A-Za-z\s\.'-]+$/ ,max: 35 }" name="firstName" v-model="address.firstName"
+          :aria-label="i18n.firstName" aria-describedby="address_firstname_error_msg">
+        <div class="mt-xs-2" v-show="errors.has('firstName')" :aria-hidden="!errors.has('firstName')">
+          <span class="error-msg" id='address_firstname_error_msg'>{{ errors.first('firstName') }}</span>
+        </div>
+      </div>
+      <div class="mb-xs-4 col-sm-6 col-xs-12 form-group">
+        <label for="lastName" :aria-hidden="isDeviceAndroid()">{{i18n.lastName}}</label>
+        <input type="text" class="form-control" maxlength="35" v-validate="{ required: true,
+          regex: /^[A-Za-z\s\.'-]+$/ ,max: 35 }"
+          v-bind:class="{'input-error': errors.has('lastName')}" name="lastName" v-model="address.lastName" :aria-label="i18n.lastName"
+          aria-describedby="address_lastname_error_msg">
+        <div class="mt-xs-2" v-show="errors.has('lastName')" :aria-hidden="!errors.has('lastName')">
+          <span class="error-msg" id='address_lastname_error_msg'>{{ errors.first('lastName') }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="section row">
+      <div class="mb-xs-4 col-sm-6 col-xs-12 form-group" v-if="globals.isB2B()">
+        <slot name="companyNameLabel">
+          <label for="companyName" :aria-hidden="isDeviceAndroid()">{{i18n.newUsercompanyName}}</label>
+        </slot>
+        <input type="text" class="form-control" maxlength="35" v-validate="{max:35}" name="companyName" v-model="address.companyName"
+          :aria-label="i18n.companyName" v-bind:class="{'input-error': errors.has('companyName')}">
+        <div class="mt-xs-2" v-if="errors.has('companyName')">
+          <span class="error-msg">{{ errors.first('companyName') }}</span>
+        </div>
+      </div>
+      <div class="mb-xs-4 col-sm-6 col-xs-12 form-group">
+        <slot name="phoneNumberLabel">
+          <label for="phoneNumber" :aria-hidden="isDeviceAndroid()">{{i18n.phoneNumber}}</label>
+        </slot>
+        <the-mask :masked="masked" class="phone-number form-control" mask="+1 ###-###-####" v-model="address.phone"
+          v-validate="'min:15'" type="tel" name="phoneNumber" :aria-label="i18n.phoneNumber">
+        </the-mask>
+        <div class="mt-xs-2" v-if="errors.has('phoneNumber')">
+          <span class="error-msg">{{ errors.first('phoneNumber') }}</span>
+        </div>
+      </div>
+      <div class="mb-xs-4 col-sm-6 col-xs-12 form-group dropdown">
+        <label for="country" :aria-hidden="!isTablet()">{{i18n.country}}</label>
+        <br>
+        <vx-dropdown-primary v-validate="'required'" @selected-option="setDropdownOption('country',$event)"
+          :dropdownValues="countryList.options" :aria-label="i18n.country" ref="countryDropdown" name="country"
+          :dropdownError="errors.has('country')" v-model="address.country"></vx-dropdown-primary>
+        <div class="mt-xs-2" v-if="errors.has('country')">
+          <span class="error-msg">{{ errors.first('country') }}</span>
+        </div>
+      </div>
+      <template v-if='isBussinessUnit'>
+        <!--used v-hide to hide the business unit drop down for Dixie Food Service in R1 release starts here-->
+        <div class="mb-xs-4 form-group col-xs-12 col-md-6" v-show="!globals.isDixie()">
+          <label for="unit" :aria-hidden="!isTablet()"> {{i18n.bussinessUnit}} </label>
+          <br>
+          <vx-dropdown-primary v-validate="'required'" name="unit" @selected-option="setDropdownOption('unit',$event)"
+            v-model="address.unit" :aria-label="i18n.bussinessUnit" :dropdownValues="businessUnitsDropDown" ref="businessUnitDropdown"
+            :dropdownError="errors.has('unit')"></vx-dropdown-primary>
+          <div class="mt-xs-2" v-if="errors.has('unit')">
+            <span class="error-msg" aria-live="assertive">{{ errors.first('unit') }}</span>
+          </div>
+        </div>
+        <!--ends here-->
+      </template>
+    </div>
+    <div class="section row">
+      <div class="mb-xs-4 col-sm-6 col-xs-12 form-group">
+        <slot name="addressLine1Label">
+          <label for="addressLine1" v-if="globals.isB2C() || globals.isEmployeeStore()" :aria-hidden="isDeviceAndroid()">{{i18n.b2caddressLine1}}</label>
+          <label for="addressLine1" v-if="globals.isB2B()" :aria-hidden="isDeviceAndroid()">{{i18n.b2baddressLine1}}</label>
+        </slot>
+        <input type="text" class="form-control" maxlength="60" v-validate="'required|max:60'" name="addressLine1"
+          v-bind:class="{'input-error': errors.has('addressLine1')}" v-model="address.line1" :aria-label="(globals.isB2C() || globals.isEmployeeStore()) ? i18n.b2caddressLine1 : i18n.b2baddressLine1"
+          @input="$event.target.value=$event.target.value.substr(0,60)" v-on:change="addressLine1=$event.target.value"
+          aria-describedby="address_line1_error_msg">
+        <div v-show="errors.has('addressLine1')" :aria-hidden="!errors.has('addressLine1')">
+          <span class="error-msg" id='address_line1_error_msg'>{{ errors.first('addressLine1') }}</span>
+        </div>
+      </div>
+      <div class="mb-xs-4 col-sm-6 col-xs-12 form-group">
+        <slot name="addressLine2Label">
+          <label for="addressLine2" v-if="globals.isB2C() || globals.isEmployeeStore()" :aria-hidden="isDeviceAndroid()">{{i18n.b2caddressLine2}}</label>
+          <label for="addressLine2" v-if="globals.isB2B()" :aria-hidden="isDeviceAndroid()">{{i18n.b2baddressLine2}}</label>
+        </slot>
+        <input type="text" class="form-control" maxlength="40" v-validate="'max:40'" name="addressLine2" v-model="address.line2"
+          :aria-label="(globals.isB2C() || globals.isEmployeeStore()) ? i18n.b2caddressLine2 : i18n.b2baddressLine2"
+          @input="$event.target.value=$event.target.value.substr(0,40)" v-on:change="addressLine2=$event.target.value"
+          v-bind:class="{'input-error': errors.has('addressLine2')}">
+        <div class="
+          mt-xs-2" v-if="errors.has('addressLine2')">
+          <span class="error-msg">{{ errors.first('addressLine2') }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="section row">
+      <div class="mb-xs-4 col-sm-6 col-xs-12 form-group">
+        <label for="city" :aria-hidden="isDeviceAndroid()">{{i18n.city}}</label>
+        <input type="text" class="form-control" maxlength="40" v-validate="'required|alpha_spaces|max:40'" name="city"
+          v-bind:class="{'input-error': errors.has('city')}" v-model="address.town" :aria-label="i18n.city" @input="$event.target.value=$event.target.value.substr(0,40)"
+          v-on:change="city=$event.target.value" aria-describedby="address_city_error_msg">
+        <div class="mt-xs-2" v-show="errors.has('city')" :aria-label="!errors.has('city')">
+          <span class="error-msg" id='address_city_error_msg'>{{ errors.first('city') }}</span>
+        </div>
+      </div>
+
+      <div class="mb-xs-4 col-sm-6 col-xs-12 form-group dropdown">
+        <slot name="stateLabel">
+          <label :aria-hidden="!isTablet()">{{i18n.state}}</label>
+        </slot>
+        <vx-dropdown-primary v-validate="'required'" @selected-option="setDropdownOption('region',$event)"
+          :dropdownValues="regionList.options" :aria-label="i18n.state" ref="stateDropdown" name="State" :dropdownError="errors.has('State')"
+          v-model="address.region"></vx-dropdown-primary>
+        <div class="mt-xs-2" v-if="errors.has('State')">
+          <span class="error-msg" aria-live="assertive">{{ errors.first('State') }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="section row">
+      <div class="mb-xs-4 col-sm-6 col-xs-12 form-group">
+        <label for="zipcode" :aria-hidden="isDeviceAndroid()">{{i18n.zipcode}}</label>
+        <input type="text" class="form-control" maxlength="30" v-bind:class="{'input-error': errors.has('zipcode')}"
+          v-validate="{ required: true,
+          regex: /^((\d{5}-\d{4})|(\d{5})|([A-Z]\d[A-Z]\s\d[A-Z]\d))$/ }" name="zipcode"
+          v-model="address.postalCode" :aria-label="i18n.zipcode" aria-describedby="address_zip_error_msg">
+        <div class="mt-xs-2" v-show="errors.has('zipcode')" :aria-label="!errors.has('zipcode')">
+          <span class="error-msg" id='address_zip_error_msg'>{{ errors.first('zipcode') }}</span>
+        </div>
+      </div>
+    </div>
+    <template v-if="isProfile">
+      <div class="default-shipping-address form-group">
+        <input id="shippingAddress" type="checkbox" v-model="address.defaultAddress" :aria-label="i18n.defaultShippingAddress" />
+        <label for="shippingAddress" :aria-hidden="isDeviceAndroid()">{{i18n.defaultShippingAddress}}</label>
+      </div>
+      <div class="default-billing-address form-group" v-if="false">
+        <input id="defaultBillingAddress" type="checkbox" v-model="address.defaultBillingAddress" :aria-label="i18n.defaultBillingAddress" />
+        <label for="defaultBillingAddress" :aria-hidden="isDeviceAndroid()">{{i18n.defaultBillingAddress}}</label>
+      </div>
+      <div class="mb-xs-4 pallet-shipments form-group" v-if="globals.isB2BWhiteLabel()">
+        <input id="palletShipments" type="checkbox" v-model="address.palletShipment" :aria-label="i18n.palletShipments" />
+        <label for="palletShipments" :aria-hidden="isDeviceAndroid()">{{i18n.palletShipments}}</label>
+      </div>
+    </template>
+    <template v-else>
+      <div v-if="(globals.isB2BWhiteLabel() && palletShipment) || globals.isB2CWhiteLabel()" class="mb-xs-4 pallet-shipments form-group">
+        <input id="palletShipments" type="checkbox" v-model="address.palletShipment" :aria-label="i18n.palletShipments" />
+        <label for="palletShipments" :aria-hidden="isDeviceAndroid()">{{i18n.palletShipments}}</label>
+      </div>
+    </template>
+    <slot name="saveButton">
+      <div class="sub-heading-message px-xs-0" v-if="isSingleShipping && globals.siteConfig.showPoBoxShippingMsg">{{i18n.shippingAddressSubText}}</div>
+      <div :class="[{'d-flex justify-content-start':isFirstAddress}, 'modal-btn-EDGEspacing']">
+        <button type="button" :disabled="errors.any()" @click="callAddressVerification($event)" class="mt-xs-4 submit btn btn-primary modal-btn-IEspacing"
+          :class="{'modal-btn-primary-xl center-block':!isFirstAddress}" v-if="globals.isB2B()">{{globals.userInfo.b2bUnitLevel===userStates.l1?buttonText:submitButtonText}}</button>
+        <button type="button" :disabled="errors.any()" @click="callAddressVerification($event)" class="mt-xs-4 submit btn btn-primary modal-btn-IEspacing"
+          :class="{'modal-btn-primary-xl center-block':!isFirstAddress}" v-else>{{buttonText}}</button>
+      </div>
+    </slot>
+  </form>
+</div>

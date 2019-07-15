@@ -1,0 +1,21 @@
+<div class="vx-employee-footer">
+  <div class="footer d-flex py-xs-3 px-xs-5 px-sm-3 px-md-0" :class="{ 'checkout-footer' : isCheckoutFooter }">
+    <div class="footer__left-section d-flex non-printable-section">
+      <div class="footer__column py-xs-3" v-for="section in footerData.columns">
+        <h5 class="footer__column-heading p-xs-1">{{section.title}}</h5>
+        <div class="d-flex flex-column p-xs-1 footer__column-item" v-for="item in section.links">
+          <a :href="item.external ? item.linkTo : globals.contextPath+item.linkTo" :target="[item.newWindow ? '_blank' : '_self']">{{item.linkText}}</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer__right-section">
+      <div class="footer__logo">
+        <img :src="globals.assetsPath + 'images/brands/gpEmployee-color.svg'" alt="Employee Store">
+      </div>
+      <div class="footer__copyright">
+        {{copyrightText}}
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+
+<div class="vx-live-agent-btn d-flex align-items-center">
+  <a class="btn btn-tertiary btn-small-text py-xs-0 d-flex align-items-center" target="_blank" v-show="showButtons" ref="chatAllPageOnline" @click="triggerChat($event)">
+    <div class="icon-container">
+      <span class="icon-message-square" :title="i18n.iconMessageTitle"></span>
+    </div>
+    {{i18n.liveChat}}
+  </a>
+  <a class="btn btn-tertiary btn-small-text py-xs-0 d-flex align-items-center" disabled target="_blank" v-show="showButtons" ref="chatAllPageOffline">
+    <div class="icon-container">
+      <span class="icon-message-square" :title="i18n.iconMessageTitle"></span>
+    </div>
+    {{i18n.liveChat}}
+  </a>
+</div>
+

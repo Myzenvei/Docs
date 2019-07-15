@@ -1,0 +1,18 @@
+<div class="vx-store-location">
+  <div class="col-xs-12 col-sm-6 hidden-xs" v-if="selectedStoreAvailable">
+    <div class="d-flex selected-store">
+      <div>
+        <img :src="globals.assetsPath + 'images/no_image.svg'" alt="store image">
+      </div>
+      <div class="pl-sm-4">
+        <a class="store-name" :href="selectedStore.URL"
+          :target="selectedStore.URL != 'javascript:void(0)' ? '_blank' : false">{{selectedStore.NAME}}</a>
+        <div class="store-info mt-sm-3 mb-sm-2">{{selectedStore.ADDRESS}}</div>
+        <div class="store-info mb-sm-2">{{selectedStore.CITY}},<template v-if="selectedStore.STATE">
+            {{selectedStore.STATE}},</template> {{selectedStore.ZIP}}</div>
+        <a :href="`tel:${selectedStore.PHONE}`" class="store-info">{{selectedStore.PHONE}}</a>
+      </div>
+    </div>
+    <vx-map-locator ref="storemap" v-on:mapLoaded="mapLoaded()" @markerClick="desktopMapNavigation()"></vx-map-locator>
+  </div>
+</div>

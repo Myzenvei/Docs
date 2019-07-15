@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+<!--
+	ATTENTION: This is just an example file. You have to edit it according to your needs.
+-->
+
+<items 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+			xsi:noNamespaceSchemaLocation="items.xsd">
+
+	<relations>	
+		<relation code="PromotionBaseStoreRestriction2BaseStore"
+			localized="false" generate="true" autocreate="true">
+			<description>This relation determines which promotions is applicable
+				to a basestore</description>
+			<deployment table="promotionbs2bsRel" typecode="20004" />
+			<sourceElement qualifier="promotionBaseStoreRestriction"
+				type="PromotionBaseStoreRestriction" cardinality="many" ordered="false">
+				<modifiers optional="true" read="false" write="false" />
+			</sourceElement>
+			<targetElement qualifier="baseStores" type="BaseStore"
+				cardinality="many" collectiontype="set" ordered="false">
+				<modifiers optional="true" read="true" write="true" />
+			</targetElement>
+		</relation> 	
+		
+		<relation localized="false" code="BaseStoreBaseStoreVoucherRestrictionRel" autocreate="true" generate="true">
+			<deployment table="bs2bsvoucherrestriction" typecode="12508" />
+			<sourceElement type="BaseStore" cardinality="many" qualifier="baseStore" ordered="false"/>	
+			
+			<targetElement type="BaseStoreVoucherRestriction" cardinality="many" qualifier="baseStoreVoucherRestriction" ordered="false">
+				<description>Legal category assigned for product.</description>
+			</targetElement>
+		</relation>
+	</relations>
+	
+	<itemtypes>
+
+		<itemtype code="BaseStoreVoucherRestriction" extends="Restriction"
+			jaloclass="de.hybris.platform.multicountry.voucher.jalo.BaseStoreVoucherRestriction" autocreate="true" generate="true"/>
+		
+		<typegroup name="timerestriction">
+			
+			
+			<itemtype code="PromotionTimeRestriction" extends="AbstractPromotionRestriction"
+			jaloclass="de.hybris.platform.promotions.jalo.PromotionTimeRestrictionRestriction"
+			autocreate="true" generate="true">
+			<attributes>
+				<attribute qualifier="descriptionPattern" redeclare="true"
+					type="localized:java.lang.String">
+					<description>The description of the restriction (supports message
+						pattern).</description>
+					<modifiers read="true" write="true" search="false"
+						optional="true" />
+					<persistence type="property">
+						<columntype database="oracle">
+							<value>varchar2(4000)</value>
+						</columntype>
+						<columntype database="mysql">
+							<value>text</value>
+						</columntype>
+						<columntype database="sqlserver">
+							<value>nvarchar(max)</value>
+						</columntype>
+						<columntype database="hsqldb">
+							<value>LONGVARCHAR</value>
+						</columntype>
+						<columntype>
+							<value>varchar</value>
+						</columntype>
+					</persistence>
+				</attribute>
+				<attribute qualifier="activeFrom" generate="true" autocreate="true" type="java.util.Date">
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="activeUntil" generate="true" autocreate="true" type="java.util.Date">
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="useStoreTimeZone" generate="true" autocreate="true" type="java.lang.Boolean">
+					<persistence type="property" />
+					<defaultvalue>java.lang.Boolean.TRUE</defaultvalue>
+				</attribute>
+			</attributes>
+		</itemtype>
+			 
+		<itemtype code="PromotionBaseStoreRestriction" extends="PromotionTimeRestriction"
+			jaloclass="de.hybris.platform.promotions.jalo.PromotionBaseStoreRestriction"
+			autocreate="true" generate="true">
+			<attributes>
+				<attribute qualifier="descriptionPattern" redeclare="true"
+					type="localized:java.lang.String">
+					<description>The description of the restriction (supports message
+						pattern).</description>
+					<modifiers read="true" write="true" search="false"
+						optional="true" />
+					<persistence type="property">
+						<columntype database="oracle">
+							<value>varchar2(4000)</value>
+						</columntype>
+						<columntype database="mysql">
+							<value>text</value>
+						</columntype>
+						<columntype database="sqlserver">
+							<value>nvarchar(max)</value>
+						</columntype>
+						<columntype database="hsqldb">
+							<value>LONGVARCHAR</value>
+						</columntype>
+						<columntype>
+							<value>varchar</value>
+						</columntype>
+					</persistence>
+				</attribute>
+			</attributes>
+		</itemtype>
+		</typegroup>
+		
+	</itemtypes>
+</items>

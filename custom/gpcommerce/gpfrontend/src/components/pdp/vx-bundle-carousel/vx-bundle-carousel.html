@@ -1,0 +1,24 @@
+<div class="vx-bundle-carousel m-xs-4 m-sm-5">
+  <h3 v-if="bundleCarouselData.bundleTemplates.length" v-html="bundleCarouselTitle"></h3>
+  <mg-slick-slider :slick-options="sliderConfig">
+    <template slot="slickSlide">
+      <div v-for="item in bundleCarouselData.bundleTemplates" class="slide-wrapper">
+        <div class="banner-content">
+          <div class="d-flex justify-content-center">
+            <div class="tile mb-xs-3">
+              <div class="image-tile">
+                <img v-if="item.bundleImage && item.bundleImage.length" :src="item.bundleImage[0].url" :alt="item.name">
+                <img v-else :src="globals.assetsPath + 'images/no_image.svg'" :alt="item.name" />
+              </div>
+              <div class="bottom-block py-xs-3">
+                <div class="pb-xs-5 tile-name" v-html="item.rootBundleTemplateName"></div>
+                <button type="button" :aria-label="i18n.notAvailable" class="btn btn-primary disabled" v-if="isDisabled" disabled="true">{{i18n.notAvailable}}</button>
+                <button type="button" :aria-label="i18n.buildABundle" class="btn btn-primary" @click="navigateToBundle(item.id)" v-else>{{i18n.buildABundle}}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+  </mg-slick-slider>
+</div>

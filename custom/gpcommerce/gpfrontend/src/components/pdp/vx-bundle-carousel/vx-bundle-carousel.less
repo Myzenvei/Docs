@@ -1,0 +1,88 @@
+@import '../../../../node_modules/slick-carousel/slick/slick.css';
+@import '../../../../node_modules/slick-carousel/slick/slick-theme.css';
+
+.vx-bundle-carousel {
+  h3 {
+    font-size: @font-size-large;
+    letter-spacing: @letter-spacing-default;
+    line-height: 19px;
+    font-weight: @font-weight-regular;
+    padding-left: 2%;
+
+    @media (min-width: @screen-sm-min) {
+      font-size: @font-size-h3;
+      line-height: 25px;
+    }
+
+    @media (min-width: @screen-md-min) {
+      padding-left: 3%;
+    }
+  }
+
+  .mg-slick-slider {
+    .slick-slider {
+      .slick-arrow {
+        &:before {
+          color: @font-icon-color-3;
+          font-size: 25px;
+          font-family: inherit;
+        }
+      }
+      .slick-track {
+        margin: 0;
+        .slick-slide {
+          .image-tile {
+            img {
+              margin: 0 auto;
+              border: 1px solid @brand-secondary-10;
+              padding: 24px;
+            }
+          }
+        }
+      }
+    }
+  }
+  .banner-content {
+    .tile {
+      width: 144px;
+
+      @media (min-width: @screen-sm-min) {
+        width: 151px;
+      }
+
+      @media (min-width: @screen-md-min) {
+        width: 215px;
+      }
+    }
+  }
+  .bottom-block {
+    .tile-name {
+      font-size: @font-size-h6;
+      line-height: 16px;
+      font-weight: @font-weight-medium;
+
+      @media (min-width: @screen-md-min) {
+        font-size: @font-size-medium;
+      }
+    }
+
+    button {
+      position: absolute;
+      bottom: 0;
+      width: 144px;
+      padding: 0;
+
+      @media (min-width: @screen-sm-min) {
+        width: 151px;
+      }
+
+      @media (min-width: @screen-md-min) {
+        width: 215px;
+      }
+    }
+
+    .btn-primary.disabled {
+      background: @btn-disabled-bg;
+    }
+  }
+}

@@ -1,0 +1,26 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+#UTF-8:
+# ImpEx for Importing Product Reviews into Electronics Store (English)
+
+# Macros / Replacement Parameter definitions
+#$productCatalog=electronicsProductCatalog
+#$productCatalogName=Electronics Product Catalog
+#$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Online'])[unique=true,default=$productCatalog:Online]
+
+# Language
+$lang=en
+
+INSERT_UPDATE CustomerReview;product(code,$catalogVersion)[unique=true];user(uid)[unique=true];alias;approvalStatus(code);blocked;comment;headline;language(isocode);rating
+#;872912;testuser1@test.com;TestUser1;approved;false;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.;Great Product;$lang;5
+
+INSERT_UPDATE CustomerReview;product(code,$catalogVersion)[unique=true];user(uid)[default=anonymous,unique=true];alias;approvalStatus(code);blocked;comment;headline;language(isocode);rating
+#;872912;;AnonUser1;approved;false;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.;Great Product;$lang;5

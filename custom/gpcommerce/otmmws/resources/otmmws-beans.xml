@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="beans.xsd">
+
+
+	<bean class="com.opentext.hybris.otmmws.dto.OtmmFolderDTO">
+		<property name="id" type="String"/>
+		<property name="parentFolderId" type="String"/>
+		<property name="name" type="String"/>
+		<property name="assetCount" type="long"/>
+		<property name="haveChildrenBeenLoaded" type="boolean"/>
+	</bean>
+
+	<bean class="com.opentext.hybris.otmmws.dto.OtmmFolderListDTO">
+		<property name="folders" type="java.util.List&lt;com.opentext.hybris.otmmws.dto.OtmmFolderDTO>"/>
+	</bean>
+
+	<bean class="com.opentext.hybris.otmmws.dto.OtmmScalarFieldDTO">
+		<property name="id" type="String"/>
+		<property name="strValue" type="String"/>
+	</bean>
+
+	<bean class="com.opentext.hybris.otmmws.dto.OtmmMasterDTO">
+		<property name="master" type="String"/>
+	</bean>
+
+	<bean class="com.opentext.hybris.otmmws.dto.OtmmAssetDTO">
+		<property name="id" type="String"/>
+		<property name="originalId" type="String"/>
+		<property name="assetModelId" type="String"/>
+		<property name="name" type="String"/>
+		<property name="thumbnailUrl" type="String"/>
+		<property name="mimeType" type="String"/>
+		<property name="contentType" type="String"/>
+		<property name="sizeInBytes" type="long"/>
+		<property name="scalarFields" type="java.util.List&lt;com.opentext.hybris.otmmws.dto.OtmmScalarFieldDTO>"/>
+		<property name="masterList" type="java.util.List&lt;com.opentext.hybris.otmmws.dto.OtmmMasterDTO>"/>
+	</bean>
+
+	<bean class="com.opentext.hybris.otmmws.dto.SearchResponseDTO">
+		<property name="totalResultCount" type="long"/>
+		<property name="assets" type="java.util.List&lt;com.opentext.hybris.otmmws.dto.OtmmAssetDTO>"/>
+	</bean>
+
+	<bean class="com.opentext.hybris.otmmws.dto.UiStartParamsDTO">
+		<property name="loginUrl" type="String"/>
+		<property name="mediaServletUrl" type="String"/>
+	</bean>
+
+	<bean class="com.opentext.hybris.otmmws.dto.AttributeInfoDTO">
+		<property name="id" type="String"/>
+		<property name="locale" type="String"/>
+	</bean>
+
+	<bean class="com.opentext.hybris.otmmws.dto.ImageCropParametersDTO">
+		<!-- The width of the clipped image -->
+		<property name="swidth" type="int"/>
+
+		<!-- The height of the clipped image -->
+		<property name="sheight" type="int"/>
+
+		<!-- The x coordinate where to start clipping -->
+		<property name="xoff" type="int"/>
+
+		<!-- The y coordinate where to start clipping -->
+		<property name="yoff" type="int"/>
+
+		<!-- The width of the resulting image -->
+		<property name="targetSizeWidth" type="int"/>
+
+		<!-- The height of the resulting image -->
+		<property name="targetSizeHeight" type="int"/>
+	</bean>
+
+	<bean class="com.opentext.hybris.otmmws.dto.AssignmentInfoDTO">
+		<property name="assets" type="java.util.List&lt;com.opentext.hybris.otmmws.dto.OtmmAssetDTO>"/>
+		<property name="itemPk" type="String"/>
+		<property name="attributeInfo" type="com.opentext.hybris.otmmws.dto.AttributeInfoDTO"/>
+		<property name="mediaFormat" type="String"/>
+		<property name="assignmentLabel" type="String"/>
+		<property name="automaticallyUpdateToLatestAssetVersion" type="boolean"/>
+		<property name="selectedAssetDeliveryPk" type="String"/>
+		<property name="imageCropParameters" type="com.opentext.hybris.otmmws.dto.ImageCropParametersDTO"/>
+	</bean>
+
+	<bean class="com.opentext.hybris.otmmws.dto.AssetAssignmentResponseDTO">
+		<property name="status" type="String"/>
+		<property name="cancelAssignmentInfo" type="com.opentext.hybris.otmmws.dto.CancelAssignmentDTO"/>
+	</bean>
+
+	<bean class="com.opentext.hybris.otmmws.dto.ItemPkDTO">
+		<property name="itemPk" type="String"/>
+	</bean>
+
+	<bean class="com.opentext.hybris.otmmws.dto.OpenTextMediaDTO">
+		<property name="code" type="String"/>
+		<property name="catalog" type="String"/>
+		<property name="catalogVersion" type="String"/>
+		<property name="url" type="String"/>
+		<property name="mime" type="String"/>
+		<property name="otmmAssetId" type="String"/>
+		<property name="otmmOriginalAssetId" type="String"/>
+		<property name="otmmAssetName" type="String"/>
+		<property name="otmmUrl" type="String"/>
+		<property name="otmmThumbnailUrl" type="String"/>
+	</bean>
+
+	<bean class="com.opentext.hybris.otmmws.dto.FileUploadRequestDTO">
+		<property name="clemensParam" type="String"/>
+		<property name="file" type="org.springframework.web.multipart.MultipartFile"/>
+	</bean>
+
+	<bean class="com.opentext.hybris.otmmws.dto.FileUploadResponseDTO">
+		<property name="status" type="String"/>
+	</bean>
+
+	<bean class="com.opentext.hybris.otmmws.dto.OtmmApplicationExceptionResponseDTO">
+		<property name="logId" type="String"/>
+		<property name="message" type="String"/>
+	</bean>
+
+	<bean class="com.opentext.hybris.otmmws.dto.MediaDTO">
+		<property name="mediaFormat" type="String"/>
+		<property name="mediaCode" type="String"/>
+		<property name="mediaPk" type="String"/>
+	</bean>
+
+	<bean class="com.opentext.hybris.otmmws.dto.MediaContainerDTO">
+		<property name="mediaContainerPk" type="String"/>
+		<property name="medias" type="java.util.List&lt;com.opentext.hybris.otmmws.dto.MediaDTO>"/>
+	</bean>
+
+	<bean class="com.opentext.hybris.otmmws.dto.LocalizedItemAttributeDTO">
+		<property name="locale" type="String"/>
+		<property name="wasItemAttributeNull" type="boolean"/>
+		<property name="media" type="com.opentext.hybris.otmmws.dto.MediaDTO"/>
+		<property name="mediaContainer" type="com.opentext.hybris.otmmws.dto.MediaContainerDTO"/>
+	</bean>
+
+	<bean class="com.opentext.hybris.otmmws.dto.CancelAssignmentDTO">
+		<property name="itemPk" type="String"/>
+		<property name="attributeId" type="String"/>
+		<property name="localizedAttributes"
+				  type="java.util.List&lt;com.opentext.hybris.otmmws.dto.LocalizedItemAttributeDTO>"/>
+	</bean>
+
+	<bean class="com.opentext.hybris.otmmws.dto.UiConfigDTO">
+		<property name="hybrisSystemId" type="String"/>
+		<property name="configurationId" type="String"/>
+	</bean>
+
+	<bean class="com.opentext.hybris.otmmws.dto.CatalogVersionDTO">
+		<property name="catalogId" type="String"/>
+		<property name="catalogVersion" type="String"/>
+	</bean>
+
+	<bean class="com.opentext.hybris.otmmws.dto.DummyMediaDTO">
+		<property name="catalogId" type="String"/>
+		<property name="catalogVersion" type="String"/>
+		<property name="code" type="String"/>
+		<property name="uuid" type="String"/>
+		<property name="pk" type="String"/>
+	</bean>
+
+
+	<!-- DATA -->
+	<bean class="com.opentext.hybris.otmmws.data.UserDataList">
+		<property name="users" type="java.util.List&lt;com.opentext.hybris.otmmws.data.UserData>"/>
+	</bean>
+
+	<bean class="com.opentext.hybris.otmmws.data.UserData">
+		<property name="defaultBillingAddress" type="com.opentext.hybris.otmmws.data.AddressData"/>
+		<property name="defaultShippingAddress" type="com.opentext.hybris.otmmws.data.AddressData"/>
+		<property name="addresses" type="java.util.List&lt;com.opentext.hybris.otmmws.data.AddressData>"/>
+		<property name="description" type="String"/>
+		<property name="firstName" type="String"/>
+		<property name="lastName" type="String"/>
+	</bean>
+
+	<bean class="com.opentext.hybris.otmmws.data.AddressDataList">
+		<property name="addresses" type="java.util.List&lt;com.opentext.hybris.otmmws.data.AddressData>"/>
+	</bean>
+
+	<bean class="com.opentext.hybris.otmmws.data.AddressData">
+		<property name="streetname" type="String"/>
+		<property name="streetnumber" type="String"/>
+		<property name="town" type="String"/>
+		<property name="shippingAddress" type="boolean"/>
+		<property name="billingAddress" type="boolean"/>
+		<property name="defaultAddress" type="boolean"/>
+		<property name="formattedAddress" type="String"/>
+	</bean>
+
+	<!-- DTO -->
+	<bean class="com.opentext.hybris.otmmws.dto.SampleWsDTO">
+		<property name="value" type="String"/>
+	</bean>
+
+	<bean class="com.opentext.hybris.otmmws.dto.UsersListWsDTO">
+		<property name="users" type="java.util.List&lt;com.opentext.hybris.otmmws.dto.UserWsDTO>"/>
+	</bean>
+
+	<bean class="com.opentext.hybris.otmmws.dto.UserWsDTO">
+		<property name="addresses" type="java.util.List&lt;com.opentext.hybris.otmmws.dto.AddressWsDTO>"/>
+		<property name="firstName" type="String"/>
+		<property name="lastName" type="String"/>
+		<property name="info" type="String"/>
+		<property name="billingAddress" type="com.opentext.hybris.otmmws.dto.AddressWsDTO"/>
+		<property name="shippingAddress" type="com.opentext.hybris.otmmws.dto.AddressWsDTO"/>
+	</bean>
+
+	<bean class="com.opentext.hybris.otmmws.dto.AddressListWsDTO">
+		<property name="addresses" type="java.util.List&lt;com.opentext.hybris.otmmws.dto.AddressWsDTO>"/>
+	</bean>
+
+	<bean class="com.opentext.hybris.otmmws.dto.AddressWsDTO">
+		<property name="street" type="String"/>
+		<property name="town" type="String"/>
+		<property name="streetNumber" type="String"/>
+	</bean>
+
+	<bean class="com.opentext.hybris.otmmws.dto.TestMapWsDTO">
+		<property name="stringMap" type="java.util.Map&lt;String,String>"/>
+		<property name="integerMap" type="java.util.Map&lt;String,Integer>"/>
+	</bean>
+
+</beans>

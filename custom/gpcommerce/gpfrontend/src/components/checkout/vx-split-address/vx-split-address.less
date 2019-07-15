@@ -1,0 +1,110 @@
+
+.vx-split-address {
+  .address-input-container{
+    color: @font-color-label-text;
+    font-weight: @font-weight-light;
+    letter-spacing: 0.15px;
+    font-size: @font-size-medium;
+  }
+  .address-dropdown-container {
+    flex-grow: 1;
+  }
+  .address-dropdown{
+    flex-basis: 100%;
+    flex-grow: 1;
+  }
+  .split-addresses,
+  .ship-to-another-address {
+    font-size: @font-size-small;
+    font-weight: @font-weight-medium;
+    color: @text-color-secondary-3;
+    cursor: pointer;
+    float: right;
+  }
+  .split-quantity {
+    float: left;
+  }
+  .icon-info,
+  .icon-trash {
+    font-size: @font-icon-size;
+    color: @font-icon-color-3;
+    cursor: pointer;
+  }
+
+  .section-header {
+    position: relative;
+    color: @font-color-label-text;
+    font-weight: @font-weight-light;
+    letter-spacing: 0.15px;
+    font-size: @font-size-medium;
+
+    .address {
+      padding-left: 0px;
+      position: absolute;
+      left: 168px;
+      top: 24px;
+    }
+    .address-no-split{
+      padding-left: 0px;
+      position: absolute;
+      left: 168px;
+      top: 4px;
+    }
+  }
+  .align-dropdown {
+    margin-left: 166px;
+  }
+  .visibility-hidden{
+    visibility: hidden;
+  }
+}
+
+@media only screen and (max-width: @screen-sm-max) {
+  .vx-split-address {
+    .section-header {
+      position: relative;
+      .address {
+        padding-left: 0px;
+        position: absolute;
+        left: 168px;
+        top: 24px;
+      }
+      .address-no-split {
+        padding-left: 0px;
+        position: absolute;
+        left: 168px;
+        top: 4px;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: @screen-xs-max) {
+  .vx-split-address {
+    .align-dropdown {
+      margin-left: 0;
+    }
+    .section-header {
+      position: relative;
+      .address-no-split {
+        padding-left: 0px;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+      }
+    }
+    .address-input-container{
+      .address {
+        padding-left: 0px;
+      }
+    }
+
+    .address-dropdown{
+      float: none;
+    }
+
+    .hide-xs {
+      display: none;
+    }
+  }
+}

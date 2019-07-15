@@ -1,0 +1,32 @@
+#brawny {
+  .banner {
+    &.hero-left {
+      .banner__promotion {
+        text-align: left;
+      }
+    }
+    .banner__promotion {
+      .banner__heading {
+        font-size: @font-size-h1;
+        line-height: 34px;
+      }
+      .banner__subheading {
+        font-size: @font-size-h5;
+        line-height: 16px;
+        letter-spacing: 0.15px;
+        font-weight: @font-weight-regular;
+        margin-top: 24px;
+        @media (min-width: @screen-sm-min) {
+          font-size: @font-size-h4;
+          line-height: 24px;
+        }
+      }
+      .btn {
+        font-size: @font-size-small !important;
+        font-weight: @font-weight-med !important;
+        letter-spacing: 0.15px;
+        text-align: left;
+      }
+    }
+  }
+}

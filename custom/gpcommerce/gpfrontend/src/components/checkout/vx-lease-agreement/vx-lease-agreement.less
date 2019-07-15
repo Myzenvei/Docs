@@ -1,0 +1,69 @@
+
+.vx-lease-agreement {
+  .hideDeclineMessage{
+    display:none;
+  }
+  .section-header {
+    font-size: @font-size-h4;
+    font-weight: @font-weight-medium;
+    display: inline-block;
+  }
+  .lease-change {
+    cursor: pointer;
+    font-weight: @font-weight-medium;
+    color: @text-color-secondary-3;
+  }
+  .decline-error-message {
+    color: @font-color-error;
+    font-size: @font-size-error;
+    clear: both;
+  }
+  .section-address {
+    p,
+    label {
+      color: @text-color;
+      font-weight: @font-weight-light;
+      font-size: @font-size-h5;
+    }
+    .title {
+      font-weight: @font-weight-medium;
+    }
+    .item-header {
+      color: @text-color-secondary-3;
+      font-weight: @font-weight-medium;
+    }
+  }
+  .lease-btn {
+    display: flex;
+    flex-direction: row;
+
+
+    .save-and-continue[disabled] {
+      background: @btn-disabled-bg;
+      text-decoration: none;
+      color: @btn-disabled-text-color;
+    }
+
+    .save-and-continue {
+      background: @btn-primary-bg;
+    }
+
+    @media only screen and (min-width: @screen-xs-max) {
+      .btn.save-and-continue {
+        width: 248px;
+      }
+    }
+
+    .accepted-btn {
+      background: @success-text-color;
+      color: @btn-default-bg;
+    }
+  }
+
+  @media only screen and (max-width: 767px) {
+    .lease-btn {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}

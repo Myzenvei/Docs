@@ -1,0 +1,27 @@
+<!-- 1.Radio button group component is a generic component which will take options in an array as props.
+2. Options array should contain option objects which should contain label and value.
+3. Example:- "options": [
+                         {"label": "option1", "value": "option1"},
+                         {"label": "option2", "value": "option2"},
+                         {"label": "option3", "value": "option3"}
+                         ]
+4. There are two emit events in which selected-label will emit label of radio button and
+    selected-value will emit value of radio button.
+5. Usage of emitted label and value in parent component:-
+  create one data attribute radioButtonValue & radioButtonLabel[Attribute names can be anything]
+  in parent component and add the following
+  @selected-value="radioButtonValue=$event"
+  @selected-label="radioButtonLabel=$event" -->
+
+  <section class="radio-button-group">
+    <div class="form-check" v-bind:class="{'horizontal-radio': arrangeHorizontal}">
+      <div class="form-group" v-bind:class="{'mr-xs-5': arrangeHorizontal}" v-for="(item, index) in radiobuttonValues"
+        @click="radioButtonOptionChange(item,$event)" :disabled="item.disabled">
+        <input tabindex="0" type="radio" class="form-check-input" v-model="radioButtonchecked" :label="item.label"
+          :aria-label="item.label" :value="item.value" :name="name"/>
+        <label class="form-check-label">{{item.label}}</label>
+        <slot :item="item">
+        </slot>
+      </div>
+    </div>
+  </section>

@@ -1,0 +1,370 @@
+$productCatalog=gpUSProductCatalog
+$contentCatalog=vanityfairnapkinsContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$defaultLanguage=en
+$storeUid=vanityfairnapkins
+$siteUid=vanityfairnapkins
+$domainId=www.srv.gapac.com
+$webServiceSiteUid=$siteUidWS
+$siteMapUrlLimitPerFile=50000
+$storefrontContextRoot=/gpcommercestorefront
+$siteMapLangCur=enUsd
+$siteMapPage=Homepage,Product,CategoryLanding,Category,Store,Content,Custom
+$customSiteMapUrls=/Categories/c/categories?q=:relevance:allPromotions:BOGOFApparel:allPromotions:10DiscountShoes:allPromotions:MultiBuyApparel:allPromotions:PerfectPartnerApparel:allPromotions:ProductBundleApparel,/Categories/Streetwear-youth/T-Shirts-youth/c/270100?q=%3Arelevance%3Abrand%3ABurton%3AswatchColors%3ABLACK&text=#,/Categories/Accessories/c/220000?q=%3Arelevance%3Abrand%3AQuiksilver%3AswatchColors%3AGREEN&text=#,/Brands/Fox/c/Fox?q=%3Arelevance%3AswatchColors%3ABLACK%3Agender%3AMALE,/Categories/Snowwear-women/Snow-Jackets-women/c/200100?q=%3Arelevance%3AswatchColors%3ABLACK%3Abrand%3AWLD
+
+$picture=media(code, $contentCV) ;
+$siteResource=jar:com.gp.commerce.initialdata.constants.GpcommerceInitialDataConstants&/gpcommerceinitialdata/import/sampledata/contentCatalogs/$contentCatalog
+$jarResourceCms=jar:com.gp.commerce.initialdata.constants.GpcommerceInitialDataConstants&/gpcommerceinitialdata/import/sampledata/cockpits/cmscockpit
+$picture=media(code, $contentCV)
+$medias=medias(code, $contentCV);
+$mediaContainer=media(qualifier, $contentCV)
+
+$lang=en
+$solrIndexedContentType=vanityfairnapkinsContentType
+
+UPDATE CMSSite;uid[unique=true];faviconUrl
+;vanityfairnapkins;/_ui/responsive/common/images/vanityfair_favicon.png
+
+INSERT_UPDATE GPHeaderNavigationComponent;$contentCV[unique=true];uid[unique=true];name;styleClass;navigationNode(uid,$contentCV)[unique=true];wrapAfter;includeMiniCart;includeSearchBox;brandLogo;brandMobileLogo;checkoutMenu(uid,$contentCV);findStoreMenu(uid,$contentCV);loginMenu(uid,$contentCV);logoutMenu(uid,$contentCV);categoryNavigationMenu(uid,$contentCV);showFindAStore;showLoginRegister
+;;GPHeaderNavigationComponent;GP Header Navigation Component;;GPHeaderNavigationNode;10;false;true;images/vanity-fair/logo.svg;images/vanity-fair/mobile_logo.svg;GPCheckoutNavNode;GPFindStoreNavNode;GPLoginMenuNavNode;GPLogoutMenuNavNode;GPCategoryNavigationNode;true;false
+
+UPDATE CMSSite;uid[unique=true];faviconUrl
+;vanityfairnapkins;/_ui/responsive/common/images/vanityfair_favicon.png
+
+#INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);label;defaultPage[default='true'];approvalStatus(code)[default='approved'];homepage[default='false']
+#;;termsAndConditions;Terms and Conditions Page;ContentPage1Template;/termsAndConditions
+
+#INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);label;defaultPage[default='true'];approvalStatus(code)[default='approved'];homepage[default='false']
+#;;aboutUs;About Us Page;GPLandingPage2Template;/aboutUs
+
+#INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);label;defaultPage[default='true'];approvalStatus(code)[default='approved'];homepage[default='false']
+#;;faq;Frequently Asked Questions Page;GPLandingPage2Template;/faq
+
+
+# CMSParagraphComponent
+INSERT_UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;;;;content[lang=en]
+;;termsAndConditionsTextParagraph;Terms and Conditions Paragraph;TermsAndConditionsTextParagraph;;;;This is Sample terms and conditions page.
+
+# ContentSlot
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;Section1Slot-TermsAndConditions;Section1 Slot for Terms and Conditions Page;true;TermsAndConditionsTextParagraph;;;
+
+# ContentSlotForPage
+#INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='termsAndConditions'];contentSlot(uid,$contentCV)[unique=true];;;
+#;;Section1-TermsAndConditions;Section1;;Section1Slot-TermsAndConditions;;;
+
+# ----- About us Page
+# CMSParagraphComponent
+INSERT_UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;;;;content[lang=en]
+;;aboutUsTextParagraph;About Us Paragraph;AboutUsTextParagraph;;;;About - us  Page.
+;;aboutUsContentParagraph;About Us Paragraph;AboutUsContentParagraph;;;;This is a sample about us page.
+
+# ContentSlot
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;Section1Slot-AboutUs;Section1 Slot for About Us Page;true;AboutUsTextParagraph;;;
+;;Section3Slot-AboutUs;Section3 Slot for About Us Page;true;AboutUsContentParagraph;;;
+;;Section5Slot-AboutUs;Section5 Slot for About Us Page;true;;;;;
+
+# ContentSlotForPage
+#INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='aboutUs'];contentSlot(uid,$contentCV)[unique=true];;;
+#;;Section1-AboutUs;ContentSlot1;;Section1Slot-AboutUs;;;
+#;;Section3-AboutUs;ContentSlot2;;Section3Slot-AboutUs;;;
+#;;Section5-AboutUs;ContentSlot3;;Section5Slot-AboutUs;;;
+
+#-------FAQ_Page
+
+INSERT_UPDATE GPFAQCMSParagraphComponent;$contentCV[unique=true];uid[unique=true];name;content[lang=en];&componentRef
+;;faqTextComponent;faqTextComponent;<que>question1</que><ans>answer1</ans><que>question2</que><ans>answer2</ans><que>question3</que><ans>answer3</ans>;faqTextComponent
+
+INSERT_UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef
+;;faqHeadingComponent;FAQ Heading;faqHeadingComponent
+;;faqContentComponent;FAQ Content Paragraph;faqContentComponent
+
+# ContentSlot
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;Section1-FAQ;Section1 Slot for FAQ Page;true;faqHeadingComponent
+;;Section3-FAQ;Section3 Slot for FAQ Page;true;faqTextComponent
+;;Section5-FAQ;Section5 Slot for FAQ Page;true;faqContentComponent
+
+# ContentSlotForPage
+#INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='faq'];contentSlot(uid,$contentCV)[unique=true]
+#;;Section1-FAQPage;ContentSlot1;;Section1-FAQ
+#;;Section3-FAQPage;ContentSlot2;;Section3-FAQ
+#;;Section5-FAQPage;ContentSlot3;;Section5-FAQ
+
+REMOVE CMSNavigationNode;uid[unique=true];$contentCV[unique=true]
+;LinkedInNavNode;
+;TwitterNavNode;
+;YouTubeNavNode;
+;SnapchatNavNode;
+
+UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];linkName[lang=en]
+;;FacebookLink;"vanity-fair/Facebook"
+;;InstagramLink;"vanity-fair/Instagram"
+;;PinterestLink;"vanity-fair/pinterest"
+
+UPDATE FooterNavigationComponent;$contentCV[unique=true];uid[unique=true];notice[lang=en]
+;;FooterNavigationComponent;"| Georgia-Pacific"
+
+#validating impex file
+
+INSERT_UPDATE Media;mediaFormat(qualifier);code[unique=true];@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];realfilename;altText;mime[default='image/jpeg'];$contentCV[unique=true];folder(qualifier)[default=images];
+;desktop;brandbar1;$siteResource/images/gpimage/brandbar1.png;brandbar1.png;"brandbar1.png";
+;desktop;brandbar2;$siteResource/images/gpimage/brandbar2.png;brandbar2.png;"brandbar2.png";
+;desktop;brandbar3;$siteResource/images/gpimage/brandbar3.png;brandbar3.png;"brandbar3.png";
+;desktop;brandbar4;$siteResource/images/gpimage/brandbar4.png;brandbar4.png;"brandbar4.png";
+;desktop;brandbar5;$siteResource/images/gpimage/brandbar5.png;brandbar5.png;"brandbar5.png";
+
+
+INSERT_UPDATE GPImageLinkComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;url;$picture
+;;gpImageLink1;gpImageLink1;gpImageLink1;/;brandbar1
+;;gpImageLink2;gpImageLink1;gpImageLink2;/;brandbar2
+;;gpImageLink3;gpImageLink1;gpImageLink3;/;brandbar3
+;;gpImageLink4;gpImageLink1;gpImageLink4;/;brandbar4
+;;gpImageLink5;gpImageLink5;gpImageLink5;/;brandbar5
+
+
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;BrandsHolderSlot-findstore;Our Brands Slot for find a store;true;gpBrandBarComponentFindStore;;;
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='storeLocator'];contentSlot(uid,$contentCV)[unique=true];;;
+;;BrandsHolderSlot-findstore;BrandsHolderSlot;;BrandsHolderSlot-findstore;;;
+
+INSERT_UPDATE GPBrandBarComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;headline;urlLink;images(&componentRef);backgroundColor
+;;gpBrandBarComponentFindStore;gpBrandBarComponentFindStore;gpBrandBarComponentFindStore;Brand Bar for Find Store;CLick here;gpImageLink1,gpImageLink2,gpImageLink3,gpImageLink4,gpImageLink5;#008000
+
+						  #Setting searchable true for cms content pages
+INSERT_UPDATE ContentPage ; $contentCV[unique=true] ; uid[unique=true]   ; title ; isSearchable[default=true]           
+                          ;                         ; aboutUs            ; About Us;
+                          ;                         ; contactUsForm      ; Contact Us;           
+                          ;                         ; faq                ; Frequently Asked Questions Page;             
+                          ;                         ; homepage           ; Welcome to the store;          
+                          ;                         ; termsAndConditions ; Site terms of Use;     
+                          ;                         ; gpHomePage         ; ;false          
+
+
+#### ComponentTypeGroups2ComponentType Start ###
+
+INSERT_UPDATE ComponentTypeGroups2ComponentType; source(code)[unique=true]; target(code)[unique=true]  
+                                               ; wide                     ; GPQuplesComponent
+                                               ; narrow                   ; GPQuplesComponent
+
+##########################REMOVE FOR PRODUCTS AND MENU2 FROM HEADER#######################################
+REMOVE CMSNavigationNode;$contentCV[unique=true];uid[unique=true];title[lang=$lang];name;parent(uid, $contentCV);
+;;ProductsNavNode;Products;Products;GPCategoryNavigationNode;
+;;ProductOverviewNavNode;Product Overview;Product Overview;ProductsNavNode;
+;;AirCareNode;Air Care;Air Care;ProductOverviewNavNode;
+;;CleaningAndWipesNode;Cleaning Wipes & Towels;Cleaning Wipes & Towels;ProductOverviewNavNode;
+;;CupsLidsNode;Cups, Lids & Straws;Cups, Lids & Straws;ProductOverviewNavNode;
+;;CutleryNode;Cutlery;Cutlery;ProductOverviewNavNode;
+;;FoodWrapNode;Food Wrap, Containers & Trays;Food Wrap, Containers & Trays;ProductOverviewNavNode;
+;;NapkinNode;Napkin;Napkin;ProductOverviewNavNode;
+;;PaperTowelsNode;Paper Towels;Paper Towels;ProductOverviewNavNode;
+;;PlatesAndBowlsNode;Plates & Bowls;Plates & Bowls;ProductOverviewNavNode;
+;;SanitizerNode;Hand Soap & Sanitizer;Hand Soap & Sanitizer;ProductOverviewNavNode;
+;;ToiletPaperNode;Toilet Paper;Toilet Paper;ProductOverviewNavNode;
+
+
+
+REMOVE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];linkName[lang=$lang];url;styleAttributes;target(code)[default='sameWindow'];external[default=false];socialLink[default=false];markAsViewAll[default=false]
+;;ProductsNavLink;Products Nav Link;/category/categories;;;;  
+;;AirCareLink;Air Care;/category/13627;;;;
+;;CleaningAndWipesLink;Cleaning Wipes & Towels;/category/12957;;;;
+;;CupsLidsLink;Cups, Lids & Straws;/category/10211;;;;
+;;CutleryLink;Cutlery;/category/9375;;;;
+;;FoodWrapLink;Food Wrap, Containers & Trays;/category/9687;;;; 
+;;NapkinLink;Napkin;/category/6250;;;; 
+;;PaperTowelsLink;Paper Towel;/category/10474;;;; 
+;;PlatesAndBowlsLink;Plates & Bowls;/category/9363;;;; 
+;;SanitizerLink;Hand Soap & Sanitizer;/category/6264;;;; 
+;;ToiletPaperLink;Toilet Paper;/category/6183;;;;
+
+
+REMOVE CMSNavigationEntry;$contentCV[unique=true];uid[unique=true];name;navigationNode(uid,$contentCV);item(CMSLinkComponent.uid,CMSLinkComponent.$contentCV);
+;;ProductNavNodeEntry;Product Nav Node Entry;ProductsNavNode;ProductsNavLink;
+;;AirCareNodeEntry;Air Care Node Entry;AirCareNode;AirCareLink;
+;;CleaningAndWipesNodeEntry;Cleaning Wipes & Towels Node Entry;CleaningAndWipesNode;CleaningAndWipesLink;
+;;CupsLidsNodeEntry;Cups, Lids & Straws Node Entry;CupsLidsNode;CupsLidsLink;
+;;CutleryNodeEntry;Cutlery Node Entry;CutleryNode;CutleryLink;
+;;FoodWrapNodeEntry;Food Wrap, Containers & Trays Node Entry;FoodWrapNode;FoodWrapLink;
+;;NapkinNodeEntry;Napkin Node Entry;NapkinNode;NapkinLink;
+;;PaperTowelsNodeEntry;Paper Towels Node Entry;PaperTowelsNode;PaperTowelsLink;
+;;PlatesAndBowlsNodeEntry;Plates & Bowls Node Entry;PlatesAndBowlsNode;PlatesAndBowlsLink;
+;;SanitizerNodeEntry;Hand Soap & Sanitizer Node Entry;SanitizerNode;SanitizerLink;
+;;ToiletPaperNodeEntry;Toilet Paper Node Entry;ToiletPaperNode;ToiletPaperLink;
+##########################REMOVE FOR PRODUCTS AND MENU2 FROM HEADER#######################################
+
+
+
+##########################INSERT UPDATE FOR HEADER NAVIGATION#######################################
+INSERT_UPDATE CMSNavigationNode;$contentCV[unique=true];uid[unique=true];title[lang=$lang];name;parent(uid, $contentCV);parentPos
+;;EverydayCollectionNavNode;Everyday Collection;Everyday Collection;GPCategoryNavigationNode;0
+;;EntertainCollectionNavNode;Entertain Collection;Entertain Collection;GPCategoryNavigationNode;1
+;;ExtraAbsorbentNapkinsNavNode;Extra Absorbent Napkins;Extra Absorbent Napkins;GPCategoryNavigationNode;2
+;;ExploreNavNode;Explore;Explore;GPCategoryNavigationNode;3
+;;SaveNavNode;Save;Save;GPCategoryNavigationNode;4
+;;ShopNowNavNode;Shop Now;Shop Now;GPCategoryNavigationNode;5
+
+
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];linkName[lang=$lang];url;styleAttributes;target(code)[default='sameWindow'];external[default=false];socialLink[default=false];markAsViewAll[default=false]
+;;EverydayCollectionLink;Everyday Collection;/category/everyday-collection;;;;
+;;EntertainCollectionLink;Entertain Collection;/category/entertain-collection;;;;
+;;ExtraAbsorbentLink;Extra Absorbent Napkins;/extra-absorbent-napkins;;;;
+;;ExploreLink;Explore;/explore;;;;
+;;SaveLink;Save;/save;;;;
+;;FindStoreLink;Find a Store;/find/locatestore;;;;
+
+
+INSERT_UPDATE CMSNavigationEntry;$contentCV[unique=true];uid[unique=true];name;navigationNode(uid,$contentCV);item(CMSLinkComponent.uid,CMSLinkComponent.$contentCV);
+;;EverydayCollectionNodeEntry;Everyday Collection Node Entry;EverydayCollectionNavNode;EverydayCollectionLink;
+;;EntertainCollectionNodeEntry;Entertain Collection Node Entry;EntertainCollectionNavNode;EntertainCollectionLink;
+;;ExtraAbsorbentNapkinsNodeEntry;Extra Absorbent Napkins Node Entry;ExtraAbsorbentNapkinsNavNode;ExtraAbsorbentLink;
+;;ExploreNodeEntry;Extra Absorbent Napkins Node Entry;ExploreNavNode;ExploreLink;
+;;SaveNodeEntry;Save Node Entry;SaveNavNode;SaveLink;
+;;ShopNowNodeEntry;Shop Now NavNode Entry;ShopNowNavNode;FindStoreLink;
+
+##########################INSERT UPDATE FOR HEADER NAVIGATION#######################################
+
+###########   SOLR CHANGES FOR CONTENT INDEXING   ############
+INSERT_UPDATE SolrIndexedProperty ; solrIndexedType(identifier)[unique=true] ; name[unique=true] ; type(code) ; sortableType(code) ; currency[default=false] ; localized[default=false] ; multiValue[default=false] ; useForSpellchecking[default=false] ; useForAutocomplete[default=false] ; fieldValueProvider             ; valueProviderParameter ; ftsPhraseQuery[default=false] ; ftsPhraseQueryBoost ; ftsQuery[default=false] ; ftsQueryBoost ; ftsFuzzyQuery[default=false] ; ftsFuzzyQueryBoost ; ftsWildcardQuery[default=false] ; ftsWildcardQueryType(code)[default=POSTFIX] ; ftsWildcardQueryBoost ; ftsWildcardQueryMinTermLength
+								  ; $solrIndexedContentType                  ; pageTitle         ; string     ;                    ;                         ; true                     ;                           ;                                    ;                                   ; gpPageTitleValueProvider       ;                        ;                               ;                     ;                         ;               ;                              ;                    ;                                 ;                                             ;                       ;
+
+
+REMOVE SolrSortField ; sort(indexedType(identifier),code)[unique=true] ; fieldName[unique=true] ; ascending[unique=true]
+                            ; $solrIndexedContentType:aTOz                    ; title                  ; true                  
+							
+INSERT_UPDATE SolrSortField ; sort(indexedType(identifier),code)[unique=true] ; fieldName[unique=true] ; ascending[unique=true]
+							; $solrIndexedContentType:aTOz                    ; pageTitle              ; true                  
+
+UPDATE SolrSort;indexedType(identifier)[unique=true];code[unique=true];name[lang=$lang]
+ ;$solrIndexedContentType;relevant;"Relevance"
+ ;$solrIndexedContentType;newToOld;"Newest to the Oldest"
+ ;$solrIndexedContentType;oldTonew;"Oldest to the Newest"
+ ;$solrIndexedContentType;aTOz;"A TO Z"
+############## SOLR CHANGES FOR CONTENT INDEXING ##############
+
+REMOVE CMSNavigationNode;uid[unique=true];$contentCV[unique=true]
+;GPCompanyNavNode;
+;FAQNavNode;
+
+REMOVE CMSNavigationEntry;uid[unique=true];$contentCV[unique=true]
+;AboutGPCompanyNavNodeEntry;
+
+UPDATE FooterNavigationComponent;$contentCV[unique=true];uid[unique=true];notice[lang=en]
+;;FooterNavigationComponent;"| Georgia-Pacific"
+
+## Children of GP NavNode ##
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);links(&linkRef);&nodeRef;parentPos
+;AboutGPTermsAndConditionNavNode;;About Terms and Condition Pages;GPTermsAndConditionNavNode;;AboutGPTermsAndConditionNavNode;0
+;TermsOfUseNode;;TermsOfUseNode-page;GPTermsAndConditionNavNode;;TermsOfUseNode;1
+;PrivacyNoticeNode;;PrivacyNoticeNode-Page;GPTermsAndConditionNavNode;;PrivacyNoticeNode;2
+;CaliforniaPrivacyNoticeNode;;CaliforniaPrivacyNoticeNode-Page;GPTermsAndConditionNavNode;;CaliforniaPrivacyNoticeNode;3
+;GPSustainabilityNode;;GPSustainabilityNode-Page;GPTermsAndConditionNavNode;;GPSustainabilityNode;4
+
+
+
+# entries of the above navigation nodes
+INSERT_UPDATE CMSNavigationEntry;uid[unique=true];$contentCV[unique=true];name;navigationNode(&nodeRef);item(CMSLinkComponent.uid,CMSLinkComponent.$contentCV);
+#;AboutGPCompanyNavNodeEntry;;About GP Company Navigation Node Entry;AboutGPTermsAndConditionNavNode;AboutUsLink;
+;AboutGPTermsAndConditionNavNodeEntry;;About GP Terms and Condition Navigation Node Entry;AboutGPTermsAndConditionNavNode;AboutUsLink;0
+;TermsOfUseNodeEntry;;TermsOfUseNode Entry;TermsOfUseNode;TermsOfUseNodeLink;1
+;PrivacyNoticeNodeEntry;;PrivacyNoticeNode Entry;PrivacyNoticeNode;PrivacyNoticeNodeLink;2
+;CaliforniaPrivacyNoticeNodeEntry;;California Privacy Notice Node Entry;CaliforniaPrivacyNoticeNode;CaliforniaPrivacyNoticeNodeLink;3
+;GPSustainabilityNodeEntry;;GP Sustainability Node Entry;GPSustainabilityNode;GPSustainabilityNodeLink;4
+
+
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];name;url;;target(code)[default='newWindow'];external[default=false];socialLink[default=false];markAsViewAll[default=false]
+;;FacebookLink;Facebook Link;https://www.facebook.com/VanityFairNapkins;;newWindow;true;
+;;InstagramLink;Instagram Link;https://www.instagram.com/vanityfairnapkins/;;newWindow;true;
+;;PinterestLink;Pinterest Link;https://www.pinterest.com/PinVanityFair/;;newWindow;true;
+
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];linkName[lang=$lang];url;&linkRef;&componentRef;target(code)[default='newWindow'];external[default=true];socialLink[default=false];markAsViewAll[default=false]
+;;TermsOfUseNodeLink;Terms Of Use;"https://www.gp.com/legal/legal-notices/terms-of-use";TermsOfUseNodeLink;TermsOfUseNodeLink;newWindow;;
+;;PrivacyNoticeNodeLink;Privacy Notice;"https://www.gp.com/legal/legal-notices/privacy-notice";PrivacyNoticeNodeLink;PrivacyNoticeNodeLink;newWindow;;
+;;CaliforniaPrivacyNoticeNodeLink;CA Privacy Rights;"https://www.gp.com/legal/legal-notices/privacy-notice#california";CaliforniaPrivacyNoticeNodeLink;CaliforniaPrivacyNoticeNodeLink;newWindow;;
+;;GPSustainabilityNodeLink;GP Sustainability Site;"https://www.gp.com/sustainability";GPSustainabilityNodeLink;GPSustainabilityNodeLink;newWindow;
+
+
+######################CATEGORIES FOR VANITYFAIR NAPKINS##########################################
+
+# Macros / Replacement Parameter definitions
+$catalogVersion=catalogVersion(catalog(id[default='gpUSProductCatalog']),version[default='Staged'])[unique=true,default='gpUSProductCatalog:Staged']
+$categories=target(code, $catalogVersion)[unique=true]
+$supercategories=source(code, $catalogVersion)[unique=true]
+$lang=en
+########CREATE###################
+# Create CopperAndCrane Categories
+INSERT_UPDATE Category;code[unique=true];$catalogVersion;supercategories(code,$catalogVersion);allowedPrincipals(uid)[default='customergroup'];name[lang=$lang];categories
+;vanityFairNapkinsCategories; ;;;;
+
+########REMOVE SUPER CATEGORIES#########
+REMOVE Category;code[unique=true];$catalogVersion;supercategories(code,$catalogVersion);allowedPrincipals(uid)[default='customergroup']
+;vanityFairNapkinsCategories;;
+
+# Create VanityFairNapkins Categories
+INSERT_UPDATE Category;code[unique=true];$catalogVersion;supercategories(code,$catalogVersion);allowedPrincipals(uid)[default='customergroup'];name[lang=$lang]
+;everyday-collection; ;;;Everyday Collection
+;entertain-collection; ;;;Entertain Collection
+;extra-absorbent-napkins; ;;;Extra Absorbent Napkins
+
+
+############################# NOTIFICATION EMAIL  ##############################
+$contentCatalog=vanityfairnapkinsContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+
+$wideContent=CMSImageComponent,BannerComponent
+$emailPackageName=com.gp.commerce.facades.process.email.context
+$emailResource=jar:com.gp.stocknotifyoccaddon.constants.GpstocknotifyoccaddonConstants&/gpstocknotifyoccaddon/import/contentCatalogs/vanityfairnapkinsContentCatalog/emails
+$jarResourceCms=jar:com.gp.stocknotifyoccaddon.constants.GpstocknotifyoccaddonConstants&/gpstocknotifyoccaddon/import/cockpits/cmscockpit/structure-view
+
+$lang=en
+# Email page Template
+INSERT_UPDATE EmailPageTemplate;$contentCV[unique=true];uid[unique=true];name;active;frontendTemplateName;subject(code);htmlTemplate(code);restrictedPageTypes(code)
+;;ProductBackInStockNotificationEmailTemplate;Product Back In Stock Email Template;true;productBackInStockNotificationEmailTemplate;vanityfairnapkins_Email_Product_Back_In_Stock_Subject;vanityfairnapkins_Email_Product_Back_In_Stock_Body;EmailPage
+
+# Templates for CMS Cockpit Page Edit
+UPDATE EmailPageTemplate;$contentCV[unique=true];uid[unique=true];velocityTemplate[translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+;;ProductBackInStockNotificationEmailTemplate;$jarResourceCms/structure_productBackInStockNotificationEmailTemplate.vm
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='ProductBackInStockNotificationEmailTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+# Bind Content Slots to Email Page Templates
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='ProductBackInStockNotificationEmailTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-ProductBackInStockNotificationEmail;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-ProductBackInStockNotificationEmail;TopContent;;EmailTopSlot;true
+;;BottomContent-ProductBackInStockNotificationEmail;BottomContent;;EmailBottomSlot;true
+
+# Email Pages
+INSERT_UPDATE EmailPage;$contentCV[unique=true];uid[unique=true];name;fromEmail[lang=$lang];fromName[lang=$lang];masterTemplate(uid,$contentCV);defaultPage;approvalStatus(code)[default='approved']
+;;ProductBackInStockNotificationEmail;Product Back In Stock Notification Email;customerservices@hybris.com;"Customer Services Team";ProductBackInStockNotificationEmailTemplate;true;
+
+# Email velocity templates
+INSERT_UPDATE RendererTemplate;code[unique=true];contextClass;rendererType(code)[default='velocity']
+;vanityfairnapkins_Email_Product_Back_In_Stock_Body;$emailPackageName.GPBackInStockNotificationEmailContext
+;vanityfairnapkins_Email_Product_Back_In_Stock_Subject;$emailPackageName.GPBackInStockNotificationEmailContext
+
+UPDATE RendererTemplate;code[unique=true];templateScript[translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+;vanityfairnapkins_Email_Product_Back_In_Stock_Body;$emailResource/email-productBackInStockBody.vm
+;vanityfairnapkins_Email_Product_Back_In_Stock_Subject;$emailResource/email-productBackInStockSubject.vm
+
+
+UPDATE EmailPage;$contentCV[unique=true];uid[unique=true];previewImage(code, $contentCV)
+;;ProductBackInStockNotificationEmail;EmailPageModel_preview
+
+
+UPDATE RendererTemplate;code[unique=true];templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+;vanityfairnapkins_Email_Product_Back_In_Stock_Body;$emailResource/email-productBackInStockBody.vm
+
+
+UPDATE EmailPage;$contentCV[unique=true];uid[unique=true];fromEmail[lang=$lang];fromName[lang=$lang]
+ ;;ProductBackInStockNotificationEmail;"customerservices@hybris.com";"Customer Services Team"
+ 
+ ############################# NOTIFICATION EMAIL  ##############################
+ 
+ 
+UPDATE CMSNavigationNode;$contentCV[unique=true];uid[unique=true];title[lang=en]
+;;GPTermsAndConditionNavNode;"Information"

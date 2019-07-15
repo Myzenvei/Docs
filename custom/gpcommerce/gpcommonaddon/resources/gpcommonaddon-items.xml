@@ -1,0 +1,984 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- [y] hybris Platform Copyright (c) 2018 SAP SE or an SAP affiliate company. All rights reserved. This software is the confidential 
+	and proprietary information of SAP ("Confidential Information"). You shall not disclose such Confidential Information and shall use 
+	it only in accordance with the terms of the license agreement you entered into with SAP. -->
+<!-- ATTENTION: This is just an example file. You have to edit it according to your needs. -->
+
+<items xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="items.xsd">
+
+	<collectiontypes>
+		<collectiontype code="MediaContainerlinkList" elementtype="GPMediaContainerlink"
+			autocreate="true" generate="true" type="list" />
+		<collectiontype code="CTAStyleList" elementtype="CTAStyleEnum" autocreate="true" generate="true" type="set" />
+		
+	</collectiontypes>
+	<enumtypes>
+		<enumtype code="CTAStyleEnum" generate="true" autocreate="true" dynamic="true">
+			<value code="link" />
+			<value code="button" />
+		</enumtype>
+	</enumtypes>
+	<relations>
+
+		<relation code="Rotating2simpleResponsiveRelation" generate="true" localized="false" autocreate="true">
+			<deployment table="Rotating2Responsive" typecode="12006" />
+			<sourceElement type="GPRotatingImagesComponent" qualifier="rotatingBanner" cardinality="many">
+				<modifiers read="true" write="true" search="true" optional="true" />
+			</sourceElement>
+			<targetElement type="SimpleResponsiveBannerComponent" qualifier="cmsComponents" cardinality="many">
+				<modifiers read="true" write="true" search="true" optional="true" />
+			</targetElement>
+		</relation>
+
+		<relation code="BrandBar2GpImageLinkRelation" generate="true" localized="false" autocreate="true">
+			<deployment table="BrandBar2GpImageLinkRels" typecode="12005" />
+			<sourceElement type="GPBrandBarComponent" qualifier="brandBar" cardinality="many">
+				<modifiers read="true" write="true" search="true" optional="true" />
+			</sourceElement>
+			<targetElement type="GPImageLinkComponent" qualifier="images" cardinality="many">
+				<modifiers read="true" write="true" search="true" optional="true" />
+			</targetElement>
+		</relation>
+		
+		<relation code="GpImagetile2GpBannerRelation" generate="true" localized="false" autocreate="true">
+			<deployment table="ImageTile2GpBannerRels" typecode="12007" />
+			<sourceElement type="GPImageTileComponent" qualifier="imageTile" cardinality="many">
+				<modifiers read="true" write="true" search="true" optional="true" />
+			</sourceElement>
+			<targetElement type="GPBannerComponent" qualifier="banners" cardinality="many">
+				<modifiers read="true" write="true" search="true" optional="true" />
+			</targetElement>
+		</relation>
+		
+		<relation code="GPProductSolutionCMSComponent2GPTabbedImageTileComponent" generate="true" localized="false" autocreate="true">
+			<deployment table="ProductSol2TabRels" typecode="12026" />
+			<sourceElement type="GPProductSolutionCMSComponent" qualifier="productSolution" cardinality="many">
+				<modifiers read="true" write="true" search="true" optional="true" />
+			</sourceElement>
+			<targetElement type="GPTabbedImageTileComponent" qualifier="tabs" cardinality="many">
+				<modifiers read="true" write="true" search="true" optional="true" />
+			</targetElement>
+		</relation>
+
+		<relation code="GpMarketingSideBySide2GpBannerRelation" generate="true" localized="false" autocreate="true">
+			<deployment table="Marketing2BannerRels" typecode="12008" />
+			<sourceElement type="GpMarketingSideBySideComponent" qualifier="marketingSide" cardinality="many">
+				<modifiers read="true" write="true" search="true" optional="true" />
+			</sourceElement>
+			<targetElement type="GPBannerComponent" qualifier="marketingSideBanner" cardinality="many">
+				<modifiers read="true" write="true" search="true" optional="true" />
+			</targetElement>
+		</relation>
+
+		<relation code="GPKnowledgeTipRelation" localized="false" autocreate="true" generate="true">
+			<deployment table="GPKnowledgeTipRel" typecode="11210" />
+			<sourceElement type="GPMarketingCategories" qualifier="marketingCategoriesList" cardinality="many">
+				<modifiers read="true" write="true" search="true" optional="true" />
+			</sourceElement>
+			<targetElement type="GPTipsAndKnowledgeInfo" qualifier="tipsAndKnowledgeInfoList" collectiontype="list"
+				cardinality="many">
+				<modifiers read="true" write="true" search="true" optional="true" />
+			</targetElement>
+		</relation>
+	</relations>
+
+	<itemtypes>
+		<typegroup name="GPCMSComponents">
+			<itemtype code="GPImageTileComponent" jaloclass="com.gp.commerce.core.jalo.GPImageTileComponent"
+				extends="SimpleResponsiveBannerComponent" autocreate="true" generate="true">
+				<attributes>
+					<attribute type="java.lang.String" qualifier="componentHeader">
+						<persistence type="property" />
+						<modifiers optional="true" />
+						<description>The component header  that is attached to this  component.</description>
+					</attribute>
+					<attribute type="java.lang.String" qualifier="componentHeaderColor">
+						<persistence type="property" />
+						<modifiers optional="true" />
+						<description>The component header color to this  component.</description>
+					</attribute>
+					<attribute type="java.lang.String" qualifier="backgroundColor">
+						<persistence type="property" />
+						<modifiers optional="true" />
+						<description>The background color for this  component.</description>
+					</attribute>
+					<attribute type="java.lang.String" qualifier="noOfColumns">
+						<persistence type="property" />
+						<modifiers optional="true" />
+						<description>The number of tiles to be in the component.</description>
+					</attribute>
+					<attribute type="java.lang.String" qualifier="ctaText">
+						<persistence type="property" />
+						<modifiers optional="true" />
+						<description>The cta text for the component.</description>
+					</attribute>
+					<attribute type="java.lang.String" qualifier="ctaTextColor">
+						<persistence type="property" />
+						<modifiers optional="true" />
+						<description>The cta text color for the component.</description>
+					</attribute>
+					<attribute type="java.lang.Boolean" qualifier="isCarousel">
+						<persistence type="property" />
+						<modifiers optional="true" />
+						<defaultvalue>java.lang.Boolean.FALSE</defaultvalue>
+						<description>Boolean attribute to determine whether it s a list or carousel.</description>
+					</attribute>
+					<attribute type="java.lang.String" qualifier="subHeaderText">
+						<persistence type="property">
+							<columntype database="oracle">
+								<value>CLOB</value>
+							</columntype>
+							<columntype database="sap">
+								<value>NCLOB</value>
+							</columntype>
+							<columntype>
+								<value>HYBRIS.LONG_STRING</value>
+							</columntype>
+						</persistence>
+							<description>Sub Header text for the component.</description>
+						</attribute>
+						<attribute type="java.lang.String" qualifier="highlighterText">
+							<persistence type="property" />
+							<modifiers optional="true" />
+							<description>Highlighter text for the component.</description>
+						</attribute>
+				</attributes>
+			</itemtype>
+			
+			<itemtype code="GPIndustrialSolutionsComponent"
+				generate="true" extends="GPImageTileComponent" autocreate="true">
+				<attributes>
+					<attribute type="java.lang.String" qualifier="ctaText2">
+							<persistence type="property" />
+							<modifiers optional="true" />
+							<description>The cta text for the component.</description>
+						</attribute>
+						<attribute type="java.lang.String" qualifier="ctaTextColor2">
+							<persistence type="property" />
+							<modifiers optional="true" />
+							<description>The cta text color for the component.</description>
+						</attribute>
+						<attribute type="java.lang.String" qualifier="ctaTextLink2">
+							<persistence type="property" />
+							<modifiers optional="true" />
+							<description>The cta text for the component.</description>
+						</attribute>
+						<attribute type="java.lang.Boolean" qualifier="isExternalCta2">
+							<persistence type="property" />
+							<modifiers optional="true" />
+							<defaultvalue>java.lang.Boolean.FALSE</defaultvalue>
+						</attribute>
+					</attributes>
+			</itemtype>
+			
+			<itemtype code="GPFeatureProductsComponent"
+				generate="true" extends="GPImageTileComponent" autocreate="true"/>
+			
+			<itemtype code="GPBannerComponent" jaloclass="com.gp.commerce.core.jalo.GPBannerComponent"
+				extends="SimpleResponsiveBannerComponent" autocreate="true" generate="true">
+				<attributes>
+					<attribute type="java.lang.String" qualifier="headline">
+						<persistence type="property" />
+						<modifiers optional="true" />
+						<description>The component header attached to this  component.</description>
+					</attribute>
+					<attribute type="java.lang.String" qualifier="headerColor">
+						<persistence type="property" />
+						<modifiers optional="true" />
+						<description>The component header color attached to this  component.</description>
+					</attribute>
+					<attribute type="java.lang.String" qualifier="content" >
+					<persistence type="property">
+							<columntype database="oracle">
+								<value>CLOB</value>
+							</columntype>
+							<columntype database="sap">
+								<value>NCLOB</value>
+							</columntype>
+							<columntype>
+								<value>HYBRIS.LONG_STRING</value>
+							</columntype>
+						</persistence>
+						<description>The content attached to this  component.</description>
+					</attribute>
+					<attribute type="java.lang.String" qualifier="contentColor">
+						<persistence type="property" />
+						<modifiers optional="true" />
+						<description>The content color attached to this  component.</description>
+					</attribute>
+					<attribute type="java.lang.String" qualifier="ctaColor">
+						<persistence type="property" />
+						<modifiers optional="true" />
+						<description>The cta button color attached to this image component.</description>
+					</attribute>
+					<attribute type="java.lang.String" qualifier="ctaText">
+						<persistence type="property" />
+						<modifiers optional="true" />
+						<description>The cta text  attached to this image component.</description>
+					</attribute>
+					<attribute type="java.lang.String" qualifier="textalignment">
+						<persistence type="property" />
+						<modifiers optional="true" />
+						<description>The alignment of the text in this component.</description>
+					</attribute>
+					<attribute qualifier="media" type="localized:MediaContainer" redeclare="true">
+						<persistence type="property" />
+						<modifiers optional="true" />
+						<description>It is a media container containing images for specific resolutions</description>
+					</attribute>
+					<attribute type="java.lang.String" qualifier="backgroundColor">
+						<persistence type="property" />
+						<modifiers optional="true" />
+						<description>The background color for this  component.</description>
+					</attribute>
+					<attribute type="java.lang.String" qualifier="imageAlignment">
+						<persistence type="property" />
+						<modifiers optional="true" />
+						<description>The background color for this  component.</description>
+					</attribute>
+					<attribute type="java.lang.String" qualifier="imageLink">
+						<persistence type="property" />
+						<modifiers optional="true" />
+						<description>The image link attribute for this  component.</description>
+					</attribute>
+					<attribute qualifier="mediaForText" type="GPMediaComponent">
+						<persistence type="property" />
+						<modifiers optional="true" />
+						<description>It is a media container containing images for specific resolutions for text component</description>
+					</attribute>
+					<attribute type="java.lang.String" qualifier="backgroundVideo">
+						<persistence type="property" />
+						<modifiers optional="true" />
+						<description>The background video for this  component.</description>
+					</attribute>
+					<attribute type="java.lang.Boolean" qualifier="isVideo">
+						<persistence type="property" />
+						<modifiers optional="true" />
+						<defaultvalue>java.lang.Boolean.FALSE</defaultvalue>
+						<description>The boolean for background video for this  component.</description>
+					</attribute>
+					<attribute type="java.lang.String" qualifier="playIconColor">
+						<persistence type="property" />
+						<modifiers optional="true" />
+						<description>The play icon for background video for this  component.</description>
+					</attribute>
+					<attribute qualifier="isExternalImageLink" type="java.lang.Boolean">
+						<modifiers read="true" write="true" search="false" optional="true" />
+						<defaultvalue>java.lang.Boolean.FALSE</defaultvalue>
+						<persistence type="property" />
+					</attribute>
+					<attribute type="java.lang.Boolean" qualifier="isVideoCtaLink">
+						<persistence type="property" />
+						<modifiers optional="true" />
+						<defaultvalue>java.lang.Boolean.FALSE</defaultvalue>
+						<description>The boolean for background CTA video for this  component.</description>
+					</attribute>
+				</attributes>
+			</itemtype>
+
+			<itemtype code="GPMediaComponent" jaloclass="com.gp.commerce.core.jalo.GPMediaComponent"
+				extends="SimpleResponsiveBannerComponent" autocreate="true" generate="true">
+			</itemtype>
+			<itemtype code="GPBrandBarComponent" jaloclass="com.gp.commerce.core.jalo.GPBrandBarComponent"
+				extends="GPBannerComponent" autocreate="true" generate="true">
+			</itemtype>
+			<itemtype code="GPImageTextComponent" jaloclass="com.gp.commerce.core.jalo.GPImageTextComponent"
+				extends="GPBannerComponent" autocreate="true" generate="true">
+				<attributes>
+				<attribute type="java.lang.String" qualifier="imageWidth">
+						<persistence type="property" />
+						<modifiers optional="true" />
+						<description>Used for controlling the image width of the component</description>
+				</attribute>
+				
+				</attributes>	
+			</itemtype>
+
+			<itemtype code="GPImageLinkComponent" jaloclass="com.gp.commerce.core.jalo.GPImageLinkComponent"
+				extends="CMSImageComponent" autocreate="true" generate="true">
+				<attributes>
+					<attribute type="java.lang.String" qualifier="url">
+						<persistence type="property" />
+						<modifiers optional="true" />
+						<description>url for image.</description>
+					</attribute>
+					<attribute type="java.lang.String" qualifier="title">
+						<persistence type="property" />
+						<modifiers optional="true" />
+						<description>title for image.</description>
+					</attribute>
+					<attribute type="java.lang.String" qualifier="titleColor">
+						<persistence type="property" />
+						<modifiers optional="true" />
+						<description>title color for image.</description>
+					</attribute>
+				</attributes>
+			</itemtype>
+
+			<itemtype code="GPMarketingSidebySideComponent" jaloclass="com.gp.commerce.core.jalo.GPMarketingSidebySideComponent"
+				extends="SimpleResponsiveBannerComponent" autocreate="true" generate="true">
+				<attributes>
+					<attribute type="java.lang.String" qualifier="backgroundColor">
+						<persistence type="property" />
+						<modifiers optional="true" />
+						<description>The background color for this  component.</description>
+					</attribute>
+				</attributes>
+			</itemtype>
+
+			<itemtype code="GPFAQCMSParagraphComponent" generate="true" extends="CMSParagraphComponent" autocreate="true">
+			</itemtype>
+
+			<itemtype code="GPRotatingImagesComponent" autocreate="true" generate="true" extends="RotatingImagesComponent"
+				jaloclass="com.gp.commerce.core.jalo.GPRotatingImagesComponent">
+				<description>This is the full screen responsiveversion of rotating images component</description>
+				<attributes>
+					<attribute type="boolean" qualifier="loopCarousel">
+						<persistence type="property" />
+						<modifiers optional="true" />
+						<description>The component header color attached to this  component.</description>
+					</attribute>
+				</attributes>
+			</itemtype>
+
+			<itemtype code="GPMarketingComponent" jaloclass="com.gp.commerce.core.jalo.GPMarketingComponent"
+				extends="SimpleResponsiveBannerComponent" autocreate="true" generate="true">
+				<attributes>
+					<attribute type="java.lang.String" qualifier="headerText">
+						<persistence type="property" />
+						<modifiers optional="false" />
+						<description>The component header text attached to this  component.</description>
+					</attribute>
+					<attribute type="java.lang.String" qualifier="headerTextColor">
+						<persistence type="property" />
+						<modifiers optional="true" />
+						<description>The component header color attached to this  component.</description>
+					</attribute>
+					<attribute type="java.lang.String" qualifier="backgroundColor">
+						<persistence type="property" />
+						<modifiers optional="true" />
+						<description>The background color of the component.</description>
+					</attribute>
+				</attributes>
+			</itemtype>
+
+			<!-- <itemtype code="GPProductSolutionComponent" jaloclass="com.gp.commerce.core.jalo.GPProductSolutionComponent"
+				extends="ProductCarouselComponent" autocreate="true" generate="true">
+			</itemtype> -->
+
+			<itemtype code="GPImageComponent" generate="true" extends="SimpleResponsiveBannerComponent" autocreate="true"
+				jaloclass="com.gp.commerce.core.jalo.GPImageComponent">
+				<description>Component to display  Image with additional attributes</description>
+				<attributes>
+					<attribute qualifier="headingText" type="java.lang.String">
+						<persistence type="property" />
+						<modifiers read="true" write="true" optional="true" />
+					</attribute>
+					<attribute qualifier="subHeadBgColor" type="java.lang.String">
+						<persistence type="property" />
+						<modifiers read="true" write="true" optional="true" />
+					</attribute>
+					<attribute qualifier="ctaText" type="java.lang.String">
+						<persistence type="property" />
+						<modifiers read="true" write="true" optional="true" />
+					</attribute>
+					<attribute qualifier="ctaColor" type="java.lang.String">
+						<persistence type="property" />
+						<modifiers read="true" write="true" search="true" optional="true" />
+					</attribute>
+					<attribute qualifier="ctaBgColor" type="java.lang.String">
+						<persistence type="property" />
+						<modifiers read="true" write="true" optional="true" />
+					</attribute>
+					<attribute qualifier="headingColor" type="java.lang.String">
+						<persistence type="property" />
+						<modifiers read="true" write="true" optional="true" />
+					</attribute>
+					<attribute qualifier="subHeadingColor" type="java.lang.String">
+						<persistence type="property" />
+						<modifiers read="true" write="true" optional="true" />
+					</attribute>
+					<attribute qualifier="backgroundColor" type="java.lang.String">
+						<persistence type="property" />
+						<modifiers read="true" write="true" optional="true" />
+					</attribute>
+					<attribute qualifier="textPosition" type="java.lang.String">
+						<persistence type="property" />
+						<modifiers read="true" write="true" optional="true" />
+					</attribute>
+					<attribute qualifier="subHeadingText" type="java.lang.String">
+						<persistence type="property" />
+						<modifiers read="true" write="true" optional="true" />
+					</attribute>
+					<attribute qualifier="showTextFullWidth" type="java.lang.Boolean">
+						<modifiers read="true" write="true" search="false" optional="true" />
+						<defaultvalue>java.lang.Boolean.FALSE</defaultvalue>
+						<persistence type="property" />
+					</attribute>
+					<attribute type="java.lang.String" qualifier="imageLink">
+						<persistence type="property" />
+						<modifiers optional="true" />
+						<description>The image link attribute for this  component.</description>
+					</attribute>
+					<attribute qualifier="isExternalImage" type="java.lang.Boolean">
+						<modifiers read="true" write="true" search="false" optional="true" />
+						<defaultvalue>java.lang.Boolean.FALSE</defaultvalue>
+						<persistence type="property" />
+					</attribute>
+					<attribute qualifier="heroLogo" type="GPMediaComponent">
+						<modifiers read="true" write="true" search="false" optional="true" />
+						<persistence type="property" />
+						<description>Adding attribute for header logo </description>
+					</attribute>
+				</attributes>
+			</itemtype>
+
+			<itemtype code="GPVideoBannerComponent" generate="true" extends="SimpleResponsiveBannerComponent" autocreate="true"
+				jaloclass="com.gp.commerce.core.jalo.GPVideoBannerComponent">
+				<description>Component for video banner component for Hero Carousel</description>
+				<attributes>
+					<attribute qualifier="videoSrc" type="java.lang.String">
+						<persistence type="property" />
+						<modifiers read="true" write="true" optional="true" />
+					</attribute>
+					<attribute qualifier="playIconColor" type="java.lang.String">
+						<persistence type="property" />
+						<modifiers read="true" write="true" optional="true" />
+					</attribute>
+					<attribute qualifier="headerText" type="java.lang.String">
+						<persistence type="property" />
+						<modifiers read="true" write="true" optional="true" />
+					</attribute>
+					<attribute qualifier="bodyText" type="java.lang.String">
+						<persistence type="property" />
+						<modifiers read="true" write="true" optional="true" />
+					</attribute>
+					<attribute qualifier="ctaText" type="java.lang.String">
+						<persistence type="property" />
+						<modifiers read="true" write="true" optional="true" />
+					</attribute>
+					<attribute qualifier="ctaBackgroundColor" type="java.lang.String">
+						<persistence type="property" />
+						<modifiers read="true" write="true" optional="true" />
+					</attribute>
+					<attribute qualifier="headerTextColor" type="java.lang.String">
+						<persistence type="property" />
+						<modifiers read="true" write="true" optional="true" />
+					</attribute>
+					<attribute qualifier="bodyTextColor" type="java.lang.String">
+						<persistence type="property" />
+						<modifiers read="true" write="true" optional="true" />
+					</attribute>
+					<attribute qualifier="ctaTextColor" type="java.lang.String">
+						<persistence type="property" />
+						<modifiers read="true" write="true" optional="true" />
+					</attribute>
+					<attribute qualifier="textPosition" type="java.lang.String">
+						<persistence type="property" />
+						<modifiers read="true" write="true" optional="true" />
+					</attribute>
+					<attribute qualifier="subHeadingText" type="java.lang.String">
+						<persistence type="property" />
+						<modifiers read="true" write="true" optional="true" />
+					</attribute>
+					<attribute qualifier="subHeadingColor" type="java.lang.String">
+						<persistence type="property" />
+						<modifiers read="true" write="true" optional="true" />
+					</attribute>
+				</attributes>
+			</itemtype>
+
+			<itemtype code="GPPreCuratedListComponent" jaloclass="com.gp.commerce.core.jalo.GPPreCuratedListComponent"
+				extends="SimpleCMSComponent" autocreate="true" generate="true">
+				<description>Component for Pre-curated List display</description>
+				<attributes>
+					<attribute qualifier="paginationRows" type="java.lang.String">
+						<persistence type="property" />
+						<modifiers read="true" write="true" search="false" optional="true" />
+					</attribute>
+				</attributes>
+			</itemtype>
+			
+			<itemtype code="GPProductCarouselComponent" jaloclass="com.gp.commerce.core.jalo.GPProductCarouselComponent"
+					extends="ProductCarouselComponent" autocreate="true" generate="true">
+					<attributes>
+						<attribute qualifier="ctaLink" type="java.lang.String">
+							<persistence type="property"/>
+						</attribute>
+						<attribute qualifier="ctaText" type="java.lang.String">
+							<persistence type="property"/>
+						</attribute>
+						<attribute type="java.lang.String" qualifier="noOfColumns">
+						<persistence type="property" />
+						<description>The number of tiles to be in the component.</description>
+						</attribute>
+						<attribute type="java.lang.Boolean" qualifier="isCarousel">
+							<persistence type="property" />
+							<defaultvalue>java.lang.Boolean.FALSE</defaultvalue>
+							<description>Boolean attribute to determine whether it s a list or carousel.</description>
+						</attribute>
+					</attributes>		
+			</itemtype>
+			<itemtype code="GPProductSolutionCMSComponent" 
+				jaloclass="com.gp.commerce.core.jalo.GPProductSolutionCMSComponent"
+					extends="SimpleCMSComponent" autocreate="true" generate="true">
+					<attributes>
+						<attribute qualifier="ctaLink" type="java.lang.String">
+							<persistence type="property"/>
+						</attribute>
+						<attribute qualifier="ctaText" type="java.lang.String">
+							<persistence type="property"/>
+						</attribute>
+						<attribute qualifier="subHeadingText" type="java.lang.String">
+							<persistence type="property" />
+							<modifiers read="true" write="true" optional="true" />
+						</attribute>
+						<attribute qualifier="subHeadingColor" type="java.lang.String">
+							<persistence type="property" />
+							<modifiers read="true" write="true" optional="true" />
+						</attribute>
+						<attribute qualifier="headerText" type="java.lang.String">
+							<persistence type="property" />
+							<modifiers read="true" write="true" optional="true" />
+						</attribute>
+						<attribute qualifier="headerColor" type="java.lang.String">
+							<persistence type="property" />
+							<modifiers read="true" write="true" optional="true" />
+						</attribute>
+					</attributes>
+			</itemtype>
+			
+			<itemtype code="GPTabbedImageTileComponent" jaloclass="com.gp.commerce.core.jalo.GPTabbedImageTileComponent"
+					extends="GPIndustrialSolutionsComponent" autocreate="true" generate="true">
+			</itemtype>
+			
+			<itemtype code="GPCheckoutFooterNavigationComponent" generate="true" extends="FooterNavigationComponent"
+				autocreate="true">
+			</itemtype>
+			<itemtype code="GPMediaContainerlink" generate="true" extends="SimpleCMSComponent" autocreate="true"  jaloclass="com.gp.commerce.core.jalo.GPMediaContainerlink">
+				<attributes>
+					<attribute qualifier="media" type="localized:MediaContainer">
+						<description>A list of bundle promotion images </description>
+						<persistence type="property" />
+					</attribute>
+					<attribute type="java.lang.String" qualifier="mediaUrl">
+						<persistence type="property" />
+						<modifiers read="true" write="true" optional="true" />
+					</attribute>
+				</attributes>
+			</itemtype>
+
+			<itemtype code="GPBundleImageComponent" generate="true" extends="SimpleCMSComponent" autocreate="true" jaloclass="com.gp.commerce.core.jalo.GPBundleImageComponent">
+				<attributes>
+					<attribute qualifier="bundleImageList" type="MediaContainerlinkList">
+						<description>A list of bundle promotion media container with Link </description>
+						<persistence type="property" />
+					</attribute>
+					<attribute qualifier="title" type="java.lang.String">
+						<persistence type="property" />
+						<modifiers read="true" write="true" optional="true" />
+					</attribute>
+				</attributes>
+			</itemtype>
+			
+			
+			<itemtype code="GPHeaderNavigationComponent" autocreate="true" generate="true" extends="NavigationComponent"
+				jaloclass="com.gp.commerce.core.jalo.GPHeaderNavigationComponent">
+				<description>It represents navigation component that contains cms navigation node. Nodes structure can be built in a hierarchical way.</description>
+				<attributes>
+					<attribute type="boolean" qualifier="showQuickOrder">
+						<persistence type="property" />
+						<defaultvalue>Boolean.FALSE</defaultvalue>
+						<modifiers read="true" write="true" optional="false" />
+					</attribute>
+					<attribute type="boolean" qualifier="includeMiniCart">
+						<persistence type="property" />
+						<defaultvalue>Boolean.TRUE</defaultvalue>
+						<modifiers read="true" write="true" optional="false" />
+					</attribute>
+					<attribute type="boolean" qualifier="includeSearchBox">
+						<persistence type="property" />
+						<defaultvalue>Boolean.TRUE</defaultvalue>
+						<modifiers read="true" write="true" optional="false" />
+					</attribute>
+					<attribute type="java.lang.Boolean" qualifier="showFindAStore">
+						<persistence type="property" />
+						<defaultvalue>Boolean.TRUE</defaultvalue>
+						<modifiers read="true" write="true" optional="false" />
+					</attribute>
+					<attribute type="java.lang.Boolean" qualifier="showLoginRegister">
+						<persistence type="property" />
+						<defaultvalue>Boolean.TRUE</defaultvalue>
+						<modifiers read="true" write="true" optional="false" />
+					</attribute>
+					<attribute type="java.lang.String" qualifier="promoTxt">
+						<persistence type="property" />
+						<modifiers read="true" write="true" optional="true" />
+					</attribute>
+					<attribute type="java.lang.String" qualifier="promoUrl">
+						<persistence type="property" />
+						<modifiers read="true" write="true" optional="true" />
+					</attribute>
+					<attribute type="java.lang.String" qualifier="brandLogo">
+						<persistence type="property" />
+						<modifiers read="true" write="true" optional="true" />
+					</attribute>
+					<attribute type="CMSNavigationNode" qualifier="checkoutMenu">
+						<persistence type="property" />
+						<modifiers read="true" write="true" optional="true" />
+					</attribute>
+					<attribute type="CMSNavigationNode" qualifier="findStoreMenu">
+						<persistence type="property" />
+						<modifiers read="true" write="true" optional="true" />
+					</attribute>
+					<attribute type="CMSNavigationNode" qualifier="loginMenu">
+						<persistence type="property" />
+						<modifiers read="true" write="true" optional="true" />
+					</attribute>
+					<attribute type="CMSNavigationNode" qualifier="logoutMenu">
+						<persistence type="property" />
+						<modifiers read="true" write="true" optional="true" />
+					</attribute>
+					<attribute type="CMSNavigationNode" qualifier="categoryNavigationMenu">
+						<persistence type="property" />
+						<modifiers read="true" write="true" optional="true" />
+					</attribute>
+					<attribute type="CMSNavigationNode" qualifier="accountNavigationMenu">
+						<persistence type="property" />
+						<modifiers read="true" write="true" optional="true" />
+					</attribute>
+					<attribute type="java.lang.Boolean" qualifier="showMyList">
+						<persistence type="property" />
+						<defaultvalue>Boolean.TRUE</defaultvalue>
+						<modifiers read="true" write="true" optional="false" />
+					</attribute>
+					<attribute type="java.lang.String" qualifier="brandMobileLogo">
+						<persistence type="property" />
+						<modifiers read="true" write="true" optional="true" />
+					</attribute>
+					<attribute type="java.lang.String" qualifier="checkoutLogo">
+						<persistence type="property" />
+						<modifiers read="true" write="true" optional="true" />
+					</attribute>
+				</attributes>
+			</itemtype>
+
+			<itemtype code="MardigrasHeaderNavigationComponent" generate="true" extends="GPHeaderNavigationComponent"
+				autocreate="true">
+				<attributes>
+					<attribute type="CMSLinkComponent" qualifier="socialLink">
+						<persistence type="property" />
+						<modifiers optional="true" />
+						<description>The cms navigation node of this navigation component.</description>
+					</attribute>
+					<attribute type="GPImageLinkComponent" qualifier="socialIcon">
+						<persistence type="property" />
+						<modifiers optional="true" />
+						<description>The cms navigation node of this navigation component.</description>
+					</attribute>
+				</attributes>
+			</itemtype>
+
+			<!-- Adding markAsViewAll for Header component -->
+			<itemtype code="CMSLinkComponent" autocreate="false" generate="false">
+				<attributes>
+					<attribute type="java.lang.Boolean" qualifier="markAsViewAll">
+						<persistence type="property" />
+						<defaultvalue>java.lang.Boolean.FALSE</defaultvalue>
+						<modifiers read="true" write="true" optional="false" />
+					</attribute>
+					<attribute type="java.lang.Boolean" qualifier="socialLink">
+						<persistence type="property" />
+						<defaultvalue>java.lang.Boolean.FALSE</defaultvalue>
+						<modifiers read="true" write="true" optional="false" />
+					</attribute>
+					<attribute type="java.lang.String" qualifier="linkType">
+						<persistence type="property" />
+						<modifiers read="true" write="true" optional="true" />
+					</attribute>
+				</attributes>
+			</itemtype>
+			
+			
+			<itemtype code="MardigrasBoredomComponent"
+				generate="true" extends="GPImageTileComponent" autocreate="true">
+			</itemtype>
+			
+			<itemtype code="MardigrasVideosComponent"
+			 	generate="true" extends="GPImageTileComponent" autocreate="true">
+			 </itemtype>
+			 
+			 <itemtype code="MaridgrasNapkinsComponent" 
+			 	generate="true" extends="GPImageTileComponent" autocreate="true">
+			 	<attributes>
+			 		<attribute type="java.lang.String" qualifier="subTileText">
+						<persistence type="property" />
+						<modifiers read="true" write="true" optional="true" />
+					</attribute>
+					<attribute type="java.lang.String" qualifier="informationalText">
+						<persistence type="property">
+							<columntype database="oracle">
+								<value>CLOB</value>
+							</columntype>
+							<columntype database="sap">
+								<value>NCLOB</value>
+							</columntype>
+							<columntype>
+								<value>HYBRIS.LONG_STRING</value>
+							</columntype>
+						</persistence>
+					</attribute>
+			 	</attributes>
+			 </itemtype>
+			 
+			 <itemtype code="MardigrasOurPacksComponent"
+			 	generate="true" extends="GPImageTileComponent" autocreate="true">
+			 </itemtype>
+			 
+
+			<!-- Tips and Knowledge -->
+			<itemtype code="GPTipsAndKnowledgeInfoComponent" autocreate="true" generate="true" extends="ProductCarouselComponent"
+				jaloclass="com.gp.commerce.core.jalo.GPTipsAndKnowledgeInfoComponent">
+				<attributes>
+					<attribute qualifier="fetchCount" type="java.lang.Integer">
+						<defaultvalue>java.lang.Integer.valueOf(10)</defaultvalue>
+						<description>Header Text</description>
+						<modifiers optional="true" read="true" write="true" initial="true" />
+						<persistence type="property" />
+					</attribute>
+					<attribute qualifier="displayCount" type="java.lang.Integer">
+						<defaultvalue>java.lang.Integer.valueOf(10)</defaultvalue>
+						<description>Header Text</description>
+						<modifiers optional="true" read="true" write="true" initial="true" />
+						<persistence type="property" />
+					</attribute>
+				</attributes>
+			</itemtype>
+
+			<itemtype code="GPMarketingCategories" autocreate="true" generate="true" extends="Category"
+				jaloclass="com.gp.commerce.core.jalo.GPMarketingCategories">
+				<attributes>
+				</attributes>
+			</itemtype>
+
+			<itemtype code="GPTipsAndKnowledgeInfo" autocreate="true" generate="true" extends="CMSItem"
+				jaloclass="com.gp.commerce.core.jalo.GPTipsAndKnowledgeInfo">
+				<attributes>
+					<attribute qualifier="uid" generate="true" autocreate="true" type="java.lang.String" redeclare="true">
+						<persistence type="property" />
+						<modifiers optional="false" unique="true" />
+					</attribute>
+					<attribute qualifier="knowledgeLinkUrl" type="localized:java.lang.String">
+						<modifiers optional="true" read="true" write="true" initial="true" />
+						<persistence type="property" />
+					</attribute>
+					<attribute qualifier="knowledgeLinkText" type="localized:java.lang.String">
+						<modifiers optional="true" read="true" write="true" initial="true" />
+						<persistence type="property" />
+					</attribute>
+					<attribute qualifier="tipText" type="localized:java.lang.String">
+						<modifiers optional="true" read="true" write="true" initial="true" />
+						<persistence type="property" />
+					</attribute>
+					<attribute qualifier="tipAltText" type="localized:java.lang.String">
+						<modifiers optional="true" read="true" write="true" initial="true" />
+						<persistence type="property" />
+					</attribute>
+					<attribute qualifier="knowledgeMedia" type="localized:Media" generate="true">
+						<description>Stores Media Model for Knowledge Tile</description>
+						<modifiers optional="true" read="true" write="true" initial="true" />
+						<persistence type="property" />
+					</attribute>
+					<attribute qualifier="isExternalLink" type="java.lang.Boolean" generate="true">
+						<defaultvalue>java.lang.Boolean.FALSE</defaultvalue>
+						<description>Is External Link</description>
+						<modifiers optional="false" read="true" write="true" initial="true" />
+						<persistence type="property" />
+					</attribute>
+				</attributes>
+			</itemtype>
+
+			<itemtype code="GPNavigationComponent" generate="true" extends="NavigationComponent" autocreate="true">
+			</itemtype>
+
+			<itemtype code="AbstractCMSComponent" autocreate="false" generate="false">
+				<attributes>
+					<attribute qualifier="compStyleDesktop" type="java.lang.String">
+						<description>css style to define width for desktop</description>
+						<modifiers />
+						<persistence type="property" />
+					</attribute>
+					<attribute qualifier="compStyleMobile" type="java.lang.String">
+						<description>css style to define width for mobile</description>
+						<modifiers />
+						<persistence type="property" />
+					</attribute>
+					<attribute qualifier="isExternalLink" type="java.lang.Boolean">
+						<modifiers read="true" write="true" search="false" optional="true" />
+						<defaultvalue>java.lang.Boolean.FALSE</defaultvalue>
+						<persistence type="property" />
+					</attribute>
+					<attribute qualifier="componentTheme" type="java.lang.String">
+						<description>component theme</description>
+						<modifiers />
+						<persistence type="property" />
+					</attribute>
+					<attribute qualifier="ctaStyle" type="java.lang.String">
+						<description>cta style to define width for desktop</description>
+						<modifiers />
+						<persistence type="property" />
+					</attribute>
+				</attributes>
+			</itemtype>
+			
+			<itemtype code="GPProductReferencesComponent" extends="ProductReferencesComponent" autocreate="true" generate="true"
+				jaloclass="com.gp.commerce.core.jalo.GPProductReferencesComponent">
+				<description>It represents product references component, this is the component that displays configured products from productCodes property or references to the specified product.</description>
+				<attributes>
+					<attribute qualifier="productCodes" type="localized:java.lang.String">
+						<persistence type="property" />
+						<description>Property for products to be displayed in the component example - code1:code2:code3</description>
+					</attribute>
+				</attributes>
+			</itemtype>
+			
+			<itemtype code="FooterNavigationComponent" generate="false" autocreate="false">
+				<attributes>
+					<attribute type="GPImageLinkComponent" qualifier="footerLogo">
+						<persistence type="property" />
+						<modifiers read="true" write="true" optional="true" />
+					</attribute>
+				</attributes>
+			</itemtype>
+
+			<itemtype code="MardiGrasFooterComponent" generate="true" extends="FooterNavigationComponent" autocreate="true">
+			</itemtype>
+
+			<itemtype code="MardiGrasHeroBannerComponent" extends="SimpleCMSComponent" autocreate="true" generate="true"
+				jaloclass="com.gp.commerce.gpcommerceaddon.jalo.MardiGrasHeroBannerComponent">
+				<description>Component for MardiGras Hero Banner</description>
+				<attributes>
+					<attribute type="GPBannerComponent" qualifier="firstBanner">
+						<persistence type="property" />
+						<modifiers read="true" write="true" optional="true" />
+					</attribute>
+					<attribute type="GPBannerComponent" qualifier="secondBanner">
+						<persistence type="property" />
+						<modifiers read="true" write="true" optional="true" />
+					</attribute>
+				</attributes>
+			</itemtype>
+			<itemtype code="MardiGrasImageAndTextComponent" extends="SimpleCMSComponent" autocreate="true" generate="true"
+					jaloclass="com.gp.commerce.gpcommerceaddon.jalo.MardiGrasImageAndTextComponent">
+				<description>Component for MardiGras Image and Text</description>
+				<attributes>
+					<attribute type="GPMediaComponent" qualifier="image">
+						<persistence type="property" />
+						<modifiers read="true" write="true" optional="true" />
+					</attribute>
+					<attribute qualifier="headingText" type="java.lang.String">
+						<persistence type="property" />
+						<modifiers read="true" write="true" optional="true" />
+					</attribute>
+					<attribute qualifier="subHeadingText" type="java.lang.String">
+						<persistence type="property" />
+						<modifiers read="true" write="true" optional="true" />
+					</attribute>
+					<attribute qualifier="informationText" type="java.lang.String">
+						<persistence type="property">
+							<columntype database="oracle">
+								<value>CLOB</value>
+							</columntype>
+							<columntype database="sap">
+								<value>NCLOB</value>
+							</columntype>
+							<columntype>
+								<value>HYBRIS.LONG_STRING</value>
+							</columntype>
+						</persistence>
+					</attribute>
+				</attributes>
+			</itemtype>
+			
+			<itemtype code="MardiGrasFAQComponent" extends="MardiGrasImageAndTextComponent" autocreate="true" generate="true"
+				jaloclass="com.gp.commerce.gpcommerceaddon.jalo.MardiGrasFAQComponent">
+				<description>Component for MardiGras FAQ</description>
+			</itemtype>
+			
+			<itemtype code="MardiGrasStoreLocatorComponent" extends="MardiGrasImageAndTextComponent" autocreate="true" generate="true"
+				jaloclass="com.gp.commerce.gpcommerceaddon.jalo.MardiGrasStoreLocatorComponent">
+				<description>Component for MardiGras Store Locator</description>
+			</itemtype>
+			
+			<itemtype code="MardigrasCouponsComponent" extends="MardiGrasImageAndTextComponent" autocreate="true" generate="true"
+				jaloclass="com.gp.commerce.gpcommerceaddon.jalo.MardigrasCouponsComponent">
+				<description>Component for MardiGras Coupons Component</description>
+				<attributes>
+					<attribute qualifier="backGroundImage" type="localized:MediaContainer" >
+						<persistence type="property" />
+						<modifiers optional="true" />
+						<description>It is a media container containing images for specific resolutions</description>
+					</attribute>
+					<attribute type="java.lang.Boolean" qualifier="isSignUp">
+						<persistence type="property" />
+						<modifiers optional="true" />
+						<defaultvalue>java.lang.Boolean.FALSE</defaultvalue>
+						<description>The boolean for determining whether it is a signup or teachers component.</description>
+					</attribute>
+					<attribute qualifier="downloadFile" type="GPMediaComponent">
+						<persistence type="property" />
+						<modifiers read="true" write="true" optional="true" />
+					</attribute>
+				</attributes>
+			</itemtype>
+			<itemtype code="GPLiveChatComponent" extends="MardiGrasImageAndTextComponent" autocreate="true" generate="true"
+				jaloclass="com.gp.commerce.gpcommerceaddon.jalo.GPLiveChatComponent">
+				<description>Component for Live Chat</description>
+				<attributes>
+					<attribute qualifier="liveChat" type="JspIncludeComponent">
+						<persistence type="property" />
+						<modifiers read="true" write="true" optional="true" />
+					</attribute>
+					<attribute qualifier="showContactUs" type="java.lang.Boolean">
+						<defaultvalue>java.lang.Boolean.TRUE</defaultvalue>
+						<persistence type="property" />
+					</attribute>
+				</attributes>
+			</itemtype>
+			<itemtype code="GPUnsubscribeComponent" extends="JspIncludeComponent" autocreate="true" generate="true"
+				jaloclass="com.gp.commerce.gpcommerceaddon.jalo.GPUnsubscribeComponent">
+				<description>Component for Un-subscribe from site</description>
+			</itemtype>
+			
+			<itemtype code="GPXpressHeaderNavigationComponent" generate="true" extends="GPHeaderNavigationComponent"
+				autocreate="true">
+				<attributes>
+					<attribute type="CMSLinkComponent" qualifier="myLists">
+						<persistence type="property" />
+						<modifiers optional="true" />
+						<description>The CMS navigation node of this navigation component.</description>
+					</attribute>
+				</attributes>
+			</itemtype>
+			
+			<itemtype code="GPQuplesComponent" extends="SimpleCMSComponent" autocreate="true" generate="true"
+				jaloclass="com.gp.commerce.gpcommerceaddon.jalo.GPQuplesComponent">
+				<description>Quples Component</description>
+			</itemtype>
+			
+			<itemtype code="GPBundleCarouselComponent" extends="BundleCarouselComponent" autocreate="true" generate="true" 
+				jaloclass="com.gp.commerce.gpcommerceaddon.jalo.GPBundleCarouselComponent">
+                <attributes>
+                    <attribute qualifier="title" type="java.lang.String">
+                        <persistence type="property" />
+                    </attribute>
+                </attributes>
+            </itemtype>
+            
+           <itemtype code="GPJuicerFeedComponent" extends="SimpleCMSComponent" autocreate="true" generate="true"
+				jaloclass="com.gp.commerce.gpcommerceaddon.jalo.GPJuicerFeedComponent">
+				<description>Component for Juicer Feed</description>
+			</itemtype>
+		</typegroup>
+	</itemtypes>
+</items>

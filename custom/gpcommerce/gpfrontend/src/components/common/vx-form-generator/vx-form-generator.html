@@ -1,0 +1,11 @@
+<div class="vx-form-generator">
+  <!-- <component v-for="(field, index) in schema" :key="index" :is="field.fieldType" v-bind="field" v-model="formData" @input="updateForm(field.name, $event)">
+  </component> -->
+  <div class="form-group" v-for="(field,index) in schema">
+    <label>{{field.question}}</label>
+
+    <component v-for="(component, idx) in field.marketingPreferencesAnsList" :key="component.preferenceTypeId" :is="component.fieldType"
+      :value="formData[component.name]" @input="updateForm(component, $event)" v-bind="component">
+    </component>
+  </div>
+</div>

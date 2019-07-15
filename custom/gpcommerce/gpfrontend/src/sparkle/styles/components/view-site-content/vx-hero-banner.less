@@ -1,0 +1,50 @@
+#sparkle {
+  .banner {
+    &.hero-left {
+      .banner__promotion {
+        text-align: left;
+
+        @media only screen and (max-width: @screen-sm-max) {
+          width: 311px;
+          left: 90px;
+          transform: translate(0, -50%);
+        }
+        @media only screen and (max-width: @screen-xs-max) {
+          width: 204px;
+          left: 56px;
+          transform: translate(0, -50%);
+        }
+
+        .banner__heading {
+          line-height: 38px;
+          font-family: @font-family-TradeGothicLT-Bold;
+        }
+
+        .banner__subheading {
+          @media only screen and (max-width: @screen-sm-max) {
+            letter-spacing: @letter-spacing-default;
+            line-height: 19px;
+          }
+          @media only screen and (max-width: @screen-xs-max) {
+            letter-spacing: @letter-spacing-default;
+            line-height: 17px;
+          }
+        }
+
+        .btn-link {
+          letter-spacing: @letter-spacing-default;
+          padding: 0;
+          font-size: @font-size-xs-hero-left-cta !important;
+
+          @media only screen and (max-width: @screen-sm-max) {
+            font-family: @font-family-TradeGothicLT-Bold;
+            line-height: 17px;
+          }
+          @media only screen and (max-width: @screen-xs-max) {
+            line-height: 17px;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,79 @@
+<div class="mg-find-a-store row">
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>
+  </vx-spinner>
+  <div class="col-md-6 col-sm-7 col-xs-12 p-xs-0">
+    <h1 class="p-xs-0">{{i18n.title}}</h1>
+    <div class="col-sm-7 col-xs-12 px-xs-0">
+      <div class="col-xs-9 d-flex mb-xs-3 p-xs-0">
+        <input type="text" class="form-control zip-code mr-xs-2" :placeholder="i18n.zipCode" v-model="storeModel.zipcode">
+        <button type="button" class="btn btn-primary submit-btn icon-search" @click="searchStores()"></button>
+      </div>
+      <div class="col-xs-10 distanceRange mb-xs-3 p-xs-0">
+        <vx-dropdown-primary v-validate="'required'" v-model="storeModel.distanceRange" name="distanceRange"
+          @selected-option="storeModel.distanceRange=$event.value" :dropdownValues="distanceList" ref="distanceRangeDropdown"></vx-dropdown-primary>
+      </div>
+      <div class="col-xs-12 productType mb-xs-3 p-xs-0">
+        <vx-dropdown-primary v-validate="'required'" v-model="storeModel.productId" name="productType" @selected-option="storeModel.productId=$event.value"
+          :dropdownValues="productList" ref="productTypeDropdown"></vx-dropdown-primary>
+      </div>
+      <div class="col-xs-12 p-xs-0">
+        <button type="submit" class="btn btn-primary submit-btn data-submit" @click="searchStores()">
+          {{i18n.searchBtnText}}
+          <span></span>
+        </button>
+      </div>
+    </div>
+    <div class="col-sm-5 col-xs-12 p-xs-0">
+      <template v-if="productLinks.length>0">
+        <paginate name="productLinks" :list="productLinks" :per="5" class="paginate-list">
+          <li v-for="item in paginated('productLinks')">
+            <a href="javascript:void(0)" class="d-flex" @click="storeSelected(item)">
+              <p class="mb-xs-3">
+                {{item.NAME}}, {{item.ADDRESS}}, {{item.CITY}}
+              </p>
+            </a>
+          </li>
+        </paginate>
+
+        <paginate-links for="productLinks" :show-step-links="true" :step-links="{
+          next: 'Next',
+          prev: 'Prev'
+        }"></paginate-links>
+      </template>
+      <div v-else>
+        <span class="no-stores" v-if="noStores">
+          {{i18n.noStores}}
+        </span>
+      </div>
+    </div>
+
+    <div class="col-xs-12 p-xs-1">
+      <vx-map-locator ref="storemap" :map-on-page-load="true" v-show="productLinks.length>0" v-on:mapLoaded="mapLoaded()"
+        :map-theme="[{
+        hue: '#522773',
+        },
+        {
+          gamma: 0.5,
+        },
+        {
+          weight: 0.5,
+        }
+      ]"
+        :icon-config="{
+        pinNumber:'',
+        pinColor:'ffdb00'
+      }"></vx-map-locator>
+    </div>
+  </div>
+  <div class="col-md-6 col-sm-5 col-xs-12 pl-md-5 online-retailers p-xs-0">
+    <h2 class="text-center">{{i18n.retailers}}</h2>
+    <div class="d-flex row flex-wrap">
+      <div class="col-md-6 col-xs-6 col-sm-12 py-xs-2" v-for="store in onlineStores">
+        <a :href="store.navURL" class="d-flex justify-md-content-center justify-sm-content-end justify-xs-content-center"
+          target="_blank">
+          <img :src="store.imgURL" :alt="store.imgAlt">
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+<!-- 1. Drop down component is a generic component which will take options in an array as props.
+2. Options array should contain option objects which should contain label and value.
+3. Example:- "options": [
+                         {"label": "option1", "value": "option1"},
+                         {"label": "option2", "value": "option2"},
+                         {"label": "option3", "value": "option3"}
+                         ]
+4. There are two emit events in which selected-label will emit label of dropdown and
+    selected-value will emit value of dropdown.
+5. Usage of emitted label and value in parent component:-
+  create one data attribute drpdwnValue & drpdwnLabel[Attribute names can be anything]
+  in parent component and add the following
+  @selected-value="drpdwnValue=$event"
+  @selected-label="drpdwnLabel=$event"
+6. selected-index is an emit event for getting index in case of multi dropdowns -->
+
+<section class="dropdown-primary" tabindex="-1">
+  <div class="dropdown" @keydown="typeAhead">
+    <button class="form-control btn-default dropdown-btn" :class="{'input-error': dropdownError, 'multi-dropdown' : multiSelectDropdown}" type="button"
+      data-toggle="dropdown" v-model="dropdownInput" :disabled="isDisabled" role="combobox" aria-haspopup="true"
+      aria-expanded="false" :aria-label="dropdownInputLabel" @click="selectItemOnClick">{{dropdownInput}}<span>&nbsp;</span>
+      <span class="icon-chevron-down"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+      <template v-if="multiSelectDropdown">
+        <li v-for="(item,index) in dropdownValues" :aria-selected="item.label === dropdownInput" :class="{ selected : item.label === dropdownInput, disabled : item.disable }">
+          <input type="checkbox" :value="item" :name="item.label" v-model="multiSelectOptions">
+          <label @click="selectCheckBoxClicked(item, $event)">{{item.label}}</label>
+        </li>
+      </template>
+      <template v-else>
+        <li v-for="(item,index) in dropdownValues" v-on:click="dropdownOptionChange(item, $event)" :aria-selected="item.label === dropdownInput"
+          :class="[{ selected : item.label === dropdownInput, disabled : item.disable}, 'display-inline-block']">
+          <a href="#" :data-value="item.value" :aria-label="item.ariaLabel?item.ariaLabel:item.label">{{item.label}}<span v-if="item.stock" class="pr-xs-3">{{item.stock}}</span></a>
+        </li>
+      </template>
+    </ul>
+  </div>
+</section>

@@ -1,0 +1,1127 @@
+
+
+##############################  B2BUserGroup ##########################
+INSERT_UPDATE B2BUserGroup;uid[unique=true];name;unit(uid);
+#;b2bTestGroup;B2B Test Group;RootUnit;
+
+
+
+INSERT_UPDATE B2BUnit;uid[unique=true];name       ;locName[lang=en];groups(uid);b2bUnitLevel
+;gppro-jonathan.hagood@gapac.com;Jon hagood;Jon hagood Business Unit;;L1
+;gppro-fran@test.com;Fran Test;Fran Test Business Unit;;L1
+;gppro-jongoodha@gmail.com;Jon test;Jon test Business Unit;;L1
+;gppro-shalin.shah@gapac.com;Shalin Shah;Shalin Shah Business Unit;;L1
+;gppro-fgalperin@tavanoteam.com;Francisca Galperin;Francisca Galperin Business Unit;;L1
+;gppro-sandy.washington@gapac.com;Sandy Washington;Sandy Washington Business Unit;;L1
+;gppro-samantha.steichen@gapac.com;Samantha Steichen;Samantha Steichen Business Unit;;L1
+;gppro-shalin.shah@gapac.com;Shalin Shah;Shalin Shah Business Unit;;L1
+;gppro-fgalperin@tavanoteam.com;Fran Galperin;Fran Galperin Business Unit;;L1
+;gppro-fgalperin@tavanoteam.com;Fran Galperin;Fran Galperin Business Unit;;L1
+;gppro-fgalperin@tavanoteam.com;Fran Galperin;Fran Galperin Business Unit;;L1
+;gppro-melondy.mina@gapac.com;Melondy Mina;Melondy Mina Business Unit;;L1
+;gppro-fgalperin@tavanoteam.com;fran galperin;fran galperin Business Unit;;L1
+;gppro-sandy.washington@gapac.com;Sandy Washington;Sandy Washington Business Unit;;L1
+;gppro-melondy.mina@gapac.com;Mel Mina;Mel Mina Business Unit;;L1
+;gppro-melondy.mina@gapac.com;Melondy Mina;Melondy Mina Business Unit;;L1
+;gppro-melondy.mina@gapac.com;M Mina;M Mina Business Unit;;L1
+;gppro-test@test.com;Test Tavano;Test Tavano Business Unit;;L1
+;gppro-emily.faber@gapac.com;Emily Faber;Emily Faber Business Unit;;L1
+;gppro-fgalperin@tavanoteam.com;TEST TEST;TEST TEST Business Unit;;L1
+;gppro-derek.grimes@gapac.com;Derek Grimes;Derek Grimes Business Unit;;L1
+;gppro-test@test.com;Test testing;Test testing Business Unit;;L1
+;gppro-sandy.washington@gapac.com;Sandy Washington;Sandy Washington Business Unit;;L1
+;gppro-jody.johnson@gapac.com;Jody Johnson;Jody Johnson Business Unit;;L1
+;gppro-alexandra.dimillo@gapac.com;alexandra dimillo;alexandra dimillo Business Unit;;L1
+;gppro-sandy.washington@gapac.com;Sandy Washington;Sandy Washington Business Unit;;L1
+;gppro-mara.hanerfeld@gapac.com;Mara Hanerfeld;Mara Hanerfeld Business Unit;;L1
+;gppro-jamie@rollonamerica.cm;Jamie Cortes;Jamie Cortes Business Unit;;L1
+;gppro-patriotskitchen@yahoo.com;Terry Taylor;Terry Taylor Business Unit;;L1
+;gppro-kyle.dickinson@gapac.com;Kyle Dickinson;Kyle Dickinson Business Unit;;L1
+;gppro-kyle.marchuk@gapac.com;Kyle Marchuk;Kyle Marchuk Business Unit;;L1
+;gppro-sidshah@yahoo.com;Siddharth Shah;Siddharth Shah Business Unit;;L1
+;gppro-redsonya547@gmail.com;Jessica sibert;Jessica sibert Business Unit;;L1
+;gppro-emily.elam@gapac.com;Emily Elam;Emily Elam Business Unit;;L1
+;gppro-sultana.noorani@gapac.com;Sultana Noorani;Sultana Noorani Business Unit;;L1
+;gppro-lguggemos@wecatertoyou-mn.com;Lynn Guggemos;Lynn Guggemos Business Unit;;L1
+;gppro-rachel@gravesmountain.com;Rachel Graves;Rachel Graves Business Unit;;L1
+;gppro-rod@ragtimecafe.com;Rodney Zimmerman;Rodney Zimmerman Business Unit;;L1
+;gppro-paul@organicoperations.com;Paul Neufeld;Paul Neufeld Business Unit;;L1
+;gppro-gazebocreeksidecafe@gmail.com;Kurt Knechtel;Kurt Knechtel Business Unit;;L1
+;gppro-rich@hayesville.net;Rich Gagnon;Rich Gagnon Business Unit;;L1
+;gppro-cavity1@msn.com;Ali Rashid;Ali Rashid Business Unit;;L1
+;gppro-info@carisbrookeinn.com;John Battista;John Battista Business Unit;;L1
+;gppro-gsokos@demetriospizza.com;Gus Sukos;Gus Sukos Business Unit;;L1
+;gppro-adrian.tucker27@yahoo.com;Adrian Tucker;Adrian Tucker Business Unit;;L1
+;gppro-thecateringcompanywny@gmail.com;Krista Campano;Krista Campano Business Unit;;L1
+;gppro-jvuskovich@yahoo.com;Joe Vuskovich;Joe Vuskovich Business Unit;;L1
+;gppro-abfeinc@yahoo.com;Andrew Berlin;Andrew Berlin Business Unit;;L1
+;gppro-rust.larry@yahoo.com;Larry Rust;Larry Rust Business Unit;;L1
+;gppro-rust_larry@yahoo.com;Larry Rust;Larry Rust Business Unit;;L1
+;gppro-tmad@teriyakimadness.com;Frank Giuliano;Frank Giuliano Business Unit;;L1
+;gppro-chrisathompsonjr@gmail.com;Chris Thompson;Chris Thompson Business Unit;;L1
+;gppro-berlinhoagieman@aol.com;Ron Berlin;Ron Berlin Business Unit;;L1
+;gppro-tmad061@teriyakimadness.com;Teriyaki Madness;Teriyaki Madness Business Unit;;L1
+;gppro-getmarried@barnatlostcreek.com;Margo Williamson;Margo Williamson Business Unit;;L1
+;gppro-daneshraj9@gmail.com;Danny Raj;Danny Raj Business Unit;;L1
+;gppro-geneburke38@yahoo.com;Gene Burke;Gene Burke Business Unit;;L1
+;gppro-scheng@imperialchinese.net;STEVE CHENG;STEVE CHENG Business Unit;;L1
+;gppro-edvalentine4@msn.com;Ed Valentine;Ed Valentine Business Unit;;L1
+;gppro-sweetandsavorycatering305@gmail.com;Yolanda James;Yolanda James Business Unit;;L1
+;gppro-Loukom12@gmail.com;Louann Komiensky;Louann Komiensky Business Unit;;L1
+;gppro-melvin.ogletree@gapac.com;Melvin Ogletree;Melvin Ogletree Business Unit;;L1
+;gppro-dchiaro1@yahoo.com;Diane Chiaro;Diane Chiaro Business Unit;;L1
+;gppro-karen@jaxcatering.com;Karen Fritts;Karen Fritts Business Unit;;L1
+;gppro-Expresscaterer@gmail.com;Anita Frodl;Anita Frodl Business Unit;;L1
+;gppro-martin@fuelpizza.com;Shyron Peak;Shyron Peak Business Unit;;L1
+;gppro-papastogo@gmail.com;Chris Papa;Chris Papa Business Unit;;L1
+;gppro-jondoe@gmail.com;jon doe;jon doe Business Unit;;L1
+;gppro-zollie@zollikoffee.com;Zollie Wilson;Zollie Wilson Business Unit;;L1
+;gppro-newmanjr@hotmail.com;Jeff Newman;Jeff Newman Business Unit;;L1
+;gppro-wegeek@aol.com;Syed Shazad;Syed Shazad Business Unit;;L1
+;gppro-ezellner@chanticlearpizza.com;Eric Zellner;Eric Zellner Business Unit;;L1
+;gppro-jademadefoods@yahoo.com;Jade Go;Jade Go Business Unit;;L1
+;gppro-sue.setzekorn@mbhdq.com;Sue Setzekorn;Sue Setzekorn Business Unit;;L1
+;gppro-lesbecky02@msn.com;Becky Long;Becky Long Business Unit;;L1
+;gppro-chadzollinger71@gmail.com;Chad Zollinger;Chad Zollinger Business Unit;;L1
+;gppro-magdalenspureskincare@gmail.com;Magdalen Lagergren;Magdalen Lagergren Business Unit;;L1
+;gppro-2dogspubiowacity@gmail.com;Alan Eckhardt;Alan Eckhardt Business Unit;;L1
+;gppro-bree.wilhoit@gapac.com;Bree Wilhoit;Bree Wilhoit Business Unit;;L1
+;gppro-oscar@paliospizzaplano.com;Oscar Johnson;Oscar Johnson Business Unit;;L1
+;gppro-baraboo@pizzaranch.com;Mary Dressen;Mary Dressen Business Unit;;L1
+;gppro-FranVG@aol.com;FRANCES *WUEST;FRANCES *WUEST Business Unit;;L1
+;gppro-alvin_ige@masascafeteria.com;Alvin Ige;Alvin Ige Business Unit;;L1
+;gppro-morseblockdeli@gmail.com;Stefano Coppola;Stefano Coppola Business Unit;;L1
+;gppro-905onthebay@gmail.com;Ioannis Kokkolias;Ioannis Kokkolias Business Unit;;L1
+;gppro-joe@1836kitchenandtaproom.com;Joe Bower;Joe Bower Business Unit;;L1
+;gppro-jk.lund@att.net;Jill Lund;Jill Lund Business Unit;;L1
+;gppro-russ@freddiesbeachbar.com;Russ Colbourne;Russ Colbourne Business Unit;;L1
+;gppro-haynesagencyllc@gmail.com;Tammie Haynes;Tammie Haynes Business Unit;;L1
+;gppro-tamalestlaolli@gmail.com;Carlos Hutchinson;Carlos Hutchinson Business Unit;;L1
+;gppro-jplester@gmail.com;Marcia Lester;Marcia Lester Business Unit;;L1
+;gppro-marcietravers@gmail.com;Marcie Travers;Marcie Travers Business Unit;;L1
+;gppro-gorhamdale@gmail.com;Dale Gorham;Dale Gorham Business Unit;;L1
+;gppro-Alnessmoreno@yahoo.com;Alondra Morena;Alondra Morena Business Unit;;L1
+;gppro-fussbudget38@outlook.com;Janette Spencer;Janette Spencer Business Unit;;L1
+;gppro-matthewslanding8900@gmail.com;Diann Matthews;Diann Matthews Business Unit;;L1
+;gppro-jt.blackburn760@gmail.com;Jonathon Blackburn;Jonathon Blackburn Business Unit;;L1
+;gppro-dangerdurham2010@gmail.com;Scott Richie;Scott Richie Business Unit;;L1
+;gppro-millenniumpromotionsinc@gmail.com;Melody Love Gonzalez;Melody Love Gonzalez Business Unit;;L1
+;gppro-boardlandia@gmail.com;Karissa Fendt;Karissa Fendt Business Unit;;L1
+;gppro-Nhienannguyen@gmail.com;Nhien Nguyen;Nhien Nguyen Business Unit;;L1
+;gppro-jamils@cox.net;Jennifer Alcott;Jennifer Alcott Business Unit;;L1
+;gppro-innkeeper@amandagishhouse.com;Ann Royer;Ann Royer Business Unit;;L1
+;gppro-narey-bob@aramark.com;Bob Narey;Bob Narey Business Unit;;L1
+;gppro-Florence_gainer@aol.com;Florence Gainer;Florence Gainer Business Unit;;L1
+;gppro-georgeson.rick@yahoo.com;Rick Georgeson;Rick Georgeson Business Unit;;L1
+;gppro-mikeatpeppers@gmail.com;Mike Bhatnagar;Mike Bhatnagar Business Unit;;L1
+;gppro-farringtoninnjohn@gmail.com;John Terwillinger;John Terwillinger Business Unit;;L1
+;gppro-echellebates@yahoo.com;Echelle Bates;Echelle Bates Business Unit;;L1
+;gppro-innkeeper@pasfieldhouse.com;Tony Leone;Tony Leone Business Unit;;L1
+;gppro-CUSTOMERSERVICE@CHSDOORS.NET;Alana Riedell;Alana Riedell Business Unit;;L1
+;gppro-jena.delaney@gapac.com;Jena DeLaney;Jena DeLaney Business Unit;;L1
+;gppro-info@mybluebowl.com;Teague Savitch;Teague Savitch Business Unit;;L1
+;gppro-shopperwoman1@hotmail.com;Beth Dorn;Beth Dorn Business Unit;;L1
+;gppro-oapl@aol.com;Omar Perez;Omar Perez Business Unit;;L1
+;gppro-vkparekh@gmail.com;Viral Parekh;Viral Parekh Business Unit;;L1
+;gppro-roglerlinda43@gmail.com;Linda rogler;Linda rogler Business Unit;;L1
+;gppro-bburt@hallcorp.com;Barbara Burt;Barbara Burt Business Unit;;L1
+;gppro-Leon@boomkidz.net;Leon Chalyavski;Leon Chalyavski Business Unit;;L1
+;gppro-crespoanita@hotmail.com;Anita Crespi;Anita Crespi Business Unit;;L1
+;gppro-cary@mellowmushroominfo.com;Will Greczyn;Will Greczyn Business Unit;;L1
+;gppro-marcus@remembercatering.com;Marcus Lee;Marcus Lee Business Unit;;L1
+;gppro-mbrown@acorninnelon.com;Mark Brown;Mark Brown Business Unit;;L1
+;gppro-cannetteyoung@hotmail.com;Carolyn Young;Carolyn Young Business Unit;;L1
+;gppro-cajun@sbcglobal.net;Paul Gautreaux;Paul Gautreaux Business Unit;;L1
+;gppro-cadru61@yahoo.com;Carla Rutherford;Carla Rutherford Business Unit;;L1
+;gppro-piepunkin78@gmail.com;Amy Johnson;Amy Johnson Business Unit;;L1
+;gppro-melisalovely@gmail.com;Melisa Lovely;Melisa Lovely Business Unit;;L1
+;gppro-akashisushi54@gmail.com;Adeline Chen;Adeline Chen Business Unit;;L1
+;gppro-latch5792@gmail.com;Jennifer Livingston;Jennifer Livingston Business Unit;;L1
+;gppro-twashkevich@alderfoods.com;Terri Washkevich;Terri Washkevich Business Unit;;L1
+;gppro-tronamotherof3@live.com;Becky Manning;Becky Manning Business Unit;;L1
+;gppro-joe@laytonfruitmarket.com;Joe Proite;Joe Proite Business Unit;;L1
+;gppro-joseph.firmin@gapac.com;Joseph Firmin;Joseph Firmin Business Unit;;L1
+;gppro-Butch@taylorgrocerycatering.com;Butch Scott;Butch Scott Business Unit;;L1
+;gppro-jplesterllc@outlook.com;Marcia Lester;Marcia Lester Business Unit;;L1
+;gppro-fgalperin@tavanoteam.com;Francisca Galperin;Francisca Galperin Business Unit;;L1
+;gppro-springdemerath1@yahoo.com;Spring Demerath;Spring Demerath Business Unit;;L1
+;gppro-jeremiah@everlastingcup.com;Jeremiah Cline;Jeremiah Cline Business Unit;;L1
+;gppro-502cafe@gmail.com;Chris Williams;Chris Williams Business Unit;;L1
+;gppro-manager@genesishca.net;Danita McKinney;Danita McKinney Business Unit;;L1
+;gppro-victor.alonso1996@gmail.com;Victor Valenzuela;Victor Valenzuela Business Unit;;L1
+;gppro-natk218@samsung.com;Natalai Keys;Natalai Keys Business Unit;;L1
+;gppro-abrothersdeli@gmail.com;John Aquino;John Aquino Business Unit;;L1
+;gppro-a.lamasiii@gmail.com;Arturo Lamasi;Arturo Lamasi Business Unit;;L1
+;gppro-newbeginningskitchen@gmail.com;Jeanne Michon;Jeanne Michon Business Unit;;L1
+;gppro-Chefjeffpresents@gmail.com;Tammy Griffin;Tammy Griffin Business Unit;;L1
+;gppro-kennellys.04@verizon.net;Walter Kennelly;Walter Kennelly Business Unit;;L1
+;gppro-info@lovencherish.org;Alfreda Roseborough;Alfreda Roseborough Business Unit;;L1
+;gppro-michele.coney@effem.com;Michele Coney;Michele Coney Business Unit;;L1
+;gppro-bajanola@yahoo.com;Ricky Bermudez;Ricky Bermudez Business Unit;;L1
+;gppro-lia_tjong2006@yahoo.com;Tjong Martalia;Tjong Martalia Business Unit;;L1
+;gppro-paty@robertos-sd.com;Patrica Baez;Patrica Baez Business Unit;;L1
+;gppro-kim@patriotholdings.us;Kim Russell;Kim Russell Business Unit;;L1
+;gppro-janev@intercontinentalpharma.com;Jane Vatelot;Jane Vatelot Business Unit;;L1
+;gppro-yvmacpherson@sbcglobal.net;Yvonne Macpherson;Yvonne Macpherson Business Unit;;L1
+;gppro-bladebeam1@gmail.com;Mike Burton;Mike Burton Business Unit;;L1
+;gppro-Eatyeah8@gmail.com;Tony Boswell;Tony Boswell Business Unit;;L1
+;gppro-Cjscompetitionbbq@gmail.com;James Horn;James Horn Business Unit;;L1
+;gppro-famousnails@yahoo.com;John Tran;John Tran Business Unit;;L1
+;gppro-cowboyjohnssmokenbbq@hotmail.com;John Harvey;John Harvey Business Unit;;L1
+;gppro-elmouloudiahmad@gmail.com;Ahmad El mouloudi;Ahmad El mouloudi Business Unit;;L1
+;gppro-mpientok@outlook.com;Melissa Pientok;Melissa Pientok Business Unit;;L1
+;gppro-kristine.osborn@cantufoods.com;Kristine Osborn;Kristine Osborn Business Unit;;L1
+;gppro-arthurz@forl.com;Arthur Zuniga;Arthur Zuniga Business Unit;;L1
+;gppro-mysavoree@gmail.com;Cathy Knox;Cathy Knox Business Unit;;L1
+;gppro-southernridgecafe@gmail.com;Harley Masters;Harley Masters Business Unit;;L1
+;gppro-Sbravadai@Yahoo.com;Steven Massongill;Steven Massongill Business Unit;;L1
+;gppro-jaihosuh@yahoo.com;Jai Suh;Jai Suh Business Unit;;L1
+;gppro-SNiswender2@craighospital.org;Stephanie Niswender;Stephanie Niswender Business Unit;;L1
+;gppro-antoniocforte@gmail.com;Antonio Fortee;Antonio Fortee Business Unit;;L1
+;gppro-Mcurotto3@gmail.com;Missy Curotto;Missy Curotto Business Unit;;L1
+;gppro-humc_custodian@haymountumc.com;Anna Bruner;Anna Bruner Business Unit;;L1
+;gppro-acctgdept@butterflywonderland.com;Cynthia Claw-King;Cynthia Claw-King Business Unit;;L1
+;gppro-bravofoodservice@aol.com;Raymundo Jaime;Raymundo Jaime Business Unit;;L1
+;gppro-bkpadgham@gmail.com;Brandee Padgham;Brandee Padgham Business Unit;;L1
+;gppro-sandi@lakelaniercanopytours.com;Sandi Savarese;Sandi Savarese Business Unit;;L1
+;gppro-joe.abersold@gmail.com;Joe Abersold;Joe Abersold Business Unit;;L1
+;gppro-Jeanie158@hotmail.com;Jeanie Guo;Jeanie Guo Business Unit;;L1
+;gppro-vince@7milecycles.com;Vince Boyer;Vince Boyer Business Unit;;L1
+;gppro-innkeeper@littletraverseinn.com;Dave Forester;Dave Forester Business Unit;;L1
+;gppro-karen@bigdanshamburgers.com;Karen Cunningham;Karen Cunningham Business Unit;;L1
+;gppro-cbchurch@sbcglobal.com;Shelly Elder;Shelly Elder Business Unit;;L1
+;gppro-eburton571@gmail.com;Edward Burton;Edward Burton Business Unit;;L1
+;gppro-sstelivan@fsmb.org;Starr Stelivan;Starr Stelivan Business Unit;;L1
+;gppro-kpiercey123@gmail.com;kelly piercey;kelly piercey Business Unit;;L1
+;gppro-Jennifer.rodriguez@ihg.com;Jennifer Rodriguez;Jennifer Rodriguez Business Unit;;L1
+;gppro-nissim@abramsonlabor.com;Nissim Levin;Nissim Levin Business Unit;;L1
+;gppro-khadija@joyfultreatscatering.com;Khadija Wallace;Khadija Wallace Business Unit;;L1
+;gppro-gassamap0824@gmail.com;Phanta Gassama;Phanta Gassama Business Unit;;L1
+;gppro-samatthews42@gmail.com;Sherry Matthews;Sherry Matthews Business Unit;;L1
+;gppro-hammertowncompanydiner@gmail.com;Chris Ellis;Chris Ellis Business Unit;;L1
+;gppro-mail@albergousa.com;Marianna Leman;Marianna Leman Business Unit;;L1
+;gppro-westsidemarket@comcast.net;Pat Sluck;Pat Sluck Business Unit;;L1
+;gppro-kali731362@hotmail.com;Kashif Ali;Kashif Ali Business Unit;;L1
+;gppro-sandy@bluewinggallery.com;Sandy Amaro;Sandy Amaro Business Unit;;L1
+;gppro-treygraham1@gmail.com;Trey Graham;Trey Graham Business Unit;;L1
+;gppro-doris@smithlakeconcierge.com;Doris Sewell;Doris Sewell Business Unit;;L1
+;gppro-sally_cook3@aol.com;Sally Cook;Sally Cook Business Unit;;L1
+;gppro-jcsprincipal.edu@gmail.com;Bethany Edmundson;Bethany Edmundson Business Unit;;L1
+;gppro-treasurer@hcfas.org;Brian Canty;Brian Canty Business Unit;;L1
+;gppro-mcbgaiken@gmail.com;Michael DelSignore;Michael DelSignore Business Unit;;L1
+;gppro-maria@toddle.org;Maria Rodriguez;Maria Rodriguez Business Unit;;L1
+;gppro-shop@fuelpizza.com;Eboni Connor;Eboni Connor Business Unit;;L1
+;gppro-ealy@anesis.com;Barbara Ealy;Barbara Ealy Business Unit;;L1
+;gppro-fareeda@simpsol.com;Juzer Doriwala;Juzer Doriwala Business Unit;;L1
+;gppro-robbiecgreer@gmail.com;Robbie Greer;Robbie Greer Business Unit;;L1
+;gppro-judy@nightowlsigns.com;Judy Elam;Judy Elam Business Unit;;L1
+;gppro-cinnaholictn@gmail.com;Holly Roe;Holly Roe Business Unit;;L1
+;gppro-crawfordtrough@gmail.com;Bridget Pugmire;Bridget Pugmire Business Unit;;L1
+;gppro-donna.hargrove.dh@gmail.com;Donna Hargrove;Donna Hargrove Business Unit;;L1
+;gppro-mikeberam@yahoo.com;Mike Beram;Mike Beram Business Unit;;L1
+;gppro-octaviodiaz2159@comcast.net;Octavio Diaz;Octavio Diaz Business Unit;;L1
+;gppro-bellis@lldinvestments.com;Blake Ellis;Blake Ellis Business Unit;;L1
+;gppro-groff.stephen@gmail.com;Stephen Groff;Stephen Groff Business Unit;;L1
+;gppro-staceyrsmith@yahoo.com;Stacey Smith;Stacey Smith Business Unit;;L1
+;gppro-marc.smith2121@gmail.com;Marc Smith;Marc Smith Business Unit;;L1
+;gppro-sjones.jmjackson@gmail.com;Shirin Jones;Shirin Jones Business Unit;;L1
+;gppro-millergang6@gmail.com;Amelia Miller;Amelia Miller Business Unit;;L1
+;gppro-twopescafe@centurylink.net;Debbie Klemmer;Debbie Klemmer Business Unit;;L1
+;gppro-jadobbie@gmail.com; Jeremy Dobbie;Jeremy Dobbie Business Unit;;L1
+
+
+###############################  B2BCustomer  ##############################
+ INSERT_UPDATE B2BCustomer;uid[unique=true]          ;description  ;originalUid       ;email              ;name         ;title(code);groups(uid)                             ;site(uid);permissionGroups(uid);sessionCurrency(isocode)[default='USD'];type(code)[allownull=true,default=REGISTERED];sourceNetSuite[default=true];netSuiteCustomerInternalId;netSuiteInternalId;primaryAdmin[default=true];defaultB2BUnit(uid)    
+         ;jadobbie@gmail.com|gppro;Jeremy Dobbie;jadobbie@gmail.com;jadobbie@gmail.com ;Jeremy Dobbie;;gppro-jadobbie@gmail.com,b2badmingroup;gppro;;;;;;4656;;gppro-jadobbie@gmail.com
+;jonathan.hagood@gapac.com|gppro;Jon hagood;jonathan.hagood@gapac.com;jonathan.hagood@gapac.com;Jon hagood;;gppro-jonathan.hagood@gapac.com,b2badmingroup;gppro;;;;;;4657;;gppro-jonathan.hagood@gapac.com
+;fran@test.com|gppro;Fran Test;fran@test.com;fran@test.com;Fran Test;;gppro-fran@test.com,b2badmingroup;gppro;;;;;;4660;;gppro-fran@test.com
+;jongoodha@gmail.com|gppro;Jon test;jongoodha@gmail.com;jongoodha@gmail.com;Jon test;;gppro-jongoodha@gmail.com,b2badmingroup;gppro;;;;;;4662;;gppro-jongoodha@gmail.com
+;shalin.shah@gapac.com|gppro;Shalin Shah;shalin.shah@gapac.com;shalin.shah@gapac.com;Shalin Shah;;gppro-shalin.shah@gapac.com,b2badmingroup;gppro;;;;;;4664;;gppro-shalin.shah@gapac.com
+;fgalperin@tavanoteam.com|gppro;Francisca Galperin;fgalperin@tavanoteam.com;fgalperin@tavanoteam.com;Francisca Galperin;;gppro-fgalperin@tavanoteam.com,b2badmingroup;gppro;;;;;;4666;;gppro-fgalperin@tavanoteam.com
+;sandy.washington@gapac.com|gppro;Sandy Washington;sandy.washington@gapac.com;sandy.washington@gapac.com;Sandy Washington;;gppro-sandy.washington@gapac.com,b2badmingroup;gppro;;;;;;4668;;gppro-sandy.washington@gapac.com
+;samantha.steichen@gapac.com|gppro;Samantha Steichen;samantha.steichen@gapac.com;samantha.steichen@gapac.com;Samantha Steichen;;gppro-samantha.steichen@gapac.com,b2badmingroup;gppro;;;;;;4675;;gppro-samantha.steichen@gapac.com
+;shalin.shah@gapac.com|gppro;Shalin Shah;shalin.shah@gapac.com;shalin.shah@gapac.com;Shalin Shah;;gppro-shalin.shah@gapac.com,b2badmingroup;gppro;;;;;;4678;;gppro-shalin.shah@gapac.com
+;fgalperin@tavanoteam.com|gppro;Fran Galperin;fgalperin@tavanoteam.com;fgalperin@tavanoteam.com;Fran Galperin;;gppro-fgalperin@tavanoteam.com,b2badmingroup;gppro;;;;;;4682;;gppro-fgalperin@tavanoteam.com
+;fgalperin@tavanoteam.com|gppro;Fran Galperin;fgalperin@tavanoteam.com;fgalperin@tavanoteam.com;Fran Galperin;;gppro-fgalperin@tavanoteam.com,b2badmingroup;gppro;;;;;;4688;;gppro-fgalperin@tavanoteam.com
+;fgalperin@tavanoteam.com|gppro;Fran Galperin;fgalperin@tavanoteam.com;fgalperin@tavanoteam.com;Fran Galperin;;gppro-fgalperin@tavanoteam.com,b2badmingroup;gppro;;;;;;4793;;gppro-fgalperin@tavanoteam.com
+;melondy.mina@gapac.com|gppro;Melondy Mina;melondy.mina@gapac.com;melondy.mina@gapac.com;Melondy Mina;;gppro-melondy.mina@gapac.com,b2badmingroup;gppro;;;;;;4795;;gppro-melondy.mina@gapac.com
+;fgalperin@tavanoteam.com|gppro;fran galperin;fgalperin@tavanoteam.com;fgalperin@tavanoteam.com;fran galperin;;gppro-fgalperin@tavanoteam.com,b2badmingroup;gppro;;;;;;4799;;gppro-fgalperin@tavanoteam.com
+;sandy.washington@gapac.com|gppro;Sandy Washington;sandy.washington@gapac.com;sandy.washington@gapac.com;Sandy Washington;;gppro-sandy.washington@gapac.com,b2badmingroup;gppro;;;;;;4802;;gppro-sandy.washington@gapac.com
+;melondy.mina@gapac.com|gppro;Mel Mina;melondy.mina@gapac.com;melondy.mina@gapac.com;Mel Mina;;gppro-melondy.mina@gapac.com,b2badmingroup;gppro;;;;;;4804;;gppro-melondy.mina@gapac.com
+;melondy.mina@gapac.com|gppro;Melondy Mina;melondy.mina@gapac.com;melondy.mina@gapac.com;Melondy Mina;;gppro-melondy.mina@gapac.com,b2badmingroup;gppro;;;;;;4806;;gppro-melondy.mina@gapac.com
+;melondy.mina@gapac.com|gppro;M Mina;melondy.mina@gapac.com;melondy.mina@gapac.com;M Mina;;gppro-melondy.mina@gapac.com,b2badmingroup;gppro;;;;;;4809;;gppro-melondy.mina@gapac.com
+;test@test.com|gppro;Test Tavano;test@test.com;test@test.com;Test Tavano;;gppro-test@test.com,b2badmingroup;gppro;;;;;;4850;;gppro-test@test.com
+;emily.faber@gapac.com|gppro;Emily Faber;emily.faber@gapac.com;emily.faber@gapac.com;Emily Faber;;gppro-emily.faber@gapac.com,b2badmingroup;gppro;;;;;;4854;;gppro-emily.faber@gapac.com
+;fgalperin@tavanoteam.com|gppro;TEST TEST;fgalperin@tavanoteam.com;fgalperin@tavanoteam.com;TEST TEST;;gppro-fgalperin@tavanoteam.com,b2badmingroup;gppro;;;;;;4861;;gppro-fgalperin@tavanoteam.com
+;derek.grimes@gapac.com|gppro;Derek Grimes;derek.grimes@gapac.com;derek.grimes@gapac.com;Derek Grimes;;gppro-derek.grimes@gapac.com,b2badmingroup;gppro;;;;;;5271;;gppro-derek.grimes@gapac.com
+;test@test.com|gppro;Test testing;test@test.com;test@test.com;Test testing;;gppro-test@test.com,b2badmingroup;gppro;;;;;;5306;;gppro-test@test.com
+;sandy.washington@gapac.com|gppro;Sandy Washington;sandy.washington@gapac.com;sandy.washington@gapac.com;Sandy Washington;;gppro-sandy.washington@gapac.com,b2badmingroup;gppro;;;;;;5388;;gppro-sandy.washington@gapac.com
+;jody.johnson@gapac.com|gppro;Jody Johnson;jody.johnson@gapac.com;jody.johnson@gapac.com;Jody Johnson;;gppro-jody.johnson@gapac.com,b2badmingroup;gppro;;;;;;5594;;gppro-jody.johnson@gapac.com
+;alexandra.dimillo@gapac.com|gppro;alexandra dimillo;alexandra.dimillo@gapac.com;alexandra.dimillo@gapac.com;alexandra dimillo;;gppro-alexandra.dimillo@gapac.com,b2badmingroup;gppro;;;;;;5595;;gppro-alexandra.dimillo@gapac.com
+;sandy.washington@gapac.com|gppro;Sandy Washington;sandy.washington@gapac.com;sandy.washington@gapac.com;Sandy Washington;;gppro-sandy.washington@gapac.com,b2badmingroup;gppro;;;;;;5634;;gppro-sandy.washington@gapac.com
+;mara.hanerfeld@gapac.com|gppro;Mara Hanerfeld;mara.hanerfeld@gapac.com;mara.hanerfeld@gapac.com;Mara Hanerfeld;;gppro-mara.hanerfeld@gapac.com,b2badmingroup;gppro;;;;;;5721;;gppro-mara.hanerfeld@gapac.com
+;jamie@rollonamerica.cm|gppro;Jamie Cortes;jamie@rollonamerica.cm;jamie@rollonamerica.cm;Jamie Cortes;;gppro-jamie@rollonamerica.cm,b2badmingroup;gppro;;;;;;5725;;gppro-jamie@rollonamerica.cm
+;patriotskitchen@yahoo.com|gppro;Terry Taylor;patriotskitchen@yahoo.com;patriotskitchen@yahoo.com;Terry Taylor;;gppro-patriotskitchen@yahoo.com,b2badmingroup;gppro;;;;;;5726;;gppro-patriotskitchen@yahoo.com
+;kyle.dickinson@gapac.com|gppro;Kyle Dickinson;kyle.dickinson@gapac.com;kyle.dickinson@gapac.com;Kyle Dickinson;;gppro-kyle.dickinson@gapac.com,b2badmingroup;gppro;;;;;;5728;;gppro-kyle.dickinson@gapac.com
+;kyle.marchuk@gapac.com|gppro;Kyle Marchuk;kyle.marchuk@gapac.com;kyle.marchuk@gapac.com;Kyle Marchuk;;gppro-kyle.marchuk@gapac.com,b2badmingroup;gppro;;;;;;5731;;gppro-kyle.marchuk@gapac.com
+;sidshah@yahoo.com|gppro;Siddharth Shah;sidshah@yahoo.com;sidshah@yahoo.com;Siddharth Shah;;gppro-sidshah@yahoo.com,b2badmingroup;gppro;;;;;;5734;;gppro-sidshah@yahoo.com
+;redsonya547@gmail.com|gppro;Jessica sibert;redsonya547@gmail.com;redsonya547@gmail.com;Jessica sibert;;gppro-redsonya547@gmail.com,b2badmingroup;gppro;;;;;;5752;;gppro-redsonya547@gmail.com
+;emily.elam@gapac.com|gppro;Emily Elam;emily.elam@gapac.com;emily.elam@gapac.com;Emily Elam;;gppro-emily.elam@gapac.com,b2badmingroup;gppro;;;;;;5763;;gppro-emily.elam@gapac.com
+;sultana.noorani@gapac.com|gppro;Sultana Noorani;sultana.noorani@gapac.com;sultana.noorani@gapac.com;Sultana Noorani;;gppro-sultana.noorani@gapac.com,b2badmingroup;gppro;;;;;;5764;;gppro-sultana.noorani@gapac.com
+;lguggemos@wecatertoyou-mn.com|gppro;Lynn Guggemos;lguggemos@wecatertoyou-mn.com;lguggemos@wecatertoyou-mn.com;Lynn Guggemos;;gppro-lguggemos@wecatertoyou-mn.com,b2badmingroup;gppro;;;;;;5773;;gppro-lguggemos@wecatertoyou-mn.com
+;rachel@gravesmountain.com|gppro;Rachel Graves;rachel@gravesmountain.com;rachel@gravesmountain.com;Rachel Graves;;gppro-rachel@gravesmountain.com,b2badmingroup;gppro;;;;;;5775;;gppro-rachel@gravesmountain.com
+;rod@ragtimecafe.com|gppro;Rodney Zimmerman;rod@ragtimecafe.com;rod@ragtimecafe.com;Rodney Zimmerman;;gppro-rod@ragtimecafe.com,b2badmingroup;gppro;;;;;;5776;;gppro-rod@ragtimecafe.com
+;paul@organicoperations.com|gppro;Paul Neufeld;paul@organicoperations.com;paul@organicoperations.com;Paul Neufeld;;gppro-paul@organicoperations.com,b2badmingroup;gppro;;;;;;5781;;gppro-paul@organicoperations.com
+;gazebocreeksidecafe@gmail.com|gppro;Kurt Knechtel;gazebocreeksidecafe@gmail.com;gazebocreeksidecafe@gmail.com;Kurt Knechtel;;gppro-gazebocreeksidecafe@gmail.com,b2badmingroup;gppro;;;;;;5782;;gppro-gazebocreeksidecafe@gmail.com
+;rich@hayesville.net|gppro;Rich Gagnon;rich@hayesville.net;rich@hayesville.net;Rich Gagnon;;gppro-rich@hayesville.net,b2badmingroup;gppro;;;;;;5783;;gppro-rich@hayesville.net
+;cavity1@msn.com|gppro;Ali Rashid;cavity1@msn.com;cavity1@msn.com;Ali Rashid;;gppro-cavity1@msn.com,b2badmingroup;gppro;;;;;;5791;;gppro-cavity1@msn.com
+;info@carisbrookeinn.com|gppro;John Battista;info@carisbrookeinn.com;info@carisbrookeinn.com;John Battista;;gppro-info@carisbrookeinn.com,b2badmingroup;gppro;;;;;;5792;;gppro-info@carisbrookeinn.com
+;gsokos@demetriospizza.com|gppro;Gus Sukos;gsokos@demetriospizza.com;gsokos@demetriospizza.com;Gus Sukos;;gppro-gsokos@demetriospizza.com,b2badmingroup;gppro;;;;;;5793;;gppro-gsokos@demetriospizza.com
+;adrian.tucker27@yahoo.com|gppro;Adrian Tucker;adrian.tucker27@yahoo.com;adrian.tucker27@yahoo.com;Adrian Tucker;;gppro-adrian.tucker27@yahoo.com,b2badmingroup;gppro;;;;;;5797;;gppro-adrian.tucker27@yahoo.com
+;thecateringcompanywny@gmail.com|gppro;Krista Campano;thecateringcompanywny@gmail.com;thecateringcompanywny@gmail.com;Krista Campano;;gppro-thecateringcompanywny@gmail.com,b2badmingroup;gppro;;;;;;5812;;gppro-thecateringcompanywny@gmail.com
+;jvuskovich@yahoo.com|gppro;Joe Vuskovich;jvuskovich@yahoo.com;jvuskovich@yahoo.com;Joe Vuskovich;;gppro-jvuskovich@yahoo.com,b2badmingroup;gppro;;;;;;5813;;gppro-jvuskovich@yahoo.com
+;abfeinc@yahoo.com|gppro;Andrew Berlin;abfeinc@yahoo.com;abfeinc@yahoo.com;Andrew Berlin;;gppro-abfeinc@yahoo.com,b2badmingroup;gppro;;;;;;5814;;gppro-abfeinc@yahoo.com
+;rust.larry@yahoo.com|gppro;Larry Rust;rust.larry@yahoo.com;rust.larry@yahoo.com;Larry Rust;;gppro-rust.larry@yahoo.com,b2badmingroup;gppro;;;;;;5815;;gppro-rust.larry@yahoo.com
+;rust_larry@yahoo.com|gppro;Larry Rust;rust_larry@yahoo.com;rust_larry@yahoo.com;Larry Rust;;gppro-rust_larry@yahoo.com,b2badmingroup;gppro;;;;;;5816;;gppro-rust_larry@yahoo.com
+;tmad@teriyakimadness.com|gppro;Frank Giuliano;tmad@teriyakimadness.com;tmad@teriyakimadness.com;Frank Giuliano;;gppro-tmad@teriyakimadness.com,b2badmingroup;gppro;;;;;;5819;;gppro-tmad@teriyakimadness.com
+;chrisathompsonjr@gmail.com|gppro;Chris Thompson;chrisathompsonjr@gmail.com;chrisathompsonjr@gmail.com;Chris Thompson;;gppro-chrisathompsonjr@gmail.com,b2badmingroup;gppro;;;;;;5821;;gppro-chrisathompsonjr@gmail.com
+;berlinhoagieman@aol.com|gppro;Ron Berlin;berlinhoagieman@aol.com;berlinhoagieman@aol.com;Ron Berlin;;gppro-berlinhoagieman@aol.com,b2badmingroup;gppro;;;;;;5824;;gppro-berlinhoagieman@aol.com
+;tmad061@teriyakimadness.com|gppro;Teriyaki Madness;tmad061@teriyakimadness.com;tmad061@teriyakimadness.com;Teriyaki Madness;;gppro-tmad061@teriyakimadness.com,b2badmingroup;gppro;;;;;;5826;;gppro-tmad061@teriyakimadness.com
+;getmarried@barnatlostcreek.com|gppro;Margo Williamson;getmarried@barnatlostcreek.com;getmarried@barnatlostcreek.com;Margo Williamson;;gppro-getmarried@barnatlostcreek.com,b2badmingroup;gppro;;;;;;5851;;gppro-getmarried@barnatlostcreek.com
+;daneshraj9@gmail.com|gppro;Danny Raj;daneshraj9@gmail.com;daneshraj9@gmail.com;Danny Raj;;gppro-daneshraj9@gmail.com,b2badmingroup;gppro;;;;;;5852;;gppro-daneshraj9@gmail.com
+;geneburke38@yahoo.com|gppro;Gene Burke;geneburke38@yahoo.com;geneburke38@yahoo.com;Gene Burke;;gppro-geneburke38@yahoo.com,b2badmingroup;gppro;;;;;;5865;;gppro-geneburke38@yahoo.com
+;scheng@imperialchinese.net|gppro;STEVE CHENG;scheng@imperialchinese.net;scheng@imperialchinese.net;STEVE CHENG;;gppro-scheng@imperialchinese.net,b2badmingroup;gppro;;;;;;5869;;gppro-scheng@imperialchinese.net
+;edvalentine4@msn.com|gppro;Ed Valentine;edvalentine4@msn.com;edvalentine4@msn.com;Ed Valentine;;gppro-edvalentine4@msn.com,b2badmingroup;gppro;;;;;;5870;;gppro-edvalentine4@msn.com
+;sweetandsavorycatering305@gmail.com|gppro;Yolanda James;sweetandsavorycatering305@gmail.com;sweetandsavorycatering305@gmail.com;Yolanda James;;gppro-sweetandsavorycatering305@gmail.com,b2badmingroup;gppro;;;;;;5872;;gppro-sweetandsavorycatering305@gmail.com
+;Loukom12@gmail.com|gppro;Louann Komiensky;Loukom12@gmail.com;Loukom12@gmail.com;Louann Komiensky;;gppro-Loukom12@gmail.com,b2badmingroup;gppro;;;;;;5874;;gppro-Loukom12@gmail.com
+;melvin.ogletree@gapac.com|gppro;Melvin Ogletree;melvin.ogletree@gapac.com;melvin.ogletree@gapac.com;Melvin Ogletree;;gppro-melvin.ogletree@gapac.com,b2badmingroup;gppro;;;;;;5875;;gppro-melvin.ogletree@gapac.com
+;dchiaro1@yahoo.com|gppro;Diane Chiaro;dchiaro1@yahoo.com;dchiaro1@yahoo.com;Diane Chiaro;;gppro-dchiaro1@yahoo.com,b2badmingroup;gppro;;;;;;5876;;gppro-dchiaro1@yahoo.com
+;karen@jaxcatering.com|gppro;Karen Fritts;karen@jaxcatering.com;karen@jaxcatering.com;Karen Fritts;;gppro-karen@jaxcatering.com,b2badmingroup;gppro;;;;;;5878;;gppro-karen@jaxcatering.com
+;Expresscaterer@gmail.com|gppro;Anita Frodl;Expresscaterer@gmail.com;Expresscaterer@gmail.com;Anita Frodl;;gppro-Expresscaterer@gmail.com,b2badmingroup;gppro;;;;;;5879;;gppro-Expresscaterer@gmail.com
+;martin@fuelpizza.com|gppro;Shyron Peak;martin@fuelpizza.com;martin@fuelpizza.com;Shyron Peak;;gppro-martin@fuelpizza.com,b2badmingroup;gppro;;;;;;5880;;gppro-martin@fuelpizza.com
+;papastogo@gmail.com|gppro;Chris Papa;papastogo@gmail.com;papastogo@gmail.com;Chris Papa;;gppro-papastogo@gmail.com,b2badmingroup;gppro;;;;;;5881;;gppro-papastogo@gmail.com
+;jondoe@gmail.com|gppro;jon doe;jondoe@gmail.com;jondoe@gmail.com;jon doe;;gppro-jondoe@gmail.com,b2badmingroup;gppro;;;;;;5883;;gppro-jondoe@gmail.com
+;zollie@zollikoffee.com|gppro;Zollie Wilson;zollie@zollikoffee.com;zollie@zollikoffee.com;Zollie Wilson;;gppro-zollie@zollikoffee.com,b2badmingroup;gppro;;;;;;5884;;gppro-zollie@zollikoffee.com
+;newmanjr@hotmail.com|gppro;Jeff Newman;newmanjr@hotmail.com;newmanjr@hotmail.com;Jeff Newman;;gppro-newmanjr@hotmail.com,b2badmingroup;gppro;;;;;;5889;;gppro-newmanjr@hotmail.com
+;wegeek@aol.com|gppro;Syed Shazad;wegeek@aol.com;wegeek@aol.com;Syed Shazad;;gppro-wegeek@aol.com,b2badmingroup;gppro;;;;;;5892;;gppro-wegeek@aol.com
+;ezellner@chanticlearpizza.com|gppro;Eric Zellner;ezellner@chanticlearpizza.com;ezellner@chanticlearpizza.com;Eric Zellner;;gppro-ezellner@chanticlearpizza.com,b2badmingroup;gppro;;;;;;5914;;gppro-ezellner@chanticlearpizza.com
+;jademadefoods@yahoo.com|gppro;Jade Go;jademadefoods@yahoo.com;jademadefoods@yahoo.com;Jade Go;;gppro-jademadefoods@yahoo.com,b2badmingroup;gppro;;;;;;5915;;gppro-jademadefoods@yahoo.com
+;sue.setzekorn@mbhdq.com|gppro;Sue Setzekorn;sue.setzekorn@mbhdq.com;sue.setzekorn@mbhdq.com;Sue Setzekorn;;gppro-sue.setzekorn@mbhdq.com,b2badmingroup;gppro;;;;;;5918;;gppro-sue.setzekorn@mbhdq.com
+;lesbecky02@msn.com|gppro;Becky Long;lesbecky02@msn.com;lesbecky02@msn.com;Becky Long;;gppro-lesbecky02@msn.com,b2badmingroup;gppro;;;;;;5919;;gppro-lesbecky02@msn.com
+;chadzollinger71@gmail.com|gppro;Chad Zollinger;chadzollinger71@gmail.com;chadzollinger71@gmail.com;Chad Zollinger;;gppro-chadzollinger71@gmail.com,b2badmingroup;gppro;;;;;;5920;;gppro-chadzollinger71@gmail.com
+;magdalenspureskincare@gmail.com|gppro;Magdalen Lagergren;magdalenspureskincare@gmail.com;magdalenspureskincare@gmail.com;Magdalen Lagergren;;gppro-magdalenspureskincare@gmail.com,b2badmingroup;gppro;;;;;;5922;;gppro-magdalenspureskincare@gmail.com
+;2dogspubiowacity@gmail.com|gppro;Alan Eckhardt;2dogspubiowacity@gmail.com;2dogspubiowacity@gmail.com;Alan Eckhardt;;gppro-2dogspubiowacity@gmail.com,b2badmingroup;gppro;;;;;;5926;;gppro-2dogspubiowacity@gmail.com
+;bree.wilhoit@gapac.com|gppro;Bree Wilhoit;bree.wilhoit@gapac.com;bree.wilhoit@gapac.com;Bree Wilhoit;;gppro-bree.wilhoit@gapac.com,b2badmingroup;gppro;;;;;;5927;;gppro-bree.wilhoit@gapac.com
+;oscar@paliospizzaplano.com|gppro;Oscar Johnson;oscar@paliospizzaplano.com;oscar@paliospizzaplano.com;Oscar Johnson;;gppro-oscar@paliospizzaplano.com,b2badmingroup;gppro;;;;;;5928;;gppro-oscar@paliospizzaplano.com
+;baraboo@pizzaranch.com|gppro;Mary Dressen;baraboo@pizzaranch.com;baraboo@pizzaranch.com;Mary Dressen;;gppro-baraboo@pizzaranch.com,b2badmingroup;gppro;;;;;;5931;;gppro-baraboo@pizzaranch.com
+;FranVG@aol.com|gppro;FRANCES *WUEST;FranVG@aol.com;FranVG@aol.com;FRANCES *WUEST;;gppro-FranVG@aol.com,b2badmingroup;gppro;;;;;;5932;;gppro-FranVG@aol.com
+;alvin_ige@masascafeteria.com|gppro;Alvin Ige;alvin_ige@masascafeteria.com;alvin_ige@masascafeteria.com;Alvin Ige;;gppro-alvin_ige@masascafeteria.com,b2badmingroup;gppro;;;;;;5933;;gppro-alvin_ige@masascafeteria.com
+;morseblockdeli@gmail.com|gppro;Stefano Coppola;morseblockdeli@gmail.com;morseblockdeli@gmail.com;Stefano Coppola;;gppro-morseblockdeli@gmail.com,b2badmingroup;gppro;;;;;;6040;;gppro-morseblockdeli@gmail.com
+;905onthebay@gmail.com|gppro;Ioannis Kokkolias;905onthebay@gmail.com;905onthebay@gmail.com;Ioannis Kokkolias;;gppro-905onthebay@gmail.com,b2badmingroup;gppro;;;;;;6041;;gppro-905onthebay@gmail.com
+;joe@1836kitchenandtaproom.com|gppro;Joe Bower;joe@1836kitchenandtaproom.com;joe@1836kitchenandtaproom.com;Joe Bower;;gppro-joe@1836kitchenandtaproom.com,b2badmingroup;gppro;;;;;;6042;;gppro-joe@1836kitchenandtaproom.com
+;jk.lund@att.net|gppro;Jill Lund;jk.lund@att.net;jk.lund@att.net;Jill Lund;;gppro-jk.lund@att.net,b2badmingroup;gppro;;;;;;6076;;gppro-jk.lund@att.net
+;russ@freddiesbeachbar.com|gppro;Russ Colbourne;russ@freddiesbeachbar.com;russ@freddiesbeachbar.com;Russ Colbourne;;gppro-russ@freddiesbeachbar.com,b2badmingroup;gppro;;;;;;6084;;gppro-russ@freddiesbeachbar.com
+;haynesagencyllc@gmail.com|gppro;Tammie Haynes;haynesagencyllc@gmail.com;haynesagencyllc@gmail.com;Tammie Haynes;;gppro-haynesagencyllc@gmail.com,b2badmingroup;gppro;;;;;;6085;;gppro-haynesagencyllc@gmail.com
+;tamalestlaolli@gmail.com|gppro;Carlos Hutchinson;tamalestlaolli@gmail.com;tamalestlaolli@gmail.com;Carlos Hutchinson;;gppro-tamalestlaolli@gmail.com,b2badmingroup;gppro;;;;;;6088;;gppro-tamalestlaolli@gmail.com
+;jplester@gmail.com|gppro;Marcia Lester;jplester@gmail.com;jplester@gmail.com;Marcia Lester;;gppro-jplester@gmail.com,b2badmingroup;gppro;;;;;;6089;;gppro-jplester@gmail.com
+;marcietravers@gmail.com|gppro;Marcie Travers;marcietravers@gmail.com;marcietravers@gmail.com;Marcie Travers;;gppro-marcietravers@gmail.com,b2badmingroup;gppro;;;;;;6093;;gppro-marcietravers@gmail.com
+;gorhamdale@gmail.com|gppro;Dale Gorham;gorhamdale@gmail.com;gorhamdale@gmail.com;Dale Gorham;;gppro-gorhamdale@gmail.com,b2badmingroup;gppro;;;;;;6300;;gppro-gorhamdale@gmail.com
+;Alnessmoreno@yahoo.com|gppro;Alondra Morena;Alnessmoreno@yahoo.com;Alnessmoreno@yahoo.com;Alondra Morena;;gppro-Alnessmoreno@yahoo.com,b2badmingroup;gppro;;;;;;6383;;gppro-Alnessmoreno@yahoo.com
+;fussbudget38@outlook.com|gppro;Janette Spencer;fussbudget38@outlook.com;fussbudget38@outlook.com;Janette Spencer;;gppro-fussbudget38@outlook.com,b2badmingroup;gppro;;;;;;6390;;gppro-fussbudget38@outlook.com
+;matthewslanding8900@gmail.com|gppro;Diann Matthews;matthewslanding8900@gmail.com;matthewslanding8900@gmail.com;Diann Matthews;;gppro-matthewslanding8900@gmail.com,b2badmingroup;gppro;;;;;;6394;;gppro-matthewslanding8900@gmail.com
+;jt.blackburn760@gmail.com|gppro;Jonathon Blackburn;jt.blackburn760@gmail.com;jt.blackburn760@gmail.com;Jonathon Blackburn;;gppro-jt.blackburn760@gmail.com,b2badmingroup;gppro;;;;;;6402;;gppro-jt.blackburn760@gmail.com
+;dangerdurham2010@gmail.com|gppro;Scott Richie;dangerdurham2010@gmail.com;dangerdurham2010@gmail.com;Scott Richie;;gppro-dangerdurham2010@gmail.com,b2badmingroup;gppro;;;;;;6403;;gppro-dangerdurham2010@gmail.com
+;millenniumpromotionsinc@gmail.com|gppro;Melody Love Gonzalez;millenniumpromotionsinc@gmail.com;millenniumpromotionsinc@gmail.com;Melody Love Gonzalez;;gppro-millenniumpromotionsinc@gmail.com,b2badmingroup;gppro;;;;;;6413;;gppro-millenniumpromotionsinc@gmail.com
+;boardlandia@gmail.com|gppro;Karissa Fendt;boardlandia@gmail.com;boardlandia@gmail.com;Karissa Fendt;;gppro-boardlandia@gmail.com,b2badmingroup;gppro;;;;;;6432;;gppro-boardlandia@gmail.com
+;Nhienannguyen@gmail.com|gppro;Nhien Nguyen;Nhienannguyen@gmail.com;Nhienannguyen@gmail.com;Nhien Nguyen;;gppro-Nhienannguyen@gmail.com,b2badmingroup;gppro;;;;;;6466;;gppro-Nhienannguyen@gmail.com
+;jamils@cox.net|gppro;Jennifer Alcott;jamils@cox.net;jamils@cox.net;Jennifer Alcott;;gppro-jamils@cox.net,b2badmingroup;gppro;;;;;;6470;;gppro-jamils@cox.net
+;innkeeper@amandagishhouse.com|gppro;Ann Royer;innkeeper@amandagishhouse.com;innkeeper@amandagishhouse.com;Ann Royer;;gppro-innkeeper@amandagishhouse.com,b2badmingroup;gppro;;;;;;6538;;gppro-innkeeper@amandagishhouse.com
+;narey-bob@aramark.com|gppro;Bob Narey;narey-bob@aramark.com;narey-bob@aramark.com;Bob Narey;;gppro-narey-bob@aramark.com,b2badmingroup;gppro;;;;;;6580;;gppro-narey-bob@aramark.com
+;Florence_gainer@aol.com|gppro;Florence Gainer;Florence_gainer@aol.com;Florence_gainer@aol.com;Florence Gainer;;gppro-Florence_gainer@aol.com,b2badmingroup;gppro;;;;;;6603;;gppro-Florence_gainer@aol.com
+;georgeson.rick@yahoo.com|gppro;Rick Georgeson;georgeson.rick@yahoo.com;georgeson.rick@yahoo.com;Rick Georgeson;;gppro-georgeson.rick@yahoo.com,b2badmingroup;gppro;;;;;;6606;;gppro-georgeson.rick@yahoo.com
+;mikeatpeppers@gmail.com|gppro;Mike Bhatnagar;mikeatpeppers@gmail.com;mikeatpeppers@gmail.com;Mike Bhatnagar;;gppro-mikeatpeppers@gmail.com,b2badmingroup;gppro;;;;;;6614;;gppro-mikeatpeppers@gmail.com
+;farringtoninnjohn@gmail.com|gppro;John Terwillinger;farringtoninnjohn@gmail.com;farringtoninnjohn@gmail.com;John Terwillinger;;gppro-farringtoninnjohn@gmail.com,b2badmingroup;gppro;;;;;;6615;;gppro-farringtoninnjohn@gmail.com
+;echellebates@yahoo.com|gppro;Echelle Bates;echellebates@yahoo.com;echellebates@yahoo.com;Echelle Bates;;gppro-echellebates@yahoo.com,b2badmingroup;gppro;;;;;;6616;;gppro-echellebates@yahoo.com
+;innkeeper@pasfieldhouse.com|gppro;Tony Leone;innkeeper@pasfieldhouse.com;innkeeper@pasfieldhouse.com;Tony Leone;;gppro-innkeeper@pasfieldhouse.com,b2badmingroup;gppro;;;;;;6619;;gppro-innkeeper@pasfieldhouse.com
+;CUSTOMERSERVICE@CHSDOORS.NET|gppro;Alana Riedell;CUSTOMERSERVICE@CHSDOORS.NET;CUSTOMERSERVICE@CHSDOORS.NET;Alana Riedell;;gppro-CUSTOMERSERVICE@CHSDOORS.NET,b2badmingroup;gppro;;;;;;6635;;gppro-CUSTOMERSERVICE@CHSDOORS.NET
+;jena.delaney@gapac.com|gppro;Jena DeLaney;jena.delaney@gapac.com;jena.delaney@gapac.com;Jena DeLaney;;gppro-jena.delaney@gapac.com,b2badmingroup;gppro;;;;;;6708;;gppro-jena.delaney@gapac.com
+;info@mybluebowl.com|gppro;Teague Savitch;info@mybluebowl.com;info@mybluebowl.com;Teague Savitch;;gppro-info@mybluebowl.com,b2badmingroup;gppro;;;;;;6739;;gppro-info@mybluebowl.com
+;shopperwoman1@hotmail.com|gppro;Beth Dorn;shopperwoman1@hotmail.com;shopperwoman1@hotmail.com;Beth Dorn;;gppro-shopperwoman1@hotmail.com,b2badmingroup;gppro;;;;;;6771;;gppro-shopperwoman1@hotmail.com
+;oapl@aol.com|gppro;Omar Perez;oapl@aol.com;oapl@aol.com;Omar Perez;;gppro-oapl@aol.com,b2badmingroup;gppro;;;;;;6772;;gppro-oapl@aol.com
+;vkparekh@gmail.com|gppro;Viral Parekh;vkparekh@gmail.com;vkparekh@gmail.com;Viral Parekh;;gppro-vkparekh@gmail.com,b2badmingroup;gppro;;;;;;6792;;gppro-vkparekh@gmail.com
+;roglerlinda43@gmail.com|gppro;Linda rogler;roglerlinda43@gmail.com;roglerlinda43@gmail.com;Linda rogler;;gppro-roglerlinda43@gmail.com,b2badmingroup;gppro;;;;;;6832;;gppro-roglerlinda43@gmail.com
+;bburt@hallcorp.com|gppro;Barbara Burt;bburt@hallcorp.com;bburt@hallcorp.com;Barbara Burt;;gppro-bburt@hallcorp.com,b2badmingroup;gppro;;;;;;6836;;gppro-bburt@hallcorp.com
+;Leon@boomkidz.net|gppro;Leon Chalyavski;Leon@boomkidz.net;Leon@boomkidz.net;Leon Chalyavski;;gppro-Leon@boomkidz.net,b2badmingroup;gppro;;;;;;6841;;gppro-Leon@boomkidz.net
+;crespoanita@hotmail.com|gppro;Anita Crespi;crespoanita@hotmail.com;crespoanita@hotmail.com;Anita Crespi;;gppro-crespoanita@hotmail.com,b2badmingroup;gppro;;;;;;6848;;gppro-crespoanita@hotmail.com
+;cary@mellowmushroominfo.com|gppro;Will Greczyn;cary@mellowmushroominfo.com;cary@mellowmushroominfo.com;Will Greczyn;;gppro-cary@mellowmushroominfo.com,b2badmingroup;gppro;;;;;;6964;;gppro-cary@mellowmushroominfo.com
+;marcus@remembercatering.com|gppro;Marcus Lee;marcus@remembercatering.com;marcus@remembercatering.com;Marcus Lee;;gppro-marcus@remembercatering.com,b2badmingroup;gppro;;;;;;6987;;gppro-marcus@remembercatering.com
+;mbrown@acorninnelon.com|gppro;Mark Brown;mbrown@acorninnelon.com;mbrown@acorninnelon.com;Mark Brown;;gppro-mbrown@acorninnelon.com,b2badmingroup;gppro;;;;;;6989;;gppro-mbrown@acorninnelon.com
+;cannetteyoung@hotmail.com|gppro;Carolyn Young;cannetteyoung@hotmail.com;cannetteyoung@hotmail.com;Carolyn Young;;gppro-cannetteyoung@hotmail.com,b2badmingroup;gppro;;;;;;7016;;gppro-cannetteyoung@hotmail.com
+;cajun@sbcglobal.net|gppro;Paul Gautreaux;cajun@sbcglobal.net;cajun@sbcglobal.net;Paul Gautreaux;;gppro-cajun@sbcglobal.net,b2badmingroup;gppro;;;;;;7021;;gppro-cajun@sbcglobal.net
+;cadru61@yahoo.com|gppro;Carla Rutherford;cadru61@yahoo.com;cadru61@yahoo.com;Carla Rutherford;;gppro-cadru61@yahoo.com,b2badmingroup;gppro;;;;;;7093;;gppro-cadru61@yahoo.com
+;piepunkin78@gmail.com|gppro;Amy Johnson;piepunkin78@gmail.com;piepunkin78@gmail.com;Amy Johnson;;gppro-piepunkin78@gmail.com,b2badmingroup;gppro;;;;;;7108;;gppro-piepunkin78@gmail.com
+;melisalovely@gmail.com|gppro;Melisa Lovely;melisalovely@gmail.com;melisalovely@gmail.com;Melisa Lovely;;gppro-melisalovely@gmail.com,b2badmingroup;gppro;;;;;;7112;;gppro-melisalovely@gmail.com
+;akashisushi54@gmail.com|gppro;Adeline Chen;akashisushi54@gmail.com;akashisushi54@gmail.com;Adeline Chen;;gppro-akashisushi54@gmail.com,b2badmingroup;gppro;;;;;;7119;;gppro-akashisushi54@gmail.com
+;latch5792@gmail.com|gppro;Jennifer Livingston;latch5792@gmail.com;latch5792@gmail.com;Jennifer Livingston;;gppro-latch5792@gmail.com,b2badmingroup;gppro;;;;;;7120;;gppro-latch5792@gmail.com
+;twashkevich@alderfoods.com|gppro;Terri Washkevich;twashkevich@alderfoods.com;twashkevich@alderfoods.com;Terri Washkevich;;gppro-twashkevich@alderfoods.com,b2badmingroup;gppro;;;;;;7132;;gppro-twashkevich@alderfoods.com
+;tronamotherof3@live.com|gppro;Becky Manning;tronamotherof3@live.com;tronamotherof3@live.com;Becky Manning;;gppro-tronamotherof3@live.com,b2badmingroup;gppro;;;;;;7135;;gppro-tronamotherof3@live.com
+;joe@laytonfruitmarket.com|gppro;Joe Proite;joe@laytonfruitmarket.com;joe@laytonfruitmarket.com;Joe Proite;;gppro-joe@laytonfruitmarket.com,b2badmingroup;gppro;;;;;;7249;;gppro-joe@laytonfruitmarket.com
+;joseph.firmin@gapac.com|gppro;Joseph Firmin;joseph.firmin@gapac.com;joseph.firmin@gapac.com;Joseph Firmin;;gppro-joseph.firmin@gapac.com,b2badmingroup;gppro;;;;;;7319;;gppro-joseph.firmin@gapac.com
+;Butch@taylorgrocerycatering.com|gppro;Butch Scott;Butch@taylorgrocerycatering.com;Butch@taylorgrocerycatering.com;Butch Scott;;gppro-Butch@taylorgrocerycatering.com,b2badmingroup;gppro;;;;;;7325;;gppro-Butch@taylorgrocerycatering.com
+;jplesterllc@outlook.com|gppro;Marcia Lester;jplesterllc@outlook.com;jplesterllc@outlook.com;Marcia Lester;;gppro-jplesterllc@outlook.com,b2badmingroup;gppro;;;;;;7327;;gppro-jplesterllc@outlook.com
+;fgalperin@tavanoteam.com|gppro;Francisca Galperin;fgalperin@tavanoteam.com;fgalperin@tavanoteam.com;Francisca Galperin;;gppro-fgalperin@tavanoteam.com,b2badmingroup;gppro;;;;;;7468;;gppro-fgalperin@tavanoteam.com
+;springdemerath1@yahoo.com|gppro;Spring Demerath;springdemerath1@yahoo.com;springdemerath1@yahoo.com;Spring Demerath;;gppro-springdemerath1@yahoo.com,b2badmingroup;gppro;;;;;;7475;;gppro-springdemerath1@yahoo.com
+;jeremiah@everlastingcup.com|gppro;Jeremiah Cline;jeremiah@everlastingcup.com;jeremiah@everlastingcup.com;Jeremiah Cline;;gppro-jeremiah@everlastingcup.com,b2badmingroup;gppro;;;;;;7480;;gppro-jeremiah@everlastingcup.com
+;502cafe@gmail.com|gppro;Chris Williams;502cafe@gmail.com;502cafe@gmail.com;Chris Williams;;gppro-502cafe@gmail.com,b2badmingroup;gppro;;;;;;7504;;gppro-502cafe@gmail.com
+;manager@genesishca.net|gppro;Danita McKinney;manager@genesishca.net;manager@genesishca.net;Danita McKinney;;gppro-manager@genesishca.net,b2badmingroup;gppro;;;;;;7563;;gppro-manager@genesishca.net
+;victor.alonso1996@gmail.com|gppro;Victor Valenzuela;victor.alonso1996@gmail.com;victor.alonso1996@gmail.com;Victor Valenzuela;;gppro-victor.alonso1996@gmail.com,b2badmingroup;gppro;;;;;;7564;;gppro-victor.alonso1996@gmail.com
+;natk218@samsung.com|gppro;Natalai Keys;natk218@samsung.com;natk218@samsung.com;Natalai Keys;;gppro-natk218@samsung.com,b2badmingroup;gppro;;;;;;7565;;gppro-natk218@samsung.com
+;abrothersdeli@gmail.com|gppro;John Aquino;abrothersdeli@gmail.com;abrothersdeli@gmail.com;John Aquino;;gppro-abrothersdeli@gmail.com,b2badmingroup;gppro;;;;;;7572;;gppro-abrothersdeli@gmail.com
+;a.lamasiii@gmail.com|gppro;Arturo Lamasi;a.lamasiii@gmail.com;a.lamasiii@gmail.com;Arturo Lamasi;;gppro-a.lamasiii@gmail.com,b2badmingroup;gppro;;;;;;7573;;gppro-a.lamasiii@gmail.com
+;newbeginningskitchen@gmail.com|gppro;Jeanne Michon;newbeginningskitchen@gmail.com;newbeginningskitchen@gmail.com;Jeanne Michon;;gppro-newbeginningskitchen@gmail.com,b2badmingroup;gppro;;;;;;7574;;gppro-newbeginningskitchen@gmail.com
+;Chefjeffpresents@gmail.com|gppro;Tammy Griffin;Chefjeffpresents@gmail.com;Chefjeffpresents@gmail.com;Tammy Griffin;;gppro-Chefjeffpresents@gmail.com,b2badmingroup;gppro;;;;;;7576;;gppro-Chefjeffpresents@gmail.com
+;kennellys.04@verizon.net|gppro;Walter Kennelly;kennellys.04@verizon.net;kennellys.04@verizon.net;Walter Kennelly;;gppro-kennellys.04@verizon.net,b2badmingroup;gppro;;;;;;7634;;gppro-kennellys.04@verizon.net
+;info@lovencherish.org|gppro;Alfreda Roseborough;info@lovencherish.org;info@lovencherish.org;Alfreda Roseborough;;gppro-info@lovencherish.org,b2badmingroup;gppro;;;;;;7635;;gppro-info@lovencherish.org
+;michele.coney@effem.com|gppro;Michele Coney;michele.coney@effem.com;michele.coney@effem.com;Michele Coney;;gppro-michele.coney@effem.com,b2badmingroup;gppro;;;;;;7643;;gppro-michele.coney@effem.com
+;bajanola@yahoo.com|gppro;Ricky Bermudez;bajanola@yahoo.com;bajanola@yahoo.com;Ricky Bermudez;;gppro-bajanola@yahoo.com,b2badmingroup;gppro;;;;;;7670;;gppro-bajanola@yahoo.com
+;lia_tjong2006@yahoo.com|gppro;Tjong Martalia;lia_tjong2006@yahoo.com;lia_tjong2006@yahoo.com;Tjong Martalia;;gppro-lia_tjong2006@yahoo.com,b2badmingroup;gppro;;;;;;7763;;gppro-lia_tjong2006@yahoo.com
+;paty@robertos-sd.com|gppro;Patrica Baez;paty@robertos-sd.com;paty@robertos-sd.com;Patrica Baez;;gppro-paty@robertos-sd.com,b2badmingroup;gppro;;;;;;7765;;gppro-paty@robertos-sd.com
+;kim@patriotholdings.us|gppro;Kim Russell;kim@patriotholdings.us;kim@patriotholdings.us;Kim Russell;;gppro-kim@patriotholdings.us,b2badmingroup;gppro;;;;;;7775;;gppro-kim@patriotholdings.us
+;janev@intercontinentalpharma.com|gppro;Jane Vatelot;janev@intercontinentalpharma.com;janev@intercontinentalpharma.com;Jane Vatelot;;gppro-janev@intercontinentalpharma.com,b2badmingroup;gppro;;;;;;7778;;gppro-janev@intercontinentalpharma.com
+;yvmacpherson@sbcglobal.net|gppro;Yvonne Macpherson;yvmacpherson@sbcglobal.net;yvmacpherson@sbcglobal.net;Yvonne Macpherson;;gppro-yvmacpherson@sbcglobal.net,b2badmingroup;gppro;;;;;;7780;;gppro-yvmacpherson@sbcglobal.net
+;bladebeam1@gmail.com|gppro;Mike Burton;bladebeam1@gmail.com;bladebeam1@gmail.com;Mike Burton;;gppro-bladebeam1@gmail.com,b2badmingroup;gppro;;;;;;7814;;gppro-bladebeam1@gmail.com
+;Eatyeah8@gmail.com|gppro;Tony Boswell;Eatyeah8@gmail.com;Eatyeah8@gmail.com;Tony Boswell;;gppro-Eatyeah8@gmail.com,b2badmingroup;gppro;;;;;;7896;;gppro-Eatyeah8@gmail.com
+;Cjscompetitionbbq@gmail.com|gppro;James Horn;Cjscompetitionbbq@gmail.com;Cjscompetitionbbq@gmail.com;James Horn;;gppro-Cjscompetitionbbq@gmail.com,b2badmingroup;gppro;;;;;;7899;;gppro-Cjscompetitionbbq@gmail.com
+;famousnails@yahoo.com|gppro;John Tran;famousnails@yahoo.com;famousnails@yahoo.com;John Tran;;gppro-famousnails@yahoo.com,b2badmingroup;gppro;;;;;;7913;;gppro-famousnails@yahoo.com
+;cowboyjohnssmokenbbq@hotmail.com|gppro;John Harvey;cowboyjohnssmokenbbq@hotmail.com;cowboyjohnssmokenbbq@hotmail.com;John Harvey;;gppro-cowboyjohnssmokenbbq@hotmail.com,b2badmingroup;gppro;;;;;;7933;;gppro-cowboyjohnssmokenbbq@hotmail.com
+;elmouloudiahmad@gmail.com|gppro;Ahmad El mouloudi;elmouloudiahmad@gmail.com;elmouloudiahmad@gmail.com;Ahmad El mouloudi;;gppro-elmouloudiahmad@gmail.com,b2badmingroup;gppro;;;;;;7950;;gppro-elmouloudiahmad@gmail.com
+;mpientok@outlook.com|gppro;Melissa Pientok;mpientok@outlook.com;mpientok@outlook.com;Melissa Pientok;;gppro-mpientok@outlook.com,b2badmingroup;gppro;;;;;;7956;;gppro-mpientok@outlook.com
+;kristine.osborn@cantufoods.com|gppro;Kristine Osborn;kristine.osborn@cantufoods.com;kristine.osborn@cantufoods.com;Kristine Osborn;;gppro-kristine.osborn@cantufoods.com,b2badmingroup;gppro;;;;;;7970;;gppro-kristine.osborn@cantufoods.com
+;arthurz@forl.com|gppro;Arthur Zuniga;arthurz@forl.com;arthurz@forl.com;Arthur Zuniga;;gppro-arthurz@forl.com,b2badmingroup;gppro;;;;;;7995;;gppro-arthurz@forl.com
+;mysavoree@gmail.com|gppro;Cathy Knox;mysavoree@gmail.com;mysavoree@gmail.com;Cathy Knox;;gppro-mysavoree@gmail.com,b2badmingroup;gppro;;;;;;8018;;gppro-mysavoree@gmail.com
+;southernridgecafe@gmail.com|gppro;Harley Masters;southernridgecafe@gmail.com;southernridgecafe@gmail.com;Harley Masters;;gppro-southernridgecafe@gmail.com,b2badmingroup;gppro;;;;;;8051;;gppro-southernridgecafe@gmail.com
+;Sbravadai@Yahoo.com|gppro;Steven Massongill;Sbravadai@Yahoo.com;Sbravadai@Yahoo.com;Steven Massongill;;gppro-Sbravadai@Yahoo.com,b2badmingroup;gppro;;;;;;8110;;gppro-Sbravadai@Yahoo.com
+;jaihosuh@yahoo.com|gppro;Jai Suh;jaihosuh@yahoo.com;jaihosuh@yahoo.com;Jai Suh;;gppro-jaihosuh@yahoo.com,b2badmingroup;gppro;;;;;;8113;;gppro-jaihosuh@yahoo.com
+;SNiswender2@craighospital.org|gppro;Stephanie Niswender;SNiswender2@craighospital.org;SNiswender2@craighospital.org;Stephanie Niswender;;gppro-SNiswender2@craighospital.org,b2badmingroup;gppro;;;;;;8139;;gppro-SNiswender2@craighospital.org
+;antoniocforte@gmail.com|gppro;Antonio Fortee;antoniocforte@gmail.com;antoniocforte@gmail.com;Antonio Fortee;;gppro-antoniocforte@gmail.com,b2badmingroup;gppro;;;;;;8275;;gppro-antoniocforte@gmail.com
+;Mcurotto3@gmail.com|gppro;Missy Curotto;Mcurotto3@gmail.com;Mcurotto3@gmail.com;Missy Curotto;;gppro-Mcurotto3@gmail.com,b2badmingroup;gppro;;;;;;8342;;gppro-Mcurotto3@gmail.com
+;humc_custodian@haymountumc.com|gppro;Anna Bruner;humc_custodian@haymountumc.com;humc_custodian@haymountumc.com;Anna Bruner;;gppro-humc_custodian@haymountumc.com,b2badmingroup;gppro;;;;;;8356;;gppro-humc_custodian@haymountumc.com
+;acctgdept@butterflywonderland.com|gppro;Cynthia Claw-King;acctgdept@butterflywonderland.com;acctgdept@butterflywonderland.com;Cynthia Claw-King;;gppro-acctgdept@butterflywonderland.com,b2badmingroup;gppro;;;;;;8370;;gppro-acctgdept@butterflywonderland.com
+;bravofoodservice@aol.com|gppro;Raymundo Jaime;bravofoodservice@aol.com;bravofoodservice@aol.com;Raymundo Jaime;;gppro-bravofoodservice@aol.com,b2badmingroup;gppro;;;;;;8471;;gppro-bravofoodservice@aol.com
+;bkpadgham@gmail.com|gppro;Brandee Padgham;bkpadgham@gmail.com;bkpadgham@gmail.com;Brandee Padgham;;gppro-bkpadgham@gmail.com,b2badmingroup;gppro;;;;;;8523;;gppro-bkpadgham@gmail.com
+;sandi@lakelaniercanopytours.com|gppro;Sandi Savarese;sandi@lakelaniercanopytours.com;sandi@lakelaniercanopytours.com;Sandi Savarese;;gppro-sandi@lakelaniercanopytours.com,b2badmingroup;gppro;;;;;;8529;;gppro-sandi@lakelaniercanopytours.com
+;joe.abersold@gmail.com|gppro;Joe Abersold;joe.abersold@gmail.com;joe.abersold@gmail.com;Joe Abersold;;gppro-joe.abersold@gmail.com,b2badmingroup;gppro;;;;;;8536;;gppro-joe.abersold@gmail.com
+;Jeanie158@hotmail.com|gppro;Jeanie Guo;Jeanie158@hotmail.com;Jeanie158@hotmail.com;Jeanie Guo;;gppro-Jeanie158@hotmail.com,b2badmingroup;gppro;;;;;;8659;;gppro-Jeanie158@hotmail.com
+;vince@7milecycles.com|gppro;Vince Boyer;vince@7milecycles.com;vince@7milecycles.com;Vince Boyer;;gppro-vince@7milecycles.com,b2badmingroup;gppro;;;;;;8678;;gppro-vince@7milecycles.com
+;innkeeper@littletraverseinn.com|gppro;Dave Forester;innkeeper@littletraverseinn.com;innkeeper@littletraverseinn.com;Dave Forester;;gppro-innkeeper@littletraverseinn.com,b2badmingroup;gppro;;;;;;8679;;gppro-innkeeper@littletraverseinn.com
+;karen@bigdanshamburgers.com|gppro;Karen Cunningham;karen@bigdanshamburgers.com;karen@bigdanshamburgers.com;Karen Cunningham;;gppro-karen@bigdanshamburgers.com,b2badmingroup;gppro;;;;;;8680;;gppro-karen@bigdanshamburgers.com
+;cbchurch@sbcglobal.com|gppro;Shelly Elder;cbchurch@sbcglobal.com;cbchurch@sbcglobal.com;Shelly Elder;;gppro-cbchurch@sbcglobal.com,b2badmingroup;gppro;;;;;;8681;;gppro-cbchurch@sbcglobal.com
+;eburton571@gmail.com|gppro;Edward Burton;eburton571@gmail.com;eburton571@gmail.com;Edward Burton;;gppro-eburton571@gmail.com,b2badmingroup;gppro;;;;;;8695;;gppro-eburton571@gmail.com
+;sstelivan@fsmb.org|gppro;Starr Stelivan;sstelivan@fsmb.org;sstelivan@fsmb.org;Starr Stelivan;;gppro-sstelivan@fsmb.org,b2badmingroup;gppro;;;;;;8699;;gppro-sstelivan@fsmb.org
+;kpiercey123@gmail.com|gppro;kelly piercey;kpiercey123@gmail.com;kpiercey123@gmail.com;kelly piercey;;gppro-kpiercey123@gmail.com,b2badmingroup;gppro;;;;;;8703;;gppro-kpiercey123@gmail.com
+;Jennifer.rodriguez@ihg.com|gppro;Jennifer Rodriguez;Jennifer.rodriguez@ihg.com;Jennifer.rodriguez@ihg.com;Jennifer Rodriguez;;gppro-Jennifer.rodriguez@ihg.com,b2badmingroup;gppro;;;;;;8704;;gppro-Jennifer.rodriguez@ihg.com
+;nissim@abramsonlabor.com|gppro;Nissim Levin;nissim@abramsonlabor.com;nissim@abramsonlabor.com;Nissim Levin;;gppro-nissim@abramsonlabor.com,b2badmingroup;gppro;;;;;;8709;;gppro-nissim@abramsonlabor.com
+;khadija@joyfultreatscatering.com|gppro;Khadija Wallace;khadija@joyfultreatscatering.com;khadija@joyfultreatscatering.com;Khadija Wallace;;gppro-khadija@joyfultreatscatering.com,b2badmingroup;gppro;;;;;;8723;;gppro-khadija@joyfultreatscatering.com
+;gassamap0824@gmail.com|gppro;Phanta Gassama;gassamap0824@gmail.com;gassamap0824@gmail.com;Phanta Gassama;;gppro-gassamap0824@gmail.com,b2badmingroup;gppro;;;;;;8747;;gppro-gassamap0824@gmail.com
+;samatthews42@gmail.com|gppro;Sherry Matthews;samatthews42@gmail.com;samatthews42@gmail.com;Sherry Matthews;;gppro-samatthews42@gmail.com,b2badmingroup;gppro;;;;;;8748;;gppro-samatthews42@gmail.com
+;hammertowncompanydiner@gmail.com|gppro;Chris Ellis;hammertowncompanydiner@gmail.com;hammertowncompanydiner@gmail.com;Chris Ellis;;gppro-hammertowncompanydiner@gmail.com,b2badmingroup;gppro;;;;;;8752;;gppro-hammertowncompanydiner@gmail.com
+;mail@albergousa.com|gppro;Marianna Leman;mail@albergousa.com;mail@albergousa.com;Marianna Leman;;gppro-mail@albergousa.com,b2badmingroup;gppro;;;;;;8753;;gppro-mail@albergousa.com
+;westsidemarket@comcast.net|gppro;Pat Sluck;westsidemarket@comcast.net;westsidemarket@comcast.net;Pat Sluck;;gppro-westsidemarket@comcast.net,b2badmingroup;gppro;;;;;;8763;;gppro-westsidemarket@comcast.net
+;kali731362@hotmail.com|gppro;Kashif Ali;kali731362@hotmail.com;kali731362@hotmail.com;Kashif Ali;;gppro-kali731362@hotmail.com,b2badmingroup;gppro;;;;;;8768;;gppro-kali731362@hotmail.com
+;sandy@bluewinggallery.com|gppro;Sandy Amaro;sandy@bluewinggallery.com;sandy@bluewinggallery.com;Sandy Amaro;;gppro-sandy@bluewinggallery.com,b2badmingroup;gppro;;;;;;8770;;gppro-sandy@bluewinggallery.com
+;treygraham1@gmail.com|gppro;Trey Graham;treygraham1@gmail.com;treygraham1@gmail.com;Trey Graham;;gppro-treygraham1@gmail.com,b2badmingroup;gppro;;;;;;8814;;gppro-treygraham1@gmail.com
+;doris@smithlakeconcierge.com|gppro;Doris Sewell;doris@smithlakeconcierge.com;doris@smithlakeconcierge.com;Doris Sewell;;gppro-doris@smithlakeconcierge.com,b2badmingroup;gppro;;;;;;8818;;gppro-doris@smithlakeconcierge.com
+;sally_cook3@aol.com|gppro;Sally Cook;sally_cook3@aol.com;sally_cook3@aol.com;Sally Cook;;gppro-sally_cook3@aol.com,b2badmingroup;gppro;;;;;;8833;;gppro-sally_cook3@aol.com
+;jcsprincipal.edu@gmail.com|gppro;Bethany Edmundson;jcsprincipal.edu@gmail.com;jcsprincipal.edu@gmail.com;Bethany Edmundson;;gppro-jcsprincipal.edu@gmail.com,b2badmingroup;gppro;;;;;;8834;;gppro-jcsprincipal.edu@gmail.com
+;treasurer@hcfas.org|gppro;Brian Canty;treasurer@hcfas.org;treasurer@hcfas.org;Brian Canty;;gppro-treasurer@hcfas.org,b2badmingroup;gppro;;;;;;8835;;gppro-treasurer@hcfas.org
+;mcbgaiken@gmail.com|gppro;Michael DelSignore;mcbgaiken@gmail.com;mcbgaiken@gmail.com;Michael DelSignore;;gppro-mcbgaiken@gmail.com,b2badmingroup;gppro;;;;;;8864;;gppro-mcbgaiken@gmail.com
+;maria@toddle.org|gppro;Maria Rodriguez;maria@toddle.org;maria@toddle.org;Maria Rodriguez;;gppro-maria@toddle.org,b2badmingroup;gppro;;;;;;8870;;gppro-maria@toddle.org
+;shop@fuelpizza.com|gppro;Eboni Connor;shop@fuelpizza.com;shop@fuelpizza.com;Eboni Connor;;gppro-shop@fuelpizza.com,b2badmingroup;gppro;;;;;;8876;;gppro-shop@fuelpizza.com
+;ealy@anesis.com|gppro;Barbara Ealy;ealy@anesis.com;ealy@anesis.com;Barbara Ealy;;gppro-ealy@anesis.com,b2badmingroup;gppro;;;;;;8877;;gppro-ealy@anesis.com
+;fareeda@simpsol.com|gppro;Juzer Doriwala;fareeda@simpsol.com;fareeda@simpsol.com;Juzer Doriwala;;gppro-fareeda@simpsol.com,b2badmingroup;gppro;;;;;;8898;;gppro-fareeda@simpsol.com
+;robbiecgreer@gmail.com|gppro;Robbie Greer;robbiecgreer@gmail.com;robbiecgreer@gmail.com;Robbie Greer;;gppro-robbiecgreer@gmail.com,b2badmingroup;gppro;;;;;;8907;;gppro-robbiecgreer@gmail.com
+;judy@nightowlsigns.com|gppro;Judy Elam;judy@nightowlsigns.com;judy@nightowlsigns.com;Judy Elam;;gppro-judy@nightowlsigns.com,b2badmingroup;gppro;;;;;;8930;;gppro-judy@nightowlsigns.com
+;cinnaholictn@gmail.com|gppro;Holly Roe;cinnaholictn@gmail.com;cinnaholictn@gmail.com;Holly Roe;;gppro-cinnaholictn@gmail.com,b2badmingroup;gppro;;;;;;8935;;gppro-cinnaholictn@gmail.com
+;crawfordtrough@gmail.com|gppro;Bridget Pugmire;crawfordtrough@gmail.com;crawfordtrough@gmail.com;Bridget Pugmire;;gppro-crawfordtrough@gmail.com,b2badmingroup;gppro;;;;;;8936;;gppro-crawfordtrough@gmail.com
+;donna.hargrove.dh@gmail.com|gppro;Donna Hargrove;donna.hargrove.dh@gmail.com;donna.hargrove.dh@gmail.com;Donna Hargrove;;gppro-donna.hargrove.dh@gmail.com,b2badmingroup;gppro;;;;;;8954;;gppro-donna.hargrove.dh@gmail.com
+;mikeberam@yahoo.com|gppro;Mike Beram;mikeberam@yahoo.com;mikeberam@yahoo.com;Mike Beram;;gppro-mikeberam@yahoo.com,b2badmingroup;gppro;;;;;;8955;;gppro-mikeberam@yahoo.com
+;octaviodiaz2159@comcast.net|gppro;Octavio Diaz;octaviodiaz2159@comcast.net;octaviodiaz2159@comcast.net;Octavio Diaz;;gppro-octaviodiaz2159@comcast.net,b2badmingroup;gppro;;;;;;8956;;gppro-octaviodiaz2159@comcast.net
+;bellis@lldinvestments.com|gppro;Blake Ellis;bellis@lldinvestments.com;bellis@lldinvestments.com;Blake Ellis;;gppro-bellis@lldinvestments.com,b2badmingroup;gppro;;;;;;8959;;gppro-bellis@lldinvestments.com
+;groff.stephen@gmail.com|gppro;Stephen Groff;groff.stephen@gmail.com;groff.stephen@gmail.com;Stephen Groff;;gppro-groff.stephen@gmail.com,b2badmingroup;gppro;;;;;;8960;;gppro-groff.stephen@gmail.com
+;staceyrsmith@yahoo.com|gppro;Stacey Smith;staceyrsmith@yahoo.com;staceyrsmith@yahoo.com;Stacey Smith;;gppro-staceyrsmith@yahoo.com,b2badmingroup;gppro;;;;;;9002;;gppro-staceyrsmith@yahoo.com
+;marc.smith2121@gmail.com|gppro;Marc Smith;marc.smith2121@gmail.com;marc.smith2121@gmail.com;Marc Smith;;gppro-marc.smith2121@gmail.com,b2badmingroup;gppro;;;;;;9043;;gppro-marc.smith2121@gmail.com
+;sjones.jmjackson@gmail.com|gppro;Shirin Jones;sjones.jmjackson@gmail.com;sjones.jmjackson@gmail.com;Shirin Jones;;gppro-sjones.jmjackson@gmail.com,b2badmingroup;gppro;;;;;;9053;;gppro-sjones.jmjackson@gmail.com
+;millergang6@gmail.com|gppro;Amelia Miller;millergang6@gmail.com;millergang6@gmail.com;Amelia Miller;;gppro-millergang6@gmail.com,b2badmingroup;gppro;;;;;;9059;;gppro-millergang6@gmail.com
+;twopescafe@centurylink.net|gppro;Debbie Klemmer;twopescafe@centurylink.net;twopescafe@centurylink.net;Debbie Klemmer;;gppro-twopescafe@centurylink.net,b2badmingroup;gppro;;;;;;9072;;gppro-twopescafe@centurylink.net
+
+
+
+
+
+
+
+
+
+
+################################  Address and Update Customer Addresses   ################
+INSERT_UPDATE Address;&addId;owner(Customer.uid)[unique=true];streetname[unique=true];postalcode[unique=true];duplicate[unique=true];town;country(isocode);region(isocode);billingAddress;contactAddress;shippingAddress;unloadingAddress;firstname;lastname;email;gender(code)[allownull=true];middlename;phone1;title(code);url;company;fax;department
+;jadobbie@gmail.com-Adr1;jadobbie@gmail.com|gppro;340 SADDLE LAKE DR;30076;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Jeremy;Dobbie;jadobbie@gmail.com;;;;;;;;;
+;orderHistoryUserAddress;linda.wolf@rustic-hw.com;21 Trumpington Street;CB2 1RB;false;Cambridge;GB;;true;true;true;true;OrderHistory;User;OrderHistoryUser@test.com;MALE;;+60616707;mr;;Hybris;;;;;;;;;;
+
+;jadobbie@gmail.com-Adr1;jadobbie@gmail.com|gppro;340 SADDLE LAKE DR;30076;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Jeremy;Dobbie;jadobbie@gmail.com;;;;;;;;;
+;jonathan.hagood@gapac.com-Adr1;jonathan.hagood@gapac.com|gppro;8631 Ephraim Rd;78717-5420;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Jon;hagood;jonathan.hagood@gapac.com;;;;;;;;;
+;fran@test.com-Adr1;fran@test.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Fran;Test;fran@test.com;;;;;;;;;
+;jongoodha@gmail.com-Adr1;jongoodha@gmail.com|gppro;8631 EPHRAIM RD;78717;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Jon;test;jongoodha@gmail.com;;;;;;;;;
+;shalin.shah@gapac.com-Adr1;shalin.shah@gapac.com|gppro;133 Peachtree St NE Fl 36;30303-1804;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Shalin;Shah;shalin.shah@gapac.com;;;;;;;;;
+;fgalperin@tavanoteam.com-Adr1;fgalperin@tavanoteam.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Francisca;Galperin;fgalperin@tavanoteam.com;;;;;;;;;
+;sandy.washington@gapac.com-Adr1;sandy.washington@gapac.com|gppro;133 PEACHTREE ST NE;30303;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Sandy;Washington;sandy.washington@gapac.com;;;;;;;;;
+;samantha.steichen@gapac.com-Adr1;samantha.steichen@gapac.com|gppro;133 PEACHTREE ST NE;30303;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Samantha;Steichen;samantha.steichen@gapac.com;;;;;;;;;
+;shalin.shah@gapac.com-Adr2;shalin.shah@gapac.com|gppro;5275 BEECHAM CT;30024;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Shalin;Shah;shalin.shah@gapac.com;;;;;;;;;
+;melondy.mina@gapac.com-Adr1;melondy.mina@gapac.com|gppro;133 PEACHTREE ST NE;30303;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Melondy;Mina;melondy.mina@gapac.com;;;;;;;;;
+;sandy.washington@gapac.com-Adr2;sandy.washington@gapac.com|gppro;285 CENTENNIAL OLYMPIC PARK DR NW;30313;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Sandy;Washington;sandy.washington@gapac.com;;;;;;;;;
+;melondy.mina@gapac.com-Adr1;melondy.mina@gapac.com|gppro;133 PEACHTREE ST NE;30303;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Mel;Mina;melondy.mina@gapac.com;;;;;;;;;
+;melondy.mina@gapac.com-Adr1;melondy.mina@gapac.com|gppro;133 PEACHTREE ST NE;30303;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Melondy;Mina;melondy.mina@gapac.com;;;;;;;;;
+;melondy.mina@gapac.com-Adr1;melondy.mina@gapac.com|gppro;133 PEACHTREE ST NE;30303;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;M;Mina;melondy.mina@gapac.com;;;;;;;;;
+;test@test.com-Adr1;test@test.com|gppro;7901-7999 MAIN ST;33166;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Test;Tavano;test@test.com;;;;;;;;;
+;emily.faber@gapac.com-Adr1;emily.faber@gapac.com|gppro;2124 GABLES DR NE;30319;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Emily;Faber;emily.faber@gapac.com;;;;;;;;;
+;derek.grimes@gapac.com-Adr1;derek.grimes@gapac.com|gppro;133 Peachtree St NE;30303-1804;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Derek;Grimes;derek.grimes@gapac.com;;;;;;;;;
+;test@test.com-Adr2;test@test.com|gppro;1234 W MAIN ST;88210;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Test;testing;test@test.com;;;;;;;;;
+;sandy.washington@gapac.com-Adr3;sandy.washington@gapac.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Sandy;Washington;sandy.washington@gapac.com;;;;;;;;;
+;jody.johnson@gapac.com-Adr1;jody.johnson@gapac.com|gppro;133 PEACHTREE ST NE;30303;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Jody;Johnson;jody.johnson@gapac.com;;;;;;;;;
+;alexandra.dimillo@gapac.com-Adr1;alexandra.dimillo@gapac.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;alexandra;dimillo;alexandra.dimillo@gapac.com;;;;;;;;;
+;sandy.washington@gapac.com-Adr2;sandy.washington@gapac.com|gppro;285 CENTENNIAL OLYMPIC PARK DR NW;30313;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Sandy;Washington;sandy.washington@gapac.com;;;;;;;;;
+;mara.hanerfeld@gapac.com-Adr1;mara.hanerfeld@gapac.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Mara;Hanerfeld;mara.hanerfeld@gapac.com;;;;;;;;;
+;jamie@rollonamerica.cm-Adr1;jamie@rollonamerica.cm|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Jamie;Cortes;jamie@rollonamerica.cm;;;;;;;;;
+;patriotskitchen@yahoo.com-Adr1;patriotskitchen@yahoo.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Terry;Taylor;patriotskitchen@yahoo.com;;;;;;;;;
+;kyle.dickinson@gapac.com-Adr1;kyle.dickinson@gapac.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Kyle;Dickinson;kyle.dickinson@gapac.com;;;;;;;;;
+;kyle.marchuk@gapac.com-Adr1;kyle.marchuk@gapac.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Kyle;Marchuk;kyle.marchuk@gapac.com;;;;;;;;;
+;sidshah@yahoo.com-Adr1;sidshah@yahoo.com|gppro;409 JOYCE KILMER AVE;8901;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Siddharth;Shah;sidshah@yahoo.com;;;;;;;;;
+;redsonya547@gmail.com-Adr1;redsonya547@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Jessica;sibert;redsonya547@gmail.com;;;;;;;;;
+;emily.elam@gapac.com-Adr1;emily.elam@gapac.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Emily;Elam;emily.elam@gapac.com;;;;;;;;;
+;sultana.noorani@gapac.com-Adr1;sultana.noorani@gapac.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Sultana;Noorani;sultana.noorani@gapac.com;;;;;;;;;
+;lguggemos@wecatertoyou-mn.com-Adr1;lguggemos@wecatertoyou-mn.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Lynn;Guggemos;lguggemos@wecatertoyou-mn.com;;;;;;;;;
+;rachel@gravesmountain.com-Adr1;rachel@gravesmountain.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Rachel;Graves;rachel@gravesmountain.com;;;;;;;;;
+;rod@ragtimecafe.com-Adr1;rod@ragtimecafe.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Rodney;Zimmerman;rod@ragtimecafe.com;;;;;;;;;
+;paul@organicoperations.com-Adr1;paul@organicoperations.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Paul;Neufeld;paul@organicoperations.com;;;;;;;;;
+;gazebocreeksidecafe@gmail.com-Adr1;gazebocreeksidecafe@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Kurt;Knechtel;gazebocreeksidecafe@gmail.com;;;;;;;;;
+;rich@hayesville.net-Adr1;rich@hayesville.net|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Rich;Gagnon;rich@hayesville.net;;;;;;;;;
+;cavity1@msn.com-Adr1;cavity1@msn.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Ali;Rashid;cavity1@msn.com;;;;;;;;;
+;info@carisbrookeinn.com-Adr1;info@carisbrookeinn.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;John;Battista;info@carisbrookeinn.com;;;;;;;;;
+;gsokos@demetriospizza.com-Adr1;gsokos@demetriospizza.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Gus;Sukos;gsokos@demetriospizza.com;;;;;;;;;
+;adrian.tucker27@yahoo.com-Adr1;adrian.tucker27@yahoo.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Adrian;Tucker;adrian.tucker27@yahoo.com;;;;;;;;;
+;thecateringcompanywny@gmail.com-Adr1;thecateringcompanywny@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Krista;Campano;thecateringcompanywny@gmail.com;;;;;;;;;
+;jvuskovich@yahoo.com-Adr1;jvuskovich@yahoo.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Joe;Vuskovich;jvuskovich@yahoo.com;;;;;;;;;
+;abfeinc@yahoo.com-Adr1;abfeinc@yahoo.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Andrew;Berlin;abfeinc@yahoo.com;;;;;;;;;
+;rust.larry@yahoo.com-Adr1;rust.larry@yahoo.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Larry;Rust;rust.larry@yahoo.com;;;;;;;;;
+;rust_larry@yahoo.com-Adr1;rust_larry@yahoo.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Larry;Rust;rust_larry@yahoo.com;;;;;;;;;
+;tmad@teriyakimadness.com-Adr1;tmad@teriyakimadness.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Frank;Giuliano;tmad@teriyakimadness.com;;;;;;;;;
+;chrisathompsonjr@gmail.com-Adr1;chrisathompsonjr@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Chris;Thompson;chrisathompsonjr@gmail.com;;;;;;;;;
+;berlinhoagieman@aol.com-Adr1;berlinhoagieman@aol.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Ron;Berlin;berlinhoagieman@aol.com;;;;;;;;;
+;tmad061@teriyakimadness.com-Adr1;tmad061@teriyakimadness.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Teriyaki;Madness;tmad061@teriyakimadness.com;;;;;;;;;
+;getmarried@barnatlostcreek.com-Adr1;getmarried@barnatlostcreek.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Margo;Williamson;getmarried@barnatlostcreek.com;;;;;;;;;
+;daneshraj9@gmail.com-Adr1;daneshraj9@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Danny;Raj;daneshraj9@gmail.com;;;;;;;;;
+;geneburke38@yahoo.com-Adr1;geneburke38@yahoo.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Gene;Burke;geneburke38@yahoo.com;;;;;;;;;
+;scheng@imperialchinese.net-Adr1;scheng@imperialchinese.net|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;STEVE;CHENG;scheng@imperialchinese.net;;;;;;;;;
+;edvalentine4@msn.com-Adr1;edvalentine4@msn.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Ed;Valentine;edvalentine4@msn.com;;;;;;;;;
+;sweetandsavorycatering305@gmail.com-Adr1;sweetandsavorycatering305@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Yolanda;James;sweetandsavorycatering305@gmail.com;;;;;;;;;
+;Loukom12@gmail.com-Adr1;Loukom12@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Louann;Komiensky;Loukom12@gmail.com;;;;;;;;;
+;melvin.ogletree@gapac.com-Adr1;melvin.ogletree@gapac.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Melvin;Ogletree;melvin.ogletree@gapac.com;;;;;;;;;
+;dchiaro1@yahoo.com-Adr1;dchiaro1@yahoo.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Diane;Chiaro;dchiaro1@yahoo.com;;;;;;;;;
+;karen@jaxcatering.com-Adr1;karen@jaxcatering.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Karen;Fritts;karen@jaxcatering.com;;;;;;;;;
+;Expresscaterer@gmail.com-Adr1;Expresscaterer@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Anita;Frodl;Expresscaterer@gmail.com;;;;;;;;;
+;martin@fuelpizza.com-Adr1;martin@fuelpizza.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Shyron;Peak;martin@fuelpizza.com;;;;;;;;;
+;papastogo@gmail.com-Adr1;papastogo@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Chris;Papa;papastogo@gmail.com;;;;;;;;;
+;jondoe@gmail.com-Adr1;jondoe@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;jon;doe;jondoe@gmail.com;;;;;;;;;
+;zollie@zollikoffee.com-Adr1;zollie@zollikoffee.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Zollie;Wilson;zollie@zollikoffee.com;;;;;;;;;
+;newmanjr@hotmail.com-Adr1;newmanjr@hotmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Jeff;Newman;newmanjr@hotmail.com;;;;;;;;;
+;wegeek@aol.com-Adr1;wegeek@aol.com|gppro;6339 N SPRINGFIELD AVE;60659;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Syed;Shazad;wegeek@aol.com;;;;;;;;;
+;ezellner@chanticlearpizza.com-Adr1;ezellner@chanticlearpizza.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Eric;Zellner;ezellner@chanticlearpizza.com;;;;;;;;;
+;jademadefoods@yahoo.com-Adr1;jademadefoods@yahoo.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Jade;Go;jademadefoods@yahoo.com;;;;;;;;;
+;sue.setzekorn@mbhdq.com-Adr1;sue.setzekorn@mbhdq.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Sue;Setzekorn;sue.setzekorn@mbhdq.com;;;;;;;;;
+;lesbecky02@msn.com-Adr1;lesbecky02@msn.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Becky;Long;lesbecky02@msn.com;;;;;;;;;
+;chadzollinger71@gmail.com-Adr1;chadzollinger71@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Chad;Zollinger;chadzollinger71@gmail.com;;;;;;;;;
+;magdalenspureskincare@gmail.com-Adr1;magdalenspureskincare@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Magdalen;Lagergren;magdalenspureskincare@gmail.com;;;;;;;;;
+;2dogspubiowacity@gmail.com-Adr1;2dogspubiowacity@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Alan;Eckhardt;2dogspubiowacity@gmail.com;;;;;;;;;
+;bree.wilhoit@gapac.com-Adr1;bree.wilhoit@gapac.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Bree;Wilhoit;bree.wilhoit@gapac.com;;;;;;;;;
+;oscar@paliospizzaplano.com-Adr1;oscar@paliospizzaplano.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Oscar;Johnson;oscar@paliospizzaplano.com;;;;;;;;;
+;baraboo@pizzaranch.com-Adr1;baraboo@pizzaranch.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Mary;Dressen;baraboo@pizzaranch.com;;;;;;;;;
+;FranVG@aol.com-Adr1;FranVG@aol.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;FRANCES;*WUEST;FranVG@aol.com;;;;;;;;;
+;alvin_ige@masascafeteria.com-Adr1;alvin_ige@masascafeteria.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Alvin;Ige;alvin_ige@masascafeteria.com;;;;;;;;;
+;morseblockdeli@gmail.com-Adr1;morseblockdeli@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Stefano;Coppola;morseblockdeli@gmail.com;;;;;;;;;
+;905onthebay@gmail.com-Adr1;905onthebay@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Ioannis;Kokkolias;905onthebay@gmail.com;;;;;;;;;
+;joe@1836kitchenandtaproom.com-Adr1;joe@1836kitchenandtaproom.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Joe;Bower;joe@1836kitchenandtaproom.com;;;;;;;;;
+;jk.lund@att.net-Adr1;jk.lund@att.net|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Jill;Lund;jk.lund@att.net;;;;;;;;;
+;russ@freddiesbeachbar.com-Adr1;russ@freddiesbeachbar.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Russ;Colbourne;russ@freddiesbeachbar.com;;;;;;;;;
+;haynesagencyllc@gmail.com-Adr1;haynesagencyllc@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Tammie;Haynes;haynesagencyllc@gmail.com;;;;;;;;;
+;tamalestlaolli@gmail.com-Adr1;tamalestlaolli@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Carlos;Hutchinson;tamalestlaolli@gmail.com;;;;;;;;;
+;jplester@gmail.com-Adr1;jplester@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Marcia;Lester;jplester@gmail.com;;;;;;;;;
+;marcietravers@gmail.com-Adr1;marcietravers@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Marcie;Travers;marcietravers@gmail.com;;;;;;;;;
+;gorhamdale@gmail.com-Adr1;gorhamdale@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Dale;Gorham;gorhamdale@gmail.com;;;;;;;;;
+;Alnessmoreno@yahoo.com-Adr1;Alnessmoreno@yahoo.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Alondra;Morena;Alnessmoreno@yahoo.com;;;;;;;;;
+;fussbudget38@outlook.com-Adr1;fussbudget38@outlook.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Janette;Spencer;fussbudget38@outlook.com;;;;;;;;;
+;matthewslanding8900@gmail.com-Adr1;matthewslanding8900@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Diann;Matthews;matthewslanding8900@gmail.com;;;;;;;;;
+;jt.blackburn760@gmail.com-Adr1;jt.blackburn760@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Jonathon;Blackburn;jt.blackburn760@gmail.com;;;;;;;;;
+;dangerdurham2010@gmail.com-Adr1;dangerdurham2010@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Scott;Richie;dangerdurham2010@gmail.com;;;;;;;;;
+;millenniumpromotionsinc@gmail.com-Adr1;millenniumpromotionsinc@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Melody Love;Gonzalez;millenniumpromotionsinc@gmail.com;;;;;;;;;
+;boardlandia@gmail.com-Adr1;boardlandia@gmail.com|gppro;10 E College Ave;54911;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Karissa;Fendt;boardlandia@gmail.com;;;;;;;;;
+;Nhienannguyen@gmail.com-Adr1;Nhienannguyen@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Nhien;Nguyen;Nhienannguyen@gmail.com;;;;;;;;;
+;jamils@cox.net-Adr1;jamils@cox.net|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Jennifer;Alcott;jamils@cox.net;;;;;;;;;
+;innkeeper@amandagishhouse.com-Adr1;innkeeper@amandagishhouse.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Ann;Royer;innkeeper@amandagishhouse.com;;;;;;;;;
+;narey-bob@aramark.com-Adr1;narey-bob@aramark.com|gppro;900 COTTAGE GROVE RD;6002;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Bob;Narey;narey-bob@aramark.com;;;;;;;;;
+;Florence_gainer@aol.com-Adr1;Florence_gainer@aol.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Florence;Gainer;Florence_gainer@aol.com;;;;;;;;;
+;georgeson.rick@yahoo.com-Adr1;georgeson.rick@yahoo.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Rick;Georgeson;georgeson.rick@yahoo.com;;;;;;;;;
+;mikeatpeppers@gmail.com-Adr1;mikeatpeppers@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Mike;Bhatnagar;mikeatpeppers@gmail.com;;;;;;;;;
+;farringtoninnjohn@gmail.com-Adr1;farringtoninnjohn@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;John;Terwillinger;farringtoninnjohn@gmail.com;;;;;;;;;
+;echellebates@yahoo.com-Adr1;echellebates@yahoo.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Echelle;Bates;echellebates@yahoo.com;;;;;;;;;
+;innkeeper@pasfieldhouse.com-Adr1;innkeeper@pasfieldhouse.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Tony;Leone;innkeeper@pasfieldhouse.com;;;;;;;;;
+;CUSTOMERSERVICE@CHSDOORS.NET-Adr1;CUSTOMERSERVICE@CHSDOORS.NET|gppro;9508 FRONT ST S;98499;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Alana;Riedell;CUSTOMERSERVICE@CHSDOORS.NET;;;;;;;;;
+;jena.delaney@gapac.com-Adr1;jena.delaney@gapac.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Jena;DeLaney;jena.delaney@gapac.com;;;;;;;;;
+;info@mybluebowl.com-Adr1;info@mybluebowl.com|gppro;1776 Marisol Dr;93001;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Teague;Savitch;info@mybluebowl.com;;;;;;;;;
+;shopperwoman1@hotmail.com-Adr1;shopperwoman1@hotmail.com|gppro;101 W MAIN ST;56324;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Beth;Dorn;shopperwoman1@hotmail.com;;;;;;;;;
+;oapl@aol.com-Adr1;oapl@aol.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Omar;Perez;oapl@aol.com;;;;;;;;;
+;vkparekh@gmail.com-Adr1;vkparekh@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Viral;Parekh;vkparekh@gmail.com;;;;;;;;;
+;roglerlinda43@gmail.com-Adr1;roglerlinda43@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Linda;rogler;roglerlinda43@gmail.com;;;;;;;;;
+;bburt@hallcorp.com-Adr1;bburt@hallcorp.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Barbara;Burt;bburt@hallcorp.com;;;;;;;;;
+;Leon@boomkidz.net-Adr1;Leon@boomkidz.net|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Leon;Chalyavski;Leon@boomkidz.net;;;;;;;;;
+;crespoanita@hotmail.com-Adr1;crespoanita@hotmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Anita;Crespi;crespoanita@hotmail.com;;;;;;;;;
+;cary@mellowmushroominfo.com-Adr1;cary@mellowmushroominfo.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Will;Greczyn;cary@mellowmushroominfo.com;;;;;;;;;
+;marcus@remembercatering.com-Adr1;marcus@remembercatering.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Marcus;Lee;marcus@remembercatering.com;;;;;;;;;
+;mbrown@acorninnelon.com-Adr1;mbrown@acorninnelon.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Mark;Brown;mbrown@acorninnelon.com;;;;;;;;;
+;cannetteyoung@hotmail.com-Adr1;cannetteyoung@hotmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Carolyn;Young;cannetteyoung@hotmail.com;;;;;;;;;
+;cajun@sbcglobal.net-Adr1;cajun@sbcglobal.net|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Paul;Gautreaux;cajun@sbcglobal.net;;;;;;;;;
+;cadru61@yahoo.com-Adr1;cadru61@yahoo.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Carla;Rutherford;cadru61@yahoo.com;;;;;;;;;
+;piepunkin78@gmail.com-Adr1;piepunkin78@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Amy;Johnson;piepunkin78@gmail.com;;;;;;;;;
+;melisalovely@gmail.com-Adr1;melisalovely@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Melisa;Lovely;melisalovely@gmail.com;;;;;;;;;
+;akashisushi54@gmail.com-Adr1;akashisushi54@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Adeline;Chen;akashisushi54@gmail.com;;;;;;;;;
+;latch5792@gmail.com-Adr1;latch5792@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Jennifer;Livingston;latch5792@gmail.com;;;;;;;;;
+;twashkevich@alderfoods.com-Adr1;twashkevich@alderfoods.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Terri;Washkevich;twashkevich@alderfoods.com;;;;;;;;;
+;tronamotherof3@live.com-Adr1;tronamotherof3@live.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Becky;Manning;tronamotherof3@live.com;;;;;;;;;
+;joe@laytonfruitmarket.com-Adr1;joe@laytonfruitmarket.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Joe;Proite;joe@laytonfruitmarket.com;;;;;;;;;
+;joseph.firmin@gapac.com-Adr1;joseph.firmin@gapac.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Joseph;Firmin;joseph.firmin@gapac.com;;;;;;;;;
+;Butch@taylorgrocerycatering.com-Adr1;Butch@taylorgrocerycatering.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Butch;Scott;Butch@taylorgrocerycatering.com;;;;;;;;;
+;jplesterllc@outlook.com-Adr1;jplesterllc@outlook.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Marcia;Lester;jplesterllc@outlook.com;;;;;;;;;
+;fgalperin@tavanoteam.com-Adr1;fgalperin@tavanoteam.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Francisca;Galperin;fgalperin@tavanoteam.com;;;;;;;;;
+;springdemerath1@yahoo.com-Adr1;springdemerath1@yahoo.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Spring;Demerath;springdemerath1@yahoo.com;;;;;;;;;
+;jeremiah@everlastingcup.com-Adr1;jeremiah@everlastingcup.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Jeremiah;Cline;jeremiah@everlastingcup.com;;;;;;;;;
+;502cafe@gmail.com-Adr1;502cafe@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Chris;Williams;502cafe@gmail.com;;;;;;;;;
+;manager@genesishca.net-Adr1;manager@genesishca.net|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Danita;McKinney;manager@genesishca.net;;;;;;;;;
+;victor.alonso1996@gmail.com-Adr1;victor.alonso1996@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Victor;Valenzuela;victor.alonso1996@gmail.com;;;;;;;;;
+;natk218@samsung.com-Adr1;natk218@samsung.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Natalai;Keys;natk218@samsung.com;;;;;;;;;
+;abrothersdeli@gmail.com-Adr1;abrothersdeli@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;John;Aquino;abrothersdeli@gmail.com;;;;;;;;;
+;a.lamasiii@gmail.com-Adr1;a.lamasiii@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Arturo;Lamasi;a.lamasiii@gmail.com;;;;;;;;;
+;newbeginningskitchen@gmail.com-Adr1;newbeginningskitchen@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Jeanne;Michon;newbeginningskitchen@gmail.com;;;;;;;;;
+;Chefjeffpresents@gmail.com-Adr1;Chefjeffpresents@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Tammy;Griffin;Chefjeffpresents@gmail.com;;;;;;;;;
+;kennellys.04@verizon.net-Adr1;kennellys.04@verizon.net|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Walter;Kennelly;kennellys.04@verizon.net;;;;;;;;;
+;info@lovencherish.org-Adr1;info@lovencherish.org|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Alfreda;Roseborough;info@lovencherish.org;;;;;;;;;
+;michele.coney@effem.com-Adr1;michele.coney@effem.com|gppro;1209 W OAKRIDGE DR;31707;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Michele;Coney;michele.coney@effem.com;;;;;;;;;
+;bajanola@yahoo.com-Adr1;bajanola@yahoo.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Ricky;Bermudez;bajanola@yahoo.com;;;;;;;;;
+;lia_tjong2006@yahoo.com-Adr1;lia_tjong2006@yahoo.com|gppro;208 E LUFKIN AVE;75901;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Tjong;Martalia;lia_tjong2006@yahoo.com;;;;;;;;;
+;paty@robertos-sd.com-Adr1;paty@robertos-sd.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Patrica;Baez;paty@robertos-sd.com;;;;;;;;;
+;kim@patriotholdings.us-Adr1;kim@patriotholdings.us|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Kim;Russell;kim@patriotholdings.us;;;;;;;;;
+;janev@intercontinentalpharma.com-Adr1;janev@intercontinentalpharma.com|gppro;7480 BRYAN DAIRY RD;33777;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Jane;Vatelot;janev@intercontinentalpharma.com;;;;;;;;;
+;yvmacpherson@sbcglobal.net-Adr1;yvmacpherson@sbcglobal.net|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Yvonne;Macpherson;yvmacpherson@sbcglobal.net;;;;;;;;;
+;bladebeam1@gmail.com-Adr1;bladebeam1@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Mike;Burton;bladebeam1@gmail.com;;;;;;;;;
+;Eatyeah8@gmail.com-Adr1;Eatyeah8@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Tony;Boswell;Eatyeah8@gmail.com;;;;;;;;;
+;Cjscompetitionbbq@gmail.com-Adr1;Cjscompetitionbbq@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;James;Horn;Cjscompetitionbbq@gmail.com;;;;;;;;;
+;famousnails@yahoo.com-Adr1;famousnails@yahoo.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;John;Tran;famousnails@yahoo.com;;;;;;;;;
+;cowboyjohnssmokenbbq@hotmail.com-Adr1;cowboyjohnssmokenbbq@hotmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;John;Harvey;cowboyjohnssmokenbbq@hotmail.com;;;;;;;;;
+;elmouloudiahmad@gmail.com-Adr1;elmouloudiahmad@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Ahmad;El mouloudi;elmouloudiahmad@gmail.com;;;;;;;;;
+;mpientok@outlook.com-Adr1;mpientok@outlook.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Melissa;Pientok;mpientok@outlook.com;;;;;;;;;
+;kristine.osborn@cantufoods.com-Adr1;kristine.osborn@cantufoods.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Kristine;Osborn;kristine.osborn@cantufoods.com;;;;;;;;;
+;arthurz@forl.com-Adr1;arthurz@forl.com|gppro;221 WINDSOR DR;78006;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Arthur;Zuniga;arthurz@forl.com;;;;;;;;;
+;mysavoree@gmail.com-Adr1;mysavoree@gmail.com|gppro;2 W PLANT ST;34787;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Cathy;Knox;mysavoree@gmail.com;;;;;;;;;
+;southernridgecafe@gmail.com-Adr1;southernridgecafe@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Harley;Masters;southernridgecafe@gmail.com;;;;;;;;;
+;Sbravadai@Yahoo.com-Adr1;Sbravadai@Yahoo.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Steven;Massongill;Sbravadai@Yahoo.com;;;;;;;;;
+;jaihosuh@yahoo.com-Adr1;jaihosuh@yahoo.com|gppro;1030 NE 125th St;98125;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Jai;Suh;jaihosuh@yahoo.com;;;;;;;;;
+;SNiswender2@craighospital.org-Adr1;SNiswender2@craighospital.org|gppro;3425 S CLARKSON ST;80113;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Stephanie;Niswender;SNiswender2@craighospital.org;;;;;;;;;
+;antoniocforte@gmail.com-Adr1;antoniocforte@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Antonio;Fortee;antoniocforte@gmail.com;;;;;;;;;
+;Mcurotto3@gmail.com-Adr1;Mcurotto3@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Missy;Curotto;Mcurotto3@gmail.com;;;;;;;;;
+;humc_custodian@haymountumc.com-Adr1;humc_custodian@haymountumc.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Anna;Bruner;humc_custodian@haymountumc.com;;;;;;;;;
+;acctgdept@butterflywonderland.com-Adr1;acctgdept@butterflywonderland.com|gppro;9500 E. Via De Ventura;85256;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Cynthia;Claw-King;acctgdept@butterflywonderland.com;;;;;;;;;
+;bravofoodservice@aol.com-Adr1;bravofoodservice@aol.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Raymundo;Jaime;bravofoodservice@aol.com;;;;;;;;;
+;bkpadgham@gmail.com-Adr1;bkpadgham@gmail.com|gppro;Po box 190628;59919;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Brandee;Padgham;bkpadgham@gmail.com;;;;;;;;;
+;sandi@lakelaniercanopytours.com-Adr1;sandi@lakelaniercanopytours.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Sandi;Savarese;sandi@lakelaniercanopytours.com;;;;;;;;;
+;joe.abersold@gmail.com-Adr1;joe.abersold@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Joe;Abersold;joe.abersold@gmail.com;;;;;;;;;
+;Jeanie158@hotmail.com-Adr1;Jeanie158@hotmail.com|gppro;1241 Point Mallard Parkway Suite 104;35601;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Jeanie;Guo;Jeanie158@hotmail.com;;;;;;;;;
+;vince@7milecycles.com-Adr1;vince@7milecycles.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Vince;Boyer;vince@7milecycles.com;;;;;;;;;
+;innkeeper@littletraverseinn.com-Adr1;innkeeper@littletraverseinn.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Dave;Forester;innkeeper@littletraverseinn.com;;;;;;;;;
+;karen@bigdanshamburgers.com-Adr1;karen@bigdanshamburgers.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Karen;Cunningham;karen@bigdanshamburgers.com;;;;;;;;;
+;cbchurch@sbcglobal.com-Adr1;cbchurch@sbcglobal.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Shelly;Elder;cbchurch@sbcglobal.com;;;;;;;;;
+;eburton571@gmail.com-Adr1;eburton571@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Edward;Burton;eburton571@gmail.com;;;;;;;;;
+;sstelivan@fsmb.org-Adr1;sstelivan@fsmb.org|gppro;400 FULLER WISER RD;76039;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Starr;Stelivan;sstelivan@fsmb.org;;;;;;;;;
+;kpiercey123@gmail.com-Adr1;kpiercey123@gmail.com|gppro;3443 PACIFIC VIEW DR;92625;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;kelly;piercey;kpiercey123@gmail.com;;;;;;;;;
+;Jennifer.rodriguez@ihg.com-Adr1;Jennifer.rodriguez@ihg.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Jennifer;Rodriguez;Jennifer.rodriguez@ihg.com;;;;;;;;;
+;nissim@abramsonlabor.com-Adr1;nissim@abramsonlabor.com|gppro;3580 WILSHIRE BLVD;90010;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Nissim;Levin;nissim@abramsonlabor.com;;;;;;;;;
+;khadija@joyfultreatscatering.com-Adr1;khadija@joyfultreatscatering.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Khadija;Wallace;khadija@joyfultreatscatering.com;;;;;;;;;
+;gassamap0824@gmail.com-Adr1;gassamap0824@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Phanta;Gassama;gassamap0824@gmail.com;;;;;;;;;
+;samatthews42@gmail.com-Adr1;samatthews42@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Sherry;Matthews;samatthews42@gmail.com;;;;;;;;;
+;hammertowncompanydiner@gmail.com-Adr1;hammertowncompanydiner@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Chris;Ellis;hammertowncompanydiner@gmail.com;;;;;;;;;
+;mail@albergousa.com-Adr1;mail@albergousa.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Marianna;Leman;mail@albergousa.com;;;;;;;;;
+;westsidemarket@comcast.net-Adr1;westsidemarket@comcast.net|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Pat;Sluck;westsidemarket@comcast.net;;;;;;;;;
+;kali731362@hotmail.com-Adr1;kali731362@hotmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Kashif;Ali;kali731362@hotmail.com;;;;;;;;;
+;sandy@bluewinggallery.com-Adr1;sandy@bluewinggallery.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Sandy;Amaro;sandy@bluewinggallery.com;;;;;;;;;
+;treygraham1@gmail.com-Adr1;treygraham1@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Trey;Graham;treygraham1@gmail.com;;;;;;;;;
+;doris@smithlakeconcierge.com-Adr1;doris@smithlakeconcierge.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Doris;Sewell;doris@smithlakeconcierge.com;;;;;;;;;
+;sally_cook3@aol.com-Adr1;sally_cook3@aol.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Sally;Cook;sally_cook3@aol.com;;;;;;;;;
+;jcsprincipal.edu@gmail.com-Adr1;jcsprincipal.edu@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Bethany;Edmundson;jcsprincipal.edu@gmail.com;;;;;;;;;
+;treasurer@hcfas.org-Adr1;treasurer@hcfas.org|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Brian;Canty;treasurer@hcfas.org;;;;;;;;;
+;mcbgaiken@gmail.com-Adr1;mcbgaiken@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Michael;DelSignore;mcbgaiken@gmail.com;;;;;;;;;
+;maria@toddle.org-Adr1;maria@toddle.org|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Maria;Rodriguez;maria@toddle.org;;;;;;;;;
+;shop@fuelpizza.com-Adr1;shop@fuelpizza.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Eboni;Connor;shop@fuelpizza.com;;;;;;;;;
+;ealy@anesis.com-Adr1;ealy@anesis.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Barbara;Ealy;ealy@anesis.com;;;;;;;;;
+;fareeda@simpsol.com-Adr1;fareeda@simpsol.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Juzer;Doriwala;fareeda@simpsol.com;;;;;;;;;
+;robbiecgreer@gmail.com-Adr1;robbiecgreer@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Robbie;Greer;robbiecgreer@gmail.com;;;;;;;;;
+;judy@nightowlsigns.com-Adr1;judy@nightowlsigns.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Judy;Elam;judy@nightowlsigns.com;;;;;;;;;
+;cinnaholictn@gmail.com-Adr1;cinnaholictn@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Holly;Roe;cinnaholictn@gmail.com;;;;;;;;;
+;crawfordtrough@gmail.com-Adr1;crawfordtrough@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Bridget;Pugmire;crawfordtrough@gmail.com;;;;;;;;;
+;donna.hargrove.dh@gmail.com-Adr1;donna.hargrove.dh@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Donna;Hargrove;donna.hargrove.dh@gmail.com;;;;;;;;;
+;mikeberam@yahoo.com-Adr1;mikeberam@yahoo.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Mike;Beram;mikeberam@yahoo.com;;;;;;;;;
+;octaviodiaz2159@comcast.net-Adr1;octaviodiaz2159@comcast.net|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Octavio;Diaz;octaviodiaz2159@comcast.net;;;;;;;;;
+;bellis@lldinvestments.com-Adr1;bellis@lldinvestments.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Blake;Ellis;bellis@lldinvestments.com;;;;;;;;;
+;groff.stephen@gmail.com-Adr1;groff.stephen@gmail.com|gppro;97 OXFORD ST N;55104;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Stephen;Groff;groff.stephen@gmail.com;;;;;;;;;
+;staceyrsmith@yahoo.com-Adr1;staceyrsmith@yahoo.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Stacey;Smith;staceyrsmith@yahoo.com;;;;;;;;;
+;marc.smith2121@gmail.com-Adr1;marc.smith2121@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Marc;Smith;marc.smith2121@gmail.com;;;;;;;;;
+;sjones.jmjackson@gmail.com-Adr1;sjones.jmjackson@gmail.com|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Shirin;Jones;sjones.jmjackson@gmail.com;;;;;;;;;
+;millergang6@gmail.com-Adr1;millergang6@gmail.com|gppro;2775 ECKERT RD SE;43130;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Amelia;Miller;millergang6@gmail.com;;;;;;;;;
+;twopescafe@centurylink.net-Adr1;twopescafe@centurylink.net|gppro;;;FALSE;;US;;TRUE;TRUE;TRUE;TRUE;Debbie;Klemmer;twopescafe@centurylink.net;;;;;;;;;
+
+
+# Set default payment and shipping addresses for sample customer
+UPDATE B2BCustomer;uid[unique=true];defaultPaymentAddress(&addId);defaultShipmentAddress(&addId)
+
+;jadobbie@gmail.com|gppro;jadobbie@gmail.com-Adr1;jadobbie@gmail.com-Adr1;
+;jonathan.hagood@gapac.com|gppro;jonathan.hagood@gapac.com-Adr1;jonathan.hagood@gapac.com-Adr1;
+;fran@test.com|gppro;fran@test.com-Adr1;fran@test.com-Adr1;
+;jongoodha@gmail.com|gppro;jongoodha@gmail.com-Adr1;jongoodha@gmail.com-Adr1;
+;shalin.shah@gapac.com|gppro;shalin.shah@gapac.com-Adr1;shalin.shah@gapac.com-Adr1;
+;shalin.shah@gapac.com|gppro;shalin.shah@gapac.com-Adr2;shalin.shah@gapac.com-Adr2;
+;fgalperin@tavanoteam.com|gppro;fgalperin@tavanoteam.com-Adr1;fgalperin@tavanoteam.com-Adr1;
+;sandy.washington@gapac.com|gppro;sandy.washington@gapac.com-Adr1;sandy.washington@gapac.com-Adr1;
+;samantha.steichen@gapac.com|gppro;samantha.steichen@gapac.com-Adr1;samantha.steichen@gapac.com-Adr1;
+;shalin.shah@gapac.com|gppro;shalin.shah@gapac.com-Adr1;shalin.shah@gapac.com-Adr1;
+;fgalperin@tavanoteam.com|gppro;fgalperin@tavanoteam.com-Adr1;fgalperin@tavanoteam.com-Adr1;
+;fgalperin@tavanoteam.com|gppro;fgalperin@tavanoteam.com-Adr1;fgalperin@tavanoteam.com-Adr1;
+;fgalperin@tavanoteam.com|gppro;fgalperin@tavanoteam.com-Adr1;fgalperin@tavanoteam.com-Adr1;
+;melondy.mina@gapac.com|gppro;melondy.mina@gapac.com-Adr1;melondy.mina@gapac.com-Adr1;
+;fgalperin@tavanoteam.com|gppro;fgalperin@tavanoteam.com-Adr1;fgalperin@tavanoteam.com-Adr1;
+;sandy.washington@gapac.com|gppro;sandy.washington@gapac.com-Adr2;sandy.washington@gapac.com-Adr2;
+;melondy.mina@gapac.com|gppro;melondy.mina@gapac.com-Adr1;melondy.mina@gapac.com-Adr1;
+;melondy.mina@gapac.com|gppro;melondy.mina@gapac.com-Adr1;melondy.mina@gapac.com-Adr1;
+;melondy.mina@gapac.com|gppro;melondy.mina@gapac.com-Adr1;melondy.mina@gapac.com-Adr1;
+;test@test.com|gppro;test@test.com-Adr1;test@test.com-Adr1;
+;emily.faber@gapac.com|gppro;emily.faber@gapac.com-Adr1;emily.faber@gapac.com-Adr1;
+;fgalperin@tavanoteam.com|gppro;fgalperin@tavanoteam.com-Adr1;fgalperin@tavanoteam.com-Adr1;
+;derek.grimes@gapac.com|gppro;derek.grimes@gapac.com-Adr1;derek.grimes@gapac.com-Adr1;
+;test@test.com|gppro;test@test.com-Adr2;test@test.com-Adr2;
+;sandy.washington@gapac.com|gppro;sandy.washington@gapac.com-Adr3;sandy.washington@gapac.com-Adr3;
+;jody.johnson@gapac.com|gppro;jody.johnson@gapac.com-Adr1;jody.johnson@gapac.com-Adr1;
+;alexandra.dimillo@gapac.com|gppro;alexandra.dimillo@gapac.com-Adr1;alexandra.dimillo@gapac.com-Adr1;
+;sandy.washington@gapac.com|gppro;sandy.washington@gapac.com-Adr2;sandy.washington@gapac.com-Adr2;
+;mara.hanerfeld@gapac.com|gppro;mara.hanerfeld@gapac.com-Adr1;mara.hanerfeld@gapac.com-Adr1;
+;jamie@rollonamerica.cm|gppro;jamie@rollonamerica.cm-Adr1;jamie@rollonamerica.cm-Adr1;
+;patriotskitchen@yahoo.com|gppro;patriotskitchen@yahoo.com-Adr1;patriotskitchen@yahoo.com-Adr1;
+;kyle.dickinson@gapac.com|gppro;kyle.dickinson@gapac.com-Adr1;kyle.dickinson@gapac.com-Adr1;
+;kyle.marchuk@gapac.com|gppro;kyle.marchuk@gapac.com-Adr1;kyle.marchuk@gapac.com-Adr1;
+;sidshah@yahoo.com|gppro;sidshah@yahoo.com-Adr1;sidshah@yahoo.com-Adr1;
+;redsonya547@gmail.com|gppro;redsonya547@gmail.com-Adr1;redsonya547@gmail.com-Adr1;
+;emily.elam@gapac.com|gppro;emily.elam@gapac.com-Adr1;emily.elam@gapac.com-Adr1;
+;sultana.noorani@gapac.com|gppro;sultana.noorani@gapac.com-Adr1;sultana.noorani@gapac.com-Adr1;
+;lguggemos@wecatertoyou-mn.com|gppro;lguggemos@wecatertoyou-mn.com-Adr1;lguggemos@wecatertoyou-mn.com-Adr1;
+;rachel@gravesmountain.com|gppro;rachel@gravesmountain.com-Adr1;rachel@gravesmountain.com-Adr1;
+;rod@ragtimecafe.com|gppro;rod@ragtimecafe.com-Adr1;rod@ragtimecafe.com-Adr1;
+;paul@organicoperations.com|gppro;paul@organicoperations.com-Adr1;paul@organicoperations.com-Adr1;
+;gazebocreeksidecafe@gmail.com|gppro;gazebocreeksidecafe@gmail.com-Adr1;gazebocreeksidecafe@gmail.com-Adr1;
+;rich@hayesville.net|gppro;rich@hayesville.net-Adr1;rich@hayesville.net-Adr1;
+;cavity1@msn.com|gppro;cavity1@msn.com-Adr1;cavity1@msn.com-Adr1;
+;info@carisbrookeinn.com|gppro;info@carisbrookeinn.com-Adr1;info@carisbrookeinn.com-Adr1;
+;gsokos@demetriospizza.com|gppro;gsokos@demetriospizza.com-Adr1;gsokos@demetriospizza.com-Adr1;
+;adrian.tucker27@yahoo.com|gppro;adrian.tucker27@yahoo.com-Adr1;adrian.tucker27@yahoo.com-Adr1;
+;thecateringcompanywny@gmail.com|gppro;thecateringcompanywny@gmail.com-Adr1;thecateringcompanywny@gmail.com-Adr1;
+;jvuskovich@yahoo.com|gppro;jvuskovich@yahoo.com-Adr1;jvuskovich@yahoo.com-Adr1;
+;abfeinc@yahoo.com|gppro;abfeinc@yahoo.com-Adr1;abfeinc@yahoo.com-Adr1;
+;rust.larry@yahoo.com|gppro;rust.larry@yahoo.com-Adr1;rust.larry@yahoo.com-Adr1;
+;rust_larry@yahoo.com|gppro;rust_larry@yahoo.com-Adr1;rust_larry@yahoo.com-Adr1;
+;tmad@teriyakimadness.com|gppro;tmad@teriyakimadness.com-Adr1;tmad@teriyakimadness.com-Adr1;
+;chrisathompsonjr@gmail.com|gppro;chrisathompsonjr@gmail.com-Adr1;chrisathompsonjr@gmail.com-Adr1;
+;berlinhoagieman@aol.com|gppro;berlinhoagieman@aol.com-Adr1;berlinhoagieman@aol.com-Adr1;
+;tmad061@teriyakimadness.com|gppro;tmad061@teriyakimadness.com-Adr1;tmad061@teriyakimadness.com-Adr1;
+;getmarried@barnatlostcreek.com|gppro;getmarried@barnatlostcreek.com-Adr1;getmarried@barnatlostcreek.com-Adr1;
+;daneshraj9@gmail.com|gppro;daneshraj9@gmail.com-Adr1;daneshraj9@gmail.com-Adr1;
+;geneburke38@yahoo.com|gppro;geneburke38@yahoo.com-Adr1;geneburke38@yahoo.com-Adr1;
+;scheng@imperialchinese.net|gppro;scheng@imperialchinese.net-Adr1;scheng@imperialchinese.net-Adr1;
+;edvalentine4@msn.com|gppro;edvalentine4@msn.com-Adr1;edvalentine4@msn.com-Adr1;
+;sweetandsavorycatering305@gmail.com|gppro;sweetandsavorycatering305@gmail.com-Adr1;sweetandsavorycatering305@gmail.com-Adr1;
+;Loukom12@gmail.com|gppro;Loukom12@gmail.com-Adr1;Loukom12@gmail.com-Adr1;
+;melvin.ogletree@gapac.com|gppro;melvin.ogletree@gapac.com-Adr1;melvin.ogletree@gapac.com-Adr1;
+;dchiaro1@yahoo.com|gppro;dchiaro1@yahoo.com-Adr1;dchiaro1@yahoo.com-Adr1;
+;karen@jaxcatering.com|gppro;karen@jaxcatering.com-Adr1;karen@jaxcatering.com-Adr1;
+;Expresscaterer@gmail.com|gppro;Expresscaterer@gmail.com-Adr1;Expresscaterer@gmail.com-Adr1;
+;martin@fuelpizza.com|gppro;martin@fuelpizza.com-Adr1;martin@fuelpizza.com-Adr1;
+;papastogo@gmail.com|gppro;papastogo@gmail.com-Adr1;papastogo@gmail.com-Adr1;
+;jondoe@gmail.com|gppro;jondoe@gmail.com-Adr1;jondoe@gmail.com-Adr1;
+;zollie@zollikoffee.com|gppro;zollie@zollikoffee.com-Adr1;zollie@zollikoffee.com-Adr1;
+;newmanjr@hotmail.com|gppro;newmanjr@hotmail.com-Adr1;newmanjr@hotmail.com-Adr1;
+;wegeek@aol.com|gppro;wegeek@aol.com-Adr1;wegeek@aol.com-Adr1;
+;ezellner@chanticlearpizza.com|gppro;ezellner@chanticlearpizza.com-Adr1;ezellner@chanticlearpizza.com-Adr1;
+;jademadefoods@yahoo.com|gppro;jademadefoods@yahoo.com-Adr1;jademadefoods@yahoo.com-Adr1;
+;sue.setzekorn@mbhdq.com|gppro;sue.setzekorn@mbhdq.com-Adr1;sue.setzekorn@mbhdq.com-Adr1;
+;lesbecky02@msn.com|gppro;lesbecky02@msn.com-Adr1;lesbecky02@msn.com-Adr1;
+;chadzollinger71@gmail.com|gppro;chadzollinger71@gmail.com-Adr1;chadzollinger71@gmail.com-Adr1;
+;magdalenspureskincare@gmail.com|gppro;magdalenspureskincare@gmail.com-Adr1;magdalenspureskincare@gmail.com-Adr1;
+;2dogspubiowacity@gmail.com|gppro;2dogspubiowacity@gmail.com-Adr1;2dogspubiowacity@gmail.com-Adr1;
+;bree.wilhoit@gapac.com|gppro;bree.wilhoit@gapac.com-Adr1;bree.wilhoit@gapac.com-Adr1;
+;oscar@paliospizzaplano.com|gppro;oscar@paliospizzaplano.com-Adr1;oscar@paliospizzaplano.com-Adr1;
+;baraboo@pizzaranch.com|gppro;baraboo@pizzaranch.com-Adr1;baraboo@pizzaranch.com-Adr1;
+;FranVG@aol.com|gppro;FranVG@aol.com-Adr1;FranVG@aol.com-Adr1;
+;alvin_ige@masascafeteria.com|gppro;alvin_ige@masascafeteria.com-Adr1;alvin_ige@masascafeteria.com-Adr1;
+;morseblockdeli@gmail.com|gppro;morseblockdeli@gmail.com-Adr1;morseblockdeli@gmail.com-Adr1;
+;905onthebay@gmail.com|gppro;905onthebay@gmail.com-Adr1;905onthebay@gmail.com-Adr1;
+;joe@1836kitchenandtaproom.com|gppro;joe@1836kitchenandtaproom.com-Adr1;joe@1836kitchenandtaproom.com-Adr1;
+;jk.lund@att.net|gppro;jk.lund@att.net-Adr1;jk.lund@att.net-Adr1;
+;russ@freddiesbeachbar.com|gppro;russ@freddiesbeachbar.com-Adr1;russ@freddiesbeachbar.com-Adr1;
+;haynesagencyllc@gmail.com|gppro;haynesagencyllc@gmail.com-Adr1;haynesagencyllc@gmail.com-Adr1;
+;tamalestlaolli@gmail.com|gppro;tamalestlaolli@gmail.com-Adr1;tamalestlaolli@gmail.com-Adr1;
+;jplester@gmail.com|gppro;jplester@gmail.com-Adr1;jplester@gmail.com-Adr1;
+;marcietravers@gmail.com|gppro;marcietravers@gmail.com-Adr1;marcietravers@gmail.com-Adr1;
+;gorhamdale@gmail.com|gppro;gorhamdale@gmail.com-Adr1;gorhamdale@gmail.com-Adr1;
+;Alnessmoreno@yahoo.com|gppro;Alnessmoreno@yahoo.com-Adr1;Alnessmoreno@yahoo.com-Adr1;
+;fussbudget38@outlook.com|gppro;fussbudget38@outlook.com-Adr1;fussbudget38@outlook.com-Adr1;
+;matthewslanding8900@gmail.com|gppro;matthewslanding8900@gmail.com-Adr1;matthewslanding8900@gmail.com-Adr1;
+;jt.blackburn760@gmail.com|gppro;jt.blackburn760@gmail.com-Adr1;jt.blackburn760@gmail.com-Adr1;
+;dangerdurham2010@gmail.com|gppro;dangerdurham2010@gmail.com-Adr1;dangerdurham2010@gmail.com-Adr1;
+;millenniumpromotionsinc@gmail.com|gppro;millenniumpromotionsinc@gmail.com-Adr1;millenniumpromotionsinc@gmail.com-Adr1;
+;boardlandia@gmail.com|gppro;boardlandia@gmail.com-Adr1;boardlandia@gmail.com-Adr1;
+;Nhienannguyen@gmail.com|gppro;Nhienannguyen@gmail.com-Adr1;Nhienannguyen@gmail.com-Adr1;
+;jamils@cox.net|gppro;jamils@cox.net-Adr1;jamils@cox.net-Adr1;
+;innkeeper@amandagishhouse.com|gppro;innkeeper@amandagishhouse.com-Adr1;innkeeper@amandagishhouse.com-Adr1;
+;narey-bob@aramark.com|gppro;narey-bob@aramark.com-Adr1;narey-bob@aramark.com-Adr1;
+;Florence_gainer@aol.com|gppro;Florence_gainer@aol.com-Adr1;Florence_gainer@aol.com-Adr1;
+;georgeson.rick@yahoo.com|gppro;georgeson.rick@yahoo.com-Adr1;georgeson.rick@yahoo.com-Adr1;
+;mikeatpeppers@gmail.com|gppro;mikeatpeppers@gmail.com-Adr1;mikeatpeppers@gmail.com-Adr1;
+;farringtoninnjohn@gmail.com|gppro;farringtoninnjohn@gmail.com-Adr1;farringtoninnjohn@gmail.com-Adr1;
+;echellebates@yahoo.com|gppro;echellebates@yahoo.com-Adr1;echellebates@yahoo.com-Adr1;
+;innkeeper@pasfieldhouse.com|gppro;innkeeper@pasfieldhouse.com-Adr1;innkeeper@pasfieldhouse.com-Adr1;
+;CUSTOMERSERVICE@CHSDOORS.NET|gppro;CUSTOMERSERVICE@CHSDOORS.NET-Adr1;CUSTOMERSERVICE@CHSDOORS.NET-Adr1;
+;jena.delaney@gapac.com|gppro;jena.delaney@gapac.com-Adr1;jena.delaney@gapac.com-Adr1;
+;info@mybluebowl.com|gppro;info@mybluebowl.com-Adr1;info@mybluebowl.com-Adr1;
+;shopperwoman1@hotmail.com|gppro;shopperwoman1@hotmail.com-Adr1;shopperwoman1@hotmail.com-Adr1;
+;oapl@aol.com|gppro;oapl@aol.com-Adr1;oapl@aol.com-Adr1;
+;vkparekh@gmail.com|gppro;vkparekh@gmail.com-Adr1;vkparekh@gmail.com-Adr1;
+;roglerlinda43@gmail.com|gppro;roglerlinda43@gmail.com-Adr1;roglerlinda43@gmail.com-Adr1;
+;bburt@hallcorp.com|gppro;bburt@hallcorp.com-Adr1;bburt@hallcorp.com-Adr1;
+;Leon@boomkidz.net|gppro;Leon@boomkidz.net-Adr1;Leon@boomkidz.net-Adr1;
+;crespoanita@hotmail.com|gppro;crespoanita@hotmail.com-Adr1;crespoanita@hotmail.com-Adr1;
+;cary@mellowmushroominfo.com|gppro;cary@mellowmushroominfo.com-Adr1;cary@mellowmushroominfo.com-Adr1;
+;marcus@remembercatering.com|gppro;marcus@remembercatering.com-Adr1;marcus@remembercatering.com-Adr1;
+;mbrown@acorninnelon.com|gppro;mbrown@acorninnelon.com-Adr1;mbrown@acorninnelon.com-Adr1;
+;cannetteyoung@hotmail.com|gppro;cannetteyoung@hotmail.com-Adr1;cannetteyoung@hotmail.com-Adr1;
+;cajun@sbcglobal.net|gppro;cajun@sbcglobal.net-Adr1;cajun@sbcglobal.net-Adr1;
+;cadru61@yahoo.com|gppro;cadru61@yahoo.com-Adr1;cadru61@yahoo.com-Adr1;
+;piepunkin78@gmail.com|gppro;piepunkin78@gmail.com-Adr1;piepunkin78@gmail.com-Adr1;
+;melisalovely@gmail.com|gppro;melisalovely@gmail.com-Adr1;melisalovely@gmail.com-Adr1;
+;akashisushi54@gmail.com|gppro;akashisushi54@gmail.com-Adr1;akashisushi54@gmail.com-Adr1;
+;latch5792@gmail.com|gppro;latch5792@gmail.com-Adr1;latch5792@gmail.com-Adr1;
+;twashkevich@alderfoods.com|gppro;twashkevich@alderfoods.com-Adr1;twashkevich@alderfoods.com-Adr1;
+;tronamotherof3@live.com|gppro;tronamotherof3@live.com-Adr1;tronamotherof3@live.com-Adr1;
+;joe@laytonfruitmarket.com|gppro;joe@laytonfruitmarket.com-Adr1;joe@laytonfruitmarket.com-Adr1;
+;joseph.firmin@gapac.com|gppro;joseph.firmin@gapac.com-Adr1;joseph.firmin@gapac.com-Adr1;
+;Butch@taylorgrocerycatering.com|gppro;Butch@taylorgrocerycatering.com-Adr1;Butch@taylorgrocerycatering.com-Adr1;
+;jplesterllc@outlook.com|gppro;jplesterllc@outlook.com-Adr1;jplesterllc@outlook.com-Adr1;
+;fgalperin@tavanoteam.com|gppro;fgalperin@tavanoteam.com-Adr1;fgalperin@tavanoteam.com-Adr1;
+;springdemerath1@yahoo.com|gppro;springdemerath1@yahoo.com-Adr1;springdemerath1@yahoo.com-Adr1;
+;jeremiah@everlastingcup.com|gppro;jeremiah@everlastingcup.com-Adr1;jeremiah@everlastingcup.com-Adr1;
+;502cafe@gmail.com|gppro;502cafe@gmail.com-Adr1;502cafe@gmail.com-Adr1;
+;manager@genesishca.net|gppro;manager@genesishca.net-Adr1;manager@genesishca.net-Adr1;
+;victor.alonso1996@gmail.com|gppro;victor.alonso1996@gmail.com-Adr1;victor.alonso1996@gmail.com-Adr1;
+;natk218@samsung.com|gppro;natk218@samsung.com-Adr1;natk218@samsung.com-Adr1;
+;abrothersdeli@gmail.com|gppro;abrothersdeli@gmail.com-Adr1;abrothersdeli@gmail.com-Adr1;
+;a.lamasiii@gmail.com|gppro;a.lamasiii@gmail.com-Adr1;a.lamasiii@gmail.com-Adr1;
+;newbeginningskitchen@gmail.com|gppro;newbeginningskitchen@gmail.com-Adr1;newbeginningskitchen@gmail.com-Adr1;
+;Chefjeffpresents@gmail.com|gppro;Chefjeffpresents@gmail.com-Adr1;Chefjeffpresents@gmail.com-Adr1;
+;kennellys.04@verizon.net|gppro;kennellys.04@verizon.net-Adr1;kennellys.04@verizon.net-Adr1;
+;info@lovencherish.org|gppro;info@lovencherish.org-Adr1;info@lovencherish.org-Adr1;
+;michele.coney@effem.com|gppro;michele.coney@effem.com-Adr1;michele.coney@effem.com-Adr1;
+;bajanola@yahoo.com|gppro;bajanola@yahoo.com-Adr1;bajanola@yahoo.com-Adr1;
+;lia_tjong2006@yahoo.com|gppro;lia_tjong2006@yahoo.com-Adr1;lia_tjong2006@yahoo.com-Adr1;
+;paty@robertos-sd.com|gppro;paty@robertos-sd.com-Adr1;paty@robertos-sd.com-Adr1;
+;kim@patriotholdings.us|gppro;kim@patriotholdings.us-Adr1;kim@patriotholdings.us-Adr1;
+;janev@intercontinentalpharma.com|gppro;janev@intercontinentalpharma.com-Adr1;janev@intercontinentalpharma.com-Adr1;
+;yvmacpherson@sbcglobal.net|gppro;yvmacpherson@sbcglobal.net-Adr1;yvmacpherson@sbcglobal.net-Adr1;
+;bladebeam1@gmail.com|gppro;bladebeam1@gmail.com-Adr1;bladebeam1@gmail.com-Adr1;
+;Eatyeah8@gmail.com|gppro;Eatyeah8@gmail.com-Adr1;Eatyeah8@gmail.com-Adr1;
+;Cjscompetitionbbq@gmail.com|gppro;Cjscompetitionbbq@gmail.com-Adr1;Cjscompetitionbbq@gmail.com-Adr1;
+;famousnails@yahoo.com|gppro;famousnails@yahoo.com-Adr1;famousnails@yahoo.com-Adr1;
+;cowboyjohnssmokenbbq@hotmail.com|gppro;cowboyjohnssmokenbbq@hotmail.com-Adr1;cowboyjohnssmokenbbq@hotmail.com-Adr1;
+;elmouloudiahmad@gmail.com|gppro;elmouloudiahmad@gmail.com-Adr1;elmouloudiahmad@gmail.com-Adr1;
+;mpientok@outlook.com|gppro;mpientok@outlook.com-Adr1;mpientok@outlook.com-Adr1;
+;kristine.osborn@cantufoods.com|gppro;kristine.osborn@cantufoods.com-Adr1;kristine.osborn@cantufoods.com-Adr1;
+;arthurz@forl.com|gppro;arthurz@forl.com-Adr1;arthurz@forl.com-Adr1;
+;mysavoree@gmail.com|gppro;mysavoree@gmail.com-Adr1;mysavoree@gmail.com-Adr1;
+;southernridgecafe@gmail.com|gppro;southernridgecafe@gmail.com-Adr1;southernridgecafe@gmail.com-Adr1;
+;Sbravadai@Yahoo.com|gppro;Sbravadai@Yahoo.com-Adr1;Sbravadai@Yahoo.com-Adr1;
+;jaihosuh@yahoo.com|gppro;jaihosuh@yahoo.com-Adr1;jaihosuh@yahoo.com-Adr1;
+;SNiswender2@craighospital.org|gppro;SNiswender2@craighospital.org-Adr1;SNiswender2@craighospital.org-Adr1;
+;antoniocforte@gmail.com|gppro;antoniocforte@gmail.com-Adr1;antoniocforte@gmail.com-Adr1;
+;Mcurotto3@gmail.com|gppro;Mcurotto3@gmail.com-Adr1;Mcurotto3@gmail.com-Adr1;
+;humc_custodian@haymountumc.com|gppro;humc_custodian@haymountumc.com-Adr1;humc_custodian@haymountumc.com-Adr1;
+;acctgdept@butterflywonderland.com|gppro;acctgdept@butterflywonderland.com-Adr1;acctgdept@butterflywonderland.com-Adr1;
+;bravofoodservice@aol.com|gppro;bravofoodservice@aol.com-Adr1;bravofoodservice@aol.com-Adr1;
+;bkpadgham@gmail.com|gppro;bkpadgham@gmail.com-Adr1;bkpadgham@gmail.com-Adr1;
+;sandi@lakelaniercanopytours.com|gppro;sandi@lakelaniercanopytours.com-Adr1;sandi@lakelaniercanopytours.com-Adr1;
+;joe.abersold@gmail.com|gppro;joe.abersold@gmail.com-Adr1;joe.abersold@gmail.com-Adr1;
+;Jeanie158@hotmail.com|gppro;Jeanie158@hotmail.com-Adr1;Jeanie158@hotmail.com-Adr1;
+;vince@7milecycles.com|gppro;vince@7milecycles.com-Adr1;vince@7milecycles.com-Adr1;
+;innkeeper@littletraverseinn.com|gppro;innkeeper@littletraverseinn.com-Adr1;innkeeper@littletraverseinn.com-Adr1;
+;karen@bigdanshamburgers.com|gppro;karen@bigdanshamburgers.com-Adr1;karen@bigdanshamburgers.com-Adr1;
+;cbchurch@sbcglobal.com|gppro;cbchurch@sbcglobal.com-Adr1;cbchurch@sbcglobal.com-Adr1;
+;eburton571@gmail.com|gppro;eburton571@gmail.com-Adr1;eburton571@gmail.com-Adr1;
+;sstelivan@fsmb.org|gppro;sstelivan@fsmb.org-Adr1;sstelivan@fsmb.org-Adr1;
+;kpiercey123@gmail.com|gppro;kpiercey123@gmail.com-Adr1;kpiercey123@gmail.com-Adr1;
+;Jennifer.rodriguez@ihg.com|gppro;Jennifer.rodriguez@ihg.com-Adr1;Jennifer.rodriguez@ihg.com-Adr1;
+;nissim@abramsonlabor.com|gppro;nissim@abramsonlabor.com-Adr1;nissim@abramsonlabor.com-Adr1;
+;khadija@joyfultreatscatering.com|gppro;khadija@joyfultreatscatering.com-Adr1;khadija@joyfultreatscatering.com-Adr1;
+;gassamap0824@gmail.com|gppro;gassamap0824@gmail.com-Adr1;gassamap0824@gmail.com-Adr1;
+;samatthews42@gmail.com|gppro;samatthews42@gmail.com-Adr1;samatthews42@gmail.com-Adr1;
+;hammertowncompanydiner@gmail.com|gppro;hammertowncompanydiner@gmail.com-Adr1;hammertowncompanydiner@gmail.com-Adr1;
+;mail@albergousa.com|gppro;mail@albergousa.com-Adr1;mail@albergousa.com-Adr1;
+;westsidemarket@comcast.net|gppro;westsidemarket@comcast.net-Adr1;westsidemarket@comcast.net-Adr1;
+;kali731362@hotmail.com|gppro;kali731362@hotmail.com-Adr1;kali731362@hotmail.com-Adr1;
+;sandy@bluewinggallery.com|gppro;sandy@bluewinggallery.com-Adr1;sandy@bluewinggallery.com-Adr1;
+;treygraham1@gmail.com|gppro;treygraham1@gmail.com-Adr1;treygraham1@gmail.com-Adr1;
+;doris@smithlakeconcierge.com|gppro;doris@smithlakeconcierge.com-Adr1;doris@smithlakeconcierge.com-Adr1;
+;sally_cook3@aol.com|gppro;sally_cook3@aol.com-Adr1;sally_cook3@aol.com-Adr1;
+;jcsprincipal.edu@gmail.com|gppro;jcsprincipal.edu@gmail.com-Adr1;jcsprincipal.edu@gmail.com-Adr1;
+;treasurer@hcfas.org|gppro;treasurer@hcfas.org-Adr1;treasurer@hcfas.org-Adr1;
+;mcbgaiken@gmail.com|gppro;mcbgaiken@gmail.com-Adr1;mcbgaiken@gmail.com-Adr1;
+;maria@toddle.org|gppro;maria@toddle.org-Adr1;maria@toddle.org-Adr1;
+;shop@fuelpizza.com|gppro;shop@fuelpizza.com-Adr1;shop@fuelpizza.com-Adr1;
+;ealy@anesis.com|gppro;ealy@anesis.com-Adr1;ealy@anesis.com-Adr1;
+;fareeda@simpsol.com|gppro;fareeda@simpsol.com-Adr1;fareeda@simpsol.com-Adr1;
+;robbiecgreer@gmail.com|gppro;robbiecgreer@gmail.com-Adr1;robbiecgreer@gmail.com-Adr1;
+;judy@nightowlsigns.com|gppro;judy@nightowlsigns.com-Adr1;judy@nightowlsigns.com-Adr1;
+;cinnaholictn@gmail.com|gppro;cinnaholictn@gmail.com-Adr1;cinnaholictn@gmail.com-Adr1;
+;crawfordtrough@gmail.com|gppro;crawfordtrough@gmail.com-Adr1;crawfordtrough@gmail.com-Adr1;
+;donna.hargrove.dh@gmail.com|gppro;donna.hargrove.dh@gmail.com-Adr1;donna.hargrove.dh@gmail.com-Adr1;
+;mikeberam@yahoo.com|gppro;mikeberam@yahoo.com-Adr1;mikeberam@yahoo.com-Adr1;
+;octaviodiaz2159@comcast.net|gppro;octaviodiaz2159@comcast.net-Adr1;octaviodiaz2159@comcast.net-Adr1;
+;bellis@lldinvestments.com|gppro;bellis@lldinvestments.com-Adr1;bellis@lldinvestments.com-Adr1;
+;groff.stephen@gmail.com|gppro;groff.stephen@gmail.com-Adr1;groff.stephen@gmail.com-Adr1;
+;staceyrsmith@yahoo.com|gppro;staceyrsmith@yahoo.com-Adr1;staceyrsmith@yahoo.com-Adr1;
+;marc.smith2121@gmail.com|gppro;marc.smith2121@gmail.com-Adr1;marc.smith2121@gmail.com-Adr1;
+;sjones.jmjackson@gmail.com|gppro;sjones.jmjackson@gmail.com-Adr1;sjones.jmjackson@gmail.com-Adr1;
+;millergang6@gmail.com|gppro;millergang6@gmail.com-Adr1;millergang6@gmail.com-Adr1;
+;twopescafe@centurylink.net|gppro;twopescafe@centurylink.net-Adr1;twopescafe@centurylink.net-Adr1;
+
+
+
+#OrderStatus:
+INSERT_UPDATE OrderStatus;code[unique=true]
+                         ;Billed
+						 ;Closed
+						 ;Closed
+						 ;Cancelle
+						 ;Pending Fulfillment
+                                                                                    
+#DeliveryMode:
+INSERT_UPDATE DeliveryMode;code[unique=true]           
+                          ;free-standard-shipping                                                           
+
+
+
+
+
+#############################  ORDER  ###########################################                
+#INSERT_UPDATE Order;code[unique=true];user(uid)[allownull=true];date[allownull=true,dateformat=dd/MM/yyyy];deliveryMode(code);deliveryCost;subtotal;totalPrice;totalTax;status(code);currency(isocode)
+#;SO000686;abc@gmail.com;08/26/2018;free-standard-shipping ;5; ;82.99;0;;Closed;USD
+
+#;H100010;linda.wolf@rustic-hw.com;11/8/2017; pickup; 6.00; 15.00 ;22.47;1.47;Billed;USD
+INSERT_UPDATE Order;code[unique=true];user(uid)[allownull=true];date[allownull=true,dateformat=dd/MM/yyyy];deliveryMode(code)     ; deliveryCost;subtotal;totalPrice;totalTax;status(code);currency(isocode);sourceNetSuite[default=true];netSuiteCustomerInternalId;netSuiteInternalId 
+;SO000686;jonathan.hagood@gapac.com|gppro;5/23/2018 13:39;free-standard-shipping ;5;;82.99;0;Closed;USD;;4657;45796
+;SO000687;jongoodha@gmail.com|gppro;5/23/2018 14:53;free-standard-shipping ;5;;57.99;0;Closed;USD;;4662;45798
+;SO000688;shalin.shah@gapac.com|gppro;5/23/2018 15:09;free-standard-shipping ;0;;206.97;0;Closed;USD;;4664;45800
+;SO000688;shalin.shah@gapac.com|gppro;5/23/2018 15:09;free-standard-shipping ;0;;206.97;0;Closed;USD;;4664;45800
+;SO000688;shalin.shah@gapac.com|gppro;5/23/2018 15:09;free-standard-shipping ;0;;206.97;0;Closed;USD;;4664;45800
+;SO000689;sandy.washington@gapac.com|gppro;5/23/2018 15:32;free-standard-shipping ;5;;82.99;0;Closed;USD;;4668;45802
+;SO000691;samantha.steichen@gapac.com|gppro;5/23/2018 16:52;free-standard-shipping ;5;;21.99;0;Closed;USD;;4675;45805
+;SO000696;melondy.mina@gapac.com|gppro;5/24/2018 15:37;free-standard-shipping ;5;;73.99;0;CANCELLED;USD;;4795;45815
+;SO000697;melondy.mina@gapac.com|gppro;5/24/2018 15:40;free-standard-shipping ;5;;73.99;0;Closed;USD;;4795;45817
+;SO000698;melondy.mina@gapac.com|gppro;5/24/2018 16:16;free-standard-shipping ;5;;80.58;6.59;Closed;USD;;4804;45820
+;SO000699;melondy.mina@gapac.com|gppro;5/24/2018 16:23;free-standard-shipping ;5;;93.64;7.65;Closed;USD;;4806;45822
+;SO000701;melondy.mina@gapac.com|gppro;5/24/2018 16:34;free-standard-shipping ;5;;96.92;7.93;Closed;USD;;4809;45825
+;SO000706;test@test.com|gppro;5/25/2018 14:00;free-standard-shipping ;5;;17;0;Closed;USD;;4850;45844
+;SO000707;fgalperin@tavanoteam.com|gppro;5/25/2018 16:00;free-standard-shipping ;5;;39.99;0;Closed;USD;;4861;45848
+;SO000710;derek.grimes@gapac.com|gppro;5/29/2018 13:57;free-standard-shipping ;5;;67.39;4.41;Billed;USD;;5271;46056
+;SO000710;derek.grimes@gapac.com|gppro;5/29/2018 13:57;free-standard-shipping ;5;;67.39;4.41;Billed;USD;;5271;46056
+;SO000717;jonathan.hagood@gapac.com|gppro;5/31/2018 13:25;free-standard-shipping ;5;;81.66;6.68;CANCELLED;USD;;4657;46094
+;SO000718;jonathan.hagood@gapac.com|gppro;5/31/2018 13:31;free-standard-shipping ;0;;114.31;9.34;CANCELLED;USD;;4657;46096
+;SO000719;jonathan.hagood@gapac.com|gppro;5/31/2018 13:54;free-standard-shipping ;0;;190.52;15.57;CANCELLED;USD;;4657;46098
+;SO000720;jonathan.hagood@gapac.com|gppro;5/31/2018 14:30;free-standard-shipping ;0;;228.63;18.69;CANCELLED;USD;;4657;46100
+;SO000721;sandy.washington@gapac.com|gppro;5/31/2018 14:38;free-standard-shipping ;5;;18.51;1.52;Closed;USD;;5634;46102
+;SO000722;jonathan.hagood@gapac.com|gppro;5/31/2018 14:56;free-standard-shipping ;0;;244.93;0;Closed;USD;;4657;46104
+;SO000723;jonathan.hagood@gapac.com|gppro;6/1/2018 8:43;free-standard-shipping ;5;;39.99;0;Closed;USD;;4657;46106
+;SO000730;jody.johnson@gapac.com|gppro;6/5/2018 12:13;free-standard-shipping ;15;;737.14;60.23;Billed;USD;;5594;46148
+;SO000730;jody.johnson@gapac.com|gppro;6/5/2018 12:13;free-standard-shipping ;15;;737.14;60.23;Billed;USD;;5594;46148
+;SO000730;jody.johnson@gapac.com|gppro;6/5/2018 12:13;free-standard-shipping ;15;;737.14;60.23;Billed;USD;;5594;46148
+;SO000730;jody.johnson@gapac.com|gppro;6/5/2018 12:13;free-standard-shipping ;15;;737.14;60.23;Billed;USD;;5594;46148
+;SO000730;jody.johnson@gapac.com|gppro;6/5/2018 12:13;free-standard-shipping ;15;;737.14;60.23;Billed;USD;;5594;46148
+;SO000730;jody.johnson@gapac.com|gppro;6/5/2018 12:13;free-standard-shipping ;15;;737.14;60.23;Billed;USD;;5594;46148
+;SO000730;jody.johnson@gapac.com|gppro;6/5/2018 12:13;free-standard-shipping ;15;;737.14;60.23;Billed;USD;;5594;46148
+;SO000730;jody.johnson@gapac.com|gppro;6/5/2018 12:13;free-standard-shipping ;15;;737.14;60.23;Billed;USD;;5594;46148
+;SO000730;jody.johnson@gapac.com|gppro;6/5/2018 12:13;free-standard-shipping ;15;;737.14;60.23;Billed;USD;;5594;46148
+;SO000732;sidshah@yahoo.com|gppro;6/5/2018 16:21;free-standard-shipping ;5;;39.99;0;CANCELLED;USD;;5734;46156
+;SO000733;sidshah@yahoo.com|gppro;6/5/2018 16:24;free-standard-shipping ;5;;51.99;0;CANCELLED;USD;;5734;46158
+;SO000733;sidshah@yahoo.com|gppro;6/5/2018 16:24;free-standard-shipping ;5;;51.99;0;CANCELLED;USD;;5734;46158
+;SO000786;boardlandia@gmail.com|gppro;7/3/2018 23:51;free-standard-shipping ;0;;103.98;0;Billed;USD;;6432;47581
+;SO000786;boardlandia@gmail.com|gppro;7/3/2018 23:51;free-standard-shipping ;0;;103.98;0;Billed;USD;;6432;47581
+;SO000796;narey-bob@aramark.com|gppro;7/10/2018 15:23;free-standard-shipping ;15;;375;0;Billed;USD;;6580;48198
+;SO000796;narey-bob@aramark.com|gppro;7/10/2018 15:23;free-standard-shipping ;15;;375;0;Billed;USD;;6580;48198
+;SO000796;narey-bob@aramark.com|gppro;7/10/2018 15:23;free-standard-shipping ;15;;375;0;Billed;USD;;6580;48198
+;SO000806;wegeek@aol.com|gppro;7/13/2018 1:20;free-standard-shipping ;5;;55.99;0;Billed;USD;;5892;49215
+;SO000813;CUSTOMERSERVICE@CHSDOORS.NET|gppro;7/13/2018 16:55;free-standard-shipping ;5;;60.98;0;Billed;USD;;6635;49329
+;SO000849;info@mybluebowl.com|gppro;7/16/2018 19:02;free-standard-shipping ;5;;18;0;Billed;USD;;6739;50870
+;SO000849;info@mybluebowl.com|gppro;7/16/2018 19:02;free-standard-shipping ;5;;18;0;Billed;USD;;6739;50870
+;SO000858;jonathan.hagood@gapac.com|gppro;7/17/2018 9:22;free-standard-shipping ;5;;21;0;Billed;USD;;4657;50981
+;SO000952;emily.faber@gapac.com|gppro;7/23/2018 12:39;free-standard-shipping ;5;;8.18;0.68;Closed;USD;;4854;54598
+;SO000953;emily.faber@gapac.com|gppro;7/23/2018 12:55;free-standard-shipping ;5;;8.18;0.68;Closed;USD;;4854;54600
+;SO000954;emily.faber@gapac.com|gppro;7/23/2018 12:57;free-standard-shipping ;5;;7.9;0.65;Closed;USD;;4854;54602
+;SO000955;emily.faber@gapac.com|gppro;7/23/2018 13:14;free-standard-shipping ;5;;7.83;0.58;CANCELLED;USD;;4854;54604
+;SO000956;emily.faber@gapac.com|gppro;7/23/2018 13:18;free-standard-shipping ;5;;7.83;0.58;CANCELLED;USD;;4854;54606
+;SO001092;michele.coney@effem.com|gppro;8/2/2018 14:28;free-standard-shipping ;0;;1337.25;87.5;Billed;USD;;7643;57004
+;SO001092;michele.coney@effem.com|gppro;8/2/2018 14:28;free-standard-shipping ;0;;1337.25;87.5;Billed;USD;;7643;57004
+;SO001092;michele.coney@effem.com|gppro;8/2/2018 14:28;free-standard-shipping ;0;;1337.25;87.5;Billed;USD;;7643;57004
+;SO001109;lia_tjong2006@yahoo.com|gppro;8/5/2018 16:54;free-standard-shipping ;5;;73.99;0;Billed;USD;;7763;57336
+;SO001115;bladebeam1@gmail.com|gppro;8/6/2018 18:15;free-standard-shipping ;5;;31.99;0;Billed;USD;;7814;58762
+;SO001155;arthurz@forl.com|gppro;8/8/2018 22:26;free-standard-shipping ;10;;40;0;Billed;USD;;7995;59607
+;SO001155;arthurz@forl.com|gppro;8/8/2018 22:26;free-standard-shipping ;10;;40;0;Billed;USD;;7995;59607
+;SO001155;arthurz@forl.com|gppro;8/8/2018 22:26;free-standard-shipping ;10;;40;0;Billed;USD;;7995;59607
+;SO001156;shopperwoman1@hotmail.com|gppro;8/9/2018 8:52;free-standard-shipping ;5;;60.99;0;Billed;USD;;6771;59708
+;SO001170;jaihosuh@yahoo.com|gppro;8/10/2018 11:34;free-standard-shipping ;5;;45;0;Billed;USD;;8113;60233
+;SO001178;SNiswender2@craighospital.org|gppro;8/10/2018 17:42;free-standard-shipping ;5;;35;0;Billed;USD;;8139;60849
+;SO001192;acctgdept@butterflywonderland.com|gppro;8/14/2018 13:36;free-standard-shipping ;5;;15;0;Billed;USD;;8370;62067
+;SO001194;mysavoree@gmail.com|gppro;8/15/2018 16:33;free-standard-shipping ;5;;35;0;Billed;USD;;8018;62578
+;SO001194;mysavoree@gmail.com|gppro;8/15/2018 16:33;free-standard-shipping ;5;;35;0;Billed;USD;;8018;62578
+;SO001194;mysavoree@gmail.com|gppro;8/15/2018 16:33;free-standard-shipping ;5;;35;0;Billed;USD;;8018;62578
+;SO001207;bkpadgham@gmail.com|gppro;8/17/2018 10:37;free-standard-shipping ;0;;179.97;0;Billed;USD;;8523;63098
+;SO001207;bkpadgham@gmail.com|gppro;8/17/2018 10:37;free-standard-shipping ;0;;179.97;0;Billed;USD;;8523;63098
+;SO001207;bkpadgham@gmail.com|gppro;8/17/2018 10:37;free-standard-shipping ;0;;179.97;0;Billed;USD;;8523;63098
+;SO001207;bkpadgham@gmail.com|gppro;8/17/2018 10:37;free-standard-shipping ;0;;179.97;0;Billed;USD;;8523;63098
+;SO001207;bkpadgham@gmail.com|gppro;8/17/2018 10:37;free-standard-shipping ;0;;179.97;0;Billed;USD;;8523;63098
+;SO001207;bkpadgham@gmail.com|gppro;8/17/2018 10:37;free-standard-shipping ;0;;179.97;0;Billed;USD;;8523;63098
+;SO001222;Jeanie158@hotmail.com|gppro;8/19/2018 12:46;free-standard-shipping ;5;;47;0;Billed;USD;;8659;63518
+;SO001241;sstelivan@fsmb.org|gppro;8/20/2018 14:46;free-standard-shipping ;5;;104.98;0;Billed;USD;;8699;64241
+;SO001242;kpiercey123@gmail.com|gppro;8/20/2018 15:10;free-standard-shipping ;0;;439.93;0;Billed;USD;;8703;64342
+;SO001242;kpiercey123@gmail.com|gppro;8/20/2018 15:10;free-standard-shipping ;0;;439.93;0;Billed;USD;;8703;64342
+;SO001242;kpiercey123@gmail.com|gppro;8/20/2018 15:10;free-standard-shipping ;0;;439.93;0;Billed;USD;;8703;64342
+;SO001242;kpiercey123@gmail.com|gppro;8/20/2018 15:10;free-standard-shipping ;0;;439.93;0;Billed;USD;;8703;64342
+;SO001242;kpiercey123@gmail.com|gppro;8/20/2018 15:10;free-standard-shipping ;0;;439.93;0;Billed;USD;;8703;64342
+;SO001242;kpiercey123@gmail.com|gppro;8/20/2018 15:10;free-standard-shipping ;0;;439.93;0;Billed;USD;;8703;64342
+;SO001245;nissim@abramsonlabor.com|gppro;8/20/2018 15:22;free-standard-shipping ;0;;149.97;0;Billed;USD;;8709;64445
+;SO001245;nissim@abramsonlabor.com|gppro;8/20/2018 15:22;free-standard-shipping ;0;;149.97;0;Billed;USD;;8709;64445
+;SO001245;nissim@abramsonlabor.com|gppro;8/20/2018 15:22;free-standard-shipping ;0;;149.97;0;Billed;USD;;8709;64445
+;SO001331;janev@intercontinentalpharma.com|gppro;8/23/2018 0:46;free-standard-shipping ;5;;45.99;0;Billed;USD;;7778;67945
+;SO001369;groff.stephen@gmail.com|gppro;8/24/2018 17:13;free-standard-shipping ;0;;145.98;0;Billed;USD;;8960;69708
+;SO001369;groff.stephen@gmail.com|gppro;8/24/2018 17:13;free-standard-shipping ;0;;145.98;0;Billed;USD;;8960;69708
+;SO001389;millergang6@gmail.com|gppro;8/26/2018 19:45;free-standard-shipping ;0;;149.97;0;Billed;USD;;9059;69828
+;SO001389;millergang6@gmail.com|gppro;8/26/2018 19:45;free-standard-shipping ;0;;149.97;0;Billed;USD;;9059;69828
+;SO001389;millergang6@gmail.com|gppro;8/26/2018 19:45;free-standard-shipping ;0;;149.97;0;Billed;USD;;9059;69828
+
+
+#############################  ORDER DATA  #####################################                                                               
+
+$catalog-id=gpUSProductCatalog
+$catalog-version=Online
+
+#INSERT_UPDATE OrderEntry;order(code)[forceWrite=true,unique=true,allownull=true];info;deliveryMode(code);quantity[allownull=true];basePrice;totalPrice;product(code);unit(code)[allownull=true];entryNumber[unique=true] 
+#;SO000688; ;free-standard-shipping;1000;0.05999;206.97;LQ1416PL;pieces;0
+#;SO000688; ;free-standard-shipping;500;0.15598;206.97;5356DX;pieces;0
+#;H100010 ;"product ""8000011"" with name ""n/a""";pickup;1;15.00;15.00 ;8000011  ;pieces;1
+
+INSERT_UPDATE OrderEntry;order(code)[forceWrite=true,unique=true,allownull=true];info;deliveryMode(code)    ;quantity[allownull=true];basePrice;totalPrice;product(code,catalogVersion(catalog(id),version));unit(code)[allownull=true];entryNumber[unique=true] 
+                        ;SO000686                                               ;    ;free-standard-shipping;500                     ;0.15598  ;82.99     ;5356DX:$catalog-id:$catalog-version       ;pieces                    ;0
+;SO000687; ;free-standard-shipping;1000;0.05299;57.99;D9542:$catalog-id:$catalog-version;pieces;0
+;SO000688; ;free-standard-shipping;6000;0.01149833;206.97;32006:$catalog-id:$catalog-version;pieces;0
+;SO000688; ;free-standard-shipping;1000;0.05999;206.97;LQ1416PL:$catalog-id:$catalog-version;pieces;1
+;SO000688; ;free-standard-shipping;500;0.15598;206.97;5356DX:$catalog-id:$catalog-version;pieces;2
+;SO000689; ;free-standard-shipping;500;0.15598;82.99;5356DX:$catalog-id:$catalog-version;pieces;0
+;SO000691; ;free-standard-shipping;1;16.99;21.99;56784A:$catalog-id:$catalog-version;pieces;0
+;SO000696; ;free-standard-shipping;500;0.13798;73.99;5342DX:$catalog-id:$catalog-version;pieces;0
+;SO000697; ;free-standard-shipping;500;0.13798;73.99;5342DX:$catalog-id:$catalog-version;pieces;0
+;SO000698; ;free-standard-shipping;500;0.13798;80.58;5342DX:$catalog-id:$catalog-version;pieces;0
+;SO000699; ;free-standard-shipping;10000;0.008099;93.64;CS7:$catalog-id:$catalog-version;pieces;0
+;SO000701; ;free-standard-shipping;1000;0.08399;96.92;UX9PATH:$catalog-id:$catalog-version;pieces;0
+;SO000706; ;free-standard-shipping;1;12;17;56757:$catalog-id:$catalog-version;pieces;0
+;SO000707; ;free-standard-shipping;1;34.99;39.99;56757:$catalog-id:$catalog-version;pieces;0
+;SO000710; ;free-standard-shipping;2000;0.015495;67.39;21000:$catalog-id:$catalog-version;pieces;0
+;SO000710; ;free-standard-shipping;500;0.05398;67.39;KL300W8:$catalog-id:$catalog-version;pieces;1
+;SO000717; ;free-standard-shipping;2;34.99;81.66;56757:$catalog-id:$catalog-version;pieces;0
+;SO000718; ;free-standard-shipping;3;34.99;114.31;56757:$catalog-id:$catalog-version;pieces;0
+;SO000719; ;free-standard-shipping;5;34.99;190.52;56757:$catalog-id:$catalog-version;pieces;0
+;SO000720; ;free-standard-shipping;6;34.99;228.63;56757:$catalog-id:$catalog-version;pieces;0
+;SO000721; ;free-standard-shipping;2;5.995;18.51;50030:$catalog-id:$catalog-version;pieces;0
+;SO000722; ;free-standard-shipping;7;34.99;244.93;56757:$catalog-id:$catalog-version;pieces;0
+;SO000723; ;free-standard-shipping;1;34.99;39.99;56761:$catalog-id:$catalog-version;pieces;0
+;SO000730; ;free-standard-shipping;500;0.14398;737.14;SXP9PATH:$catalog-id:$catalog-version;pieces;0
+;SO000730; ;free-standard-shipping;1000;0.08299;737.14;SX12PATH:$catalog-id:$catalog-version;pieces;1
+;SO000730; ;free-standard-shipping;1200;0.06415833;737.14;16PPATH:$catalog-id:$catalog-version;pieces;2
+;SO000730; ;free-standard-shipping;1200;0.03415833;737.14;914LSRD:$catalog-id:$catalog-version;pieces;3
+;SO000730; ;free-standard-shipping;12000;0.00666583;737.14;JW7:$catalog-id:$catalog-version;pieces;4
+;SO000730; ;free-standard-shipping;1000;0.10199;737.14;92120:$catalog-id:$catalog-version;pieces;5
+;SO000730; ;free-standard-shipping;250;0.30396;737.14;CH56NC7:$catalog-id:$catalog-version;pieces;6
+;SO000730; ;free-standard-shipping;3000;0.01433;737.14;27300:$catalog-id:$catalog-version;pieces;7
+;SO000730; ;free-standard-shipping;36000;0.00244417;737.14;19375:$catalog-id:$catalog-version;pieces;8
+;SO000732; ;free-standard-shipping;1;34.99;39.99;56768:$catalog-id:$catalog-version;pieces;0
+;SO000733; ;free-standard-shipping;1;12;51.99;56768:$catalog-id:$catalog-version;pieces;0
+;SO000733; ;free-standard-shipping;1;34.99;51.99;56768:$catalog-id:$catalog-version;pieces;1
+;SO000786; ;free-standard-shipping;3600;0.02110833;103.98;43716:$catalog-id:$catalog-version;pieces;0
+;SO000786; ;free-standard-shipping;1;27.99;103.98;53590:$catalog-id:$catalog-version;pieces;1
+;SO000796; ;free-standard-shipping;3;30;375;SSKAUTODSP:$catalog-id:$catalog-version;pieces;0
+;SO000796; ;free-standard-shipping;3;30;375;SSFAUTODSP:$catalog-id:$catalog-version;pieces;1
+;SO000796; ;free-standard-shipping;6;30;375;SSSAUTODSP:$catalog-id:$catalog-version;pieces;2
+;SO000806; ;free-standard-shipping;1;50.99;55.99;48285:$catalog-id:$catalog-version;pieces;0
+;SO000813; ;free-standard-shipping;2;27.99;60.98;53590:$catalog-id:$catalog-version;pieces;0
+;SO000849; ;free-standard-shipping;1;8;18;54550A:$catalog-id:$catalog-version;pieces;0
+;SO000849; ;free-standard-shipping;1;5;18;54527A:$catalog-id:$catalog-version;pieces;1
+;SO000858; ;free-standard-shipping;1;16;21;SSW1D85:$catalog-id:$catalog-version;pieces;0
+;SO000952; ;free-standard-shipping;2;1.25;8.18;50012:$catalog-id:$catalog-version;pieces;0
+;SO000953; ;free-standard-shipping;2;1.25;8.18;50011:$catalog-id:$catalog-version;pieces;0
+;SO000954; ;free-standard-shipping;2;1.125;7.9;50030:$catalog-id:$catalog-version;pieces;0
+;SO000955; ;free-standard-shipping;2;1.125;7.83;50030:$catalog-id:$catalog-version;pieces;0
+;SO000956; ;free-standard-shipping;2;1.125;7.83;50030:$catalog-id:$catalog-version;pieces;0
+;SO001092; ;free-standard-shipping;4800;0.05207292;1337.25;SSK51:$catalog-id:$catalog-version;pieces;0
+;SO001092; ;free-standard-shipping;9600;0.05207292;1337.25;SSS51:$catalog-id:$catalog-version;pieces;1
+;SO001092; ;free-standard-shipping;9600;0.05207292;1337.25;SSF51:$catalog-id:$catalog-version;pieces;2
+;SO001109; ;free-standard-shipping;27000;0.00255519;73.99;19378:$catalog-id:$catalog-version;pieces;0
+;SO001115; ;free-standard-shipping;500;0.05398;31.99;KL300W8:$catalog-id:$catalog-version;pieces;0
+;SO001155; ;free-standard-shipping;1;10;40;SSKD120:$catalog-id:$catalog-version;pieces;0
+;SO001155; ;free-standard-shipping;1;10;40;SSFD120:$catalog-id:$catalog-version;pieces;1
+;SO001155; ;free-standard-shipping;1;10;40;SSSD120:$catalog-id:$catalog-version;pieces;2
+;SO001156; ;free-standard-shipping;960;0.05832292;60.99;SSWPF5:$catalog-id:$catalog-version;pieces;0
+;SO001170; ;free-standard-shipping;8;5;45;54527A:$catalog-id:$catalog-version;pieces;0
+;SO001178; ;free-standard-shipping;6;5;35;54527A:$catalog-id:$catalog-version;pieces;0
+;SO001192; ;free-standard-shipping;1;10;15;SSFD120:$catalog-id:$catalog-version;pieces;0
+;SO001194; ;free-standard-shipping;1;10;35;SSKD120:$catalog-id:$catalog-version;pieces;0
+;SO001194; ;free-standard-shipping;1;10;35;SSSD120:$catalog-id:$catalog-version;pieces;1
+;SO001194; ;free-standard-shipping;1;10;35;SSFD120:$catalog-id:$catalog-version;pieces;2
+;SO001207; ;free-standard-shipping;960;0.05207292;179.97;SSK51:$catalog-id:$catalog-version;pieces;0
+;SO001207; ;free-standard-shipping;1;10;179.97;SSKD120:$catalog-id:$catalog-version;pieces;1
+;SO001207; ;free-standard-shipping;1;10;179.97;SSSD120:$catalog-id:$catalog-version;pieces;2
+;SO001207; ;free-standard-shipping;960;0.05207292;179.97;SSS51:$catalog-id:$catalog-version;pieces;3
+;SO001207; ;free-standard-shipping;960;0.05207292;179.97;SSF51:$catalog-id:$catalog-version;pieces;4
+;SO001207; ;free-standard-shipping;1;10;179.97;SSFD120:$catalog-id:$catalog-version;pieces;5
+;SO001222; ;free-standard-shipping;3;14;47;56784A:$catalog-id:$catalog-version;pieces;0
+;SO001241; ;free-standard-shipping;1920;0.05207292;104.98;SSF51:$catalog-id:$catalog-version;pieces;0
+;SO001242; ;free-standard-shipping;2880;0.05207292;439.93;SSF51:$catalog-id:$catalog-version;pieces;0
+;SO001242; ;free-standard-shipping;1920;0.05207292;439.93;SSS51:$catalog-id:$catalog-version;pieces;1
+;SO001242; ;free-standard-shipping;1920;0.05207292;439.93;SSK51:$catalog-id:$catalog-version;pieces;2
+;SO001242; ;free-standard-shipping;2;10;439.93;SSSD120:$catalog-id:$catalog-version;pieces;3
+;SO001242; ;free-standard-shipping;2;10;439.93;SSKD120:$catalog-id:$catalog-version;pieces;4
+;SO001242; ;free-standard-shipping;5;10;439.93;SSFD120:$catalog-id:$catalog-version;pieces;5
+;SO001245; ;free-standard-shipping;960;0.05207292;149.97;SSK51:$catalog-id:$catalog-version;pieces;0
+;SO001245; ;free-standard-shipping;960;0.05207292;149.97;SSF51:$catalog-id:$catalog-version;pieces;1
+;SO001245; ;free-standard-shipping;960;0.05207292;149.97;SSS51:$catalog-id:$catalog-version;pieces;2
+;SO001331; ;free-standard-shipping;3450;0.01188116;45.99;26496:$catalog-id:$catalog-version;pieces;0
+;SO001369; ;free-standard-shipping;12000;0.01083167;145.98;32019:$catalog-id:$catalog-version;pieces;0
+;SO001369; ;free-standard-shipping;2;8;145.98;54550A:$catalog-id:$catalog-version;pieces;1
+;SO001389; ;free-standard-shipping;960;0.05207292;149.97;SSF51:$catalog-id:$catalog-version;pieces;0
+;SO001389; ;free-standard-shipping;960;0.05207292;149.97;SSS51:$catalog-id:$catalog-version;pieces;1
+;SO001389; ;free-standard-shipping;960;0.05207292;149.97;SSK51:$catalog-id:$catalog-version;pieces;2

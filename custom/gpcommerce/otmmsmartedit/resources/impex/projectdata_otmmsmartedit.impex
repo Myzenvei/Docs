@@ -1,0 +1,25 @@
+# Enable the following lines in your extended SmartEdit module, then run ant updatesystem
+#
+INSERT_UPDATE SmartEditConfiguration;key[unique=true];value
+;applications.otmmsmartedit;{"smartEditLocation":"/otmmsmartedit/otmmsmartedit/js/otmmsmartedit.js"}
+;applications.otmmsmarteditContainer;{"smartEditContainerLocation":"/otmmsmartedit/otmmsmartedit/js/otmmsmarteditContainer.js"}
+
+
+
+insert_update MediaDeliveryService;&Item;command;isDefault;mediaFolder(qualifier);name[unique=true,allownull=true];renditionSet;mediaFormatQualifier
+;Item3;-crop ${WIDTH}x${HEIGHT}+${XOFF}+${YOFF} -resize ${W}x${H} -strip;false;otmmRoot;smarteditCropping;parameterized;
+;Item4;-crop ${WIDTH}x${HEIGHT}+${XOFF}+${YOFF} -resize ${W}x${H} -strip;false;otmmRoot;smarteditDesktopCropping;parameterized;desktop
+;Item5;"-resize 960x330^ -gravity center -extent 960x330 -pointsize 25 -draw ""gravity south fill black  text 0,24 '960ext'""";false;otmmRoot;wcmsDesktop_960x330_;smartedit;desktop
+;Item6;original;false;otmmRoot;smarteditDesktopSingleFormat;smartedit;desktop
+;Item7;-crop ${WIDTH}x${HEIGHT}+${XOFF}+${YOFF} -resize ${W}x${H} -strip;false;otmmRoot;smarteditMobileCropping;parameterized;mobile
+;Item8;"-resize 720x495^ -gravity Center -crop 480x320++0+0 -pointsize 25 -draw ""gravity south fill black  text 0,24 '480crop'""";false;otmmRoot;wcmsMobile_480x320_;smartedit;mobile
+;Item9;original;false;otmmRoot;smarteditMobileSingleFormat;smartedit;mobile
+;Item10;-crop ${WIDTH}x${HEIGHT}+${XOFF}+${YOFF} -resize ${W}x${H} -strip;false;otmmRoot;smarteditTabletCropping;parameterized;tablet
+;Item11;"-resize 770x350^ -gravity center -extent 770x350 -pointsize 25 -draw ""gravity south fill black  text 0,24 '770ext'""";false;otmmRoot;wcmsTablet_770x350_;smartedit;tablet
+;Item12;original;false;otmmRoot;smarteditTabletSingleFormat;smartedit;tablet
+;Item13;-crop ${WIDTH}x${HEIGHT}+${XOFF}+${YOFF} -resize ${W}x${H} -strip;false;otmmRoot;smarteditWidescreenCropping;parameterized;widescreen
+;Item14;"-resize 1400x440^ -gravity center -extent 1400x440 -pointsize 25 -draw ""gravity south fill black  text 0,24 '1400ext'""";false;otmmRoot;wcmsWidescreen_1400x440_;smartedit;widescreen
+;Item15;original;false;otmmRoot;smarteditWidescreenSingleFormat;smartedit;widescreen
+insert_update AssetAssignmentSpec;&Item;otmmAssetDeliveryDefinitions(&Item);otmmContentType(code,itemtype(code))[unique=true,allownull=true];otmmExplicitAttribute(enclosingType(code),qualifier)[unique=true,allownull=true];otmmImplicitAttributes(otmmContentType(code,itemtype(code)),otmmExplicitAttribute(enclosingType(code),qualifier),otmmItemType(code));otmmItemType(code)[unique=true,allownull=true]
+;Item16;Item14,Item8,Item5,Item11;BITMAP:OtmmContentType;AbstractMediaContainerComponent:media;;AbstractMediaContainerComponent
+

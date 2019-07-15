@@ -1,0 +1,95 @@
+.access-customer-service-service-ticket {
+
+  .heading {
+    color: @text-color;
+    font-size: @font-size-small;
+    font-weight: @font-weight-medium;
+  }
+
+  .icon-mail {
+    font-size: @font-icon-size;
+    color: @font-icon-color-1;
+  }
+
+  .icon-attachment {
+    font-size: @font-icon-size;
+  }
+
+  .serviceticket-section {
+    padding: 20px;
+  }
+
+  .custom-file-input {
+    opacity: 1;
+  }
+
+  .upload {
+    position: absolute;
+    top: -500px;
+  }
+
+  p.closed {
+    margin: 0 0 0 7px;
+    cursor: pointer;
+  }
+
+
+  .form-group {
+    margin-top: 24px;
+    margin-bottom: 0px;
+  }
+
+  textarea {
+    height: 113px;
+    resize: none;
+    border-radius: 0;
+  }
+
+  label[for=telephone]+input {
+    height: 48px;
+    border-radius: 0;
+  }
+
+  .info-text {
+    font-size: @font-size-small;
+    font-weight: @font-weight-light;
+    color: @font-color-label-text;
+  }
+
+  .error-msg {
+    color: @font-color-error;
+  }
+
+  a.disabled {
+    pointer-events: none;
+    cursor: default;
+    color: @btn-disabled-text-color;
+  }
+
+  .file {
+    margin-bottom: 16px;
+  }
+
+  .file:last-of-type {
+    margin-bottom: 0px;
+  }
+
+  .file-name {
+    width: 180px;
+    word-break: break-word;
+  }
+
+  .submit {
+    min-width: 160px;
+  }
+
+  @media (max-width: @screen-xs-max) {
+    .submit {
+      width: 100%
+    }
+
+    .serviceticket-section {
+      padding: 0;
+    }
+  }
+}

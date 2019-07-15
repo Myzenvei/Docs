@@ -1,0 +1,69 @@
+#vanity-fair {
+  .vx-pdp-product-info {
+    .pdp-product-description {
+      @media screen and (min-width: @screen-sm-min) {
+        padding-left: 8px;
+      }
+      @media screen and (min-width: @screen-md-min) {
+        padding-left: 24px;
+      }
+      h1 {
+        font-size: @font-size-base;
+        line-height: 20px;
+        margin-bottom: 16px;
+        @media screen and (min-width: @screen-sm-min) {
+          line-height: 22px;
+          font-size: @font-size-large;
+        }
+        @media screen and (min-width: @screen-md-min) {
+          line-height: 32px;
+          font-size: @font-size-h2;
+        }
+      }
+      .pdp-item-details p {
+        margin-bottom: 0;
+      }
+      .pdp-add-to-cart-container {
+        position: relative;
+        border: none;
+        display: block;
+        padding-top: 24px !important;
+        & > div {
+          padding: 0 !important;
+          button {
+            float: left !important;
+            width: 208px;
+            padding: 16px 0;
+            line-height: 16px;
+          }
+        }
+      }
+      .star-rating {
+        padding-bottom: 0 !important;
+        .vx-star-rating {
+          .star-rating {
+            padding-top: 16px !important;
+            .review-section {
+              font-size: @font-size-small;
+            }
+          }
+        }
+      }
+      .price {
+        display: none;
+      }
+    }
+    .pdp-product-cta {
+      .icon-add-to-list {
+        display: none;
+      }
+      .icon-share {
+        color: @font-icon-color-4;
+      }
+    }
+    .error-text {
+      margin-bottom: 0;
+      padding-top: 16px;
+    }
+  }
+}

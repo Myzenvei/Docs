@@ -1,0 +1,15 @@
+$productCatalog=gpUSProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+
+$lang=en
+
+INSERT_UPDATE BundleTemplate;id[unique=true];name[lang=$lang];$catalogVersion
+;UltraPerfectTableBundle;Ultra Perfect Table Bundle
+;NapkinComponent;Napkin Component
+;CupsComponent;Cups Component
+;PlatesComponent;Plates Component
+;PaperTowelsComponent;Paper Towels Component
+;DisposableCutleryBundle;Disposable Cutlery Bundle
+;PaperPlatesComponent;Paper Plates Component
+;CutleryComponent;Cutlery Component
+;BowlsComponent;Bowls Component

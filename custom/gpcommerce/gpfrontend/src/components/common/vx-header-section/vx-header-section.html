@@ -1,0 +1,250 @@
+<div>
+  <header class="header-section navbar-fixed-top non-printable-section">
+    <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen></vx-spinner>
+    <div class="py-xs-2 px-xs-3 px-md-0 promo-section m-xs-0 text-center promo-tablet" v-if="isTablet() && headerOptions.promoTxt && isPromoEnabled && !headerOptions.isCheckout">
+      <a v-if="headerOptions.promoTxt && headerOptions.promoUrl" :href="headerOptions.isExternalLink ? headerOptions.promoUrl : globals.getUrlWithContextPath(headerOptions.promoUrl)"
+      :target="headerOptions.isExternalLink?'_blank':''">{{$options.filters.maxCharacters(headerOptions.promoTxt)}}</a>
+      <span v-else-if="headerOptions.promoTxt">{{$options.filters.maxCharacters(headerOptions.promoTxt)}}</span>
+    </div>
+    <nav class="non-printable-section navbar-top d-flex align-items-center justify-content-between" v-bind:class="{ 'vanity-fair-mobile-nav-color': showMobileNav}" role="navigation"
+      v-if="!headerOptions.isCheckout">
+      <div class="py-xs-2 promo-section m-xs-0 ml-md-5 pl-md-2" v-if="!isTablet() && headerOptions.promoTxt && isPromoEnabled">
+          <a v-if="headerOptions.promoTxt && headerOptions.promoUrl" :href="headerOptions.isExternalLink ? headerOptions.promoUrl : globals.getUrlWithContextPath(headerOptions.promoUrl)"
+          :target="headerOptions.isExternalLink?'_blank':''">{{$options.filters.maxCharacters(headerOptions.promoTxt)}}</a>
+        <span v-else-if="headerOptions.promoTxt">{{$options.filters.maxCharacters(headerOptions.promoTxt)}}</span>
+      </div>
+      <a class="icon-menu ml-xs-3 py-xs-3" :title="i18n.iconMenuTitle" @click="showMobileNav = !showMobileNav;updateAria(showMobileNav); setHeaderHeight();"
+        tabindex="0" role="button" :aria-label="i18n.iconMenuTitle" href="javascript:void(0)" :aria-expanded="showMobileNav? 'true': 'false'"></a>
+      <template v-if="isHomePage">
+        <button itemscope :itemtype="globals.logoContentSchema.itemType" class="logo" @click="globals.navigateToUrl('home')" tabindex="0" v-if="isTablet()" role="link"
+          :aria-hidden="showMobileNav && isTablet()" :aria-label="globals.getSiteName()">
+          <img v-if="globals.siteConfig.isBrandLogoMobile  && isTablet()" :itemprop="globals.logoContentSchema.itemProp" :src="globals.assetsPath + headerOptions.brandMobileLogo" :alt="globals.getSiteName()">
+          <img v-else :itemprop="globals.logoContentSchema.itemProp" :src="globals.assetsPath + headerOptions.brandLogo" :alt="globals.getSiteName()">
+        </button>
+      </template>
+      <template v-else>
+          <button class="logo" @click="globals.navigateToUrl('home')" tabindex="0" v-if="isTablet()" role="link"
+          :aria-hidden="showMobileNav && isTablet()">
+          <img v-if="globals.siteConfig.isBrandLogoMobile && isTablet()" :src="globals.assetsPath + headerOptions.brandMobileLogo" :alt="globals.getSiteName()">
+          <img v-else :src="globals.assetsPath + headerOptions.brandLogo" :alt="globals.getSiteName()">
+        </button>
+      </template>
+      <span id='extole_zone_global_header' v-if="globals.siteConfig.isReferAFriend"></span>
+      <ul class="py-xs-2 login-menu m-xs-0" role="presentation">
+        <li v-if="findMenu && (globals.siteConfig.isFindADistributorEnabled || globals.siteConfig.isFindAStoreEnabled)">
+          <a :href="findMenu.external ? findMenu.optionLink : globals.contextPath + findMenu.optionLink">{{findMenu.option}}</a>
+        </li>
+      </ul>
+      <ul class="py-xs-2 login-menu m-xs-0" v-if="globals.getIsLoggedIn()" role="presentation">
+        <li v-for="(item, index) in loginMenu.menuOptions">
+          <a :href="item.external ? item.optionLink : globals.contextPath + item.optionLink" v-if="index === 0">{{i18n.hiText}}{{userName}}</a>
+          <a :href="item.external ? item.optionLink : globals.contextPath + item.optionLink" v-else>{{item.option}}</a>
+        </li>
+      </ul>
+      <ul class="py-xs-2 login-menu m-xs-0" v-else role="presentation">
+        <template v-if="headerOptions.showLoginRegister">
+          <li v-for="item in loginMenu.menuOptions">
+            <a :href="item.external ? item.optionLink : globals.contextPath + item.optionLink">{{item.option}}</a>
+          </li>
+        </template>
+        <template v-else>
+          <li v-for="item in loginMenu.menuOptions" v-if="!(~item.optionLink.indexOf('login') || ~item.optionLink.indexOf('register'))">
+            <a :href="item.external ? item.optionLink : globals.contextPath + item.optionLink">{{item.option}}</a>
+          </li>
+        </template>
+      </ul>
+      <a :href="globals.contextPath + loginMenu.menuOptions[0].optionLink" class="icon-user-wrapper" :aria-label="i18n.iconUserTitle"
+        :aria-hidden="showMobileNav && isTablet()">
+        <span class="icon-user mr-xs-3 py-xs-3" :title="i18n.iconUserTitle"></span>
+      </a>
+    </nav>
+    <nav class="navbar-bottom d-flex align-items-center justify-content-between" :class="{'checkout-header' : headerOptions.isCheckout}"
+      role="navigation">
+      <div class="header-left-section d-flex align-items-center">
+        <template v-if="isHomePage">
+            <div itemscope :itemtype="globals.logoContentSchema.itemType" class="logo" @click="globals.navigateToUrl('home')" tabindex="0" v-if="!tabletView || headerOptions.isCheckout">
+              <template v-if="globals.siteConfig.isBrandLogoMobile && isTablet()">
+                  <img :src="globals.assetsPath + headerOptions.brandMobileLogo" :itemprop="globals.logoContentSchema.itemProp" :alt="globals.getSiteName()">
+              </template>
+              <template v-else>
+                  <img v-if="globals.siteConfig.showCheckoutLogo && headerOptions.isCheckout" :itemprop="globals.logoContentSchema.itemProp" :src="globals.assetsPath + headerOptions.checkoutLogo" :alt="globals.getSiteName()">
+                  <img v-else :itemprop="globals.logoContentSchema.itemProp" :src="globals.assetsPath + headerOptions.brandLogo" :alt="globals.getSiteName()">
+              </template>
+              <!-- Commented out code till loading different logo for checkout is implemented from backend
+                <img v-if="globals.isVanityfair() && isTablet()"  :src="globals.assetsPath + headerOptions.brandMobileLogo" :itemprop="globals.logoContentSchema.itemProp" :alt="globals.getSiteName()">
+              <img v-else :itemprop="globals.logoContentSchema.itemProp" :src="globals.assetsPath + headerOptions.brandLogo" :alt="globals.getSiteName()"> -->
+            </div>
+         </template>
+        <template v-else>
+            <div class="logo" @click="globals.navigateToUrl('home')" tabindex="0" v-if="!tabletView || headerOptions.isCheckout">
+                <template v-if="globals.siteConfig.isBrandLogoMobile && isTablet()">
+                    <img :src="globals.assetsPath + headerOptions.brandMobileLogo" :alt="globals.getSiteName()">
+                </template>
+                <template v-else>
+                    <img v-if="globals.siteConfig.showCheckoutLogo && headerOptions.isCheckout" :src="globals.assetsPath + headerOptions.checkoutLogo" :alt="globals.getSiteName()">
+                    <img v-else :src="globals.assetsPath + headerOptions.brandLogo" :alt="globals.getSiteName()">
+                </template>
+              <!-- Commented out code till loading different logo for checkout is implemented from backend
+                <img v-if="globals.isVanityfair() && isTablet()"  :src="globals.assetsPath + headerOptions.brandMobileLogo" :alt="globals.getSiteName()">
+              <img v-else :src="globals.assetsPath + headerOptions.brandLogo" :alt="globals.getSiteName()"> -->
+            </div>
+        </template>
+
+        <div class="non-printable-section navbar-bottom-left d-flex pl-xs-0 pl-md-4" :class="{ 'mobile-view' : showMobileNav, }"
+          v-if="!headerOptions.isCheckout" @click="dismissMobileMenu" :aria-expanded="showMobileNav? 'true': 'false'">
+          <div ref="navigationMenu" class="navigation-menu d-flex align-items-center pt-xs-3 pt-md-0" @click.stop="">
+            <div class="navigation-inner-wrapper">
+              <div class="pb-xs-2 pb-md-0">
+                <ul class="m-xs-0 primary-menu align-self-center d-flex pl-xs-0" role="presentation">
+                  <li class="primary-menu-item js-primary-menu-item p-md-3" v-for="(item,index) in navMenu" @mouseover="setHeaderFlyoutWidth($event, item && item.secondary && item.secondary.menuOptions ? item.secondary.menuOptions.length : 0)">
+                    <template v-if="item.primary">
+                      <a class="p-xs-3 p-md-0" href="#" v-if="showMobileNav && isSecondaryAvailable(item)" @click="selectPrimary(item.primary)"
+                        v-show="selectedPrimary !== '' ? false : true">{{item.primary}}</a>
+                      <a class="p-xs-3 p-md-0" :href="item.external ? item.primaryLink : globals.contextPath + item.primaryLink"
+                        v-else v-show="selectedPrimary !== '' ? false : true">{{item.primary}}</a>
+                    </template>
+                    <div class="secondary-menu pt-xs-3 px-md-4 pt-md-4 pb-md-3" v-if="isSecondaryAvailable(item) && !isTablet()"
+                      :class="{ 'secondary-active': selectedPrimary === item.primary }">
+                      <div class="arrow-up"></div>
+                      <template v-if="item.secondary.title">
+                        <a class="pl-xs-3 sec-title js-secondary-title" v-html="item.secondary.title" :href="item.external ? item.primaryLink : globals.contextPath + item.primaryLink"></a>
+                      </template>
+                      <ul class="d-flex flex-wrap pl-xs-0 flyout-sec" role="presentation">
+                        <li class="js-secondary-child p-md-3" v-for="item in item.secondary.menuOptions" :class="{'view-all' : item.markAsViewAll}">
+                          <template v-if="item.option">
+                            <a class="p-xs-3 p-md-0 custom-word-wrap-all" :href="item.external ? item.optionLink : globals.contextPath + item.optionLink"
+                              v-html="item.option" tabindex="0"></a>
+                          </template>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="secondary-menu pt-xs-3 px-md-4 pt-md-4 pb-md-2" v-if="isSecondaryAvailable(item) && ((selectedPrimary === item.primary)  && isTablet())"
+                      :class="{ 'secondary-active': selectedPrimary === item.primary }">
+                      <div class="arrow-up"></div>
+                      <a class="icon-chevron-left ml-xs-3 px-xs-0 js-secondary-action-el" v-if="showMobileNav"
+                        @click.stop="focusParent(selectedPrimary,navMenu)" tabindex="0" role="button" aria-label="Back"
+                        href="javascript:void(0)"></a>
+                        <template v-if="item.secondary.title">
+                          <a class="pl-xs-3 sec-title" v-html="item.secondary.title" :href="item.external ? item.primaryLink : globals.contextPath + item.primaryLink"></a>
+                        </template>
+                      <ul class="d-flex flex-wrap pl-xs-0 flyout-sec" role="presentation">
+                        <li class="js-secondary-child p-md-3" v-for="item in item.secondary.menuOptions" :class="{'view-all' : item.markAsViewAll}">
+                          <template v-if="item.option">
+                            <a class="p-xs-3 p-md-0 custom-word-wrap-all" :href="item.external ? item.optionLink : globals.contextPath + item.optionLink"
+                              v-html="item.option" tabindex="0"></a>
+                          <template>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div v-show="selectedPrimary !== '' ? false : true">
+                <slot name="left-nav" v-if="showMobileNav && globals.getIsLoggedIn()">
+                  Left Nav
+                </slot>
+              </div>
+              <div class="pb-xs-2 pb-md-0" v-if="showMobileNav">
+                <h6 class="pl-xs-3 pt-xs-2" v-if="!globals.getIsLoggedIn() && globals.siteConfig.isMobileMyProfileEnabled" :aria-hidden="selectedPrimary !== '' ? true : false">{{i18n.loginSectionTitle}}</h6>
+                <ul class="pl-xs-0" :class="{ 'login-mobile-view' : showMobileNav }" role="presentation" :aria-hidden="selectedPrimary !== '' ? true : false">
+                  <template v-if="headerOptions.showLoginRegister">
+                    <li class="p-md-3 js-primary-menu-item" v-for="(item,index) in loginMenu.menuOptions">
+                      <a class="p-xs-3 p-md-0 custom-word-wrap-all" :href="item.external ? item.optionLink : globals.contextPath + item.optionLink"
+                        v-show="selectedPrimary !== '' ? false : true">{{item.option}}</a>
+                    </li>
+                  </template>
+                  <template v-else>
+                    <li class="p-md-3 js-primary-menu-item" v-for="item in loginMenu.menuOptions" v-if="!(~item.optionLink.indexOf('login') || ~item.optionLink.indexOf('register'))">
+                      <a class="p-xs-3 p-md-0 custom-word-wrap-all" :href="item.external ? item.optionLink : globals.contextPath + item.optionLink"
+                        v-html="item.option" v-show="selectedPrimary !== '' ? false : true"></a>
+                    </li>
+                  </template>
+                </ul>
+                <ul class="pl-xs-0" :class="{ 'login-mobile-view' : showMobileNav }"
+                  v-if="findMenu && (globals.siteConfig.isFindADistributorEnabled || globals.siteConfig.isFindAStoreEnabled)" role="presentation"
+                  :aria-hidden="selectedPrimary !== '' ? true : false">
+                  <li class="p-md-3 js-primary-menu-item">
+                    <a class="p-xs-3 p-md-0 custom-word-wrap-all" :href="findMenu.external ? findMenu.optionLink : globals.contextPath + findMenu.optionLink"
+                      v-html="findMenu.option"></a>
+                  </li>
+                </ul>
+              </div>
+              <div class="pb-xs-2 pb-md-0">
+                <span id='extole_zone_global_header' v-if="globals.isCopperCrane()"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="non-printable-section d-flex navbar-bottom-right justify-content-between align-items-center" v-if="!headerOptions.isCheckout"
+        :aria-hidden="showMobileNav && isTablet()">
+
+        <div v-if="headerOptions.includeSearchBox" :class="{'align-search': !headerOptions.includeMiniCart}">
+          <!-- @auto-suggest auto suggest -->
+          <slot name="search" :toggle-search-icon="toggleSearchIcon">
+            Default body
+          </slot>
+          <!-- <auto-suggest :product-catalog="productCatalog" :root-category="rootCategory"></auto-suggest> -->
+        </div>
+        <div class="d-flex align-items-center">
+        <div class="primary-menu-items  p-md-3 d-flex align-items-center justify-content-end pl-xs-2" v-if="headerData.headerOptions.showMyList && globals.isB2B()">
+              <a @click="navigateTomyLists()" :title="i18n.myLists" tabindex="0" class="ml-md-5">
+                  <span>{{i18n.myLists}}</span>
+              </a>
+        </div>
+        <div v-if="headerData.headerOptions.showMyList && globals.isB2C()">
+          <div class="primary-menu-items  p-md-3 d-flex align-items-center justif18ny-content-end pl-xs-3" v-if="isFavoritesEnabled">
+            <div v-if="globals.siteConfig.showFavIcon">
+              <a @click="globals.navigateToUrl('myFav')" :title="i18n.myFav" tabindex="0" class="icon-heart ml-md-5">
+              </a>
+            </div>
+            <div v-else>
+            <a @click="globals.navigateToUrl('myFav')" :title="i18n.myFav" tabindex="0" class="ml-md-5">
+                  <span>{{i18n.myFav}}</span>
+              </a>
+            </div>
+          </div>
+          <div class="primary-menu-items  p-md-3 d-flex align-items-center justify-content-end pl-xs-3 pr-xs-3" v-if="!isFavoritesEnabled">
+                <a @click="navigateTomyLists()" :title="i18n.myLists" tabindex="0" class="ml-md-5">
+                    <span>{{i18n.myLists}}</span>
+                </a>
+          </div>
+        </div>
+        <div class="d-flex align-items-center justify-content-end">
+          <a :href="globals.getNavigationUrl('quickOrder')" class="quick-order ml-md-5" v-if="globals.isB2B() && headerOptions.showQuickOrder"
+            :aria-label="i18n.iconQuickOrderTitle">
+            <span class="icon-quick-order" :title="i18n.iconQuickOrderTitle"></span>
+          </a>
+
+          <div :class="globals.isB2B() ? 'cart ml-xs-1 ml-sm-5 ml-md-5' : 'cart ml-xs-4 ml-sm-5 ml-md-5'" @mouseover="displayMiniCart"
+            @mouseleave="hideMiniCart" v-if="headerOptions.includeMiniCart">
+            <a :href="globals.getNavigationUrl('cart')" class="icon-cart" :aria-label="i18n.cartWith+cartItems+i18n.items" :title="i18n.cartWith+cartItems+i18n.items">
+            </a>
+            <div v-if="showMiniCart" class="header-mini-cart hidden-xs hidden-sm visible-md visible-lg" @mouseover="isMiniCartHovered = true"
+              @mouseleave="isMiniCartHovered = false">
+              <div class="arrow-up"></div>
+              <slot name="cart">
+                Default body
+              </slot>
+            </div>
+            <span class="badge" @click="globals.navigateToUrl('cart')" v-if="cartItems">{{cartItems}}</span>
+            <div class='assistive-text' aria-live="assertive" aria-atomic="true">
+              <span v-if="cartItems">{{i18n.cartItemsText}} {{cartItems}}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+      <div class="checkout-options d-flex justify-content-end pr-md-4" v-if="headerOptions.isCheckout">
+        <a v-for="item in checkoutMenu.menuOptions" :href="item.external ? item.optionLink : globals.contextPath + item.optionLink"
+          class="px-xs-3 py-xs-3" v-html="item.option"></a>
+      </div>
+    </nav>
+    <vx-extole ref="vxExtoleRef" v-if="globals.siteConfig.isReferAFriend"></vx-extole>
+  </header>
+  <div class="printable-section printable-image">
+    <img v-if="globals.siteConfig.isBrandLogoMobile && isTablet()" :alt="globals.getSiteName()" :src="globals.assetsPath + headerOptions.brandMobileLogo" />
+    <img v-else :alt="globals.getSiteName()" :src="globals.assetsPath + headerOptions.brandLogo" />
+  </div>
+</div>

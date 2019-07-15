@@ -1,0 +1,39 @@
+#brawny {
+  .vx-left-nav {
+    font-family: @font-family-text;
+    .left-nav-sub-container {
+      .side-heading {
+        @media screen and (min-width: @screen-md-min) {
+          font-size: @font-size-h3;
+          padding: 20px 0 4px;
+        }
+      }
+      ul {
+        li.cd-label {
+          @media screen and (min-width: @screen-md-min) {
+            padding: 16px;
+          }
+          &.selected {
+            background-color: @bg-color-menu-item;
+            a {
+              color: @text-color;
+              font-weight: @font-weight-bold;
+              text-decoration: underline;
+            }
+          }
+          a {
+            color: @text-color;
+            font-weight: @font-weight-normal;
+          }
+          &:hover {
+            background-color: @bg-color-menu-item;
+            a {
+              font-weight: @font-weight-bold;
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+    }
+  }
+}

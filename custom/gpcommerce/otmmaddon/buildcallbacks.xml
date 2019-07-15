@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2013 hybris AG
+ All rights reserved.
+
+ This software is the confidential and proprietary information of hybris
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with hybris.
+
+  
+--><!--
+ All hybris buildcallbacks.xml macrodefinitions:
+ 
+ Build/Documentation
+ 
+	 before/after ant macro "clean"
+		 <macrodef name="otmmaddon_before_clean"/>
+		 <macrodef name="otmmaddon_after_clean"/>
+	 
+	 before/after ant macro "build"
+		 <macrodef name="otmmaddon_before_build"/>
+		 <macrodef name="otmmaddon_after_build"/>
+		 
+	 before/after ant macro "compile_core" - the core module of the extension
+		 <macrodef name="otmmaddon_before_compile_core">
+		 <macrodef name="otmmaddon_after_compile_core">
+	 
+	 before/after ant macro "compile_web" - the web module of the extension
+		 <macrodef name="otmmaddon_before_compile_web" />
+		 <macrodef name="otmmaddon_after_compile_web" />
+	 
+	 before/after ant macro "compile_hmc" - the hmc module of the extension
+		 <macrodef name="otmmaddon_before_compile_hmc" />
+		 <macrodef name="otmmaddon_after_compile_hmc" />
+ 
+ Preparing extension
+ 
+	 will be called in the beginning of the ant call and only once (also when using multiple 
+	 ant targets e.g. ant build yunittest)	
+		 <macrodef name="otmmaddon_only_once_prepare"/>
+ 
+ Creating ear module/production
+ 
+	 before/after ant macro "ear"
+		 <macrodef name="otmmaddon_before_ear"/>
+		 <macrodef name="otmmaddon_after_ear"/>
+
+	 before/after ant macro "production" - for hybris server only
+		 <macrodef name="otmmaddon_before_production" />
+		 <macrodef name="otmmaddon_after_production" />
+ 
+ JUnit Test
+ 
+	 before/after ant macro "yunitinit" 
+		 <macrodef name="otmmaddon_before_yunitinit" />
+		 <macrodef name="otmmaddon_after_yunitinit" />
+	 
+	 before/after ant macro "yunit"
+		 <macrodef name="otmmaddon_before_yunit" />
+		 <macrodef name="otmmaddon_after_yunit" /> 
+		 
+ Distribution package
+ 
+ 	 before/after ant macro "dist" - internal target; only for use when platform is available in source code
+		 <macrodef name="otmmaddon_after_dist"/>
+		 <macrodef name="otmmaddon_before_dist"/>
+	 
+	 before/after ant macro "dist_copy" - internal target; only for use when platform is available in source code
+		 <macrodef name="otmmaddon_before_dist_copy"/>
+		 <macrodef name="otmmaddon_after_dist_copy"/>
+ 
+-->
+<project name="otmmaddon_buildcallbacks" xmlns:if="ant:if">
+
+	<macrodef name="otmmaddon_before_clean">
+		<sequential>
+			<echo message="Found Hybris Version=${hybris.build.version}" />
+			<echo message="ext.otmmaddon.path = ${ext.otmmaddon.path}" />
+			<condition property="is.hybris.before6.4" else="false">
+			  <matches string="${hybris.build.version}" pattern="^6\.[123]\.[0-9\.]*"/>
+			</condition>
+			<echo message="is.hybris.before6.4 = ${is.hybris.before6.4}" />
+			<copy todir="${ext.otmmaddon.path}/lib" preservelastmodified="true" if:true="${is.hybris.before6.4}">
+				<fileset dir="${ext.otmmaddon.path}/httpclient" includes="*.jar" />
+			</copy>
+		</sequential>
+	</macrodef>
+	
+	<!-- 
+	    Called whenever 'ant ear' is used. this callback can be used to modify the content of the ear file
+	
+	     ${ear.path}: 			path to ear
+	 -->
+	<macrodef name="otmmaddon_before_ear">
+		<sequential>
+
+			<!-- you can do anything before the EAR file is being packed -->
+			
+		</sequential>
+	</macrodef>
+	
+	<macrodef name="otmmaddon_after_yunit" >
+		<sequential>
+			<property name="otmmaddon.tests.failed.file" location="${HYBRIS_LOG_DIR}\junit\tests_failed"/>
+			<echo message="otmmaddon.tests.failed.file = ${otmmaddon.tests.failed.file}"/>
+			<echo message="yuniterr = ${yuniterr}"/>
+			<delete file="${otmmaddon.tests.failed.file}" failonerror="false"/>
+			<if>
+				<istrue value="${yuniterr}"/>
+				<then>
+					<touch file="${otmmaddon.tests.failed.file}"/>
+					<echo message="File ${otmmaddon.tests.failed.file} created"/>
+				</then>
+			</if>
+			
+			<!--
+			<mkdir dir="${HYBRIS_LOG_DIR}/junit_result"/>
+			<copy  todir="${HYBRIS_LOG_DIR}/junit_result">
+				<fileset dir="${ext.otmmaddon.path}/doc/junit" includes="**/*"/>
+			</copy>
+			-->
+
+			<!-- you can do anything before the EAR file is being packed -->
+			
+		</sequential>
+	</macrodef>
+	
+
+</project>

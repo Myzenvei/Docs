@@ -1,0 +1,103 @@
+.vx-order-summary {
+  overflow: auto;
+  .order-summary {
+    background-color: @brand-secondary-8;
+    position: relative;
+  }
+  .section-divider {
+    border-bottom: 1px solid @border-color;
+  }
+  .sub-total {
+    font-weight: @font-weight-medium;
+  }
+  .cart-savings-label,
+  .cart-total-label,
+  .sub-total-label {
+    display: inline-block;
+  }
+  .cart-calculation {
+    font-size: @font-size-large;
+  }
+  .sub-total-value {
+    font-size: 24px;
+  }
+  .cart-savings-value,
+  .cart-total-value,
+  .sub-total-value {
+    float: right;
+    font-weight: @font-weight-medium;
+  }
+  .sub-total-helper-text {
+    font-size: @font-size-small;
+    color: @help-text-color;
+    padding-top: 12px;
+    font-weight: @font-weight-light;
+  }
+  .progress-bar {
+    width: 70%;
+  }
+  .shipping-progress-helper-text {
+    font-size: @font-size-medium;
+  }
+  .shipping-progress {
+    background-color: @brand-secondary-10;
+    height: 4px;
+  }
+  .progress-bar-success {
+    background-color: @brand-secondary-7;
+  }
+  .promotion-section {
+    padding-bottom: 32px;
+  }
+  .mobile-pull-up-arrow {
+    display: none;
+  }
+  .savings {
+    color: @product-tile-savings-color;
+  }
+  .order-helper-text {
+    color: @help-text-color;
+    font-size: @font-size-small;
+    font-weight: @font-weight-light;
+  }
+  .checkout-terms-cond {
+    color: @brand-secondary-5;
+  }
+  .promo-amount {
+    color: @help-text-color;
+    font-weight: @font-weight-light;
+    font-size: @font-size-medium;
+  }
+  a {
+    color: @product-tile-link-color;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  @media only screen and (max-width: @screen-sm-max) {
+    .order-summary {
+      height: auto;
+      float: right;
+    }
+    .order-summary-heading {
+      font-size: 20px;
+    }
+    .sub-total-value {
+      position: absolute;
+      right: 16px;
+    }
+    .mobile-pull-up-arrow {
+      display: block;
+      font-size: @font-icon-size-2;
+      color: @font-icon-color-3;
+      float: right;
+      cursor: pointer;
+    }
+  }
+  @media only screen and (max-width: @screen-xs-max) {
+    .order-summary {
+      height: auto;
+      width: 100%;
+      clear: both;
+    }
+  }
+}

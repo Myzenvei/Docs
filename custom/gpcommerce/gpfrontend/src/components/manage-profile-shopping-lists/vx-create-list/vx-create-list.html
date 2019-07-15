@@ -1,0 +1,18 @@
+<div class="vx-create-list-modal">
+  <form ref="createListModal" @submit.prevent="createAList">
+    <div class="mb-md-5 mb-xs-4 form-group">
+      <h5 class="pb-lg-3">{{i18n.createList.createListContent}}</h5>
+      <p>{{i18n.createList.createListLabel}}</p>
+      <input type="text" class="form-control" name="listName" v-model="listName" :maxlength="maxNameLength" :aria-label="i18n.createList.createListLabel"
+        @input="$event.target.value=$event.target.value.substr(0,50)" v-on:change="listName=$event.target.value"
+        v-validate="'required|max:50'" v-bind:class="{'input-error': errors.has('listName')}">
+      <div class="mt-xs-2">
+        <span class="error-msg" v-if="errors.first('listName')">{{ errors.first('listName') }}</span>
+        <span class="error-msg" v-if="inlineError">{{i18n.createList.existingListError}}</span>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center">
+      <button type="submit" :disabled="errors.any()" class="btn btn-primary modal-btn-primary-small">{{i18n.createList.save}}</button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,76 @@
+{
+  "permissions": [{
+      "active": true,
+      "b2BPermissionTypeData": {
+        "code": "B2BOrderThresholdPermission",
+        "name": "Allowed Order Threshold (per order)"
+      },
+      "code": "Rustic 20K USD ORDER",
+      "currency": {
+        "active": false,
+        "isocode": "USD",
+        "name": "US Dollar",
+        "symbol": "$"
+      },
+      "selected": false,
+      "unit": {
+        "name": "Rustic Services",
+        "uid": "Rustic Services",
+        "active": true,
+        "selectable": false,
+        "selected": false
+      },
+      "value": 20000
+    },
+    {
+      "active": true,
+      "b2BPermissionTypeData": {
+        "code": "B2BOrderThresholdTimespanPermission",
+        "name": "Allowed Order Threshold (per timespan)"
+      },
+      "code": "Rustic 25K USD MONTH",
+      "currency": {
+        "active": false,
+        "isocode": "USD",
+        "name": "US Dollar",
+        "symbol": "$"
+      },
+      "periodRange": "MONTH",
+      "selected": false,
+      "timeSpan": "MONTH",
+      "unit": {
+        "name": "Rustic Services",
+        "uid": "Rustic Services",
+        "active": true,
+        "selectable": false,
+        "selected": false
+      },
+      "value": 25000
+    },
+    {
+      "active": true,
+      "b2BPermissionTypeData": {
+        "code": "B2BOrderThresholdTimespanPermission",
+        "name": "Allowed Order Threshold (per timespan)"
+      },
+      "code": "Rustic Unlimited Timespan",
+      "currency": {
+        "active": false,
+        "isocode": "USD",
+        "name": "US Dollar",
+        "symbol": "$"
+      },
+      "periodRange": "MONTH",
+      "selected": false,
+      "timeSpan": "MONTH",
+      "unit": {
+        "name": "Rustic Services",
+        "uid": "Rustic Services",
+        "active": true,
+        "selectable": false,
+        "selected": false
+      },
+      "value": 999999999
+    }
+  ]
+}

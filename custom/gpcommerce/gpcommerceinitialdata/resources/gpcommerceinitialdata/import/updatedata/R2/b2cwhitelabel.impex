@@ -1,0 +1,654 @@
+##################################site-responsive.impex####################################
+
+$siteUid=b2cwhitelabel
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+$jarResource=$config-jarResource
+
+INSERT_UPDATE CatalogUnawareMedia;&siteMapMediaId;code[unique=true];realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];mime[default='text/plain']
+;$siteUid-siteMapMedia;$siteUid-siteMapMedia;siteMapTemplate.vm;$jarResource/site-siteMapTemplate.vm;
+
+INSERT_UPDATE RendererTemplate;&siteMapRenderer;code[unique=true];content(&siteMapMediaId);contextClass;rendererType(code)[default='velocity'];
+;$siteUid-siteMapTemplate;$siteUid-siteMapTemplate;$siteUid-siteMapMedia;com.gp.commerce.core.sitemap.renderer.GPSiteMapContext;
+
+
+##########################################    cms-content.impex      ##################################################
+$contentCatalog=b2cwhitelabelContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+
+# Import modulegen config properties into impex macros
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+$jarResourceCms=$config-jarResourceCmsValue
+
+INSERT_UPDATE ContentPage ; $contentCV[unique=true] ; uid[unique=true] ; name     ; title; masterTemplate(uid,$contentCV) ; label   ; defaultPage[default='true'] ; approvalStatus(code)[default='approved'] ; homepage[default='false']
+						  ;                         ; gpSupportTicketpage         ; GpSupportTicketpage ; GpSupportTicketpage; LandingPage2Template           ; gpSupportTicketpage	
+						  ;							; gpHomePage				  ; view site page-gp2	; B2CWhitelabel    ; LandingPage2Template			  ;/
+
+#Setting searchable true for cms content pages
+INSERT_UPDATE ContentPage ; $contentCV[unique=true] ; uid[unique=true]   ; title 			; isSearchable[default=true]         
+                          ;                         ; aboutUs            ; About Us;
+                          ;                         ; contactUsForm      ; Contact Us;          
+                          ;                         ; faq                ; Frequently Asked Questions Page;              
+                          ;                         ; gpHomePage         ; Welcome to the store;         
+                          ;                         ; termsAndConditions ; Site terms of Use;   	
+						  
+##########################################    cms-responsive-content.impex      ##################################################
+$contentCatalog=b2cwhitelabelContentCatalog 
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged] 
+ 
+$productCatalog=gpUSProductCatalog 
+$productCatalogName=GP B2C Product Catalog 
+$productCV=catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged] 
+$picture=media(code, $contentCV) ;
+$siteResource=jar:com.gp.commerce.initialdata.constants.GpcommerceInitialDataConstants&/gpcommerceinitialdata/import/sampledata/contentCatalogs/$contentCatalog
+$jarResourceCms=jar:com.gp.commerce.initialdata.constants.GpcommerceInitialDataConstants&/gpcommerceinitialdata/import/sampledata/cockpits/cmscockpit
+$picture=media(code, $contentCV)
+$medias=medias(code, $contentCV);
+$mediaContainer=media(qualifier, $contentCV)
+
+
+# Language
+$lang=en
+
+# Load the storefront context root config param
+$storefrontContextRoot=$config-storefrontContextRoot
+
+INSERT_UPDATE ContentSlot ; $contentCV[unique=true] ; uid[unique=true]               ; name                       ; active ; cmsComponents(&componentRef)     ;  ;  ;  
+
+						  ;						    ;GPSupportTicketSlot-units       ;GP Support Ticket slot      ;true    ; gpSupportTicketJspIncludeComponent;;;
+						  ;						    ;Section1Slot-gpSupportTicketpage;Section1Slot GP Units slot  ;true    ; GPNavigationComponent
+
+
+INSERT_UPDATE JspIncludeComponent ; $contentCV[unique=true] ; uid[unique=true]                 ; name                ; page              ; actions(uid,$contentCV) ; &componentRef                   
+								  ;							;gpSupportTicketJspIncludeComponent;GP Support Ticket Page;GPSupportTicket.jsp;						   ;gpSupportTicketJspIncludeComponent
+## Left slot: GP NavigationComponent
+INSERT_UPDATE GPNavigationComponent ; $contentCV[unique=true] ; uid[unique=true]      ; &componentRef         ; navigationNode(&nodeRef);
+                                    ;                         ; GPNavigationComponent ; GPNavigationComponent ; GPNavigationNavNode     ;  
+###### LEFT NAV CHANGES
+INSERT_UPDATE CMSNavigationNode;$contentCV[unique=true];uid[unique=true];title[lang=$lang];name;parent(uid, $contentCV);
+;;GPHeaderNavigationNode;Main Header Nav Node;Main Header Nav Node;SiteRootNode;
+
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);children(uid,$contentCV)[mode=append];links(uid, $contentCV);&nodeRef;
+;SiteRootNode;;SiteRootNode;root;;;SiteRootNode;
+
+INSERT_UPDATE CMSNavigationNode ; uid[unique=true]    ; $contentCV[unique=true] ; name             ; parent(uid, $contentCV) ; links(&linkRef) ; &nodeRef           
+                                ; GPNavigationNavNode ;                         ; Navigation Pages ; GPHeaderNavigationNode  ;                 ; GPNavigationNavNode
+
+########## Live Chat Starts ###########
+INSERT_UPDATE PageTemplate;$contentCV[unique=true];uid[unique=true];name;frontendTemplateName;restrictedPageTypes(code);active[default=true]
+;;SupportTicketPageTemplate;Support Ticket Page Template;supportTicket/GPSupportTicketPage;ContentPage
+
+INSERT_UPDATE ContentSlot ; $contentCV[unique=true] ; uid[unique=true]               ; name                       ; active ; cmsComponents(&componentRef)     ;  ;  ;  
+						  ;						    ;Section1Slot-gpSupportTicketpage;Section1Slot GP Units slot  ;true    ; GPNavigationComponent
+
+INSERT_UPDATE ContentSlotForPage ; $contentCV[unique=true] ; uid[unique=true]					;position[unique=true];page(uid,$contentCV)[unique=true][default='gpSupportTicketpage'];contentSlot(uid,$contentCV)[unique=true];;;
+								 ;						   ;PageContentSlot-gpSupportTicketpage ;GPSupportTicketSlot  ;															       ;GPSupportTicketSlot-units;;;
+								 ;						   ;Section1-gpSupportTicketpage        ;Section1             ;																   ;Section1Slot-gpSupportTicketpage;;;
+
+INSERT_UPDATE CMSNavigationNode ; uid[unique=true]     ; $contentCV[unique=true] ; name          ; parent(uid, $contentCV) ; links(&linkRef) ; &nodeRef             ; parentPos
+                                ; GPYourAccountNavNode ;                         ; Account Pages ; GPNavigationNavNode     ;                 ; GPYourAccountNavNode ; 0        
+
+## Children of GP NavNode ##    
+INSERT_UPDATE CMSNavigationNode ; uid[unique=true]     ; $contentCV[unique=true] ; name                       ; parent(uid, $contentCV) ; links(&linkRef) ; &nodeRef             ; parentPos ; visible
+								;GPSupportTicketNavNode;					     ; Support Ticket Pages       ; GPYourAccountNavNode    ; 				  ;GPSupportTicketNavNode; 5         ; true
+
+# entries of the above navigation nodes
+INSERT_UPDATE CMSNavigationEntry ; uid[unique=true]          ; $contentCV[unique=true] ; name                                       ; navigationNode(&nodeRef) ; item(CMSLinkComponent.uid,CMSLinkComponent.$contentCV) ;  
+							     ;GPSupportTicketNavNodeEntry;						   ;Support Ticket Navigation Node Entry        ; GPSupportTicketNavNode   ; SupportTicketLink
+
+INSERT_UPDATE CMSLinkComponent ; $contentCV[unique=true] ; uid[unique=true] ;linkName[lang=$lang]; name                       ; url                       ; target(code)[default='sameWindow'] ;    
+							   ;					     ; SupportTicketLink;"Support Tickets"   ; Support Ticket Link 	   ; /my-account/supportTickets  ;
+
+##########################################    email-content.impex      ##################################################
+
+$contentCatalog=b2cwhitelabelContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$jarEmailResource=jar:com.gp.b2binitialdata.constants.Gpb2binitialdataConstants&/gpb2binitialdata/import/coredata/contentCatalogs/gpproContentCatalog/emails
+$wideContent=CMSImageComponent,BannerComponent,CMSLinkComponent
+$jarEmailResourceCms=jar:com.gp.commerce.initialdata.constants.GpcommerceInitialDataConstants&/gpcommerceinitialdata/import/coredata/contentCatalogs/b2cwhitelabelContentCatalog/emails
+
+# Import modulegen config properties into impex macros
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+$jarResourceCms=$config-jarResourceCmsValue                                                                
+$emailPackageName=$config-emailContextPackageName                                                          
+
+INSERT_UPDATE EmailPageTemplate ; $contentCV[unique=true] ; uid[unique=true]                            ; name                                              ; active ; frontendTemplateName                ; subject(code)                                            ; htmlTemplate(code)                                    ; restrictedPageTypes(code)
+
+                  ;                         ; ShareProductResourceEmailTemplate           ; Share Product Resource Email Template             ; true   ; shareProductResourceEmail           ; b2cwhitelabel_Email_Share_Product_Resource_Subject       ; b2cwhitelabel_Email_Share_Product_Resource_Body       ; EmailPage
+ 				  ;                         ;OrderIssuesNotifyEmailTemplate               ;Order Issues Notification EmailTemplate            ;true	 ;orderIssuesNotifyEmail			   ;b2bwhitelabel_Email_Share_Product_Resource_Subject		  ;b2bwhitelabel_Email_Order_Issues_Notify_Body			  ;EmailPage                
+                  
+
+UPDATE EmailPageTemplate ; $contentCV[unique=true] ; uid[unique=true]                            ; velocityTemplate[translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+	 ;						   ; ShareProductResourceEmailTemplate           ; $jarEmailResourceCms/structure-view/structure_shareProductResourceEmailTemplate.vm                        
+						 ;						   ;OrderIssuesNotifyEmailTemplate				 ;$jarEmailResource/structure-view/structure_shareOrderIssuesEmailTemplate.vm 
+ 	 
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='ShareProductResourceEmailTemplate'] ; validComponentTypes(code)
+                              ; SiteLogo          ;                                                                                    ;                          ; logo
+                              ; TopContent        ;                                                                                    ; $wideContent             ;     
+                              ; BottomContent     ;                                                                                    ; $wideContent             ;                                       
+ INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]                        	 	 	 	     ; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='ShareProductResourceEmailTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+                                     ;                         ; SiteLogo-ShareProductResourceEmailTemplate      		 	 ; SiteLogo              ;                                                                                        ; EmailSiteLogoSlot                        ; true          
+                                     ;                         ; TopContent-ShareProductResourceEmailTemplate   			 ; TopContent            ;                                                                                        ; EmailTopSlot                             ; true          
+                                     ;                         ; BottomContent-ShareProductResourceEmailTemplate			 ; BottomContent         ;                                                                                        ; EmailBottomSlot                          ; true          
+
+ INSERT_UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]                    ; name                                    ; masterTemplate(uid,$contentCV)              ; defaultPage ; approvalStatus(code)[default='approved'] ; fromEmail[lang=en]          ; fromName[lang=en]     
+        ;						  ; ShareProductResourceEmail			; Share Product Resource Email			  ; ShareProductResourceEmailTemplate			;true		  ;											 ; customerservices@hybris.com ;Customer Services Team						
+		 				;						  ;OrderIssuesNotifyEmail				;Order Issue Notification Email			  ;OrderIssuesNotifyEmailTemplate				;true		  ;											 ;customerservices@hybris.com  ;Customer Services Team						
+
+INSERT_UPDATE RendererTemplate;code[unique=true];contextClass;rendererType(code)[default='velocity']
+; b2cwhitelabel_Email_Order_Issues_Notify_Body;$emailPackageName.OrderIssuesNotificationContext                   
+; b2cwhitelabel_Email_Order_Issues_Notify_Subject;$emailPackageName.OrderIssuesNotificationContext  
+
+UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]                    ; previewImage(code, $contentCV)
+   ;						   ; ShareProductResourceEmail			 ; EmailPageModel_preview	  
+                 ;						   ;OrderIssuesNotifyEmail				 ;EmailPageModel_preview 
+
+
+##########################################    email-content_en.impex      ##################################################
+$contentCatalog=b2cwhitelabelContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$jarEmailResource=jar:com.gp.commerce.initialdata.constants.GpcommerceInitialDataConstants&/gpcommerceinitialdata/import/coredata/contentCatalogs/b2cwhitelabelContentCatalog/emails
+
+# Import config properties into impex macros for modulegen
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+$emailResource=$config-emailResourceValue                                                                  
+
+# Language                                                                                                 
+$lang=en                                                                                                   
+
+UPDATE RendererTemplate ; code[unique=true]                                        ; description[lang=$lang]                            ; templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+
+				       ; b2cwhitelabel_Email_Share_Product_Resource_Subject	   ; "Share Product Resource Email Subject"				;$jarEmailResource/email-shareProductResourceSubject.vm
+ 						; b2cwhitelabel_Email_Share_Product_Resource_Body		   ; "Share Product Resource Email Body"				;$jarEmailResource/email-shareProductResourceBody.vm	
+						;b2cwhitelabel_Email_Order_Issues_Notify_Body			   ; "Order Issues Notification BOdy"				    ; $jarEmailResource/email-orderIssuesNotificationBody.vm	
+						;b2cwhitelabel_Email_Order_Issues_Notify_Subject		   ; "Order Issues Notification BOdy"   				; $jarEmailResource/email-orderIssuesNotificationSubject.vm	
+				
+		
+UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]             ; fromEmail[lang=$lang]         ; fromName[lang=$lang]    
+                 ;                         ; UpdateProfileEmail    		  ; "customerservices@gp.com" ; "Customer Services Team"
+                 ;						   ; ChangeUIDEmail				  ; "customerservices@gp.com" ; "Customer Services Team"
+                 ;						   ; OrderRejectEmail			  ; "customerservices@gp.com" ; "Customer Services Team"
+                 ;						   ; ShareProductResourceEmail	  ; "customerservices@gp.com" ; "Customer Services Team"  
+                 ;						   ;OrderIssuesNotifyEmail		  ;"customerservices@b2bwhitelabel.com";"Customer Services Team"        
+
+          
+##########################################    site-responsive.impex      ##################################################
+$productCatalog=gpUSProductCatalog
+$contentCatalog=b2cwhitelabelContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$defaultLanguage=en
+$storeUid=b2cwhitelabel
+$siteUid=b2cwhitelabel
+$domainId=www.srv.gapac.com
+$webServiceSiteUid=$siteUidWS
+$siteMapUrlLimitPerFile=50000
+$storefrontContextRoot=/gpcommercestorefront
+$siteMapLangCur=enUsd
+$siteMapPage=Homepage,Product,CategoryLanding,Category,Store,Content,Custom
+$customSiteMapUrls=/Categories/c/categories?q=:relevance:allPromotions:BOGOFApparel:allPromotions:10DiscountShoes:allPromotions:MultiBuyApparel:allPromotions:PerfectPartnerApparel:allPromotions:ProductBundleApparel,/Categories/Streetwear-youth/T-Shirts-youth/c/270100?q=%3Arelevance%3Abrand%3ABurton%3AswatchColors%3ABLACK&text=#,/Categories/Accessories/c/220000?q=%3Arelevance%3Abrand%3AQuiksilver%3AswatchColors%3AGREEN&text=#,/Brands/Fox/c/Fox?q=%3Arelevance%3AswatchColors%3ABLACK%3Agender%3AMALE,/Categories/Snowwear-women/Snow-Jackets-women/c/200100?q=%3Arelevance%3AswatchColors%3ABLACK%3Abrand%3AWLD
+
+UPDATE CMSSite;uid[unique=true];topicOfInquiry
+;$siteUid;"gp_bvId->b2c_whitelabel_test;showSocialLogin->true;isBazaarVoiceEnabled->true;gp.site.references->SIMILAR,CROSSELLING;showPaypal->true;showDownload->true;bv_feed_file_name->bv_angelsoft_ratings;isRelatedEnabled->true;isContentIndexingEnabled->true;solr.core->master_b2cwhitelabel_ContentPage_default;isDownloadable->false;isExcelDownloadable->false;isSharable->true;isBulkEnabled->true;isDOBEnabled->false;isGenderEnabled->false"
+
+
+UPDATE CMSSite;uid[unique=true];topicOfInquiry
+;$siteUid;"1->How to Purchase (US, Canada, Mexico);2->How to Purchase (All Other Countries);3->Product Information;4->Product Concern;5->New Product Idea;6->Web Site Support;7->Become a Supplier;8->Other"
+ 
+ ######################################################## GPATTRIBUTECONFIG START###############################################
+ 
+ $siteUid=b2cwhitelabel
+
+INSERT_UPDATE GPAttributeConfig;cmsSite(uid)[unique=true][default=$siteUid];assetCode[unique=true];name[unique=true];classificationCode[unique=true];detailEnabled[default=true];compareEnabled[default=true];searchEnabled[default=true]
+;;311;Brand;11001;;;
+;;311;MFG #;11002;;;
+;;311;Each per Ship Unit;11005;;;
+;;311;Items Per Each;11006;;;
+;;311;Case Gross Weight;21001;;;
+;;311;Case Net Weight;21002;;;
+;;311;Case Dimensions LxWxH;21003;;;
+;;311;Each Gross Weight;31000;;;
+;;311;Each Net Wgt;31001;;;
+;;311;Each Dimensions;31002;;;
+
+;;312;Brand;11001;;;
+;;312;MFG #;11002;;;
+;;312;Each per Ship Unit;11005;;;
+;;312;Items Per Each;11006;;;
+;;312;Case Gross Weight;21001;;;
+;;312;Case Net Weight;21002;;;
+;;312;Case Dimensions LxWxH;21003;;;
+;;312;Each Gross Weight;31000;;;
+;;312;Each Net Wgt;31001;;;
+;;312;Each Dimensions;31002;;;
+
+;;313;Brand;11001;;;
+;;313;MFG #;11002;;;
+;;313;Each per Ship Unit;11005;;;
+;;313;Items Per Each;11006;;;
+;;313;Case Gross Weight;21001;;;
+;;313;Case Net Weight;21002;;;
+;;313;Case Dimensions LxWxH;21003;;;
+;;313;Each Gross Weight;31000;;;
+;;313;Each Net Wgt;31001;;;
+;;313;Each Dimensions;31002;;;
+
+
+;;314;Brand;11001;;;
+;;314;MFG #;11002;;;
+;;314;Each per Ship Unit;11005;;;
+;;314;Items Per Each;11006;;;
+;;314;Case Gross Weight;21001;;;
+;;314;Case Net Weight;21002;;;
+;;314;Case Dimensions LxWxH;21003;;;
+;;314;Each Gross Weight;31000;;;
+;;314;Each Net Wgt;31001;;;
+;;314;Each Dimensions;31002;;;
+
+;;315;Brand;11001;;;
+;;315;MFG #;11002;;;
+;;315;Each per Ship Unit;11005;;;
+;;315;Items Per Each;11006;;;
+;;315;Case Gross Weight;21001;;;
+;;315;Case Net Weight;21002;;;
+;;315;Case Dimensions LxWxH;21003;;;
+;;315;Each Gross Weight;31000;;;
+;;315;Each Net Wgt;31001;;;
+;;315;Each Dimensions;31002;;;
+
+;;316;Brand;11001;;;
+;;316;MFG #;11002;;;
+;;316;Each per Ship Unit;11005;;;
+;;316;Items Per Each;11006;;;
+;;316;Case Gross Weight;21001;;;
+;;316;Case Net Weight;21002;;;
+;;316;Case Dimensions LxWxH;21003;;;
+;;316;Each Gross Weight;31000;;;
+;;316;Each Net Wgt;31001;;;
+;;316;Each Dimensions;31002;;;
+
+;;317;Brand;11001;;;
+;;317;MFG #;11002;;;
+;;317;Each per Ship Unit;11005;;;
+;;317;Items Per Each;11006;;;
+;;317;Case Gross Weight;21001;;;
+;;317;Case Net Weight;21002;;;
+;;317;Case Dimensions LxWxH;21003;;;
+;;317;Each Gross Weight;31000;;;
+;;317;Each Net Wgt;31001;;;
+;;317;Each Dimensions;31002;;;
+
+;;318;Brand;11001;;;
+;;318;MFG #;11002;;;
+;;318;Each per Ship Unit;11005;;;
+;;318;Items Per Each;11006;;;
+;;318;Case Gross Weight;21001;;;
+;;318;Case Net Weight;21002;;;
+;;318;Case Dimensions LxWxH;21003;;;
+;;318;Each Gross Weight;31000;;;
+;;318;Each Net Wgt;31001;;;
+;;318;Each Dimensions;31002;;;
+
+;;319;Brand;11001;;;
+;;319;MFG #;11002;;;
+;;319;Each per Ship Unit;11005;;;
+;;319;Items Per Each;11006;;;
+;;319;Case Gross Weight;21001;;;
+;;319;Case Net Weight;21002;;;
+;;319;Case Dimensions LxWxH;21003;;;
+;;319;Each Gross Weight;31000;;;
+;;319;Each Net Wgt;31001;;;
+;;319;Each Dimensions LxWxH;31002;;;
+;;319;Each Volume;31003;;;
+;;319;Case Volume;21004;;;
+
+;;320;Brand;11001;;;
+;;320;MFG #;11002;;;
+;;320;Each per Ship Unit;11005;;;
+;;320;Items Per Each;11006;;;
+;;320;Case Gross Weight;21001;;;
+;;320;Case Net Weight;21002;;;
+;;320;Case Dimensions LxWxH;21003;;;
+;;320;Each Gross Weight;31000;;;
+;;320;Each Net Wgt;31001;;;
+;;320;Each Dimensions LxWxH;31002;;;
+;;320;Each Volume;31003;;;
+;;320;Case Volume;21004;;;
+
+;;321;Brand;11001;;;
+;;321;MFG #;11002;;;
+;;321;Each per Ship Unit;11005;;;
+;;321;Items Per Each;11006;;;
+;;321;Case Gross Weight;21001;;;
+;;321;Case Net Weight;21002;;;
+;;321;Case Dimensions LxWxH;21003;;;
+;;321;Each Gross Weight;31000;;;
+;;321;Each Net Wgt;31001;;;
+;;321;Each Dimensions LxWxH;31002;;;
+;;321;Each Volume;31003;;;
+;;321;Case Volume;21004;;;
+
+;;bundles;Brand;11001;;;
+;;bundles;MFG #;11002;;;
+;;bundles;Each per Ship Unit;11005;;;
+;;bundles;Items Per Each;11006;;;
+;;bundles;Case Gross Weight;21001;;;
+;;bundles;Case Net Weight;21002;;;
+;;bundles;Case Dimensions LxWxH;21003;;;
+;;bundles;Each Gross Weight;31000;;;
+;;bundles;Each Net Wgt;31001;;;
+;;bundles;Each Dimensions LxWxH;31002;;;
+;;bundles;Each Volume;31003;;;
+;;bundles;Case Volume;21004;;;
+ 
+ ######################################################## GPATTRIBUTECONFIG END###############################################
+ 
+ ################################################# B2C Header as per GPEMPLOYEE Product Catalog ##########################################
+ 
+$contentCatalog=b2cwhitelabelContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+ 
+$productCatalog=gpUSProductCatalog
+$productCatalogName=GP B2C Product Catalog
+$productCV=catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$picture=media(code, $contentCV) ;
+$siteResource=jar:com.gp.commerce.initialdata.constants.GpcommerceInitialDataConstants&/gpcommerceinitialdata/import/sampledata/contentCatalogs/$contentCatalog
+$jarResourceCms=jar:com.gp.commerce.initialdata.constants.GpcommerceInitialDataConstants&/gpcommerceinitialdata/import/sampledata/cockpits/cmscockpit
+$picture=media(code, $contentCV)
+$medias=medias(code, $contentCV);
+$mediaContainer=media(qualifier, $contentCV)
+ 
+ 
+# Language
+$lang=en
+ 
+ 
+INSERT_UPDATE CMSNavigationNode;$contentCV[unique=true];uid[unique=true];title[lang=$lang];name;parent(uid, $contentCV);
+;;PaperProductsNavNode;Paper Products;Paper Products;GPCategoryNavigationNode;
+;;PaperProductOverviewNavNode;Paper Products Overview;Paper Products Overview;PaperProductsNavNode;
+;;ToiletPaperNavNode;Toilet Paper;Toilet Paper;PaperProductOverviewNavNode;
+;;PaperTowelNavNode;Paper Towel;Paper Towel;PaperProductOverviewNavNode;
+;;PlatesNavNode;Plates;Plates;PaperProductOverviewNavNode;
+;;BowelsNavNode;Bowls;Bowls;PaperProductOverviewNavNode;
+;;CupsNavNode;Cups;Cups;PaperProductOverviewNavNode;
+;;NapkinsNavNode;Napkins;Napkins;PaperProductOverviewNavNode;
+;;DispensersNavNode;Dispensers;Dispensers;GPCategoryNavigationNode;
+;;DispensersOverviewNavNode;Dispensers Overview;Dispensers Overview;DispensersNavNode;
+;;UnderCounterNavNode;Undercabinet;Undercabinet;DispensersOverviewNavNode;
+;;CounterTopNavNode;Countertop;Countertop;DispensersOverviewNavNode;
+ 
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];linkName[lang=$lang];url;styleAttributes;target(code)[default='sameWindow'];external[default=false];socialLink[default=false];markAsViewAll[default=false]
+;;PaperProductsNavLink;Paper Products;/category/paperproducts;;;;
+;;ToiletPaperNavLink;Toilet Paper;/category/311;;;;
+;;PaperTowelNavLink;Paper Towel;/category/316;;;;
+;;PlatesNavLink;Plates;/category/314;;;;
+;;BowelsNavLink;Bowls;/category/313;;;;
+;;CupsNavLink;Cups;/category/315;;;;
+;;NapkinsNavLink;Napkins;/category/312;;;;
+;;DispensersNavLink;Dispensers;/category/dispensers;;;;
+;;UnderCounterNavLink;Undercabinet;/category/317;;;;
+;;CounterTopNavLink;Counter Top;/category/318;;;;
+;;CounterTopNavLink;Countertop;/category/318;;;;
+ 
+INSERT_UPDATE CMSNavigationEntry;$contentCV[unique=true];uid[unique=true];name;navigationNode(uid,$contentCV);item(CMSLinkComponent.uid,CMSLinkComponent.$contentCV);
+;;PaperProductsNavNodeEntry;Paper Products Nav Node Entry;PaperProductsNavNode;PaperProductsNavLink;
+;;ToiletPaperNavNodeEntry;Toilet Paper Nav Node Entry;ToiletPaperNavNode;ToiletPaperNavLink;
+;;PaperTowelNavNodeEntry;Paper Towel Nav Node Entry;PaperTowelNavNode;PaperTowelNavLink;
+;;PlatesNavNodeEntry;Plates Nav Node Entry;PlatesNavNode;PlatesNavLink;
+;;BowelsNavNodeEntry;Bowls Nav Node Entry;BowelsNavNode;BowelsNavLink;
+;;CupsNavNodeEntry;Cups Nav Node Entry;CupsNavNode;CupsNavLink;
+;;NapkinsNavNodeEntry;Napkins Nav Node Entry;NapkinsNavNode;NapkinsNavLink;
+;;DispensersNavNodeEntry;Dispensers Nav Node Entry;DispensersNavNode;DispensersNavLink;
+;;UnderCounterNavNodeEntry;Undercabinet Nav Node Entry;UnderCounterNavNode;UnderCounterNavLink;
+;;CounterTopNavNodeEntry;Countertop Nav Node Entry;CounterTopNavNode;CounterTopNavLink;
+ 
+ ################################################# B2C Header as per GPEMPLOYEE Product Catalog ##########################################
+ 
+ 
+ 
+################################################# REMOVE SCRIPT for B2B Header from B2C START STAGED Version (NOT REQUIRED FOR PRODUCTION)#################################################
+$contentCatalog=b2cwhitelabelContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+ 
+$productCatalog=gpUSProductCatalog
+$productCatalogName=GP B2C Product Catalog
+$productCV=catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$picture=media(code, $contentCV) ;
+$siteResource=jar:com.gp.commerce.initialdata.constants.GpcommerceInitialDataConstants&/gpcommerceinitialdata/import/sampledata/contentCatalogs/$contentCatalog
+$jarResourceCms=jar:com.gp.commerce.initialdata.constants.GpcommerceInitialDataConstants&/gpcommerceinitialdata/import/sampledata/cockpits/cmscockpit
+$picture=media(code, $contentCV)
+$medias=medias(code, $contentCV);
+$mediaContainer=media(qualifier, $contentCV)
+ 
+ 
+# Language
+$lang=en
+ 
+REMOVE CMSNavigationNode;$contentCV[unique=true];uid[unique=true];title[lang=$lang];name;parent(uid, $contentCV);
+;;ProductsNavNode;Products;Products;GPCategoryNavigationNode;
+;;ProductOverviewNavNode;Product Overview;Product Overview;ProductsNavNode;
+;;AirCareNode;Air Care;Air Care;ProductOverviewNavNode;
+;;CleaningAndWipesNode;Cleaning Wipes & Towels;Cleaning Wipes & Towels;ProductOverviewNavNode;
+;;CupsLidsNode;Cups, Lids & Straws;Cups, Lids & Straws;ProductOverviewNavNode;
+;;CutleryNode;Cutlery;Cutlery;ProductOverviewNavNode;
+;;FoodWrapNode;Food Wrap, Containers & Trays;Food Wrap, Containers & Trays;ProductOverviewNavNode;
+;;NapkinNode;Napkin;Napkin;ProductOverviewNavNode;
+;;PaperTowelsNode;Paper Towels;Paper Towels;ProductOverviewNavNode;
+;;PlatesAndBowlsNode;Plates & Bowls;Plates & Bowls;ProductOverviewNavNode;
+;;SanitizerNode;Hand Soap & Sanitizer;Hand Soap & Sanitizer;ProductOverviewNavNode;
+;;ToiletPaperNode;Toilet Paper;Toilet Paper;ProductOverviewNavNode;
+
+REMOVE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];linkName[lang=$lang];url;styleAttributes;target(code)[default='sameWindow'];external[default=false];socialLink[default=false];markAsViewAll[default=false]
+;;ProductsNavLink;Products Nav Link;/category/categories;;;;  
+;;AirCareLink;Air Care;/category/13627;;;;
+;;CleaningAndWipesLink;Cleaning Wipes & Towels;/category/12957;;;;
+;;CupsLidsLink;Cups, Lids & Straws;/category/10211;;;;
+;;CutleryLink;Cutlery;/category/9375;;;;
+;;FoodWrapLink;Food Wrap, Containers & Trays;/category/9687;;;; 
+;;NapkinLink;Napkin;/category/6250;;;; 
+;;PaperTowelsLink;Paper Towel;/category/10474;;;; 
+;;PlatesAndBowlsLink;Plates & Bowls;/category/9363;;;; 
+;;SanitizerLink;Hand Soap & Sanitizer;/category/6264;;;; 
+;;ToiletPaperLink;Toilet Paper;/category/6183;;;;
+
+REMOVE CMSNavigationEntry;$contentCV[unique=true];uid[unique=true];name;navigationNode(uid,$contentCV);item(CMSLinkComponent.uid,CMSLinkComponent.$contentCV);
+;;ProductNavNodeEntry;Product Nav Node Entry;ProductsNavNode;ProductsNavLink;
+;;AirCareNodeEntry;Air Care Node Entry;AirCareNode;AirCareLink;
+;;CleaningAndWipesNodeEntry;Cleaning Wipes & Towels Node Entry;CleaningAndWipesNode;CleaningAndWipesLink;
+;;CupsLidsNodeEntry;Cups, Lids & Straws Node Entry;CupsLidsNode;CupsLidsLink;
+;;CutleryNodeEntry;Cutlery Node Entry;CutleryNode;CutleryLink;
+;;FoodWrapNodeEntry;Food Wrap, Containers & Trays Node Entry;FoodWrapNode;FoodWrapLink;
+;;NapkinNodeEntry;Napkin Node Entry;NapkinNode;NapkinLink;
+;;PaperTowelsNodeEntry;Paper Towels Node Entry;PaperTowelsNode;PaperTowelsLink;
+;;PlatesAndBowlsNodeEntry;Plates & Bowls Node Entry;PlatesAndBowlsNode;PlatesAndBowlsLink;
+;;SanitizerNodeEntry;Hand Soap & Sanitizer Node Entry;SanitizerNode;SanitizerLink;
+;;ToiletPaperNodeEntry;Toilet Paper Node Entry;ToiletPaperNode;ToiletPaperLink;
+################################################# REMOVE SCRIPT for B2B Header from B2C END STAGED Version (NOT REQUIRED FOR PRODUCTION) #################################################
+
+
+################################################# REMOVE SCRIPT for B2B Header from B2C START ONLINE Version (NOT REQUIRED FOR PRODUCTION)#################################################
+$contentCatalog=b2cwhitelabelContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Online])[default=$contentCatalog:Online]
+ 
+$productCatalog=gpUSProductCatalog
+$productCatalogName=GP B2C Product Catalog
+$productCV=catalogVersion(catalog(id[default=$productCatalog]),version[default='Online'])[unique=true,default=$productCatalog:Online]
+$picture=media(code, $contentCV) ;
+$siteResource=jar:com.gp.commerce.initialdata.constants.GpcommerceInitialDataConstants&/gpcommerceinitialdata/import/sampledata/contentCatalogs/$contentCatalog
+$jarResourceCms=jar:com.gp.commerce.initialdata.constants.GpcommerceInitialDataConstants&/gpcommerceinitialdata/import/sampledata/cockpits/cmscockpit
+$picture=media(code, $contentCV)
+$medias=medias(code, $contentCV);
+$mediaContainer=media(qualifier, $contentCV)
+ 
+ 
+# Language
+$lang=en
+ 
+REMOVE CMSNavigationNode;$contentCV[unique=true];uid[unique=true];title[lang=$lang];name;parent(uid, $contentCV);
+;;ProductsNavNode;Products;Products;GPCategoryNavigationNode;
+;;ProductOverviewNavNode;Product Overview;Product Overview;ProductsNavNode;
+;;AirCareNode;Air Care;Air Care;ProductOverviewNavNode;
+;;CleaningAndWipesNode;Cleaning Wipes & Towels;Cleaning Wipes & Towels;ProductOverviewNavNode;
+;;CupsLidsNode;Cups, Lids & Straws;Cups, Lids & Straws;ProductOverviewNavNode;
+;;CutleryNode;Cutlery;Cutlery;ProductOverviewNavNode;
+;;FoodWrapNode;Food Wrap, Containers & Trays;Food Wrap, Containers & Trays;ProductOverviewNavNode;
+;;NapkinNode;Napkin;Napkin;ProductOverviewNavNode;
+;;PaperTowelsNode;Paper Towels;Paper Towels;ProductOverviewNavNode;
+;;PlatesAndBowlsNode;Plates & Bowls;Plates & Bowls;ProductOverviewNavNode;
+;;SanitizerNode;Hand Soap & Sanitizer;Hand Soap & Sanitizer;ProductOverviewNavNode;
+;;ToiletPaperNode;Toilet Paper;Toilet Paper;ProductOverviewNavNode;
+
+REMOVE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];linkName[lang=$lang];url;styleAttributes;target(code)[default='sameWindow'];external[default=false];socialLink[default=false];markAsViewAll[default=false]
+;;ProductsNavLink;Products Nav Link;/category/categories;;;;  
+;;AirCareLink;Air Care;/category/13627;;;;
+;;CleaningAndWipesLink;Cleaning Wipes & Towels;/category/12957;;;;
+;;CupsLidsLink;Cups, Lids & Straws;/category/10211;;;;
+;;CutleryLink;Cutlery;/category/9375;;;;
+;;FoodWrapLink;Food Wrap, Containers & Trays;/category/9687;;;; 
+;;NapkinLink;Napkin;/category/6250;;;; 
+;;PaperTowelsLink;Paper Towel;/category/10474;;;; 
+;;PlatesAndBowlsLink;Plates & Bowls;/category/9363;;;; 
+;;SanitizerLink;Hand Soap & Sanitizer;/category/6264;;;; 
+;;ToiletPaperLink;Toilet Paper;/category/6183;;;;
+
+REMOVE CMSNavigationEntry;$contentCV[unique=true];uid[unique=true];name;navigationNode(uid,$contentCV);item(CMSLinkComponent.uid,CMSLinkComponent.$contentCV);
+;;ProductNavNodeEntry;Product Nav Node Entry;ProductsNavNode;ProductsNavLink;
+;;AirCareNodeEntry;Air Care Node Entry;AirCareNode;AirCareLink;
+;;CleaningAndWipesNodeEntry;Cleaning Wipes & Towels Node Entry;CleaningAndWipesNode;CleaningAndWipesLink;
+;;CupsLidsNodeEntry;Cups, Lids & Straws Node Entry;CupsLidsNode;CupsLidsLink;
+;;CutleryNodeEntry;Cutlery Node Entry;CutleryNode;CutleryLink;
+;;FoodWrapNodeEntry;Food Wrap, Containers & Trays Node Entry;FoodWrapNode;FoodWrapLink;
+;;NapkinNodeEntry;Napkin Node Entry;NapkinNode;NapkinLink;
+;;PaperTowelsNodeEntry;Paper Towels Node Entry;PaperTowelsNode;PaperTowelsLink;
+;;PlatesAndBowlsNodeEntry;Plates & Bowls Node Entry;PlatesAndBowlsNode;PlatesAndBowlsLink;
+;;SanitizerNodeEntry;Hand Soap & Sanitizer Node Entry;SanitizerNode;SanitizerLink;
+;;ToiletPaperNodeEntry;Toilet Paper Node Entry;ToiletPaperNode;ToiletPaperLink;
+################################################# REMOVE SCRIPT for B2B Header from B2C END ONLINE Version (NOT REQUIRED FOR PRODUCTION) #################################################
+
+INSERT_UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;content[translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator][lang=$lang];
+;;gpYformParagraphComponent;GP Yform Paragraph Component;gpYformParagraphComponent;$siteResource/content/b2c-yform.htm
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(uid, $contentCV)
+;;Section6-gpHomePage;gpBannerComponent,gpMarketingSidebySideComponent,gpYformParagraphComponent
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='gpHomePage'];contentSlot(uid,$contentCV)[unique=true]
+;;gpMarketingSidebySideslots-Section5;Section5;;Section6-gpHomePage
+
+################################################# Adding brand store slot #################################################
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;BrandsHolderSlot-findstore;Our Brands Slot for find a store;true;gpBrandBarComponentFindStore;;;
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='storeLocator'];contentSlot(uid,$contentCV)[unique=true];;;
+;;BrandsHolderSlot-findstore;BrandsHolderSlot;;BrandsHolderSlot-findstore;;;
+
+INSERT_UPDATE GPBrandBarComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;headline;urlLink;images(&componentRef);backgroundColor
+;;gpBrandBarComponentFindStore;gpBrandBarComponentFindStore;gpBrandBarComponentFindStore;Brand Bar for Find Store;CLick here;gpImageLink1,gpImageLink2,gpImageLink3,gpImageLink4,gpImageLink5;#008000
+################################################# Adding brand store slot #################################################
+
+UPDATE CMSSite;uid[unique=true];topicOfInquiry
+;b2cwhitelabel;"How to Purchase (US, Canada, Mexico)->How to Purchase (US, Canada, Mexico);How to Purchase (All Other Countries)->How to Purchase (All Other Countries);Product Information->Product Information;Product Concern->Product Concern;New Product Idea->New Product Idea;Web Site Support->Web Site Support;Become a Supplier->Become a Supplier;Other->Other"
+
+
+################################################# Adding content search new fields #################################################
+
+$solrIndexedContentType=b2cwhitelabelContentType
+$contentCatalog=b2cwhitelabelContentCatalog
+$facetContentSearchConfigName=b2cwhitelabelContentIndex
+
+INSERT_UPDATE SolrIndexedProperty ; solrIndexedType(identifier)[unique=true] ; name[unique=true] ; type(code) ; sortableType(code) ; currency[default=false] ; localized[default=false] ; multiValue[default=false] ; useForSpellchecking[default=false] ; useForAutocomplete[default=false] ; fieldValueProvider             ; valueProviderParameter ; ftsPhraseQuery[default=false] ; ftsPhraseQueryBoost ; ftsQuery[default=false] ; ftsQueryBoost ; ftsFuzzyQuery[default=false] ; ftsFuzzyQueryBoost ; ftsWildcardQuery[default=false] ; ftsWildcardQueryType(code)[default=POSTFIX] ; ftsWildcardQueryBoost ; ftsWildcardQueryMinTermLength
+								  ; $solrIndexedContentType                  ; pageTitle         ; string     ;                    ;                         ; true                     ;                           ;                                    ;                                   ; gpPageTitleValueProvider       ;                        ;                               ;                     ;                         ;               ;                              ;                    ;                                 ;                                             ;                       ;
+
+
+REMOVE SolrSortField ; sort(indexedType(identifier),code)[unique=true] ; fieldName[unique=true] ; ascending[unique=true]
+                            ; $solrIndexedContentType:aTOz                    ; title                  ; true                  
+								  
+INSERT_UPDATE SolrSortField ; sort(indexedType(identifier),code)[unique=true] ; fieldName[unique=true] ; ascending[unique=true]
+                            ; $solrIndexedContentType:aTOz                    ; pageTitle              ; true                  
+
+################################################# Adding content search new fields #################################################
+								  
+# CMS Footer Component Start
+UPDATE FooterNavigationComponent;$contentCV[unique=true];uid[unique=true];notice[lang=en]
+;;FooterNavigationComponent;"| Georgia-Pacific"
+# CMS Footer Component END
+
+UPDATE CMSSite;uid[unique=true];pdfCoverImages
+;b2cwhitelabel;"foodServices->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=a26f9ea66eb6721f01e66d157025798d2e0975a5&prid=2000Wx2000H&clid=SAPDAM;perfecTouchCups->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=4af53349404643eccb47045b6beef27f5fd4e486&prid=2000Wx2000H&clid=SAPDAM;washRoomWiper->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=400e8781d778a24559e390d8df821ee622ea0cfc&prid=2000Wx2000H&clid=SAPDAM;sustainability->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=d19c0c4534c64255ea234ab8eba59e20b35a5b37"
+
+UPDATE CMSSite;uid[unique=true];gpCertificationsImages
+;b2cwhitelabel;"BIO_PREFERRED->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=ac630b27d38c7f2613481620c5a5c3e0f284ca8d;BPI->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=205f8d0e8198d8c23fbbd5d7dfb6f75ad11a3cd6;PROCESS_CHLORINE_FREE->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=a03d6e263528b4a0a754729241ba84b62609e04d;CUSTOMIZABLE->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=7fb664c9ec1ca6c7938c006e6bdef37552946f59;DFE->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=5e9c9ac5d3167e09142e3ab6f6aeb95fe5abf14b;ECC->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=22aa8120f31aa31f8ffa4a54e9531a1e3d1b329c;ECO_LOGO->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=e5704d8139de7df1126fbeeafe5c78e8c3176f66;EPA->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=c77a9221ffa4883f4af20417785523fa1d22427a;FSC->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=0c3b1f151f64d8d158d4fcec831f5aff74d7c693;GREEN_SEAL->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=7ee67f989cc2f817bff7db22f71fd70ff604c5c8;HOW_2_RECYCLE->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=8ed5629c1239efd3e53caf1afcf50916b1f4083e;SFI->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=2796d15c7a2a2a7415fb6efe443d75e40a05a268;USGBC_LEED->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=9c495494e8a1abbdda61aad1cd7bab0c15be35f2;WASTE_REDUCING->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=82d42115127b5c2999d859409b4d98ab3b974f82;WHC->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=4833a8d19367477fec60ddf47716b7a2d85dd9a0;PEFC->https://d1q11op77por1a.cloudfront.net/adaptivemedia/rendition?id=7182745006b73b0ccfb8b93e75c80b31db7bbbc8"
+
+UPDATE CMSSite;uid[unique=true];siteConfig
+;b2cwhitelabel;"addToAffilatedMarketComm.us.b2c->true;addToMarket.us.b2c->true;addToAffilatedMarketComm.ca.b2c->false;addToMarket.ca.b2c->false;addToAffilatedMarketComm.other.b2c->false;addToMarket.other.b2c->false;default.max.product.quantity->100;root.category->categories;gp_mpQues->How frequently would you like to hear from us?;socialaggrstartdate.b2c-> ;socialaggrenddate.b2c-> ;socialaggrfeedId.b2c->travel-08efe5d2-63c3-4b99-bc32-c97c29024269;socialaggrdataPer.b2c-> ;socialaggrpages.b2c-> 2;socialaggrtruncate.b2c-> ;socialaggrgutter.b2c->20 ;socialaggrcolumns.b2c->4;socialaggrinterval.b2c-> ;socialaggrfilter.b2c-> ;socialaggrstyle.b2c->widget ;socialaggroverlay.b2c-> ;isSocialEnabled->true;isSocialShareforFBEnabled->true;isSocialShareForTwitterEnabled->true;isSocialShareForLinkedInEnabled->false;isSocialShareForPinterestEnabled->true;isFavoritesEnabled->false;GTMID->GTM-TRVPTX7;google.maps.api.key->AIzaSyDk2KFvE5UgpLcYM4nVlOLSRDWqPMB1bNI;termAndCondPageLabel->/termsAndConditions;showCompanyLinks->false;showTaxExemption->false;showLiveChat->true;contactNumber->800-975-9462;gp_bvId->b2c_whitelabel_test;showSocialLogin->true;isBazaarVoiceEnabled->true;gp.site.references->SIMILAR,CROSSELLING;showPaypal->true;showDownload->false;bv_feed_file_name->bv_angelsoft_ratings;isRelatedEnabled->true;isContentIndexingEnabled->true;solr.core->master_b2cwhitelabel_ContentPage_default;isDownloadable->false;isExcelDownloadable->false;isSharable->true;isBulkEnabled->false;isDOBEnabled->false;isGenderEnabled->false;live.agent.endpoint->https://d.la1-c2cs-iad.salesforceliveagent.com/chat;live.agent.org.id->572g00000008OeG;live.agent.deployment.id->00Dg0000001qUes;live.agent.button.id->573g00000008PB7;livechatDeployUrl->https://c.la1-c2cs-iad.salesforceliveagent.com/content/g/js/43.0/deployment.js;showCustomTabs->true;showVariantProducts->false;isCallUsEnabled->true;isEmailUsEnabled->false;isPayPalEnabled->true;isSocailShareEnabled->true;isContactUsFormEnabled->true;isSupportTicketsEnabled->true;isProductCompareEnabled->true;isWriteUsEnabled->true;isProductIdEnabled->true;showInStockMsg->true;showProductFeatures->true;showProductSpecs->true;showProductResources->true;isSaveCartEnabled->true;isMultipleShippingEnabled->true;showDeliveryInstructions->true;isDinersCardAvailable->true;showProductIndicators->false;isGiftingEnabled->true;isGooglePayEnabled->true;isApplePayEnabled->true;isVariantsEnabled->true;isProductPriceEnabled->true;addToCartEnabled->true;promoTextEnabled->true;isMobileMyProfileEnabled->true;pdpLocateAStoreEnabled->false;showPoBoxShippingMsg->true;showInventoryMessages->true;isFindADistributorEnabled->false;showProductStatus->true;isQuantitySelectorEnabled->true;viewTicketsForDays->365;isFindADistributorEnabled->false;showForgotPassword->true;createAcountMoreDetailsEnabled->false;editPasswordEnabled->true;editCommPrefEnabled->true;hasTaxExemption->false;addAddressEnabled->true;deleteAddressEnabled->false;addPaymentEnabled->true;deletePaymentEnabled->true;is3DImageEnabled->true;reorderEnabled->false;addCustomAttrs->false;addToListBySku->false;downloadPrdListInfo->false;downloadListPdf->false;downloadListImage->false;downloadPdpPdf->true;downloadPdpImage->true;hasCmirCode->false;isFindAStoreEnabled->true;showLowInventoryMessage->true;pdpimageOrVideoConstraintEnabled->true"
+
+########## Shipping email update impex start ##################
+
+$contentCatalog=b2cwhitelabelContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$jarEmailResource=jar:com.gp.commerce.initialdata.constants.GpcommerceInitialDataConstants&/gpcommerceinitialdata/import/coredata/contentCatalogs/b2cwhitelabelContentCatalog/emails                                                                                                
+$lang=en  
+
+UPDATE RendererTemplate ; code[unique=true]                                        ; description[lang=$lang]                            ; templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                        ; b2cwhitelabel_Email_Delivery_Sent_Body                   ; "Delivery Sent Email Body"                         ; $jarEmailResource/email-deliverySentBody.vm                                                                      
+
+########## Shipping email update impex end ##################
+
+UPDATE CMSSite;uid[unique=true];topicOfInquiry
+;b2cwhitelabel;"How to Purchase (US, Canada, Mexico)->How to Purchase (US, Canada, Mexico);How to Purchase (All Other Countries)->How to Purchase (All Other Countries);Product Information->Product Information;Product Concern->Product Concern;New Product Idea->New Product Idea;Web Site Support->Web Site Support;Become a Supplier->Become a Supplier;Other->Other"
+
+
+############################# NOTIFICATION EMAIL  ##############################
+$contentCatalog=b2cwhitelabelContentCatalog 
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged] 
+ 
+$wideContent=CMSImageComponent,BannerComponent
+
+#$emailPackageName=de.hybris.platform.stocknotificationfacades.process.email.context
+$emailPackageName=com.gp.commerce.facades.process.email.context
+$emailResource=jar:com.gp.stocknotifyoccaddon.constants.GpstocknotifyoccaddonConstants&/gpstocknotifyoccaddon/import/contentCatalogs/b2cwhitelabelContentCatalog/emails
+$jarResourceCms=jar:com.gp.stocknotifyoccaddon.constants.GpstocknotifyoccaddonConstants&/gpstocknotifyoccaddon/import/cockpits/cmscockpit/structure-view
+
+# Language                                                                                                 
+$lang=en 
+
+# Email page Template
+INSERT_UPDATE EmailPageTemplate;$contentCV[unique=true];uid[unique=true];name;active;frontendTemplateName;subject(code);htmlTemplate(code);restrictedPageTypes(code)
+;;ProductBackInStockNotificationEmailTemplate;Product Back In Stock Email Template;true;productBackInStockNotificationEmailTemplate;b2cwhitelabel_Email_Product_Back_In_Stock_Subject;b2cwhitelabel_Email_Product_Back_In_Stock_Body;EmailPage
+
+# Templates for CMS Cockpit Page Edit
+UPDATE EmailPageTemplate;$contentCV[unique=true];uid[unique=true];velocityTemplate[translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+;;ProductBackInStockNotificationEmailTemplate;$jarResourceCms/structure_productBackInStockNotificationEmailTemplate.vm
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='ProductBackInStockNotificationEmailTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+# Bind Content Slots to Email Page Templates
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='ProductBackInStockNotificationEmailTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-ProductBackInStockNotificationEmail;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-ProductBackInStockNotificationEmail;TopContent;;EmailTopSlot;true
+;;BottomContent-ProductBackInStockNotificationEmail;BottomContent;;EmailBottomSlot;true
+
+# Email Pages
+INSERT_UPDATE EmailPage;$contentCV[unique=true];uid[unique=true];name;fromEmail[lang=$lang];fromName[lang=$lang];masterTemplate(uid,$contentCV);defaultPage;approvalStatus(code)[default='approved']
+;;ProductBackInStockNotificationEmail;Product Back In Stock Notification Email;customerservices@hybris.com;"Customer Services Team";ProductBackInStockNotificationEmailTemplate;true;
+
+# Email velocity templates
+INSERT_UPDATE RendererTemplate;code[unique=true];contextClass;rendererType(code)[default='velocity']
+;b2cwhitelabel_Email_Product_Back_In_Stock_Body;$emailPackageName.GPBackInStockNotificationEmailContext
+;b2cwhitelabel_Email_Product_Back_In_Stock_Subject;$emailPackageName.GPBackInStockNotificationEmailContext
+
+UPDATE RendererTemplate;code[unique=true];templateScript[translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+;b2cwhitelabel_Email_Product_Back_In_Stock_Body;$emailResource/email-productBackInStockBody.vm
+;b2cwhitelabel_Email_Product_Back_In_Stock_Subject;$emailResource/email-productBackInStockSubject.vm
+
+UPDATE EmailPage;$contentCV[unique=true];uid[unique=true];previewImage(code, $contentCV)
+;;ProductBackInStockNotificationEmail;EmailPageModel_preview
+
+
+UPDATE RendererTemplate;code[unique=true];templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+;b2cwhitelabel_Email_Product_Back_In_Stock_Body;$emailResource/email-productBackInStockBody.vm
+
+UPDATE EmailPage;$contentCV[unique=true];uid[unique=true];fromEmail[lang=$lang];fromName[lang=$lang]
+ ;;ProductBackInStockNotificationEmail;"customerservices@hybris.com";"Customer Services Team"
+ 
+############################# NOTIFICATION EMAIL  ##############################

@@ -1,0 +1,66 @@
+$productCatalog=gpUSProductCatalog
+$productCatalogName=GP US Product Catalog
+$prices=Europe1prices[translator=de.hybris.platform.europe1.jalo.impex.Europe1PricesTranslator]
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+
+
+INSERT_UPDATE UserPriceGroup;code[unique=true];name[lang=en];
+;VIP_PRICE_GROUP;VIP_PRICE_GROUP;
+
+
+INSERT_UPDATE PriceRow ; product(code,$catalogVersion)[unique=true] ; gpUserPriceGroup(code)[unique=true] ; currency(isocode)[unique=true] ; price[unique=true] ; unit(code)[default=CS] ; net[default=true] ; salePrice[default=false] ; minAdvertisedPrice[default=false] ; startTime[dateformat=dd-MM-yyyy] ; endTime[dateformat=dd-MM-yyyy]
+                       ; 1000/44COT                                 ;                                     ; USD                            ; 100                ;                        ;                   ;                          ;                                   
+                       ; 1000/44COT                                 ;                                     ; USD                            ; 50                 ;                        ;                   ;                          ; true                              ;                                  
+                       ; 1000/44COT                                 ;                                     ; USD                            ; 90                 ;                        ;                   ; true                     ;                                   ;                                  
+                       ; 1000/44COT                                 ; pricegroup-dixie                    ; USD                            ; 88                 ;                        ;                   ; true                     ;                                   ;                                  
+                       ; 1000/44COT                                 ; pricegroup-gpemployee               ; USD                            ; 85                 ;                        ;                   ; true                     ;                                   ;                                  
+                       ; 1000/44COT                                 ; pricegroup-gpemployee               ; USD                            ; 98                 ;                        ;                   ;                          ;                                   ; 27-01-2019                       ; 28-01-2019                    ;  
+
+                       
+INSERT_UPDATE PriceRow ; product(code,$catalogVersion)[unique=true] ; ug(code)[unique=true]    ; gpUserPriceGroup(code)[unique=true] ; currency(isocode)[unique=true] ; price[unique=true] ; unit(code)[default=pieces] ; net[default=true] ; salePrice[default=false] ;      ; minAdvertisedPrice[default=false] ; startTime[dateformat=dd-MM-yyyy] ; endTime[dateformat=dd-MM-yyyy]
+                       ; 19375                                      ;                          ;                                     ; USD                            ; 100                ; CS                         ;                   ;                          
+                       ; 19375                                      ;                          ;                                     ; USD                            ; 90                 ; CS                         ;                   ; true                     
+                       ; 19375                                      ; pricegroup-dixie         ;                                     ; USD                            ; 89                 ; CS                         ;                   ; true                     ;      ;                                   ;                                  
+                       ; 19375                                      ; pricegroup-b2bwhitelabel ;                                     ; USD                            ; 88                 ; CS                         ;                   ; true                     ;      ;                                   ;                                  
+                       ; 19375                                      ; pricegroup-dixie         ; B2b_REGISTERED_PRICE_GROUP          ; USD                            ; 87                 ; CS                         ;                   ; true                     ;      ;                                   ;                                  
+                       ; 19375                                      ;                          ;                                     ; USD                            ; 50                 ; CS                         ;                   ;                          ;      ; true                              ;                                  
+                       ; 19375                                      ; pricegroup-dixie         ; B2b_REGISTERED_PRICE_GROUP          ; USD                            ; 99                 ; CS                         ;                   ;                          ;      ;                                   ;                                  
+                       ; 19375                                      ; pricegroup-dixie         ; B2b_REGISTERED_PRICE_GROUP          ; USD                            ; 97                 ; CS                         ;                   ;                          ;      ;                                   ;  01-04-2019 ; 01-05-2019                                
+                       ; 19375                                      ; pricegroup-dixie         ;                                     ; USD                            ; 98                 ; CS                         ;                   ;                          ;      ;                                   ;                                  
+                       ; 19375                                      ; pricegroup-dixie         ; VIP_PRICE_GROUP                     ; USD                            ; 95                 ; CS                         ;                   ;                          ;      ;                                   ;                                  
+
+                       ; 19375                                      ; pricegroup-dixie         ; B2b_REGISTERED_PRICE_GROUP          ; USD                            ; 87                 ; CS                         ;                   ; true                     ;      ;                                   ;                                  
+                       ; 19375                                      ; pricegroup-dixie         ; B2b_REGISTERED_PRICE_GROUP          ; USD                            ; 97                 ; CS                         ;                   ;                          ;      ;                                   ;  01-04-2019 ; 01-05-2019                                
+                       ; 19375                                      ; pricegroup-dixie         ;                                     ; USD                            ; 89                 ; CS                         ;                   ; true                     ;      ;                                   ;                                  
+                       ; 19375                                      ; pricegroup-dixie         ;                                     ; USD                            ; 90                 ; CS                         ;                   ;                          ;      ;                                   ;                                  
+                       ; 19375                                      ;                          ;                                     ; USD                            ; 95                 ; CS                         ;                   ; true                     
+                       ; 19375                                      ;                          ;                                     ; USD                            ; 100                ; CS                         ;                   ;                          
+
+                       ; 19375                                      ; pricegroup-b2bwhitelabel ;                                     ; USD                            ; 96                 ; CS                         ;                   ; true                     
+                       ; 19375                                      ; 				           ; B2b_REGISTERED_PRICE_GROUP          ; USD                            ; 85                 ; CS                         ;                   ; true                     ;      ;                                   ;                                  
+
+
+                       
+                    $productCatalog=gpUSProductCatalog
+$catalogVersions=catalogVersions(catalog(id),version);                                            
+$facetSearchConfigName=b2cwhitelabelIndex
+$facetSearchConfigDescription=B2CWhiteLabel Solr Index
+$searchIndexNamePrefix=b2cwhitelabel
+$solrIndexedType=b2cwhitelabelProductType
+$indexBaseSite=b2cwhitelabel
+$indexLanguages=en     
+$indexCurrencies=USD   
+
+$solrServerUrl=$config-solrServerUrl
+
+$solrIndexedContentType=b2cwhitelabelContentType
+$contentCatalog=b2cwhitelabelContentCatalog
+$facetContentSearchConfigName=b2cwhitelabelContentIndex
+
+# Non-facet properties       
+INSERT_UPDATE SolrIndexedProperty ; solrIndexedType(identifier)[unique=true] ; name[unique=true] ; type(code) ; sortableType(code) ; currency[default=false] ; localized[default=false] ; multiValue[default=false] ; useForSpellchecking[default=false] ; useForAutocomplete[default=false] ; fieldValueProvider                 ; valueProviderParameters[map-delimiter=|] ; ftsPhraseQuery[default=false] ; ftsPhraseQueryBoost ; ftsQuery[default=false] ; ftsQueryBoost ; ftsFuzzyQuery[default=false] ; ftsFuzzyQueryBoost ; ftsWildcardQuery[default=false] ; ftsWildcardQueryType(code)[default=POSTFIX] ; ftsWildcardQueryBoost ; ftsWildcardQueryMinTermLength
+
+
+                                  ; $solrIndexedType                         ; weblistPrice      ; double     ;                    ;                         ;                          ;                           ;                                    ;                                   ; gpProductWeblistPriceValueProvider ;                                          ;                               ;                     ;                         ;               ;                              ;                    ;                                 ;                                             ;                       ;                              
+
+                                  

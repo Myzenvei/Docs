@@ -1,0 +1,556 @@
+##messageSource=classpath:/gpb2binitialdata/import/coredata/contentCatalogs/b2bwhitelabelContentCatalog/messages/email-subscriptionOrderStatus_$lang.properties
+#macro(genHtmlLinkStartTag $url)
+<a href="$url">
+  #end
+  #macro(genHtmlLinkEndTag)
+</a>
+#end
+#macro(genHtmlLink $url $textColor $bodyContent)
+<a href="$url">
+  <font color="$textColor">$bodyContent</font>
+</a>
+#end
+<html lang="en">
+
+<head>
+  <title>Subscription Order Status</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body>table {
+      font-family: 'Gotham A', 'Gotham B', Lato, Helvetica, Roboto, Arial, sans-serif;
+      width: 800px;
+      margin: auto;
+    }
+
+    .productImage {
+      width: 142px;
+      height: 142px;
+    }
+
+    .border-details {
+      border: 1px solid #cecece;
+    }
+
+    .text-weight-bold {
+      font-weight: 500;
+    }
+
+    .text-weight-normal {
+      font-weight: 400;
+    }
+
+    .text-big {
+      font-size: 21px;
+    }
+
+    .text-small {
+      font-size: 14px;
+    }
+
+    .text-default-color {
+      color: #222222;
+    }
+
+    .text-link-color {
+      color: #167BB4;
+    }
+
+    .text-item-color {
+      color: #747678;
+    }
+
+    .letter-spacing-default {
+      letter-spacing: 0.4px;
+    }
+
+    .letter-spacing-productName {
+      letter-spacing: 0.15px;
+    }
+
+    .lne-height-big {
+      line-height: 28px;
+    }
+
+    .lne-height-small {
+      line-height: 16px;
+    }
+
+    .lne-height-link {
+      line-height: 18px;
+    }
+
+    .lne-height-default {
+      line-height: 20px;
+    }
+
+    .pl-2 {
+      padding-left: 8px;
+    }
+
+    .pl-3 {
+      padding-left: 16px;
+    }
+
+    .pl-4 {
+      padding-left: 24px;
+    }
+
+    .pl-5 {
+      padding-left: 32px;
+    }
+
+    .pr-2 {
+      padding-right: 8px;
+    }
+
+    .pr-3 {
+      padding-right: 16px;
+    }
+
+    .pr-4 {
+      padding-right: 24px;
+    }
+
+    .pr-5 {
+      padding-right: 32px;
+    }
+
+    .pt-2 {
+      padding-top: 8px;
+    }
+
+    .pt-3 {
+      padding-top: 16px;
+    }
+
+    .pt-4 {
+      padding-top: 24px;
+    }
+
+    .pt-5 {
+      padding-top: 32px;
+    }
+
+    .pb-2 {
+      padding-bottom: 8px;
+    }
+
+    .pb-3 {
+      padding-bottom: 16px;
+    }
+
+    .pb-4 {
+      padding-bottom: 24px;
+    }
+
+    .pb-5 {
+      padding-bottom: 32px;
+    }
+
+    .mobileOff {
+      display: block;
+    }
+
+    .mobileOn {
+      display: none;
+      mso-hide: all;
+    }
+
+    @media screen and (max-width: 766px) {
+      body>table {
+        font-family: 'Gotham A', 'Gotham B', Lato, Helvetica, Roboto, Arial, sans-serif;
+        margin: auto;
+      }
+
+      body {
+        width: 100%;
+      }
+
+      body>table {
+        width: 100%;
+        padding: 10px;
+      }
+
+      .border-details {
+        border: 1px solid #cecece;
+      }
+
+      .productImage {
+        width: 72px;
+        height: 72px;
+      }
+
+      .mobileOff {
+        display: none;
+      }
+
+      .mobileOn {
+        display: block;
+      }
+    }
+  </style>
+</head>
+
+<body
+  style="-webkit-text-size-adjust: none; -ms-text-size-adjust: none; text-size-adjust: none; margin: 0; padding: 0; width: 100%;">
+  <table cellspacing="0" cellpadding="0" align="center" border="0" width="800" bgcolor="#ffffff"
+    style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 800px;">
+    <tr>
+      <td valign="top" align="left" width="100%" style="border-collapse: collapse; ">
+        <table cellspacing="0" cellpadding="0" align="left" border="0" width="100%"
+          style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+          <tr>
+            <td valign="top" align="left" width="100%" height="73px" style="border-collapse: collapse; ">
+              <a href="${ctx.secureBaseUrl}">${ctx.cmsSlotContents.SiteLogo}</a>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+  #if($ctx.cartData.subscriptionCartStatus == 'OutofStock')
+  <table cellspacing="0" cellpadding="0" align="center" border="0" width="700" bgcolor="#ffffff"
+    style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 700px;">
+    <table cellspacing="0" cellpadding="0" align="center" border="0" bgcolor="#ffffff"
+      style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 700px">
+      <tr>
+        <td
+          style="color: #222222; font-size: 21px; text-align:left; padding-top:24px; padding-bottom:24px; font-weight:400;">
+          ${ctx.messages.emailSubjectOutOfOrder}
+        </td>
+      </tr>
+      #set ($secureAccountUrl = "${ctx.secureBaseUrl}/my-account")
+      #set ($fullName = "${ctx.displayName}")
+      #set ($firstName = $fullName.split(' '))
+      #if($ctx.displayName.contains("|"))
+      <tr>
+        <td style="color: #222222; text-align:left; padding-bottom:8px; font-size: 14px;font-weight: 400;">
+          ${ctx.messages.getMessage('salutation',${ctx.title},$ctx.displayName.substring(0,$ctx.displayName.lastIndexOf("|")).trim())}
+        </td>
+      </tr>
+      #else
+      <tr>
+        <td style="color: #222222; text-align:left; padding-bottom:8px; font-size: 14px;font-weight: 400;">
+          ${ctx.messages.getMessage('salutation', ${ctx.title},$ctx.displayName)}
+        </td>
+      </tr>
+      #end
+      <tr>
+        <td style="color: #222222; text-align:left; font-size: 14px;font-weight: 400;">
+          ${ctx.messages.outOfStockIntro}
+        </td>
+      </tr>
+      <tr>
+        <td style="color: #222222; font-size: 14px; text-align:left; padding-top:24px; font-weight:400;">
+          ${ctx.messages.subscriptionId}&nbsp;${ctx.cartData.code}
+        </td>
+      </tr>
+      <tr>
+        <td
+          style="color: #222222; font-size: 14px; text-align:left; padding-top:16px; padding-bottom:16px; font-weight:500; ">
+          ${ctx.messages.subscriptionProduct}
+        </td>
+      </tr>
+    </table>
+    #foreach( $entry in ${ctx.cartData.entries} )
+    <table cellspacing="0" cellpadding="0" align="center" border="0" bgcolor="#ffffff"
+      style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 700px; ">
+      <tr>
+        <td valign="top" align="left" width="100%" class="py-3 border-details" style="padding-bottom: 16px; border-top: 1px solid #cecece; border-left: 1px solid #cecece; border-right: 1px solid #cecece; border-bottom: 1px solid #cecece;">
+          <table cellspacing="0" cellpadding="0" align="left" border="0" width="100%"
+            style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+            <tr>
+              <td valign="top" align="left" colspan="4" style=" border-collapse: collapse;">
+                <table cellspacing="0" cellpadding="0" align="center" width="100%" bgcolor="#ffffff"
+                  style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+                  <tr>
+                    <td align="center" valign="top"
+                      style="width:22%; padding-right:10px; padding-left:20px; padding-top: 24px; padding-bottom: 24px;">
+                      #foreach($image in $entry.product.images)
+                      #if($image.imageType == "PRIMARY" && $image.format == "thumbnail" )
+                      <div
+                        style="margin:0; border-top: 1px solid #cecece; border-left: 1px solid #cecece;border-right: 1px solid #cecece;border-bottom: 1px solid #cecece;">
+                        <img src="$image.url" alt="" title="$entry.product.name"
+                          style="text-decoration: none; -ms-interpolation-mode: bicubic; margin: 0; padding: 0; line-height: 1.428571429; display: block; outline: none;"
+                          width="130" height="130" />
+                      </div>
+                      #end
+                      #end
+                    </td>
+                    <td align="center" valign="top" class="py-4 pl-4"
+                      style="text-align:left;padding-right:24px; padding-left:0px; padding-top: 24px; padding-bottom: 24px;">
+                      <table cellspacing="0" cellpadding="0" align="center" width="100%" bgcolor="#ffffff"
+                        style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+                        <tr>
+                          <td style="font-size: 14px;font-weight: 500;width:100%; padding:0px;">
+                            <a class="txt-regular txt-weight-bold " href="${ctx.secureBaseUrl}$entry.product.url"
+                              style="color:#167bb4;font-size: 14px;font-weight: 500; display: block; text-decoration: none; outline: none; border: none; padding-bottom: 8px;">
+                              $entry.product.name
+                            </a>
+                          </td>
+                          <td style="display:none;">
+                            &nbsp;
+                          </td>
+                        </tr>
+                        <tr>
+                          <td
+                            style="margin: 0; padding: 0;padding-bottom: 16px; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #747678; font-weight: 400;">
+                            <p class="txt-weight-regular txt-item-color txt-regular">
+                              ${ctx.messages.itemId} $entry.product.code</p>
+                          </td>
+                          <td>
+                            &nbsp;
+                          </td>
+                        </tr>
+                        <tr>
+                          <td
+                            style="margin: 0; padding: 0;padding-bottom: 16px; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #747678; font-weight: 400;">
+                            <p class="txt-regular txt-default-color txt-weight-regular">
+                              ${ctx.messages.productQuantity}: $entry.quantity</p>
+                          </td>
+                        </tr>
+                        #foreach ($frequency in $ctx.cartData.frequency.keySet())
+                        <tr>
+                          <td
+                            style="margin: 0; padding: 0;padding-bottom: 16px; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #222222; font-weight: 400;">
+                            <p class="txt-regular txt-default-color txt-weight-regular">
+                              ${ctx.messages.subscription}: ${ctx.messages.getMessage('subscriptionFrequency',
+                              $frequency
+                              )}
+                            </p>
+                          </td>
+                        </tr>
+                        #end
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+    #end
+    <table cellspacing="0" cellpadding="0" align="center" border="0" bgcolor="#ffffff"
+      style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 700px">
+      <td>
+        <tr>
+          <td style="color: #222222; text-align:left; padding-top:24px; font-size: 14px;font-weight: 400;">
+            ${ctx.messages.subscriptionNote}&nbsp;
+            <a class="txt-regular txt-weight-bold " href="${ctx.secureBaseUrl}/my-account/subscriptions"
+              style="color:#167bb4;font-size: 14px;font-weight: 500; text-decoration: none; outline: none; border: none;">
+              ${ctx.messages.manageSubscription}
+            </a>
+          </td>
+        </tr>
+      </td>
+    </table>
+  </table>
+
+  #elseif($ctx.cartData.subscriptionCartStatus == 'PaymentFailure')
+
+  <table cellspacing="0" cellpadding="0" align="center" border="0" width="700" bgcolor="#ffffff"
+    style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 700px;">
+    <table cellspacing="0" cellpadding="0" align="center" border="0" bgcolor="#ffffff"
+      style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 700px">
+      <tr>
+        <td
+          style="color: #222222; font-size: 21px; text-align:left; padding-top:24px; padding-bottom:24px; font-weight:400;">
+          ${ctx.messages.paymentFailure}
+        </td>
+      </tr>
+      #set ($secureAccountUrl = "${ctx.secureBaseUrl}/my-account")
+      #set ($fullName = "${ctx.displayName}")
+      #set ($firstName = $fullName.split(' '))
+      #if($ctx.displayName.contains("|"))
+      <tr>
+        <td style="color: #222222; text-align:left; padding-bottom:8px; font-size: 14px;font-weight: 400;">
+          ${ctx.messages.getMessage('salutation',${ctx.title},$ctx.displayName.substring(0,$ctx.displayName.lastIndexOf("|")).trim())}
+        </td>
+      </tr>
+      #else
+      <tr>
+        <td style="color: #222222; text-align:left; padding-bottom:8px; font-size: 14px;font-weight: 400;">
+          ${ctx.messages.getMessage('salutation', ${ctx.title},$ctx.displayName)}
+        </td>
+      </tr>
+      #end
+      <tr>
+        <td style="color: #222222; text-align:left; font-size: 14px;font-weight: 400;">
+          ${ctx.messages.paymentFailureIntro}
+        </td>
+      </tr>
+      <tr>
+        <td style="color: #222222; font-size: 14px; text-align:left; padding-top:24px; font-weight:400;">
+          ${ctx.messages.loginLink}
+          <a class="txt-regular txt-weight-bold " href="${ctx.secureBaseUrl}/my-account/subscriptions"
+            style="color:#167bb4;font-size: 14px;font-weight: 500; text-decoration: none; outline: none; border: none;">
+            ${ctx.messages.hyperlink}
+          </a>
+          ${ctx.messages.manageProfile}
+        </td>
+      </tr>
+
+      <tr>
+        <td style="color: #222222; font-size: 14px; text-align:left; padding-top:24px; font-weight:400;">
+          ${ctx.messages.getMessage('emailSubjectPayment',${ctx.cartData.code})}
+        </td>
+      </tr>
+      <tr>
+    </table>
+
+    <table class="pl-5 pr-5 mobileOff">
+      <tr>
+        <td style="width:25%" valign="top" class="text-weight-bold text-small text-default-color lne-height-small pr-3">
+          <table>
+            <tr>
+              <td style="color: #222222; font-size: 14px;; font-weight:500;"
+                class="text-weight-bold text-small text-default-color lne-height-small pb-2">
+                ${ctx.messages.orderPlaced}
+              </td>
+            </tr>
+            <tr>
+              <td style="color: #222222; font-size: 14px;; font-weight:400;"
+                class="text-weight-normal text-small text-default-color lne-height-small">${ctx.createdDate}</td>
+            </tr>
+          </table>
+
+        </td>
+        <td style="width:25%" valign="top" class="text-weight-bold text-small text-default-color lne-height-small pr-3">
+          <table>
+            <tr>
+              <td style="color: #222222; font-size: 14px;; font-weight:500;"
+                class="text-weight-bold text-small text-default-color lne-height-small pb-2">
+                <b>${ctx.messages.billedTo}</b></td>
+            </tr>
+            <tr>
+              <td style="color: #222222; font-size: 14px;; font-weight:400;"
+                class="text-weight-normal text-small text-default-color lne-height-small">
+                ${ctx.cartData.payment.accountHolderName}
+              </td>
+            </tr>
+            <tr>
+              <td style="color: #222222; font-size: 14px;; font-weight:400;"
+                class="text-weight-normal text-small text-default-color lne-height-small">
+                ${ctx.cartData.payment.cardType}</td>
+            </tr>
+          </table>
+        </td>
+        <td style="width:25%" valign="top" class="text-weight-bold text-small text-default-color lne-height-small pr-3">
+          <table>
+            <tr>
+              <td style="color: #222222; font-size: 14px;; font-weight:500;"
+                class="text-weight-bold text-small text-default-color lne-height-small pb-2">
+                <b>${ctx.messages.shipTo}</b></td>
+            </tr>
+            <tr>
+              <td style="color: #222222; font-size: 14px;; font-weight:400;"
+                class="text-weight-normal text-small text-default-color lne-height-small">
+                ${ctx.cartData.deliveryAddress.firstName} ${ctx.cartData.deliveryAddress.lastName}
+                <br/>
+                ${ctx.cartData.deliveryAddress.line1} ${ctx.cartData.deliveryAddress.town}
+                <br/>
+                ${ctx.cartData.deliveryAddress.postalCode}</td>
+            </tr>
+          </table>
+        </td>
+        <td style="width:25%"></td>
+      </tr>
+    </table>
+
+    #foreach( $entry in ${ctx.cartData.entries} )
+    <table cellspacing="0" cellpadding="0" align="center" border="0" bgcolor="#ffffff"
+      style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 700px;">
+      <tr>
+        <td valign="top" align="left" width="100%" class="py-3 border-details" style="padding-bottom: 16px; border-top: 1px solid #cecece; border-left: 1px solid #cecece; border-right: 1px solid #cecece; border-bottom: 1px solid #cecece;">
+          <table cellspacing="0" cellpadding="0" align="left" border="0" width="100%"
+            style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; ">
+      <tr>
+        <td valign="top" align="left" colspan="4" style=" border-collapse: collapse;">
+          <table cellspacing="0" cellpadding="0" align="center" width="100%" bgcolor="#ffffff"
+            style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+            <tr>
+              <td align="center" valign="top"
+                style="width:22%; padding-right:10px; padding-left:20px; padding-top: 24px; padding-bottom: 24px;">
+                #foreach($image in $entry.product.images)
+                #if($image.imageType == "PRIMARY" && $image.format == "thumbnail" )
+                <div
+                  style="margin:0; border-top: 1px solid #cecece; border-left: 1px solid #cecece;border-right: 1px solid #cecece;border-bottom: 1px solid #cecece;">
+                  <img src="$image.url" alt="" title="$entry.product.name"
+                    style="text-decoration: none; -ms-interpolation-mode: bicubic; margin: 0; padding: 0; line-height: 1.428571429; display: block; outline: none;"
+                    width="130" height="130" />
+                </div>
+                #end
+                #end
+              </td>
+              <td align="center" valign="top" class="py-4 pl-4"
+                style="text-align:left;padding-right:24px; padding-left:0px; padding-top: 24px; padding-bottom: 24px;">
+                <table cellspacing="0" cellpadding="0" align="center" width="100%" bgcolor="#ffffff"
+                  style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+                  <tr>
+                    <td style="font-size: 14px;font-weight: 500;width:100%; padding:0px;">
+                      <a class="txt-regular txt-weight-bold " href="${ctx.secureBaseUrl}$entry.product.url"
+                        style="color:#167bb4;font-size: 14px;font-weight: 500; display: block; text-decoration: none; outline: none; border: none; padding-bottom: 8px;">
+                        $entry.product.name
+                      </a>
+                    </td>
+                    <td style="display:none;">
+                      &nbsp;
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style="margin: 0; padding: 0;padding-bottom: 16px; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #747678; font-weight: 400;">
+                      <p class="txt-weight-regular txt-item-color txt-regular">
+                        ${ctx.messages.itemId} $entry.product.code</p>
+                    </td>
+                    <td>
+                      &nbsp;
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style="margin: 0; padding: 0;padding-bottom: 16px; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #747678; font-weight: 400;">
+                      <p class="txt-regular txt-default-color txt-weight-regular">
+                        ${ctx.messages.productQuantity}: $entry.quantity</p>
+                    </td>
+                  </tr>
+                  #foreach ($frequency in $ctx.cartData.frequency.keySet())
+                  <tr>
+                    <td
+                      style="margin: 0; padding: 0;padding-bottom: 16px; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #222222; font-weight: 400;">
+                      <p class="txt-regular txt-default-color txt-weight-regular">
+                        ${ctx.messages.subscription}: ${ctx.messages.getMessage('subscriptionFrequency',
+                        $frequency
+                        )}
+                      </p>
+                    </td>
+                  </tr>
+                  #end
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+    </td>
+    </tr>
+  </table>
+  #end
+  </table>
+  #end
+
+
+  <table cellspacing="0" cellpadding="0" align="center" border="0" width="800" bgcolor="#ffffff"
+    style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 800px;">
+    <tr>
+      <td style="display: block; width: 100%; padding-top:24px; ">
+        <a href="${ctx.baseUrl}" style="display:block; margin:0px;">${ctx.cmsSlotContents.EmailSubscriptionFooter}</a>
+      </td>
+    </tr>
+  </table>
+</body>
+
+</html>

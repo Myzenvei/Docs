@@ -1,0 +1,618 @@
+##messageSource=classpath:/gpb2binitialdata/import/coredata/contentCatalogs/dixieContentCatalog/messages/email-installationProduct_$lang.properties
+#macro( genHtmlBoldFont $text )
+<font color="#414a4f" size="2" face="Arial, Helvetica, sans-serif"><b>$text</b></font>
+#end
+#macro(genHtmlLinkStartTag $url)
+<a href="$url">
+    <font color="#666666">
+        #end
+        #macro(genHtmlLinkEndTag)
+    </font>
+</a>
+#end
+#macro(genHtmlLink $url $textColor $bodyContent)
+<a href="$url">
+    <font color="$textColor">$bodyContent</font>
+</a>
+#end
+#macro(displayNegationForDiscount $priceData)
+#if (${priceData.value} > 0)
+-
+#end
+${priceData.formattedValue}
+#end
+
+
+<!-- Installation product email configuration -->
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=no;">
+<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
+<link rel="stylesheet" type="text/css" href="https://cloud.typography.com/6228154/6448192/css/fonts.css" />
+
+<style>
+  #outlook a {
+    padding: 0;
+  }
+
+  body {
+    width: auto;
+    -webkit-text;
+    size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    margin: 0;
+    font-family: 'Gotham A', 'Gotham B', Helvetica, Roboto, Arial;
+    padding: 0;
+  }
+
+  body>table {
+    width: 700px;
+  }
+
+  .ReadMsgBody {
+    width: 100%;
+  }
+
+  .ExternalClass {
+    width: 100%;
+  }
+
+  .backgroundTable {
+    margin: 0 auto;
+    padding: 0;
+    width: 100%;
+  }
+
+  table td {
+    border-collapse: collapse;
+  }
+
+  .ExternalClass * {
+    line-height: 115%;
+  }
+
+  /*Themeing styles*/
+
+  .mail-heading {
+    font-size: 21px;
+    color: #222222;
+    font-weight: 400;
+    line-height: 25px;
+  }
+
+  *[class="m-show"] {
+    display: none !important;
+  }
+
+  *[class="d-hide"] {
+    display: block !important;
+  }
+
+  *[class="td-5"] {
+    margin-bottom: 24px;
+    display: block;
+  }
+
+  *[class="td-link"] {
+    color: #167BB4;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.15px;
+    line-height: 16px;
+    text-decoration: none;
+  }
+
+  .container {
+    padding: 56px;
+  }
+
+  .social-icons {
+    padding-right: 19px;
+    padding-left: 0;
+    text-decoration: none;
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+  }
+
+  .social-icons img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .copyright-text {
+    color: #747678;
+    font-size: 14px;
+  }
+
+  *[class="border-top"] {
+    border-top: 1px solid #cecece;
+  }
+
+  *[class="email-footer"] {
+    background-color: #dfdfdf;
+    display: block;
+    margin-top: 32px;
+  }
+
+  .align-d-right {
+    float: right;
+  }
+
+  .mr-2 {
+    margin: 10px;
+    display: block;
+  }
+
+  .container {
+    padding: 56px;
+  }
+
+  .sm-pb-8 {
+    padding-bottom: 8px;
+  }
+
+  .sm-pb-16 {
+    padding-bottom: 16px;
+  }
+
+  .sm-pb-24 {
+    padding-bottom: 24px;
+  }
+
+  .sm-padding {
+    padding: 24px;
+  }
+
+  .product-data {
+    width: 80%;
+  }
+
+  .product-price {
+    width: 20%;
+    text-align: right;
+  }
+
+  .product {
+    width: 80%;
+  }
+
+  .product-img {
+    width: 15%;
+    padding-right: 24px;
+    padding-top: 24px;
+    padding-left: 24px;
+    padding-bottom: 24px;
+    
+  }
+  .productImage {
+      width: 142px;
+      height: 142px;
+      padding: 16px 16px;
+      border: .5px solid #CECECE;
+
+  } 
+
+  /* These are our mobile screen media queries */
+
+  @media screen and (max-width: 766px) {
+    body {
+      width: 100%;
+    }
+
+    body>table {
+      width: 100%;
+      padding: 10px;
+    }
+
+    div {
+      display: inline;
+    }
+
+    .wrapper {
+      width: 100%;
+    }
+
+    /* Display block allows us to stack elements */
+    *[class="mobile-column"] {
+      display: block;
+    }
+
+    /* Some more stacking elements */
+    *[class="mob-column"] {
+      float: none !important;
+      width: 100% !important;
+    }
+
+    /* Hide stuff */
+    *[class="d-hide"] {
+      display: none !important;
+    }
+
+    *[class="m-show"] {
+      display: block !important;
+    }
+
+    /* This sets elements to 100% width and fixes the height issues too, a god send */
+    *[class="100p"] {
+      width: 100% !important;
+      height: auto !important;
+    }
+
+    /* For the 2x2 stack */
+    *[class="condensed"] {
+      padding-bottom: 40px !important;
+      display: block;
+    }
+
+    /* Centers content on mobile */
+    *[class="center"] {
+      text-align: center !important;
+      width: 100% !important;
+      height: auto !important;
+    }
+
+    /* 100percent width section with 20px padding */
+    *[class="100pad"] {
+      width: 100% !important;
+      padding: 20px;
+    }
+
+    /* 100percent width section with 20px padding left & right */
+    *[class="100padleftright"] {
+      width: 100% !important;
+      padding: 0 20px 0 20px;
+    }
+
+    /* 100percent width section with 20px padding top & bottom */
+    *[class="100padtopbottom"] {
+      width: 100% !important;
+      padding: 20px 0 20px 0;
+    }
+
+    *[class="td-m-block"] {
+      display: block;
+    }
+
+    .footer-m-block {
+      display: block;
+    }
+
+    .followUs-m-left {
+      margin: 10px 10px 10px 3px;
+    }
+
+    .align-m-left {
+      float: left;
+    }
+
+    .align-d-right {
+      float: left;
+    }
+
+  }
+</style>
+
+<body style="padding:0; margin:0;color: #222222;" width="800">
+  <table cellspacing="0" cellpadding="0" border="0" bgcolor="#ffffff" align="center">
+    <tr>
+      <td valign="top" align="left" width="100%"
+        style="border-collapse: collapse; font-family:'Gotham A', 'Gotham B', lato, Helvetica, Arial, Verdana, sans-serif;">
+      <td background="../images/email-header.png" height="73px" valign="top" class="100p">
+      </td>
+      </td>
+    </tr>
+  </table>
+  <table cellspacing="0" cellpadding="0" align="center" border="0" bgcolor="#ffffff" width="700">
+    <tr>
+      <td>
+        <table cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
+          <tr>
+            <td colspan="4"
+              style="color: #222222; font-size: 21px;	font-weight: 500; padding-bottom: 24px; letter-spacing: 0.4px">
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4" width="100%"
+              style="color: #222222; font-size: 14px;letter-spacing: 0.4px;font-weight: 400; padding-bottom: 24px">
+              ${ctx.messages.installationMessageContent}
+            </td>
+          </tr>
+        </table>
+        <table width="100%" cellpadding="0" cellspacing="0"
+          style="color: #222222;	background-color: #FAFAFA; padding:24px;">
+          <tr>
+            <td colspan="2" style="font-size: 21px;	font-weight: 400; padding-bottom:24px">
+              ${ctx.messages.orderSummary}
+            </td>
+          </tr>
+          <tr>
+            <td style="font-size: 14px;	font-weight: 400; padding-bottom:16px">
+              ${ctx.messages.getMessage('orderNumber',${ctx.order.code})}
+            </td>
+          </tr>
+          <tr>
+            <td style="font-size: 14px;	font-weight: 500;padding-bottom:16px">
+              ${ctx.messages.orderPlaced}
+            </td>
+          </tr>
+          <tr>
+            <td style="font-size: 14px;	font-weight: 400;padding-bottom:16px">
+              ${ctx.createdDate}
+            </td>
+          </tr>
+          <tr>
+            <td style="font-size: 14px;	font-weight: 500;padding-bottom:16px">
+              <div style="color: #222222; font-size: 14px;	font-weight: 500;">${ctx.messages.billedTo}</div>
+            </td>
+          </tr>
+          <tr>
+            <td style="font-size: 14px;	font-weight: 500;padding-bottom:16px">
+            <div style="color: #222222; font-size: 14px;	font-weight: 400; line-height: 18px;">
+              	#if(${ctx.order.paymentInfo} && (${ctx.order.paymentInfo.cardType}==${ctx.messages.paypal}))
+                	<div>${ctx.order.paymentInfo.accountHolderName}</div>
+                	<div>${ctx.order.paymentInfo.cardType}</div>
+                #end
+              </div>
+              <div style="color: #222222; font-size: 14px;	font-weight: 400; line-height: 18px;">
+              	#if(${ctx.order.paymentInfo} && !(${ctx.order.paymentInfo.cardType}==${ctx.messages.paypal}))
+                	<div>${ctx.order.paymentInfo.accountHolderName}</div>
+                	#if(${ctx.order.paymentInfo.cardType})
+                		<div>${ctx.order.paymentInfo.cardType}</div>
+                	#end
+                #end
+              </div>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+        #if($ctx.singleShipping == 1)
+      <table align="center" cellpadding="0" cellspacing="0" width="700">
+          <tr>
+            <td style="padding-top: 24px">
+              <table class="tracking" cellpadding="0" cellspacing="0" width="100%" style="border: 1px solid #CECECE">
+                <tr>
+                  <td width=" 50%" colspan="2" style="padding:20px;vertical-align: top">
+                    <div style="color: #858484; font-size: 14px;	font-weight: 400; margin-bottom:8px;">${ctx.messages.shippedTo}</div>
+                    <div style="color: #222222; font-size: 14px;	font-weight: 400; line-height: 18px;">
+                      <div>${ctx.order.deliveryAddress.firstName} ${ctx.order.deliveryAddress.lastName} <br></div>
+                      <div>
+                      	#if($ctx.order.deliveryAddress.companyName)
+                      		${ctx.order.deliveryAddress.companyName}, 
+                      	#end
+                      	#if($ctx.order.deliveryAddress.line1)
+                      		${ctx.order.deliveryAddress.line1}, 
+                      	#end
+                      	#if($ctx.order.deliveryAddress.line2)
+                      		${ctx.order.deliveryAddress.line2}, 
+                      	#end
+                      	${ctx.order.deliveryAddress.town}, 
+                      	${ctx.order.deliveryAddress.region.isocodeShort},
+                      	${ctx.order.deliveryAddress.postalCode}
+                      </div>
+                    </div>
+                  </td>
+                  <td width="50%" colspan="2" style="padding:20px;vertical-align: top">
+                    <div style="color: #858484; font-size: 14px;	font-weight: 400; margin-bottom:8px;">${ctx.messages.deliveryOptions}
+                    </div>
+                    <div style="color: #222222; font-size: 14px;	font-weight: 400; line-height: 18px;">
+                      <div>
+                      	 #if(${ctx.order.deliveryMode.code})
+                         	<div>${ctx.order.deliveryMode.name}</div>
+                         #end
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td width="50%" colspan="2" style="padding:20px;vertical-align: top">
+                    <div style="color: #858484; font-size: 14px;	font-weight: 400; margin-bottom:8px;">Installation
+                    </div>
+                    <div style="color: #222222; font-size: 14px;	font-weight: 400; line-height: 18px;">
+                      <div>${ctx.installationDate} ${ctx.messages.divider} ${ctx.installationTime}</div>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+              #foreach( $entry in ${ctx.order.entries} )
+              	#if($entry.visible)
+              			#foreach( $addAttr in $entry.additionalAttributes.keySet())
+              				 #if($addAttr == "installed" && $entry.additionalAttributes.get($addAttr))
+              			<table cellpadding="0" cellspacing="0" width="100%" style="border:1px solid #CECECE; border-top:none;"
+			                class="xs-padding sm-padding">
+			                <tr>
+			                  <td class="product-img" style="vertical-align: top;">
+                          <p class="productImage" style="padding: 0;margin: 0;" >
+                              #foreach($image in $entry.product.images)
+                                #if($image.imageType == "PRIMARY" && $image.format == "thumbnail" )
+                                  <img src="$image.url" title="$entry.product.name" alt=""/>    
+                                  #end
+                              #end
+                              </p>
+			                  </td>
+			                  <td class="product" style="vertical-align: top;">
+			                    <table cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
+			                         <tr>
+                                  <td style="width:100%; padding-top: 0px; padding-right: 0px; padding-left: 0px; padding-bottom: 8px; border-collapse: collapse; font-family: 'Gotham A', 'Gotham B', lato, Helvetica, Arial, Verdana, sans-serif;">
+                                      <a class="txt-regular txt-weight-semi-bold "
+                                          href="${ctx.secureBaseUrl}$entry.product.url"
+                                          title=""
+                                          style="margin: 0; padding: 0; line-height: 1.428571429; color: #167bb4; letter-spacing: 0.15px; font-size: 14px; font-weight: 500; display: block; text-decoration: none; outline: none; border: none; font-family: 'Gotham A', 'Gotham B', lato, Helvetica, Arial, Verdana, sans-serif;"
+                                          target="_blank">
+                                          GP $entry.product.name
+                                      </a>
+                                    </td>	
+                                    <td style="display:none; border-collapse: collapse; font-family: 'Gotham A', 'Gotham B', lato, Helvetica, Arial, Verdana, sans-serif;">
+                                      &nbsp;
+                                    </td>	
+                                </tr>
+                                <tr>
+                                    <td style="padding-top: 0px; padding-right: 0px; padding-left: 0px; padding-bottom: 8px; border-collapse: collapse; font-family: 'Gotham A', 'Gotham B', lato, Helvetica, Arial, Verdana, sans-serif;">
+                                        <p class="txt-weight-regular txt-item-color txt-small"
+                                            style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #747678; font-weight: 400; font-family: 'Gotham A', 'Gotham B', lato, Helvetica, Arial, Verdana, sans-serif;">
+                                            ITEM ID $entry.product.code
+                                            </p>
+                                    </td>
+                                    <td
+                                        style="border-collapse: collapse; font-family: 'Gotham A', 'Gotham B', lato, Helvetica, Arial, Verdana, sans-serif;">
+                                        &nbsp;
+                                    </td>
+                                </tr>	
+                                <tr>
+                                    <td style="padding-top: 0px; padding-right: 0px; padding-left: 0px; padding-bottom: 8px; border-collapse: collapse; font-family: 'Gotham A', 'Gotham B', lato, Helvetica, Arial, Verdana, sans-serif;">
+                                        <p class="txt-small txt-default-color txt-weight-regular"
+                                            style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #222222; font-weight: 400; font-family: 'Gotham A', 'Gotham B', lato, Helvetica, Arial, Verdana, sans-serif;">
+                                            ${ctx.messages.getMessage('quantity',$entry.quantity)}
+                                        </p>
+                                    </td>
+                                    <td style="border-collapse: collapse; font-family: 'Gotham A', 'Gotham B', lato, Helvetica, Arial, Verdana, sans-serif;">
+                                        &nbsp;
+                                    </td>
+                                 </tr>
+			                    </table>
+			                  </td>
+			                </tr>
+			              </table>
+			              	#end
+			              #end
+              	#end
+              #end
+              <table cellspacing="0" cellpadding="0" align="center" border="0" width="800" bgcolor="#ffffff"
+		                  style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 800px;">
+                  <tr>
+                      <td style="display: block; width: 100%; margin:0px; padding:0px;">
+                          <a href="${ctx.baseUrl}" style="display:block; margin:0px;">${ctx.cmsSlotContents.BottomContent}</a>
+                      </td>
+                  </tr>
+              </table>
+            </td>
+          </tr>
+      </table>
+  #else
+	#foreach( $entry in ${ctx.order.entries})
+		#foreach( $splitEntry in ${entry.splitEntries})
+			#foreach( $addAttr in $entry.additionalAttributes.keySet())
+              #if($addAttr == "installed" && $entry.additionalAttributes.get($addAttr))
+				<table cellpadding="0" cellspacing="0" width="700">
+		          <tr>
+		            <td style="padding-top: 24px">
+		              <table class="tracking" cellpadding="0" cellspacing="0" width="100%" style="border: 1px solid #CECECE">
+		                <tr>
+		                  <td width=" 50%" colspan="2" style="padding:20px;vertical-align: top">
+		                    <div style="color: #858484; font-size: 14px;	font-weight: 400; margin-bottom:8px;">${ctx.messages.shippedTo}</div>
+		                    <div style="color: #222222; font-size: 14px;	font-weight: 400; line-height: 18px;">
+		                      <div>${splitEntry.deliveryAddress.firstName} ${splitEntry.deliveryAddress.lastName} <br></div>
+		                      <div>
+		                      	#if($splitEntry.deliveryAddress.companyName)
+		                      		${splitEntry.deliveryAddress.companyName}, 
+		                      	#end
+		                      	#if($splitEntry.deliveryAddress.line1)
+		                      		${splitEntry.deliveryAddress.line1}, 
+		                      	#end
+		                      	#if($splitEntry.deliveryAddress.line2)
+		                      		${splitEntry.deliveryAddress.line2}, 
+		                      	#end
+		                      	${splitEntry.deliveryAddress.town}, 
+		                      	${splitEntry.deliveryAddress.region.isocodeShort},
+		                      	${splitEntry.deliveryAddress.postalCode}
+                          </div>
+		                    </div>
+		                  </td>
+		                  <td width="50%" colspan="2" style="padding:20px;vertical-align: top">
+		                    <div style="color: #858484; font-size: 14px;	font-weight: 400; margin-bottom:8px;">${ctx.messages.deliveryOptions}
+		                    </div>
+		                    <div style="color: #222222; font-size: 14px;	font-weight: 400; line-height: 18px;">
+		                      <div>
+		                      	 #if(${splitEntry.deliveryMode.name})
+		                         ${splitEntry.deliveryMode.name}
+		                         #end
+		                      </div>
+		                    </div>
+		                  </td>
+		                </tr>
+		                <tr>
+		                  <td width="50%" colspan="2" style="padding:20px;vertical-align: top">
+		                    <div style="color: #858484; font-size: 14px;	font-weight: 400; margin-bottom:8px;">Installation
+		                    </div>
+		                    <div style="color: #222222; font-size: 14px;	font-weight: 400; line-height: 18px;">
+		                      <div>${ctx.installationDate} ${ctx.messages.divider} ${ctx.installationTime}</div>
+		                    </div>
+		                  </td>
+		                </tr>
+		              </table>
+		              <table cellpadding="0" cellspacing="0" width="100%" style="border:1px solid #CECECE; border-top:none;"
+			                class="xs-padding sm-padding">
+			                <tr>
+			                  <td class="product-img" style="vertical-align: top;">
+                          <p class="productImage" style="padding: 0;margin: 0;" >
+			                  	#foreach($image in $entry.product.images)
+			                    	#if($image.imageType == "PRIMARY" && $image.format == "thumbnail" )
+			                    		<img src="$image.url" title="$entry.product.name" alt=""/>
+			                        #end
+                          #end
+                          </p>
+			                  </td>
+			                  <td class="product" style="vertical-align: top;">
+                            <table cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
+                                 <tr>
+                                    <td style="width:100%; padding-top: 0px; padding-right: 0px; padding-left: 0px; padding-bottom: 8px; border-collapse: collapse; font-family: 'Gotham A', 'Gotham B', lato, Helvetica, Arial, Verdana, sans-serif;">
+                                        <a class="txt-regular txt-weight-semi-bold "
+                                            href="${ctx.secureBaseUrl}$entry.product.url"
+                                            title=""
+                                            style="margin: 0; padding: 0; line-height: 1.428571429; color: #167bb4; letter-spacing: 0.15px; font-size: 14px; font-weight: 500; display: block; text-decoration: none; outline: none; border: none; font-family: 'Gotham A', 'Gotham B', lato, Helvetica, Arial, Verdana, sans-serif;"
+                                            target="_blank">
+                                            GP $entry.product.name
+                                        </a>
+                                      </td>	
+                                      <td style="display:none; border-collapse: collapse; font-family: 'Gotham A', 'Gotham B', lato, Helvetica, Arial, Verdana, sans-serif;">
+                                        &nbsp;
+                                      </td>	
+                                  </tr>
+                                  <tr>
+                                      <td style="padding-top: 0px; padding-right: 0px; padding-left: 0px; padding-bottom: 8px; border-collapse: collapse; font-family: 'Gotham A', 'Gotham B', lato, Helvetica, Arial, Verdana, sans-serif;">
+                                          <p class="txt-weight-regular txt-item-color txt-small"
+                                              style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #747678; font-weight: 400; font-family: 'Gotham A', 'Gotham B', lato, Helvetica, Arial, Verdana, sans-serif;">
+                                              ITEM ID $entry.product.code
+                                              </p>
+                                      </td>
+                                      <td
+                                          style="border-collapse: collapse; font-family: 'Gotham A', 'Gotham B', lato, Helvetica, Arial, Verdana, sans-serif;">
+                                          &nbsp;
+                                      </td>
+                                  </tr>	
+                                  <tr>
+                                      <td style="padding-top: 0px; padding-right: 0px; padding-left: 0px; padding-bottom: 8px; border-collapse: collapse; font-family: 'Gotham A', 'Gotham B', lato, Helvetica, Arial, Verdana, sans-serif;">
+                                          <p class="txt-small txt-default-color txt-weight-regular"
+                                              style="margin: 0; padding: 0; line-height: 1.428571429; letter-spacing: 0.4px; font-size: 14px; color: #222222; font-weight: 400; font-family: 'Gotham A', 'Gotham B', lato, Helvetica, Arial, Verdana, sans-serif;">
+                                              ${ctx.messages.getMessage('quantity',$entry.quantity)}
+                                          </p>
+                                      </td>
+                                      <td style="border-collapse: collapse; font-family: 'Gotham A', 'Gotham B', lato, Helvetica, Arial, Verdana, sans-serif;">
+                                          &nbsp;
+                                      </td>
+                                   </tr>
+                            </table>
+                        </td>
+			                </tr>
+                  </table>
+                </td>
+              </tr>
+        </table>
+			      #end
+			     #end
+		#end
+	#end
+	<table cellspacing="0" cellpadding="0" align="center" border="0" width="800" bgcolor="#ffffff"
+        style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 800px;">
+        <tr>
+            <td style="display: block; width: 100%; margin:0px; padding:0px;">
+                <a href="${ctx.baseUrl}" style="display:block; margin:0px;">${ctx.cmsSlotContents.BottomContent}</a>
+            </td>
+        </tr>
+    </table>
+#end
+</body>

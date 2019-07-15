@@ -1,0 +1,41 @@
+<div class="vx-shopping-lists">
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>
+  </vx-spinner>
+  <vx-modal ref="createListModal" size="extra-small" heading="Create List">
+    <vx-create-list slot="component" :allListNames="allListNames" :i18n="i18n" @close-create-success="createModalSuccess"></vx-create-list>
+  </vx-modal>
+  <vx-modal ref="deleteListModal" size="extra-small" heading="Delete List">
+    <vx-delete-list :selectedListsName="selectedListNames" :selectedLists="selectedLists" slot="component" :i18n="i18n" @close-delete-success="deleteModalSuccess"
+      @close-delete-error="deleteModalError"></vx-delete-list>
+  </vx-modal>
+  <div class="d-flex justify-content-between" v-if="filterHidden">
+    <h1 class="pt-lg-3 h3">{{i18n.shoppingLists.shoppingListsLabel}}</h1>
+    <span class="icon-filter hidden-lg hidden-md hidden-sm visible-xs mt-sm-3 mt-xs-3" :title="i18n.shoppingLists.iconFilterTitle"
+      @click="toggleFilter" role="button" tabindex="0" :aria-label="i18n.shoppingLists.iconFilterTitle" @keyup.enter-space="toggleFilter"
+      v-if="hideRemoveLists"></span>
+  </div>
+  <h5 class="pb-lg-3 pb-sm-4 pb-xs-4" v-if="filterHidden">{{i18n.shoppingLists.shoppingListsContent}}</h5>
+  <div class="d-flex pb-xs-1 pb-sm-3 button-container" v-bind:class="{'justify-content-between': (hideRemoveLists && isMobile()) || !isMobile(),'justify-content-end' : !hideRemoveLists && isMobile()}"
+    v-if="filterHidden">
+    <span v-if="!isMobile()">
+      <button @click="handleDeleteList" v-bind:class="!enableRemoveLink ? 'is-disabled' : 'is-enabled'" :disabled="!enableRemoveLink ? true:false">{{i18n.shoppingLists.deleteListLink}}</button>
+    </span>
+    <span v-if="hideRemoveLists && isMobile()">
+      <button @click="handleDeleteList" v-bind:class="!enableRemoveLink ? 'is-disabled' : 'is-enabled'" :disabled="!enableRemoveLink ? true : false">{{i18n.shoppingLists.deleteListLink}}</button>
+    </span>
+    <button @click="handleCreateList" v-bind:class="(enableRemoveLink || isFavorites) ? 'is-disabled':'is-enabled'"
+      :disabled="(enableRemoveLink || isFavorites) ? true : false">{{i18n.shoppingLists.createListLink}}</button>
+  </div>
+  <div class="mb-xs-3" v-if="isMobile()">
+    <vx-modal ref="refineListModal" size="extra-small" :heading="i18n.shoppingLists.refineResults" @close="closeRefineListModal">
+      <div slot="component">
+        <vx-dropdown-primary @primaryDropdownMounted="populateDefaultMessage" @selected-option="triggerSort($event)"
+          :dropdownValues="MobileSortOptions" ref="sortDropdown"></vx-dropdown-primary>
+      </div>
+    </vx-modal>
+  </div>
+  <template v-if="dataLoaded">
+    <table class="display responsive no-wrap table" width="100%" id="shopping-lists-data-table" v-show="filterHidden">
+    </table>
+  </template>
+</div>

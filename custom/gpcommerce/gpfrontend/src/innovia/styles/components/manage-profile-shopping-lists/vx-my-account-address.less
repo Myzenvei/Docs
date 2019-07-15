@@ -1,0 +1,46 @@
+#innovia {
+  .vx-my-account-address {
+    .address-cards-container {
+      margin-top: 16px;
+
+      .vx-profile-card {
+        .profile-card {
+          padding: 24px 8px !important;
+        }
+
+        .add-card {
+          border: 1px solid @brand-primary;
+
+          .add-card-container a span {
+            color: @text-color-secondary-5;
+            font-weight: @font-weight-regular;
+
+            &.link-bold {
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+    }
+
+    .icon-edit,
+    .icon-trash {
+      color: @help-text-color;
+    }
+
+    .vx-add-edit-address {
+      .info-text {
+        color: @brand-secondary-14;
+      }
+    }
+  }
+
+  @media screen and (max-width: @screen-xs-max) {
+    .vx-my-account-address {
+
+      .address-cards-container {
+        margin-top: 0;
+      }
+    }
+  }
+}

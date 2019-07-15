@@ -1,0 +1,10 @@
+/build/
+/config/
+/dist/
+/*.js
+/test/unit/coverage/
+/generator/
+/styleguide/
+/src/lib/
+/src/locale/
+/src/data/

@@ -1,0 +1,111 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+#
+#  Import the CMS content for the Sparkle site emails
+#
+
+$contentCatalog=sparkleContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$jarEmailResource=jar:com.gp.commerce.initialdata.constants.GpcommerceInitialDataConstants&/gpcommerceinitialdata/import/coredata/contentCatalogs/sparkleContentCatalog/emails
+
+# Import config properties into impex macros for modulegen
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+$emailResource=$config-emailResourceValue                                                                  
+
+# Language                                                                                                 
+$lang=en                                                                                                   
+
+# CMS components and Email velocity templates                                                              
+UPDATE RendererTemplate ; code[unique=true]                                    ; description[lang=$lang]                            ; templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                        ; sparkle-BannerComponent-template                     ; "CMSBannerComponent Template"                      ; $emailResource/email-bannerComponentTemplate.vm                                                               
+                        ; sparkle-CMSImageComponent-template                   ; "CMSImageComponent Template"                       ; $emailResource/email-cmsImageComponentTemplate.vm                                                             
+                        ; sparkle-CMSLinkComponent-template                    ; "CMSLinkComponent Template"                        ; $emailResource/email-cmsLinkComponentTemplate.vm                                                              
+                        ; sparkle-CMSParagraphComponent-template               ; "CMSParagraphComponent Template"                   ; $emailResource/email-cmsParagraphComponentTemplate.vm                                                         
+                        ; sparkle-SimpleBannerComponent-template               ; "CMSSimpleBannerComponent Template"                ; $emailResource/email-bannerComponentTemplate.vm                                                               
+                        ; sparkle_Email_Customer_Registration_Body             ; "Customer Registration Email Body"                 ; $jarEmailResource/email-customerRegistrationBody.vm                                                              
+                        ; sparkle_Email_Customer_Registration_Subject          ; "Customer Registration Email Subject"              ; $jarEmailResource/email-customerRegistrationSubject.vm                                                           
+                        ; sparkle_Email_Delivery_Sent_Body                     ; "Delivery Sent Email Body"                         ; $jarEmailResource/email-deliverySentBody.vm                                                                      
+                        ; sparkle_Email_Delivery_Sent_Subject                  ; "Delivery Sent Email Subject"                      ; $jarEmailResource/email-deliverySentSubject.vm                                                                   
+                        ; sparkle_Email_Forgotten_Password_Body                ; "Forgotten Password Email Body"                    ; $jarEmailResource/email-forgottenPasswordBody.vm                                                                 
+                        ; sparkle_Email_Forgotten_Password_Subject             ; "Forgotten Password Email Subject"                 ; $jarEmailResource/email-forgottenPasswordSubject.vm    
+                        ; sparkle_Email_Password_Reset_Body   				   ; "Password Reset Success Email Body" 				; $jarEmailResource/email-passwordResetBody.vm    
+                        ; sparkle_Email_Password_Reset_Subject				   ; "Password Reset Success Email Subject"     		; $jarEmailResource/email-passwordResetSubject.vm        
+						; sparkle_Email_Share_Cart_Subject					   ; "Share Cart Email Subject"						    ; $jarEmailResource/email-shareCartSubject.vm
+						; sparkle_Email_Share_Cart_Body						   ; "Share Cart Email Body" 							; $jarEmailResource/email-shareCartBody.vm						
+                        ; sparkle_Email_NotPickedUpConsignment_Canceled_Body   ; "Not Picked Up Consignment Canceled Email Body"    ; $emailResource/email-notPickedUpConsignmentCanceledBody.vm                                                    
+                        ; sparkle_Email_NotPickedUpConsignment_Canceled_Subject; "Not Picked Up Consignment Canceled Email Subject" ; $emailResource/email-notPickedUpConsignmentCanceledSubject.vm                                                 
+                        ; sparkle_Email_Order_Cancelled_Body                   ; "Order Cancelled Email Body"                       ; $jarEmailResource/email-orderCancelledBody.vm                                                                    
+                        ; sparkle_Email_Order_Cancelled_Subject                ; "Order Cancelled Email Subject"                    ; $jarEmailResource/email-orderCancelledSubject.vm                                                                 
+                        ; sparkle_Email_Order_Collection_Reminder_Body         ; "Order Collection Reminder Email Body"             ; $emailResource/email-orderCollectionReminderBody.vm                                                           
+                        ; sparkle_Email_Order_Collection_Reminder_Subject      ; "Order Collection Reminder"                        ; $emailResource/email-orderCollectionReminderSubject.vm                                                        
+                        ; sparkle_Email_Order_Confirmation_Body                ; "Order Confirmation Email Body"                    ; $jarEmailResource/email-orderConfirmationBody.vm                                                                 
+                        ; sparkle_Email_Order_Confirmation_Subject             ; "Order Confirmation Email Subject"                 ; $jarEmailResource/email-orderConfirmationSubject.vm                                                              
+                        ; sparkle_Email_Order_Move_To_CS_Body                  ; "Order Move To CS Email Body"                      ; $emailResource/email-orderMoveToCsBody.vm                                                                     
+                        ; sparkle_Email_Order_Move_To_CS_Subject               ; "Order Move To CS Subject"                         ; $emailResource/email-orderMoveToCsSubject.vm                                                                  
+                        ; sparkle_Email_Order_Partially_Canceled_Body          ; "Order Partially Canceled Email Body"              ; $emailResource/email-orderPartiallyCanceledBody.vm                                                            
+                        ; sparkle_Email_Order_Partially_Canceled_Subject       ; "Order Partially Canceled Email Subject"           ; $emailResource/email-orderPartiallyCanceledSubject.vm                                                         
+                        ; sparkle_Email_Order_Partially_Refunded_Body          ; "Order Partially Refunded Email Body"              ; $emailResource/email-orderPartiallyRefundedBody.vm                                                            
+                        ; sparkle_Email_Order_Partially_Refunded_Subject       ; "Order Partially Refunded Email Subject"           ; $emailResource/email-orderPartiallyRefundedSubject.vm                                                         
+                        ; sparkle_Email_Order_Refund_Body                      ; "Order Refund Email Body"                          ; $jarEmailResource/email-orderRefundBody.vm                                                                       
+                        ; sparkle_Email_Order_Refund_Subject                   ; "Order Refund Email Subject"                       ; $jarEmailResource/email-orderRefundSubject.vm                                                                    
+                        ; sparkle_Email_Ready_For_Pickup_Body                  ; "Ready For Pickup Email Body"                      ; $emailResource/email-readyForPickupBody.vm                                                                    
+                        ; sparkle_Email_Ready_For_Pickup_Subject               ; "Ready For Pickup Email Subject"                   ; $emailResource/email-readyForPickupSubject.vm 
+                        ; email-ChangeUIDSubject-template					   ; "change UID email subject"							; $jarEmailResource/email-changeUIDSubject.vm
+						; email-ChangeUIDBody-template						   ; "change UID email subject"							; $jarEmailResource/email-changeUIDBody.vm  
+						; email-UpdateProfileSubject-template				   ; "change UID email subject"							; $jarEmailResource/email-updateProfileSubject.vm
+						; email-UpdateProfileBody-template					   ; "change UID email subject"							; $jarEmailResource/email-updateProfileBody.vm         
+                        ; sparkle_Email_Share_Wishlist_Subject				   ; "Share Wishlist Email Subject"						; $jarEmailResource/email-shareWishlistSubject.vm
+						; sparkle_Email_Share_Wishlist_Body					   ; "Share Wishlist Email Body" 					    ; $jarEmailResource/email-shareWishlistBody.vm						
+						; sparkle_Email_Share_Wishlist_Body					   ; "Share Wishlist Email Body" 					    ; $jarEmailResource/email-shareWishlistBody.vm						
+                        ; sparkle-GPFooterComponent-template                   ; "Email Footer Component"							; $jarEmailResource/email-gpFooterComponentTemplate.vm
+						; email-FailedOrder_Subject					           ; "Failed Order Consignment Subject"                 ; $jarEmailResource/email-failedOrderSubject.vm
+				        ; email-FailedOrder_Body						       ; "Failed Order Consignment Body"                    ; $jarEmailResource/email-failedOrderBody.vm	
+						; sparkle_Email_Order_Reject_Body					   ; "Order Reject Email Body"                 			; $jarEmailResource/email-orderRejectBody.vm
+				        ; sparkle_Email_Order_Reject_Subject				   ; "Order Reject Email Subject"                   	; $jarEmailResource/email-orderRejectSubject.vm
+				        ; sparkle_Email_Share_Product_Resource_Subject	       ; "Share Product Resource Email Subject"				; $jarEmailResource/email-shareProductResourceSubject.vm
+ 						; sparkle_Email_Share_Product_Resource_Body		       ; "Share Product Resource Email Body"				; $jarEmailResource/email-shareProductResourceBody.vm	
+						; sparkle_Email_Order_Issues_Notify_Body			   ; "Order Issues Notification BOdy"				    ; $jarEmailResource/email-orderIssuesNotificationBody.vm	
+						; sparkle_Email_Order_Issues_Notify_Subject		       ; "Order Issues Notification BOdy"   			    ; $jarEmailResource/email-orderIssuesNotificationSubject.vm	
+						; sparkle_Email_Subscription_Confirmation_Body         ; "Subscription Confirmation Email Body"             ; $jarEmailResource/email-subscriptionConfirmationBody.vm
+						; sparkle_Email_Subscription_Confirmation_Subject      ; "Subscription Confirmation Email Subject"          ; $jarEmailResource/email-subscriptionConfirmationSubject.vm
+    					; sparkle_Email_Subcription_Order_Cancelled_Subject	   ; "Subscription Order Cancel Email Subject"		    ; $jarEmailResource/email-subscriptionOrderCancelledSubject.vm 
+    					; sparkle_Email_Subcription_Order_Cancelled_Body	   ; "Subscription Order Cancel Email Body"			    ; $jarEmailResource/email-subscriptionOrderCancelledBody.vm 
+    					; sparkle_Email_Subcription_Order_Status_Subject	   ; "Subscription Order Status Email Subject"		    ; $jarEmailResource/email-subscriptionOrderStatusSubject.vm 
+    					; sparkle_Email_Subcription_Order_Status_Body	       ; "Subscription Order Status Email Body"			    ; $jarEmailResource/email-subscriptionOrderStatusBody.vm 
+                   	    ; sparkle_Email_Next_Order_Subscription_Subject        ; "Next Order Subscription Email Subject"            ; $jarEmailResource/email-nextOrderSubscriptionSubject.vm
+					    ; sparkle_Email_Next_Order_Subscription_Body           ; "Next Order Subscription Email Body"   		    ; $jarEmailResource/email-nextOrderSubscriptionBody.vm     
+# Email Pages           
+UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]             		; fromEmail[lang=$lang]          ; fromName[lang=$lang]    
+                 ;                         ; CustomerRegistrationEmail    		; "customerservices@sparkle.com" ; "Customer Services Team"
+                 ;						   ; PasswordResetEmail			  		; "customerservices@sparkle.com" ; "Customer Services Team"
+                 ;                         ; DeliverySentEmail            		; "customerservices@sparkle.com" ; "Customer Services Team"
+                 ;                         ; ForgottenPasswordEmail       		; "customerservices@sparkle.com" ; "Customer Services Team"
+				 ;						   ; ShareCartEmail				  		; "customerservices@sparkle.com" ; "Customer Services Team"
+                 ;                         ; OrderCancelledEmail          		; "customerservices@sparkle.com" ; "Customer Services Team"
+                 ;                         ; OrderCollectionReminderEmail 		; "customerservices@sparkle.com" ; "Customer Services Team"
+                 ;                         ; OrderConfirmationEmail       		; "customerservices@sparkle.com" ; "Customer Services Team"
+                 ;                         ; OrderMoveToCsEmail           		; "customerservices@sparkle.com" ; "Customer Services Team"
+                 ;                         ; OrderPartiallyCanceledEmail  		; "customerservices@sparkle.com" ; "Customer Services Team"
+                 ;                         ; OrderPartiallyRefundedEmail  		; "customerservices@sparkle.com" ; "Customer Services Team"
+                 ;                         ; NotPickedUpConsignmentCanceledEmail; "customerservices@sparkle.com" ; "Customer Services Team"
+                 ;                         ; OrderRefundEmail             		; "customerservices@sparkle.com" ; "Customer Services Team"
+                 ;                         ; ReadyForPickupEmail          		; "customerservices@sparkle.com" ; "Customer Services Team"
+                 ;                         ; UpdateProfileEmail    		  		; "customerservices@sparkle.com" ; "Customer Services Team"
+                 ;						   ; ChangeUIDEmail				  		; "customerservices@sparkle.com" ; "Customer Services Team"
+                 ;						   ; ShareWishlistEmail			  		; "customerservices@sparkle.com" ; "Customer Services Team"
+                 ;						   ; FailedOrderEmail			  		; "customerservices@sparkle.com" ; "Customer Services Team"
+                 ;						   ; OrderRejectEmail			  		; "customerservices@sparkle.com" ; "Customer Services Team"
+                 ;						   ; ShareProductResourceEmail	  		; "customerservices@sparkle.com" ; "Customer Services Team"  
+                 ;						   ; OrderIssuesNotifyEmail		  		; "customerservices@sparkle.com" ; "Customer Services Team"        
+                 ;                         ; GPSubscrpOrderConfirmationEmail	; "customerservices@sparkle.com" ; "Customer Services Team"          
+                 ;						   ; SubscriptionOrderCancelledEmail	; "customerservices@sparkle.com" ; "Customer Services Team"
+				 ;						   ; SubscriptionOrderStatusEmail		; "customerservices@sparkle.com" ; "Customer Services Team"
+ 				 ;						   ; GPNextOrderSubscriptionEmail		; "customerservices@sparkle.com" ; "Customer Services Team"              

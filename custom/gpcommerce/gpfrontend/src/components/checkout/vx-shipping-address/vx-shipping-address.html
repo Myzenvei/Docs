@@ -1,0 +1,58 @@
+<div class="px-xs-3 vx-shipping-address row">
+  <!-- service call to get all address  -->
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>
+  </vx-spinner>
+  <template v-if='dataLoaded'>
+    <div class="row mx-xs-0 shipping-address-title">
+      <div class="col-sm-6 px-xs-0" :class="{ 'col-xs-12': isEditable, 'col-xs-8': isSaved }">
+        <div class="shipping-address-section-header">
+          <div class="shipping-address-heading" role="heading">
+            <div class="section-header">{{sectionIndex}}.
+              {{i18n.shippingAddress.shippingAddressHeading}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 px-xs-0" :class="{ 'col-xs-12 mt-xs-3 mt-sm-0': isEditable, 'col-xs-4': isSaved }">
+        <div v-if="isEditable" class="shipping-method-type">
+          <a :class="{disabled: disableShipToMultiple}">
+            <div v-if="isSingle" class="shipping-location-type d-flex">
+              <span v-if="((globals && !globals.isEmployeeStore()) && globals.siteConfig.isMultipleShippingEnabled && !globals.getIsSubscription()) && !cartHasBundle" @click="toggleMethodType($event)" @keyup.enter-space="toggleMethodType($event)"
+                tabindex="0" role="button" :aria-label='i18n.shippingAddress.multiLocationHeading'>{{i18n.shippingAddress.multiLocationHeading}}</span>
+              <template v-if="userLevel">
+                <span v-if="((this.savedAddresses.length!==0 && globals && !globals.isEmployeeStore()) && globals.siteConfig.isMultipleShippingEnabled && !globals.getIsSubscription()) && !cartHasBundle" class="px-xs-3">|</span>
+                <span @click="addNewAddressSingle($event)" @keyup.enter-space="addNewAddressSingle($event)" v-if="this.savedAddresses.length!==0"
+                  tabindex="0" role="button">{{i18n.shippingAddress.add}}</span>
+              </template>
+            </div>
+            <div v-if="isMultiple" class="shipping-location-type d-flex">
+              <span @click="toggleMethodType($event)" @keyup.enter-space="toggleMethodType($event)" tabindex="0" role="button"
+                :aria-label='i18n.shippingAddress.singleLocationHeading'>{{i18n.shippingAddress.singleLocationHeading}}</span>
+              <template v-if="userLevel">
+                <span class="px-xs-3">|</span>
+                <span @click="addNewAddressMultiple" tabindex="0" role="button">{{i18n.shippingAddress.add}}</span>
+              </template>
+            </div>
+          </a>
+        </div>
+        <div v-if="isSaved" class="shipping-method-change d-flex justify-content-end">
+          <a>
+            <span class="shipping-location-type" @click="editMethod($event)" @keyup.enter-space="editMethod($event)"
+              tabindex="0" role="button" :aria-label="i18n.shippingAddress.change">{{i18n.shippingAddress.change}}</span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="sub-heading-message mt-xs-3 col-xs-12 px-xs-0" v-if="isMultiple && isEditable">{{i18n.shippingAddress.multipleShippingAddressSubHeading}}</div>
+    <div class="sub-heading mt-xs-2 col-xs-12 px-xs-0" v-if="isMultiple && isSaved">{{i18n.shippingAddress.shippedMultiple}}</div>
+    <div class="col-xs-12 px-xs-0" v-if="isSingle">
+      <vx-single-shipping-address ref="singleShipping" :is-guest="isGuest" :pallet-shipment="isPalletShipment" :visible-entries="visibleEntries"
+        :i18n="i18n" :user-addresses="savedAddresses" @call-get-addresses="getAddressesRequest" @call-guest-get-addresses="getGuestAddressesRequest"
+        @addressSaved="onAddressSaved" :user-level="userLevel" @is-shipping-multiple="findShippingType"></vx-single-shipping-address>
+    </div>
+    <div class="col-xs-12 px-xs-0" v-if="isMultiple">
+      <vx-multi-shipping-address ref="multiShipping" :pallet-shipment="isPalletShipment" :is-guest="isGuest" :visible-entries="visibleEntries"
+        @call-get-addresses="getAddressesRequest" @call-guest-get-addresses="getGuestAddressesRequest" :user-addresses="savedAddresses"
+        :i18n="i18n" @addressSaved="onAddressSaved" :isShippingMultiple="isShippingMultiple"></vx-multi-shipping-address>
+    </div>
+  </template>
+</div>

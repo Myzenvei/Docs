@@ -1,0 +1,9 @@
+<div class="vx-checkbox-group">
+  <div v-for="item in checkBoxValues">
+    <label class="checkbox-container">{{item.label}}
+      <input tabindex="0" type="checkbox" class="form-checkbox-input" v-model="checkedBox" :value="item.value" :name="item.name"
+        v-on:click="checkTicked($event, item)" />
+      <span class="checkmark"></span>
+    </label>
+  </div>
+</div>

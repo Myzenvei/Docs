@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Iframe Credit Card Form</title>
+</head>
+
+<body>
+  <form id="iframe-credit-card-form" action="" method="post">
+    <input type="submit" name="submit" id="card_form_submit" value="submit" />
+  </form>
+
+  <script type="text/javascript">
+    var eventMethod = window.addEventListener ?
+      "addEventListener" :
+      "attachEvent";
+    var eventer = window[eventMethod];
+    var messageEvent = eventMethod === "attachEvent" ?
+      "onmessage" :
+      "message";
+    eventer(messageEvent, function (e) {
+      //data you receive from parent is stored inside e.data B2B
+      let userData = e.data;
+      if (userData) {
+        let parent = document.getElementById("iframe-credit-card-form");
+        for (let key in userData) {
+          if (userData.hasOwnProperty(key)) {
+            if (key === 'cyber_source_url') {
+              parent.setAttribute("action", userData[key]);
+            } else {
+              let input = document.createElement("input");
+              input.setAttribute('type', 'text');
+              input.setAttribute('name', key);
+              input.value = userData[key];
+              parent.appendChild(input);
+            }
+          }
+        }
+        document.getElementById("card_form_submit").click();
+      }
+    });
+  </script>
+</body>
+
+</html>

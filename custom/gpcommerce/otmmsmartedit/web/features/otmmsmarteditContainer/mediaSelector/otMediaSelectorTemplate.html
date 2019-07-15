@@ -1,0 +1,91 @@
+<div class="media-selector ot-media-selector">
+
+
+    <div class="media-present">
+        <div class="row">
+            <div class="col-xs-6">
+                <div class="media-present-preview" data-ng-show="ctrl.model[ctrl.qualifier] !== undefined">
+                    <se-media-preview data-image-url="ctrl.thumbnailUrl"></se-media-preview>
+                    <div class="se-media-preview-image-wrapper se-media-format-image-wrapper">
+                        <img class="thumbnail thumbnail--image-preview"
+                             data-ng-src="{{ctrl.thumbnailUrl}}">
+                    </div>
+                    <span class="media-preview-code se-media-format--code">{{ctrl.model[ctrl.qualifier]}}</span>
+                </div>
+                <div class="media-present-preview" data-ng-show="ctrl.model[ctrl.qualifier] === undefined">
+                    <se-media-preview data-image-url="ctrl.thumbnailUrl"></se-media-preview>
+                    <div class="se-media-preview-image-wrapper se-media-format-image-wrapper">
+                        <!--<img class="thumbnail thumbnail&#45;&#45;image-preview"-->
+                        <!--data-ng-src="{{ctrl.media.url}}">-->
+                    </div>
+                    <span class="media-preview-code se-media-format--code"></span>
+                </div>
+            </div>
+
+            <div class="col-xs-5">
+                <div class="media-selector--preview__right" data-ng-show="ctrl.model[ctrl.qualifier] !== undefined">
+
+                    <se-media-advanced-properties data-adv-info-icon="ctrl.advInfoIconUrl"
+                                                  data-code="ctrl.media.code"
+                                                  data-description="ctrl.media.description"
+                                                  data-alt-text="ctrl.media.altText"></se-media-advanced-properties>
+
+                    <ot-se-file-selector data-custom-class=" 'ot-se-file-selector' "
+                                         data-label-i18n-key="ctrl.i18nKeys.REPLACE "
+                                         data-accepted-file-types="ctrl.acceptedFileTypes "
+                                         data-on-file-select="ctrl.onFileSelect({files: files, format: ctrl.mediaFormat}) "
+                                         data-upload-icon="ctrl.replaceIconUrl "
+                                         data-image-root="ctrl.imageRoot "
+
+                                         data-icon-right-side="true"
+
+                                         data-item-id="ctrl.editor.component.uid"
+                                         data-item-catalog-version="ctrl.editor.component.catalogVersion"
+                                         data-attribute-id="ctrl.field.qualifier"
+                                         data-locale="ctrl.qualifier"
+                                         data-on-asset-assignment-completed="ctrl.onAssetAssignmentCompleted()"
+                                         data-pristine-media="ctrl.editor.pristine.media"
+                                         data-otmm-asset-id="ctrl.otmmAssetId"
+
+                                         data-disabled="ctrl.disabled">
+
+                    </ot-se-file-selector>
+
+                    <button class="media-selector--preview__left remove-image btn btn-subordinate "
+                            data-ng-click="ctrl.onRemoveMediaButtonClicked() ">
+                        <p class="media-selector--preview__left--p media-selector--preview__left--p__error ">
+                            {{ctrl.i18nKeys.REMOVE
+                            | translate}}</p>
+                        <img class="ot-media-selector--preview--icon "
+                             data-ng-src="{{ctrl.deleteIconUrl}} "
+                             alt="{{ctrl.i18nKeys.REMOVE | translate}} "/>
+                    </button>
+                </div>
+
+                <div class="media-selector--preview__right" data-ng-show="ctrl.model[ctrl.qualifier] === undefined">
+
+                    <ot-se-file-selector data-label-i18n-key="ctrl.i18nKeys.PICK_ASSET "
+                                         data-accepted-file-types="ctrl.acceptedFileTypes "
+                                         data-on-file-select="ctrl.onFileSelect({files: files, format: ctrl.mediaFormat}) "
+                                         data-upload-icon="ctrl.uploadIconUrl "
+                                         data-image-root="ctrl.imageRoot "
+
+                                         data-item-id="ctrl.editor.component.uid"
+                                         data-item-catalog-version="ctrl.editor.component.catalogVersion"
+                                         data-attribute-id="ctrl.field.qualifier"
+                                         data-locale="ctrl.qualifier"
+                                         data-on-asset-assignment-completed="ctrl.onAssetAssignmentCompleted()"
+                                         data-pristine-media="ctrl.editor.pristine.media"
+                                         data-otmm-asset-id="ctrl.otmmAssetId"
+
+                                         data-disabled="ctrl.disabled"
+                                         data-custom-class="ctrl.customClass">
+
+                    </ot-se-file-selector>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

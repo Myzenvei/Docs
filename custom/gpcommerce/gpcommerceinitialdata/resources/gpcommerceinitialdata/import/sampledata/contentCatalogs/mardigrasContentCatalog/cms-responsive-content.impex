@@ -1,0 +1,799 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+# 
+# ImpEx for Responsive GP Site CMS Content 
+# 
+$contentCatalog=mardigrasContentCatalog 
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged] 
+$productCatalog=gpUSProductCatalog 
+$productCatalogName=GP B2C Product Catalog 
+$productCV=catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged] 
+$picture=media(code, $contentCV) ;
+$siteResource=jar:com.gp.commerce.initialdata.constants.GpcommerceInitialDataConstants&/gpcommerceinitialdata/import/sampledata/contentCatalogs/$contentCatalog
+$jarResourceCms=jar:com.gp.commerce.initialdata.constants.GpcommerceInitialDataConstants&/gpcommerceinitialdata/import/sampledata/cockpits/cmscockpit
+$picture=media(code, $contentCV)
+$medias=medias(code, $contentCV);
+$mediaContainer=media(qualifier, $contentCV)
+$backgroundImage=backGroundImage(qualifier,$contentCV)
+
+# Language
+$lang=en
+
+# Load the storefront context root config param
+$storefrontContextRoot=$config-storefrontContextRoot
+
+# Create components, and put them in the template standard slots (e.g. SiteLogo, HeaderLink etc.)
+# These content slots are used by almost all templates. They are defined in coredata.
+#
+## Site Logo slot: SiteLogoComponent
+INSERT_UPDATE SimpleBannerComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;urlLink
+;;SiteLogoComponent;Site Logo Component;SiteLogoComponent;"/"
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(uid,$contentCV)
+;;SiteLogoSlot;SiteLogoComponent
+
+INSERT_UPDATE GPImageLinkComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;url;$picture
+;;gpFooterLogo;gpFooterLogo;gpFooterLogo;https://www.gp.com/;footerLogo
+
+INSERT_UPDATE Media;mediaFormat(qualifier);code[unique=true];@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];realfilename;altText;mime[default='image/jpeg'];$contentCV[unique=true];folder(qualifier)[default=images];
+;desktop;footerLogo;$siteResource/images/gpimage/gpLogo.png;gpLogo.png;GP Site;
+
+## Footer slot: Footer FooterNavigationComponent
+INSERT_UPDATE MardiGrasFooterComponent;$contentCV[unique=true];uid[unique=true];wrapAfter;&componentRef;showLanguageCurrency;navigationNode(&nodeRef);footerLogo(&componentRef)
+;;MardiGrasFooterComponent;5;MardiGrasFooterComponent;true;FooterNavNode;gpFooterLogo
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(uid,$contentCV)
+;;FooterSlot;MardiGrasFooterComponent
+
+###### Navigation Tree Start ######
+## navigation is in tree structure ##
+#
+## level 0 -- root ##
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);children(uid,$contentCV)[mode=append];links(uid, $contentCV);&nodeRef;
+;root;;root;;;;root;
+
+## level 1 -- Site Root: child of root ##
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);children(uid,$contentCV)[mode=append];links(uid, $contentCV);&nodeRef;
+;SiteRootNode;;SiteRootNode;root;;;SiteRootNode;
+
+## level 2 -- GPEmployee Site: child of SiteRootNode ##
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);children(uid,$contentCV)[mode=append];links(uid, $contentCV);&nodeRef;
+#;MardigrasNavNode;;GPEmployee Site;SiteRootNode;;;MardigrasNavNode;
+
+## level 3 -- My Account, Order, Categories, Footer Pages: children of GPEmployeeNavNode ##
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);links(&linkRef);&nodeRef
+#;MyAccountNavNode;;My Account;GPEmployeeNavNode;;MyAccountNavNode
+#;OrderNavNode;;Order;GPEmployeeNavNode;;OrderNavNode
+#;GPEmployeeCategoryNavNode;;Categories;GPEmployeeNavNode;;GPEmployeeCategoryNavNode
+;FooterNavNode;;Footer Pages;MardigrasNavNode;;FooterNavNode
+
+
+# Create components, and put them in the template specific slots (e.g. productList etc.)
+# These content slots are used by the specific templates. They are defined in coredata.
+#
+
+
+
+# The following will create stuff for each page, we do the following steps
+#
+#1. create content slot for page
+#2. create relationship from content slot to page
+#3. create components for each slot
+#4. create preview media
+#5. update page to set the preview media
+#
+###### Homepage Start ######
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;Section1Slot-Homepage;Section1 Slot for MardigrasHomepage;true;MardigrasHomepageSplashBannerComponent,MardigrasHomepageSaveBannerComponent
+;;Section2ASlot-Homepage;Section2A Slot for MardigrasHomepage;true;MardigrasHomepageWomenStreetBannerComponent,MardigrasHomepageMenStreetBannerComponent
+;;Section2BSlot-Homepage;Section2B Slot for MardigrasHomepage;true;MardigrasHomepageStreetYouthBannerComponent,MardigrasHomepageBrandsBannerComponent
+;;Section2CSlot-Homepage;Section2C Slot for MardigrasHomepage;true;
+;;Section3Slot-Homepage;Section3 Slot for MardigrasHomepage;true;
+;;Section4Slot-Homepage;Section4 Slot for MardigrasHomepage;true;MardigrasHomepageSmDiscountBannerComponent,MardigrasHomepageShopBannerComponent,MardigrasHomepageShipmentBannerComponent,MardigrasHomepageServiceBannerComponent
+;;Section5Slot-Homepage;Section5 Slot for MardigrasHomepage;true;MardigrasHomepageFreeDelBannerComponent
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='homepage'];contentSlot(uid,$contentCV)[unique=true];;;
+;;Section1-Homepage;Section1;;Section1Slot-Homepage;;;
+;;Section2A-Homepage;Section2A;;Section2ASlot-Homepage;;;
+;;Section2B-Homepage;Section2B;;Section2BSlot-Homepage;;;
+;;Section2C-Homepage;Section2C;;Section2CSlot-Homepage;;;
+;;Section3-Homepage;Section3;;Section3Slot-Homepage;;;
+;;Section4-Homepage;Section4;;Section4Slot-Homepage;;;
+;;Section5-Homepage;Section5;;Section5Slot-Homepage;;;
+
+# components in section1
+INSERT_UPDATE SimpleResponsiveBannerComponent;$contentCV[unique=true];uid[unique=true];name;urlLink;&componentRef
+;;MardigrasHomepageSplashBannerComponent;Mardigras Homepage Splash Banner Component;/Collections/Snow/c/snow;MardigrasHomepageSplashBannerComponent
+;;MardigrasHomepageSaveBannerComponent;Mardigras Homepage Discount Banner Component;/Collections/Streetwear/c/streetwear;MardigrasHomepageSaveBannerComponent
+   
+# components in section2A
+INSERT_UPDATE SimpleResponsiveBannerComponent;$contentCV[unique=true];uid[unique=true];name;urlLink;&componentRef
+;;MardigrasHomepageWomenStreetBannerComponent;Mardigras Homepage Women Dress Banner Component;/search?q=women%3Arelevance%3Agender%3AFEMALE;MardigrasHomepageWomenStreetBannerComponent
+;;MardigrasHomepageMenStreetBannerComponent;Mardigras Homepage Men Shirt Banner Component;/search?q=men%3Arelevance%3Agender%3AMALE;MardigrasHomepageMenStreetBannerComponent
+
+# components in section2B
+INSERT_UPDATE SimpleResponsiveBannerComponent;$contentCV[unique=true];uid[unique=true];name;urlLink;&componentRef
+;;MardigrasHomepageStreetYouthBannerComponent;Mardigras Homepage Youth Shorts Banner Component;/Categories/Streetwear-youth/c/270000;MardigrasHomepageStreetYouthBannerComponent
+;;MardigrasHomepageBrandsBannerComponent;Mardigras Homepage Brands Banner Component Child;Brands/c/brands;MardigrasHomepageBrandsBannerComponent
+
+# components in section4
+INSERT_UPDATE SimpleResponsiveBannerComponent;$contentCV[unique=true];uid[unique=true];name;urlLink;&componentRef
+;;MardigrasHomepageSmDiscountBannerComponent;Mardigras Homepage Small Discount Banner Component;/Categories/Accessories/Belts/Maguro-Pu-Belt/p/300785814;MardigrasHomepageSmDiscountBannerComponent
+;;MardigrasHomepageShopBannerComponent;Mardigras Homepage Shop Banner Component;/Categories/Bags%2BBoardbags/Backpacks/Airline-Bag/p/300618506;MardigrasHomepageShopBannerComponent
+;;MardigrasHomepageShipmentBannerComponent;Mardigras Homepage Shipment Banner Component;/Categories/Accessories/Caps/Adapt-New-Era/p/300398794;MardigrasHomepageShipmentBannerComponent
+;;MardigrasHomepageServiceBannerComponent;Mardigras Homepage Service Banner Component;/Brands/VonZipper/Shades-Von-Zipper-Papa-Gblack-gloss-black-gloss-grey/p/30404;MardigrasHomepageServiceBannerComponent
+
+# components in section5
+INSERT_UPDATE SimpleResponsiveBannerComponent;$contentCV[unique=true];uid[unique=true];name;urlLink;&componentRef
+;;MardigrasHomepageFreeDelBannerComponent;Mardigras Homepage Free Delivery Banner Component;/faqs;MardigrasHomepageFreeDelBannerComponent
+
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];folder(qualifier)[default='images'];;
+;;homepagePreview;text/png;Homepage.png;$jarResourceCms/preview-images/Mardigras/Homepage.png;;;
+
+UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];previewImage(code, $contentCV);;;;;
+;;homepage;homepagePreview;;;;;
+###### Homepage End ###### 
+
+
+
+
+###### Store Finder Page Start ######
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;MiddleContentSlot-StoreFinder;Middle Slot for Store Finder Page;true;StoreFinderComponent
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='storefinderPage'];contentSlot(uid,$contentCV)[unique=true]
+;;MiddleContent-StoreFinder;MiddleContent;;MiddleContentSlot-StoreFinder
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;StoreFinderComponent;Store Finder Component;storeFinderContent.jsp;;StoreFinderComponent
+
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];folder(qualifier)[default='images'];;
+;;storefinderPagePreview;text/png;StoreFinderPage.png;$jarResourceCms/preview-images/Mardigras/StoreFinderPage.png;;;
+
+UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];previewImage(code, $contentCV);;;;;
+;;storefinderPage;storefinderPagePreview;;;;;
+
+UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];linkComponents(uid, $contentCV)
+;;storefinderPage;StoreFinderLink
+
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];name;url;category(code, $productCV);target(code)[default='sameWindow'];;socialLink[default=false];markAsViewAll[default=false]
+;;StoreFinderLink;Store Finder Link;/store-finder;;;
+###### Store Finder Page End ######
+
+
+###### Not Found Page Start ######
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;Mardigras-MiddleContent-Errorpage;Mardigras Middle Content Slot for Error Page;true;MardigrasErrorpageBannerComponent;;;
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='notFound'];contentSlot(uid,$contentCV)[unique=true]
+;;Mardigras-MiddleContent-Errorpage;MiddleContent;;Mardigras-MiddleContent-Errorpage
+
+INSERT_UPDATE SimpleResponsiveBannerComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef
+;;MardigrasErrorpageBannerComponent;Mardigras Error Page Banner Component;MardigrasErrorpageBannerComponent
+
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];folder(qualifier)[default='images'];;
+;;notFoundPagePreview;text/png;NotFoundPage.png;$jarResourceCms/preview-images/Mardigras/NotFoundPage.png;;;
+
+UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];previewImage(code, $contentCV);;;;;
+;;notFound;notFoundPagePreview;;;;;
+###### Not Found Page End ######
+
+
+
+
+###### Navigation Tree Start ######
+## navigation is in tree structure ##
+#
+## level 0 -- root ##
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);children(uid,$contentCV)[mode=append];links(uid, $contentCV);&nodeRef;
+;root;;root;;;;root;
+
+## level 1 -- Site Root: child of root ##
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);children(uid,$contentCV)[mode=append];links(uid, $contentCV);&nodeRef;
+;SiteRootNode;;SiteRootNode;root;;;SiteRootNode;
+
+## level 2 -- Mardigras Site: child of SiteRootNode ##
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);children(uid,$contentCV)[mode=append];links(uid, $contentCV);&nodeRef;
+;MardigrasNavNode;;Mardigras Site;SiteRootNode;;;MardigrasNavNode;
+
+
+########## Footer Pages Starts - FAQ, AboutUs, Terms and Conditions ###########
+# Simple Content Pages
+INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);label;defaultPage[default='true'];approvalStatus(code)[default='approved'];homepage[default='false']
+;;termsAndConditions;Terms and Conditions Page;ContentPage1Template;/termsAndConditions
+
+INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);label;defaultPage[default='true'];approvalStatus(code)[default='approved'];homepage[default='false']
+;;aboutUs;About Us Page;ContentPage1Template;/aboutUs
+
+
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];name;url;category(code, $productCV);target(code)[default='newWindow'];external[default=false];socialLink[default=false];markAsViewAll[default=false]
+;;TermsAndConditionsLink;Terms and Conditions Link;/termsAndConditions;;newWindow;;
+;;AboutUsLink;About Us Link;/aboutUs;;newWindow;;
+;;FAQLink;FAQ Link;/faqs;;newWindow;;
+;;FacebookLink;Facebook Link;https://www.facebook.com/MardiGrasNapkins;;newWindow;true;
+;;TwitterLink;Twitter Link;https://twitter.com/Mardigrasfessional;;newWindow;true;
+;;InstagramLink;Instagram Link;https://www.Mardigras.com/;;newWindow;true;
+;;PinterestLink;Pinterest Link;https://www.Mardigras.com/;;newWindow;true;
+;;YouTubeLink;Youtube Link;https://www.youtube.com/user/GeorgiaPacificPro;;newWindow;true;
+;;LinkedInLink;LinkedIn Link;https://www.linkedin.com/company/Mardigras/;;newWindow;true;
+;;SnapchatLink;Snapchat Link;https://www.Mardigras.com/;;newWindow;true;
+;;GPSiteLink;Sustainability Link;https://www.gp.com/sustainability;;newWindow;true;
+;;GPTermsLink;Terms of Use Link;https://www.gp.com/legal/legal-notices/terms-of-use;;newWindow;true;
+;;GPPrivacyLink;Privacy Notice Link;https://www.gp.com/legal/legal-notices/privacy-notice;;newWindow;true;
+;;GPCaliforniaRightsLink;Privacy Notice Link;https://www.gp.com/legal/legal-notices/privacy-notice;;newWindow;true;
+
+##### GP Terms And Conditions Page
+# CMSParagraphComponent
+INSERT_UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;;;;
+;;termsAndConditionsTextParagraph;Terms and Conditions Paragraph;TermsAndConditionsTextParagraph;;;;
+
+# ContentSlot
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;Section1Slot-TermsAndConditions;Section1 Slot for Terms and Conditions Page;true;TermsAndConditionsTextParagraph;;;
+
+# ContentSlotForPage
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='termsAndConditions'];contentSlot(uid,$contentCV)[unique=true];;;
+;;Section1-TermsAndConditions;Section1;;Section1Slot-TermsAndConditions;;;
+
+##### GP About Us Page 
+# CMSParagraphComponent
+INSERT_UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;;;;
+;;aboutUsTextParagraph;About Us Paragraph;AboutUsTextParagraph;;;;
+;;aboutUsContentParagraph;About Us Paragraph;AboutUsContentParagraph;;;;
+
+# ContentSlot
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;Section1Slot-AboutUs;Section1 Slot for About Us Page;true;AboutUsTextParagraph;;;
+;;Section3Slot-AboutUs;Section3 Slot for About Us Page;true;AboutUsContentParagraph;;;
+
+# ContentSlotForPage
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='aboutUs'];contentSlot(uid,$contentCV)[unique=true];;;
+;;Section1-AboutUs;Section1;;Section1Slot-AboutUs;;;
+;;Section3-AboutUs;Section3;;Section3Slot-AboutUs;;;
+
+##### GP FAQ Page 
+# CMSParagraphComponent
+INSERT_UPDATE GPFAQCMSParagraphComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;;;;
+;;faqTextParagraph1;FAQ Paragraph;FAQTextParagraph;;;;
+
+INSERT_UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;;;;
+;;faqHeadingParagraph;FAQ Heading;FAQHeadingParagraph;;;;
+;;faqContentParagraph;FAQ Paragraph;FAQContentParagraph;;;;
+
+# ContentSlot
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;Section1Slot-FAQ;Section1 Slot for FAQ Page;true;FAQHeadingParagraph;;;
+;;Section3Slot-FAQ;Section3 Slot for FAQ Page;true;FAQTextParagraph;;;
+;;Section5Slot-FAQ;Section5 Slot for FAQ Page;true;FAQContentParagraph;;;
+
+########## Footer Pages Ends - FAQ, AboutUs, Terms and Conditions ###########
+
+## GP Footer Nav Start ##
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);links(&linkRef);&nodeRef;parentPos
+;GPSiteNavNode;;GP Sustainability Site Pages;FooterNavNode;;GPSiteNavNode;0
+;GPTermsNavNode;;Terms of Use Pages;FooterNavNode;;GPTermsNavNode;1
+;GPPrivacyNavNode;;Privacy Notice Pages;FooterNavNode;;GPPrivacyNavNode;2
+;GPCaliforniaRightsNavNode;;California Privacy Rights Pages;FooterNavNode;;GPCaliforniaRightsNavNode;3
+;GPContactUsNavNode;;GP Contact Us Pages;FooterNavNode;;GPContactUsNavNode;4
+
+# entries of the above navigation nodes
+INSERT_UPDATE CMSNavigationEntry;uid[unique=true];$contentCV[unique=true];name;navigationNode(&nodeRef);item(CMSLinkComponent.uid,CMSLinkComponent.$contentCV);
+;GPSiteNavNodeEntry;;GP Sustainability Site Navigation Node Entry;GPSiteNavNode;GPSiteLink;
+;GPTermsNavNodeEntry;;Terms of Use Navigation Node Entry;GPTermsNavNode;GPTermsLink;
+;GPPrivacyNavNodeEntry;;Privacy Notice Navigation Node Entry;GPPrivacyNavNode;GPPrivacyLink;
+;GPCaliforniaRightsNavNodeEntry;;California Privacy Rights Navigation Node Entry;GPCaliforniaRightsNavNode;GPCaliforniaRightsLink;
+;GPContactUsNavNodeEntry;;GP Contact Us Navigation Node Entry;GPContactUsNavNode;ContactUsLink;
+## GP Footer Nav End ##
+
+ #start changes for header category navigation
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(uid, $contentCV)
+;;TopHeaderSlot;MardigrasHeaderNavigationComponent
+
+INSERT_UPDATE CMSNavigationNode;$contentCV[unique=true];uid[unique=true];title[lang=$lang];name;parent(uid, $contentCV);
+;;MardigrasHeaderNavigationNode;Main Header Nav Node;Main Header Nav Node;SiteRootNode;
+;;MardigrasLoginMenuNavNode;Login Nav Node;Login Nav Node;MardigrasHeaderNavigationNode;
+
+INSERT_UPDATE MardigrasHeaderNavigationComponent;$contentCV[unique=true];uid[unique=true];name;styleClass;navigationNode(uid,$contentCV)[unique=true];wrapAfter;includeMiniCart;includeSearchBox;brandLogo;checkoutMenu(uid,$contentCV);findStoreMenu(uid,$contentCV);loginMenu(uid,$contentCV);logoutMenu(uid,$contentCV);categoryNavigationMenu(uid,$contentCV);accountNavigationMenu(uid,$contentCV);socialIcon(GPImageLinkComponent.uid,GPImageLinkComponent.$contentCV)
+;;MardigrasHeaderNavigationComponent;Mardigras Header Navigation Component;;MardigrasHeaderNavigationNode;10;true;true;mardi-gras-brand.png;;;MardigrasLoginMenuNavNode;;;;MardigrasSocialIcon
+
+
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];linkName[lang=$lang];url;styleAttributes;target(code)[default='sameWindow'];external[default=false];socialLink[default=false];markAsViewAll[default=false]
+;;mardigrasHomeLink;Home;/;;;;
+;;ourNapkinsLink;Our Napkins;/ournapkins;;;;
+;;findandBuyUsLink;Find & Buy US;/findandbuy;;;;
+;;faqLink;FAQ;/faqs;;;;
+;;teachersLink;Teachers;/teachers;;;;
+#;;MardigrasSocialLink;Sign up & Save;/signup;;
+
+INSERT_UPDATE Media;mediaFormat(qualifier);code[unique=true];@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];realfilename;altText;mime[default='image/jpeg'];$contentCV[unique=true];folder(qualifier)[default=images];
+;desktop;socialIcon;$siteResource/images/gpimage/facebook.png;facebook.png;"socialIcon";
+
+
+INSERT_UPDATE GPImageLinkComponent;$contentCV[unique=true];uid[unique=true];name;url;$picture
+;;MardigrasSocialIcon;Mardigras Social Icon;https://www.facebook.com/MardiGrasNapkins;socialIcon
+
+INSERT_UPDATE CMSNavigationEntry;$contentCV[unique=true];uid[unique=true];name;navigationNode(uid,$contentCV);item(CMSLinkComponent.uid,CMSLinkComponent.$contentCV);navigationNodePOS
+;;mardigrasHomeNavNodeEntry;Mardigras Home Nav Node Entry;MardigrasLoginMenuNavNode;mardigrasHomeLink;0
+;;mardigrasOurNapkinsNodeEntry;Our Napkins Nav Node Entry;MardigrasLoginMenuNavNode;ourNapkinsLink;1
+;;mardigrasFindandBuyusNavNodeEntry;Find and Buy us Nav Node Entry;MardigrasLoginMenuNavNode;findandBuyUsLink;2
+;;mardigrasFaqNavNodeEntry;Mardigras FAQ Nav Node Entry;MardigrasLoginMenuNavNode;faqLink;3
+;;mardigrasTeachersNavNodeEntry;Teachers Nav Node Entry;MardigrasLoginMenuNavNode;teachersLink;4
+
+ #end changes for header category navigation
+ 
+
+
+#### Store Locator Start ####
+
+INSERT_UPDATE PageTemplate;$contentCV[unique=true];uid[unique=true];name;frontendTemplateName;restrictedPageTypes(code);active[default=true]
+;;StoreLocatorPageTemplate;Store Locator Page Template;storeLocator/GPStoreLocatorPage;ContentPage
+
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='StoreLocatorPageTemplate'];validComponentTypes(code);compTypeGroup(code)
+;StoreLocatorSlot;;;wide
+;SiteLogo;;;logo
+;HeaderLinks;;;headerlinks
+;MiniCart;;;minicart
+;NavigationBar;;;navigation
+;Footer;;;footer
+;TopHeaderSlot;;;wide
+;BottomHeaderSlot;;;wide
+;PlaceholderContentSlot;;;
+
+
+INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);label;defaultPage[default='true'];approvalStatus(code)[default='approved'];homepage[default='false']
+;;storeLocator;Store Locator Page;StoreLocatorPageTemplate;/find/locatestore; 
+
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;storeLocatorJspIncludeComponent;Store Locator page;GPStoreLocator.jsp;;storeLocatorJspIncludeComponent
+
+# ContentSlot 
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;StoreLocatorSlot-findstore;Store Locator Slot for find a store;true;storeLocatorJspIncludeComponent;;;
+ 
+# ContentSlotForPage 
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='storeLocator'];contentSlot(uid,$contentCV)[unique=true];;;
+;;StoreLocatorSlot-findstore;StoreLocatorSlot;;StoreLocatorSlot-findstore;;;
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV;uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='StoreLocatorPageTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;TopHeaderSlot-StoreLocatorPage;TopHeaderSlot;;TopHeaderSlot;true
+;;Footer-StoreLocatorPage;Footer;;FooterSlot;true
+
+#### Store Locator End ####    
+
+
+##### Profile page changes Start #####
+
+INSERT_UPDATE CMSNavigationNode;$contentCV[unique=true];uid[unique=true];title[lang=$lang];name;parent(uid, $contentCV);
+;;GPHeaderNavigationNode;Main Header Nav Node;Main Header Nav Node;SiteRootNode;
+;;GPFindStoreNavNode;Find Store Nav Node;Find Store Nav Node;GPHeaderNavigationNode;
+
+INSERT_UPDATE CMSNavigationNode ; uid[unique=true]    ; $contentCV[unique=true] ; name             ; parent(uid, $contentCV) ; links(&linkRef) ; &nodeRef           
+                                ; GPNavigationNavNode ;                         ; Navigation Pages ; GPHeaderNavigationNode  ;                 ; GPNavigationNavNode
+
+## Left slot: GP NavigationComponent
+INSERT_UPDATE GPNavigationComponent ; $contentCV[unique=true] ; uid[unique=true]      ; &componentRef         ; navigationNode(&nodeRef);
+                                    ;                         ; GPNavigationComponent ; GPNavigationComponent ; GPNavigationNavNode     ;  
+
+
+INSERT_UPDATE ComponentTypeGroups2ComponentType ; source(code)[unique=true] ; target(code)[unique=true]
+                                                ; narrow                    ; GPNavigationComponent   
+                                                ; wide                      ; GPNavigationComponent    
+                                                ; narrow                    ; MardigrasHeaderNavigationComponent   
+                                                ; wide                      ; MardigrasHeaderNavigationComponent    
+                                                ; wide                      ; MardiGrasFooterComponent
+                                               	; narrow                    ; MardiGrasFooterComponent  
+                                                ; narrow                    ; MardiGrasHeroBannerComponent                                                	  
+                                               	; wide 							 ; MardiGrasHeroBannerComponent
+                                               	; narrow                    ; MardiGrasFAQComponent                                                	  
+                                               	; wide 							 ; MardiGrasFAQComponent
+																; narrow                    ; MardigrasBoredomComponent                                                	  
+                                               	; wide 							 ; MardigrasBoredomComponent
+																; narrow                    ; MardigrasVideosComponent                                                	  
+                                               	; wide 						    ; MardigrasVideosComponent
+																; narrow                    ; MaridgrasNapkinsComponent                                                	  
+                                               	; wide 							 ; MaridgrasNapkinsComponent
+																; narrow                    ; MardigrasOurPacksComponent                                                	  
+                                               	; wide 							 ; MardigrasOurPacksComponent
+                                                ; narrow							 ;	MardiGrasStoreLocatorComponent
+                                                ; wide							 ; MardiGrasStoreLocatorComponent
+                                                ; narrow							 ;	GPLiveChatComponent
+                                                ; wide							 ;	GPLiveChatComponent
+                                                ; narrow 						 ;	GPUnsubscribeComponent
+                                                ; wide							 ;	GPUnsubscribeComponent
+                                                
+                                               	
+                                               											
+#### Profile page changes End ####
+
+
+								   
+INSERT_UPDATE Media;mediaFormat(qualifier);code[unique=true];@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];realfilename;altText;mime[default='image/jpeg'];$contentCV[unique=true];folder(qualifier)[default=images];
+;desktop;gpbanner1;$siteResource/images/gpimage/Hero_1.jpg;Hero_1.jpg;"Hero_1.jpg";
+;desktop;gpbanner2;$siteResource/images/gpimage/Hero_2.jpg;Hero_2.jpg;"Hero_2.jpg";
+;desktop;gpbanner3;$siteResource/images/gpimage/Hero_3.jpg;Hero_3.jpg;"Hero_3.jpg";
+;desktop;gpbanner4;$siteResource/images/gpimage/Hero_4.jpg;Hero_4.jpg;"Hero_4.jpg";
+;desktop;gpbanner5;$siteResource/images/gpimage/Home-GP-PRO.jpg;Home-GP-PRO.jpg;"Home-GP-PRO.jpg";
+;desktop;gpbanner6;$siteResource/images/gpimage/Home-GP-PRO6.jpg;Home-GP-PRO6.jpg;"Home-GP-PRO6.jpg";
+;desktop;brandbar1;$siteResource/images/gpimage/brandbar1.png;brandbar1.png;"brandbar1.png";
+;desktop;brandbar2;$siteResource/images/gpimage/brandbar2.png;brandbar2.png;"brandbar2.png";
+;desktop;brandbar3;$siteResource/images/gpimage/brandbar3.png;brandbar3.png;"brandbar3.png";
+;desktop;brandbar4;$siteResource/images/gpimage/brandbar4.png;brandbar4.png;"brandbar4.png";
+;desktop;brandbar5;$siteResource/images/gpimage/brandbar5.png;brandbar5.png;"brandbar5.png";
+;desktop;textwithimage;$siteResource/images/gpimage/Text_with_Image.jpg;Text_with_Image.jpg;"Text_with_Image.jpg";
+
+INSERT_UPDATE MediaContainer;qualifier[unique=true];$medias;$contentCV[unique=true]
+;hero_banner_1;gpbanner1
+;hero_banner_2;gpbanner2
+;hero_banner_3;gpbanner3
+;hero_banner_4;gpbanner4
+;gpimage1;gpbanner5
+;gpimage2;gpbanner6
+;gpimage3;textwithimage
+								   
+INSERT_UPDATE GPBannerComponent;$contentCV[unique=true];uid[unique=true];name;$mediaContainer;backgroundColor;headline;content;contentColor;ctaText;&componentRef;urlLink
+;;gpBannerComponent;gpBannerComponent;gpimage3;#3498DB;"Restroom";"Total restroom solutions for commercial facilities providing the best experience for those who use the restroom and those who manage them";#808080; Learn More;gpBannerComponent;www.google.com
+;;gpBannerComponent1;gpBannerComponent1;gpimage1;#3498DB;"Restroom";"Total restroom solutions for commercial facilities providing the best experience for those who use the restroom and those who manage them";#808080; Learn More;gpBannerComponent1;www.google.com
+;;gpBannerComponent2;gpBannerComponent2;gpimage2;#3498DB;"Restroom";"Total restroom solutions for commercial facilities providing the best experience for those who use the restroom and those who manage them";#808080; Learn More;gpBannerComponent2;www.google.com
+
+INSERT_UPDATE GPImageLinkComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;url;$picture
+;;gpImageLink1;gpImageLink1;gpImageLink1;/;brandbar1
+;;gpImageLink2;gpImageLink1;gpImageLink2;/;brandbar2
+;;gpImageLink3;gpImageLink1;gpImageLink3;/;brandbar3
+;;gpImageLink4;gpImageLink1;gpImageLink4;/;brandbar4
+;;gpImageLink5;gpImageLink5;gpImageLink5;/;brandbar5
+
+
+
+INSERT_UPDATE GPImageComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;headingText;urlLink;ctaText;backgroundColor;$mediaContainer
+;;gpImageComponent;gpImageComponent;gpImageComponent;"Hero Banner";/;"click me";;hero_banner_1
+;;gpImageComponent1;gpImageComponent1;gpImageComponent1;"Hero Banner sample";/;"click me";;hero_banner_2
+;;gpImageComponent2;gpImageComponent2;gpImageComponent2;"Hero Banner sample";/;"click me";;hero_banner_3
+
+
+##### mardigras####
+INSERT_UPDATE Media;mediaFormat(qualifier);code[unique=true];@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];realfilename;altText;mime[default='image/jpeg'];$contentCV[unique=true];folder(qualifier)[default=images];
+;desktop;mardigrasBackground1;$siteResource/images/gpimage/about_background_1.png;about_background_1.png;"about_background_1.png";
+;desktop;mardigrasBackground2;$siteResource/images/gpimage/about_background_2.png;about_background_2.png;"about_background_2.png";
+;desktop;mardigrasVideo1;$siteResource/images/gpimage/hangry.png;hangry.png;"hangry.png";
+;desktop;mardigrasVideo2;$siteResource/images/gpimage/mardiGrasMeetHarts.png;mardiGrasMeetHarts.png;"mardiGrasMeetHarts.png";
+;desktop;mardigrasVideo3;$siteResource/images/gpimage/meet_the_harts.png;meet_the_harts.png;"meet_the_harts.png";
+;desktop;mardigrasVideo4;$siteResource/images/gpimage/momming.png;momming.png;"momming.png";
+;desktop;mardigrasNapkin;$siteResource/images/gpimage/mg_brand_napkins.gif;mg_brand_napkins.gif;"mg_brand_napkins.gif";
+;desktop;mardigrasPinkNapkin;$siteResource/images/gpimage/About_CO.png;About_CO.png;"About_CO.png";
+;desktop;mardigrasCarouselImage1;$siteResource/images/gpimage/Ding_Ding.png;Ding_Ding.png;"Ding_Ding.png";
+;desktop;mardigrasCarouselImage2;$siteResource/images/gpimage/Fastforward.png;Fastforward.png;"Fastforward.png";
+;desktop;mardigrasCarouselImage3;$siteResource/images/gpimage/Genie.png;Genie.png;"Genie.png";
+;desktop;mardigrasCarouselImage4;$siteResource/images/gpimage/Idea.png;Idea.png;"Idea.png";
+;desktop;mardigrasCarouselImage5;$siteResource/images/gpimage/Makerules.png;Makerules.png;"Makerules.png";
+;desktop;mardigrasCarouselImage6;$siteResource/images/gpimage/Inventcraze.png;Inventcraze.png;"Inventcraze.png";
+;desktop;mardigrasCarouselImage7;$siteResource/images/gpimage/Outrageous.png;Outrageous.png;"Outrageous.png";
+;desktop;mardigrasCarouselImage8;$siteResource/images/gpimage/Madetwice.png;Madetwice.png;"Madetwice.png";
+;desktop;mardigrasCarouselImage9;$siteResource/images/gpimage/Makefriends.png;Makefriends.png;"Makefriends.png";
+;desktop;mardigrasCarouselImage10;$siteResource/images/gpimage/Owntruck.png;Owntruck.png;"Owntruck.png";
+;desktop;mardigrasCarouselImage11;$siteResource/images/gpimage/Picturemoment.png;Picturemoment.png;"Picturemoment.png";
+;desktop;mardigrasCarouselImage12;$siteResource/images/gpimage/Song.png;Song.png;"Song.png";
+;desktop;mardigrasCarouselImage13;$siteResource/images/gpimage/Superpower.png;Superpower.png;"Superpower.png";
+;desktop;mardigrasCarouselImage14;$siteResource/images/gpimage/Thankfulltoday.png;Thankfulltoday.png;"Thankfulltoday.png";
+;desktop;mardigrasCarouselImage15;$siteResource/images/gpimage/Trendtomorrow.png;Trendtomorrow.png;"Trendtomorrow.png";
+;desktop;mardigrasCarouselImage16;$siteResource/images/gpimage/Yourmilkshake.png;Yourmilkshake.png;"Yourmilkshake.png";
+;desktop;mardigrasCarouselImage17;$siteResource/images/gpimage/BuzzFluttter_2018.png;BuzzFluttter_2018.png;"BuzzFluttter_2018.png";
+;desktop;mardigrasCarouselImage18;$siteResource/images/gpimage/Doves_2018.png;Doves_2018.png;"Doves_2018.png";
+;desktop;mardigrasCarouselImage19;$siteResource/images/gpimage/FlutFly_2018.png;FlutFly_2018.png;"FlutFly_2018.png";
+;desktop;mardigrasCarouselImage20;$siteResource/images/gpimage/Swirls_2018.png;Swirls_2018.png;"Swirls_2018.png";
+;desktop;mardigrasourpacksImage1;$siteResource/images/gpimage/200pack.png;200pack.png;"200pack.png";
+;desktop;mardigrasourpacksImage2;$siteResource/images/gpimage/250pack.png;250pack.png;"250pack.png";
+;desktop;mardigrasourpacksImage3;$siteResource/images/gpimage/500pack.png;500pack.png;"500pack.png";
+;desktop;mardigrasourpacksImage4;$siteResource/images/gpimage/700pack.png;700pack.png;"700pack.png";
+;desktop;mardigrasourpacksImage5;$siteResource/images/gpimage/250_pink.png;250_pink.png;"250_pink.png";
+;desktop;mardigrasourpacksImage6;$siteResource/images/gpimage/500_pink.png;500_pink.png;"500_pink.png";
+;desktop;mardigrasbanner1;$siteResource/images/gpimage/mg-brand1.png;mg-brand1.png;"mg-brand1.png";
+;desktop;mardigrasbanner2;$siteResource/images/gpimage/mg-brand2.png;mg-brand2.png;"mg-brand2.png";
+;desktop;mardigrasfindUs;$siteResource/images/gpimage/find_us.png;find_us.png;"find_us.png";
+;desktop;mardigrasfaq;$siteResource/images/gpimage/mg_faq.gif;mg_faq.gif;"mg_faq.gif";
+;desktop;mardigrasTeachers;$siteResource/images/gpimage/teachers_img_left.png;teachers_img_left.png;"teachers_img_left.png";
+;desktop;mardigrasTeachersBackground;$siteResource/images/gpimage/mg_teachers_background.jpg;mg_teachers_background.jpg;"mg_teachers_background.jpg";
+;desktop;mardigrasSignUp;$siteResource/images/gpimage/Signup_social.png;Signup_social.png;"Signup_social.png";
+
+INSERT_UPDATE Media;mediaFormat(qualifier);code[unique=true];@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];realfilename;altText;mime[default='application/pdf'];$contentCV[unique=true];
+;document;mardigrasDownLoadDocument;$siteResource/content/MardiGrasHandout.pdf;MardiGrasHandout.pdf;;
+
+INSERT_UPDATE MediaContainer;qualifier[unique=true];$medias;$contentCV[unique=true]
+;mardigrasBanner1;mardigrasBackground1
+;mardigrasBanner2;mardigrasBackground2
+;mardigrasVideoContainer1;mardigrasVideo1
+;mardigrasVideoContainer2;mardigrasVideo2
+;mardigrasVideoContainer3;mardigrasVideo3
+;mardigrasVideoContainer4;mardigrasVideo4
+;mardigrasNapkinContainer;mardigrasNapkin
+;mardigrasPinkNapkinContainer;mardigrasPinkNapkin
+;mardigrasImageCarouselConatiner1;mardigrasCarouselImage1
+;mardigrasImageCarouselConatiner2;mardigrasCarouselImage2
+;mardigrasImageCarouselConatiner3;mardigrasCarouselImage3
+;mardigrasImageCarouselConatiner4;mardigrasCarouselImage4
+;mardigrasImageCarouselConatiner5;mardigrasCarouselImage5
+;mardigrasImageCarouselConatiner6;mardigrasCarouselImage6
+;mardigrasImageCarouselConatiner7;mardigrasCarouselImage7
+;mardigrasImageCarouselConatiner8;mardigrasCarouselImage8
+;mardigrasImageCarouselConatiner9;mardigrasCarouselImage9
+;mardigrasImageCarouselConatiner10;mardigrasCarouselImage10
+;mardigrasImageCarouselConatiner11;mardigrasCarouselImage11
+;mardigrasImageCarouselConatiner12;mardigrasCarouselImage12
+;mardigrasImageCarouselConatiner13;mardigrasCarouselImage13
+;mardigrasImageCarouselConatiner14;mardigrasCarouselImage14
+;mardigrasImageCarouselConatiner15;mardigrasCarouselImage15
+;mardigrasImageCarouselConatiner16;mardigrasCarouselImage16
+;mardigrasImageCarouselConatiner17;mardigrasCarouselImage17
+;mardigrasImageCarouselConatiner18;mardigrasCarouselImage18
+;mardigrasImageCarouselConatiner19;mardigrasCarouselImage19
+;mardigrasImageCarouselConatiner20;mardigrasCarouselImage20
+;mardigrasOurPacks1Container;mardigrasourpacksImage1
+;mardigrasOurPacks2Container;mardigrasourpacksImage2
+;mardigrasOurPacks3Container;mardigrasourpacksImage3
+;mardigrasOurPacks4Container;mardigrasourpacksImage4
+;mardigrasOurPacks5Container;mardigrasourpacksImage5
+;mardigrasOurPacks6Container;mardigrasourpacksImage6
+;mardigrasBanner1Container;mardigrasbanner1
+;mardigrasBanner2Container;mardigrasbanner2
+;mardigrasFindUsContainer;mardigrasfindUs
+;mardigrasFaqContainer;mardigrasfaq
+;mardigrasTeachersContainer;mardigrasTeachers
+;mardigrasTeachersBackgroundContainer;mardigrasTeachersBackground
+;mardigrasSignupContainer;mardigrasSignUp
+;mardigardPdfContainer;mardigrasDownLoadDocument
+
+
+INSERT_UPDATE GPBannerComponent;$contentCV[unique=true];uid[unique=true];name;$mediaContainer;headline;content[translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator];&componentRef;
+;;gpMardigrasBanner1;gp mardigras banner1;mardigrasBanner1;"Mardi Gras' Paper Napkins Are Here to Help You Wipe Away the Boredom!";$siteResource/content/about_background.htm;gpMardigrasBanner1
+;;gpMardigrasBanner2;gp mardigras banner2;mardigrasBanner2;"Mardi Gras' Paper Napkins Are Here to Help You Wipe Away the Boredom!";$siteResource/content/about_background.htm;gpMardigrasBanner2
+
+
+INSERT_UPDATE GPBannerComponent;$contentCV[unique=true];uid[unique=true];name;$mediaContainer;backgroundVideo;&componentRef;
+;;mardigrasVideoBanner1;Mardigras Video Banner1;mardigrasVideoContainer1;"https://www.youtube.com/embed/tkumSmWPANE";mardigrasVideoBanner1
+;;mardigrasVideoBanner2;Mardigras Video Banner2;mardigrasVideoContainer2;"https://www.youtube.com/embed/h2zgkADa5YA";mardigrasVideoBanner2
+;;mardigrasVideoBanner3;Mardigras Video Banner3;mardigrasVideoContainer3;"https://www.youtube.com/embed/X2oh8HWItqA";mardigrasVideoBanner3
+;;mardigrasVideoBanner4;Mardigras Video Banner4;mardigrasVideoContainer4;"https://www.youtube.com/embed/tkumSmWPANE";mardigrasVideoBanner4
+
+INSERT_UPDATE MardigrasBoredomComponent;$contentCV[unique=true];uid[unique=true];&componentRef;componentHeader;banners(&componentRef)
+;;gpMardigrasBoredomComponent;gpMardigrasBoredomComponent;"About Us";gpMardigrasBanner1,gpMardigrasBanner2
+
+INSERT_UPDATE MardigrasVideosComponent;$contentCV[unique=true];uid[unique=true];&componentRef;componentHeader;banners(&componentRef)
+;;mardigrasVideosComponent;mardigrasVideosComponent;"Watch our Videos!";mardigrasVideoBanner1,mardigrasVideoBanner2,mardigrasVideoBanner3,mardigrasVideoBanner4
+
+								   					   
+INSERT_UPDATE GPBannerComponent;$contentCV[unique=true];uid[unique=true];&componentRef;$mediaContainer
+;;gpFirstBannerComponent;gpFirstBannerComponent;mardigrasBanner1Container
+
+INSERT_UPDATE GPBannerComponent;$contentCV[unique=true];uid[unique=true];&componentRef;$mediaContainer
+;;gpSecondBannerComponent;gpSecondBannerComponent;mardigrasBanner2Container
+
+INSERT_UPDATE MardiGrasHeroBannerComponent;$contentCV[unique=true];uid[unique=true];name;firstBanner(&componentRef);secondBanner(&componentRef)
+;;mardiGrasHeroBannerComponent;mardiGrasHeroBannerComponent;gpFirstBannerComponent;gpSecondBannerComponent
+
+INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);label;defaultPage[default='true'];approvalStatus(code)[default='approved'];homepage[default='false']
+;;gpHomePage;view site page-gp2;LandingPage2Template ;gpHomePage
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(uid, $contentCV)
+;;Section1-gpHomePage;mardiGrasHeroBannerComponent
+;;Section4-gpHomePage;gpMardigrasBoredomComponent
+;;Section6-gpHomePage;mardigrasVideosComponent
+
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='gpHomePage'];contentSlot(uid,$contentCV)[unique=true]
+;;gprotatingslot-gpHomePage;Section1;;Section1-gpHomePage
+;;gpbrandbar-gpHomePage;Section3;;Section4-gpHomePage
+;;gpMarketingSidebySideslots-Section5;Section5;;Section6-gpHomePage
+
+###### Home page ends
+
+###### Our Napkins Page Start 
+
+INSERT_UPDATE GPBannerComponent;$contentCV[unique=true];uid[unique=true];&componentRef;$mediaContainer
+;;mardigrasImageCarousel1;mardigrasImageCarousel1;mardigrasImageCarouselConatiner1
+;;mardigrasImageCarousel2;mardigrasImageCarousel2;mardigrasImageCarouselConatiner2
+;;mardigrasImageCarousel3;mardigrasImageCarousel3;mardigrasImageCarouselConatiner3
+;;mardigrasImageCarousel4;mardigrasImageCarousel4;mardigrasImageCarouselConatiner4
+;;mardigrasImageCarousel5;mardigrasImageCarousel5;mardigrasImageCarouselConatiner5
+;;mardigrasImageCarousel6;mardigrasImageCarousel6;mardigrasImageCarouselConatiner6
+;;mardigrasImageCarousel7;mardigrasImageCarousel7;mardigrasImageCarouselConatiner7
+;;mardigrasImageCarousel8;mardigrasImageCarousel8;mardigrasImageCarouselConatiner8
+;;mardigrasImageCarousel9;mardigrasImageCarousel9;mardigrasImageCarouselConatiner9
+;;mardigrasImageCarousel10;mardigrasImageCarousel10;mardigrasImageCarouselConatiner10
+;;mardigrasImageCarousel11;mardigrasImageCarousel11;mardigrasImageCarouselConatiner11
+;;mardigrasImageCarousel12;mardigrasImageCarousel12;mardigrasImageCarouselConatiner12
+;;mardigrasImageCarousel13;mardigrasImageCarousel13;mardigrasImageCarouselConatiner13
+;;mardigrasImageCarousel14;mardigrasImageCarousel14;mardigrasImageCarouselConatiner14
+;;mardigrasImageCarousel15;mardigrasImageCarousel15;mardigrasImageCarouselConatiner15
+;;mardigrasImageCarousel16;mardigrasImageCarousel16;mardigrasImageCarouselConatiner16
+;;mardigrasImageCarousel17;mardigrasImageCarousel17;mardigrasImageCarouselConatiner17
+;;mardigrasImageCarousel18;mardigrasImageCarousel18;mardigrasImageCarouselConatiner18
+;;mardigrasImageCarousel19;mardigrasImageCarousel19;mardigrasImageCarouselConatiner19
+;;mardigrasImageCarousel20;mardigrasImageCarousel20;mardigrasImageCarouselConatiner20
+;;mardigrasOurPacks1;mardigrasOurPacks1;mardigrasOurPacks1Container
+;;mardigrasOurPacks2;mardigrasOurPacks2;mardigrasOurPacks2Container
+;;mardigrasOurPacks3;mardigrasOurPacks3;mardigrasOurPacks3Container
+;;mardigrasOurPacks4;mardigrasOurPacks4;mardigrasOurPacks4Container
+;;mardigrasOurPacks5;mardigrasOurPacks5;mardigrasOurPacks5Container
+;;mardigrasOurPacks6;mardigrasOurPacks6;mardigrasOurPacks6Container
+
+INSERT_UPDATE MaridgrasNapkinsComponent;$contentCV[unique=true];uid[unique=true];&componentRef;componentHeader;subTileText;informationalText[translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator];$mediaContainer;banners(&componentRef)
+;;mardiGrasNapkinsComponent;mardiGrasNapkinsComponent;"CONVERSATION STARTERS";"ONE SHAPE,ENDLESS CONVOS!";$siteResource/content/aur_napkins.htm;mardigrasNapkinContainer;mardigrasImageCarousel1,mardigrasImageCarousel2,mardigrasImageCarousel3,mardigrasImageCarousel4,mardigrasImageCarousel5,mardigrasImageCarousel6,mardigrasImageCarousel7,mardigrasImageCarousel8,mardigrasImageCarousel9,mardigrasImageCarousel10,mardigrasImageCarousel11,mardigrasImageCarousel12,mardigrasImageCarousel13,mardigrasImageCarousel14,mardigrasImageCarousel15,mardigrasImageCarousel16
+;;mardiGrasPinkNapkinsComponent;mardiGrasPinkNapkinsComponent;"CLASSIC PRINTS";"GOOD TASTE IS not HARD TO FIND!";$siteResource/content/aur_pink_napkins.htm;mardigrasPinkNapkinContainer;mardigrasImageCarousel17,mardigrasImageCarousel18,mardigrasImageCarousel19,mardigrasImageCarousel20
+
+INSERT_UPDATE MardigrasOurPacksComponent;$contentCV[unique=true];uid[unique=true];&componentRef;componentHeader;banners(&componentRef)
+;;mardigrasOurPacksComponent;mardigrasOurPacksComponent;"Our Packs";mardigrasOurPacks1,mardigrasOurPacks2,mardigrasOurPacks3,mardigrasOurPacks4 
+
+INSERT_UPDATE MardigrasOurPacksComponent;$contentCV[unique=true];uid[unique=true];&componentRef;componentHeader;banners(&componentRef);componentTheme;
+;;mardigrasOurPinkPacksComponent;mardigrasOurPinkPacksComponent;"Our Packs";mardigrasOurPacks5,mardigrasOurPacks6;mardigras-pink;
+
+INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);label;defaultPage[default='true'];approvalStatus(code)[default='approved'];homepage[default='false']
+;;ourNapkinsPage;our napkins page mardigras;GPLandingPage2Template;/ournapkins
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(uid, $contentCV)
+;;Slot1-ourNapkinsPage;mardiGrasPinkNapkinsComponent
+;;Slot2-ourNapkinsPage;mardigrasOurPinkPacksComponent
+;;Slot3-ourNapkinsPage;mardiGrasNapkinsComponent
+;;Slot4-ourNapkinsPage;mardigrasOurPacksComponent
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='ourNapkinsPage'];contentSlot(uid,$contentCV)[unique=true]
+;;slot1-ourNapkins-Page;ContentSlot1;;Slot1-ourNapkinsPage
+;;slot2-ourNapkins-Page;ContentSlot2;;Slot2-ourNapkinsPage
+;;slot3-ourNapkins-Page;ContentSlot3;;Slot3-ourNapkinsPage
+;;slot4-ourNapkins-Page;ContentSlot4;;Slot4-ourNapkinsPage
+
+INSERT_UPDATE GPMediaComponent;$contentCV[unique=true];uid[unique=true];&componentRef;$mediaContainer;name
+;;mardigrasFaqMediaComponent;mardigrasFaqMediaComponent;mardigrasFaqContainer
+;;mardigrasFindUsMediaComponent;mardigrasFindUsMediaComponent;mardigrasFindUsContainer
+;;mardigrasTeachersMediaComponent;mardigrasTeachersMediaComponent;mardigrasTeachersContainer
+;;mardigrasSignUpMediaComponent;mardigrasSignUpMediaComponent;mardigrasSignupContainer
+;;mardigrasDownloadMediaComponent;mardigrasDownloadMediaComponent;mardigardPdfContainer;"DOWNLOAD ACTIVITY KIT"
+
+INSERT_UPDATE MardiGrasImageAndTextComponent;$contentCV[unique=true];uid[unique=true];&componentRef;image(&componentRef);headingText;subHeadingText;informationText[translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+;;mardigrasImageTextFaq;mardigrasImageTextFaq;mardigrasFaqMediaComponent;FAQ;SOME F.R.A.'S FOR<br> YOUR F.A.Q.'S!;$siteResource/content/faq_info.htm
+;;mardigrasImageTextStoreLocator;mardigrasImageTextStoreLocator;mardigrasFindUsMediaComponent;FIND & BUY US;YOO-HOO! HELLO! <br> CAN YOU SEE US?;$siteResource/content/findandbuy_info.htm
+
+INSERT_UPDATE MardiGrasFAQComponent;$contentCV[unique=true];uid[unique=true];&componentRef;image(&componentRef);headingText;subHeadingText;informationText[translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+;;mardigrasFaqComponent;mardigrasFaqComponent;mardigrasFaqMediaComponent;FAQ;"SOME F.R.A.'S FOR<br> YOUR F.A.Q.'S!";$siteResource/content/faq_info.htm
+
+INSERT_UPDATE MardiGrasStoreLocatorComponent;$contentCV[unique=true];uid[unique=true];&componentRef;image(&componentRef);headingText;subHeadingText;informationText[translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+;;mardigrasStoreLocatorComponent;mardigrasStoreLocatorComponent;mardigrasFindUsMediaComponent;FIND & BUY US;"YOO-HOO! HELLO! <br> CAN YOU SEE US?";$siteResource/content/findandbuy_info.htm
+
+INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);label;defaultPage[default='true'];approvalStatus(code)[default='approved'];homepage[default='false']
+;;faqPage;FAQ Page;LandingPage2Template;/faqs
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(uid, $contentCV)
+;;Section1-faqComponent;mardigrasFaqComponent
+;;Section3-faqQuesAndAns;
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='faqPage'];contentSlot(uid,$contentCV)[unique=true]
+;;Slot1-faqPage;Section1;;Section1-faqComponent
+;;Slot3-faqPage;Section3;;Section3-faqQuesAndAns
+
+INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);label;defaultPage[default='true'];approvalStatus(code)[default='approved'];homepage[default='false']
+;;findAndBuyUsPage;Find and Buy Us Page;LandingPage2Template;/findandbuy
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(uid, $contentCV)
+;;Section1-findAndBuyUsComponent;mardigrasStoreLocatorComponent
+;;Section3-storeLocator;
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='findAndBuyUsPage'];contentSlot(uid,$contentCV)[unique=true]
+;;Slot1-findAndBuyUsPage;Section1;;Section1-findAndBuyUsComponent
+;;Slot3-findAndBuyUsPage;Section3;;Section3-storeLocator
+
+INSERT_UPDATE FAQ;question[unique=true];answer[unique=true];site(uid)
+;IS THERE LIFE ON MARS?; We really hope so. Because the idea of helping Martians wipe however many mouths they have when they're finished eating delights us to no end.;mardigras
+;HOW AFFORDABLE ARE MARDI GRAS NAPKINS?; So very! At about a penny per square, our napkins are super affordable. Mmhmm, those random Abe Lincolns in your pockets and kitchen drawers never looked so good, did they?;mardigras
+;CHOCOLATE CAKE VS. APPLE PIE?;That's really not fair. Can we say both? There's room for all kinds of yummy desserts in our book. Now then, do we smell cookies? Well, could we.;mardigras
+;DO MARDI GRAS NAPKINS COME IN SOLID COLORS?;Alas! Our super fun squares only come in awesome prints. To be fair, prints are the new solids. You didn't know?;mardigras
+;WHO DID YOU VOTE FOR IN THE LAST ELECTION?;Nice try! We don't take a position on anything other than how much fun* you should be having with family and friends when you get together for a meal.;mardigras
+;DO MARDI GRAS NAPKINS STILL COME IN YOUR CLASSIC PRINT DESIGNS?;DOES A CAT HAVE WHISKERS? OF COURSE, WE COME IN CLASSIC PRINT DESIGNS! ALL THANKS TO OUR LOYAL FANS WHO ASKED US TO BRING THEM BACK. GOSH, HOW CUTE ARE THOSE PRINTS? (THAT WAS RHETORICAL, NO NEED TO ANSWER.);mardigras
+;ARE YOUR NAPKINS SAFE...IN THE MICROWAVE?;WHOA, WHOA, NO NEED TO SCREAM. YES, THEY'RE DEFINITELY SAFE TO USE IN THE MICROWAVE, JUST BE MINDFUL OF YOUR MICROWAVE SPECIFICATIONS AND START AT LOW COOKING TIMES. BY THE BY, WE DON'T RECOMMEND USING PRINTED NAPKINS/ TOWELS ON FOOD IN THE MICROWAVE. NOW YOU KNOW!;mardigras
+;WHAT IS THE DYE MADE FROM AND IS IT SAFE?;SHHH! THE FORMULA IS PROPRIETARY AND CONFIDENTIAL. HOWEVER, WE CAN TELL YOU THAT IT'S APPROVED FOR ITS INTENDED USE-WE MEAN CONTACT WITH FACES, HANDS AND FOOD, NOT AS STATIONARY FOR SAPPY LOVE LETTERS.;mardigras
+
+INSERT_UPDATE StoreProduct;code[unique=true];description[unique=true];site(uid)
+;7331045200;250 Count Napkins;mardigras
+;7331045455;500 Count Napkins;mardigras
+;7331043260;700 Count Napkins;mardigras
+;MG;All Mardi Gras Products;mardigras
+
+INSERT_UPDATE MardigrasCouponsComponent;$contentCV[unique=true];uid[unique=true];&componentRef;image(&componentRef);headingText;subHeadingText;informationText[translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator];$backgroundImage;isSignUp[default=false];downloadFile(&componentRef)
+;;mardigrasTeacherComponent;mardigrasTeacherComponent;mardigrasTeachersMediaComponent;"TEACHER'S LOUNGE";"SPARK A CLASSROOM <br>CONVERSATION";$siteResource/content/teachers_info.htm;mardigrasTeachersBackgroundContainer;;mardigrasDownloadMediaComponent
+;;mardigrasSignUpComponent;mardigrasSignUpComponent;mardigrasSignUpMediaComponent;"Sign Up";"COULD WE BE ANY CLOSER? YES! OH YES.";$siteResource/content/signup_info.htm;;;;
+
+INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);label;defaultPage[default='true'];approvalStatus(code)[default='approved'];homepage[default='false']
+;;teachersPage;Teachers Page;LandingPage2Template;/teachers
+;;signupPage;Sign Up Page;LandingPage2Template;/signup
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(uid, $contentCV)
+;;Section1-teachersPage;mardigrasTeacherComponent
+;;Section1-signUpPage;mardigrasSignUpComponent
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='teachersPage'];contentSlot(uid,$contentCV)[unique=true]
+;;Slot1-teachersPage;Section1;;Section1-teachersPage
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='signupPage'];contentSlot(uid,$contentCV)[unique=true]
+;;Slot1-signUpPage;Section1;;Section1-signUpPage
+
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];Name;socialLink[default=false];markAsViewAll[default=false]
+;;MardigrasSocialLink;Sign up & Save
+
+################## Unsubscribe page starts #####################
+INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);label;defaultPage[default='true'];approvalStatus(code)[default='approved'];homepage[default='false']
+;;unsubscribe;Unsubscribe Page;ContentPage1Template;/unsubscribe
+
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];name;url;category(code, $productCV);target(code)[default='newWindow'];external[default=false];
+;;UnsubscribeLink;Unsubscribe Link;/unsubscribe;;;;
+
+INSERT_UPDATE GPUnsubscribeComponent;$contentCV[unique=true];uid[unique=true];name;actions(uid,$contentCV);&componentRef
+;;gpUnsubscribeJspIncludeComponent;Unsubscribe;;gpUnsubscribeJspIncludeComponent
+
+# ContentSlot
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;Section1Slot-Unsubscribe;Section1 Slot for Unsubscribe Page;true;gpUnsubscribeJspIncludeComponent
+
+# ContentSlotForPage
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='unsubscribe'];contentSlot(uid,$contentCV)[unique=true]
+;;Section1-Unsubscribe;Section1;;Section1Slot-Unsubscribe
+################## Unsubscribe page ends #####################
+
+												
+########## Live Chat Starts ###########
+INSERT_UPDATE PageTemplate;$contentCV[unique=true];uid[unique=true];name;frontendTemplateName;restrictedPageTypes(code);active[default=true]
+;;SupportTicketPageTemplate;Support Ticket Page Template;supportTicket/GPSupportTicketPage;ContentPage
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='SupportTicketPageTemplate'];validComponentTypes(code);compTypeGroup(code)
+;SiteLogo;;;logo
+;HeaderLinks;;;headerlinks
+;MiniCart;;;minicart
+;NavigationBar;;;navigation
+;LiveChatContentSlot;;;narrow
+;LiveChatButtonSlot;;;wide
+;CallOrTextContentSlot;;;wide
+;ServiceTicketContentSlot;;;wide
+;Footer;;;footer
+;TopHeaderSlot;;;wide
+;BottomHeaderSlot;;;wide
+;PlaceholderContentSlot;;;
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='SupportTicketPageTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-SupportTicketPage;SiteLogo;;SiteLogoSlot;true
+;;HomepageLink-SupportTicketPage;HomepageNavLink;;HomepageNavLinkSlot;true
+;;NavigationBar-SupportTicketPage;NavigationBar;;NavigationBarSlot;true
+;;MiniCart-SupportTicketPage;MiniCart;;MiniCartSlot;true
+;;Footer-SupportTicketPage;Footer;;FooterSlot;true
+;;HeaderLinks-SupportTicketPage;HeaderLinks;;HeaderLinksSlot;true
+;;SearchBox-SupportTicketPage;SearchBox;;SearchBoxSlot;true
+;;TopHeaderSlot-SupportTicketPage;TopHeaderSlot;;TopHeaderSlot;true
+;;BottomHeaderSlot-SupportTicketPage;BottomHeaderSlot;;BottomHeaderSlot;true
+;;PlaceholderContentSlot-SupportTicketPage;PlaceholderContentSlot;;PlaceholderContentSlot;true
+
+INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);label;defaultPage[default='true'];approvalStatus(code)[default='approved'];homepage[default='false']
+;;contactUsForm;support ticket contact us form;SupportTicketPageTemplate;/contact-us; 
+
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];name;url;category(code, $productCV);target(code)[default='newWindow'];external[default=false];
+;;ContactUsLink;Contact Us Link;/contact-us;;;;
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;acsLiveChatJSPIncludeComponent;Contact Us page;liveChat.jsp;;acsLiveChatJSPIncludeComponent
+
+INSERT_UPDATE GPLiveChatComponent;$contentCV[unique=true];uid[unique=true];liveChat(&componentRef);&componentRef;informationText;name;componentTheme;showContactUs[default='true']
+;;gpLiveChatComponent;acsLiveChatJSPIncludeComponent;gpLiveChatComponent;Chat online with one of our online support specialists (Available 9:00 a.m. - 5:00 p.m. ET);GPLiveChatComponent;; 
+
+# ContentSlot 
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;LiveChatButtonSlot-SERVICETICKET;LiveChatButton Slot for TICKET Page;true;gpLiveChatComponent;;;
+
+# ContentSlotForPage 
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='contactUsForm'];contentSlot(uid,$contentCV)[unique=true];;;
+;;LiveChatButtonSlot-SERVICETICKET;LiveChatButtonSlot;;LiveChatButtonSlot-SERVICETICKET;;;
+
+########## Live Chat Ends ###########

@@ -1,0 +1,879 @@
+########  Brawny Products  #########
+
+$productCatalog=gpUSProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$supercategories=supercategories(code, $catalogVersion)
+$baseProduct=baseProduct(code,$catalogVersion)
+$approved=approvalstatus(code)[default='approved']
+$lang=en       
+
+
+INSERT_UPDATE ContextualAttributesContext;code[unique=true];name
+;BrawnyContext;Context for Brawny attributes
+
+UPDATE BaseStore;uid[unique=true];contextualAttributesContext(code)
+;brawny;BrawnyContext
+
+# UserPriceGroup
+INSERT_UPDATE UserPriceGroup;code[unique=true];name[lang=en];
+;pricegroup-brawny;Brawny Price Group;
+
+# Update Basestore with userpricegroup and solrFacetSearchConfiguration
+INSERT_UPDATE BaseStore;uid[unique=true];userPriceGroup(code);solrFacetSearchConfiguration(name)[default=multiBrandIndex]
+;brawny;pricegroup-brawny;;
+
+
+
+#UPDATE SolrFacetSearchConfig;name[unique=true];contexts(code)
+#;multiBrandIndex;GPEmployeeContext,DixieContext,B2BWhitelabelContext,B2CWhitelabelContext,CopperandCraneContext,VanityFairNapkinsContext,GPXpressContext,BrawnyContext
+
+
+# ProductAvailabilityGroup
+INSERT_UPDATE ProductAvailabilityGroup ; id[unique=true]                ; description[lang=en]                                          ; stores(uid)      
+                                       ; brawny-availability        ; Multibrand Product availability Group for Brawny          ; brawny       
+                          
+
+									   
+
+# Insert Variant Category                   
+#INSERT_UPDATE GPDefaultVariantCategory ; code[unique=true] ; name  ; $supercategories ; hasImage ; $catalogVersion ; allowedPrincipals(uid)[default='customergroup']
+#                                       ; no_of_rolls        ; Number of Rolls ;                  ; true     
+#
+#                                       ; size              ; Size  ;                  ; false  
+									   
+									   
+#Insert Variant Value Category									   
+##INSERT_UPDATE GPDefaultVariantValueCategory ; code[unique=true] ; name         ; $supercategories ; sequence ; hexCode ; $catalogVersion ; allowedPrincipals(uid)[default='customergroup']
+#      
+#                                           ; small      ; Small ; size             ; 50 
+#											; medium     ; Medium; size             ; 51
+#                                            ; large      ; Large ; size             ; 52
+#											; 2          ; 2     ; no_of_rolls             ; 53 
+#											; 6          ; 6     ; no_of_rolls             ; 54
+#                                            ; 8          ; 8     ; no_of_rolls             ; 55
+#										    ; 12         ; 12    ; no_of_rolls             ; 56
+#											; 16         ; 16    ; no_of_rolls             ; 57
+#                                            ; 24         ; 24    ; no_of_rolls             ; 58
+
+
+############################# S4 ###################################
+# Create  products (Variants will be created from these products)
+INSERT_UPDATE GPCommerceProduct ; code[unique=true] ; $catalogVersion ; supercategories(code,$catalogVersion) ; ean ; unit(code); $approved;productSubtitle ;sellingStatement
+
+;44143/53   ;;clearance,pick-A-Size,tear-A-Square      ;;CS;;BRAWNY PICK-A-SIZE® 16 XL PAPER TOWEL ROLLS + 16 FREE TEAR-A-SQUARE® ROLLS                      ;For a limited time when you buy Brawny® 16 XL Pick-A-Size® paper towel rolls, get 16 XL Tear-A-Square® paper towel rolls for FREE!
+;44143/53DR ;;clearance,pick-A-Size,tear-A-Square      ;;EA;;BRAWNY® PICK-A-SIZE® 2-PACK XL PAPER TOWEL ROLLS + FREE 2-PACK TEAR-A-SQUARE® ROLLS             ;For a limited time when you buy Brawny® 2 XL Pick-A-Size® paper towel rolls, get 2 XL Tear-A-Square® paper towel rolls for FREE!
+;44186/01   ;;pick-A-Size                         ;;CS;;BRAWNY® PICK-A-SIZE® 24 LARGE PAPER TOWEL ROLLS                                                 ;Clean up spills and messes with Brawny® 2-ply paper towels that are perfectly sized and durably built for every day tasks.
+;44186/01DR ;;pick-A-Size                         ;;EA;;BRAWNY® PICK-A-SIZE® 6 LARGE PAPER TOWEL ROLLS                                                  ;Brawny® Pick-A-Size® paper towels make efficiency easy with absorbent sheets that are perfectly perforated so you only take what you need.
+;44189/01   ;;fullSheet                           ;;CS;;BRAWNY® 24 FULL-SHEET LARGE PAPER TOWEL ROLLS (CASE)                                            ;Brawny 2-ply premium full sheet paper towels are strong and absorbent—perfect for cleaning up bigger messes.
+;44189/01DR ;;fullSheet                           ;;EA;;BRAWNY® 6 FULL-SHEET LARGE PAPER TOWEL ROLLS                                                    ;Clean up whatever mess life throws you with Brawny® premium, full sheet paper towels.
+;44192/01   ;;pick-A-Size                         ;;CS;;BRAWNY PICK-A-SIZE® 8 XL PAPER TOWEL ROLLS (CASE)                                               ;Brawny® Pick-A-Size® 2-ply half sheet premium paper towels are just the right size for your everyday tasks.
+;44192/01DR ;;pick-A-Size                         ;;EA;;BRAWNY PICK-A-SIZE® 2 XL PAPER TOWEL ROLLS                                                      ;Brawny® 2XL paper towel rolls have strong and absorbent sheets with 20 more sheets per roll than the leading national brand.
+;44215/01   ;;pick-A-Size                         ;;CS;;BRAWNY PICK-A-SIZE® 6 MEGA PAPER TOWEL ROLLS (CASE)                                             ;Change rolls less often with Brawny® Pick-A-Size® Mega Rolls, strong & absorbent paper towels to tackle your everyday cleaning needs.
+;44215/01DR ;;pick-A-Size                         ;;EA;;BRAWNY PICK-A-SIZE® 1 MEGA PAPER TOWEL ROLL                                                     ;Rely on the strongest and most absorbent paper towel with Brawny® Pick-A-Size® to take care of day to day clean up, no matter the size..
+;44223/51   ;;tear-A-Square                       ;;CS;;BRAWNY® TEAR-A-SQUARE® 16 XL PAPER TOWEL ROLLS (CASE)                                           ;Designed to fit on-the-go lifestyles, Brawny® Tear-A-Square® paper towels divide in four to cover anything from big messes to small spills.
+;44223/51DR ;;tear-A-Square                       ;;EA;;BRAWNY® TEAR-A-SQUARE® 8 XL PAPER TOWEL ROLLS                                                   ;Brawny® Tear-A-Square® paper towels are strong, absorbent and durable, perfect for both tough messes and small everyday clean-ups.
+;44231/02   ;;tear-A-Square                       ;;CS;;BRAWNY® TEAR-A-SQUARE® 24 XL PAPER TOWEL ROLLS (CASE)                                           ;Brawny® Tear-A-Square® paper towels – the strength of Brawny® for messes big, small and anywhere in between.
+;44231/02DR ;;tear-A-Square                       ;;EA;;BRAWNY® TEAR-A-SQUARE® 2 XL PAPER TOWEL ROLLS                                                   ;With Brawny® Tear-A-Square®, gone is the guilt of using a full sheet or a half sheet paper towel when only a quarter sheet is needed for your smaller tasks.
+;44249/50   ;;tear-A-Square                       ;;CS;;BRAWNY® TEAR-A-SQUARE® 12 XL PAPER TOWEL ROLLS (CASE)                                           ;Brawny® Tear-A-Square® paper towel roll gives you the option of a quarter sheet, half sheet or full sheet to choose the right paper towel sheet size to suit your needs.
+;44249/50DR ;;tear-A-Square                       ;;EA;;BRAWNY® TEAR-A-SQUARE® 6 XL PAPER TOWEL ROLLS (CASE)                                            ;New Brawny® Tear-A-Square® paper towels with quarter sheets offers three sheet size options so you can use just what you need without the waste.
+;44277/50   ;;pick-A-Size                        ;;CS;; BRAWNY PICK-A-SIZE® 6 MEGA PAPER TOWEL ROLLS (CASE)                                             ;Change rolls less often with Brawny® Pick-A-Size® Mega Rolls, strong & absorbent paper towels to tackle your everyday cleaning needs.
+;44277/50DR ;;pick-A-Size                        ;;EA;; BRAWNY PICK-A-SIZE® 1 MEGA PAPER TOWEL ROLL                                                     ;Rely on the strongest and most absorbent paper towel with Brawny® Pick-A-Size® to take care of day to day clean up, no matter the size.
+
+
+
+########### ALL Brands Products ################
+
+INSERT_UPDATE GPCommerceProduct ; code[unique=true] ; $catalogVersion ; supercategories(code,$catalogVersion) ; ean ; unit(code); $approved;productSubtitle ;sellingStatement
+;79019/55;;allbrands-brawny;;;;ANGEL SOFT BATH TISSUE 48 DOUBLE 264CT BRICK WHITE;
+;91867/03DR;;allbrands-brawny;;;;Quilted Northern Facial Tissue 3 Ply 4 pack;
+;15289/07DR;;allbrands-brawny;;;;Dixie Everyday 8 1/2 Inch Paper Plate 48 count;
+;79051/05DR;;allbrands-brawny;;;;Angel Soft® Toilet Paper, 12 Double Rolls, Lavender;
+;15416/31DR;;allbrands-brawny;;;;Dixie Ultra® Paper Plates, 10 1/16", 22 ct;
+;87361/01DR;;allbrands-brawny;;;;Quilted Northern Ultra Plush® Toilet Paper, 12 Double Rolls;
+;94313/50DR;;allbrands-brawny;;;;Quilted Northern Ultra Soft & Strong Toilet Paper, 12 Double;
+;35731/18DR;;allbrands-brawny;;;;Vanity Fair® Everyday Paper Napkins, White, 90 Count;
+;35515/18DR;;allbrands-brawny;;;;Vanity Fair® Everyday Paper Napkins, White, 90 Count;
+;DR-1000434;;allbrands-brawny;;;;Angel Soft® Toilet Paper, 12 Double Rolls;
+;DR-1000435;;allbrands-brawny;;;;Angel Soft® Toilet Paper, 9 Mega Rolls;
+;94253/01DR;;allbrands-brawny;;;;Quilted Northern Ultra Plush® Toilet Paper, 6 Mega Rolls;
+;15715/05DR;;allbrands-brawny;;;;Dixie® Paper Plates, 10 1/16", 54 count;
+;185BV1;;allbrands-brawny;;;;INNOVIA TOWEL DISPENSER COUNTERTOP BLACK;
+;185SV1;;allbrands-brawny;;;;INNOVIA TOWEL DISPENSER COUNTERTOP SILVER;
+;2159B;;allbrands-brawny;;;;INNOVIA TOWEL DISPENSER UNDER CABINET BLACK;
+;2159WG;;allbrands-brawny;;;;INNOVIA TOWEL DISPENSER UNDER CABINET WHITE GLOSS;
+;35163/02DR;;allbrands-brawny;;;;Vanity Fair® Everyday Paper Napkins, Print, 80 count;
+;35236/18DR;;allbrands-brawny;;;;Vanity Fair® extra absorbent everyday napkins, 80 count;
+;15259/30DR;;allbrands-brawny;;;;DIXIE® ULTRA PRINTED BOWLS, 20OZ, 26CT;
+;21879/54DR;;allbrands-brawny;;;;Sparkle®;
+;21934/01DR;;allbrands-brawny;;;;Sparkle®;
+;21940/01DR;;allbrands-brawny;;;;Sparkle®;
+;22075/50DR;;allbrands-brawny;;;;Sparkle®;
+
+
+
+
+UPDATE Product  ; code[unique=true]  ; $catalogVersion ;description[lang=en] 
+			   	;44143/53            ;                 ;Brawny Pick-A-Size® 2-ply paper towels are just the right size for everyday tasks with half sheet or full sheet options. 
+				;44143/53DR 	     ;                 ;Brawny Pick-A-Size® 2-ply paper towels are just the right size for everyday tasks with half sheet or full sheet options.
+				;44186/01   	     ;                 ;Brawny Pick-A-Size® 2-ply paper towels are perfectly fitted for household clean ups. They'll soak up liquids, handle life's toughest messes, and  leave your home feeling fresh.
+				;44186/01DR 	     ;                 ;Brawny Pick-A-Size® 2-ply paper towels are designed to take on everyday messes no matter what size. Place these rolls in any room of the house for a handy clean up tool.
+				;44189/01   	     ;                 ;When you have got a tough mess on your hands choose Brawny® full sheet 2-ply premium paper towels that come in a classic white emboss you will love.
+				;44189/01DR 	     ;                 ;Brawny® full sheet 2-ply premium paper towels are ideal for larger messes, spills, and clean up jobs. The big, tough towel that made to be gentle, but engineered to handle life toughest messes.
+				;44192/01   	     ;                 ;Brawny Pick-A-Size® 2-ply half sheet premium paper towels are convenient for packed lunches, family dinner, every day spills, and so much more. Discover paper towels that live up to their value.
+				;44192/01DR 	     ;                 ;Brawny Pick-A-Size® 2-ply half sheet premium paper towels allow you to choose what size sheet you need depending on the task. Pick the right size for your everyday mess.
+				;44215/01   	     ;                 ;Brawny® Pick-A-Size® 2-ply half sheet premium paper towels are perfect for every day clean ups. They have the strength to take on tough messes.
+				;44215/01DR          ;                 ;Brawny Pick-A-Size® 2-ply half sheet premium white paper towels are designed for maximum absorbency. Use only what you need with these every day sheets.
+                ;44223/51            ;                 ;Brawny® Tear-A-Square® paper towels let you choose from three different size options (full, half and quarter sheets) allowing you to use only what you need without the waste. Use these sheets for anything from small spills to larger cleaning tasks.
+                ;44223/51DR          ;                 ;Brawny Tear-A-Square® paper towels are perforated to help you tear the right size sheet for the task. Use the quarter sheet size for coasters, the half sheet for napkins and the full sheet for cleaning up every day messes.
+                ;44231/02            ;                 ;Brawny® Tear-A-Square® white paper towels allow you to use only what you need without waste when it comes to keeping up with your non-stop lifestyle. The durability and reliability of these sheets is invaluable.
+                ;44231/02DR          ;                 ;With Brawny Tear-A-Square®, use what you need while avoiding the waste of full size sheets. No matter the size, full, half or quarter sheet, each has the strength to take on tough messes, leaving your home feeling clean.
+                ;44249/50            ;                 ;Brawny® Tear-A-Square® white paper towels are the premium option for every day cleaning and tidying up. These sheets are both durable and made to be gentle, but engineered to handle life's toughest messes.
+                ;44249/50DR          ;                 ;Brawny® Tear-A-Square® white paper towels make it easy to clean up any size mess with the option to choose from three different sheet sizes, full, half and quarter sheet. So that you can use only what you need, without the waste.
+                ;44277/50            ;                 ;Brawny Pick-A-Size®  2-ply half sheet paper towels are just the right size for most everyday tasks. These strong & absorbent premium paper towels will tackle your everyday cleaning needs. Perfect for food preparation and cooking, cleaning kitchen counters and surfaces in the bathroom.
+                ;44277/50DR          ;                 ;Brawny Pick-A-Size®  2-ply half sheet paper towels are just the right size for most everyday tasks.These strong & absorbent premium paper towels will tackle your everyday cleaning needs.Perfect for food preparation and cooking, cleaning kitchen counters and surfaces in the bathroom.lf sheet paper towels are just the right size for most everyday tasks
+
+
+
+
+
+UPDATE Product ; code[unique=true] ; $catalogVersion ;featureList 
+               ;44143/53           ;                 ;16 XL = 32 Regular Rolls,This Brawny Pick-A-Size® white paper towel rolls case comes with 8 individually wrapped packs of 2 XL rolls (total 16 Pick-A-Size® paper towel rolls) + 16 Tear-A-Square® rolls for FREE! (Total count 32 rolls.),Brawny® XL paper towels have strong and absorbent sheets with 15 more feet per roll than the leading national brand (74 sheets per roll).
+               ;44143/53DR         ;                 ;2 XL = 4 Regular Rolls,This Brawny Pick-A-Size® white paper towel rolls case comes with 8 individually wrapped packs of 2 XL rolls (total 2 Pick-A-Size® paper towel rolls) + 2 Tear-A-Square® rolls for FREE! (Total count 4 rolls.),Brawny® XL paper towels have strong and absorbent sheets with 15 more feet per roll than the leading national brand (74 sheets per roll).
+               ;44186/01           ;                 ;24 large = 32 Regular Rolls,This Brawny Pick-A-Size® large white paper towel rolls case comes with 4 individually wrapped packs of 6 rolls (total 24 paper towel rolls).
+               ;44186/01DR         ;                 ;6 large = 8 Regular Rolls, total count: 6,Brawny Pick-A-Size® 6-pack of large white paper towel rolls.
+               ;44189/01           ;                 ;24 large = 32 Regular Rolls, total count: 24,This Brawny® full-sheet large paper towel rolls case comes with 4 individually wrapped packs of 6 rolls (total 24 paper towel rolls).
+               ;44189/01DR         ;                 ;6 large = 8 Regular Rolls, total count: 6,Brawny® 6-pack of full sheet large paper towel rolls in white.
+               ;44192/01           ;                 ;8 XL = 16 Regular Rolls, total count: 8,This Brawny Pick-A-Size® XL paper towel rolls case comes with 4 individually wrapped packs of 2 rolls (total 8 white paper towel rolls).
+               ;44192/01DR         ;                 ;2 XL = 4 Regular Rolls, total count: 2,Brawny Pick-A-Size® 2-pack of XL white paper towel rolls (equivalent to 4 regular rolls).
+               ;44215/01           ;                 ;NEW ITEM!,6 Mega = 24 Regular Rolls, total count: 6,This Brawny Pick-A-Size® mega paper towel rolls case comes with 6 packs of individually wrapped rolls (total 6 white paper towel rolls).
+               ;44215/01DR         ;                 ;NEW ITEM!,1 Mega = 4 Regular Rolls, total count: 1,Brawny Pick-A-Size® 1 Mega paper towel roll (equivalent to 4 regular rolls).
+               ;44223/51           ;                 ;16 XL = 32 Regular Rolls, total count: 16,This Brawny Tear-A-Square® XL white paper towel rolls case comes with 2 individually wrapped packs of 8 rolls (total of 16 paper towel rolls).,Each paper towel roll has 256 quarter sheets. Each quarter sheet measures 5.5” (L) X 5.5” (W).
+               ;44223/51DR         ;                 ;8 XL = 16 Regular Rolls, total count: 8,Brawny Tear-A-Square® XL white paper towel rolls comes with 1 wrapped pack of 8 rolls (total of 8 paper towel rolls).,Each paper towel roll has 256 quarter sheets. Each quarter sheet measures 5.5” (L) X 5.5” (W).
+               ;44231/02           ;                 ;24 XL = 48 Regular Rolls, total count: 24,This Brawny Tear-A-Square® XL paper towel rolls case comes with 12 individually wrapped packs of 2 rolls (total of 24 paper towel rolls).,Each paper towel roll has 256 quarter sheets. Each quarter sheet measures 5.5” (L) X 5.5” (W).
+               ;44231/02DR         ;                 ;2 XL = 4 Regular Rolls, total count: 4,This package contains 2 XL Brawny Tear-A-Square® 2-ply white premium paper towel rolls.,Each paper towel roll has 256 quarter sheets. Each quarter sheet measures 5.5” (L) X 5.5” (W).
+               ;44249/50           ;                 ;12 XL = 24 Regular Rolls, total count: 12,Brawny Tear-A-Square® XL paper towel rolls case comes with 2 individually wrapped packs of 6 rolls (total of 12 paper towel rolls).,Each paper towel roll has 256 quarter sheets. Each quarter sheet measures 5.5” (L) X 5.5” (W).
+               ;44249/50DR         ;                 ;6 XL = 12 Regular Rolls, total count: 6,Brawny Tear-A-Square® 6 XL white paper towel rolls (equivalent to 12 regular rolls).,Each paper towel roll has 256 quarter sheets. Each quarter sheet measures 5.5” (L) X 5.5” (W).
+              ;44277/50           ;                 ;NEW ITEM!,6 Mega = 24 Regular Rolls, total count: 6,This Brawny Pick-A-Size® mega paper towel rolls case comes with 6 packs of individually wrapped rolls (total 6 white paper towel rolls).
+              ;44277/50DR         ;                 ;NEW ITEM!,1 Mega = 4 Regular Rolls, total count: 1,Brawny Pick-A-Size® 1 Mega paper towel roll (equivalent to 4 regular rolls).
+
+
+
+
+
+
+
+$availabilityGroup=brawny-availability
+$approvalStatus=approved 
+INSERT_UPDATE ProductAvailabilityAssignment ; product(code,$catalogVersion)[unique=true] ; availabilityGroup(id)[default=$availabilityGroup,unique=true] ; status(code)[default=$approvalStatus] ; onlineDate[dateformat=dd.MM.yyyy, default=01.02.2014] ; offlineDate[dateformat=dd.MM.yyyy] ; $catalogVersion
+
+;44143/53   
+;44143/53DR 
+;44186/01   
+;44186/01DR 
+;44189/01   
+;44189/01DR 
+;44192/01   
+;44192/01DR 
+;44215/01   
+;44215/01DR 
+;44223/51   
+;44223/51DR 
+;44231/02   
+;44231/02DR 
+;44249/50   
+;44249/50DR 
+;44277/50   
+;44277/50DR 
+
+;79019/55
+;91867/03DR
+;15289/07DR
+;79051/05DR
+;15416/31DR
+;87361/01DR
+;94313/50DR
+;35731/18DR
+;35515/18DR
+;DR-1000434
+;DR-1000435
+;94253/01DR
+;15715/05DR
+;185BV1
+;185SV1
+;2159B
+;2159WG
+;35163/02DR
+;35236/18DR
+;15259/30DR
+;21879/54DR
+;21934/01DR
+;21940/01DR
+;22075/50DR
+
+
+
+
+$productCatalog=gpUSProductCatalog          
+$productCatalogName=GP US Product Catalog   
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$vendor=gp                                  
+INSERT_UPDATE StockLevel ; available ; warehouse(code)[default='gp_warehouse',unique=true] ; inStockStatus(code)[default='notSpecified'] ; overSelling ; preOrder ; productCode[unique=true] ; reserved
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;44143/53              ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;44143/53DR            ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;44186/01              ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;44186/01DR            ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;44189/01              ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;44189/01DR            ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;44192/01              ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;44192/01DR            ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;44215/01              ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;44215/01DR            ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;44223/51              ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;44223/51DR            ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;44231/02              ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;44231/02DR            ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;44249/50              ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;44249/50DR            ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;44277/50              ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;44277/50DR            ; 0       
+
+						 
+						 
+						 ; 100000    ;                                                     ;                                             ; 0           ; 0        ;79019/55         ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;91867/03DR         ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;15289/07DR         ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;79051/05DR         ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;15416/31DR         ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;87361/01DR         ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;94313/50DR         ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;35731/18DR         ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;35515/18DR         ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;DR-1000434         ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;DR-1000435         ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;94253/01DR         ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;15715/05DR         ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;185BV1         ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;185SV1         ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;2159B         ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;2159WG         ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;35163/02DR         ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;35236/18DR         ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;15259/30DR         ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;21879/54DR         ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;21934/01DR         ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;21940/01DR         ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;22075/50DR         ; 0       
+
+
+
+
+
+
+
+
+
+
+						 
+
+$productCatalog=gpUSProductCatalog
+$productCatalogName=GP US Product Catalog
+$prices=Europe1prices[translator=de.hybris.platform.europe1.jalo.impex.Europe1PricesTranslator]
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$baseProduct=baseProduct(code, catalogVersion(catalog(id[default='$productCatalog']),version[default='Staged']))
+$approved=approvalstatus(code)[default='approved']
+$taxGroup=Europe1PriceFactory_PTG(code)[default=us-sales-tax-full]
+
+
+INSERT_UPDATE PriceRow ; product(code,$catalogVersion)[unique=true] ; ug(code)[unique=true] ; gpUserPriceGroup(code)[unique=true] ; currency(isocode)[unique=true] ; price[unique=true] ; unit(code)[default=pieces] ; net[default=true] ; salePrice[default=false] ;  ; minAdvertisedPrice[default=false] ; startTime[dateformat=dd-MM-yyyy] ; endTime[dateformat=dd-MM-yyyy]
+                       ;44143/53                               ; pricegroup-brawny    ;                                     ; USD                            ; 35                 ; CS                         ;                   ;                          
+                       ;44143/53DR                             ; pricegroup-brawny    ;                                     ; USD                            ; 20                 ; EA                         ;                   ;                          
+                       ;44186/01                               ; pricegroup-brawny    ;                                     ; USD                            ; 30                 ; CS                         ;                   ;                          
+                       ;44186/01DR                             ; pricegroup-brawny    ;                                     ; USD                            ; 35                 ; EA                         ;                   ;                          
+                       ;44189/01                               ; pricegroup-brawny    ;                                     ; USD                            ; 50                 ; CS                         ;                   ;                          
+                       ;44189/01DR                             ; pricegroup-brawny    ;                                     ; USD                            ; 20                 ; EA                         ;                   ;                          
+                       ;44192/01                               ; pricegroup-brawny    ;                                     ; USD                            ; 25                 ; CS                         ;                   ;                          
+                       ;44192/01DR                             ; pricegroup-brawny    ;                                     ; USD                            ; 25                 ; EA                         ;                   ;                          
+                       ;44215/01                               ; pricegroup-brawny    ;                                     ; USD                            ; 80                 ; CS                         ;                   ;                          
+                       ;44215/01DR                             ; pricegroup-brawny    ;                                     ; USD                            ; 90                 ; EA                         ;                   ;                          
+                       ;44223/51                               ; pricegroup-brawny    ;                                     ; USD                            ; 70                 ; CS                         ;                   ;                          
+                       ;44223/51DR                             ; pricegroup-brawny    ;                                     ; USD                            ; 99                 ; EA                         ;                   ;                          
+                       ;44231/02                               ; pricegroup-brawny    ;                                     ; USD                            ; 55                 ; CS                         ;                   ;                          
+                       ;44231/02DR                             ; pricegroup-brawny    ;                                     ; USD                            ; 130                ; EA                         ;                   ;                          
+                       ;44249/50                               ; pricegroup-brawny    ;                                     ; USD                            ; 110                ; CS                         ;                   ;                          
+                       ;44249/50DR                             ; pricegroup-brawny    ;                                     ; USD                            ; 30                 ; EA                         ;                   ;                          
+                       ;44277/50                               ; pricegroup-brawny    ;                                     ; USD                            ; 25                 ; CS                         ;                   ;                          
+                       ;44277/50DR                             ; pricegroup-brawny    ;                                     ; USD                            ; 45                 ; EA                         ;                   ;                          
+
+
+					   
+					   
+					   ;79019/55                         ; pricegroup-brawny    ;                                     ; USD                            ; 35                 ; CS                         ;                   ;                          
+                       ;91867/03DR                         ; pricegroup-brawny    ;                                     ; USD                            ; 20                 ; EA                         ;                   ;                          
+                       ;15289/07DR                         ; pricegroup-brawny    ;                                     ; USD                            ; 30                 ; CS                         ;                   ;                          
+                       ;79051/05DR                         ; pricegroup-brawny    ;                                     ; USD                            ; 35                 ; EA                         ;                   ;                          
+                       ;15416/31DR                         ; pricegroup-brawny    ;                                     ; USD                            ; 50                 ; CS                         ;                   ;                          
+                       ;87361/01DR                         ; pricegroup-brawny    ;                                     ; USD                            ; 20                 ; EA                         ;                   ;                          
+                       ;94313/50DR                         ; pricegroup-brawny    ;                                     ; USD                            ; 25                 ; CS                         ;                   ;                          
+                       ;35731/18DR                         ; pricegroup-brawny    ;                                     ; USD                            ; 25                 ; EA                         ;                   ;                          
+                       ;35515/18DR                         ; pricegroup-brawny    ;                                     ; USD                            ; 80                 ; CS                         ;                   ;                          
+                       ;DR-1000434                         ; pricegroup-brawny    ;                                     ; USD                            ; 90                 ; EA                         ;                   ;                          
+                       ;DR-1000435                         ; pricegroup-brawny    ;                                     ; USD                            ; 70                 ; CS                         ;                   ;                          
+                       ;94253/01DR                         ; pricegroup-brawny    ;                                     ; USD                            ; 99                 ; EA                         ;                   ;                          
+                       ;15715/05DR                         ; pricegroup-brawny    ;                                     ; USD                            ; 55                 ; CS                         ;                   ;                          
+                       ;185BV1                         ; pricegroup-brawny    ;                                     ; USD                            ; 130                ; EA                         ;                   ;                          
+                       ;185SV1                         ; pricegroup-brawny    ;                                     ; USD                            ; 110                ; CS                         ;                   ;                          
+                       ;2159B                         ; pricegroup-brawny    ;                                     ; USD                            ; 30                 ; EA                         ;                   ;                          
+                       ;2159WG                         ; pricegroup-brawny    ;                                     ; USD                            ; 25                 ; CS                         ;                   ;                          
+                       ;35163/02DR                         ; pricegroup-brawny    ;                                     ; USD                            ; 45                 ; EA                         ;                   ;                          
+                       ;35236/18DR                         ; pricegroup-brawny    ;                                     ; USD                            ; 55                 ; CS                         ;                   ;                          
+                       ;15259/30DR                         ; pricegroup-brawny    ;                                     ; USD                            ; 130                ; EA                         ;                   ;                          
+                       ;21879/54DR                         ; pricegroup-brawny    ;                                     ; USD                            ; 110                ; CS                         ;                   ;                          
+                       ;21934/01DR                         ; pricegroup-brawny    ;                                     ; USD                            ; 30                 ; EA                         ;                   ;                          
+                       ;21940/01DR                         ; pricegroup-brawny    ;                                     ; USD                            ; 25                 ; CS                         ;                   ;                          
+                       ;22075/50DR                         ; pricegroup-brawny    ;                                     ; USD                            ; 45                 ; EA                         ;                   ;                          
+
+                       ;44143/53                               ;  ;                                     ; USD                            ; 35                 ; CS                         ;                   ;                          
+                       ;44143/53DR                             ;  ;                                     ; USD                            ; 20                 ; EA                         ;                   ;                          
+                       ;44186/01                               ;  ;                                     ; USD                            ; 30                 ; CS                         ;                   ;                          
+                       ;44186/01DR                             ;  ;                                     ; USD                            ; 35                 ; EA                         ;                   ;                          
+                       ;44189/01                               ;  ;                                     ; USD                            ; 50                 ; CS                         ;                   ;                          
+                       ;44189/01DR                             ;  ;                                     ; USD                            ; 20                 ; EA                         ;                   ;                          
+                       ;44192/01                               ;  ;                                     ; USD                            ; 25                 ; CS                         ;                   ;                          
+                       ;44192/01DR                             ;  ;                                     ; USD                            ; 25                 ; EA                         ;                   ;                          
+                       ;44215/01                               ;  ;                                     ; USD                            ; 80                 ; CS                         ;                   ;                          
+                       ;44215/01DR                             ;  ;                                     ; USD                            ; 90                 ; EA                         ;                   ;                          
+                       ;44223/51                               ;  ;                                     ; USD                            ; 70                 ; CS                         ;                   ;                          
+                       ;44223/51DR                             ;  ;                                     ; USD                            ; 99                 ; EA                         ;                   ;                          
+                       ;44231/02                               ;  ;                                     ; USD                            ; 55                 ; CS                         ;                   ;                          
+                       ;44231/02DR                             ;  ;                                     ; USD                            ; 130                ; EA                         ;                   ;                          
+                       ;44249/50                               ;  ;                                     ; USD                            ; 110                ; CS                         ;                   ;                          
+                       ;44249/50DR                             ;  ;                                     ; USD                            ; 30                 ; EA                         ;                   ;                          
+                       ;44277/50                               ;  ;                                     ; USD                            ; 25                 ; CS                         ;                   ;                          
+                       ;44277/50DR                             ;  ;                                     ; USD                            ; 45                 ; EA                         ;                   ;                          
+
+
+					   
+					   
+					   ;79019/55                         ;    ;                                     ; USD                            ; 35                 ; CS                         ;                   ;                          
+                       ;91867/03DR                         ;    ;                                     ; USD                            ; 20                 ; EA                         ;                   ;                          
+                       ;15289/07DR                         ;    ;                                     ; USD                            ; 30                 ; CS                         ;                   ;                          
+                       ;79051/05DR                         ;    ;                                     ; USD                            ; 35                 ; EA                         ;                   ;                          
+                       ;15416/31DR                         ;    ;                                     ; USD                            ; 50                 ; CS                         ;                   ;                          
+                       ;87361/01DR                         ;    ;                                     ; USD                            ; 20                 ; EA                         ;                   ;                          
+                       ;94313/50DR                         ;    ;                                     ; USD                            ; 25                 ; CS                         ;                   ;                          
+                       ;35731/18DR                         ;    ;                                     ; USD                            ; 25                 ; EA                         ;                   ;                          
+                       ;35515/18DR                         ;    ;                                     ; USD                            ; 80                 ; CS                         ;                   ;                          
+                       ;DR-1000434                         ;    ;                                     ; USD                            ; 90                 ; EA                         ;                   ;                          
+                       ;DR-1000435                         ;    ;                                     ; USD                            ; 70                 ; CS                         ;                   ;                          
+                       ;94253/01DR                         ;    ;                                     ; USD                            ; 99                 ; EA                         ;                   ;                          
+                       ;15715/05DR                         ;    ;                                     ; USD                            ; 55                 ; CS                         ;                   ;                          
+                       ;185BV1                         ;    ;                                     ; USD                            ; 130                ; EA                         ;                   ;                          
+                       ;185SV1                         ;    ;                                     ; USD                            ; 110                ; CS                         ;                   ;                          
+                       ;2159B                         ;    ;                                     ; USD                            ; 30                 ; EA                         ;                   ;                          
+                       ;2159WG                         ;    ;                                     ; USD                            ; 25                 ; CS                         ;                   ;                          
+                       ;35163/02DR                         ;    ;                                     ; USD                            ; 45                 ; EA                         ;                   ;                          
+                       ;35236/18DR                         ;    ;                                     ; USD                            ; 55                 ; CS                         ;                   ;                          
+                       ;15259/30DR                         ;    ;                                     ; USD                            ; 130                ; EA                         ;                   ;                          
+                       ;21879/54DR                         ;    ;                                     ; USD                            ; 110                ; CS                         ;                   ;                          
+                       ;21934/01DR                         ;    ;                                     ; USD                            ; 30                 ; EA                         ;                   ;                          
+                       ;21940/01DR                         ;    ;                                     ; USD                            ; 25                 ; CS                         ;                   ;                          
+                       ;22075/50DR                         ;    ;                                     ; USD                            ; 45                 ; EA                         ;                   ;                          
+					   
+					   
+
+$productCatalog=gpUSProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+
+############### Brawny PRODUCT REFERENCES  ############################
+# Insert Product References
+INSERT_UPDATE ProductReference;source(code,$catalogVersion)[unique=true];target(code,$catalogVersion)[unique=true];referenceType(code);active[default=true];preselected[default=false]
+;44143/53;44249/50;SIMILAR; true; true
+;44143/53;44223/51;SIMILAR; true; true
+;44143/53;44223/51DR;SIMILAR; true; true
+;44143/53;44143/53DR;SIMILAR; true; true
+
+;44143/53DR;44249/50;SIMILAR; true; true
+;44143/53DR;44223/51;SIMILAR; true; true
+;44143/53DR;4223/51DR;SIMILAR; true; true
+;44143/53DR;44143/53;SIMILAR; true; true
+
+;44186/01  ;44223/51   ;SIMILAR; true; true
+;44186/01  ;44223/51DR ;SIMILAR; true; true
+;44186/01  ;44231/02   ;SIMILAR; true; true
+;44186/01  ;44189/01DR ;SIMILAR; true; true
+
+;44186/01DR  ;44223/51   ;SIMILAR; true; true
+;44186/01DR  ;44223/51DR ;SIMILAR; true; true
+;44186/01DR  ;44231/02   ;SIMILAR; true; true
+;44186/01DR  ;44189/01DR ;SIMILAR; true; true
+
+;44189/01  ;44223/51   ;SIMILAR; true; true
+;44189/01  ;44186/01   ;SIMILAR; true; true
+;44189/01  ;44231/02   ;SIMILAR; true; true
+;44189/01  ;44192/01DR ;SIMILAR; true; true
+
+;44189/01DR  ;44223/51   ;SIMILAR; true; true
+;44189/01DR  ;44249/50DR ;SIMILAR; true; true
+;44189/01DR  ;44215/01   ;SIMILAR; true; true
+;44186/01DR  ;44223/51DR ;SIMILAR; true; true
+			   
+					   
+;44192/01  ;44223/51   ;SIMILAR; true; true
+;44192/01  ;44223/51DR ;SIMILAR; true; true
+;44192/01  ;44231/02   ;SIMILAR; true; true
+;44192/01  ;44189/01DR ;SIMILAR; true; true					   
+
+;44192/01DR  ;44223/51   ;SIMILAR; true; true
+;44192/01DR  ;44223/51DR ;SIMILAR; true; true
+;44192/01DR  ;44231/02   ;SIMILAR; true; true
+;44192/01DR  ;44189/01DR ;SIMILAR; true; true	
+
+;44215/01  ;44223/51   ;SIMILAR; true; true
+;44215/01  ;44223/51DR ;SIMILAR; true; true
+;44215/01  ;44231/02   ;SIMILAR; true; true
+;44215/01  ;44189/01DR ;SIMILAR; true; true	
+
+;44215/01DR  ;44223/51   ;SIMILAR; true; true
+;44215/01DR  ;44223/51DR ;SIMILAR; true; true
+;44215/01DR  ;44231/02   ;SIMILAR; true; true
+;44215/01DR  ;44189/01DR ;SIMILAR; true; true	
+
+;44223/01  ;44186/01DR ;SIMILAR; true; true
+;44223/01  ;44215/01   ;SIMILAR; true; true
+;44223/01  ;44186/01   ;SIMILAR; true; true
+;44223/01  ;44189/01DR ;SIMILAR; true; true
+
+
+;44223/01DR  ;44223/51 ;SIMILAR; true; true
+;44223/01DR  ;44215/01   ;SIMILAR; true; true
+;44223/01DR  ;44186/01   ;SIMILAR; true; true
+;44223/01DR  ;44189/01DR ;SIMILAR; true; true
+
+;44231/02  ;44223/51 ;SIMILAR; true; true
+;44231/02  ;44215/01 ;SIMILAR; true; true
+;44231/02  ;44186/01 ;SIMILAR; true; true
+;44231/02  ;44189/01DR ;SIMILAR; true; true
+
+;44231/02DR  ;44223/51 ;SIMILAR; true; true
+;44231/02DR  ;44215/01 ;SIMILAR; true; true
+;44231/02DR  ;44186/01 ;SIMILAR; true; true
+;44231/02DR  ;44189/01DR ;SIMILAR; true; true					   
+
+
+;44249/50  ;44223/51 ;SIMILAR; true; true
+;44249/50  ;44215/01 ;SIMILAR; true; true
+;44249/50  ;44186/01 ;SIMILAR; true; true
+;44249/50  ;44189/01DR ;SIMILAR; true; true
+
+;44249/50DR ;44223/51 ;SIMILAR; true; true
+;44249/50DR ;44215/01 ;SIMILAR; true; true
+;44249/50DR ;44186/01 ;SIMILAR; true; true
+;44249/50DR ;44189/01DR ;SIMILAR; true; true
+
+;44277/50  ;44223/51 ;SIMILAR; true; true
+;44277/50  ;44223/51DR ;SIMILAR; true; true
+;44277/50  ;44231/02 ;SIMILAR; true; true
+;44277/50  ;44189/01DR ;SIMILAR; true; true
+
+					   
+;44277/50DR  ;44223/51 ;SIMILAR; true; true
+;44277/50DR  ;44223/51DR ;SIMILAR; true; true
+;44277/50DR  ;44231/02 ;SIMILAR; true; true
+;44277/50DR  ;44189/01DR ;SIMILAR; true; true
+			
+			
+					   
+					   
+ ########  Innovia Products  #########
+
+$productCatalog=gpUSProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$supercategories=supercategories(code, $catalogVersion)
+$baseProduct=baseProduct(code,$catalogVersion)
+$approved=approvalstatus(code)[default='approved']
+$lang=en       
+
+
+INSERT_UPDATE ContextualAttributesContext;code[unique=true];name
+;InnoviaContext;Context for Innovia attributes
+
+INSERT_UPDATE BaseStore;uid[unique=true];contextualAttributesContext(code)
+;innovia;InnoviaContext
+
+# UserPriceGroup
+INSERT_UPDATE UserPriceGroup;code[unique=true];name[lang=en];
+;pricegroup-innovia;Innovia Price Group;
+
+# Update Basestore with userpricegroup and solrFacetSearchConfiguration
+INSERT_UPDATE BaseStore;uid[unique=true];userPriceGroup(code);solrFacetSearchConfiguration(name)[default=multiBrandIndex]
+;innovia;pricegroup-innovia;;
+
+
+
+#UPDATE SolrFacetSearchConfig;name[unique=true];contexts(code)
+#;multiBrandIndex;GPEmployeeContext,DixieContext,B2BWhitelabelContext,B2CWhitelabelContext,CopperandCraneContext,VanityFairNapkinsContext,GPXpressContext,InnoviaContext
+
+
+# ProductAvailabilityGroup
+INSERT_UPDATE ProductAvailabilityGroup ; id[unique=true]                ; description[lang=en]                                          ; stores(uid)      
+                                       ; innovia-availability        ; Multibrand Product availability Group for Innovia          ; innovia       
+                          
+
+									   
+
+# Insert Variant Category                   
+#INSERT_UPDATE GPDefaultVariantCategory ; code[unique=true] ; name  ; $supercategories ; hasImage ; $catalogVersion ; allowedPrincipals(uid)[default='customergroup']
+#                                       ; color             ; Color ;                  ; true  
+									   
+#Insert Variant Value Category									   
+INSERT_UPDATE GPDefaultVariantValueCategory ; code[unique=true] ; name         ; $supercategories ; sequence ; hexCode ; $catalogVersion ; allowedPrincipals(uid)[default='customergroup']
+      
+#                                      ; stainless_finish  ; Stainless Finish ; color             ; 60 
+#										; black             ; Black            ; color             ; 61
+#                                       ; red               ; Red              ; color             ; 62
+#									; white             ; White            ; color            ; 63 
+						
+
+
+############################# S4 ###################################
+# Create  products
+INSERT_UPDATE GPCommerceProduct ; code[unique=true] ; $catalogVersion ; supercategories(code,$catalogVersion) ; ean ; unit(code); $approved;productSubtitle;sellingStatement
+
+;2159S     ;;undercabinet     ;;CS;;Innovia Automatic Paper Towel Dispenser provides a simple and convenient way to dispense paper towels. It's the ultimate kitchen convenience and a must-have kitchen gadget.
+;2159B     ;;undercabinet     ;;EA;;Innovia Automatic Paper Towel Dispenser provides a simple and convenient way to dispense paper towels. It's the ultimate kitchen convenience and a must-have kitchen gadget.
+;2159RG    ;;undercabinet     ;;CS;;Innovia Automatic Paper Towel Dispenser provides a simple and convenient way to dispense paper towels. It's the ultimate kitchen convenience and a must-have kitchen gadget.
+;2159WG    ;;undercabinet     ;;EA;;Innovia Automatic Paper Towel Dispenser provides a simple and convenient way to dispense paper towels. It's the ultimate kitchen convenience and a must-have kitchen gadget.
+;185SV1    ;;countertop       ;;CS;;Innovia Automatic Paper Towel Dispenser provides a simple and convenient way to dispense paper towels. It's the ultimate kitchen convenience and a must-have kitchen gadget.
+;185BV1    ;;countertop       ;;EA;;Innovia Automatic Paper Towel Dispenser provides a simple and convenient way to dispense paper towels. It's the ultimate kitchen convenience and a must-have kitchen gadget.
+;185RV1G   ;;countertop       ;;CS;;Innovia Automatic Paper Towel Dispenser provides a simple and convenient way to dispense paper towels. It's the ultimate kitchen convenience and a must-have kitchen gadget.
+;185WV1G   ;;countertop       ;;EA;;Innovia Automatic Paper Towel Dispenser provides a simple and convenient way to dispense paper towels. It's the ultimate kitchen convenience and a must-have kitchen gadget.
+
+
+UPDATE Product  ; code[unique=true]  ; $catalogVersion ;description[lang=en] 
+			   	;2159S           ;                 ;Innovia Automatic Paper Towel Dispenser provides a simple and convenient way to dispense paper towels. It's the ultimate kitchen convenience and a must-have kitchen gadget. 
+				;2159B    	     ;                 ;Innovia Automatic Paper Towel Dispenser provides a simple and convenient way to dispense paper towels. It's the ultimate kitchen convenience and a must-have kitchen gadget.
+				;2159RG   	     ;                 ;Innovia Automatic Paper Towel Dispenser provides a simple and convenient way to dispense paper towels. It's the ultimate kitchen convenience and a must-have kitchen gadget.
+				;2159WG   	     ;                 ;Innovia Automatic Paper Towel Dispenser provides a simple and convenient way to dispense paper towels. It's the ultimate kitchen convenience and a must-have kitchen gadget.
+				;185SV1   	     ;                 ;Innovia Automatic Paper Towel Dispenser provides a simple and convenient way to dispense paper towels. It's the ultimate kitchen convenience and a must-have kitchen gadget.
+				;185BV1   	     ;                 ;Innovia Automatic Paper Towel Dispenser provides a simple and convenient way to dispense paper towels. It's the ultimate kitchen convenience and a must-have kitchen gadget.
+				;185RV1G  	     ;                 ;Innovia Automatic Paper Towel Dispenser provides a simple and convenient way to dispense paper towels. It's the ultimate kitchen convenience and a must-have kitchen gadget.
+				;185WV1G  	     ;                 ;Innovia Automatic Paper Towel Dispenser provides a simple and convenient way to dispense paper towels. It's the ultimate kitchen convenience and a must-have kitchen gadget.
+
+
+
+
+
+
+UPDATE Product ; code[unique=true] ; $catalogVersion ;featureList 
+			   	;2159S           ;                 ;Hands-free operation means less risk of cross contamination. Just wave your hand in front of the sensor and it will dispense a paper towel. Unused sheets automatically retract back into the dispenser,Undercabinet design frees up valuable kitchen counter space. Quickly and easily installs in minutes using the included installation hardware,Perfect with Brawny® Pick-A-Size Paper Towels and Sparkle® Pick-A-Size Paper Towels,Powered by included AC adapter or 4 D-Cell batteries (batteries sold separately),Sleek design to complement your kitchen dÃƒ©cor,30-Day Money Back Guarantee. Also includes a one-year limited warranty,Free Shipping
+				;2159B    	     ;                 ;Hands-free operation means less risk of cross contamination. Just wave your hand in front of the sensor and it will dispense a paper towel. Unused sheets automatically retract back into the dispenser,Undercabinet design frees up valuable kitchen counter space. Quickly and easily installs in minutes using the included installation hardware,Perfect with Brawny® Pick-A-Size Paper Towels and Sparkle® Pick-A-Size Paper Towels,Powered by included AC adapter or 4 D-Cell batteries (batteries sold separately),Sleek design to complement your kitchen dÃƒ©cor,30-Day Money Back Guarantee. Also includes a one-year limited warranty,Free Shipping
+				;2159RG   	     ;                 ;Hands-free operation means less risk of cross contamination. Just wave your hand in front of the sensor and it will dispense a paper towel. Unused sheets automatically retract back into the dispenser,Undercabinet design frees up valuable kitchen counter space. Quickly and easily installs in minutes using the included installation hardware,Perfect with Brawny® Pick-A-Size Paper Towels and Sparkle® Pick-A-Size Paper Towels,Powered by included AC adapter or 4 D-Cell batteries (batteries sold separately),Sleek design to complement your kitchen dÃƒ©cor,30-Day Money Back Guarantee. Also includes a one-year limited warranty,Free Shipping
+				;2159WG   	     ;                 ;Hands-free operation means less risk of cross contamination. Just wave your hand in front of the sensor and it will dispense a paper towel. Unused sheets automatically retract back into the dispenser,Undercabinet design frees up valuable kitchen counter space. Quickly and easily installs in minutes using the included installation hardware,Perfect with Brawny® Pick-A-Size Paper Towels and Sparkle® Pick-A-Size Paper Towels,Powered by included AC adapter or 4 D-Cell batteries (batteries sold separately),Sleek design to complement your kitchen dÃƒ©cor,30-Day Money Back Guarantee. Also includes a one-year limited warranty,Free Shipping
+				;185SV1   	     ;                 ;Hands-free operation means less risk of cross contamination. Just wave your hand in front of the sensor and it will dispense a paper towel. Unused sheets automatically retract back into the dispenser,Undercabinet design frees up valuable kitchen counter space. Quickly and easily installs in minutes using the included installation hardware,Perfect with Brawny® Pick-A-Size Paper Towels and Sparkle® Pick-A-Size Paper Towels,Powered by included AC adapter or 4 D-Cell batteries (batteries sold separately),Sleek design to complement your kitchen dÃƒ©cor,30-Day Money Back Guarantee. Also includes a one-year limited warranty,Free Shipping
+				;185BV1   	     ;                 ;Hands-free operation means less risk of cross contamination. Just wave your hand in front of the sensor and it will dispense a paper towel. Unused sheets automatically retract back into the dispenser,Undercabinet design frees up valuable kitchen counter space. Quickly and easily installs in minutes using the included installation hardware,Perfect with Brawny® Pick-A-Size Paper Towels and Sparkle® Pick-A-Size Paper Towels,Powered by included AC adapter or 4 D-Cell batteries (batteries sold separately),Sleek design to complement your kitchen dÃƒ©cor,30-Day Money Back Guarantee. Also includes a one-year limited warranty,Free Shipping
+				;185RV1G  	     ;                 ;Hands-free operation means less risk of cross contamination. Just wave your hand in front of the sensor and it will dispense a paper towel. Unused sheets automatically retract back into the dispenser,Undercabinet design frees up valuable kitchen counter space. Quickly and easily installs in minutes using the included installation hardware,Perfect with Brawny® Pick-A-Size Paper Towels and Sparkle® Pick-A-Size Paper Towels,Powered by included AC adapter or 4 D-Cell batteries (batteries sold separately),Sleek design to complement your kitchen dÃƒ©cor,30-Day Money Back Guarantee. Also includes a one-year limited warranty,Free Shipping
+				;185WV1G  	     ;                 ;Hands-free operation means less risk of cross contamination. Just wave your hand in front of the sensor and it will dispense a paper towel. Unused sheets automatically retract back into the dispenser,Undercabinet design frees up valuable kitchen counter space. Quickly and easily installs in minutes using the included installation hardware,Perfect with Brawny® Pick-A-Size Paper Towels and Sparkle® Pick-A-Size Paper Towels,Powered by included AC adapter or 4 D-Cell batteries (batteries sold separately),Sleek design to complement your kitchen dÃƒ©cor,30-Day Money Back Guarantee. Also includes a one-year limited warranty,Free Shipping
+
+
+
+
+
+
+$availabilityGroup=innovia-availability
+$approvalStatus=approved 
+INSERT_UPDATE ProductAvailabilityAssignment ; product(code,$catalogVersion)[unique=true] ; availabilityGroup(id)[default=$availabilityGroup,unique=true] ; status(code)[default=$approvalStatus] ; onlineDate[dateformat=dd.MM.yyyy, default=01.02.2014] ; offlineDate[dateformat=dd.MM.yyyy] ; $catalogVersion
+
+;2159S     
+;2159B     
+;2159RG    
+;2159WG    
+;185SV1    
+;185BV1    
+;185RV1G   
+;185WV1G   
+
+
+
+
+
+$productCatalog=gpUSProductCatalog          
+$productCatalogName=GP US Product Catalog   
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$vendor=gp                                  
+INSERT_UPDATE StockLevel ; available ; warehouse(code)[default='gp_warehouse',unique=true] ; inStockStatus(code)[default='notSpecified'] ; overSelling ; preOrder ; productCode[unique=true] ; reserved
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;2159S               ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;2159B               ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;2159RG              ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;2159WG              ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;185SV1              ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;185BV1              ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;185RV1G             ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;185WV1G             ; 0       
+
+$productCatalog=gpUSProductCatalog
+$productCatalogName=GP US Product Catalog
+$prices=Europe1prices[translator=de.hybris.platform.europe1.jalo.impex.Europe1PricesTranslator]
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$baseProduct=baseProduct(code, catalogVersion(catalog(id[default='$productCatalog']),version[default='Staged']))
+$approved=approvalstatus(code)[default='approved']
+$taxGroup=Europe1PriceFactory_PTG(code)[default=us-sales-tax-full]
+
+
+INSERT_UPDATE PriceRow ; product(code,$catalogVersion)[unique=true] ; ug(code)[unique=true] ; gpUserPriceGroup(code)[unique=true] ; currency(isocode)[unique=true] ; price[unique=true] ; unit(code)[default=pieces] ; net[default=true] ; salePrice[default=false] ;  ; minAdvertisedPrice[default=false] ; startTime[dateformat=dd-MM-yyyy] ; endTime[dateformat=dd-MM-yyyy]
+                       ;2159S                                 ; pricegroup-innovia    ;                                     ; USD                            ; 35                 ; CS                         ;                   ;                          
+                       ;2159B                                 ; pricegroup-innovia    ;                                     ; USD                            ; 20                 ; EA                         ;                   ;                          
+                       ;2159RG                                ; pricegroup-innovia    ;                                     ; USD                            ; 30                 ; CS                         ;                   ;                          
+                       ;2159WG                                ; pricegroup-innovia    ;                                     ; USD                            ; 35                 ; EA                         ;                   ;                          
+                       ;185SV1                                ; pricegroup-innovia    ;                                     ; USD                            ; 50                 ; CS                         ;                   ;                          
+                       ;185BV1                                ; pricegroup-innovia    ;                                     ; USD                            ; 20                 ; EA                         ;                   ;                          
+                       ;185RV1G                               ; pricegroup-innovia    ;                                     ; USD                            ; 25                 ; CS                         ;                   ;                          
+                       ;185WV1G                               ; pricegroup-innovia    ;                                     ; USD                            ; 25                 ; EA                         ;                   ;                          
+
+                       ;2159S                                 ;     ;                                     ; USD                            ; 35                 ; CS                         ;                   ;                          
+                       ;2159B                                 ;     ;                                     ; USD                            ; 20                 ; EA                         ;                   ;                          
+                       ;2159RG                                ;     ;                                     ; USD                            ; 30                 ; CS                         ;                   ;                          
+                       ;2159WG                                ;     ;                                     ; USD                            ; 35                 ; EA                         ;                   ;                          
+                       ;185SV1                                ;     ;                                     ; USD                            ; 50                 ; CS                         ;                   ;                          
+                       ;185BV1                                ;     ;                                     ; USD                            ; 20                 ; EA                         ;                   ;                          
+                       ;185RV1G                               ;     ;                                     ; USD                            ; 25                 ; CS                         ;                   ;                          
+                       ;185WV1G                               ;     ;                                     ; USD                            ; 25                 ; EA                         ;                   ;                          
+
+
+
+
+
+
+
+
+
+
+############### Innovia PRODUCT REFERENCES  ############################
+# Insert Product References
+INSERT_UPDATE ProductReference;source(code,$catalogVersion)[unique=true];target(code,$catalogVersion)[unique=true];referenceType(code);active[default=true];preselected[default=false]
+;2159S;185SV1;SIMILAR; true; true
+;2159S;44249;SIMILAR; true; true
+;2159S;21879;SIMILAR; true; true
+
+;2159B;185BV1;SIMILAR; true; true
+;2159B;44249;SIMILAR; true; true
+;2159B;21879;SIMILAR; true; true
+
+;2159RG;185RV1G;SIMILAR; true; true
+;2159RG;44249;SIMILAR; true; true
+;2159RG;21879;SIMILAR; true; true
+
+;2159WG;185WV1G ;SIMILAR; true; true
+;2159WG;44249   ;SIMILAR; true; true
+;2159WG;21879   ;SIMILAR; true; true
+  
+;185SV1;2159S ;SIMILAR; true; true
+;185SV1;44249 ;SIMILAR; true; true
+;185SV1;21879 ;SIMILAR; true; true					   
+
+					   
+;185BV1;2159B ;SIMILAR; true; true
+;185BV1;44249 ;SIMILAR; true; true
+;185BV1;21879 ;SIMILAR; true; true							   
+			   
+					   
+;185RV1G;2159RG ;SIMILAR; true; true
+;185RV1G;44249 ;SIMILAR; true; true
+;185RV1G;21879 ;SIMILAR; true; true						   
+					   
+					   
+;185WV1G;2159WG ;SIMILAR; true; true
+;185WV1G;44249  ;SIMILAR; true; true
+;185WV1G;21879  ;SIMILAR; true; true	
+
+
+
+
+
+
+					   
+					   
+########  Sparkle Products  #########
+
+$productCatalog=gpUSProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$supercategories=supercategories(code, $catalogVersion)
+$baseProduct=baseProduct(code,$catalogVersion)
+$approved=approvalstatus(code)[default='approved']
+$lang=en       
+
+
+INSERT_UPDATE ContextualAttributesContext;code[unique=true];name
+;SparkleContext;Context for Sparkle attributes
+
+INSERT_UPDATE BaseStore;uid[unique=true];contextualAttributesContext(code)
+;sparkle;SparkleContext
+
+# UserPriceGroup
+INSERT_UPDATE UserPriceGroup;code[unique=true];name[lang=en];
+;pricegroup-sparkle;Sparkle Price Group;
+
+# Update Basestore with userpricegroup and solrFacetSearchConfiguration
+INSERT_UPDATE BaseStore;uid[unique=true];userPriceGroup(code);solrFacetSearchConfiguration(name)[default=multiBrandIndex]
+;sparkle;pricegroup-sparkle;;
+
+
+
+UPDATE SolrFacetSearchConfig;name[unique=true];contexts(code)
+;multiBrandIndex;GPEmployeeContext,DixieContext,B2BWhitelabelContext,B2CWhitelabelContext,CopperandCraneContext,VanityFairNapkinsContext,GPXpressContext,SparkleContext,InnoviaContext,BrawnyContext
+
+
+# ProductAvailabilityGroup
+INSERT_UPDATE ProductAvailabilityGroup ; id[unique=true]                ; description[lang=en]                                          ; stores(uid)      
+                                       ; sparkle-availability        ; Multibrand Product availability Group for Sparkle          ; sparkle       
+                          
+
+									   
+############################# S4 ###################################
+# Create  products
+INSERT_UPDATE GPCommerceProduct ; code[unique=true] ; $catalogVersion ; supercategories(code,$catalogVersion) ; ean ; unit(code); $approved;productSubtitle;sellingStatement
+
+;21879/54DR;;sparkleshop     ;;EA;;2 GIANT ROLLS = 3.8 REGULAR ROLLS
+;21934/01DR;;sparkleshop     ;;EA;;6 GIANT = 9 REGULAR ROLLS
+;22075/50DR;;sparkleshop     ;;EA;;2 PLUS = 3.9 REGULAR ROLLS
+;21936/01DR;;sparkleshop     ;;EA;;6 GIANT = 9 REGULAR ROLLS
+;21940/01DR;;sparkleshop     ;;EA;;8 MEGA = 13 REGULAR ROLLS
+;22073/50  ;;sparkleshop     ;;CS;;18 JUMBO = 37 REGULAR ROLLS
+;21926/01DR;;sparkleshop     ;;EA;;2 GIANT ROLLS = 3 REGULAR ROLLS
+;DR-1000594 ;;sparkleshop     ;;CS;;24 White Sparkle Paper Towels Pick-A- Size & 36 Angel Soft White Mega Rolls
+
+
+UPDATE Product  ; code[unique=true]  ; $catalogVersion ;description[lang=en] 
+			   	;21879/54DR     ;                 ;Sparkle Pick-A-Size® 2-Ply modern white paper towels with Thirst Pockets® are specifically-designed to be strong and absorbent. This pack of Sparkle® paper towels includes 2 giant rolls that are equivalent to 3.8 regular rolls. They work perfectly to clean everyday messes.
+				;21934/01DR     ;                 ;Sparkle Pick-A-Size® 2-Ply printed paper towels with Thirst Pockets® – specifically-designed to be strong and absorbent, while also adding some color to your countertop. This pack of Sparkle® paper towels includes 6 giant rolls that are equivalent to 9 regular rolls.  These paper towels work perfectly to clean everyday messes whether in the kitchen, garage, or bathroom at an affordable price! 
+				;22075/50DR     ;                 ;Clean any size mess with Sparkle Pick-A-Size® Plus paper towels—NOW with wider sheets! Sparkle Pick-A-Size® Plus paper towels deliver a little something extra without breaking the bank. This pack of Sparkle® modern white paper towels includes 2 Plus-size rolls that are equivalent to 3.9 regular rolls.
+				;21936/01DR     ;                 ;Sparkle Pick-A-Size® 2-Ply white paper towels with Thirst Pockets® – specifically-designed to be strong and absorbent. This pack of Sparkle® paper towels includes 6 giant rolls that are equivalent to 9 regular rolls.  These paper towels work perfectly to clean everyday messes whether in the kitchen, garage, or bathroom at an affordable price! 
+				;21940/01DR     ;                 ;Sparkle Pick-A-Size® 2-Ply white paper towels with Thirst Pockets® – specifically-designed to be strong and absorbent. This pack of Sparkle® paper towels includes 8 mega rolls that are equivalent to 13 regular rolls.  These paper towels work perfectly to clean everyday messes whether in the kitchen, garage, or bathroom at an affordable price! 
+				;22073/50       ;                 ;Clean any size mess with Sparkle Pick-A-Size® Plus paper towels— with wider sheets! Sparkle Pick-A-Size® Plus paper towels deliver a little somethin’ extra in your Pick-A-Size® sheets without breaking the bank. Use our wider Pick-A-Size® sheets on large kitchen and bathroom counters, floors, mirrors, and more. This pack of Sparkle® modern white paper towels includes 18 jumbo rolls that are equivalent to 37 regular rolls.
+				;21926/01DR     ;                 ;Keep cleaning cool with Sparkle® Paper Towels Hint of Color® – our 2-ply paper towels with Thirst Pockets – specifically-designed to be strong and absorbent. Sparkle® Paper Towels Hint of Color® are Pick-A-Size® sheets to clean any mess big or small. This pack of Sparkle® Paper Towels Hint of Color® includes 2 rolls of 2-ply blue paper towels that are equivalent to 3 regular rolls. They work perfectly to clean everyday messes and brighten up your home whether in the kitchen, garage, or bathroom. Sparkle® Paper Towels Hint of Color® offer all you need to shine at an affordable price and are the perfect towels for clean up all over the house. From the kitchen to the bathroom, on a paper towel holder, or on the countertop, you’ll absorb moisture and leave counters and mirrors streak free—for a house that shines every time! On top of all of that, Sparkle® Paper Towels are a giant help for cleaning glass, kitchen counters, bathroom vanities, appliances, make-up brushes, or keep in your car for any on-the-go emergency occasion.
+				;DR-1000594       ;               ;Remove the hassles and get the familiar names you know delivered to your door. The Angel Soft and Sparkle® Bundle are a great way to make sure you never run out. 
+
+
+
+
+
+
+UPDATE Product ; code[unique=true]   ; $catalogVersion ;featureList 
+			    ;21879/54DR          ;                 ;- 2 giant rolls =3.8 regular rolls,2-Ply paper towels,- 107 Pick-A-Size® sheets per roll,- Modern White paper towels
+				;21934/01DR 	     ;                 ;- 6 giant rolls = 9 regular rolls,- 2-Ply paper towels,59 full sheets per roll,- Spirited Prints paper towels
+				;22075/50DR 	     ;                 ;- 2 Plus rolls = 3.9,- 2-Ply paper towels,- 108 Pick-A-Size® Plus sheets per roll,- Modern White paper towels
+				;21936/01DR 	     ;                 ;- 6 giant rolls = 9 regular rolls,2-Ply paper towels,- 90 Pick-A-Size® sheets per roll,- Modern White paper towels
+				;21940/01DR 	     ;                 ;- 8 mega rolls = 13 regular rolls,- 2-Ply paper towels,- 100 Pick-A-Size® sheets per roll,- Modern White paper towels
+				;22073/50   	     ;                 ;- 18 jumbo rolls = 37 regular rolls,- 2-Ply paper towels,- 115 Pick-A-Size® Plus sheets per roll,- Spirited Prints paper towels
+				;21926/01DR 	     ;                 ;- 2 Giant Rolls = 3 Regular Rolls,- 2-Ply paper towels,- Hint Of Color paper towels
+				;DR-1000594 	     ;                 ;- 24 White Sparkle Paper Towels Pick-A-Size,- 36 Angel Soft White Mega Rolls,- Modern White
+
+
+
+
+
+
+$availabilityGroup=sparkle-availability
+$approvalStatus=approved 
+INSERT_UPDATE ProductAvailabilityAssignment ; product(code,$catalogVersion)[unique=true] ; availabilityGroup(id)[default=$availabilityGroup,unique=true] ; status(code)[default=$approvalStatus] ; onlineDate[dateformat=dd.MM.yyyy, default=01.02.2014] ; offlineDate[dateformat=dd.MM.yyyy] ; $catalogVersion
+
+;21879/54DR     
+;21934/01DR 	
+;22075/50DR 	
+;21936/01DR 	
+;21940/01DR 	
+;22073/50   	
+;21926/01DR
+;DR-1000594
+
+
+
+$productCatalog=gpUSProductCatalog          
+$productCatalogName=GP US Product Catalog   
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$vendor=gp                                  
+INSERT_UPDATE StockLevel ; available ; warehouse(code)[default='gp_warehouse',unique=true] ; inStockStatus(code)[default='notSpecified'] ; overSelling ; preOrder ; productCode[unique=true] ; reserved
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;21879/54DR               ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;21934/01DR 	          ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;22075/50DR 	          ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;21936/01DR 	          ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;21940/01DR 	          ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;22073/50   	          ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;21926/01DR 	          ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;DR-1000594 	          ; 0       
+
+						 
+$productCatalog=gpUSProductCatalog
+$productCatalogName=GP US Product Catalog
+$prices=Europe1prices[translator=de.hybris.platform.europe1.jalo.impex.Europe1PricesTranslator]
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$baseProduct=baseProduct(code, catalogVersion(catalog(id[default='$productCatalog']),version[default='Staged']))
+$approved=approvalstatus(code)[default='approved']
+$taxGroup=Europe1PriceFactory_PTG(code)[default=us-sales-tax-full]
+
+
+INSERT_UPDATE PriceRow ; product(code,$catalogVersion)[unique=true] ; ug(code)[unique=true] ; gpUserPriceGroup(code)[unique=true] ; currency(isocode)[unique=true] ; price[unique=true] ; unit(code)[default=pieces] ; net[default=true] ; salePrice[default=false] ;  ; minAdvertisedPrice[default=false] ; startTime[dateformat=dd-MM-yyyy] ; endTime[dateformat=dd-MM-yyyy]
+                       ;21879/54DR                                ; pricegroup-sparkle    ;                                     ; USD                            ; 35                 ; CS                         ;                   ;                          
+                       ;21934/01DR 	                              ; pricegroup-sparkle    ;                                     ; USD                            ; 20                 ; EA                         ;                   ;                          
+                       ;22075/50DR 	                              ; pricegroup-sparkle    ;                                     ; USD                            ; 30                 ; CS                         ;                   ;                          
+                       ;21936/01DR 	                              ; pricegroup-sparkle    ;                                     ; USD                            ; 35                 ; EA                         ;                   ;                          
+                       ;21940/01DR 	                              ; pricegroup-sparkle    ;                                     ; USD                            ; 50                 ; CS                         ;                   ;                          
+                       ;22073/50   	                              ; pricegroup-sparkle    ;                                     ; USD                            ; 20                 ; EA                         ;                   ;                          
+                       ;21926/01DR 	                              ; pricegroup-sparkle    ;                                     ; USD                            ; 50                 ; CS                         ;                   ;                          
+                       ;DR-1000594 	                              ; pricegroup-sparkle    ;                                     ; USD                            ; 20                 ; EA                         ;                   ;                          
+
+					   
+					   
+					   ;21879/54DR                                ;     ;                                     ; USD                            ; 35                 ; CS                         ;                   ;                          
+                       ;21934/01DR 	                              ;     ;                                     ; USD                            ; 20                 ; EA                         ;                   ;                          
+                       ;22075/50DR 	                              ;     ;                                     ; USD                            ; 30                 ; CS                         ;                   ;                          
+                       ;21936/01DR 	                              ;     ;                                     ; USD                            ; 35                 ; EA                         ;                   ;                          
+                       ;21940/01DR 	                              ;     ;                                     ; USD                            ; 50                 ; CS                         ;                   ;                          
+                       ;22073/50   	                              ;     ;                                     ; USD                            ; 20                 ; EA                         ;                   ;                          
+                       ;21926/01DR 	                              ;     ;                                     ; USD                            ; 50                 ; CS                         ;                   ;                          
+                       ;DR-1000594 	                              ;     ;                                     ; USD                            ; 20                 ; EA                         ;                   ;                          
+
+					   
+					   
+############### Sparkle PRODUCT REFERENCES  ############################
+# Insert Product References
+INSERT_UPDATE ProductReference;source(code,$catalogVersion)[unique=true];target(code,$catalogVersion)[unique=true];referenceType(code);active[default=true];preselected[default=false]
+;21879/54DR ;21934/01DR;SIMILAR; true; true
+;21879/54DR ;21926/01DR;SIMILAR; true; true
+;21879/54DR ;DR-1000594;SIMILAR; true; true
+;21879/54DR ;21940/01DR;SIMILAR; true; true
+
+;21934/01DR ;21879/54DR;SIMILAR; true; true
+;21934/01DR ;21926/01DR;SIMILAR; true; true
+;21934/01DR ;DR-1000594;SIMILAR; true; true
+;21934/01DR ;21940/01DR;SIMILAR; true; true
+
+;21934/01DR ;21934/01DR;SIMILAR; true; true
+;21934/01DR ;21926/01DR;SIMILAR; true; true
+;21934/01DR ;DR-1000594;SIMILAR; true; true
+;21934/01DR ;21940/01DR;SIMILAR; true; true
+
+
+;21936/01DR ;21934/01DR;SIMILAR; true; true
+;21936/01DR ;21926/01DR;SIMILAR; true; true
+;21936/01DR ;DR-1000594;SIMILAR; true; true
+;21936/01DR ;21940/01DR;SIMILAR; true; true
+
+;21940/01DR ;21934/01DR;SIMILAR; true; true
+;21940/01DR ;21926/01DR;SIMILAR; true; true
+;21940/01DR ;DR-1000594;SIMILAR; true; true
+;21940/01DR ;21879/54DR;SIMILAR; true; true
+
+;22073/50   ;21934/01DR;SIMILAR; true; true
+;22073/50   ;21926/01DR;SIMILAR; true; true
+;22073/50   ;DR-1000594;SIMILAR; true; true
+;22073/50   ;21879/54DR;SIMILAR; true; true
+
+;21926/01DR    ;21934/01DR;SIMILAR; true; true
+;21926/01DR    ;21940/01DR;SIMILAR; true; true
+;21926/01DR    ;DR-1000594;SIMILAR; true; true
+;21926/01DR    ;21879/54DR;SIMILAR; true; true
+
+;DR-1000594    ;21934/01DR;SIMILAR; true; true
+;DR-1000594    ;21926/01DR;SIMILAR; true; true
+;DR-1000594    ;21940/01DR;SIMILAR; true; true
+;DR-1000594    ;21879/54DR;SIMILAR; true; true

@@ -1,0 +1,22 @@
+<div class="vx-related-products-tab">
+  <div class="row col-sm-12">
+    <div class="tile-group d-flex flex-column col-sm-12" v-for="item in relatedProductsData">
+      <h3 class="vx-related-products-tab__topleftheading subheadings pl-md-4 mt-md-5 mb-md-0" v-if="isRelatedEnabled" :aria-hidden="!isRelatedEnabled">{{item.referenceType}}
+      </h3>
+      <div class="d-flex flex-wrap">
+        <template v-if="isRelatedEnabled">
+          <vx-product-tile-vertical v-for="(product,index) in item.references" :key="product.target.code + index"
+            :product="product.target" :uncheckProduct="uncheckProduct" :showRemoveOption=showRemoveOption
+            :showCompareOption=showCompareOption :is-favorite-visible="isFavorites" :is-bazaar-voice="isBazaarVoice"
+            :i18n="i18n"></vx-product-tile-vertical>
+        </template>
+        <template v-else>
+          <vx-product-tile-vertical v-for="(product,index) in relatedProducts" :key="product.code + index"
+            :product="product" :uncheckProduct="uncheckProduct" :showRemoveOption=showRemoveOption
+            :showCompareOption=showCompareOption :is-favorite-visible="isFavorites" :is-bazaar-voice="isBazaarVoice"
+            :i18n="i18n"></vx-product-tile-vertical>
+        </template>
+      </div>
+    </div>
+  </div>
+</div>

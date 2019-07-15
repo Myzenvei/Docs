@@ -1,0 +1,26 @@
+#gp-xpress {
+  .vx-image-text {
+    h3 {
+      font-size: @font-size-h2;
+      line-height: 33px;
+    }
+    p {
+      font-size: @font-size-h4;
+      letter-spacing: @letter-spacing-slashed;
+      line-height: 28px;
+    }
+    &.text-white {
+      h3 {
+        @media (max-width: @screen-xs-max) {
+          font-size: @font-size-large;
+        }
+      }
+      p {
+        @media (max-width: @screen-xs-max) {
+          font-size: @font-size-small;
+          letter-spacing: @letter-spacing-slashed;
+        }
+      }
+    }
+  }
+}

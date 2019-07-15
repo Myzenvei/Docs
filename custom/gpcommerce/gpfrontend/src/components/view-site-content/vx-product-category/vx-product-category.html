@@ -1,0 +1,14 @@
+<div class="vx-product-category d-flex flex-xs-column flex-sm-row flex-wrap justify-content-center">
+  <div class="col-xs-12 col-sm-6 col-md-4 vx-product-category__item p-xs-0 p-sm-3 p-md-3" v-for="prd in tabBody">
+    <div class="col-xs-12 product-container p-xs-0">
+      <img :src='prd.tipImageUrl' alt="prd.tipAltText" />
+      <div class="vx-product-category__wrapper d-flex align-items-center justify-content-center p-xs-3">
+        <div class="vx-product-category__content text-center">
+          <h2 class="color-white" v-html="prd.tipText"></h2>
+          <a :href="prd.external ? prd.tipLinkUrl : globals.getUrlWithContextPath(prd.tipLinkUrl)" :target="prd.external?'_blank':''"
+            class="btn btn-transparent text-uppercase" v-if="prd.tipLinkUrl && prd.tipLinkText" v-html="prd.tipLinkText"></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

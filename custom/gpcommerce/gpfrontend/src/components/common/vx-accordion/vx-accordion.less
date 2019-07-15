@@ -1,0 +1,89 @@
+
+.vx-accordion {
+  width: 100%;
+  .panel {
+    &.panel-default {
+      margin-bottom: 0;
+      box-shadow: none;
+      border-radius: 0;
+      border-left: 0;
+      border-right: 0;
+      border-bottom: 0;
+      &:last-child {
+        border-bottom: 1px solid @brand-secondary-12;
+      }
+      .panel-heading {
+        background-color: @brand-secondary-4;
+        border: 0;
+        padding: 0;
+      }
+      .panel-body {
+        padding-left: 0;
+        letter-spacing: 0.15px;
+        font-size: 14px;
+      }
+    }
+    &-title {
+      a {
+        display: block;
+        text-decoration: none;
+        padding: 16px 0;
+        span {
+          font-size: 16px;
+          font-weight: 500;
+          display: block;
+          width: calc (100% - 30px);
+        }
+        &:before {
+          float: right !important;
+          &:extend([class*=' icon-'], .icon-minus:before);
+          width: 30px;
+          font-size: 20px;
+        }
+        &.collapsed {
+          &:before {
+            &:extend(.icon-plus:before);
+          }
+        }
+      }
+    }
+  }
+
+  .slot-based {
+    .accordion-header {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0px 10px 0px;
+      cursor: pointer;
+    }
+    .accordion-header .heading-container {
+      display: flex;
+      align-items: center;
+    }
+    .right-box {
+      display: flex; /* establish flex container */
+      flex-direction: column; /* make main axis vertical */
+      justify-content: center; /* center items vertically, in this case */
+      align-items: center;
+    }
+    .heading-container span {
+      font-size: 14px;
+      color: @accordion-heading-color;
+    }
+    .icon-plus,
+    .icon-minus {
+      font-size: @font-size-h2;
+      color: @accordion-icon-color;
+    }
+    .accordion-body {
+      padding: 0;
+      overflow: hidden;
+      transition: 0.3s ease all;
+    }
+    //User Specific clases
+    .bold-heading {
+      color: @accordion-heading-color;
+      font-weight: 500;
+    }
+  }
+}

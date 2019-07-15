@@ -1,0 +1,60 @@
+<div class="vx-checkout">
+  <!-- <component :is="section.component" :visible-entries="visibleCheckoutEntries" :i18n="i18n"
+    v-if="sectionsEnabled.shippingAddress"></component> -->
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>></vx-spinner>
+  <template v-if='dataLoaded'>
+    <div class="col-md-8 px-xs-0 pr-md-3">
+      <h1 class="main-heading">{{i18n.checkout.checkoutHeading}}</h1>
+      <div class="checkout-sections">
+        <template v-for='(section , index) in visibleSections'>
+          <div class="checkout-section">
+            <span class="heading" v-if="!section.enabled" role="heading">{{index+1}}. {{section.heading}}</span>
+            <template v-if="section.id === 'shippingAddress'">
+              <vx-shipping-address v-if="section.enabled" :visible-entries="visibleCheckoutEntries" :i18n="i18n" :user-level="userLevel"
+                :section-index="index+1" :all-entries="checkoutData.entries"></vx-shipping-address>
+            </template>
+            <template v-if="section.id === 'leaseAgreement'">
+              <vx-lease-agreement v-if="section.enabled" :checkout-data="checkoutData" :leasable-products="leasableProducts" :country="leaseCountry"
+                :country-quantity="leasableQtyItems" :i18n="i18n" :section-index="index+1"></vx-lease-agreement>
+            </template>
+            <template v-if="section.id === 'scheduleinstallation'">
+              <vx-schedule-installation v-if="section.enabled" :installable-products="installableProducts" :i18n="i18n" :section-index="index+1"></vx-schedule-installation>
+            </template>
+            <template v-if="section.id == 'shippingMethod'">
+              <vx-shipping-method :address-changed="addressChanged" v-if="section.enabled" :i18n="i18n.shippingMethod" :split-applicable="splitApplicable"
+                :checkout-data="checkoutData" :is-shipping-multiple="isShippingMultiple" :section-index="index+1"></vx-shipping-method>
+            </template>
+            <template v-if="section.id === 'giftOptions'">
+              <vx-gift-options v-if="section.enabled" :giftable-products="giftableProducts" :i18n="i18n.giftingOptions" :section-index="index+1"></vx-gift-options>
+            </template>
+            <template v-if="section.id === 'paymentBilling'">
+              <vx-payment-billing v-if="section.enabled" :selected-card="checkoutData.paymentInfo" :i18n="i18n" :shipping-address="shippingAddress"
+                :section-index="index+1" :disable-button="isPaymentButtonDisabled" :key="isPaymentButtonDisabled" :guest-email="guestEmail"
+                :checkout-data="checkoutData"></vx-payment-billing>
+            </template>
+            <template v-if="section.id === 'overview'">
+              <vx-overview :visible-entries="visibleCheckoutEntries" :i18n="i18n.overview" :split-applicable="splitApplicable" :total-items="checkoutData.totalItems"
+                :promotion-data="promotionData" :total-price="checkoutData.totalSubscriptionPrice"></vx-overview>
+            </template>
+          </div>
+        </template>
+      </div>
+      <!-- This section recieves no content from i18n, hence commented. Need to uncomment it when we have content for legal section -->
+      <!-- <div class="legal-section py-md-4 pb-sm-2 pb-xs-2">
+        <p class="mb-xs-0">
+          <span>{{i18n.checkout.legalHeading}}</span>
+          <span>{{i18n.checkout.legalText1}}</span>
+        </p>
+        <p class="pt-xs-4 mb-xs-0">{{i18n.checkout.legalText2}}</p>
+      </div> -->
+    </div>
+    <div class="checkout-order-summary-details col-sm-6 col-sm-offset-6 col-md-4 col-md-offset-0 px-xs-0 pl-md-3">
+      <vx-order-summary :i18n="i18n.orderSummary" page="checkout" :order-details='checkoutData' :is-giftable="isGiftable" :is-installable="isInstallable"
+        :is-shipping-multiple="isShippingMultiple">
+        <div slot="bottomButton">
+          <vx-place-order :i18n="i18n.checkout" :order-details='checkoutData'></vx-place-order>
+        </div>
+      </vx-order-summary>
+    </div>
+  </template>
+</div>

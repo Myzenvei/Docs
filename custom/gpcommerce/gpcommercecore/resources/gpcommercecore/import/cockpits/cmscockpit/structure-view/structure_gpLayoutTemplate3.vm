@@ -1,0 +1,65 @@
+<div style="margin:0;padding:0;table-layout:auto;border:1px solid #1E4EBF;">
+    <div class="row">
+      <div class="col-xs-12 structureViewSection">
+        <cockpit code="ContentSlot1"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 structureViewSection">
+        <cockpit code="ContentSlot2"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-8 structureViewSection">
+        <cockpit code="ContentSlot3"/>
+      </div>
+      <div class="col-xs-4">
+        <div class="row">
+          <div class="col-xs-4 structureViewSection">
+            <cockpit code="ContentSlot4"/>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 structureViewSection">
+        <cockpit code="ContentSlot5"/>
+      </div>
+    </div>
+     <div class="row">
+      <div class="col-xs-12 structureViewSection">
+        <cockpit code="ContentSlot6"/>
+      </div>
+    </div>
+     <div class="row">
+      <div class="col-xs-12 structureViewSection">
+        <cockpit code="ContentSlot7"/>
+      </div>
+    </div>
+     <div class="row">
+      <div class="col-xs-12 structureViewSection">
+        <cockpit code="ContentSlot8"/>
+      </div>
+    </div>
+     <div class="row">
+      <div class="col-xs-12 structureViewSection">
+        <cockpit code="ContentSlot9"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 structureViewSection">
+        <cockpit code="ContentSlot10"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 structureViewSection">
+        <cockpit code="ContentSlot11"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 structureViewSection">
+        <cockpit code="ContentSlot12"/>
+      </div>
+    </div>
+  </div>

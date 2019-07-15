@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2013 hybris AG
+ All rights reserved.
+
+ This software is the confidential and proprietary information of hybris
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with hybris.
+
+  
+--><extensioninfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="extensioninfo.xsd">
+
+	<extension abstractclassprefix="Generated" classprefix="Otmmaddonui" managername="OtmmaddonuiManager" managersuperclass="de.hybris.platform.jalo.extension.Extension" name="otmmaddonui">
+
+		<requires-extension name="otmmaddon"/>
+		<requires-extension name="productcockpit"/>
+
+		<!-- Extension yacceleratorcore is required to assure that 'productmanagergroup' is created before our impex import starts (SAPDC-1615). -->
+		<requires-extension name="gpcommercecore"/>
+
+		<requires-extension name="cmscockpit"/>
+		<requires-extension name="configurablebundlecockpits"/>
+		<coremodule generated="true" manager="com.opentext.hybris.otmmconnector.ui.jalo.OtmmaddonuiManager" packageroot="com.opentext.hybris.otmmconnector.ui"/>
+
+		<webmodule jspcompile="false" webroot="/otmmaddonui"/>
+	</extension>
+</extensioninfo>

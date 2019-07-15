@@ -1,0 +1,21 @@
+#dixie {
+  .vx-brand-bar {
+    &__header {
+      letter-spacing: @letter-spacing-default;
+    }
+  }
+  @media only screen and (max-width: @screen-xs-max) {
+    .vx-brand-bar {
+      &__header {
+        font-size: @font-size-large;
+      }
+      .vx-brand-bar__brands {
+        .vx-brand-bar__brand-link {
+          padding: 32px;
+          width: 50%;
+          margin-right: 0;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,176 @@
+## messageSource=classpath:/gpcommercecore/messages/email-footerText_$lang.properties
+#set ( $siteUrl = $ctx.urlResolutionService.getWebsiteUrlForSite($ctx.site,true,$ctx.urlLink) )
+#set ( $mediaUrl = $ctx.urlResolutionService.getMediaUrlForSite($ctx.site,false,$ctx.media.url) )
+<style type="text/css">
+    .footer-section {
+        background-color:#dfdfdf;
+        border-top: 1px solid #cecece;
+        padding: 16px 0;
+        width: 100%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .links-section {
+        width: 100%;
+    }
+
+    .links-section td {
+        padding-bottom: 8px;
+        padding-left: 20px;
+        padding-right: 10px;
+
+    }
+
+    .copyright-section {
+        display: inline-block;
+        width: 25%;
+        color: #747678;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 16px;
+        letter-spacing: 0.15px;
+        vertical-align: top;
+        padding: 8px 0;
+    }
+
+    .social-section {
+        display: inline-block;
+        padding: 4px 0;
+        width: 25%;
+        vertical-align: top;
+    }
+
+    .social-section .title {
+        display: block;
+        width: 100%;
+        color: #222;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 16px;
+        padding-left: 8px;
+    }
+
+    .social-section .social-links {
+        display: block;
+        width: 100%;
+    }
+
+    .social-section .social-links td {
+        padding: 8px;
+    }
+
+    @media screen and (max-width: 767px) {
+        .links-section {
+            width: calc(100% - 0px);
+            margin-bottom: 8px;
+            padding-left: 16px;
+        }
+
+        .links-section td {
+            padding: 8px 4px;
+        }
+
+        .copyright-section {
+            width: 50%;
+            padding: 20px 0;
+        }
+        .social-section {
+            width: calc(100% - 0px);
+            margin: 0;
+            padding: 16px;
+        }
+
+        .social-section .title {
+            display: table-cell;
+            vertical-align: middle;
+            padding-right: 8px;
+            width: auto;
+        }
+
+        .social-section .social-links {
+            display: table-cell;
+            width: auto;
+        }
+
+        .social-section .social-links td {
+            padding: 0 8px;
+        }
+    }
+</style>
+<tfoot>
+    <tr>
+        <td style="margin:0px;padding:0px;padding-top:24px;">
+            <table class="footer-section">
+                <tr>
+                    <td style="width:50%;vertical-align: top;display:inline-block;padding:0;">
+                        <table class="links-section">
+                            <tr>
+                                <td>
+                                    <table width="100%" align="left">
+                                        #set($count=0)
+                                        #foreach( $entry in ${ctx.navigationNodes} ) #foreach( $link in ${entry.links} )
+                                        #if($count%2 == 0)
+                                        <tr>
+                                            #end
+                                            <td>
+                                                #if($link.url.toString().contains("https"))
+                                                #set ( $linkUrl = $link.url )
+                                                #else
+                                                #set ( $linkUrl =
+                                                $ctx.urlResolutionService.getWebsiteUrlForSite($ctx.site,true,$link.url)
+                                                )
+                                                #end
+                                                <a href="${linkUrl}"
+                                                    style="color: #167BB4; font-size:14px; font-weight: 500; line-height: 16px; text-decoration:none;">
+                                                    ${link.linkName}
+                                                </a>
+                                            </td>
+                                            #if($count%2!=0)
+                                        </tr>
+                                        #end
+                                        #set ($count = $count+1)
+                                        #end #end
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td class="copyright-section">
+                        &copy; $ctx.urlResolutionService.getYear() Georgia-Pacific Consumer Products LP. All rights reserved.
+                    </td>
+                    <td class="social-section">
+                        <table>
+                            <tr>
+                                <td class="title">
+                                    Follow Us
+                                </td>
+                            </tr>
+                        </table>
+                        <table class="social-links">
+                            <tr>
+                                <td>
+                                    <table border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                            #foreach( $entry in ${ctx.emailFooter} ) #set ( $mediaUrl =
+                                            $ctx.urlResolutionService.getMediaUrlForSite($ctx.site,false,$entry.media.url))
+                                            <td>
+                                                <a style="font-size:0;border:none;outline:0;outline:none;text-decoration:none;"
+                                                    href="$entry.urlLink">
+                                                    <img width="32" height="32" title="${entry.name}"
+                                                        alt="#if(${entry.media.altText})${entry.media.altText}#end"
+                                                        src="${mediaUrl}">
+                                                </a>
+                                            </td>
+                                            #end
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</tfoot>

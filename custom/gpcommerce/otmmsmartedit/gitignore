@@ -1,0 +1,17 @@
+#########################
+# ySmartEditModule
+#########################
+
+.tscache
+jsTarget
+node_modules
+#**/static-resources/otmmsmartedit
+**/generated/**
+
+# BUNDLE
+smartedit-build
+build
+web/webroot/otmmsmartedit
+**/protractor-conf.js
+**/.jshintrc
+

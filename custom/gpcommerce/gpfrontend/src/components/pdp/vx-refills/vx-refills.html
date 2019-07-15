@@ -1,0 +1,21 @@
+<div class="vx-refills-modal">
+  <vx-spinner ref="spinner" :image="globals.assetsPath+'images/spinner.gif'" full-screen>
+  </vx-spinner>
+  <div class="refill-container">
+    <p class="refill-text mb-xs-5 mb-sm-4 mb-md-5 mt-sm-2">{{i18n.refillAvailable}}</p>
+    <template v-if="refillProducts.length > 0">
+      <vx-slider :product-data="refillProducts" :showSelectCheckbox="true" :is-favorites="isFavorites"
+        :slider-slides="sliderSlides" is-refill :is-bazaar-voice="isBazaarVoice" :search-browse-i18n="searchBrowseI18n">
+      </vx-slider>
+      <div class="mb-sm-4 mb-xs-3 section-divider"></div>
+    </template>
+  </div>
+  <div class="d-flex justify-content-center refill-buttons">
+    <div v-if="!enableSampleCart" class="mb-sm-4 mb-xs-3 mobile-section-divider"></div>
+    <button type="button" class="btn btn-default mr-xs-0 mr-sm-3 modal-dual-btn modal-btn-IEspacing mb-xs-3 mb-sm-0"
+      @click="handleNoThanks">{{i18n.noThanks}}</button>
+    <button :disabled="disableCartButton" type="button"
+      class="btn btn-primary ml-xs-0 ml-sm-3 modal-dual-btn add-to-cart-btn modal-btn-IEspacing"
+      @click="handleAddToCart">{{i18n.addToCart}}</button>
+  </div>
+</div>

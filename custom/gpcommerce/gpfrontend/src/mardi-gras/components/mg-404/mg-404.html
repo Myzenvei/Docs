@@ -1,0 +1,13 @@
+<div class="container-fluid">
+  <div class="mg-404 row">
+    <div class="container p-xs-0">
+      <p class="error-title mb-xs-5" v-if="i18n.title" v-html="i18n.title"></p>
+      <p class="error-description mb-xs-3" v-if="i18n.description" v-html="i18n.description"></p>
+      <p class="error-help" v-if="i18n.help" v-html="i18n.help"></p>
+    </div>
+    <div class="container p-xs-0 mt-xs-4 error-redirect-btn">
+      <a class="btn btn-primary text-center" :href="globals.contextPath+'/'" v-html="i18n.helpBtnLabel">
+      </a>
+    </div>
+  </div>
+</div>

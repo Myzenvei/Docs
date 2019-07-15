@@ -1,0 +1,59 @@
+.vx-content-search {
+  position: relative;
+  .input-box {
+    padding: 8px;
+    position: relative;
+    input {
+      width: 280px;
+    }
+  }
+  .suggestion-box {
+    position: absolute;
+    color: @cludo-text-color;
+    width: 280px;
+    top: 44px;
+    left: 9px;
+    background: @cludo-search-background;
+    border: 1px solid @cludo-image-border;
+    overflow-y: auto;
+    max-height: 400px;
+    ul {
+      list-style: none;
+      padding: 0;
+      li {
+        padding: 8px;
+        &.active-item {
+          background-color: @autosuggest-hover-color;
+        }
+      }
+      li:hover {
+        background-color: @autosuggest-hover-color;
+        cursor: pointer;
+      }
+    }
+  }
+}
+@media screen and (max-width: @screen-sm-max) {
+  .vx-content-search {
+    .input-box {
+      input {
+        width: 704px;
+      }
+    }
+    .suggestion-box {
+      width: 704px;
+    }
+  }
+}
+@media screen and (max-width: @screen-xs-max) {
+  .vx-content-search {
+    .input-box {
+      input {
+        width: 328px;
+      }
+    }
+    .suggestion-box {
+      width: 328px;
+    }
+  }
+}

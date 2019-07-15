@@ -1,0 +1,70 @@
+#gp-employee {
+  .vx-single-shipping-method {
+    & > div.mt-xs-4 {
+      .estimated-delivery,
+      & > .section-info-text {
+        display: none; // hiding as functionality not in scope
+      }
+      & > div.col-sm-5 {
+        .radio-button-group {
+          .form-check {
+            .form-group {
+              label {
+                padding: 16px 16px 16px 40px;
+                border-radius: @card-layout-border-radius;
+                border: 1px solid @border-color;
+                width: 100%;
+              }
+              & [type=radio]:checked+label:before,
+              & [type=radio]:not(:checked)+label:before {
+                left: 16px;
+              }
+              & [type=radio]:checked+label:after,
+              & [type=radio]:not(:checked)+label:after {
+                left: 21px;
+              }
+            }
+          }
+        }
+      }
+      & > div.col-sm-7 {
+        textarea {
+          border-radius: @card-layout-border-radius;
+        }
+      }
+      & > p.section-sub-heading.mb-xs-3:not(.estimated-delivery),
+      & > p.section-sub-heading.col-xs-12.mb-xs-0 {
+        padding-left: 0;
+        padding-right: 0;
+        padding-top: 24px;
+        border-top: 1px solid @border-color;
+      }
+      padding: 0 16px;
+      margin-top: 0!important;
+    }
+  }
+}
+
+@media screen and (min-width: @screen-sm-min) {
+  #gp-employee {
+    .vx-single-shipping-method {
+      & > div.mt-xs-4 {
+        & > div.col-sm-5 {
+          width: 100%;
+          .radio-button-group {
+            .form-check {
+              .form-group {
+                label {
+                  width: 33%;
+                }
+              }
+            }
+          }
+        }
+        & > div.col-sm-7 {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

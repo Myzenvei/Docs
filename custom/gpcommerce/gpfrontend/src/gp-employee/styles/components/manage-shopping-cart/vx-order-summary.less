@@ -1,0 +1,49 @@
+#gp-employee {
+  .vx-order-summary {
+    margin-left: 0px !important;
+
+    .order-summary {
+      border-radius: @card-layout-border-radius @card-layout-border-radius 0 0;
+      background-color: @card-layout-bg-color;
+
+      .vx-order-summary-details {
+        .order-summary-heading {
+          font-weight: @font-weight-bold;
+          font-size: @font-size-h2;
+        }
+
+        .sub-total-helper-text {
+          color: @brand-secondary-14;
+        }
+
+        .progress.shipping-progress {
+          &+.section-divider {
+            display: none;
+          }
+        }
+      }
+
+      .promotion-section {
+        margin-top: 0px !important;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: @screen-sm-max) {
+  #gp-employee {
+    .vx-order-summary {
+      .order-summary {
+        .vx-order-summary-details {
+          .order-summary-heading {
+            font-size: @font-size-h2;
+          }
+          .sub-total-value {
+            right: 15px;
+          }
+        }
+      }
+    }
+  }
+}
+

@@ -1,0 +1,41 @@
+#gp-employee {
+  .vx-slider {
+    width: 93%;
+    .swiper-slide {
+      background-color: @card-layout-bg-color;
+      border-radius: @card-layout-border-radius;
+      .search-browse-product-tile {
+        position: static;
+        height: 100%;
+        padding: 16px 16px 40px;
+        .tile-body {
+          .prices {
+            .product-slashed-price {
+              font-size: @font-size-medium;
+            }
+            .product-price {
+              font-size: @font-size-h2;
+            }
+          }
+        }
+      }
+    }
+    margin-bottom: 24px;
+  }
+}
+
+@media screen and (max-width: @screen-sm-max) {
+  #gp-employee {
+    .vx-slider {
+      width: 88%;
+    }
+  }
+}
+
+@media screen and (max-width: @screen-xs-max) {
+  #gp-employee {
+    .vx-slider {
+      width: 85%;
+    }
+  }
+}

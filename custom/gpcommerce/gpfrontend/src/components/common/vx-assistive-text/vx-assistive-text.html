@@ -1,0 +1,6 @@
+<div class="vx-assistive-text">
+  <div class="assistive-text" :aria-live="ariaLive" aria-relevant="additions">
+    <slot name='announce'></slot>
+    <div v-for="(text, index) in textToRead" :key="index">{{text}}</div>
+  </div>
+</div>

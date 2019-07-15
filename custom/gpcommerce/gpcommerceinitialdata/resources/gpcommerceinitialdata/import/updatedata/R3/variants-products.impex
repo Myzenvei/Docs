@@ -1,0 +1,222 @@
+$productCatalog=gpUSProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$supercategories=supercategories(code, $catalogVersion)
+$baseProduct=baseProduct(code,$catalogVersion)
+$approved=approvalstatus(code)[default='approved']
+$lang=en       
+
+
+INSERT_UPDATE GPDefaultVariantCategory ; code[unique=true] ; name  ; $supercategories ; hasImage ; $catalogVersion ; allowedPrincipals(uid)[default='customergroup']
+                                       ; count              ;  Count  ;                  ; false  
+                                       ; color              ;  Color   ;                  ; false
+                                       
+INSERT_UPDATE GPDefaultVariantValueCategory ; code[unique=true] ; name         ; $supercategories ; sequence ; hexCode ; $catalogVersion ; allowedPrincipals(uid)[default='customergroup']
+      								 	; 2          ; 2     ; count             ; 53 
+										; 6          ; 6     ; count             ; 57
+      								 	; 8          ; 8     ; count             ; 59 
+										; 12         ; 12    ; count             ; 61
+      								 	; 16         ; 16    ; count             ; 63 
+										; 24         ; 24    ; count             ; 65
+     								 	; stainless_finish          ; Stainless Finish     ; color             ; 67 ;#000016
+										; black                     ; Black                ; color             ; 68 ;#000046
+      								 	; red                       ; Red                  ; color             ; 69 ;#000036
+										; white                     ; White                ; color             ; 70 ;#000066
+
+										
+INSERT_UPDATE GPCommerceProduct ; code[unique=true] ; $catalogVersion ; supercategories(code,$catalogVersion) ; ean ; unit(code) ; varianttype(code)[default='GenericVariantProduct'] ; $approved
+                                ;BP-44143/53;                 ; count                              ;     ;            ;                                                    ; approved 
+								;BP-44186/01;                 ; count                              ;     ;            ;                                                    ; approved 
+						
+								;BP-44189/01;                 ; count                              ;     ;            ;                                                    ; approved 
+								;BP-44192/01;                 ; count                              ;     ;            ;                                                    ; approved 
+								;BP-44223/51;                 ; count                              ;     ;            ;                                                    ; approved 
+								
+								
+INSERT_UPDATE GPGenericVariantProduct ; code[unique=true] ; $baseProduct      ; $catalogVersion ; $approved ; $supercategories
+                                      ; 44143/53DR    ;BP-44143/53;                 ;           ; 2          
+                                      ; 44143/53      ;BP-44143/53;                 ;           ; 16       
+
+									  ;44186/01DR     ;BP-44186/01;                 ;           ;6         
+                                      ;44186/01       ;BP-44186/01;                 ;           ;24       									  
+									
+									  ;44189/01       ;BP-44189/01;                 ;           ;6        
+                                      ;44189/01DR     ;BP-44189/01;                 ;           ;24       									  
+                                     
+									  ;44192/01       ;BP-44192/01;                 ;           ; 8          
+                                      ;44192/01DR     ;BP-44192/01;                 ;           ;2      									  
+                                     									
+									  ;44223/51       ;BP-44223/51;                 ;           ;16          
+                                      ;44223/51DR     ;BP-44223/51;                 ;           ; 8       									  
+									  ;44231/02       ;BP-44223/51;                 ;           ; 24          
+                                      ;44231/02DR     ;BP-44223/51;                 ;           ; 2       									  
+									  ;44249/50       ;BP-44223/51;                 ;           ; 12          
+                                      ;44249/50DR     ;BP-44223/51;                 ;           ; 6       									  
+                                     
+										
+									 
+					 
+
+$availabilityGroup=brawny-availability
+$approvalStatus=approved 
+INSERT_UPDATE ProductAvailabilityAssignment ; product(code,$catalogVersion)[unique=true] ; availabilityGroup(id)[default=$availabilityGroup,unique=true] ; status(code)[default=$approvalStatus] ; onlineDate[dateformat=dd.MM.yyyy, default=01.02.2014] ; offlineDate[dateformat=dd.MM.yyyy] ; $catalogVersion
+;BP-44143/53  
+;BP-44186/01 
+;BP-44189/01
+;BP-44192/01  
+;BP-44223/51
+
+
+$productCatalog=gpUSProductCatalog
+$productCatalogName=GP US Product Catalog
+$prices=Europe1prices[translator=de.hybris.platform.europe1.jalo.impex.Europe1PricesTranslator]
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$baseProduct=baseProduct(code, catalogVersion(catalog(id[default='$productCatalog']),version[default='Staged']))
+$approved=approvalstatus(code)[default='approved']
+$taxGroup=Europe1PriceFactory_PTG(code)[default=us-sales-tax-full]
+
+
+INSERT_UPDATE PriceRow ; product(code,$catalogVersion)[unique=true] ; ug(code)[unique=true] ; gpUserPriceGroup(code)[unique=true] ; currency(isocode)[unique=true] ; price[unique=true] ; unit(code)[default=pieces] ; net[default=true] ; salePrice[default=false] ;  ; minAdvertisedPrice[default=false] ; startTime[dateformat=dd-MM-yyyy] ; endTime[dateformat=dd-MM-yyyy]
+                       ;BP-44143/53                              ; pricegroup-brawny    ;                                     ; USD                            ; 35                 ; CS                         ;                   ;                          
+                       ;BP-44186/01                             ; pricegroup-brawny    ;                                     ; USD                            ; 20                 ; EA                         ;                   ;                          
+                       ;BP-44189/01                               ; pricegroup-brawny    ;                                     ; USD                            ; 30                 ; CS                         ;                   ;                          
+                       ;BP-44192/01                            ; pricegroup-brawny    ;                                     ; USD                            ; 35                 ; EA                         ;                   ;                          
+					   ;BP-44223/51                            ; pricegroup-brawny    ;                                     ; USD                            ; 35                 ; EA                         ;                   ;                          
+      
+                       ;BP-44143/53                            ;                      ;                                     ; USD                            ; 35                 ; CS                         ;                   ;                          
+                       ;BP-44186/01                            ;                      ;                                     ; USD                            ; 20                 ; EA                         ;                   ;                          
+                       ;BP-44189/01                            ;                      ;                                     ; USD                            ; 30                 ; CS                         ;                   ;                          
+                       ;BP-44192/01                            ;                      ;                                     ; USD                            ; 35                 ; EA                         ;                   ;                          
+					   ;BP-44223/51                            ;                      ;                                     ; USD                            ; 35                 ; EA                         ;                   ;                          
+ 	  
+	    
+$productCatalog=gpUSProductCatalog          
+$productCatalogName=GP US Product Catalog   
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$vendor=gp                            
+INSERT_UPDATE StockLevel ; available ; warehouse(code)[default='gp_warehouse',unique=true] ; inStockStatus(code)[default='notSpecified'] ; overSelling ; preOrder ; productCode[unique=true] ; reserved
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;BP-44143/53               ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;BP-44186/01            ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;BP-44189/01              ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;BP-44192/01             ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;BP-44223/51           ; 0       
+             									 
+									 
+									 
+									 
+INSERT_UPDATE GPCommerceProduct ; code[unique=true] ; $catalogVersion ; supercategories(code,$catalogVersion) 
+;BP-44143/53;;clearance,pick-A-Size,tear-A-Square
+;BP-44186/01;;pick-A-Size 
+;BP-44189/01;;fullSheet
+;BP-44192/01;;pick-A-Size
+;BP-44223/51;;tear-A-Square
+
+
+$productCatalog=gpUSProductCatalog
+$productCatalogName=GP US Product Catalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$classCatalogVersion=catalogversion(catalog(id[default='gpUSClassification']),version[default='1.0'])[unique=true,default='gpUSClassification:1.0']
+$classSystemVersion=systemVersion(catalog(id[default='gpUSClassification']),version[default='1.0'])[unique=true]
+$class=classificationClass(ClassificationClass.code,$classCatalogVersion)[unique=true]
+$supercategories=source(code, $classCatalogVersion)[unique=true]
+$categories=target(code, $catalogVersion)[unique=true]
+$attribute=classificationAttribute(code,$classSystemVersion)[unique=true]
+$unit=unit(code,$classSystemVersion)
+$lang=en
+INSERT_UPDATE CategoryCategoryRelation;$categories;$supercategories
+;brawnyshop;10001;
+;brawnyshop;20001;
+;brawnyshop;30001;
+;brawnyshop;40001;
+;brawnyshop;50001;
+;brawnyshop;60001;
+
+
+
+########## Innovia Variants
+$productCatalog=gpUSProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$supercategories=supercategories(code, $catalogVersion)
+$baseProduct=baseProduct(code,$catalogVersion)
+$approved=approvalstatus(code)[default='approved']
+$lang=en       
+
+
+INSERT_UPDATE GPCommerceProduct ; code[unique=true] ; $catalogVersion ; supercategories(code,$catalogVersion) ; ean ; unit(code) ; varianttype(code)[default='GenericVariantProduct'] ; $approved
+                                ;BP-2159S;                 ; color                              ;     ;            ;                                                    ; approved 
+                                ;BP-185SV1;                 ; color                              ;     ;            ;                                                    ; approved 
+
+
+INSERT_UPDATE GPGenericVariantProduct ; code[unique=true] ; $baseProduct      ; $catalogVersion ; $approved ; $supercategories
+                                      ;2159S       ;BP-2159S;                 ;           ; stainless_finish
+                                      ;2159B       ;BP-2159S;                 ;           ; black           
+    								  ;2159RG      ;BP-2159S;                 ;           ; red             
+                                      ;2159WG      ;BP-2159S;                 ;           ; white       
+                                      ;185SV1   	   ;BP-185SV1;                 ;           ; stainless_finish
+                                      ;185BV1   	   ;BP-185SV1;                 ;           ; black           
+    								  ;185RV1G  	   ;BP-185SV1;                 ;           ; red             
+                                      ;185WV1G  	   ;BP-185SV1;                 ;           ; white       
+
+									  
+$availabilityGroup=innovia-availability
+$approvalStatus=approved 
+INSERT_UPDATE ProductAvailabilityAssignment ; product(code,$catalogVersion)[unique=true] ; availabilityGroup(id)[default=$availabilityGroup,unique=true] ; status(code)[default=$approvalStatus] ; onlineDate[dateformat=dd.MM.yyyy, default=01.02.2014] ; offlineDate[dateformat=dd.MM.yyyy] ; $catalogVersion
+;BP-2159S
+;BP-185SV1
+;185SV1 
+;185BV1 
+;185RV1G
+;185WV1G
+
+
+$productCatalog=gpUSProductCatalog
+$productCatalogName=GP US Product Catalog
+$prices=Europe1prices[translator=de.hybris.platform.europe1.jalo.impex.Europe1PricesTranslator]
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$baseProduct=baseProduct(code, catalogVersion(catalog(id[default='$productCatalog']),version[default='Staged']))
+$approved=approvalstatus(code)[default='approved']
+$taxGroup=Europe1PriceFactory_PTG(code)[default=us-sales-tax-full]
+
+
+INSERT_UPDATE PriceRow ; product(code,$catalogVersion)[unique=true] ; ug(code)[unique=true] ; gpUserPriceGroup(code)[unique=true] ; currency(isocode)[unique=true] ; price[unique=true] ; unit(code)[default=pieces] ; net[default=true] ; salePrice[default=false] ;  ; minAdvertisedPrice[default=false] ; startTime[dateformat=dd-MM-yyyy] ; endTime[dateformat=dd-MM-yyyy]
+                       ;BP-2159S                              ; pricegroup-innovia    ;                                     ; USD                            ; 35                 ; CS                         ;                   ;                          
+                       ;BP-2159S                            ;    ;                                                         ; USD                            ; 34                 ; CS                         ;                   ;                          
+                       ;BP-185SV1                              ; pricegroup-innovia    ;                                     ; USD                            ; 55                 ; CS                         ;                   ;                          
+                       ;BP-185SV1                            ;    ;                                                         ; USD                            ; 74                 ; CS                         ;                   ;                          
+
+
+
+
+
+$productCatalog=gpUSProductCatalog          
+$productCatalogName=GP US Product Catalog   
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$vendor=gp                            
+INSERT_UPDATE StockLevel ; available ; warehouse(code)[default='gp_warehouse',unique=true] ; inStockStatus(code)[default='notSpecified'] ; overSelling ; preOrder ; productCode[unique=true] ; reserved
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;BP-2159S              ; 0       
+                         ; 100000    ;                                                     ;                                             ; 0           ; 0        ;BP-185SV1              ; 0       
+									 
+									 
+									 
+INSERT_UPDATE GPCommerceProduct ; code[unique=true] ; $catalogVersion ; supercategories(code,$catalogVersion) 
+;BP-2159S;;undercabinet
+;BP-185SV1;;countertop
+
+$productCatalog=gpUSProductCatalog
+$productCatalogName=GP US Product Catalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$classCatalogVersion=catalogversion(catalog(id[default='gpUSClassification']),version[default='1.0'])[unique=true,default='gpUSClassification:1.0']
+$classSystemVersion=systemVersion(catalog(id[default='gpUSClassification']),version[default='1.0'])[unique=true]
+$class=classificationClass(ClassificationClass.code,$classCatalogVersion)[unique=true]
+$supercategories=source(code, $classCatalogVersion)[unique=true]
+$categories=target(code, $catalogVersion)[unique=true]
+$attribute=classificationAttribute(code,$classSystemVersion)[unique=true]
+$unit=unit(code,$classSystemVersion)
+$lang=en
+INSERT_UPDATE CategoryCategoryRelation;$categories;$supercategories
+;innoviashop;10001;
+;innoviashop;20001;
+;innoviashop;30001;
+;innoviashop;40001;
+;innoviashop;50001;
+;innoviashop;60001;
+					   

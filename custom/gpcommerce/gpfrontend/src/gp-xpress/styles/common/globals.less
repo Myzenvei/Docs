@@ -1,0 +1,58 @@
+#gp-xpress {
+  .btn-primary {
+    &:active,
+    &:focus,
+    &:hover {
+      text-decoration: @btn-primary-hover-text-decoration;
+      color: @btn-primary-hover-color;
+      background: @btn-primary-hover-bg;
+    }
+  }
+  .btn-primary[disabled] {
+    &:active,
+    &:focus,
+    &:hover {
+      text-decoration: @btn-disabled-text-decoration;
+      color: @btn-disabled-text-color;
+      background: @btn-disabled-bg;
+    }
+  }
+  .main__inner-wrapper {
+    padding-top: 54px;
+  }
+  .main__inner-wrapper + footer,
+  footer .footer-section {
+    position: relative;
+  }
+  footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+  }
+  .pdp-page {
+    .vx-tab-container {
+      -ms-overflow-x: hidden;
+    }
+  }
+}
+body.page-checkoutPage {
+  #gp-xpress {
+    .main__inner-wrapper {
+      padding-top: 50px;
+    }
+  }
+}
+@media only screen and (max-width: @screen-sm-max) {
+  #gp-xpress {
+    .main__inner-wrapper {
+      padding-top: 54px;
+    }
+  }
+}
+@media only screen and (max-width: @screen-xs-max) {
+  #gp-xpress {
+    .main__inner-wrapper {
+      padding-top: 54px;
+    }
+  }
+}

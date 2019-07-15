@@ -1,0 +1,7 @@
+<div class="row vx-minimized-header">
+  <div>
+    <img v-if="imgUrl" :src="globals.assetsPath + 'images/' + imgUrl" :alt="imgAltText" aria-hidden="true" />
+    <span class="sr-only">Employee Store</span>
+  </div>
+  <h4 v-if="i18n.placeholderTxt">{{i18n.placeholderTxt}}</h4>
+</div>

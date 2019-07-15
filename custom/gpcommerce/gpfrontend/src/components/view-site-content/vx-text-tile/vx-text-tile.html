@@ -1,0 +1,30 @@
+<section class="view-site-content-vx-text-tile d-flex justify-content-center py-xs-3 px-xs-3" :style="[backgroundStyle,textWidth]"
+  :class="alignmentClass" :aria-label="textTileData.backgroundImageD ? backgroundAlt : ''">
+  <div class="w-xs-100">
+    <h3 class="my-xs-0" :style='[fontStyleHeader]' v-if="textTileData.header" v-html="textTileData.header"></h3>
+    <p class="mb-xs-0" :class="[textTileData.header ? 'mt-xs-3 mt-sm-5' : '']" :style='[fontStyleText]' v-if="textTileData.text"
+      v-html="textTileData.text"></p>
+
+    <a :href="textTileData.isExternalLink ? textTileData.ctaLink : globals.getUrlWithContextPath(textTileData.ctaLink)"
+      class="mb-xs-0 cta-text" :class="[(textTileData.header || textTileData.text) ? 'mt-xs-3 mt-sm-5' : '', textTileData.ctaStyle]"
+      :style='[fontStyleCta]' v-if="textTileData.ctaText && textTileData.ctaLink && !textTileData.isVideoCta && !textTileData.jumpToHtml"
+      :target="textTileData.isExternalLink?'_blank':''" v-html="textTileData.ctaText">
+    </a>
+    <a :href="textTileData.isExternalLink ? textTileData.ctaLink : globals.getUrlWithContextPath(textTileData.ctaLink)"
+      class="mb-xs-0 cta-text" :class="[(textTileData.header || textTileData.text) ? 'mt-xs-3 mt-sm-5' : '', textTileData.ctaStyle]"
+      :style='[fontStyleCta]' v-if="textTileData.ctaText && textTileData.ctaLink && !textTileData.isVideoCta && textTileData.jumpToHtml"
+      v-html="textTileData.ctaText" @click="emitScrollSignal(textTileData.ctaLink)">
+    </a>
+    <a @click="openVideo(textTileData.ctaLink)" href="javascript:void(0)" class="mb-xs-0 cta-text" :class="[(textTileData.header || textTileData.text) ? 'mt-xs-3 mt-sm-5' : '', textTileData.ctaStyle]"
+      :style='[fontStyleCta]' v-if="textTileData.ctaText && textTileData.ctaLink && textTileData.isVideoCta" v-html="textTileData.ctaText">
+    </a>
+  </div>
+
+  <!-- <template v-if="textTileData.ctaStyle==='button'">
+    <a :href="textTileData.ctaLink" class="mb-sm-5 mb-xs-4 btn btn-primary" :style='[fontStyleCta]' v-if="textTileData.ctaText"
+      :target="textTileData.isExternalLink?'_blank':''">
+      {{textTileData.ctaText}}
+    </a>
+  </template> -->
+
+</section>
